@@ -83,5 +83,5 @@ HPOTerm.isValidID = function(id) {
 }
 
 HPOTerm.getServiceURL = function() {
-    return new XWiki.Document('SolrService', 'PhenoTips').getURL("get") + "?";
+    return 'http://playground.phenotips.org' + (new XWiki.Document('SolrService', 'PhenoTips').getURL("get") + "?");
 }

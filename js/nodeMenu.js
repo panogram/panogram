@@ -17,7 +17,7 @@
     }, ...
  ]
  }
- 
+
  Note: when an item is specified as "inactive" it is completely removed from the menu; when it
        is specified as "disabled" it is greyed-out and does not allow selection, but is still visible.
  */
@@ -195,7 +195,7 @@ NodeMenu = Class.create({
         // genes
         this.form.select('input.suggest-genes').each(function(item) {
             if (!item.hasClassName('initialized')) {
-                var geneServiceURL = new XWiki.Document('GeneNameService', 'PhenoTips').getURL("get", "outputSyntax=plain")
+                var geneServiceURL = 'http://playground.phenotips.org' + (new XWiki.Document('GeneNameService', 'PhenoTips').getURL("get", "outputSyntax=plain"))
                 //console.log("GeneService URL: " + geneServiceURL);
                 item._suggest = new PhenoTips.widgets.Suggest(item, {
                     script: geneServiceURL + "&json=true&",
@@ -713,7 +713,7 @@ NodeMenu = Class.create({
 
     _setCrtData : function (data) {
         var _this = this;
-        Object.keys(this.fieldMap).each(function (name) {            
+        Object.keys(this.fieldMap).each(function (name) {
             _this.fieldMap[name].crtValue = data && data[name] && typeof(data[name].value) != "undefined" ? data[name].value : _this.fieldMap[name].crtValue || _this.fieldMap[name]["default"];
             _this.fieldMap[name].inactive = (data && data[name] && (typeof(data[name].inactive) == 'boolean' || typeof(data[name].inactive) == 'object')) ? data[name].inactive : _this.fieldMap[name].inactive;
             _this.fieldMap[name].disabled = (data && data[name] && (typeof(data[name].disabled) == 'boolean' || typeof(data[name].disabled) == 'object')) ? data[name].disabled : _this.fieldMap[name].disabled;
@@ -721,7 +721,7 @@ NodeMenu = Class.create({
             _this._setFieldInactive[_this.fieldMap[name].type].call(_this, _this.fieldMap[name].element, _this.fieldMap[name].inactive);
             _this._setFieldDisabled[_this.fieldMap[name].type].call(_this, _this.fieldMap[name].element, _this.fieldMap[name].disabled);
             //_this._updatedDependency(_this.fieldMap[name].element, _this.fieldMap[name].element);
-            //console.log("name = " + name + ", data = " + stringifyObject(data[name]) + ", inactive: " + stringifyObject(_this.fieldMap[name].inactive));            
+            //console.log("name = " + name + ", data = " + stringifyObject(data[name]) + ", inactive: " + stringifyObject(_this.fieldMap[name].inactive));
         });
     },
 
