@@ -301,8 +301,8 @@ var PedigreeEditor = Class.create({
 
     /**
      * Returns true if any of the node menus are visible
-     * (since some UI interactions should be disabled while menu is active - e.g. mouse wheel zoom) 
-     * 
+     * (since some UI interactions should be disabled while menu is active - e.g. mouse wheel zoom)
+     *
      * @method isAnyMenuVisible
      */
     isAnyMenuVisible: function() {
@@ -558,7 +558,7 @@ var PedigreeEditor = Class.create({
                 'type' : 'select',
                 'values' : [{'actual': 1, displayed: 'N'}, {'actual': 2, displayed: '2'}, {'actual': 3, displayed: '3'},
                             {'actual': 4, displayed: '4'}, {'actual': 5, displayed: '5'}, {'actual': 6, displayed: '6'},
-                            {'actual': 7, displayed: '7'}, {'actual': 8, displayed: '8'}, {'actual': 9, displayed: '9'}],                
+                            {'actual': 7, displayed: '7'}, {'actual': 8, displayed: '8'}, {'actual': 9, displayed: '9'}],
                 'function' : 'setNumPersons'
             },
             {
@@ -699,7 +699,7 @@ var editor;
 
 //attributes for graphical elements in the editor
 PedigreeEditor.attributes = {
-    propagateLastName: true,   // when true, father's last name is propagated as "last name at birth" to descendants 
+    propagateLastName: true,   // when true, father's last name is propagated as "last name at birth" to descendants
     radius: 40,
     orbRadius: 6,
     touchOrbRadius: 8,
@@ -725,12 +725,12 @@ PedigreeEditor.attributes = {
     presymptomaticShape: {fill : '#777777', "stroke": "#777777"},
     presymptomaticShapeWidth: 8,
     evaluationShape: {'font-size': 40, 'font-family': 'Arial'},
-    nodeShape:     {fill: "0-#ffffff:0-#B8B8B8:100", stroke: "#595959"},
+    nodeShape:     {fill: "#DDDDDD", stroke: "#595959"},  // this
     nodeShapeMenuOn:  {fill: "#000", stroke: "none", "fill-opacity": 0.1},
     nodeShapeMenuOff: {fill: "#000", stroke: "none", "fill-opacity": 0},
     nodeShapeMenuOnPartner:  {fill: "#000", stroke: "none", "fill-opacity": 0.1},
-    nodeShapeMenuOffPartner: {fill: "#000", stroke: "none",   "fill-opacity": 0},        
-    nodeShapeDiag: {fill: "45-#ffffff:0-#B8B8B8:100", stroke: "#595959"},
+    nodeShapeMenuOffPartner: {fill: "#000", stroke: "none",   "fill-opacity": 0},
+    nodeShapeDiag: {fill: "#DDDDDD", stroke: "#595959"}, // this
     boxOnHover : {fill: "gray", stroke: "none", opacity: 1, "fill-opacity":.35},
     menuBtnIcon : {fill: "#1F1F1F", stroke: "none"},
     deleteBtnIcon : {fill: "#990000", stroke: "none"},
@@ -743,7 +743,7 @@ PedigreeEditor.attributes = {
     pedNumberLabel: {'font-size': 19, 'font-family': 'Serif'},
     descendantGroupLabel: {'font-size': 21, 'font-family': 'Tahoma'},
     label: {'font-size': 20, 'font-family': 'Arial'},
-    nameLabels: {'font-size': 20, 'font-family': 'Arial'},    
+    nameLabels: {'font-size': 20, 'font-family': 'Arial'},
     commentLabel: {'font-size': 19, 'font-family': 'Arial' },
     externalIDLabels: {'font-size': 18, 'font-family': 'Arial' },
     disorderShapes: {},
