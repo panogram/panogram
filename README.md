@@ -1,5 +1,5 @@
 ## Panogram v0.1.1 Readme
-October 2014
+HealthHack Sydney, October 2014
 
 Panogram is offline standalon multiplatform Pedigree drawing tool based on [Phenotips](https://github.com/phenotips/phenotips) platform.
 
@@ -28,6 +28,14 @@ TODO: package Linux app.
 1. Download a ZIP archive for your operating systen
 2. Unarchive
 3. Launch `panogram.exe` for Windows or `panogram.app` for Mac OS.
+
+## Video presentation
+
+You can watch the video presentation [here](http://youtu.be/SOY9mx1irnY)
+
+## Solution authors
+
+Christopher Michaelides and Andrej Griniuk
 
 ## License
 
