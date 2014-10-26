@@ -13,7 +13,7 @@ var Disorder = Class.create( {
         if (name == null && !isInt(disorderID)) {
             name = Disorder.desanitizeID(disorderID);
         }
-        
+
         this._disorderID = Disorder.sanitizeID(disorderID);
         this._name       = name ? name : "loading...";
 
@@ -78,5 +78,5 @@ Disorder.desanitizeID = function(disorderID) {
 }
 
 Disorder.getOMIMServiceURL = function() {
-    return new XWiki.Document('OmimService', 'PhenoTips').getURL("get", "outputSyntax=plain");
+    return 'http://playground.phenotips.org' + (new XWiki.Document('OmimService', 'PhenoTips').getURL("get", "outputSyntax=plain"));
 }
