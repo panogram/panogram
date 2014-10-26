@@ -3,6 +3,8 @@ October 2014
 
 Panogram is offline standalon multiplatform Pedigree drawing tool based on [Phenotips](https://github.com/phenotips/phenotips) platform.
 
+![Screenshot](https://github.com/panogram/panogram/raw/master/resources/screenshot.jpg)
+
 ## Features
 
 - Simple and intuitive graphical interface for pedigree drawing
@@ -13,8 +15,8 @@ Panogram is offline standalon multiplatform Pedigree drawing tool based on [Phen
 
 ## System Requirements
 
-Windows or Macos. 
-TODO: package Linux app. 
+Windows or Macos.
+TODO: package Linux app.
 
 ## Downloads
 
