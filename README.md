@@ -1,4 +1,4 @@
-## Panogram v0.1.1 Readme
+## Panogram v0.1.2 Readme
 HealthHack Sydney, October 2014
 
 Panogram is offline standalon multiplatform Pedigree drawing tool based on [Phenotips](https://github.com/phenotips/phenotips) platform.
@@ -9,29 +9,29 @@ Panogram is offline standalon multiplatform Pedigree drawing tool based on [Phen
 
 - Simple and intuitive graphical interface for pedigree drawing
 - Follows conventions
-- Multiplatform (Windows and Mac OS tested)
+- Multiplatform (Windows, Mac OS, Linux)
 - Offline and standalone
 - Supported file formats: PED, LINKAGE, GEDCOM, BOADICEA, JSON
 
 ## System Requirements
 
-Windows or Macos for desktop app modern browser for Web app.
-TODO: package Linux app.
+Windows, MacOS or Linux for desktop app modern browser for Web app.
 
 ## Downloads
 
- - [Windows app](https://github.com/panogram/panogram/releases/download/0.1.1/panogram-0_1_1-windows.zip)
- - [Mac OS app](https://github.com/panogram/panogram/releases/download/0.1.1/panogram-0_1_1-macos.zip)
+ - [Windows app (64bit)](https://github.com/panogram/panogram/releases/download/0.1.2/panogram-0_1_2-windows-amd64.zip)
+ - [Mac OS app](https://github.com/panogram/panogram/releases/download/0.1.2/panogram-0_1_2-macos.zip)
+ - [Linux app (64bit)](https://github.com/panogram/panogram/releases/download/0.1.2/panogram-0_1_2-linux-amd64.tar.gz)
 
 ## Installation
 
 1. Download a ZIP archive for your operating systen
 2. Unarchive
-3. Launch `panogram.exe` for Windows or `panogram.app` for Mac OS.
+3. Launch `panogram.exe` for Windows, `panogram.app` for Mac OS, `panogram` for Linux.
 
 OR
 
-[Web App](http://www.panogram.org/panogram/)
+[Web App](http://panogram.github.io/panogram)
 
 ## Video presentation
 
