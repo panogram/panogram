@@ -1,0 +1,8 @@
+#canvas > svg {
+    pointer-events: none;
+}
+
+#canvas > svg > .panning-background {
+    pointer-events: initial;
+}
+
