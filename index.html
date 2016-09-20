@@ -143,6 +143,10 @@
         window.docediturl = "/bin/edit/data/P0001083";
         window.docsaveurl = "/bin/save/data/P0001083";
         window.docgeturl = "/bin/get/data/P0001083";
+
+        document.observe("xwiki:dom:loaded",function() {
+            editor = new PedigreeEditor();
+        });
         // ]]>
     </script>
 
