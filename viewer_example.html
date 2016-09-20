@@ -1,0 +1,111 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>Panogram</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta http-equiv="Content-Script-Type" content="text/javascript">
+    <meta http-equiv="imagetoolbar" content="no">
+    <meta name="language" content="en">
+
+    <link href="css/style.css" rel="stylesheet" type="text/css" media="all">
+    <link href="css/print.css" rel="stylesheet" type="text/css" media="print">
+
+    <link rel="stylesheet" type="text/css" href="css/xwiki-min.css">
+    <link rel="stylesheet" type="text/css" href="css/searchSuggest.css">
+    <link rel="stylesheet" type="text/css" href="css/livevalidation.css">
+    <link rel="stylesheet" type="text/css" href="css/fullScreen.css">
+    <link rel="stylesheet" type="text/css" href="css/editor.css">
+    <link rel="stylesheet" type="text/css" href="css/actionButtons.css">
+    <link rel="stylesheet" type="text/css" href="css/Skin.css">
+    <link rel="stylesheet" type="text/css" href="css/PlaygroundStyle.css">
+    <link rel="stylesheet" type="text/css" href="css/CommentsFix.css">
+    <link rel="stylesheet" type="text/css" href="css/Blue.css">
+    <link rel="stylesheet" type="text/css" href="font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="css/Widgets.css">
+    <link rel="stylesheet" type="text/css" href="css/PhenoTipsGroupSheet.css">
+    <link rel="stylesheet" type="text/css" href="css/ContentTopMenu.css">
+    <link rel="stylesheet" type="text/css" href="css/PushPatient.css">
+    <link rel="stylesheet" type="text/css" href="css/DateTimePicker.css">
+
+    <script type="text/javascript" src="js/require.js"></script>
+    <script type="text/javascript" src="js/prototype.js"></script>
+    <script type="text/javascript" src="js/effects.js" defer="defer"></script>
+    <script type="text/javascript" src="js/xwiki-min.js"></script>
+    <script type="text/javascript" src="js/searchSuggest.js" defer="defer"></script>
+    <script type="text/javascript" src="js/lock.js" defer="defer"></script>
+    <script type="text/javascript" src="js/livevalidation_prototype.js" defer="defer"></script>
+    <script type="text/javascript" src="js/fullScreen.js" defer="defer"></script>
+    <script type="text/javascript" src="js/slider.js" defer="defer"></script>
+    <script type="text/javascript" src="js/dragdrop.js" defer="defer"></script>
+    <script type="text/javascript" src="js/raphael.js" defer="defer"></script>
+    <script type="text/javascript" src="js/helpers.js" defer="defer"></script>
+    <script type="text/javascript" src="js/queues.js" defer="defer"></script>
+    <script type="text/javascript" src="js/xcoordclass.js" defer="defer"></script>
+    <script type="text/javascript" src="js/ordering.js" defer="defer"></script>
+    <script type="text/javascript" src="js/baseGraph.js" defer="defer"></script>
+    <script type="text/javascript" src="js/import.js" defer="defer"></script>
+    <script type="text/javascript" src="js/export.js" defer="defer"></script>
+    <script type="text/javascript" src="js/edgeOptimization.js" defer="defer"></script>
+    <script type="text/javascript" src="js/positionedGraph.js" defer="defer"></script>
+    <script type="text/javascript" src="js/dynamicGraph.js" defer="defer"></script>
+    <script type="text/javascript" src="js/Blob.js" defer="defer"></script>
+    <script type="text/javascript" src="js/ageCalc.js" defer="defer"></script>
+    <script type="text/javascript" src="js/graphicHelpers.js" defer="defer"></script>
+    <script type="text/javascript" src="js/legend.js" defer="defer"></script>
+    <script type="text/javascript" src="js/disorderLegend.js" defer="defer"></script>
+    <script type="text/javascript" src="js/hpoLegend.js" defer="defer"></script>
+    <script type="text/javascript" src="js/geneLegend.js" defer="defer"></script>
+    <script type="text/javascript" src="js/abstractHoverbox.js" defer="defer"></script>
+    <script type="text/javascript" src="js/readonlyHoverbox.js" defer="defer"></script>
+    <script type="text/javascript" src="js/partnershipHoverbox.js" defer="defer"></script>
+    <script type="text/javascript" src="js/personHoverbox.js" defer="defer"></script>
+    <script type="text/javascript" src="js/abstractNode.js" defer="defer"></script>
+    <script type="text/javascript" src="js/abstractNodeVisuals.js" defer="defer"></script>
+    <script type="text/javascript" src="js/abstractPerson.js" defer="defer"></script>
+    <script type="text/javascript" src="js/abstractPersonVisuals.js" defer="defer"></script>
+    <script type="text/javascript" src="js/partnership.js" defer="defer"></script>
+    <script type="text/javascript" src="js/partnershipVisuals.js" defer="defer"></script>
+    <script type="text/javascript" src="js/person.js" defer="defer"></script>
+    <script type="text/javascript" src="js/personVisuals.js" defer="defer"></script>
+    <script type="text/javascript" src="js/personGroup.js" defer="defer"></script>
+    <script type="text/javascript" src="js/personGroupVisuals.js" defer="defer"></script>
+    <script type="text/javascript" src="js/personGroupHoverbox.js" defer="defer"></script>
+    <script type="text/javascript" src="js/lineSet.js" defer="defer"></script>
+    <script type="text/javascript" src="js/workspace.js" defer="defer"></script>
+    <script type="text/javascript" src="js/viewerWorkspace.js" defer="defer"></script>
+    <script type="text/javascript" src="js/disorder.js" defer="defer"></script>
+    <script type="text/javascript" src="js/hpoTerm.js" defer="defer"></script>
+    <script type="text/javascript" src="js/versionUpdater.js" defer="defer"></script>
+    <script type="text/javascript" src="js/saveLoadEngine.js" defer="defer"></script>
+    <script type="text/javascript" src="js/viewerSaveLoadEngine.js" defer="defer"></script>
+    <script type="text/javascript" src="js/controller.js" defer="defer"></script>
+    <script type="text/javascript" src="js/view.js" defer="defer"></script>
+    <script type="text/javascript" src="js/pedigree.js" defer="defer"></script>
+    <script type="text/javascript" src="js/viewerPedigree.js" defer="defer"></script>
+
+    <script type="text/javascript" src="js/compatibility.js" defer="defer"></script>
+    <script type="text/javascript" src="js/markerScript.js" defer="defer"></script>
+    <script type="text/javascript">
+        // <![CDATA[
+        define('jQueryNoConflict', ['jquery'], function ($) {
+            $.noConflict();
+            return $;
+        });
+
+        XWiki.currentSpace = "data";
+        XWiki.currentPage = "P0001083";
+        XWiki.editor = "inline";
+
+        document.observe("xwiki:dom:loaded",function() {
+            var jsonData = '[{"id":0,"father":4,"mother":3,"sex":"unknown"},{"id":3,"father":12,"mother":11,"sex":"female"},{"id":4,"father":8,"mother":7,"sex":"male"},{"id":7,"sex":"female"},{"id":8,"sex":"male"},{"id":11,"sex":"female"},{"id":12,"sex":"male"}]';
+            viewer = new ViewerPedigree({ type: 'simpleJSON', data: jsonData });
+        });
+        // ]]>
+    </script>
+
+</head>
+<body id="body" class="wiki-xwiki space-data editbody hidelefthideright">
+
+</body>
+</html>
