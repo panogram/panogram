@@ -1,0 +1,45 @@
+{
+    "env": {
+        "browser": true,
+        "es6": true,
+        "prototypejs": true,
+        "jquery": true
+    },
+    "extends": "eslint:recommended",
+    "parserOptions": {
+        "sourceType": "module"
+    },
+    "globals": {
+        "jquery": true,
+        "editor": true,
+        "Raphael": true,
+        "XWiki": true,
+        "PhenoTips": true,
+        "Effect": true,
+        "saveTextAs": true
+    },
+    "rules": {
+        "indent": [
+            "error",
+            4
+        ],
+        "linebreak-style": [
+            "error",
+            "unix"
+        ],
+        "quotes": [
+            "warn",
+            "double"
+        ],
+        "semi": [
+            "error",
+            "always"
+        ],
+        "no-unused-vars": [
+            "error", { 
+                "args": "none" 
+            }
+        ],
+        "no-console": 0
+    }
+}

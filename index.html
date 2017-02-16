@@ -1,157 +1,29 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
-<head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <title>Panogram</title>
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta http-equiv="Content-Script-Type" content="text/javascript">
-    <meta http-equiv="imagetoolbar" content="no">
-    <link rel="canonical" href="bin/P0001083">
-    <meta name="document" content="data.P0001083">
-    <meta name="wiki" content="xwiki">
-    <meta name="space" content="data">
-    <meta name="page" content="P0001083">
-    <meta name="version" content="1.3">
-    <meta name="restURL" content="wikis/xwiki/spaces/data/pages/P0001083">
-    <meta name="form_token" content="wwD9MXlaxCgPfFnxu3vQHQ">
-    <meta name="gwt:property" content="locale=en">
-    <meta name="revisit-after" content="7 days">
-    <meta name="description" content="Pedigree editor">
-    <meta name="keywords" content="wiki">
-    <meta name="distribution" content="GLOBAL">
-    <meta name="rating" content="General">
-    <meta name="author" content="Unknown User">
-    <meta http-equiv="reply-to" content="">
-    <meta name="language" content="en">
+<!DOCTYPE html>
+<html>
+  <head>
+      <!-- <link href="css/style.css" rel="stylesheet" type="text/css" media="all"> -->
+      <!-- <link href="css/print.css" rel="stylesheet" type="text/css" media="print"> -->
 
-    <link href="css/style.css" rel="stylesheet" type="text/css" media="all">
-    <link href="css/print.css" rel="stylesheet" type="text/css" media="print">
+      <!-- <link rel="stylesheet" type="text/css" href="css/xwiki-min.css"> -->
+      <!-- <link rel="stylesheet" type="text/css" href="css/searchSuggest.css"> -->
+      <!-- <link rel="stylesheet" type="text/css" href="css/livevalidation.css"> -->
+      <!-- <link rel="stylesheet" type="text/css" href="css/fullScreen.css"> -->
+      <link rel="stylesheet" type="text/css" href="css/editor.css">
+      <!-- <link rel="stylesheet" type="text/css" href="css/actionButtons.css"> -->
+      <!-- <link rel="stylesheet" type="text/css" href="css/Skin.css"> -->
+      <!-- <link rel="stylesheet" type="text/css" href="css/PlaygroundStyle.css"> -->
+      <!-- <link rel="stylesheet" type="text/css" href="css/CommentsFix.css"> -->
+      <!-- <link rel="stylesheet" type="text/css" href="css/Blue.css"> -->
+      <link rel="stylesheet" type="text/css" href="font-awesome/css/font-awesome.min.css">
+      <!-- <link rel="stylesheet" type="text/css" href="css/Widgets.css"> -->
+      <!-- <link rel="stylesheet" type="text/css" href="css/PhenoTipsGroupSheet.css"> -->
+      <!-- <link rel="stylesheet" type="text/css" href="css/ContentTopMenu.css"> -->
+      <!-- <link rel="stylesheet" type="text/css" href="css/PushPatient.css"> -->
+      <!-- <link rel="stylesheet" type="text/css" href="css/DateTimePicker.css"> -->
 
-    <link rel="stylesheet" type="text/css" href="css/xwiki-min.css">
-    <link rel="stylesheet" type="text/css" href="css/searchSuggest.css">
-    <link rel="stylesheet" type="text/css" href="css/livevalidation.css">
-    <link rel="stylesheet" type="text/css" href="css/fullScreen.css">
-    <link rel="stylesheet" type="text/css" href="css/editor.css">
-    <link rel="stylesheet" type="text/css" href="css/actionButtons.css">
-    <link rel="stylesheet" type="text/css" href="css/Skin.css">
-    <link rel="stylesheet" type="text/css" href="css/PlaygroundStyle.css">
-    <link rel="stylesheet" type="text/css" href="css/CommentsFix.css">
-    <link rel="stylesheet" type="text/css" href="css/Blue.css">
-    <link rel="stylesheet" type="text/css" href="font-awesome/css/font-awesome.min.css">
-    <link rel="stylesheet" type="text/css" href="css/Widgets.css">
-    <link rel="stylesheet" type="text/css" href="css/PhenoTipsGroupSheet.css">
-    <link rel="stylesheet" type="text/css" href="css/ContentTopMenu.css">
-    <link rel="stylesheet" type="text/css" href="css/PushPatient.css">
-    <link rel="stylesheet" type="text/css" href="css/DateTimePicker.css">
-
-    <script type="text/javascript" src="js/require.js"></script>
-    <script type="text/javascript" src="js/prototype.js"></script>
-    <script type="text/javascript" src="js/effects.js" defer="defer"></script>
-    <script type="text/javascript" src="js/xwiki-min.js"></script>
-    <script type="text/javascript" src="js/searchSuggest.js" defer="defer"></script>
-    <script type="text/javascript" src="js/lock.js" defer="defer"></script>
-    <script type="text/javascript" src="js/livevalidation_prototype.js" defer="defer"></script>
-    <script type="text/javascript" src="js/fullScreen.js" defer="defer"></script>
-    <script type="text/javascript" src="js/slider.js" defer="defer"></script>
-    <script type="text/javascript" src="js/dragdrop.js" defer="defer"></script>
-    <script type="text/javascript" src="js/raphael.js" defer="defer"></script>
-    <script type="text/javascript" src="js/helpers.js" defer="defer"></script>
-    <script type="text/javascript" src="js/queues.js" defer="defer"></script>
-    <script type="text/javascript" src="js/xcoordclass.js" defer="defer"></script>
-    <script type="text/javascript" src="js/ordering.js" defer="defer"></script>
-    <script type="text/javascript" src="js/baseGraph.js" defer="defer"></script>
-    <script type="text/javascript" src="js/import.js" defer="defer"></script>
-    <script type="text/javascript" src="js/export.js" defer="defer"></script>
-    <script type="text/javascript" src="js/edgeOptimization.js" defer="defer"></script>
-    <script type="text/javascript" src="js/positionedGraph.js" defer="defer"></script>
-    <script type="text/javascript" src="js/dynamicGraph.js" defer="defer"></script>
-    <script type="text/javascript" src="js/Blob.js" defer="defer"></script>
-    <script type="text/javascript" src="js/FileSaver.js" defer="defer"></script>
-    <script type="text/javascript" src="js/nodeMenu.js" defer="defer"></script>
-    <script type="text/javascript" src="js/nodetypeSelectionBubble.js" defer="defer"></script>
-    <script type="text/javascript" src="js/ageCalc.js" defer="defer"></script>
-    <script type="text/javascript" src="js/graphicHelpers.js" defer="defer"></script>
-    <script type="text/javascript" src="js/legend.js" defer="defer"></script>
-    <script type="text/javascript" src="js/disorderLegend.js" defer="defer"></script>
-    <script type="text/javascript" src="js/hpoLegend.js" defer="defer"></script>
-    <script type="text/javascript" src="js/geneLegend.js" defer="defer"></script>
-    <script type="text/javascript" src="js/saveLoadIndicator.js" defer="defer"></script>
-    <script type="text/javascript" src="js/templateSelector.js" defer="defer"></script>
-    <script type="text/javascript" src="js/okCancelDialogue.js" defer="defer"></script>
-    <script type="text/javascript" src="js/importSelector.js" defer="defer"></script>
-    <script type="text/javascript" src="js/exportSelector.js" defer="defer"></script>
-    <script type="text/javascript" src="js/abstractHoverbox.js" defer="defer"></script>
-    <script type="text/javascript" src="js/readonlyHoverbox.js" defer="defer"></script>
-    <script type="text/javascript" src="js/partnershipHoverbox.js" defer="defer"></script>
-    <script type="text/javascript" src="js/personHoverbox.js" defer="defer"></script>
-    <script type="text/javascript" src="js/abstractNode.js" defer="defer"></script>
-    <script type="text/javascript" src="js/abstractNodeVisuals.js" defer="defer"></script>
-    <script type="text/javascript" src="js/abstractPerson.js" defer="defer"></script>
-    <script type="text/javascript" src="js/abstractPersonVisuals.js" defer="defer"></script>
-    <script type="text/javascript" src="js/partnership.js" defer="defer"></script>
-    <script type="text/javascript" src="js/partnershipVisuals.js" defer="defer"></script>
-    <script type="text/javascript" src="js/person.js" defer="defer"></script>
-    <script type="text/javascript" src="js/personVisuals.js" defer="defer"></script>
-    <script type="text/javascript" src="js/personGroup.js" defer="defer"></script>
-    <script type="text/javascript" src="js/personGroupVisuals.js" defer="defer"></script>
-    <script type="text/javascript" src="js/personGroupHoverbox.js" defer="defer"></script>
-    <script type="text/javascript" src="js/lineSet.js" defer="defer"></script>
-    <script type="text/javascript" src="js/workspace.js" defer="defer"></script>
-    <script type="text/javascript" src="js/disorder.js" defer="defer"></script>
-    <script type="text/javascript" src="js/hpoTerm.js" defer="defer"></script>
-    <script type="text/javascript" src="js/versionUpdater.js" defer="defer"></script>
-    <script type="text/javascript" src="js/saveLoadEngine.js" defer="defer"></script>
-    <script type="text/javascript" src="js/controller.js" defer="defer"></script>
-    <script type="text/javascript" src="js/view.js" defer="defer"></script>
-    <script type="text/javascript" src="js/undoRedo.js" defer="defer"></script>
-    <script type="text/javascript" src="js/pedigree.js" defer="defer"></script>
-    <script type="text/javascript" src="js/actionButtons.js" defer="defer"></script>
-
-    <script type="text/javascript" src="js/Widgets.js" defer="defer"></script>
-    <script type="text/javascript" src="js/ContentTopMenu.js" defer="defer"></script>
-    <script type="text/javascript" src="js/PushPatient.js" defer="defer"></script>
-    <script type="text/javascript" src="js/DateTimePicker.js" defer="defer"></script>
-
-    <script type="text/javascript" src="js/compatibility.js" defer="defer"></script>
-    <script type="text/javascript" src="js/markerScript.js" defer="defer"></script>
-    <script type="text/javascript">
-        // <![CDATA[
-        define('jQueryNoConflict', ['jquery'], function ($) {
-            $.noConflict();
-            return $;
-        });
-
-        XWiki.webapppath = "";
-        XWiki.servletpath = "bin/";
-        XWiki.contextPath = "";
-        XWiki.mainWiki = "xwiki";
-        XWiki.currentWiki = "xwiki";
-        XWiki.currentSpace = "data";
-        XWiki.currentPage = "P0001083";
-        XWiki.editor = "inline";
-        XWiki.viewer = "";
-        XWiki.contextaction = "edit";
-        XWiki.docisnew = false;
-        XWiki.docsyntax = "xwiki/2.1";
-        XWiki.docvariant = "";
-        XWiki.blacklistedSpaces = ["Import", "Panels", "Scheduler", "Stats", "XAppClasses", "XAppSheets", "XAppTemplates", "XWiki", "WatchCode", "WatchSheets", "XApp", "WatchAdmin", "Watch", "ColorThemes", "AnnotationCode"];
-        XWiki.hasEdit = true;
-        XWiki.hasProgramming = false;
-        XWiki.hasBackupPackImportRights = false;
-        XWiki.hasRenderer = true;
-        window.docviewurl = "/bin/P0001083";
-        window.docediturl = "/bin/edit/data/P0001083";
-        window.docsaveurl = "/bin/save/data/P0001083";
-        window.docgeturl = "/bin/get/data/P0001083";
-
-        document.observe("xwiki:dom:loaded",function() {
-            editor = new PedigreeEditor();
-        });
-        // ]]>
-    </script>
-
-</head>
-<body id="body" class="wiki-xwiki space-data editbody hidelefthideright">
-
-</body>
+      <script type="text/javascript" src="main.bundle.js" charset="utf-8"></script>
+  </head>
+  <body>
+    <div id="panogram"></div>
+  </body>
 </html>
