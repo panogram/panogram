@@ -63,7 +63,7 @@ module.exports = {
             $H: "imports-loader?this=>window!exports-loader?$H!prototypejs/dist/prototype",
             $w: "imports-loader?this=>window!exports-loader?$w!prototypejs/dist/prototype",
             $R: "imports-loader?this=>window!exports-loader?$R!prototypejs/dist/prototype",
-            Ajax: "imports-loader?this=>window!exports-loader?Ajax!prototypejs/dist/prototype",
+            // Ajax: "imports-loader?this=>window!exports-loader?Ajax!prototypejs/dist/prototype",
             "window.Effect": "effects",
         }),
         new CircularDependencyPlugin({

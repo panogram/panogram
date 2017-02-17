@@ -12,11 +12,11 @@ export const ProbandDataLoader = Class.create( {
         this.probandData = undefined;
     },
     load: function(callWhenReady) {
-        new Ajax.Request("public/xwiki/PhenoTips.PatientClass/0.xml", {
-            method: "GET",
-            onSuccess: this.onProbandDataReady.bind(this),
-            onComplete: callWhenReady ? callWhenReady : {}
-        });
+        // new Ajax.Request("public/xwiki/PhenoTips.PatientClass/0.xml", {
+        //     method: "GET",
+        //     onSuccess: this.onProbandDataReady.bind(this),
+        //     onComplete: callWhenReady ? callWhenReady : {}
+        // });
     },
 
     onProbandDataReady : function(response) {
@@ -143,43 +143,43 @@ export const SaveLoadEngine = Class.create( {
         var backgroundParent =  background.parentNode;
         backgroundParent.removeChild(background);
         var bbox = image.down().getBBox();
-        new Ajax.Request("public/xwiki/PhenoTips.PedigreeClass/0.xml", {
-            method: "POST",
-            onCreate: function() {
-                me._saveInProgress = true;
-            },
-            onComplete: function() {
-                me._saveInProgress = false;
-            },
-            onSuccess: function() { console.log("saved"); },
-            parameters: {"property#data": jsonData, "property#image": image.innerHTML.replace(/xmlns:xlink=".*?"/, "").replace(/width=".*?"/, "").replace(/height=".*?"/, "").replace(/viewBox=".*?"/, "viewBox=\"" + bbox.x + " " + bbox.y + " " + bbox.width + " " + bbox.height + "\" width=\"" + bbox.width + "\" height=\"" + bbox.height + "\" xmlns:xlink=\"http://www.w3.org/1999/xlink\"")}
-        });
+        // new Ajax.Request("public/xwiki/PhenoTips.PedigreeClass/0.xml", {
+        //     method: "POST",
+        //     onCreate: function() {
+        //         me._saveInProgress = true;
+        //     },
+        //     onComplete: function() {
+        //         me._saveInProgress = false;
+        //     },
+        //     onSuccess: function() { console.log("saved"); },
+        //     parameters: {"property#data": jsonData, "property#image": image.innerHTML.replace(/xmlns:xlink=".*?"/, "").replace(/width=".*?"/, "").replace(/height=".*?"/, "").replace(/viewBox=".*?"/, "viewBox=\"" + bbox.x + " " + bbox.y + " " + bbox.width + " " + bbox.height + "\" width=\"" + bbox.width + "\" height=\"" + bbox.height + "\" xmlns:xlink=\"http://www.w3.org/1999/xlink\"")}
+        // });
         backgroundParent.insertBefore(background, backgroundPosition);
     },
 
     load: function() {
         console.log("initiating load process");
 
-        new Ajax.Request("public/xwiki/PhenoTips.PedigreeClass/0.xml", {
-            method: "GET",
-            onCreate: function() {
-                document.fire("pedigree:load:start");
-            },
-            onSuccess: function (response) {
-                //console.log("Data from LOAD: " + stringifyObject(response));
-                //console.log("[Data from LOAD]");
-                var rawdata  = getSubSelectorTextFromXML(response.responseXML, "property", "name", "data", "value");
-                var jsonData = unescapeRestData(rawdata);
-                if (jsonData.trim()) {
-                    console.log("[LOAD] recived JSON: " + stringifyObject(jsonData));
-
-                    jsonData = editor.getVersionUpdater().updateToCurrentVersion(jsonData);
-
-                    this.createGraphFromSerializedData(jsonData);
-                } else {
-                    new TemplateSelector(true);
-                }
-            }.bind(this)
-        });
+        // new Ajax.Request("public/xwiki/PhenoTips.PedigreeClass/0.xml", {
+        //     method: "GET",
+        //     onCreate: function() {
+        //         document.fire("pedigree:load:start");
+        //     },
+        //     onSuccess: function (response) {
+        //         //console.log("Data from LOAD: " + stringifyObject(response));
+        //         //console.log("[Data from LOAD]");
+        //         var rawdata  = getSubSelectorTextFromXML(response.responseXML, "property", "name", "data", "value");
+        //         var jsonData = unescapeRestData(rawdata);
+        //         if (jsonData.trim()) {
+        //             console.log("[LOAD] recived JSON: " + stringifyObject(jsonData));
+        // 
+        //             jsonData = editor.getVersionUpdater().updateToCurrentVersion(jsonData);
+        // 
+        //             this.createGraphFromSerializedData(jsonData);
+        //         } else {
+        //             new TemplateSelector(true);
+        //         }
+        //     }.bind(this)
+        // });
     }
 });

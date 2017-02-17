@@ -17,10 +17,10 @@ export const TemplateSelector = Class.create( {
         var closeShortcut = isStartupTemplateSelector ? [] : ["Esc"];
         this.dialog = new PhenoTips.widgets.ModalPopup(this.mainDiv, {close: {method : this.hide.bind(this), keys : closeShortcut}}, {extraClassName: "pedigree-template-chooser", title: "Please select a pedigree template", displayCloseButton: !isStartupTemplateSelector, verticalPosition: "top"});
         isStartupTemplateSelector && this.dialog.show();
-        new Ajax.Request("public/xwiki/PhenoTips.PedigreeClass/index.xml", {
-            method: "GET",
-            onSuccess: this._onTemplateListAvailable.bind(this)
-        });
+        // new Ajax.Request("public/xwiki/PhenoTips.PedigreeClass/index.xml", {
+        //     method: "GET",
+        //     onSuccess: this._onTemplateListAvailable.bind(this)
+        // });
     },
 
     /**
@@ -47,10 +47,10 @@ export const TemplateSelector = Class.create( {
             pictureBox.update("Loading...");
             this.mainDiv.insert(pictureBox);
             var href = getSelectorFromXML(objects[i], "link", "rel", "http://www.xwiki.org/rel/properties").getAttribute("href").substring(1);
-            new Ajax.Request(href, {
-                method: "GET",
-                onSuccess: this._onTemplateAvailable.bind(this, pictureBox)
-            });
+            // new Ajax.Request(href, {
+            //     method: "GET",
+            //     onSuccess: this._onTemplateAvailable.bind(this, pictureBox)
+            // });
         }
     },
 

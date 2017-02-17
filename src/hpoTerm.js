@@ -39,12 +39,12 @@ export const HPOTerm = Class.create( {
         var baseServiceURL = HPOTerm.getServiceURL();
         var queryURL       = baseServiceURL + "&q=id%3A" + HPOTerm.desanitizeID(this._hpoID).replace(":","%5C%3A");
         //console.log("QueryURL: " + queryURL);
-        new Ajax.Request(queryURL, {
-            method: "GET",
-            onSuccess: this.onDataReady.bind(this),
-            //onComplete: complete.bind(this)
-            onComplete: callWhenReady ? callWhenReady : {}
-        });
+        // new Ajax.Request(queryURL, {
+        //     method: "GET",
+        //     onSuccess: this.onDataReady.bind(this),
+        //     //onComplete: complete.bind(this)
+        //     onComplete: callWhenReady ? callWhenReady : {}
+        // });
     },
 
     onDataReady : function(response) {
