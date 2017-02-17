@@ -75,7 +75,7 @@ export const PersonVisuals = Class.create(AbstractPersonVisuals, {
 
             if(this.getNode().isProband()) {
                 shape.transform(["...s", 1.07]);
-                shape.attr("stroke-width", 5);
+                // shape.attr("stroke-width", 5);
             }
 
             if(this.getNode().getGender() == "U") {
@@ -93,15 +93,13 @@ export const PersonVisuals = Class.create(AbstractPersonVisuals, {
             $super();
         }
 
-        console.log(this.getNode().isProband())
         if(this.getNode().isProband()) {
-            console.info('== drawing proband');
             this._genderGraphics.push(this.generateProbandArrow());
             this.getGenderShape().transform(["...s", 1.08]);
-            this.getGenderShape().attr("stroke-width", 5.5);
+            // this.getGenderShape().attr("stroke-width", 5.5);
         }
         if(this.getNode().isFocused()) {
-            console.info('== drawing focused');
+            this.getGenderShape().attr("stroke-width", 1.5);
             this.getGenderShape().attr("stroke", "blue")
         }
         if(!editor.isUnsupportedBrowser() && this.getHoverBox()) {
@@ -283,6 +281,7 @@ export const PersonVisuals = Class.create(AbstractPersonVisuals, {
 
             for(var i = 0; i < colors.length; i++) {
                 color = gradient(colors[i], (i * disorderAngle)+delta);
+                console.warn(color);
                 disorderShapes.push(sector(editor.getPaper(), this.getX(), this.getY(), radius,
                                     this.getNode().getGender(), i * disorderAngle, (i+1) * disorderAngle, color));
             }
@@ -570,6 +569,10 @@ export const PersonVisuals = Class.create(AbstractPersonVisuals, {
             this._commentsLabel = null;
         }
         this.drawLabels();
+    /**        
+     *     
+     */     
+        
     },    
 
     /**

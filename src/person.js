@@ -26,6 +26,8 @@ export const Person = Class.create(AbstractPerson, {
         //var timer = new Timer();
         !this._type && (this._type = "Person");
         this._setDefault();
+        console.info('setting proband info', properties.isProband)
+        console.info(JSON.stringify(properties))
         this._isProband = properties.isProband;
         this.setFocused(properties.focused);
         var gender = properties.hasOwnProperty("gender") ? properties["gender"] : "U"; 
@@ -87,6 +89,7 @@ export const Person = Class.create(AbstractPerson, {
      * @return {Boolean}
      */
     isProband: function() {
+        console.log('getting proband info', this._isProband)
         return this._isProband;
     },
 
@@ -175,9 +178,8 @@ export const Person = Class.create(AbstractPerson, {
      * @method setFocused
      */
     setFocused: function(focused) {
-        const clean = focused === 1 ? true : false;
-        if (clean == this._focused) return;
-        this._focused = clean;
+        if (focused == this._focused) return;
+        this._focused = focused;
     },
 
     /**
@@ -1099,7 +1101,6 @@ export const Person = Class.create(AbstractPerson, {
             if (info.hasOwnProperty("focused")) {
                 this.setFocused(info.focused);
             }
-            console.log(info)
             if (info.hasOwnProperty("isProband")) {
                 this._isProband = info.isProband;
             }

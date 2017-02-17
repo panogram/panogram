@@ -69,7 +69,7 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 375);
+/******/ 	return __webpack_require__(__webpack_require__.s = 366);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -7517,14 +7517,14 @@ Object.extend(Element.ClassNames.prototype, Enumerable);
 /*** EXPORTS FROM exports-loader ***/
 module.exports = Class;
 }.call(window));
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(18), __webpack_require__(13), __webpack_require__(24)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(18), __webpack_require__(17), __webpack_require__(24)))
 
 /***/ }),
 /* 4 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var _isArray = __webpack_require__(19);
-var _isTransformer = __webpack_require__(72);
+var _isTransformer = __webpack_require__(68);
 
 
 /**
@@ -7911,7 +7911,7 @@ function getSelectorFromXML(responseXML, selectorName, attributeName, attributeV
             return responseXML.selectSingleNode(query);
         } catch (e) {
             // Firefox v3.0-
-            alert("your browser is unsupported");
+            console.warn("your browser is unsupported");
             window.stop && window.stop();
             throw "Unsupported browser";
         }
@@ -7935,7 +7935,7 @@ function getSubSelectorTextFromXML(responseXML, selectorName, attributeName, att
 /* 7 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var _arity = __webpack_require__(15);
+var _arity = __webpack_require__(14);
 var _curry1 = __webpack_require__(1);
 var _curry2 = __webpack_require__(0);
 var _curryN = __webpack_require__(43);
@@ -8002,6 +8002,71 @@ module.exports = function _has(prop, obj) {
 
 /***/ }),
 /* 9 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var _curry2 = __webpack_require__(0);
+var _dispatchable = __webpack_require__(4);
+var _map = __webpack_require__(47);
+var _reduce = __webpack_require__(11);
+var _xmap = __webpack_require__(259);
+var curryN = __webpack_require__(7);
+var keys = __webpack_require__(15);
+
+
+/**
+ * Takes a function and
+ * a [functor](https://github.com/fantasyland/fantasy-land#functor),
+ * applies the function to each of the functor's values, and returns
+ * a functor of the same shape.
+ *
+ * Ramda provides suitable `map` implementations for `Array` and `Object`,
+ * so this function may be applied to `[1, 2, 3]` or `{x: 1, y: 2, z: 3}`.
+ *
+ * Dispatches to the `map` method of the second argument, if present.
+ *
+ * Acts as a transducer if a transformer is given in list position.
+ *
+ * Also treats functions as functors and will compose them together.
+ *
+ * @func
+ * @memberOf R
+ * @since v0.1.0
+ * @category List
+ * @sig Functor f => (a -> b) -> f a -> f b
+ * @param {Function} fn The function to be called on every element of the input `list`.
+ * @param {Array} list The list to be iterated over.
+ * @return {Array} The new list.
+ * @see R.transduce, R.addIndex
+ * @example
+ *
+ *      var double = x => x * 2;
+ *
+ *      R.map(double, [1, 2, 3]); //=> [2, 4, 6]
+ *
+ *      R.map(double, {x: 1, y: 2, z: 3}); //=> {x: 2, y: 4, z: 6}
+ * @symb R.map(f, [a, b]) = [f(a), f(b)]
+ * @symb R.map(f, { x: a, y: b }) = { x: f(a), y: f(b) }
+ * @symb R.map(f, functor_o) = functor_o.map(f)
+ */
+module.exports = _curry2(_dispatchable(['map'], _xmap, function map(fn, functor) {
+  switch (Object.prototype.toString.call(functor)) {
+    case '[object Function]':
+      return curryN(functor.length, function() {
+        return fn.call(this, functor.apply(this, arguments));
+      });
+    case '[object Object]':
+      return _reduce(function(acc, key) {
+        acc[key] = fn(functor[key]);
+        return acc;
+      }, {}, keys(functor));
+    default:
+      return _map(fn, functor);
+  }
+}));
+
+
+/***/ }),
+/* 10 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -8072,76 +8137,11 @@ const PedigreeEditorAttributes = {
 
 
 /***/ }),
-/* 10 */
-/***/ (function(module, exports, __webpack_require__) {
-
-var _curry2 = __webpack_require__(0);
-var _dispatchable = __webpack_require__(4);
-var _map = __webpack_require__(47);
-var _reduce = __webpack_require__(11);
-var _xmap = __webpack_require__(268);
-var curryN = __webpack_require__(7);
-var keys = __webpack_require__(16);
-
-
-/**
- * Takes a function and
- * a [functor](https://github.com/fantasyland/fantasy-land#functor),
- * applies the function to each of the functor's values, and returns
- * a functor of the same shape.
- *
- * Ramda provides suitable `map` implementations for `Array` and `Object`,
- * so this function may be applied to `[1, 2, 3]` or `{x: 1, y: 2, z: 3}`.
- *
- * Dispatches to the `map` method of the second argument, if present.
- *
- * Acts as a transducer if a transformer is given in list position.
- *
- * Also treats functions as functors and will compose them together.
- *
- * @func
- * @memberOf R
- * @since v0.1.0
- * @category List
- * @sig Functor f => (a -> b) -> f a -> f b
- * @param {Function} fn The function to be called on every element of the input `list`.
- * @param {Array} list The list to be iterated over.
- * @return {Array} The new list.
- * @see R.transduce, R.addIndex
- * @example
- *
- *      var double = x => x * 2;
- *
- *      R.map(double, [1, 2, 3]); //=> [2, 4, 6]
- *
- *      R.map(double, {x: 1, y: 2, z: 3}); //=> {x: 2, y: 4, z: 6}
- * @symb R.map(f, [a, b]) = [f(a), f(b)]
- * @symb R.map(f, { x: a, y: b }) = { x: f(a), y: f(b) }
- * @symb R.map(f, functor_o) = functor_o.map(f)
- */
-module.exports = _curry2(_dispatchable(['map'], _xmap, function map(fn, functor) {
-  switch (Object.prototype.toString.call(functor)) {
-    case '[object Function]':
-      return curryN(functor.length, function() {
-        return fn.call(this, functor.apply(this, arguments));
-      });
-    case '[object Object]':
-      return _reduce(function(acc, key) {
-        acc[key] = fn(functor[key]);
-        return acc;
-      }, {}, keys(functor));
-    default:
-      return _map(fn, functor);
-  }
-}));
-
-
-/***/ }),
 /* 11 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var _xwrap = __webpack_require__(122);
-var bind = __webpack_require__(97);
+var _xwrap = __webpack_require__(114);
+var bind = __webpack_require__(89);
 var isArrayLike = __webpack_require__(30);
 
 
@@ -8238,6 +8238,200 @@ module.exports = function _concat(set1, set2) {
 
 /***/ }),
 /* 13 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var _curry2 = __webpack_require__(0);
+var _equals = __webpack_require__(234);
+
+
+/**
+ * Returns `true` if its arguments are equivalent, `false` otherwise. Handles
+ * cyclical data structures.
+ *
+ * Dispatches symmetrically to the `equals` methods of both arguments, if
+ * present.
+ *
+ * @func
+ * @memberOf R
+ * @since v0.15.0
+ * @category Relation
+ * @sig a -> b -> Boolean
+ * @param {*} a
+ * @param {*} b
+ * @return {Boolean}
+ * @example
+ *
+ *      R.equals(1, 1); //=> true
+ *      R.equals(1, '1'); //=> false
+ *      R.equals([1, 2, 3], [1, 2, 3]); //=> true
+ *
+ *      var a = {}; a.v = a;
+ *      var b = {}; b.v = b;
+ *      R.equals(a, b); //=> true
+ */
+module.exports = _curry2(function equals(a, b) {
+  return _equals(a, b, [], []);
+});
+
+
+/***/ }),
+/* 14 */
+/***/ (function(module, exports) {
+
+module.exports = function _arity(n, fn) {
+  /* eslint-disable no-unused-vars */
+  switch (n) {
+    case 0: return function() { return fn.apply(this, arguments); };
+    case 1: return function(a0) { return fn.apply(this, arguments); };
+    case 2: return function(a0, a1) { return fn.apply(this, arguments); };
+    case 3: return function(a0, a1, a2) { return fn.apply(this, arguments); };
+    case 4: return function(a0, a1, a2, a3) { return fn.apply(this, arguments); };
+    case 5: return function(a0, a1, a2, a3, a4) { return fn.apply(this, arguments); };
+    case 6: return function(a0, a1, a2, a3, a4, a5) { return fn.apply(this, arguments); };
+    case 7: return function(a0, a1, a2, a3, a4, a5, a6) { return fn.apply(this, arguments); };
+    case 8: return function(a0, a1, a2, a3, a4, a5, a6, a7) { return fn.apply(this, arguments); };
+    case 9: return function(a0, a1, a2, a3, a4, a5, a6, a7, a8) { return fn.apply(this, arguments); };
+    case 10: return function(a0, a1, a2, a3, a4, a5, a6, a7, a8, a9) { return fn.apply(this, arguments); };
+    default: throw new Error('First argument to _arity must be a non-negative integer no greater than ten');
+  }
+};
+
+
+/***/ }),
+/* 15 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var _curry1 = __webpack_require__(1);
+var _has = __webpack_require__(8);
+var _isArguments = __webpack_require__(107);
+
+
+/**
+ * Returns a list containing the names of all the enumerable own properties of
+ * the supplied object.
+ * Note that the order of the output array is not guaranteed to be consistent
+ * across different JS platforms.
+ *
+ * @func
+ * @memberOf R
+ * @since v0.1.0
+ * @category Object
+ * @sig {k: v} -> [k]
+ * @param {Object} obj The object to extract properties from
+ * @return {Array} An array of the object's own properties.
+ * @example
+ *
+ *      R.keys({a: 1, b: 2, c: 3}); //=> ['a', 'b', 'c']
+ */
+module.exports = (function() {
+  // cover IE < 9 keys issues
+  var hasEnumBug = !({toString: null}).propertyIsEnumerable('toString');
+  var nonEnumerableProps = ['constructor', 'valueOf', 'isPrototypeOf', 'toString',
+                            'propertyIsEnumerable', 'hasOwnProperty', 'toLocaleString'];
+  // Safari bug
+  var hasArgsEnumBug = (function() {
+    'use strict';
+    return arguments.propertyIsEnumerable('length');
+  }());
+
+  var contains = function contains(list, item) {
+    var idx = 0;
+    while (idx < list.length) {
+      if (list[idx] === item) {
+        return true;
+      }
+      idx += 1;
+    }
+    return false;
+  };
+
+  return typeof Object.keys === 'function' && !hasArgsEnumBug ?
+    _curry1(function keys(obj) {
+      return Object(obj) !== obj ? [] : Object.keys(obj);
+    }) :
+    _curry1(function keys(obj) {
+      if (Object(obj) !== obj) {
+        return [];
+      }
+      var prop, nIdx;
+      var ks = [];
+      var checkArgsLength = hasArgsEnumBug && _isArguments(obj);
+      for (prop in obj) {
+        if (_has(prop, obj) && (!checkArgsLength || prop !== 'length')) {
+          ks[ks.length] = prop;
+        }
+      }
+      if (hasEnumBug) {
+        nIdx = nonEnumerableProps.length - 1;
+        while (nIdx >= 0) {
+          prop = nonEnumerableProps[nIdx];
+          if (_has(prop, obj) && !contains(ks, prop)) {
+            ks[ks.length] = prop;
+          }
+          nIdx -= 1;
+        }
+      }
+      return ks;
+    });
+}());
+
+
+/***/ }),
+/* 16 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var _curry3 = __webpack_require__(2);
+var _reduce = __webpack_require__(11);
+
+
+/**
+ * Returns a single item by iterating through the list, successively calling
+ * the iterator function and passing it an accumulator value and the current
+ * value from the array, and then passing the result to the next call.
+ *
+ * The iterator function receives two values: *(acc, value)*. It may use
+ * `R.reduced` to shortcut the iteration.
+ *
+ * The arguments' order of `reduceRight`'s iterator function is *(value, acc)*.
+ *
+ * Note: `R.reduce` does not skip deleted or unassigned indices (sparse
+ * arrays), unlike the native `Array.prototype.reduce` method. For more details
+ * on this behavior, see:
+ * https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/reduce#Description
+ *
+ * Dispatches to the `reduce` method of the third argument, if present.
+ *
+ * @func
+ * @memberOf R
+ * @since v0.1.0
+ * @category List
+ * @sig ((a, b) -> a) -> a -> [b] -> a
+ * @param {Function} fn The iterator function. Receives two values, the accumulator and the
+ *        current element from the array.
+ * @param {*} acc The accumulator value.
+ * @param {Array} list The list to iterate over.
+ * @return {*} The final, accumulated value.
+ * @see R.reduced, R.addIndex, R.reduceRight
+ * @example
+ *
+ *      R.reduce(R.subtract, 0, [1, 2, 3, 4]) // => ((((0 - 1) - 2) - 3) - 4) = -10
+ *                -               -10
+ *               / \              / \
+ *              -   4           -6   4
+ *             / \              / \
+ *            -   3   ==>     -3   3
+ *           / \              / \
+ *          -   2           -1   2
+ *         / \              / \
+ *        0   1            0   1
+ *
+ * @symb R.reduce(f, a, [b, c, d]) = f(f(f(a, b), c), d)
+ */
+module.exports = _curry3(_reduce);
+
+
+/***/ }),
+/* 17 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function($H, $R, Sizzle) {var __WEBPACK_AMD_DEFINE_RESULT__;/*** IMPORTS FROM imports-loader ***/
@@ -15577,201 +15771,7 @@ Object.extend(Element.ClassNames.prototype, Enumerable);
 /*** EXPORTS FROM exports-loader ***/
 module.exports = $R;
 }.call(window));
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(18), __webpack_require__(13), __webpack_require__(24)))
-
-/***/ }),
-/* 14 */
-/***/ (function(module, exports, __webpack_require__) {
-
-var _curry2 = __webpack_require__(0);
-var _equals = __webpack_require__(243);
-
-
-/**
- * Returns `true` if its arguments are equivalent, `false` otherwise. Handles
- * cyclical data structures.
- *
- * Dispatches symmetrically to the `equals` methods of both arguments, if
- * present.
- *
- * @func
- * @memberOf R
- * @since v0.15.0
- * @category Relation
- * @sig a -> b -> Boolean
- * @param {*} a
- * @param {*} b
- * @return {Boolean}
- * @example
- *
- *      R.equals(1, 1); //=> true
- *      R.equals(1, '1'); //=> false
- *      R.equals([1, 2, 3], [1, 2, 3]); //=> true
- *
- *      var a = {}; a.v = a;
- *      var b = {}; b.v = b;
- *      R.equals(a, b); //=> true
- */
-module.exports = _curry2(function equals(a, b) {
-  return _equals(a, b, [], []);
-});
-
-
-/***/ }),
-/* 15 */
-/***/ (function(module, exports) {
-
-module.exports = function _arity(n, fn) {
-  /* eslint-disable no-unused-vars */
-  switch (n) {
-    case 0: return function() { return fn.apply(this, arguments); };
-    case 1: return function(a0) { return fn.apply(this, arguments); };
-    case 2: return function(a0, a1) { return fn.apply(this, arguments); };
-    case 3: return function(a0, a1, a2) { return fn.apply(this, arguments); };
-    case 4: return function(a0, a1, a2, a3) { return fn.apply(this, arguments); };
-    case 5: return function(a0, a1, a2, a3, a4) { return fn.apply(this, arguments); };
-    case 6: return function(a0, a1, a2, a3, a4, a5) { return fn.apply(this, arguments); };
-    case 7: return function(a0, a1, a2, a3, a4, a5, a6) { return fn.apply(this, arguments); };
-    case 8: return function(a0, a1, a2, a3, a4, a5, a6, a7) { return fn.apply(this, arguments); };
-    case 9: return function(a0, a1, a2, a3, a4, a5, a6, a7, a8) { return fn.apply(this, arguments); };
-    case 10: return function(a0, a1, a2, a3, a4, a5, a6, a7, a8, a9) { return fn.apply(this, arguments); };
-    default: throw new Error('First argument to _arity must be a non-negative integer no greater than ten');
-  }
-};
-
-
-/***/ }),
-/* 16 */
-/***/ (function(module, exports, __webpack_require__) {
-
-var _curry1 = __webpack_require__(1);
-var _has = __webpack_require__(8);
-var _isArguments = __webpack_require__(115);
-
-
-/**
- * Returns a list containing the names of all the enumerable own properties of
- * the supplied object.
- * Note that the order of the output array is not guaranteed to be consistent
- * across different JS platforms.
- *
- * @func
- * @memberOf R
- * @since v0.1.0
- * @category Object
- * @sig {k: v} -> [k]
- * @param {Object} obj The object to extract properties from
- * @return {Array} An array of the object's own properties.
- * @example
- *
- *      R.keys({a: 1, b: 2, c: 3}); //=> ['a', 'b', 'c']
- */
-module.exports = (function() {
-  // cover IE < 9 keys issues
-  var hasEnumBug = !({toString: null}).propertyIsEnumerable('toString');
-  var nonEnumerableProps = ['constructor', 'valueOf', 'isPrototypeOf', 'toString',
-                            'propertyIsEnumerable', 'hasOwnProperty', 'toLocaleString'];
-  // Safari bug
-  var hasArgsEnumBug = (function() {
-    'use strict';
-    return arguments.propertyIsEnumerable('length');
-  }());
-
-  var contains = function contains(list, item) {
-    var idx = 0;
-    while (idx < list.length) {
-      if (list[idx] === item) {
-        return true;
-      }
-      idx += 1;
-    }
-    return false;
-  };
-
-  return typeof Object.keys === 'function' && !hasArgsEnumBug ?
-    _curry1(function keys(obj) {
-      return Object(obj) !== obj ? [] : Object.keys(obj);
-    }) :
-    _curry1(function keys(obj) {
-      if (Object(obj) !== obj) {
-        return [];
-      }
-      var prop, nIdx;
-      var ks = [];
-      var checkArgsLength = hasArgsEnumBug && _isArguments(obj);
-      for (prop in obj) {
-        if (_has(prop, obj) && (!checkArgsLength || prop !== 'length')) {
-          ks[ks.length] = prop;
-        }
-      }
-      if (hasEnumBug) {
-        nIdx = nonEnumerableProps.length - 1;
-        while (nIdx >= 0) {
-          prop = nonEnumerableProps[nIdx];
-          if (_has(prop, obj) && !contains(ks, prop)) {
-            ks[ks.length] = prop;
-          }
-          nIdx -= 1;
-        }
-      }
-      return ks;
-    });
-}());
-
-
-/***/ }),
-/* 17 */
-/***/ (function(module, exports, __webpack_require__) {
-
-var _curry3 = __webpack_require__(2);
-var _reduce = __webpack_require__(11);
-
-
-/**
- * Returns a single item by iterating through the list, successively calling
- * the iterator function and passing it an accumulator value and the current
- * value from the array, and then passing the result to the next call.
- *
- * The iterator function receives two values: *(acc, value)*. It may use
- * `R.reduced` to shortcut the iteration.
- *
- * The arguments' order of `reduceRight`'s iterator function is *(value, acc)*.
- *
- * Note: `R.reduce` does not skip deleted or unassigned indices (sparse
- * arrays), unlike the native `Array.prototype.reduce` method. For more details
- * on this behavior, see:
- * https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/reduce#Description
- *
- * Dispatches to the `reduce` method of the third argument, if present.
- *
- * @func
- * @memberOf R
- * @since v0.1.0
- * @category List
- * @sig ((a, b) -> a) -> a -> [b] -> a
- * @param {Function} fn The iterator function. Receives two values, the accumulator and the
- *        current element from the array.
- * @param {*} acc The accumulator value.
- * @param {Array} list The list to iterate over.
- * @return {*} The final, accumulated value.
- * @see R.reduced, R.addIndex, R.reduceRight
- * @example
- *
- *      R.reduce(R.subtract, 0, [1, 2, 3, 4]) // => ((((0 - 1) - 2) - 3) - 4) = -10
- *                -               -10
- *               / \              / \
- *              -   4           -6   4
- *             / \              / \
- *            -   3   ==>     -3   3
- *           / \              / \
- *          -   2           -1   2
- *         / \              / \
- *        0   1            0   1
- *
- * @symb R.reduce(f, a, [b, c, d]) = f(f(f(a, b), c), d)
- */
-module.exports = _curry3(_reduce);
-
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(18), __webpack_require__(17), __webpack_require__(24)))
 
 /***/ }),
 /* 18 */
@@ -23114,7 +23114,7 @@ Object.extend(Element.ClassNames.prototype, Enumerable);
 /*** EXPORTS FROM exports-loader ***/
 module.exports = $H;
 }.call(window));
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(18), __webpack_require__(13), __webpack_require__(24)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(18), __webpack_require__(17), __webpack_require__(24)))
 
 /***/ }),
 /* 19 */
@@ -23164,7 +23164,7 @@ i._.arrows&&("startString"in i._.arrows&&_(i,i._.arrows.startString),"endString"
 /* 22 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var _indexOf = __webpack_require__(114);
+var _indexOf = __webpack_require__(106);
 
 
 module.exports = function _contains(a, list) {
@@ -32889,7 +32889,7 @@ Object.extend(Element.ClassNames.prototype, Enumerable);
 /*** EXPORTS FROM exports-loader ***/
 module.exports = Ajax;
 }.call(window));
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(18), __webpack_require__(13), __webpack_require__(24)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(18), __webpack_require__(17), __webpack_require__(24)))
 
 /***/ }),
 /* 28 */
@@ -33096,8 +33096,8 @@ module.exports = _curry2(function path(paths, obj) {
 /***/ (function(module, exports, __webpack_require__) {
 
 var _curry2 = __webpack_require__(0);
-var map = __webpack_require__(10);
-var prop = __webpack_require__(73);
+var map = __webpack_require__(9);
+var prop = __webpack_require__(69);
 
 
 /**
@@ -33130,7 +33130,7 @@ module.exports = _curry2(function pluck(p, list) {
 /***/ (function(module, exports, __webpack_require__) {
 
 var _curry1 = __webpack_require__(1);
-var _toString = __webpack_require__(255);
+var _toString = __webpack_require__(246);
 
 
 /**
@@ -33177,7 +33177,7 @@ module.exports = _curry1(function toString(val) { return _toString(val, []); });
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* WEBPACK VAR INJECTION */(function(Class) {/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__pedigreeEditorAttributes__ = __webpack_require__(9);
+/* WEBPACK VAR INJECTION */(function(Class) {/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__pedigreeEditorAttributes__ = __webpack_require__(10);
 
 /**
  * AbstractNodeVisuals is the general abstract class for the graphic engine used by nodes on the Pedigree graph.
@@ -34657,7 +34657,7 @@ module.exports = _curry1(function flip(fn) {
 /* 43 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var _arity = __webpack_require__(15);
+var _arity = __webpack_require__(14);
 var _isPlaceholder = __webpack_require__(45);
 
 
@@ -34749,7 +34749,7 @@ module.exports = function _map(fn, functor) {
 /***/ (function(module, exports, __webpack_require__) {
 
 var _curry2 = __webpack_require__(0);
-var map = __webpack_require__(10);
+var map = __webpack_require__(9);
 
 
 /**
@@ -34794,7 +34794,7 @@ module.exports = _curry2(function lens(getter, setter) {
 /***/ (function(module, exports, __webpack_require__) {
 
 var _curry1 = __webpack_require__(1);
-var liftN = __webpack_require__(127);
+var liftN = __webpack_require__(119);
 
 
 /**
@@ -34886,7 +34886,7 @@ var _curryN = __webpack_require__(43);
 var _dispatchable = __webpack_require__(4);
 var _has = __webpack_require__(8);
 var _reduce = __webpack_require__(11);
-var _xreduceBy = __webpack_require__(269);
+var _xreduceBy = __webpack_require__(260);
 
 
 /**
@@ -34947,9 +34947,9 @@ module.exports = _curryN(4, [], _dispatchable([], _xreduceBy,
 /* 52 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var _complement = __webpack_require__(111);
+var _complement = __webpack_require__(103);
 var _curry2 = __webpack_require__(0);
-var filter = __webpack_require__(67);
+var filter = __webpack_require__(63);
 
 
 /**
@@ -35022,7 +35022,7 @@ module.exports = _curry1(function reverse(list) {
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* WEBPACK VAR INJECTION */(function(Class) {/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__pedigreeEditorAttributes__ = __webpack_require__(9);
+/* WEBPACK VAR INJECTION */(function(Class) {/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__pedigreeEditorAttributes__ = __webpack_require__(10);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__graphicHelpers__ = __webpack_require__(37);
 
 
@@ -36017,195 +36017,7 @@ const ChildlessBehavior = {
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* WEBPACK VAR INJECTION */(function(Class, Ajax) {/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__helpers__ = __webpack_require__(6);
-
-/*
- * Disorder is a class for storing genetic disorder info and loading it from the
- * the OMIM database. These disorders can be attributed to an individual in the Pedigree.
- *
- * @param disorderID the id number for the disorder, taken from the OMIM database
- * @param name a string representing the name of the disorder e.g. "Down Syndrome"
- */
-
-const Disorder = Class.create({
-
-    initialize: function (disorderID, name, callWhenReady) {
-        // user-defined disorders
-        if (name == null && !__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__helpers__["i" /* isInt */])(disorderID)) {
-            name = Disorder.desanitizeID(disorderID);
-        }
-
-        this._disorderID = Disorder.sanitizeID(disorderID);
-        this._name = name ? name : "loading...";
-
-        if (!name && callWhenReady) this.load(callWhenReady);
-    },
-
-    /*
-     * Returns the disorderID of the disorder
-     */
-    getDisorderID: function () {
-        return this._disorderID;
-    },
-
-    /*
-     * Returns the name of the disorder
-     */
-    getName: function () {
-        return this._name;
-    },
-
-    load: function (callWhenReady) {
-        var baseOMIMServiceURL = Disorder.getOMIMServiceURL();
-        var queryURL = baseOMIMServiceURL + "&q=id:" + this._disorderID;
-        //console.log("queryURL: " + queryURL);
-        new Ajax.Request(queryURL, {
-            method: "GET",
-            onSuccess: this.onDataReady.bind(this),
-            //onComplete: complete.bind(this)
-            onComplete: callWhenReady ? callWhenReady : {}
-        });
-    },
-
-    onDataReady: function (response) {
-        try {
-            var parsed = JSON.parse(response.responseText);
-            //console.log(stringifyObject(parsed));
-            console.log("LOADED DISORDER: disorder id = " + this._disorderID + ", name = " + parsed.rows[0].name);
-            this._name = parsed.rows[0].name;
-        } catch (err) {
-            console.log("[LOAD DISORDER] Error: " + err);
-            console.trace(err);
-        }
-    }
-});
-/* harmony export (immutable) */ __webpack_exports__["a"] = Disorder;
-
-
-/*
- * IDs are used as part of HTML IDs in the Legend box, which breaks when IDs contain some non-alphanumeric symbols.
- * For that purpose these symbols in IDs are converted in memory (but not in the stored pedigree) to some underscores.
- */
-Disorder.sanitizeID = function (disorderID) {
-    if (__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__helpers__["i" /* isInt */])(disorderID)) return disorderID;
-    var temp = disorderID.replace(/[\(\[]/g, "_L_");
-    temp = temp.replace(/[\)\]]/g, "_J_");
-    return temp.replace(/[^a-zA-Z0-9,;_\-*]/g, "__");
-};
-
-Disorder.desanitizeID = function (disorderID) {
-    var temp = disorderID.replace(/__/g, " ");
-    temp = temp.replace(/_L_/g, "(");
-    return temp.replace(/_J_/g, ")");
-};
-
-Disorder.getOMIMServiceURL = function () {
-    return "";
-};
-/* WEBPACK VAR INJECTION */}.call(__webpack_exports__, __webpack_require__(3), __webpack_require__(27)))
-
-/***/ }),
-/* 57 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* WEBPACK VAR INJECTION */(function(Class, Ajax) {/*
- * HPOTerm is a class for storing phenotype information and loading it from the
- * the HPO database. These phenotypes can be attributed to an individual in the Pedigree.
- *
- * @param hpoID the id number for the HPO term, taken from the HPO database
- * @param name a string representing the name of the term e.g. "Abnormality of the eye"
- */
-
-const HPOTerm = Class.create({
-
-    initialize: function (hpoID, name, callWhenReady) {
-        // user-defined terms
-        if (name == null && !HPOTerm.isValidID(HPOTerm.desanitizeID(hpoID))) {
-            name = HPOTerm.desanitizeID(hpoID);
-        }
-
-        this._hpoID = HPOTerm.sanitizeID(hpoID);
-        this._name = name ? name : "loading...";
-
-        if (!name && callWhenReady) this.load(callWhenReady);
-    },
-
-    /*
-     * Returns the hpoID of the phenotype
-     */
-    getID: function () {
-        return this._hpoID;
-    },
-
-    /*
-     * Returns the name of the term
-     */
-    getName: function () {
-        return this._name;
-    },
-
-    load: function (callWhenReady) {
-        var baseServiceURL = HPOTerm.getServiceURL();
-        var queryURL = baseServiceURL + "&q=id%3A" + HPOTerm.desanitizeID(this._hpoID).replace(":", "%5C%3A");
-        //console.log("QueryURL: " + queryURL);
-        new Ajax.Request(queryURL, {
-            method: "GET",
-            onSuccess: this.onDataReady.bind(this),
-            //onComplete: complete.bind(this)
-            onComplete: callWhenReady ? callWhenReady : {}
-        });
-    },
-
-    onDataReady: function (response) {
-        try {
-            var parsed = JSON.parse(response.responseText);
-            //console.log(stringifyObject(parsed));
-            console.log("LOADED HPO TERM: id = " + HPOTerm.desanitizeID(this._hpoID) + ", name = " + parsed.rows[0].name);
-            this._name = parsed.rows[0].name;
-        } catch (err) {
-            console.log("[LOAD HPO TERM] Error: ");
-            console.trace(err);
-        }
-    }
-});
-/* harmony export (immutable) */ __webpack_exports__["a"] = HPOTerm;
-
-
-/*
- * IDs are used as part of HTML IDs in the Legend box, which breaks when IDs contain some non-alphanumeric symbols.
- * For that purpose these symbols in IDs are converted in memory (but not in the stored pedigree) to some underscores.
- */
-HPOTerm.sanitizeID = function (id) {
-    var temp = id.replace(/[\(\[]/g, "_L_");
-    temp = temp.replace(/[\)\]]/g, "_J_");
-    temp = temp.replace(/[:]/g, "_C_");
-    return temp.replace(/[^a-zA-Z0-9,;_\-*]/g, "__");
-};
-
-HPOTerm.desanitizeID = function (id) {
-    var temp = id.replace(/__/g, " ");
-    temp = temp.replace(/_C_/g, ":");
-    temp = temp.replace(/_L_/g, "(");
-    return temp.replace(/_J_/g, ")");
-};
-
-HPOTerm.isValidID = function (id) {
-    var pattern = /^HP\:(\d)+$/i;
-    return pattern.test(id);
-};
-
-HPOTerm.getServiceURL = function () {
-    return "";
-};
-/* WEBPACK VAR INJECTION */}.call(__webpack_exports__, __webpack_require__(3), __webpack_require__(27)))
-
-/***/ }),
-/* 58 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* WEBPACK VAR INJECTION */(function(Class) {/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__dragdrop__ = __webpack_require__(154);
+/* WEBPACK VAR INJECTION */(function(Class) {/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__dragdrop__ = __webpack_require__(148);
 
 /**
  * Base class for various "legend" widgets
@@ -36442,7 +36254,7 @@ const Legend = Class.create({
 /* WEBPACK VAR INJECTION */}.call(__webpack_exports__, __webpack_require__(3)))
 
 /***/ }),
-/* 59 */
+/* 57 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -36542,315 +36354,7 @@ const ReadOnlyHoverbox = Class.create(__WEBPACK_IMPORTED_MODULE_0__abstractHover
 /* WEBPACK VAR INJECTION */}.call(__webpack_exports__, __webpack_require__(3)))
 
 /***/ }),
-/* 60 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* WEBPACK VAR INJECTION */(function(Class, Ajax) {/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__helpers__ = __webpack_require__(6);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__templateSelector__ = __webpack_require__(61);
-
-
-/**
- * SaveLoadEngine is responsible for automatic and manual save and load operations.
- *
- * @class SaveLoadEngine
- * @constructor
- */
-
-const ProbandDataLoader = Class.create({
-    initialize: function () {
-        this.probandData = undefined;
-    },
-    load: function (callWhenReady) {
-        new Ajax.Request("public/xwiki/PhenoTips.PatientClass/0.xml", {
-            method: "GET",
-            onSuccess: this.onProbandDataReady.bind(this),
-            onComplete: callWhenReady ? callWhenReady : {}
-        });
-    },
-
-    onProbandDataReady: function (response) {
-        var responseXML = response.responseXML; //documentElement.
-        this.probandData = {};
-        this.probandData.firstName = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__helpers__["b" /* unescapeRestData */])(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__helpers__["a" /* getSubSelectorTextFromXML */])(responseXML, "property", "name", "first_name", "value"));
-        this.probandData.lastName = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__helpers__["b" /* unescapeRestData */])(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__helpers__["a" /* getSubSelectorTextFromXML */])(responseXML, "property", "name", "last_name", "value"));
-        this.probandData.gender = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__helpers__["b" /* unescapeRestData */])(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__helpers__["a" /* getSubSelectorTextFromXML */])(responseXML, "property", "name", "gender", "value"));
-        if (this.probandData.gender === undefined || this.probandData.gender == "") this.probandData.gender = "U";
-        console.log("Proband data: " + __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__helpers__["c" /* stringifyObject */])(this.probandData));
-    }
-});
-/* harmony export (immutable) */ __webpack_exports__["a"] = ProbandDataLoader;
-
-
-const SaveLoadEngine = Class.create({
-
-    initialize: function () {
-        this._saveInProgress = false;
-    },
-
-    /**
-     * Saves the state of the graph
-     *
-     * @return Serialization data for the entire graph
-     */
-    serialize: function () {
-        return editor.getGraph().toJSON();
-    },
-
-    createGraphFromSerializedData: function (JSONString, noUndo, centerAround0) {
-        console.log("---- load: parsing data ----");
-        console.log(JSONString);
-        document.fire("pedigree:load:start");
-
-        try {
-            var changeSet = editor.getGraph().fromJSON(JSONString);
-        } catch (err) {
-            console.log("ERROR loading the graph: " + err);
-            alert("Error loading the graph");
-            document.fire("pedigree:graph:clear");
-            document.fire("pedigree:load:finish");
-            return;
-        }
-
-        if (!noUndo) {
-            var probandData = editor.getProbandDataFromPhenotips();
-            var genderOk = editor.getGraph().setProbandData(probandData.firstName, probandData.lastName, probandData.gender);
-            if (!genderOk) alert("Proband gender defined in Phenotips is incompatible with this pedigree. Setting proband gender to 'Unknown'");
-            JSONString = editor.getGraph().toJSON();
-        }
-
-        if (editor.getView().applyChanges(changeSet, false)) {
-            editor.getWorkspace().adjustSizeToScreen();
-        }
-
-        if (centerAround0) editor.getWorkspace().centerAroundNode(0);
-
-        if (!noUndo) editor.getActionStack().addState(null, null, JSONString);
-
-        document.fire("pedigree:load:finish");
-    },
-
-    createGraphFromImportData: function (importString, importType, importOptions, noUndo, centerAround0) {
-        let JSONString;
-        console.log("---- import: parsing data ----");
-        document.fire("pedigree:load:start");
-
-        try {
-            var changeSet = editor.getGraph().fromImport(importString, importType, importOptions);
-            if (changeSet == null) throw "unable to create a pedigree from imported data";
-        } catch (err) {
-            alert("Error importing pedigree: " + err);
-            document.fire("pedigree:load:finish");
-            return;
-        }
-
-        if (!noUndo) {
-            var probandData = editor.getProbandDataFromPhenotips();
-            var genderOk = editor.getGraph().setProbandData(probandData.firstName, probandData.lastName, probandData.gender);
-            if (!genderOk) alert("Proband gender defined in Phenotips is incompatible with the imported pedigree. Setting proband gender to 'Unknown'");
-            JSONString = editor.getGraph().toJSON();
-        }
-
-        if (editor.getView().applyChanges(changeSet, false)) {
-            editor.getWorkspace().adjustSizeToScreen();
-        }
-
-        if (centerAround0) editor.getWorkspace().centerAroundNode(0);
-
-        if (!noUndo) editor.getActionStack().addState(null, null, JSONString);
-
-        document.fire("pedigree:load:finish");
-    },
-
-    save: function () {
-        if (this._saveInProgress) return; // Don't send parallel save requests
-
-        var me = this;
-
-        var jsonData = this.serialize();
-
-        console.log("[SAVE] data: " + __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__helpers__["c" /* stringifyObject */])(jsonData));
-
-        var image = $("canvas");
-        var background = image.getElementsByClassName("panning-background")[0];
-        var backgroundPosition = background.nextSibling;
-        var backgroundParent = background.parentNode;
-        backgroundParent.removeChild(background);
-        var bbox = image.down().getBBox();
-        new Ajax.Request("public/xwiki/PhenoTips.PedigreeClass/0.xml", {
-            method: "POST",
-            onCreate: function () {
-                me._saveInProgress = true;
-            },
-            onComplete: function () {
-                me._saveInProgress = false;
-            },
-            onSuccess: function () {
-                console.log("saved");
-            },
-            parameters: { "property#data": jsonData, "property#image": image.innerHTML.replace(/xmlns:xlink=".*?"/, "").replace(/width=".*?"/, "").replace(/height=".*?"/, "").replace(/viewBox=".*?"/, "viewBox=\"" + bbox.x + " " + bbox.y + " " + bbox.width + " " + bbox.height + "\" width=\"" + bbox.width + "\" height=\"" + bbox.height + "\" xmlns:xlink=\"http://www.w3.org/1999/xlink\"") }
-        });
-        backgroundParent.insertBefore(background, backgroundPosition);
-    },
-
-    load: function () {
-        console.log("initiating load process");
-
-        new Ajax.Request("public/xwiki/PhenoTips.PedigreeClass/0.xml", {
-            method: "GET",
-            onCreate: function () {
-                document.fire("pedigree:load:start");
-            },
-            onSuccess: function (response) {
-                //console.log("Data from LOAD: " + stringifyObject(response));
-                //console.log("[Data from LOAD]");
-                var rawdata = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__helpers__["a" /* getSubSelectorTextFromXML */])(response.responseXML, "property", "name", "data", "value");
-                var jsonData = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__helpers__["b" /* unescapeRestData */])(rawdata);
-                if (jsonData.trim()) {
-                    console.log("[LOAD] recived JSON: " + __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__helpers__["c" /* stringifyObject */])(jsonData));
-
-                    jsonData = editor.getVersionUpdater().updateToCurrentVersion(jsonData);
-
-                    this.createGraphFromSerializedData(jsonData);
-                } else {
-                    new __WEBPACK_IMPORTED_MODULE_1__templateSelector__["a" /* TemplateSelector */](true);
-                }
-            }.bind(this)
-        });
-    }
-});
-/* harmony export (immutable) */ __webpack_exports__["b"] = SaveLoadEngine;
-
-/* WEBPACK VAR INJECTION */}.call(__webpack_exports__, __webpack_require__(3), __webpack_require__(27)))
-
-/***/ }),
-/* 61 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* WEBPACK VAR INJECTION */(function(Class, Ajax) {/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__helpers__ = __webpack_require__(6);
-
-
-/**
- * The UI Element for browsing and selecting pre-defined Pedigree templates
- *
- * @class TemplateSelector
- * @constructor
- * @param {Boolean} isStartupTemplateSelector Set to True if no pedigree has been loaded yet
- */
-
-const TemplateSelector = Class.create({
-
-    initialize: function (isStartupTemplateSelector) {
-        this._isStartupTemplateSelector = isStartupTemplateSelector;
-        this.mainDiv = new Element("div", { "class": "template-picture-container" });
-        this.mainDiv.update("Loading list of templates...");
-        var closeShortcut = isStartupTemplateSelector ? [] : ["Esc"];
-        this.dialog = new PhenoTips.widgets.ModalPopup(this.mainDiv, { close: { method: this.hide.bind(this), keys: closeShortcut } }, { extraClassName: "pedigree-template-chooser", title: "Please select a pedigree template", displayCloseButton: !isStartupTemplateSelector, verticalPosition: "top" });
-        isStartupTemplateSelector && this.dialog.show();
-        new Ajax.Request("public/xwiki/PhenoTips.PedigreeClass/index.xml", {
-            method: "GET",
-            onSuccess: this._onTemplateListAvailable.bind(this)
-        });
-    },
-
-    /**
-     * Returns True if this template selector is the one displayed on startup
-     *
-     * @method isStartupTemplateSelector
-     * @return {Boolean}
-     */
-    isStartupTemplateSelector: function () {
-        return this._isStartupTemplateSelector;
-    },
-
-    /**
-     * Displays the templates once they have been downloaded
-     *
-     * @param response
-     * @private
-     */
-    _onTemplateListAvailable: function (response) {
-        this.mainDiv.update();
-        var objects = response.responseXML.documentElement.getElementsByTagName("objectSummary");
-        for (var i = 0; i < objects.length; ++i) {
-            var pictureBox = new Element("div", { "class": "picture-box" });
-            pictureBox.update("Loading...");
-            this.mainDiv.insert(pictureBox);
-            var href = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__helpers__["d" /* getSelectorFromXML */])(objects[i], "link", "rel", "http://www.xwiki.org/rel/properties").getAttribute("href").substring(1);
-            new Ajax.Request(href, {
-                method: "GET",
-                onSuccess: this._onTemplateAvailable.bind(this, pictureBox)
-            });
-        }
-    },
-
-    /**
-     * Creates a clickable template thumbnail once the information has been downloaded
-     *
-     * @param pictureBox
-     * @param response
-     * @private
-     */
-    _onTemplateAvailable: function (pictureBox, response) {
-        pictureBox.innerHTML = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__helpers__["a" /* getSubSelectorTextFromXML */])(response.responseXML, "property", "name", "image", "value").replace(/&amp;/, "&");
-        pictureBox.pedigreeData = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__helpers__["a" /* getSubSelectorTextFromXML */])(response.responseXML, "property", "name", "data", "value");
-        pictureBox.type = "internal";
-        pictureBox.description = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__helpers__["a" /* getSubSelectorTextFromXML */])(response.responseXML, "property", "name", "description", "value");
-        pictureBox.title = pictureBox.description;
-
-        //console.log("[Data from Template] - " + stringifyObject(pictureBox.pedigreeData));
-
-        // TODO: render images with JavaScript instead
-        if (window.SVGSVGElement && document.implementation.hasFeature("http://www.w3.org/TR/SVG11/feature#Image", "1.1")) {
-            pictureBox.update(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__helpers__["a" /* getSubSelectorTextFromXML */])(response.responseXML, "property", "name", "image", "value"));
-        } else {
-            pictureBox.innerHTML = "<table bgcolor='#FFFAFA'><tr><td><br>&nbsp;" + pictureBox.description + "&nbsp;<br><br></td></tr></table>";
-        }
-        pictureBox.observe("click", this._onTemplateSelected.bindAsEventListener(this, pictureBox));
-    },
-
-    /**
-     * Loads the template once it has been selected
-     *
-     * @param event
-     * @param pictureBox
-     * @private
-     */
-    _onTemplateSelected: function (event, pictureBox) {
-        //console.log("observe onTemplateSelected");
-        this.dialog.close();
-        if (pictureBox.type == "internal") {
-            editor.getSaveLoadEngine().createGraphFromSerializedData(pictureBox.pedigreeData, false /* add to undo stack */, true /*center around 0*/);
-        } else if (pictureBox.type == "simpleJSON") {
-            editor.getSaveLoadEngine().createGraphFromImportData(pictureBox.pedigreeData, "simpleJSON", {}, false /* add to undo stack */, true /*center around 0*/);
-        }
-    },
-
-    /**
-     * Displays the template selector
-     *
-     * @method show
-     */
-    show: function () {
-        this.dialog.show();
-    },
-
-    /**
-     * Removes the the template selector
-     *
-     * @method hide
-     */
-    hide: function () {
-        this.dialog.closeDialog();
-    }
-});
-/* harmony export (immutable) */ __webpack_exports__["a"] = TemplateSelector;
-
-/* WEBPACK VAR INJECTION */}.call(__webpack_exports__, __webpack_require__(3), __webpack_require__(27)))
-
-/***/ }),
-/* 62 */
+/* 58 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function($H, $R, Sizzle) {var __WEBPACK_AMD_DEFINE_RESULT__;/*** IMPORTS FROM imports-loader ***/
@@ -44190,16 +43694,16 @@ Object.extend(Element.ClassNames.prototype, Enumerable);
 /*** EXPORTS FROM exports-loader ***/
 module.exports = Prototype;
 }.call(window));
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(18), __webpack_require__(13), __webpack_require__(24)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(18), __webpack_require__(17), __webpack_require__(24)))
 
 /***/ }),
-/* 63 */
+/* 59 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var _concat = __webpack_require__(12);
 var _curry2 = __webpack_require__(0);
 var _reduce = __webpack_require__(11);
-var map = __webpack_require__(10);
+var map = __webpack_require__(9);
 
 
 /**
@@ -44236,14 +43740,14 @@ module.exports = _curry2(function ap(applicative, fn) {
 
 
 /***/ }),
-/* 64 */
+/* 60 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var _curry2 = __webpack_require__(0);
 var _dispatchable = __webpack_require__(4);
-var _makeFlat = __webpack_require__(119);
-var _xchain = __webpack_require__(258);
-var map = __webpack_require__(10);
+var _makeFlat = __webpack_require__(111);
+var _xchain = __webpack_require__(249);
+var map = __webpack_require__(9);
 
 
 /**
@@ -44277,10 +43781,10 @@ module.exports = _curry2(_dispatchable(['chain'], _xchain, function chain(fn, mo
 
 
 /***/ }),
-/* 65 */
+/* 61 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var pipe = __webpack_require__(136);
+var pipe = __webpack_require__(128);
 var reverse = __webpack_require__(53);
 
 
@@ -44317,7 +43821,7 @@ module.exports = function compose() {
 
 
 /***/ }),
-/* 66 */
+/* 62 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var _curry2 = __webpack_require__(0);
@@ -44364,16 +43868,16 @@ module.exports = _curry2(function concat(a, b) {
 
 
 /***/ }),
-/* 67 */
+/* 63 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var _curry2 = __webpack_require__(0);
 var _dispatchable = __webpack_require__(4);
-var _filter = __webpack_require__(113);
-var _isObject = __webpack_require__(118);
+var _filter = __webpack_require__(105);
+var _isObject = __webpack_require__(110);
 var _reduce = __webpack_require__(11);
-var _xfilter = __webpack_require__(263);
-var keys = __webpack_require__(16);
+var _xfilter = __webpack_require__(254);
+var keys = __webpack_require__(15);
 
 
 /**
@@ -44418,11 +43922,11 @@ module.exports = _curry2(_dispatchable(['filter'], _xfilter, function(pred, filt
 
 
 /***/ }),
-/* 68 */
+/* 64 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var _curry1 = __webpack_require__(1);
-var _identity = __webpack_require__(71);
+var _identity = __webpack_require__(67);
 
 
 /**
@@ -44448,17 +43952,17 @@ module.exports = _curry1(_identity);
 
 
 /***/ }),
-/* 69 */
+/* 65 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var _objectAssign = __webpack_require__(248);
+var _objectAssign = __webpack_require__(239);
 
 module.exports =
   typeof Object.assign === 'function' ? Object.assign : _objectAssign;
 
 
 /***/ }),
-/* 70 */
+/* 66 */
 /***/ (function(module, exports) {
 
 module.exports = function _containsWith(pred, x, list) {
@@ -44476,14 +43980,14 @@ module.exports = function _containsWith(pred, x, list) {
 
 
 /***/ }),
-/* 71 */
+/* 67 */
 /***/ (function(module, exports) {
 
 module.exports = function _identity(x) { return x; };
 
 
 /***/ }),
-/* 72 */
+/* 68 */
 /***/ (function(module, exports) {
 
 module.exports = function _isTransformer(obj) {
@@ -44492,7 +43996,7 @@ module.exports = function _isTransformer(obj) {
 
 
 /***/ }),
-/* 73 */
+/* 69 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var _curry2 = __webpack_require__(0);
@@ -44520,7 +44024,7 @@ module.exports = _curry2(function prop(p, obj) { return obj[p]; });
 
 
 /***/ }),
-/* 74 */
+/* 70 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var _checkForMethod = __webpack_require__(28);
@@ -44559,7 +44063,7 @@ module.exports = _curry1(_checkForMethod('tail', slice(1, Infinity)));
 
 
 /***/ }),
-/* 75 */
+/* 71 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var _curry1 = __webpack_require__(1);
@@ -44596,11 +44100,11 @@ module.exports = _curry1(function type(val) {
 
 
 /***/ }),
-/* 76 */
+/* 72 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var identity = __webpack_require__(68);
-var uniqBy = __webpack_require__(144);
+var identity = __webpack_require__(64);
+var uniqBy = __webpack_require__(136);
 
 
 /**
@@ -44624,10 +44128,10 @@ module.exports = uniqBy(identity);
 
 
 /***/ }),
-/* 77 */
+/* 73 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var _containsWith = __webpack_require__(70);
+var _containsWith = __webpack_require__(66);
 var _curry2 = __webpack_require__(0);
 
 
@@ -44670,11 +44174,11 @@ module.exports = _curry2(function uniqWith(pred, list) {
 
 
 /***/ }),
-/* 78 */
+/* 74 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* WEBPACK VAR INJECTION */(function(Class) {/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__pedigreeEditorAttributes__ = __webpack_require__(9);
+/* WEBPACK VAR INJECTION */(function(Class) {/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__pedigreeEditorAttributes__ = __webpack_require__(10);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__abstractNodeVisuals__ = __webpack_require__(35);
 
 
@@ -45037,2804 +44541,202 @@ const AbstractPersonVisuals = Class.create(__WEBPACK_IMPORTED_MODULE_1__abstract
 /* WEBPACK VAR INJECTION */}.call(__webpack_exports__, __webpack_require__(3)))
 
 /***/ }),
-/* 79 */
+/* 75 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* WEBPACK VAR INJECTION */(function(Class) {/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__pedigreeEditorAttributes__ = __webpack_require__(9);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__helpers__ = __webpack_require__(6);
+/* WEBPACK VAR INJECTION */(function(Class, Ajax) {/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__helpers__ = __webpack_require__(6);
 
-
-
-/**
- * ...
+/*
+ * Disorder is a class for storing genetic disorder info and loading it from the
+ * the OMIM database. These disorders can be attributed to an individual in the Pedigree.
  *
- * @class Controller
- * @constructor
+ * @param disorderID the id number for the disorder, taken from the OMIM database
+ * @param name a string representing the name of the disorder e.g. "Down Syndrome"
  */
 
-// TODO: undo/redo in all handlers
+const Disorder = Class.create({
 
-const Controller = Class.create({
-    initialize: function () {
-        document.observe("pedigree:autolayout", this.handleAutoLayout);
-        document.observe("pedigree:graph:clear", this.handleClearGraph);
-        document.observe("pedigree:undo", this.handleUndo);
-        document.observe("pedigree:redo", this.handleRedo);
-        document.observe("pedigree:renumber", this.handleRenumber);
-        document.observe("pedigree:node:remove", this.handleRemove);
-        document.observe("pedigree:node:setproperty", this.handleSetProperty);
-        document.observe("pedigree:node:modify", this.handleModification);
-        document.observe("pedigree:person:drag:newparent", this.handlePersonDragToNewParent);
-        document.observe("pedigree:person:drag:newpartner", this.handlePersonDragToNewPartner);
-        document.observe("pedigree:person:drag:newsibling", this.handlePersonDragToNewSibling);
-        document.observe("pedigree:person:newparent", this.handlePersonNewParents);
-        document.observe("pedigree:person:newsibling", this.handlePersonNewSibling);
-        document.observe("pedigree:person:newpartnerandchild", this.handlePersonNewPartnerAndChild);
-        document.observe("pedigree:partnership:newchild", this.handleRelationshipNewChild);
-    },
-
-    handleUndo: function (event) {
-        console.log("event: " + event.eventName + ", memo: " + __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__helpers__["c" /* stringifyObject */])(event.memo));
-        editor.getActionStack().undo();
-    },
-
-    handleRedo: function (event) {
-        console.log("event: " + event.eventName + ", memo: " + __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__helpers__["c" /* stringifyObject */])(event.memo));
-        editor.getActionStack().redo();
-    },
-
-    handleRenumber: function (event) {
-        // Assigns user-visible node labels for all person nodes, based on generation and order
-        // ("I-1","I-2","I-3", "II-1", "II-2", etc.)
-
-        console.log("event: " + event.eventName + ", memo: " + __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__helpers__["c" /* stringifyObject */])(event.memo));
-
-        var check = event.memo.hasOwnProperty("check");
-        var clear = false;
-        var needRedraw = false;
-
-        do {
-            var secondPass = false;
-
-            for (var nodeID in editor.getView().getNodeMap()) {
-                if (editor.getView().getNodeMap().hasOwnProperty(nodeID)) {
-                    if (editor.getGraph().isPerson(nodeID)) {
-                        var node = editor.getView().getNode(nodeID);
-                        var currentPedNumber = node.getPedNumber();
-
-                        if (clear) {
-                            var pedNumber = "";
-                        } else {
-                            var generation = editor.getGraph().getGeneration(nodeID);
-                            var order = editor.getGraph().getOrderWithinGeneration(nodeID);
-                            pedNumber = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__helpers__["e" /* romanize */])(generation) + "-" + order;
-
-                            if (check) {
-                                if (pedNumber != currentPedNumber) {
-                                    // one of the nodes PED number is not correct
-                                    clear = true;
-                                    secondPass = true;
-                                    break;
-                                }
-                            }
-                        }
-
-                        if (currentPedNumber != pedNumber) {
-                            needRedraw = true;
-                            node.setPedNumber(pedNumber);
-                            var allProperties = node.getProperties();
-                            editor.getGraph().setProperties(nodeID, allProperties);
-                        }
-                    }
-                }
-            }
-        } while (secondPass);
-
-        var renumberButton = $("action-number");
-        if (renumberButton) {
-            if (clear) {
-                renumberButton.className = renumberButton.className.replace("disabled-menu-item", "menu-item");
-            } else {
-                renumberButton.className = renumberButton.className.replace(/^menu-item/, "disabled-menu-item");
-            }
+    initialize: function (disorderID, name, callWhenReady) {
+        // user-defined disorders
+        if (name == null && !__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__helpers__["i" /* isInt */])(disorderID)) {
+            name = Disorder.desanitizeID(disorderID);
         }
 
-        if (!event.memo.noUndoRedo && needRedraw) {
-            editor.getView().unmarkAll();
-            editor.getActionStack().addState(event);
-        }
+        this._disorderID = Disorder.sanitizeID(disorderID);
+        this._name = name ? name : "loading...";
+
+        if (!name && callWhenReady) this.load(callWhenReady);
     },
 
-    handleAutoLayout: function (event) {
+    /*
+     * Returns the disorderID of the disorder
+     */
+    getDisorderID: function () {
+        return this._disorderID;
+    },
+
+    /*
+     * Returns the name of the disorder
+     */
+    getName: function () {
+        return this._name;
+    },
+
+    load: function (callWhenReady) {
+        var baseOMIMServiceURL = Disorder.getOMIMServiceURL();
+        var queryURL = baseOMIMServiceURL + "&q=id:" + this._disorderID;
+        //console.log("queryURL: " + queryURL);
+        new Ajax.Request(queryURL, {
+            method: "GET",
+            onSuccess: this.onDataReady.bind(this),
+            //onComplete: complete.bind(this)
+            onComplete: callWhenReady ? callWhenReady : {}
+        });
+    },
+
+    onDataReady: function (response) {
         try {
-            console.log("event: " + event.eventName + ", memo: " + __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__helpers__["c" /* stringifyObject */])(event.memo));
-            var changeSet = editor.getGraph().redrawAll();
-            editor.getView().applyChanges(changeSet, true);
-
-            if (!event.memo.noUndoRedo) editor.getActionStack().addState(event);
+            var parsed = JSON.parse(response.responseText);
+            //console.log(stringifyObject(parsed));
+            console.log("LOADED DISORDER: disorder id = " + this._disorderID + ", name = " + parsed.rows[0].name);
+            this._name = parsed.rows[0].name;
         } catch (err) {
-            console.log("Autolayout error: ");
+            console.log("[LOAD DISORDER] Error: " + err);
             console.trace(err);
         }
+    }
+});
+/* harmony export (immutable) */ __webpack_exports__["a"] = Disorder;
+
+
+/*
+ * IDs are used as part of HTML IDs in the Legend box, which breaks when IDs contain some non-alphanumeric symbols.
+ * For that purpose these symbols in IDs are converted in memory (but not in the stored pedigree) to some underscores.
+ */
+Disorder.sanitizeID = function (disorderID) {
+    if (__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__helpers__["i" /* isInt */])(disorderID)) return disorderID;
+    var temp = disorderID.replace(/[\(\[]/g, "_L_");
+    temp = temp.replace(/[\)\]]/g, "_J_");
+    return temp.replace(/[^a-zA-Z0-9,;_\-*]/g, "__");
+};
+
+Disorder.desanitizeID = function (disorderID) {
+    var temp = disorderID.replace(/__/g, " ");
+    temp = temp.replace(/_L_/g, "(");
+    return temp.replace(/_J_/g, ")");
+};
+
+Disorder.getOMIMServiceURL = function () {
+    return "";
+};
+/* WEBPACK VAR INJECTION */}.call(__webpack_exports__, __webpack_require__(3), __webpack_require__(27)))
+
+/***/ }),
+/* 76 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* WEBPACK VAR INJECTION */(function(Class, Ajax) {/*
+ * HPOTerm is a class for storing phenotype information and loading it from the
+ * the HPO database. These phenotypes can be attributed to an individual in the Pedigree.
+ *
+ * @param hpoID the id number for the HPO term, taken from the HPO database
+ * @param name a string representing the name of the term e.g. "Abnormality of the eye"
+ */
+
+const HPOTerm = Class.create({
+
+    initialize: function (hpoID, name, callWhenReady) {
+        // user-defined terms
+        if (name == null && !HPOTerm.isValidID(HPOTerm.desanitizeID(hpoID))) {
+            name = HPOTerm.desanitizeID(hpoID);
+        }
+
+        this._hpoID = HPOTerm.sanitizeID(hpoID);
+        this._name = name ? name : "loading...";
+
+        if (!name && callWhenReady) this.load(callWhenReady);
     },
 
-    handleClearGraph: function (event) {
-        console.log("event: " + event.eventName + ", memo: " + __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__helpers__["c" /* stringifyObject */])(event.memo));
-        var changeSet = editor.getGraph().clearAll();
-        editor.getView().applyChanges(changeSet, true);
-
-        editor.getWorkspace().centerAroundNode(0, false);
-
-        if (!event.memo.noUndoRedo) editor.getActionStack().addState(event);
+    /*
+     * Returns the hpoID of the phenotype
+     */
+    getID: function () {
+        return this._hpoID;
     },
 
-    handleRemove: function (event) {
-        console.log("event: " + event.eventName + ", memo: " + __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__helpers__["c" /* stringifyObject */])(event.memo));
-        var nodeID = event.memo.nodeID;
-
-        // get the list of affected nodes
-        var disconnectedList = editor.getGraph().getDisconnectedSetIfNodeRemoved(nodeID);
-
-        var removeSelected = function () {
-            try {
-                var changeSet = editor.getGraph().removeNodes(disconnectedList);
-
-                editor.getView().applyChanges(changeSet, true);
-
-                changeSet = editor.getGraph().improvePosition();
-                editor.getView().applyChanges(changeSet, true);
-
-                if (!event.memo.noUndoRedo) editor.getActionStack().addState(event);
-            } catch (err) {
-                console.log("[DEBUG] Remove error: ");
-                console.trace(err);
-            }
-        };
-
-        // if there is only one node or this removal is done as part of an undo/redo action
-        // => just remove without asking any questions or highlighting any nodes
-        if (disconnectedList.length <= 1 || event.memo.hasOwnProperty("noUndoRedo")) {
-            removeSelected();
-            return;
-        }
-
-        // otherwise remove current highlighting and highlight all nodes which will be removed
-        editor.getView().unmarkAll();
-        for (var i = 0; i < disconnectedList.length; i++) {
-            var nextHighlight = disconnectedList[i];
-            editor.getView().getNode(nextHighlight).getGraphics().markPermanently();
-        }
-
-        var unhighlightSelected = function () {
-            for (var i = 0; i < disconnectedList.length; i++) {
-                var nextHighlight = disconnectedList[i];
-                editor.getView().getNode(nextHighlight).getGraphics().unmark();
-            }
-        };
-
-        // ...and display a OK/Cancel dialogue, calling "removeSelected()" on OK and "unhighlightSelected" on Cancel
-        editor.getOkCancelDialogue().show("All highlighted nodes will be removed. Do you want to proceed?", "Delete nodes?", removeSelected, unhighlightSelected);
+    /*
+     * Returns the name of the term
+     */
+    getName: function () {
+        return this._name;
     },
 
-    handleSetProperty: function (event) {
-        //console.log("event: " + event.eventName + ", memo: " + stringifyObject(event.memo));
-        var nodeID = event.memo.nodeID;
-        var properties = event.memo.properties;
-        var undoEvent = { "eventName": event.eventName, "memo": { "nodeID": nodeID, "properties": __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__helpers__["f" /* cloneObject */])(event.memo.properties) } };
-
-        var node = editor.getView().getNode(nodeID);
-        var changed = false;
-
-        var twinUpdate = undefined;
-        var needUpdateAncestors = false;
-        var needUpdateRelationship = false;
-        var needUpdateAllRelationships = false;
-
-        var changedValue = false;
-
-        for (var propertySetFunction in properties) {
-            if (properties.hasOwnProperty(propertySetFunction)) {
-                var propValue = properties[propertySetFunction];
-
-                //console.log("attmepting to set property " + propertySetFunction + " to " + propValue);
-                if (!Controller._validatePropertyValue(nodeID, propertySetFunction, propValue)) continue;
-
-                //console.log("validated");
-                // prepare undo event
-                var propertyGetFunction = propertySetFunction.replace("set", "get");
-                var oldValue = node[propertyGetFunction]();
-                if (oldValue == propValue) continue;
-
-                if (Object.prototype.toString.call(oldValue) === "[object Array]") {
-                    oldValue = oldValue.slice(0);
-                }
-
-                undoEvent.memo.properties[propertySetFunction] = oldValue;
-
-                if (propertySetFunction == "setDeathDate" || propertySetFunction == "setBirthDate") {
-                    // some browsers may not treat the date string as provided by the date widget the same way,
-                    // so convert to the least common denominator which seems to be the toDateString()
-                    if (propValue != "") {
-                        try {
-                            var parsedDate = new Date(propValue);
-                            propValue = parsedDate.toDateString();
-                        } catch (err) {
-                            console.trace(err);
-                            // in case date did not parse: set date exactly as provided
-                        }
-                    }
-                }
-
-                // sometimes UNDO includes more then the property itself: e.g. changing life status
-                // from "dead" to "alive" also clears the death date. Need to add it to the "undo" event
-                if (propertySetFunction == "setLifeStatus") {
-                    undoEvent.memo.properties["setDeathDate"] = node.getDeathDate();
-                    undoEvent.memo.properties["setGestationAge"] = node.getGestationAge();
-                    undoEvent.memo.properties["setBirthDate"] = node.getBirthDate();
-                    undoEvent.memo.properties["setAdopted"] = node.getAdopted();
-                }
-                if (propertySetFunction == "setDeathDate") {
-                    undoEvent.memo.properties["setLifeStatus"] = node.getLifeStatus();
-                }
-                if (propertySetFunction == "setChildlessStatus") {
-                    undoEvent.memo.properties["setChildlessReason"] = node.getChildlessReason();
-                }
-                if (propertySetFunction == "setDisorders") {
-                    undoEvent.memo.properties["setCarrierStatus"] = node.getCarrierStatus();
-                }
-                if (propertySetFunction == "setCarrierStatus") {
-                    undoEvent.memo.properties["setDisorders"] = node.getDisorders().slice(0);
-                }
-
-                node[propertySetFunction](propValue);
-
-                if (propertySetFunction == "setDisorders") {
-                    var newDisorders = node[propertyGetFunction]();
-                    if (JSON.stringify(oldValue) == JSON.stringify(newDisorders)) continue;
-                }
-
-                changedValue = true;
-
-                if (propertySetFunction == "setLastName") {
-                    if (__WEBPACK_IMPORTED_MODULE_0__pedigreeEditorAttributes__["a" /* PedigreeEditorAttributes */].propagateLastName) {
-                        if (node.getGender(nodeID) == "M") {
-                            if (propValue != "") {
-                                // propagate last name as "last name at birth" to all descendants (by the male line)
-                                Controller._propagateLastNameAtBirth(nodeID, propValue, oldValue);
-                                undoEvent = null; // there is no easy undo other than just remember the previous graph state
-                            }
-                        }
-                    }
-                }
-
-                if (propertySetFunction == "setGender") {
-                    if (node.getMonozygotic()) {
-                        if (!twinUpdate) twinUpdate = {};
-                        twinUpdate[propertySetFunction] = propValue;
-                    }
-                }
-
-                if (propertySetFunction == "setAdopted") {
-                    needUpdateAncestors = true;
-                    if (!twinUpdate) twinUpdate = {};
-                    twinUpdate[propertySetFunction] = propValue;
-                }
-
-                if (propertySetFunction == "setMonozygotic") {
-                    needUpdateRelationship = true;
-                    if (!twinUpdate) twinUpdate = {};
-                    twinUpdate[propertySetFunction] = propValue;
-                }
-
-                if (propertySetFunction == "setConsanguinity" || propertySetFunction == "setBrokenStatus") {
-                    // this updates the relationship lines, as well as any lines
-                    // crossed by the relationship llines to maintain correct crossing graphics
-                    needUpdateRelationship = true;
-                }
-
-                if (propertySetFunction == "setLostContact") {
-                    // it is hard to say which of the incoming/outgoing lines needs to be redraws/updated,
-                    // so it is easier to just redraw all
-                    needUpdateAllRelationships = true;
-                }
-            }
-        }
-
-        // some properties should be the same for all the twins. If one of those
-        // was changed, need to update all the twins
-        if (twinUpdate) {
-            var allTwins = editor.getGraph().getAllTwinsSortedByOrder(nodeID);
-            for (var propertySetFunction in twinUpdate) {
-                if (twinUpdate.hasOwnProperty(propertySetFunction)) {
-                    var propValue = twinUpdate[propertySetFunction];
-
-                    for (var i = 0; i < allTwins.length; i++) {
-                        var twin = allTwins[i];
-                        if (twin == nodeID) continue;
-                        var twinNode = editor.getView().getNode(twin);
-                        twinNode[propertySetFunction](propValue);
-                        var twinProperties = twinNode.getProperties();
-                        console.log("Setting twin properties: " + __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__helpers__["c" /* stringifyObject */])(twinProperties));
-                        editor.getGraph().setProperties(twin, twinProperties);
-                    }
-                }
-            }
-        }
-
-        var allProperties = node.getProperties();
-        editor.getGraph().setProperties(nodeID, allProperties);
-
-        if (needUpdateAncestors) {
-            var changeSet = editor.getGraph().updateAncestors();
-            editor.getView().applyChanges(changeSet, true);
-        }
-
-        if (needUpdateAllRelationships) {
-            var rels = editor.getGraph().getAllRelatedRelationships(nodeID);
-            var changeSet = { "moved": rels };
-            editor.getView().applyChanges(changeSet, true);
-        }
-
-        if (needUpdateRelationship) {
-            var relID = editor.getGraph().isRelationship(nodeID) ? nodeID : editor.getGraph().getParentRelationship(nodeID);
-            var changeSet = { "moved": [relID] };
-            editor.getView().applyChanges(changeSet, true);
-        }
-
-        editor.getNodeMenu().update(); // for example, user selected a wrong gender in the nodeMenu, which
-        // gets reverted back - need to select the correct one in the nodeMenu as well
-
-        //console.log("event: " + event.eventName + ", memo: " + stringifyObject(event.memo));
-        //console.log("Undo event: " + stringifyObject(undoEvent));
-        if (!event.memo.noUndoRedo && changedValue) editor.getActionStack().addState(event, undoEvent);
+    load: function (callWhenReady) {
+        var baseServiceURL = HPOTerm.getServiceURL();
+        var queryURL = baseServiceURL + "&q=id%3A" + HPOTerm.desanitizeID(this._hpoID).replace(":", "%5C%3A");
+        //console.log("QueryURL: " + queryURL);
+        new Ajax.Request(queryURL, {
+            method: "GET",
+            onSuccess: this.onDataReady.bind(this),
+            //onComplete: complete.bind(this)
+            onComplete: callWhenReady ? callWhenReady : {}
+        });
     },
 
-    handleModification: function (event) {
+    onDataReady: function (response) {
         try {
-            console.log("event: " + event.eventName + ", memo: " + __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__helpers__["c" /* stringifyObject */])(event.memo));
-            var nodeID = event.memo.nodeID;
-            var modifications = event.memo.modifications;
-
-            var node = editor.getView().getNode(nodeID);
-
-            //var allProperties = node.getProperties();
-
-            for (var modificationType in modifications) if (modifications.hasOwnProperty(modificationType)) {
-                var modValue = modifications[modificationType];
-
-                if (modificationType == "addTwin") {
-                    var numNewTwins = modValue - 1; // current node is one of the twins, so need to create one less
-                    for (var i = 0; i < numNewTwins; i++) {
-                        var twinProperty = { "gender": node.getGender() };
-                        var changeSet = editor.getGraph().addTwin(nodeID, twinProperty);
-                        editor.getView().applyChanges(changeSet, true);
-                    }
-                    node.assignProperties(editor.getGraph().getProperties(nodeID));
-                }
-
-                if (modificationType == "makePlaceholder") {
-                    // TODO
-                }
-            }
-
-            if (!event.memo.noUndoRedo) editor.getActionStack().addState(event);
+            var parsed = JSON.parse(response.responseText);
+            //console.log(stringifyObject(parsed));
+            console.log("LOADED HPO TERM: id = " + HPOTerm.desanitizeID(this._hpoID) + ", name = " + parsed.rows[0].name);
+            this._name = parsed.rows[0].name;
         } catch (err) {
-            console.log("err: " + err);
-        }
-    },
-
-    handlePersonDragToNewParent: function (event) {
-        console.log("event: " + event.eventName + ", memo: " + __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__helpers__["c" /* stringifyObject */])(event.memo));
-
-        var personID = event.memo.personID;
-        var parentID = event.memo.parentID;
-        if (!editor.getGraph().isPerson(personID) || !editor.getGraph().isValidID(parentID)) return;
-
-        if (editor.getGraph().isChildless(parentID)) {
-            editor.getController().handleSetProperty({ "memo": { "nodeID": personID, "properties": { "setAdopted": true }, "noUndoRedo": true } });
-        }
-
-        try {
-            var changeSet = editor.getGraph().assignParent(parentID, personID);
-            editor.getView().applyChanges(changeSet, true);
-
-            if (changeSet.moved.indexOf(personID) != -1) editor.getWorkspace().centerAroundNode(personID, true);
-
-            if (!event.memo.noUndoRedo) editor.getActionStack().addState(event);
-        } catch (err) {
+            console.log("[LOAD HPO TERM] Error: ");
             console.trace(err);
         }
-    },
-
-    handlePersonNewParents: function (event) {
-        console.log("event: " + event.eventName + ", memo: " + __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__helpers__["c" /* stringifyObject */])(event.memo));
-
-        var personID = event.memo.personID;
-        if (!editor.getGraph().isPerson(personID)) return;
-
-        var changeSet = editor.getGraph().addNewParents(personID);
-        editor.getView().applyChanges(changeSet, true);
-
-        if (!event.memo.noUndoRedo) editor.getActionStack().addState(event);
-
-        return changeSet["new"][0]; // new relationship
-    },
-
-    handlePersonNewSibling: function (event) {
-        console.log("event: " + event.eventName + ", memo: " + __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__helpers__["c" /* stringifyObject */])(event.memo));
-
-        // { "personID": id, "childParams": data.params.parameters, "preferLeft": false };
-        var personID = event.memo.personID;
-        var childParams = event.memo.childParams ? __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__helpers__["f" /* cloneObject */])(event.memo.childParams) : {};
-        var numTwins = event.memo.twins ? event.memo.twins : 1;
-        var numPersons = event.memo.groupSize ? event.memo.groupSize : 0;
-
-        var parentRelationship = editor.getGraph().getParentRelationship(personID);
-
-        if (parentRelationship === null) {
-            // need to add new parents
-            parentRelationship = editor.getController().handlePersonNewParents({ "memo": { "personID": personID, "noUndoRedo": true } });
-        }
-
-        if (event.memo.twins) {
-            var nextEvent = { "nodeID": personID, "modifications": { "addTwin": event.memo.twins }, "noUndoRedo": true };
-            editor.getController().handleModification({ "memo": nextEvent });
-        } else {
-            var nextEvent = { "partnershipID": parentRelationship, "childParams": childParams, "noUndoRedo": true };
-            if (event.memo.groupSize) nextEvent["groupSize"] = event.memo.groupSize;
-
-            editor.getController().handleRelationshipNewChild({ "memo": nextEvent });
-        }
-
-        if (!event.memo.noUndoRedo) editor.getActionStack().addState(event);
-    },
-
-    handlePersonDragToNewSibling: function (event) {
-        console.log("event: " + event.eventName + ", memo: " + __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__helpers__["c" /* stringifyObject */])(event.memo));
-
-        var sibling1 = event.memo.sibling1ID;
-        var sibling2 = event.memo.sibling2ID;
-
-        var parentRelationship = editor.getGraph().getParentRelationship(sibling1);
-        if (parentRelationship == null) parentRelationship = editor.getGraph().getParentRelationship(sibling2);
-
-        if (parentRelationship === null) {
-            // need to add new parents
-            parentRelationship = editor.getController().handlePersonNewParents({ "memo": { "personID": sibling1, "noUndoRedo": true } });
-        }
-
-        if (editor.getGraph().getParentRelationship(sibling2) != parentRelationship) {
-            // assign sibling 2 to this relationship: covers the case when none have parents or sibling1 has parents
-            editor.getController().handlePersonDragToNewParent({ "memo": { "personID": sibling2, "parentID": parentRelationship, "noUndoRedo": true } });
-        } else {
-            // assign sibling 1 to this relationship
-            editor.getController().handlePersonDragToNewParent({ "memo": { "personID": sibling1, "parentID": parentRelationship, "noUndoRedo": true } });
-        }
-
-        if (!event.memo.noUndoRedo) editor.getActionStack().addState(event);
-    },
-
-    handlePersonNewPartnerAndChild: function (event) {
-        var timer = new __WEBPACK_IMPORTED_MODULE_1__helpers__["g" /* Timer */]();
-
-        try {
-            console.log("event: " + event.eventName + ", memo: " + __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__helpers__["c" /* stringifyObject */])(event.memo));
-
-            var personID = event.memo.personID;
-            if (!editor.getGraph().isPerson(personID)) return;
-            var preferLeft = event.memo.preferLeft;
-            var childParams = event.memo.childParams ? __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__helpers__["f" /* cloneObject */])(event.memo.childParams) : {};
-            var numTwins = event.memo.twins ? event.memo.twins : 1;
-            var numPersons = event.memo.groupSize ? event.memo.groupSize : 0;
-
-            if (editor.getGraph().isChildless(personID)) {
-                childParams["isAdopted"] = true;
-            }
-
-            if (numPersons > 0) {
-                childParams["numPersons"] = numPersons;
-            }
-
-            var changeSet = editor.getGraph().addNewRelationship(personID, childParams, preferLeft, numTwins);
-            editor.getView().applyChanges(changeSet, true);
-
-            if (!event.memo.noUndoRedo) editor.getActionStack().addState(event);
-        } catch (err) {
-            console.trace(err);
-        }
-
-        timer.printSinceLast("=== Total new partner+child runtime: ");
-    },
-
-    handlePersonDragToNewPartner: function (event) {
-        console.log("event: " + event.eventName + ", memo: " + __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__helpers__["c" /* stringifyObject */])(event.memo));
-
-        var personID = event.memo.personID;
-        var partnerID = event.memo.partnerID;
-        if (!editor.getGraph().isPerson(personID) || !editor.getGraph().isPerson(partnerID)) return;
-
-        var childProperties = {};
-        if (editor.getGraph().isChildless(personID) || editor.getGraph().isChildless(partnerID)) {
-            childProperties = { "isAdopted": true };
-        }
-
-        // when partnering up a node with unknown gender with a node of known gender
-        // change the unknown gender to the opposite of known
-        var node1 = editor.getView().getNode(personID);
-        var node2 = editor.getView().getNode(partnerID);
-
-        if (node1.getGender() == "U" && node2.getGender() != "U") {
-            var gender1 = editor.getGraph().getOppositeGender(partnerID);
-            node1.setGender(gender1);
-            editor.getGraph().setProperties(personID, node1.getProperties());
-        } else if (node1.getGender() != "U" && node2.getGender() == "U") {
-            var gender2 = editor.getGraph().getOppositeGender(personID);
-            node2.setGender(gender2);
-            editor.getGraph().setProperties(partnerID, node2.getProperties());
-        }
-
-        // TODO: propagate change of gender down the partnership chain
-
-        var changeSet = editor.getGraph().assignPartner(personID, partnerID, childProperties);
-        editor.getView().applyChanges(changeSet, true);
-
-        if (!event.memo.noUndoRedo) editor.getActionStack().addState(event);
-    },
-
-    handleRelationshipNewChild: function (event) {
-        console.log("event: " + event.eventName + ", memo: " + __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__helpers__["c" /* stringifyObject */])(event.memo));
-
-        var partnershipID = event.memo.partnershipID;
-        if (!editor.getGraph().isRelationship(partnershipID)) return;
-
-        var numTwins = event.memo.twins ? event.memo.twins : 1;
-
-        var childParams = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__helpers__["f" /* cloneObject */])(event.memo.childParams);
-        if (editor.getGraph().isChildless(partnershipID)) {
-            childParams["isAdopted"] = true;
-        }
-
-        var numPersons = event.memo.groupSize ? event.memo.groupSize : 0;
-        if (numPersons > 0) {
-            childParams["numPersons"] = numPersons;
-        }
-
-        var changeSet = editor.getGraph().addNewChild(partnershipID, childParams, numTwins);
-        editor.getView().applyChanges(changeSet, true);
-
-        if (!event.memo.noUndoRedo) editor.getActionStack().addState(event);
     }
 });
-/* harmony export (immutable) */ __webpack_exports__["a"] = Controller;
+/* harmony export (immutable) */ __webpack_exports__["a"] = HPOTerm;
 
 
-Controller._validatePropertyValue = function (nodeID, propertySetFunction, propValue) {
-    if (propertySetFunction == "setGender") {
-        var possibleGenders = editor.getGraph().getPossibleGenders(nodeID);
-        //console.log("valid genders: " + stringifyObject(possibleGenders));
-        return possibleGenders[propValue];
-    }
-    return true;
-};
-
-Controller._propagateLastNameAtBirth = function (parentID, parentLastName, changeIfEqualTo) {
-    var children = editor.getGraph().getAllChildren(parentID);
-
-    for (var i = 0; i < children.length; i++) {
-        var childID = children[i];
-        var childNode = editor.getView().getNode(childID);
-
-        if (childNode.getLastName() == "" && (childNode.getLastNameAtBirth() == "" || childNode.getLastNameAtBirth() == changeIfEqualTo)) {
-            childNode.setLastNameAtBirth(parentLastName);
-            var allProperties = childNode.getProperties();
-            editor.getGraph().setProperties(childID, allProperties);
-            if (childNode.getGender() == "M") {
-                Controller._propagateLastNameAtBirth(childID, parentLastName, changeIfEqualTo);
-            }
-        }
-    }
-};
-/* WEBPACK VAR INJECTION */}.call(__webpack_exports__, __webpack_require__(3)))
-
-/***/ }),
-/* 80 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* WEBPACK VAR INJECTION */(function(Class, Raphael) {/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__legend__ = __webpack_require__(58);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__helpers__ = __webpack_require__(6);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__disorder__ = __webpack_require__(56);
-
-
-
-
-/**
- * Class responsible for keeping track of disorders and their properties, and for
- * caching disorders data as loaded from the OMIM database.
- * This information is graphically displayed in a 'Legend' box.
- *
- * @class DisorderLegend
- * @constructor
+/*
+ * IDs are used as part of HTML IDs in the Legend box, which breaks when IDs contain some non-alphanumeric symbols.
+ * For that purpose these symbols in IDs are converted in memory (but not in the stored pedigree) to some underscores.
  */
-const DisorderLegend = Class.create(__WEBPACK_IMPORTED_MODULE_0__legend__["a" /* Legend */], {
-
-    initialize: function ($super) {
-        $super("Disorders", true);
-
-        this._disorderCache = {};
-
-        this._specialDisordersRegexps = [new RegExp("^1BrCa", "i"), new RegExp("^2BrCa", "i"), new RegExp("^OvCa", "i"), new RegExp("^ProCa", "i"), new RegExp("^PanCa", "i")];
-    },
-
-    _getPrefix: function (id) {
-        return "disorder";
-    },
-
-    /**
-     * Returns the disorder object with the given ID. If object is not in cache yet
-     * returns a newly created one which may have the disorder name & other attributes not loaded yet
-     *
-     * @method getDisorder
-     * @return {Object}
-     */
-    getDisorder: function (disorderID) {
-        if (!__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__helpers__["i" /* isInt */])(disorderID)) {
-            disorderID = __WEBPACK_IMPORTED_MODULE_2__disorder__["a" /* Disorder */].sanitizeID(disorderID);
-        }
-        if (!this._disorderCache.hasOwnProperty(disorderID)) {
-            var whenNameIsLoaded = function () {
-                this._updateDisorderName(disorderID);
-            };
-            this._disorderCache[disorderID] = new __WEBPACK_IMPORTED_MODULE_2__disorder__["a" /* Disorder */](disorderID, null, whenNameIsLoaded.bind(this));
-        }
-        return this._disorderCache[disorderID];
-    },
-
-    /**
-     * Registers an occurrence of a disorder. If disorder hasn't been documented yet,
-     * designates a color for it.
-     *
-     * @method addCase
-     * @param {Number|String} disorderID ID for this disorder taken from the OMIM database
-     * @param {String} disorderName The name of the disorder
-     * @param {Number} nodeID ID of the Person who has this disorder
-     */
-    addCase: function ($super, disorderID, disorderName, nodeID) {
-        if (!this._disorderCache.hasOwnProperty(disorderID)) this._disorderCache[disorderID] = new __WEBPACK_IMPORTED_MODULE_2__disorder__["a" /* Disorder */](disorderID, disorderName);
-
-        $super(disorderID, disorderName, nodeID);
-    },
-
-    /**
-     * Updates the displayed disorder name for the given disorder
-     *
-     * @method _updateDisorderName
-     * @param {Number} disorderID The identifier of the disorder to update
-     * @private
-     */
-    _updateDisorderName: function (disorderID) {
-        //console.log("updating disorder display for " + disorderID + ", name = " + this.getDisorder(disorderID).getName());
-        var name = this._legendBox.down("li#" + this._getPrefix() + "-" + disorderID + " .disorder-name");
-        name.update(this.getDisorder(disorderID).getName());
-    },
-
-    /**
-     * Generate the element that will display information about the given disorder in the legend
-     *
-     * @method _generateElement
-     * @param {Number} disorderID The id for the disorder, taken from the OMIM database
-     * @param {String} name The human-readable disorder name
-     * @return {HTMLLIElement} List element to be insert in the legend
-     */
-    _generateElement: function ($super, disorderID, name) {
-        if (!this._objectColors.hasOwnProperty(disorderID)) {
-            var color = this._generateColor(disorderID);
-            this._objectColors[disorderID] = color;
-            document.fire("disorder:color", { "id": disorderID, color: color });
-        }
-
-        return $super(disorderID, name);
-    },
-
-    /**
-     * Callback for dragging an object from the legend onto nodes
-     *
-     * @method _onDropGeneric
-     * @param {Person} Person node
-     * @param {String|Number} id ID of the disorder being dropped
-     */
-    _onDropObject: function (node, disorderID) {
-        var currentDisorders = node.getDisorders().slice(0);
-        if (currentDisorders.indexOf(disorderID) == -1) {
-            // only if the node does not have this disorder yet
-            currentDisorders.push(disorderID);
-            editor.getView().unmarkAll();
-            var properties = { "setDisorders": currentDisorders };
-            var event = { "nodeID": node.getID(), "properties": properties };
-            document.fire("pedigree:node:setproperty", event);
-        } else {
-            alert("This person already has the specified disorder");
-        }
-    },
-
-    /**
-     * Generates a CSS color.
-     * Has preference for some predefined colors that can be distinguished in gray-scale
-     * and are distint from gene colors.
-     *
-     * @method generateColor
-     * @return {String} CSS color
-     */
-    _generateColor: function (disorderID) {
-        if (this._objectColors.hasOwnProperty(disorderID)) {
-            return this._objectColors[disorderID];
-        }
-
-        // check special disorder prefixes
-        for (var i = 0; i < this._specialDisordersRegexps.length; i++) {
-            if (disorderID.match(this._specialDisordersRegexps[i]) !== null) {
-                for (var disorder in this._objectColors) {
-                    if (this._objectColors.hasOwnProperty(disorder)) {
-                        if (disorder.match(this._specialDisordersRegexps[i]) !== null) return this._objectColors[disorder];
-                    }
-                }
-                break;
-            }
-        }
-
-        var usedColors = Object.values(this._objectColors);
-        // [red/yellow]           prefColors = ["#FEE090", '#f8ebb7', '#eac080', '#bf6632', '#9a4500', '#a47841', '#c95555', '#ae6c57'];        
-        // [original yellow/blue] prefColors = ["#FEE090", '#E0F8F8', '#8ebbd6', '#4575B4', '#fca860', '#9a4500', '#81a270'];
-        // [green]                prefColors = ['#81a270', '#c4e8c4', '#56a270', '#b3b16f', '#4a775a', '#65caa3'];
-        var prefColors = ["#E0F8F8", "#92c0db", "#4575B4", "#949ab8", "#FEE090", "#bf6632", "#fca860", "#9a4500", "#d12943", "#00a2bf"];
-        usedColors.each(function (color) {
-            prefColors = prefColors.without(color);
-        });
-        if (disorderID == "affected") {
-            if (usedColors.indexOf("#FEE090") > -1) {
-                return "#dbad71";
-            } else {
-                return "#FEE090";
-            }
-        }
-        if (prefColors.length > 0) {
-            return prefColors[0];
-        } else {
-            var randomColor = Raphael.getColor();
-            while (randomColor == "#ffffff" || usedColors.indexOf(randomColor) != -1) {
-                randomColor = "#" + ((1 << 24) * Math.random() | 0).toString(16);
-            }
-            return randomColor;
-        }
-    }
-});
-/* harmony export (immutable) */ __webpack_exports__["a"] = DisorderLegend;
-
-/* WEBPACK VAR INJECTION */}.call(__webpack_exports__, __webpack_require__(3), __webpack_require__(21)))
-
-/***/ }),
-/* 81 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__baseGraph__ = __webpack_require__(36);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__positionedGraph__ = __webpack_require__(173);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__heuristics__ = __webpack_require__(158);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__import__ = __webpack_require__(159);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__helpers__ = __webpack_require__(6);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__queues__ = __webpack_require__(38);
-/* harmony export (immutable) */ __webpack_exports__["a"] = DynamicPositionedGraph;
-
-
-
-
-
-
-
-// DynamicPositionedGraph adds support for online modifications and provides a convenient API for UI implementations
-
-function DynamicPositionedGraph(drawGraph) {
-    this.DG = drawGraph;
-
-    this._heuristics = new __WEBPACK_IMPORTED_MODULE_2__heuristics__["a" /* Heuristics */](drawGraph); // heuristics & helper methods separated into a separate class
-
-    this._heuristics.improvePositioning();
-
-    this._onlyProbandGraph = [{ name: "proband" }];
-}
-
-DynamicPositionedGraph.makeEmpty = function (layoutRelativePersonWidth, layoutRelativeOtherWidth) {
-    var baseG = new __WEBPACK_IMPORTED_MODULE_0__baseGraph__["a" /* BaseGraph */](layoutRelativePersonWidth, layoutRelativeOtherWidth);
-    var positionedG = new __WEBPACK_IMPORTED_MODULE_1__positionedGraph__["a" /* PositionedGraph */](baseG);
-    return new DynamicPositionedGraph(positionedG);
+HPOTerm.sanitizeID = function (id) {
+    var temp = id.replace(/[\(\[]/g, "_L_");
+    temp = temp.replace(/[\)\]]/g, "_J_");
+    temp = temp.replace(/[:]/g, "_C_");
+    return temp.replace(/[^a-zA-Z0-9,;_\-*]/g, "__");
 };
 
-DynamicPositionedGraph.prototype = {
-
-    isValidID: function (id) {
-        if (id < 0 || id > this.DG.GG.getMaxRealVertexId()) return false;
-        if (!this.DG.GG.isPerson(id) && !this.DG.GG.isRelationship(id)) return false;
-        return true;
-    },
-
-    getMaxNodeId: function () {
-        return this.DG.GG.getMaxRealVertexId();
-    },
-
-    isPersonGroup: function (id) {
-        return this.getProperties(id).hasOwnProperty("numPersons");
-    },
-
-    isPerson: function (id) {
-        return this.DG.GG.isPerson(id);
-    },
-
-    isRelationship: function (id) {
-        return this.DG.GG.isRelationship(id);
-    },
-
-    isPlaceholder: function (id) {
-        if (!this.isPerson(id)) return false;
-        // TODO
-        return false;
-    },
-
-    isAdopted: function (id) {
-        if (!this.isPerson(id)) throw "Assertion failed: isAdopted() is applied to a non-person";
-        return this.DG.GG.isAdopted(id);
-    },
-
-    getGeneration: function (id) {
-        var minRank = Math.min.apply(null, this.DG.ranks);
-        return (this.DG.ranks[id] - minRank) / 2 + 1;
-    },
-
-    getOrderWithinGeneration: function (id) {
-        if (!this.isPerson(id)) throw "Assertion failed: getOrderWithinGeneration() is applied to a non-person";
-
-        var order = 0;
-        var rank = this.DG.ranks[id];
-        for (var i = 0; i < this.DG.order.order[rank].length; i++) {
-            var next = this.DG.order.order[rank][i];
-            if (this.DG.GG.isPerson(next)) order++;
-            if (next == id) break;
-        }
-        return order;
-    },
-
-    // returns null if person has no twins
-    getTwinGroupId: function (id) {
-        return this.DG.GG.getTwinGroupId(id);
-    },
-
-    // returns and array of twins, sorted by order left to right. Always contains at least "id" itself
-    getAllTwinsSortedByOrder: function (id) {
-        var twins = this.DG.GG.getAllTwinsOf(id);
-        var vOrder = this.DG.order.vOrder;
-        var byOrder = function (a, b) {
-            return vOrder[a] - vOrder[b];
-        };
-        twins.sort(byOrder);
-        return twins;
-    },
-
-    isChildless: function (id) {
-        if (!this.getProperties(id).hasOwnProperty("childlessStatus")) return false;
-        var res = this.getProperties(id)["childlessStatus"] !== null;
-        //console.log("childless status of " + id + " : " + res);
-        return res;
-    },
-
-    isConsangrRelationship: function (id) {
-        if (!this.isRelationship(id)) throw "Assertion failed: isConsangrRelationship() is applied to a non-relationship";
-
-        return this.DG.consangr.hasOwnProperty(id);
-    },
-
-    getProperties: function (id) {
-        return this.DG.GG.properties[id];
-    },
-
-    setProperties: function (id, newSetOfProperties) {
-        this.DG.GG.properties[id] = newSetOfProperties;
-    },
-
-    // returns false if this gender is incompatible with this pedigree; true otherwise
-    setProbandData: function (firstName, lastName, gender) {
-        this.DG.GG.properties[0].fName = firstName;
-        this.DG.GG.properties[0].lName = lastName;
-
-        var setGender = gender;
-        var possibleGenders = this.getPossibleGenders(0);
-        if (!possibleGenders.hasOwnProperty(gender) || !possibleGenders[gender]) setGender = "U";
-        this.DG.GG.properties[0].gender = setGender;
-
-        return gender == setGender;
-    },
-
-    getPosition: function (v) {
-        // returns coordinates of node v
-        var x = this.DG.positions[v];
-
-        var rank = this.DG.ranks[v];
-
-        var vertLevel = this.DG.GG.isChildhub(v) ? this.DG.vertLevel.childEdgeLevel[v] : 1;
-
-        var y = this.DG.computeNodeY(rank, vertLevel);
-
-        if (this.DG.GG.isVirtual(v)) {
-            var relId = this.DG.GG.downTheChainUntilNonVirtual(v);
-            var personId = this.DG.GG.upTheChainUntilNonVirtual(v);
-
-            var rankPerson = this.DG.ranks[personId];
-            if (rank == rankPerson) {
-                var level = this.DG.vertLevel.outEdgeVerticalLevel[personId][relId].verticalLevel;
-                y = this.DG.computeRelLineY(rank, 0, level).relLineY;
-            }
-
-            var rankRelationship = this.DG.ranks[relId];
-            if (rank == rankRelationship) {
-                y = this.getPosition(relId).y;
-            }
-        } else if (this.isRelationship(v)) {
-            var partners = this.DG.GG.getParents(v);
-            var level1 = this.DG.vertLevel.outEdgeVerticalLevel[partners[0]].hasOwnProperty(v) ? this.DG.vertLevel.outEdgeVerticalLevel[partners[0]][v].verticalLevel : 0;
-            var level2 = this.DG.vertLevel.outEdgeVerticalLevel[partners[1]].hasOwnProperty(v) ? this.DG.vertLevel.outEdgeVerticalLevel[partners[1]][v].verticalLevel : 0;
-            var level = Math.min(level1, level2);
-            var attach1 = this.DG.vertLevel.outEdgeVerticalLevel[partners[0]].hasOwnProperty(v) ? this.DG.vertLevel.outEdgeVerticalLevel[partners[0]][v].attachlevel : 0;
-            var attach2 = this.DG.vertLevel.outEdgeVerticalLevel[partners[1]].hasOwnProperty(v) ? this.DG.vertLevel.outEdgeVerticalLevel[partners[1]][v].attachlevel : 0;
-            var attach = Math.min(attach1, attach2);
-            y = this.DG.computeRelLineY(rank, attach, level).relLineY;
-        }
-
-        return { "x": x, "y": y };
-    },
-
-    getRelationshipChildhubPosition: function (v) {
-        if (!this.isRelationship(v)) throw "Assertion failed: getRelationshipChildhubPosition() is applied to a non-relationship";
-
-        var childhubId = this.DG.GG.getRelationshipChildhub(v);
-
-        return this.getPosition(childhubId);
-    },
-
-    getRelationshipLineInfo: function (relationship, person) {
-        if (!this.isRelationship(relationship)) throw "Assertion failed: getRelationshipToPersonLinePosition() is applied to a non-relationship";
-        if (!this.isPerson(person)) throw "Assertion failed: getRelationshipToPersonLinePosition() is applied to a non-person";
-
-        var info = this.DG.vertLevel.outEdgeVerticalLevel[person].hasOwnProperty(relationship) ? this.DG.vertLevel.outEdgeVerticalLevel[person][relationship] : { attachlevel: 0, verticalLevel: 0, numAttachLevels: 1 };
-
-        //console.log("Info: " +  stringifyObject(info));
-
-        var verticalRelInfo = this.DG.computeRelLineY(this.DG.ranks[person], info.attachlevel, info.verticalLevel);
-
-        var result = {
-            "attachmentPort": info.attachlevel,
-            "attachY": verticalRelInfo.attachY,
-            "verticalLevel": info.verticalLevel,
-            "verticalY": verticalRelInfo.relLineY,
-            "numAttachPorts": info.numAttachLevels
-        };
-
-        //console.log("rel: " + relationship + ", person: " + person + " => " + stringifyObject(result));
-        return result;
-    },
-
-    // returns all the children sorted by their order in the graph (left to right)
-    getRelationshipChildrenSortedByOrder: function (v) {
-        if (!this.isRelationship(v)) throw "Assertion failed: getRelationshipChildren() is applied to a non-relationship";
-
-        var childhubId = this.DG.GG.getRelationshipChildhub(v);
-
-        var children = this.DG.GG.getOutEdges(childhubId);
-
-        var vOrder = this.DG.order.vOrder;
-        var byOrder = function (a, b) {
-            return vOrder[a] - vOrder[b];
-        };
-        children.sort(byOrder);
-
-        return children;
-    },
-
-    getAllChildren: function (v) {
-        if (!this.isPerson(v) && !this.isRelationship(v)) throw "Assertion failed: getAllChildren() is applied to a non-person non-relationship node";
-
-        var rels = this.isRelationship(v) ? [v] : this.DG.GG.getAllRelationships(v);
-
-        var allChildren = [];
-        for (var i = 0; i < rels.length; i++) {
-            var chhub = this.DG.GG.getOutEdges(rels[i])[0];
-            var children = this.DG.GG.getOutEdges(chhub);
-
-            allChildren = allChildren.concat(children);
-        }
-        return allChildren;
-    },
-
-    isChildOfProband: function (v) {
-        var parents = this.DG.GG.getParents(v);
-        if (__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_4__helpers__["h" /* arrayContains */])(parents, 0)) return true;
-        return false;
-    },
-
-    isPartnershipRelatedToProband: function (v) {
-        var parents = this.DG.GG.getParents(v);
-        if (__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_4__helpers__["h" /* arrayContains */])(parents, 0)) return true;
-        if (v == this.DG.GG.getProducingRelationship(0)) {
-            return true;
-        }
-        return false;
-    },
-
-    // returns true iff node v is either a sibling, a child or a parent of proband node
-    isRelatedToProband: function (v) {
-        var probandRelatedRels = this.getAllRelatedRelationships(0);
-        for (var i = 0; i < probandRelatedRels.length; i++) {
-            var rel = probandRelatedRels[i];
-
-            var parents = this.DG.GG.getParents(rel);
-            if (__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_4__helpers__["h" /* arrayContains */])(parents, v)) return true;
-
-            var children = this.getAllChildren(rel);
-            if (__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_4__helpers__["h" /* arrayContains */])(children, v)) return true;
-        }
-        return false;
-    },
-
-    // returns all relationships of node v and its parent relationship, if any
-    getAllRelatedRelationships: function (v) {
-        var allRels = this.DG.GG.getAllRelationships(v);
-        var parentRel = this.DG.GG.getProducingRelationship(v);
-        if (parentRel != null) {
-            allRels.push(parentRel);
-        }
-        return allRels;
-    },
-
-    hasNonPlaceholderNonAdoptedChildren: function (v) {
-        if (this.isRelationship(v)) {
-            var children = this.getRelationshipChildrenSortedByOrder(v);
-
-            //console.log("Childtren: " + children);
-            for (var i = 0; i < children.length; i++) {
-                var child = children[i];
-                if (!this.isPlaceholder(child) && !this.isAdopted(child)) {
-                    //console.log("child: " + child + ", isAdopted: " + this.isAdopted(child));
-                    return true;
-                }
-            }
-        } else if (this.isPerson(v)) {
-            //var children = ...
-            //TODO
-        }
-
-        return false;
-    },
-
-    getParentRelationship: function (v) {
-        if (!this.isPerson(v)) throw "Assertion failed: getParentRelationship() is applied to a non-person";
-
-        return this.DG.GG.getProducingRelationship(v);
-    },
-
-    hasToBeAdopted: function (v) {
-        if (!this.isPerson(v)) throw "Assertion failed: hasToBeAdopted() is applied to a non-person";
-
-        var parentRel = this.getParentRelationship(v);
-        if (parentRel !== null && this.isChildless(parentRel)) return true;
-        return false;
-    },
-
-    hasRelationships: function (v) {
-        if (!this.isPerson(v)) throw "Assertion failed: hasRelationships() is applied to a non-person";
-
-        return this.DG.GG.v[v].length > 0; // if it had relationships it must have been alive at some point
-    },
-
-    getPossibleGenders: function (v) {
-        var possible = { "M": true, "F": true, "U": true };
-        // any if no partners or all partners are of unknown genders; opposite of the partner gender otherwise
-        var partners = this.DG.GG.getAllPartners(v);
-
-        var knownGenderPartner = undefined;
-        for (var i = 0; i < partners.length; i++) {
-            var partnerGender = this.getGender(partners[i]);
-            if (partnerGender != "U") {
-                possible[partnerGender] = false;
-                break;
-            }
-        }
-
-        //console.log("Possible genders for " + v + ": " + stringifyObject(possible));
-        return possible;
-    },
-
-    getPossibleChildrenOf: function (v) {
-        // all person nodes which are not ancestors of v and which do not already have parents
-        var result = [];
-        for (var i = 0; i <= this.DG.GG.getMaxRealVertexId(); i++) {
-            if (!this.isPerson(i)) continue;
-            if (this.DG.GG.inedges[i].length != 0) continue;
-            if (this.DG.ancestors[v].hasOwnProperty(i)) continue;
-            result.push(i);
-        }
-        return result;
-    },
-
-    getPossibleSiblingsOf: function (v) {
-        // all person nodes which are not ancestors and not descendants
-        // if v has parents only nodes without parents are returned
-        var hasParents = this.getParentRelationship(v) !== null;
-        var result = [];
-        for (var i = 0; i <= this.DG.GG.getMaxRealVertexId(); i++) {
-            if (!this.isPerson(i)) continue;
-            if (this.DG.ancestors[v].hasOwnProperty(i)) continue;
-            if (this.DG.ancestors[i].hasOwnProperty(v)) continue;
-            if (hasParents && this.DG.GG.inedges[i].length != 0) continue;
-            result.push(i);
-        }
-        return result;
-    },
-
-    getPossibleParentsOf: function (v) {
-        // all person nodes which are not descendants of source node
-        var result = [];
-        //console.log("Ancestors: " + stringifyObject(this.DG.ancestors));
-        for (var i = 0; i <= this.DG.GG.getMaxRealVertexId(); i++) {
-            if (!this.isRelationship(i) && !this.isPerson(i)) continue;
-            if (this.isPersonGroup(i)) continue;
-            if (this.DG.ancestors[i].hasOwnProperty(v)) continue;
-            result.push(i);
-        }
-        return result;
-    },
-
-    getPossiblePartnersOf: function (v) {
-        // returns all person nodes of the other gender or unknown gender (who are not already partners)
-        var oppositeGender = this.DG.GG.getOppositeGender(v);
-        var validGendersSet = oppositeGender == "U" ? ["M", "F", "U"] : [oppositeGender, "U"];
-
-        var result = this._getAllPersonsOfGenders(validGendersSet);
-
-        var partners = this.DG.GG.getAllPartners(v);
-        partners.push(v);
-        for (var i = 0; i < partners.length; i++) __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_4__helpers__["j" /* removeFirstOccurrenceByValue */])(result, partners[i]);
-
-        return result;
-    },
-
-    getOppositeGender: function (v) {
-        if (!this.isPerson(v)) throw "Assertion failed: getOppositeGender() is applied to a non-person";
-
-        return this.DG.GG.getOppositeGender(v);
-    },
-
-    getGender: function (v) {
-        if (!this.isPerson(v)) throw "Assertion failed: getGender() is applied to a non-person";
-
-        return this.DG.GG.getGender(v);
-    },
-
-    getDisconnectedSetIfNodeRemoved: function (v) {
-        var removedList = {};
-        removedList[v] = true;
-
-        if (this.isPerson(v)) {
-            // special case: removing the only child also removes the relationship
-            if (this.DG.GG.getInEdges(v).length != 0) {
-                var chhub = this.DG.GG.getInEdges(v)[0];
-                if (this.DG.GG.getOutEdges(chhub).length == 1) {
-                    removedList[this.DG.GG.getInEdges(chhub)[0]] = true;
-                }
-            }
-
-            // also remove all relationships by this person
-            var allRels = this.DG.GG.getAllRelationships(v);
-            for (var i = 0; i < allRels.length; i++) {
-                removedList[allRels[i]] = true;
-            }
-        }
-
-        // remove all childhubs of all relationships that need to be removed
-        for (var node in removedList) {
-            if (removedList.hasOwnProperty(node) && this.isRelationship(node)) {
-                var chhubId = this.DG.GG.getOutEdges(node)[0];
-                removedList[chhubId] = true;
-            }
-        }
-
-        // go through all the edges in the tree starting from proband and disregarding any edges going to or from v
-        var connected = {};
-
-        var queue = new __WEBPACK_IMPORTED_MODULE_5__queues__["a" /* Queue */]();
-        queue.push(0);
-
-        while (queue.size() > 0) {
-            var next = parseInt(queue.pop());
-
-            if (connected.hasOwnProperty(next)) continue;
-            connected[next] = true;
-
-            var outEdges = this.DG.GG.getOutEdges(next);
-            for (var i = 0; i < outEdges.length; i++) {
-                if (!removedList.hasOwnProperty(outEdges[i])) queue.push(outEdges[i]);
-            }
-            var inEdges = this.DG.GG.getInEdges(next);
-            for (var i = 0; i < inEdges.length; i++) {
-                if (!removedList.hasOwnProperty(inEdges[i])) queue.push(inEdges[i]);
-            }
-        }
-        console.log("Connected nodes: " + __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_4__helpers__["c" /* stringifyObject */])(connected));
-
-        var affected = [];
-        for (var i = 0; i < this.DG.GG.getNumVertices(); i++) {
-            if (this.isPerson(i) || this.isRelationship(i)) {
-                if (!connected.hasOwnProperty(i)) affected.push(i);
-            }
-        }
-
-        console.log("Affected nodes: " + __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_4__helpers__["c" /* stringifyObject */])(affected));
-        return affected;
-    },
-
-    _debugPrintAll: function (headerMessage) {
-        console.log("========== " + headerMessage + " ==========");
-        //console.log("== GG:");
-        //console.log(stringifyObject(this.DG.GG));
-        //console.log("== Ranks:");
-        //console.log(stringifyObject(this.DG.ranks));
-        //console.log("== Orders:");
-        //console.log(stringifyObject(this.DG.order));
-        //console.log("== Positions:");
-        //console.log(stringifyObject(this.DG.positions));
-        //console.log("== RankY:");
-        //console.log(stringifyObject(this.DG.rankY));
-    },
-
-    updateAncestors: function () // sometimes have to do this after the "adopted" property change
-    {
-        var ancestors = this.DG.findAllAncestors();
-        this.DG.ancestors = ancestors.ancestors;
-        this.DG.consangr = ancestors.consangr;
-
-        // after consang has changes a random set or relationships may become/no longer be a consangr. relationship
-        var movedNodes = [];
-        for (var i = 0; i <= this.DG.GG.getMaxRealVertexId(); i++) {
-            if (!this.isRelationship(i)) continue;
-            movedNodes.push(i);
-        }
-
-        return { "moved": movedNodes };
-    },
-
-    addNewChild: function (childhubId, properties, numTwins) {
-        this._debugPrintAll("before");
-        var timer = new __WEBPACK_IMPORTED_MODULE_4__helpers__["g" /* Timer */]();
-
-        if (!this.DG.GG.isChildhub(childhubId)) {
-            if (this.DG.GG.isRelationship(childhubId)) childhubId = this.DG.GG.getRelationshipChildhub(childhubId);else throw "Assertion failed: adding children to a non-childhub node";
-        }
-
-        var positionsBefore = this.DG.positions.slice(0);
-        var ranksBefore = this.DG.ranks.slice(0);
-        var vertLevelsBefore = this.DG.vertLevel.copy();
-        var rankYBefore = this.DG.rankY.slice(0);
-        var numNodesBefore = this.DG.GG.getMaxRealVertexId();
-
-        if (!properties) properties = {};
-        if (!numTwins) numTwins = 1;
-
-        var insertRank = this.DG.ranks[childhubId] + 1;
-
-        // find the best order to use for this new vertex: scan all orders on the rank, check number of crossed edges
-        var insertOrder = this._findBestInsertPosition(insertRank, childhubId);
-
-        // insert the vertex into the base graph and update ranks, orders & positions
-        var newNodeId = this._insertVertex(__WEBPACK_IMPORTED_MODULE_0__baseGraph__["b" /* TYPE */].PERSON, properties, 1.0, childhubId, null, insertRank, insertOrder);
-
-        var newNodes = [newNodeId];
-        for (var i = 0; i < numTwins - 1; i++) {
-            var changeSet = this.addTwin(newNodeId, properties);
-            newNodes.push(changeSet["new"][0]);
-        }
-
-        // validate: by now the graph should satisfy all assumptions
-        this.DG.GG.validate();
-
-        // fix common layout mistakes (e.g. relationship not right above the only child)
-        // and update vertical positioning of all edges
-        this._heuristics.improvePositioning(ranksBefore, rankYBefore);
-
-        // update ancestors
-        this.updateAncestors();
-
-        timer.printSinceLast("=== AddChild runtime: ");
-        this._debugPrintAll("after");
-
-        var movedNodes = this._findMovedNodes(numNodesBefore, positionsBefore, ranksBefore, vertLevelsBefore, rankYBefore);
-        var relationshipId = this.DG.GG.getInEdges(childhubId)[0];
-        if (!__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_4__helpers__["h" /* arrayContains */])(movedNodes, relationshipId)) movedNodes.push(relationshipId);
-        var animateNodes = this.DG.GG.getInEdges(relationshipId); // animate parents if they move. if not, nothing will be done with them
-        return { "new": newNodes, "moved": movedNodes, "animate": animateNodes };
-    },
-
-    addNewParents: function (personId) {
-        this._debugPrintAll("before");
-        var timer = new __WEBPACK_IMPORTED_MODULE_4__helpers__["g" /* Timer */]();
-
-        if (!this.DG.GG.isPerson(personId)) throw "Assertion failed: adding parents to a non-person node";
-
-        if (this.DG.GG.getInEdges(personId).length > 0) throw "Assertion failed: adding parents to a person with parents";
-
-        var positionsBefore = this.DG.positions.slice(0);
-        var ranksBefore = this.DG.ranks.slice(0);
-        var vertLevelsBefore = this.DG.vertLevel.copy();
-        var rankYBefore = this.DG.rankY.slice(0);
-        var numNodesBefore = this.DG.GG.getMaxRealVertexId();
-
-        // a few special cases which involve not only insertions but also existing node rearrangements:
-        this._heuristics.swapBeforeParentsToBringToSideIfPossible(personId);
-
-        var insertChildhubRank = this.DG.ranks[personId] - 1;
-
-        // find the best order to use for this new vertex: scan all orders on the rank, check number of crossed edges
-        var insertChildhubOrder = this._findBestInsertPosition(insertChildhubRank, personId);
-
-        // insert the vertex into the base graph and update ranks, orders & positions
-        var newChildhubId = this._insertVertex(__WEBPACK_IMPORTED_MODULE_0__baseGraph__["b" /* TYPE */].CHILDHUB, {}, 1.0, null, personId, insertChildhubRank, insertChildhubOrder);
-
-        var insertParentsRank = this.DG.ranks[newChildhubId] - 1; // note: rank may have changed since last insertion
-        //       (iff childhub was insertion above all at rank 0 - which becomes rank1)
-
-        // find the best order to use for this new vertex: scan all orders on the rank, check number of crossed edges
-        var insertParentOrder = this._findBestInsertPosition(insertParentsRank, newChildhubId);
-
-        var newRelationshipId = this._insertVertex(__WEBPACK_IMPORTED_MODULE_0__baseGraph__["b" /* TYPE */].RELATIONSHIP, {}, 1.0, null, newChildhubId, insertParentsRank, insertParentOrder);
-
-        insertParentsRank = this.DG.ranks[newRelationshipId]; // note: rank may have changed since last insertion again
-        //       (iff relationship was insertion above all at rank 0 - which becomes rank1)
-
-        var newParent1Id = this._insertVertex(__WEBPACK_IMPORTED_MODULE_0__baseGraph__["b" /* TYPE */].PERSON, { "gender": "F" }, 1.0, null, newRelationshipId, insertParentsRank, insertParentOrder + 1);
-        var newParent2Id = this._insertVertex(__WEBPACK_IMPORTED_MODULE_0__baseGraph__["b" /* TYPE */].PERSON, { "gender": "M" }, 1.0, null, newRelationshipId, insertParentsRank, insertParentOrder);
-
-        // validate: by now the graph should satisfy all assumptions
-        this.DG.GG.validate();
-
-        // fix common layout mistakes (e.g. relationship not right above the only child)
-        // and update vertical positioning of all edges
-        this._heuristics.improvePositioning(ranksBefore, rankYBefore);
-
-        // update ancestors
-        this.updateAncestors();
-
-        timer.printSinceLast("=== NewParents runtime: ");
-        this._debugPrintAll("after");
-
-        var animateNodes = this.DG.GG.getAllPartners(personId);
-        if (animateNodes.length == 1) // only animate node partners if there is only one - ow it may get too confusing with a lot of stuff animating around
-            animateNodes.push(personId);else animateNodes = [personId];
-        var movedNodes = this._findMovedNodes(numNodesBefore, positionsBefore, ranksBefore, vertLevelsBefore, rankYBefore);
-        var newNodes = [newRelationshipId, newParent1Id, newParent2Id];
-        return { "new": newNodes, "moved": movedNodes, "highlight": [personId], "animate": animateNodes };
-    },
-
-    addNewRelationship: function (personId, childProperties, preferLeft, numTwins) {
-        this._debugPrintAll("before");
-        var timer = new __WEBPACK_IMPORTED_MODULE_4__helpers__["g" /* Timer */]();
-
-        if (!this.DG.GG.isPerson(personId)) throw "Assertion failed: adding relationship to a non-person node";
-
-        var positionsBefore = this.DG.positions.slice(0);
-        var ranksBefore = this.DG.ranks.slice(0);
-        var vertLevelsBefore = this.DG.vertLevel.copy();
-        var rankYBefore = this.DG.rankY.slice(0);
-        var consangrBefore = this.DG.consangr;
-        var numNodesBefore = this.DG.GG.getMaxRealVertexId();
-
-        if (!childProperties) childProperties = {};
-
-        if (!numTwins) numTwins = 1;
-
-        var partnerProperties = { "gender": this.DG.GG.getOppositeGender(personId) };
-
-        var insertRank = this.DG.ranks[personId];
-        var personOrder = this.DG.order.vOrder[personId];
-
-        // a few special cases which involve not only insertions but also existing node rearrangements:
-        this._heuristics.swapPartnerToBringToSideIfPossible(personId);
-        this._heuristics.swapTwinsToBringToSideIfPossible(personId);
-
-        // find the best order to use for this new vertex: scan all orders on the rank, check number of crossed edges
-        var insertOrder = this._findBestInsertPosition(insertRank, personId, preferLeft);
-
-        console.log("vOrder: " + personOrder + ", inserting @ " + insertOrder);
-        console.log("Orders before: " + __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_4__helpers__["c" /* stringifyObject */])(this.DG.order.order[this.DG.ranks[personId]]));
-
-        var newRelationshipId = this._insertVertex(__WEBPACK_IMPORTED_MODULE_0__baseGraph__["b" /* TYPE */].RELATIONSHIP, {}, 1.0, personId, null, insertRank, insertOrder);
-
-        console.log("Orders after: " + __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_4__helpers__["c" /* stringifyObject */])(this.DG.order.order[this.DG.ranks[personId]]));
-
-        var insertPersonOrder = insertOrder > personOrder ? insertOrder + 1 : insertOrder;
-
-        var newPersonId = this._insertVertex(__WEBPACK_IMPORTED_MODULE_0__baseGraph__["b" /* TYPE */].PERSON, partnerProperties, 1.0, null, newRelationshipId, insertRank, insertPersonOrder);
-
-        var insertChildhubRank = insertRank + 1;
-        var insertChildhubOrder = this._findBestInsertPosition(insertChildhubRank, newRelationshipId);
-        var newChildhubId = this._insertVertex(__WEBPACK_IMPORTED_MODULE_0__baseGraph__["b" /* TYPE */].CHILDHUB, {}, 1.0, newRelationshipId, null, insertChildhubRank, insertChildhubOrder);
-
-        var insertChildRank = insertChildhubRank + 1;
-        var insertChildOrder = this._findBestInsertPosition(insertChildRank, newChildhubId);
-        var newChildId = this._insertVertex(__WEBPACK_IMPORTED_MODULE_0__baseGraph__["b" /* TYPE */].PERSON, childProperties, 1.0, newChildhubId, null, insertChildRank, insertChildOrder);
-
-        var newNodes = [newRelationshipId, newPersonId, newChildId];
-        for (var i = 0; i < numTwins - 1; i++) {
-            var changeSet = this.addTwin(newChildId, childProperties);
-            newNodes.push(changeSet["new"][0]);
-        }
-
-        console.log("Orders after all: " + __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_4__helpers__["c" /* stringifyObject */])(this.DG.order.order[this.DG.ranks[personId]]));
-
-        // validate: by now the graph should satisfy all assumptions
-        this.DG.GG.validate();
-
-        //this._debugPrintAll("middle");
-
-        // fix common layout mistakes (e.g. relationship not right above the only child)
-        // and update vertical positioning of all edges
-        this._heuristics.improvePositioning(ranksBefore, rankYBefore);
-
-        // update ancestors
-        this.updateAncestors();
-
-        timer.printSinceLast("=== NewRelationship runtime: ");
-        this._debugPrintAll("after");
-
-        var movedNodes = this._findMovedNodes(numNodesBefore, positionsBefore, ranksBefore, vertLevelsBefore, rankYBefore, consangrBefore);
-        return { "new": newNodes, "moved": movedNodes, "highlight": [personId] };
-    },
-
-    assignParent: function (parentId, childId) {
-        if (this.isRelationship(parentId)) {
-            var childHubId = this.DG.GG.getRelationshipChildhub(parentId);
-            var rankChildHub = this.DG.ranks[childHubId];
-            var rankChild = this.DG.ranks[childId];
-
-            var weight = 1;
-            this.DG.GG.addEdge(childHubId, childId, weight);
-
-            var animateList = [childId];
-
-            if (rankChildHub != rankChild - 1) {
-                return this.redrawAll(animateList);
-            }
-
-            var positionsBefore = this.DG.positions.slice(0);
-            var ranksBefore = this.DG.ranks.slice(0);
-            var vertLevelsBefore = this.DG.vertLevel.copy();
-            var rankYBefore = this.DG.rankY.slice(0);
-            var consangrBefore = this.DG.consangr;
-            var numNodesBefore = this.DG.GG.getMaxRealVertexId();
-
-            // TODO: move vertex closer to other children, if possible?
-
-            // validate: by now the graph should satisfy all assumptions
-            this.DG.GG.validate();
-
-            // update vertical separation for all nodes & compute ancestors
-            this._updateauxiliaryStructures(ranksBefore, rankYBefore);
-
-            positionsBefore[parentId] = Infinity; // so that it is added to the list of moved nodes
-            var movedNodes = this._findMovedNodes(numNodesBefore, positionsBefore, ranksBefore, vertLevelsBefore, rankYBefore, consangrBefore);
-            return { "moved": movedNodes, "animate": [childId] };
-        } else {
-            var rankParent = this.DG.ranks[parentId];
-            var rankChild = this.DG.ranks[childId];
-
-            var partnerProperties = { "gender": this.DG.GG.getOppositeGender(parentId) };
-
-            //console.log("rankParent: " + rankParent + ", rankChild: " + rankChild );
-
-            if (rankParent >= rankChild) {
-                var ranksBefore = this.DG.ranks.slice(0);
-                // need a complete redraw, since this violates the core layout rule. In this case insert orders do not matter
-                var insertChildhubRank = rankChild - 1;
-                var newChildhubId = this._insertVertex(__WEBPACK_IMPORTED_MODULE_0__baseGraph__["b" /* TYPE */].CHILDHUB, {}, 1.0, null, childId, insertChildhubRank, 0);
-                var insertParentsRank = this.DG.ranks[newChildhubId] - 1; // note: rank may have changed since last insertion
-                var newRelationshipId = this._insertVertex(__WEBPACK_IMPORTED_MODULE_0__baseGraph__["b" /* TYPE */].RELATIONSHIP, {}, 1.0, null, newChildhubId, insertParentsRank, 0);
-                var newParentId = this._insertVertex(__WEBPACK_IMPORTED_MODULE_0__baseGraph__["b" /* TYPE */].PERSON, partnerProperties, 1.0, null, newRelationshipId, insertParentsRank, 0);
-                this.DG.GG.addEdge(parentId, newRelationshipId, 1);
-                var animateList = [childId, parentId];
-                var newList = [newRelationshipId, newParentId];
-                return this.redrawAll(animateList, newList, ranksBefore);
-            }
-
-            // add new childhub     @ rank (rankChild - 1)
-            // add new relationship @ rank (rankChild - 2)
-            // add new parent       @ rank (rankChild - 2) right next to new relationship
-            //                        (left or right depends on if the other parent is right or left)
-            // depending on other parent rank either draw a multi-rank relationship edge or regular relationship edge
-
-            this._debugPrintAll("before");
-            var timer = new __WEBPACK_IMPORTED_MODULE_4__helpers__["g" /* Timer */]();
-
-            var positionsBefore = this.DG.positions.slice(0);
-            var ranksBefore = this.DG.ranks.slice(0);
-            var vertLevelsBefore = this.DG.vertLevel.copy();
-            var rankYBefore = this.DG.rankY.slice(0);
-            var consangrBefore = this.DG.consangr;
-            var numNodesBefore = this.DG.GG.getMaxRealVertexId();
-
-            var x_parent = this.DG.positions[parentId];
-            var x_child = this.DG.positions[childId];
-
-            if (rankParent == rankChild - 2) {
-                // the order of new node creation is then:
-                // 1) new relationship node
-                // 2) new partner
-                // 3) new childhub
-                var preferLeft = x_child < x_parent;
-
-                // add same-rank relationship edge
-                var insertRelatOrder = this._findBestInsertPosition(rankParent, parentId, preferLeft);
-                var newRelationshipId = this._insertVertex(__WEBPACK_IMPORTED_MODULE_0__baseGraph__["b" /* TYPE */].RELATIONSHIP, {}, 1.0, parentId, null, rankParent, insertRelatOrder);
-
-                var newParentOrder = this.DG.order.vOrder[parentId] > this.DG.order.vOrder[newRelationshipId] ? insertRelatOrder : insertRelatOrder + 1;
-                var newParentId = this._insertVertex(__WEBPACK_IMPORTED_MODULE_0__baseGraph__["b" /* TYPE */].PERSON, partnerProperties, 1.0, null, newRelationshipId, rankParent, newParentOrder);
-
-                var insertChildhubRank = rankChild - 1;
-                var insertChildhubOrder = this._findBestInsertPosition(insertChildhubRank, newRelationshipId);
-                var newChildhubId = this._insertVertex(__WEBPACK_IMPORTED_MODULE_0__baseGraph__["b" /* TYPE */].CHILDHUB, {}, 1.0, newRelationshipId, null, insertChildhubRank, insertChildhubOrder);
-
-                this.DG.GG.addEdge(newChildhubId, childId, 1);
-            } else {
-                // need to add a multi-rank edge: order of node creation is different:
-                // 1) new childhub
-                // 2) new relationship node
-                // 3) new partner
-                // 4) multi-rank edge
-                // add a multi-rank relationship edge (e.g. a sequence of edges between virtual nodes on intermediate ranks)
-
-                var insertChildhubRank = rankChild - 1;
-                var insertChildhubOrder = this._findBestInsertPosition(insertChildhubRank, childId);
-                var newChildhubId = this._insertVertex(__WEBPACK_IMPORTED_MODULE_0__baseGraph__["b" /* TYPE */].CHILDHUB, {}, 1.0, null, childId, insertChildhubRank, insertChildhubOrder);
-
-                var insertParentsRank = rankChild - 2;
-
-                var insertRelatOrder = this._findBestInsertPosition(insertParentsRank, newChildhubId);
-                var newRelationshipId = this._insertVertex(__WEBPACK_IMPORTED_MODULE_0__baseGraph__["b" /* TYPE */].RELATIONSHIP, {}, 1.0, null, newChildhubId, insertParentsRank, insertRelatOrder);
-
-                var newParentOrder = this.DG.positions[parentId] > this.DG.positions[newRelationshipId] ? insertRelatOrder : insertRelatOrder + 1;
-                var newParentId = this._insertVertex(__WEBPACK_IMPORTED_MODULE_0__baseGraph__["b" /* TYPE */].PERSON, partnerProperties, 1.0, null, newRelationshipId, insertParentsRank, newParentOrder);
-
-                this._addMultiRankEdge(parentId, newRelationshipId);
-            }
-
-            // validate: by now the graph should satisfy all assumptions
-            this.DG.GG.validate();
-
-            // fix common layout mistakes (e.g. relationship not right above the only child)
-            // and update vertical positioning of all edges
-            this._heuristics.improvePositioning(ranksBefore, rankYBefore);
-
-            // update ancestors
-            this.updateAncestors();
-
-            timer.printSinceLast("=== DragToParentOrChild runtime: ");
-            this._debugPrintAll("after");
-
-            if (this.DG.positions.length >= 31) console.log("position of node 32: " + this.DG.positions[32] + ", was: " + positionsBefore[32]);
-            var movedNodes = this._findMovedNodes(numNodesBefore, positionsBefore, ranksBefore, vertLevelsBefore, rankYBefore, consangrBefore);
-            var newNodes = [newRelationshipId, newParentId];
-            return { "new": newNodes, "moved": movedNodes, "highlight": [parentId, newParentId, childId] };
-        }
-    },
-
-    assignPartner: function (person1, person2, childProperties) {
-        var positionsBefore = this.DG.positions.slice(0);
-        var ranksBefore = this.DG.ranks.slice(0);
-        var vertLevelsBefore = this.DG.vertLevel.copy();
-        var rankYBefore = this.DG.rankY.slice(0);
-        var consangrBefore = this.DG.consangr;
-        var numNodesBefore = this.DG.GG.getMaxRealVertexId();
-
-        var rankP1 = this.DG.ranks[person1];
-        var rankP2 = this.DG.ranks[person2];
-
-        if (rankP1 < rankP2 || rankP1 == rankP2 && this.DG.order.vOrder[person2] < this.DG.order.vOrder[person1]) {
-            var tmpPerson = person2;
-            person2 = person1;
-            person1 = tmpPerson;
-
-            rankP1 = rankP2;
-            rankP2 = this.DG.ranks[person2];
-        }
-
-        var x_person1 = this.DG.positions[person1];
-        var x_person2 = this.DG.positions[person2];
-
-        var weight = 1;
-
-        var preferLeft = x_person2 < x_person1;
-        var insertRelatOrder = rankP1 == rankP2 ? this._findBestRelationshipPosition(person1, false, person2) : this._findBestRelationshipPosition(person1, preferLeft);
-        var newRelationshipId = this._insertVertex(__WEBPACK_IMPORTED_MODULE_0__baseGraph__["b" /* TYPE */].RELATIONSHIP, {}, weight, person1, null, rankP1, insertRelatOrder);
-
-        var insertChildhubRank = this.DG.ranks[newRelationshipId] + 1;
-        var insertChildhubOrder = this._findBestInsertPosition(insertChildhubRank, newRelationshipId);
-        var newChildhubId = this._insertVertex(__WEBPACK_IMPORTED_MODULE_0__baseGraph__["b" /* TYPE */].CHILDHUB, {}, 1.0, newRelationshipId, null, insertChildhubRank, insertChildhubOrder);
-
-        var insertChildRank = insertChildhubRank + 1;
-        var insertChildOrder = this._findBestInsertPosition(insertChildRank, newChildhubId);
-        var newChildId = this._insertVertex(__WEBPACK_IMPORTED_MODULE_0__baseGraph__["b" /* TYPE */].PERSON, childProperties, 1.0, newChildhubId, null, insertChildRank, insertChildOrder);
-
-        if (rankP1 == rankP2) {
-            this.DG.GG.addEdge(person2, newRelationshipId, weight);
-        } else {
-            this._addMultiRankEdge(person2, newRelationshipId);
-        }
-
-        // validate: by now the graph should satisfy all assumptions
-        this.DG.GG.validate();
-
-        // fix common layout mistakes (e.g. relationship not right above the only child)
-        // and update vertical positioning of all edges
-        this._heuristics.improvePositioning(ranksBefore, rankYBefore);
-
-        // update ancestors
-        this.updateAncestors();
-
-        this._debugPrintAll("after");
-
-        var movedNodes = this._findMovedNodes(numNodesBefore, positionsBefore, ranksBefore, vertLevelsBefore, rankYBefore, consangrBefore);
-        var newNodes = [newRelationshipId, newChildId];
-        return { "new": newNodes, "moved": movedNodes, "highlight": [person1, person2, newChildId] };
-    },
-
-    addTwin: function (personId, properties) {
-        var positionsBefore = this.DG.positions.slice(0);
-        var ranksBefore = this.DG.ranks.slice(0);
-        var vertLevelsBefore = this.DG.vertLevel.copy();
-        var rankYBefore = this.DG.rankY.slice(0);
-        var numNodesBefore = this.DG.GG.getMaxRealVertexId();
-
-        var parentRel = this.DG.GG.getProducingRelationship(personId);
-
-        var twinGroupId = this.DG.GG.getTwinGroupId(personId);
-        if (twinGroupId === null) {
-            twinGroupId = this.DG.GG.getUnusedTwinGroupId(parentRel);
-            console.log("new twin id: " + twinGroupId);
-            this.DG.GG.properties[personId]["twinGroup"] = twinGroupId;
-        }
-        properties["twinGroup"] = twinGroupId;
-
-        var insertRank = this.DG.ranks[personId];
-
-        // find the best order to use for this new vertex: scan all orders on the rank, check number of crossed edges
-        var insertOrder = this.DG.findBestTwinInsertPosition(personId, []);
-
-        // insert the vertex into the base graph and update ranks, orders & positions
-        var childhubId = this.DG.GG.getInEdges(personId)[0];
-        var newNodeId = this._insertVertex(__WEBPACK_IMPORTED_MODULE_0__baseGraph__["b" /* TYPE */].PERSON, properties, 1.0, childhubId, null, insertRank, insertOrder);
-
-        // validate: by now the graph should satisfy all assumptions
-        this.DG.GG.validate();
-
-        // fix common layout mistakes (e.g. relationship not right above the only child)
-        this._heuristics.improvePositioning(ranksBefore, rankYBefore);
-
-        var movedNodes = this._findMovedNodes(numNodesBefore, positionsBefore, ranksBefore, vertLevelsBefore, rankYBefore);
-        if (!__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_4__helpers__["h" /* arrayContains */])(movedNodes, parentRel)) movedNodes.push(parentRel);
-        var animateNodes = this.DG.GG.getInEdges(parentRel).slice(0); // animate parents if they move. if not, nothing will be done with them
-        animateNodes.push(personId);
-        var newNodes = [newNodeId];
-        return { "new": newNodes, "moved": movedNodes, "animate": animateNodes };
-    },
-
-    removeNodes: function (nodeList) {
-        this._debugPrintAll("before");
-
-        //var positionsBefore  = this.DG.positions.slice(0);
-        //var ranksBefore      = this.DG.ranks.slice(0);
-        //var vertLevelsBefore = this.DG.vertLevel.copy();
-        //var rankYBefore      = this.DG.rankY.slice(0);
-        //var consangrBefore   = this.DG.consangr;
-        //var numNodesBefore   = this.DG.GG.getMaxRealVertexId();
-
-        var removed = nodeList.slice(0);
-        removed.sort();
-        var moved = [];
-
-        for (var i = 0; i < nodeList.length; i++) {
-            if (this.isRelationship(nodeList[i])) {
-                // also add its childhub
-                var chHub = this.DG.GG.getOutEdges(nodeList[i])[0];
-                nodeList.push(chHub);
-                console.log("adding " + chHub + " to removal list (chhub of " + nodeList[i] + ")");
-
-                // also add its long multi-rank edges
-                var pathToParents = this.getPathToParents(nodeList[i]);
-                for (var p = 0; p < pathToParents.length; p++) {
-                    for (var j = 0; j < pathToParents[p].length; j++) if (this.DG.GG.isVirtual(pathToParents[p][j])) {
-                        console.log("adding " + pathToParents[p][j] + " to removal list (virtual of " + nodeList[i] + ")");
-                        nodeList.push(pathToParents[p][j]);
-                    }
-                }
-            }
-        }
-
-        nodeList.sort(function (a, b) {
-            return a - b;
-        });
-
-        //console.log("nodeList: " + stringifyObject(nodeList));
-
-        for (var i = nodeList.length - 1; i >= 0; i--) {
-            var v = nodeList[i];
-            //console.log("removing: " + v);
-
-            //// add person't relationship to the list of moved nodes
-            //if (this.isPerson(v)) {
-            //    var rel = this.DG.GG.getProducingRelationship(v);
-            //    // rel may have been already removed
-            //    if (rel !== null && !arrayContains(nodeList, rel))
-            //        moved.push(rel);
-            //}
-
-            this.DG.GG.remove(v);
-            //console.log("order before: " + stringifyObject(this.DG.order));
-            this.DG.order.remove(v, this.DG.ranks[v]);
-            //console.log("order after: " + stringifyObject(this.DG.order));
-            this.DG.ranks.splice(v, 1);
-            this.DG.positions.splice(v, 1);
-
-            //// update moved IDs accordingly
-            //for (var m = 0; m < moved.length; m++ ) {
-            //    if (moved[m] > v)
-            //        moved[m]--;
-            //}
-        }
-
-        this.DG.maxRank = Math.max.apply(null, this.DG.ranks);
-
-        this.DG.GG.validate();
-
-        // note: do not update rankY, as we do not want to move anything (we know we don't need more Y space after a deletion)
-        this.DG.vertLevel = this.DG.positionVertically();
-        this.updateAncestors();
-
-        // TODO: for now: redraw all relationships
-        for (var i = 0; i <= this.getMaxNodeId(); i++) if (this.isRelationship(i)) moved.push(i);
-
-        // note: _findMovedNodes() does not work when IDs have changed. TODO
-        //var movedNodes = this._findMovedNodes( numNodesBefore, positionsBefore, ranksBefore, vertLevelsBefore, rankYBefore );
-        //for (var i = 0; i < moved.length; i++)
-        //    if (!arrayContains(movedNodes, moved[i]))
-        //        movedNodes.push(moved[i]);
-
-        // note: moved now has the correct IDs valid in the graph with all affected nodes removed
-        return { "removed": removed, "removedInternally": nodeList, "moved": moved };
-    },
-
-    improvePosition: function () {
-        //this.DG.positions = this.DG.position(this.DG.horizontalPersonSeparationDist, this.DG.horizontalRelSeparationDist);
-        //var movedNodes = this._getAllNodes();
-        //return {"moved": movedNodes};
-        var positionsBefore = this.DG.positions.slice(0);
-        var ranksBefore = this.DG.ranks.slice(0);
-        var vertLevelsBefore = this.DG.vertLevel.copy();
-        var rankYBefore = this.DG.rankY.slice(0);
-        var numNodesBefore = this.DG.GG.getMaxRealVertexId();
-
-        // fix common layout mistakes (e.g. relationship not right above the only child)
-        this._heuristics.improvePositioning(ranksBefore, rankYBefore);
-
-        var movedNodes = this._findMovedNodes(numNodesBefore, positionsBefore, ranksBefore, vertLevelsBefore, rankYBefore);
-
-        return { "moved": movedNodes };
-    },
-
-    clearAll: function () {
-        var removedNodes = this._getAllNodes(1); // all nodes from 1 and up
-
-        var emptyGraph = this.DG.GG.getNumVertices() == 0;
-
-        var node0properties = emptyGraph ? {} : this.getProperties(0);
-
-        // it is easier to create abrand new graph transferirng node 0 propertie sthna to remove on-by-one
-        // each time updating ranks, orders, etc
-
-        var baseGraph = __WEBPACK_IMPORTED_MODULE_3__import__["a" /* PedigreeImport */].initFromPhenotipsInternal(this._onlyProbandGraph);
-
-        this._recreateUsingBaseGraph(baseGraph);
-
-        this.setProperties(0, node0properties);
-
-        if (emptyGraph) return { "new": [0], "makevisible": [0] };
-
-        return { "removed": removedNodes, "moved": [0], "makevisible": [0] };
-    },
-
-    redrawAll: function (animateList, newList, ranksBefore) {
-        var ranksBefore = ranksBefore ? ranksBefore : this.DG.ranks.slice(0); // sometimes we want to use ranksbefore as they were before some stuff was added to the graph before a redraw
-
-        this._debugPrintAll("before");
-
-        var baseGraph = this.DG.GG.makeGWithCollapsedMultiRankEdges();
-
-        // collect current node ranks so that the new layout can be made more similar to the current one
-        var oldRanks = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_4__helpers__["k" /* clone2DArray */])(this.DG.order.order);
-        for (var i = oldRanks.length - 1; i >= 0; i--) {
-            oldRanks[i] = oldRanks[i].filter(this.DG.GG.isPerson.bind(this.DG.GG));
-            if (oldRanks[i].length == 0) oldRanks.splice(i, 1);
-        }
-
-        if (!this._recreateUsingBaseGraph(baseGraph, oldRanks)) return {}; // no changes
-
-        var movedNodes = this._getAllNodes();
-
-        var probandReRankSize = ranksBefore[0] - this.DG.ranks[0];
-        var reRankedDiffFrom0 = [];
-        var reRanked = [];
-        for (var i = 0; i <= this.DG.GG.getMaxRealVertexId(); i++) {
-            if (this.DG.GG.isPerson(i)) if (this.DG.ranks[i] != ranksBefore[i]) {
-                reRanked.push(i);
-            }
-            if (ranksBefore[i] - this.DG.ranks[i] != probandReRankSize) {
-                reRankedDiffFrom0.push(i);
-            }
-        }
-        if (reRankedDiffFrom0.length < reRanked.length) {
-            reRanked = reRankedDiffFrom0;
-        }
-
-        if (!animateList) animateList = [];
-
-        if (!newList) newList = [];else {
-            // nodes which are force-marked as new can't be in the "moved" list
-            for (var i = 0; i < newList.length; i++) __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_4__helpers__["j" /* removeFirstOccurrenceByValue */])(movedNodes, newList[i]);
-        }
-
-        this._debugPrintAll("after");
-
-        return { "new": newList, "moved": movedNodes, "highlight": reRanked, "animate": animateList };
-    },
-
-    // remove empty-values optional properties, e.g. "fName: ''" or "disorders: []"
-    stripUnusedProperties: function () {
-        for (var i = 0; i <= this.DG.GG.getMaxRealVertexId(); i++) {
-            if (this.isPerson(i)) {
-                this.deleteEmptyProperty(i, "fName");
-                this.deleteEmptyProperty(i, "lName");
-                this.deleteEmptyProperty(i, "gestationAge");
-                this.deleteEmptyProperty(i, "carrierStatus");
-                this.deleteEmptyProperty(i, "comments");
-                this.deleteEmptyProperty(i, "disorders");
-            }
-        }
-    },
-
-    deleteEmptyProperty: function (nodeID, propName) {
-        if (this.DG.GG.properties[nodeID].hasOwnProperty(propName)) {
-            if (Object.prototype.toString.call(this.DG.GG.properties[nodeID][propName]) === "[object Array]" && this.DG.GG.properties[nodeID][propName].length == 0) {
-                delete this.DG.GG.properties[nodeID][propName];
-            } else if (this.DG.GG.properties[nodeID][propName] == "") {
-                delete this.DG.GG.properties[nodeID][propName];
-            }
-        }
-    },
-
-    toJSON: function () {
-        this.stripUnusedProperties();
-
-        //var timer = new Timer();
-        var output = {};
-
-        // note: when saving positioned graph, need to save the version of the graph which has virtual edge pieces
-        output["GG"] = this.DG.GG.serialize();
-
-        output["ranks"] = this.DG.ranks;
-        output["order"] = this.DG.order.serialize();
-        output["positions"] = this.DG.positions;
-
-        // note: everything else can be recomputed based on the information above
-
-        console.log("JSON represenation: " + JSON.stringify(output));
-        //timer.printSinceLast("=== to JSON: ");
-
-        return JSON.stringify(output);
-    },
-
-    fromJSON: function (serializedAsJSON) {
-        var removedNodes = this._getAllNodes();
-
-        var serializedData = JSON.parse(serializedAsJSON);
-
-        //console.log("Got serialization object: " + stringifyObject(serializedData));
-
-        this.DG.GG = __WEBPACK_IMPORTED_MODULE_3__import__["a" /* PedigreeImport */].initFromPhenotipsInternal(serializedData["GG"]);
-
-        this.DG.ranks = serializedData["ranks"];
-
-        this.DG.maxRank = Math.max.apply(null, this.DG.ranks);
-
-        this.DG.order.deserialize(serializedData["order"]);
-
-        this.DG.positions = serializedData["positions"];
-
-        this._updateauxiliaryStructures();
-
-        this.screenRankShift = 0;
-
-        var newNodes = this._getAllNodes();
-
-        return { "new": newNodes, "removed": removedNodes };
-    },
-
-    fromImport: function (importString, importType, importOptions) {
-        var removedNodes = this._getAllNodes();
-
-        //this._debugPrintAll("before");
-
-        if (importType == "ped") {
-            var baseGraph = __WEBPACK_IMPORTED_MODULE_3__import__["a" /* PedigreeImport */].initFromPED(importString, importOptions.acceptUnknownPhenotypes, importOptions.markEvaluated, importOptions.externalIdMark);
-            if (!this._recreateUsingBaseGraph(baseGraph)) return null; // no changes
-        } else if (importType == "BOADICEA") {
-            var baseGraph = __WEBPACK_IMPORTED_MODULE_3__import__["a" /* PedigreeImport */].initFromBOADICEA(importString, importOptions.externalIdMark);
-            if (!this._recreateUsingBaseGraph(baseGraph)) return null; // no changes
-        } else if (importType == "gedcom") {
-            var baseGraph = __WEBPACK_IMPORTED_MODULE_3__import__["a" /* PedigreeImport */].initFromGEDCOM(importString, importOptions.markEvaluated, importOptions.externalIdMark);
-            if (!this._recreateUsingBaseGraph(baseGraph)) return null; // no changes
-        } else if (importType == "simpleJSON") {
-            var baseGraph = __WEBPACK_IMPORTED_MODULE_3__import__["a" /* PedigreeImport */].initFromSimpleJSON(importString);
-            if (!this._recreateUsingBaseGraph(baseGraph)) return null; // no changes            
-        } else if (importType == "phenotipsJSON") {}
-
-        // TODO
-
-
-        //this._debugPrintAll("after");
-
-        var newNodes = this._getAllNodes();
-
-        return { "new": newNodes, "removed": removedNodes };
-    },
-
-    getPathToParents: function (v) {
-        // returns an array with two elements: path to parent1 (excluding v) and path to parent2 (excluding v):
-        // [ [virtual_node_11, ..., virtual_node_1n, parent1], [virtual_node_21, ..., virtual_node_2n, parent21] ]
-        return this.DG.GG.getPathToParents(v);
-    },
-
-    //=============================================================
-
-    // suggestedRanks: when provided, attempt to use the suggested rank for all nodes,
-    //                 in order to keep the new layout as close as possible to the previous layout
-    _recreateUsingBaseGraph: function (baseGraph, suggestedRanks) {
-        try {
-            var newDG = new __WEBPACK_IMPORTED_MODULE_1__positionedGraph__["a" /* PositionedGraph */](baseGraph, this.DG.horizontalPersonSeparationDist, this.DG.horizontalRelSeparationDist, this.DG.maxInitOrderingBuckets, this.DG.maxOrderingIterations, this.DG.maxXcoordIterations, false, suggestedRanks);
-        } catch (e) {
-            console.trace(e);
-            return false;
-        }
-
-        this.DG = newDG;
-        this._heuristics = new __WEBPACK_IMPORTED_MODULE_2__heuristics__["a" /* Heuristics */](this.DG);
-
-        //this._debugPrintAll("before improvement");
-        this._heuristics.improvePositioning();
-        //this._debugPrintAll("after improvement");
-
-        return true;
-    },
-
-    _insertVertex: function (type, properties, edgeWeights, inedge, outedge, insertRank, insertOrder) {
-        // all nodes are connected to some other node, so either inedge or outedge should be given
-        if (inedge === null && outedge === null) throw "Assertion failed: each node should be connected to at least one other node";
-        if (inedge !== null && outedge !== null) throw "Assertion failed: not clear which edge crossing to optimize, can only insert one edge";
-
-        var inedges = inedge !== null ? [inedge] : [];
-        var outedges = outedge !== null ? [outedge] : [];
-
-        var newNodeId = this.DG.GG.insertVertex(type, properties, edgeWeights, inedges, outedges);
-
-        // note: the graph may be inconsistent at this point, e.g. there may be childhubs with
-        // no relationships or relationships without any people attached
-
-        if (insertRank == 0) {
-            for (var i = 0; i < this.DG.ranks.length; i++) this.DG.ranks[i]++;
-            this.DG.maxRank++;
-
-            this.DG.order.insertRank(1);
-
-            insertRank = 1;
-        } else if (insertRank > this.DG.maxRank) {
-            this.DG.maxRank = insertRank;
-            this.DG.order.insertRank(insertRank);
-        }
-
-        this.DG.ranks.splice(newNodeId, 0, insertRank);
-
-        this.DG.order.insertAndShiftAllIdsAboveVByOne(newNodeId, insertRank, insertOrder);
-
-        // update positions
-        this.DG.positions.splice(newNodeId, 0, -Infinity); // temporary position: will move to the correct location and shift other nodes below
-
-        var nodeToKeepEdgeStraightTo = inedge != null ? inedge : outedge;
-        this._heuristics.moveToCorrectPositionAndMoveOtherNodesAsNecessary(newNodeId, nodeToKeepEdgeStraightTo);
-
-        return newNodeId;
-    },
-
-    _updateauxiliaryStructures: function (ranksBefore, rankYBefore) {
-        var timer = new __WEBPACK_IMPORTED_MODULE_4__helpers__["g" /* Timer */]();
-
-        // update vertical levels
-        this.DG.vertLevel = this.DG.positionVertically();
-        this.DG.rankY = this.DG.computeRankY(ranksBefore, rankYBefore);
-
-        // update ancestors
-        this.updateAncestors();
-
-        timer.printSinceLast("=== Vertical spacing + ancestors runtime: ");
-    },
-
-    _getAllNodes: function (minID, maxID) {
-        var nodes = [];
-        var minID = minID ? minID : 0;
-        var maxID = maxID ? Math.min(maxID, this.DG.GG.getMaxRealVertexId()) : this.DG.GG.getMaxRealVertexId();
-        for (var i = minID; i <= maxID; i++) {
-            if (this.DG.GG.type[i] == __WEBPACK_IMPORTED_MODULE_0__baseGraph__["b" /* TYPE */].PERSON || this.DG.GG.type[i] == __WEBPACK_IMPORTED_MODULE_0__baseGraph__["b" /* TYPE */].RELATIONSHIP) nodes.push(i);
-        }
-        return nodes;
-    },
-
-    _findMovedNodes: function (maxOldID, positionsBefore, ranksBefore, vertLevelsBefore, rankYBefore, consangrBefore) {
-        //console.log("Before: " + stringifyObject(vertLevelsBefore));
-        //console.log("After:  " + stringifyObject(this.DG.vertLevel));
-        //console.log("Before: " + stringifyObject(positionsBefore));
-        //console.log("After: " + stringifyObject(this.DG.positions));
-
-        // TODO: some heuristics cause this behaviour. Easy to fix by normalization, but better look into root cause later
-        // normalize positions: if the leftmost coordinate is now greater than it was before
-        // make the old leftmost node keep it's coordinate
-        var oldMin = Math.min.apply(Math, positionsBefore);
-        var newMin = Math.min.apply(Math, this.DG.positions);
-        if (newMin > oldMin) {
-            var oldMinNodeID = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_4__helpers__["l" /* arrayIndexOf */])(positionsBefore, oldMin);
-            var newMinValue = this.DG.positions[oldMinNodeID];
-            var shiftAmount = newMinValue - oldMin;
-
-            for (var i = 0; i < this.DG.positions.length; i++) this.DG.positions[i] -= shiftAmount;
-        }
-
-        var result = {};
-        for (var i = 0; i <= maxOldID; i++) {
-            // this node was moved
-            if (this.DG.GG.type[i] == __WEBPACK_IMPORTED_MODULE_0__baseGraph__["b" /* TYPE */].RELATIONSHIP || this.DG.GG.type[i] == __WEBPACK_IMPORTED_MODULE_0__baseGraph__["b" /* TYPE */].PERSON) {
-                var rank = this.DG.ranks[i];
-                //if (rank != ranksBefore[i]) {
-                //    this._addNodeAndAssociatedRelationships(i, result, maxOldID);
-                //    continue;
-                //}
-                if (rankYBefore && this.DG.rankY[rank] != rankYBefore[ranksBefore[i]]) {
-                    this._addNodeAndAssociatedRelationships(i, result, maxOldID);
-                    continue;
-                }
-                if (this.DG.positions[i] != positionsBefore[i]) {
-                    this._addNodeAndAssociatedRelationships(i, result, maxOldID);
-                    continue;
-                }
-                // or it is a relationship with a long edge - redraw just in case since long edges may have complicated curves around other nodes
-                if (this.DG.GG.type[i] == __WEBPACK_IMPORTED_MODULE_0__baseGraph__["b" /* TYPE */].RELATIONSHIP) {
-                    if (consangrBefore && !consangrBefore.hasOwnProperty(i) && this.DG.consangr.hasOwnProperty(i)) {
-                        result[i] = true;
-                        continue;
-                    }
-                    var inEdges = this.DG.GG.getInEdges(i);
-                    if (inEdges[0] > this.DG.GG.maxRealVertexId || inEdges[1] > this.DG.GG.maxRealVertexId) {
-                        result[i] = true;
-                        continue;
-                    }
-                    // check vertical positioning changes
-                    var parents = this.DG.GG.getParents(i);
-                    if (vertLevelsBefore.outEdgeVerticalLevel[parents[0]] !== undefined && // vertical levels may be outdated if multiple nodes were created in one batch
-                    vertLevelsBefore.outEdgeVerticalLevel[parents[1]] !== undefined) {
-                        if (vertLevelsBefore.outEdgeVerticalLevel[parents[0]][i].verticalLevel != this.DG.vertLevel.outEdgeVerticalLevel[parents[0]][i].verticalLevel || vertLevelsBefore.outEdgeVerticalLevel[parents[1]][i].verticalLevel != this.DG.vertLevel.outEdgeVerticalLevel[parents[1]][i].verticalLevel) {
-                            result[i] = true;
-                            continue;
-                        }
-                    }
-
-                    var childHub = this.DG.GG.getRelationshipChildhub(i);
-                    if (vertLevelsBefore.childEdgeLevel[childHub] !== undefined && vertLevelsBefore.childEdgeLevel[childHub] != this.DG.vertLevel.childEdgeLevel[childHub]) {
-                        result[i] = true;
-                        continue;
-                    }
-                }
-            }
-        }
-
-        var resultArray = [];
-        for (var node in result) {
-            if (result.hasOwnProperty(node)) {
-                resultArray.push(parseInt(node));
-            }
-        }
-
-        return resultArray;
-    },
-
-    _addNodeAndAssociatedRelationships: function (node, addToSet, maxOldID) {
-        addToSet[node] = true;
-        if (this.DG.GG.type[node] != __WEBPACK_IMPORTED_MODULE_0__baseGraph__["b" /* TYPE */].PERSON) return;
-
-        var inEdges = this.DG.GG.getInEdges(node);
-        if (inEdges.length > 0) {
-            var parentChildhub = inEdges[0];
-            var parentRelationship = this.DG.GG.getInEdges(parentChildhub)[0];
-            if (parentRelationship <= maxOldID) addToSet[parentRelationship] = true;
-        }
-
-        var outEdges = this.DG.GG.getOutEdges(node);
-        for (var i = 0; i < outEdges.length; i++) {
-            if (outEdges[i] <= maxOldID) addToSet[outEdges[i]] = true;
-        }
-    },
-
-    //=============================================================
-
-    _addMultiRankEdge: function (personId, relationshipId, _weight) {
-        var weight = _weight ? _weight : 1.0;
-
-        var rankPerson = this.DG.ranks[personId];
-        var rankRelationship = this.DG.ranks[relationshipId];
-
-        if (rankPerson > rankRelationship - 2) throw "Assertion failed: attempt to make a multi-rank edge between non-multirank ranks";
-
-        var otherpartner = this.DG.GG.getInEdges(relationshipId)[0];
-
-        var order_person = this.DG.order.vOrder[personId];
-        var order_rel = this.DG.order.vOrder[relationshipId];
-
-        var x_person = this.DG.positions[otherpartner];
-        var x_relationship = this.DG.positions[relationshipId];
-
-        var prevPieceOrder = x_person < x_relationship ? order_rel + 1 : order_rel;
-        var prevPieceId = this._insertVertex(__WEBPACK_IMPORTED_MODULE_0__baseGraph__["b" /* TYPE */].VIRTUALEDGE, {}, weight, null, relationshipId, rankRelationship, prevPieceOrder);
-
-        // TODO: an algorithm which optimizes the entire edge placement globally (not one piece at a time)
-
-        var rankNext = rankRelationship;
-        while (--rankNext > rankPerson) {
-
-            var prevNodeX = this.DG.positions[prevPieceId];
-            var orderToMakeEdgeStraight = this.DG.order.order[rankNext].length;
-            for (var o = 0; o < this.DG.order.order[rankNext].length; o++) if (this.DG.positions[this.DG.order.order[rankNext][o]] >= prevNodeX) {
-                orderToMakeEdgeStraight = o;
-                break;
-            }
-
-            console.log("adding piece @ rank: " + rankNext + " @ order " + orderToMakeEdgeStraight);
-
-            prevPieceId = this._insertVertex(__WEBPACK_IMPORTED_MODULE_0__baseGraph__["b" /* TYPE */].VIRTUALEDGE, {}, weight, null, prevPieceId, rankNext, orderToMakeEdgeStraight);
-        }
-
-        //connect last piece with personId
-        this.DG.GG.addEdge(personId, prevPieceId, weight);
-    },
-
-    //=============================================================
-
-    _findBestInsertPosition: function (rank, edgeToV, preferLeft, _fromOrder, _toOrder) {
-        // note: does not assert that the graph satisfies all the assumptions in BaseGraph.validate()
-
-        if (rank == 0 || rank > this.DG.maxRank) return 0;
-
-        // find the order on rank 'rank' to insert a new vertex so that the edge connecting this new vertex
-        // and vertex 'edgeToV' crosses the smallest number of edges.
-        var edgeToRank = this.DG.ranks[edgeToV];
-        var edgeToOrder = this.DG.order.vOrder[edgeToV];
-
-        if (edgeToRank == rank && this.isPerson(edgeToV)) return this._findBestRelationshipPosition(edgeToV, preferLeft);
-
-        var bestInsertOrder = 0;
-        var bestCrossings = Infinity;
-        var bestDistance = Infinity;
-
-        var crossingChildhubEdgesPenalty = false;
-        if (this.DG.GG.type[edgeToV] == __WEBPACK_IMPORTED_MODULE_0__baseGraph__["b" /* TYPE */].CHILDHUB) crossingChildhubEdgesPenalty = true;
-
-        var desiredOrder = 0;
-
-        var edgeToX = this.DG.positions[edgeToV];
-        for (var o = 0; o < this.DG.order.order[rank].length; o++) {
-            var uAtPos = this.DG.order.order[rank][o];
-            var uX = this.DG.positions[uAtPos];
-            if (uX < edgeToX) {
-                desiredOrder = o + 1;
-            } else {
-                break;
-            }
-        }
-
-        // when inserting children below childhubs: next to other children
-        if (this.DG.GG.type[edgeToV] == __WEBPACK_IMPORTED_MODULE_0__baseGraph__["b" /* TYPE */].CHILDHUB && rank > edgeToRank && this.DG.GG.getOutEdges(edgeToV).length > 0) desiredOrder = this._findRightmostChildPosition(edgeToV) + 1;
-
-        var fromOrder = _fromOrder ? Math.max(_fromOrder, 0) : 0;
-        var toOrder = _toOrder ? Math.min(_toOrder, this.DG.order.order[rank].length) : this.DG.order.order[rank].length;
-        for (var o = fromOrder; o <= toOrder; o++) {
-
-            // make sure not inserting inbetween some twins
-            if (o > 0 && o < this.DG.order.order[rank].length) {
-                // skip virtual edges which may appear between twins
-                var leftNodePos = o - 1;
-                while (leftNodePos > 0 && this.DG.GG.isVirtual(this.DG.order.order[rank][leftNodePos])) leftNodePos--;
-                rightNodePos = o;
-                while (rightNodePos < this.DG.order.order[rank].length - 1 && this.DG.GG.isVirtual(this.DG.order.order[rank][rightNodePos])) rightNodePos--;
-                var nodeToTheLeft = this.DG.order.order[rank][leftNodePos];
-                var nodeToTheRight = this.DG.order.order[rank][rightNodePos];
-
-                if (this.isPerson(nodeToTheLeft) && this.isPerson(nodeToTheRight)) {
-                    var rel1 = this.DG.GG.getProducingRelationship(nodeToTheLeft);
-                    var rel2 = this.DG.GG.getProducingRelationship(nodeToTheRight);
-                    if (rel1 == rel2) {
-                        var twinGroupId1 = this.DG.GG.getTwinGroupId(nodeToTheLeft);
-                        var twinGroupId2 = this.DG.GG.getTwinGroupId(nodeToTheRight);
-                        if (twinGroupId1 !== null && twinGroupId1 == twinGroupId2) continue;
-                    }
-                }
-            }
-
-            var numCrossings = this._edgeCrossingsByFutureEdge(rank, o - 0.5, edgeToRank, edgeToOrder, crossingChildhubEdgesPenalty, edgeToV);
-
-            //console.log("position: " + o + ", numCross: " + numCrossings);
-
-            if (numCrossings < bestCrossings || // less crossings
-            numCrossings == bestCrossings && Math.abs(o - desiredOrder) <= bestDistance // closer to desired position
-            ) {
-                    bestInsertOrder = o;
-                    bestCrossings = numCrossings;
-                    bestDistance = Math.abs(o - desiredOrder);
-                }
-        }
-
-        //console.log("inserting @ rank " + rank + " with edge from " + edgeToV + " --> " + bestInsertOrder);
-        return bestInsertOrder;
-    },
-
-    _findRightmostChildPosition: function (vertex) {
-        var childrenInfo = this._heuristics.analizeChildren(vertex);
-        return childrenInfo.rightMostChildOrder;
-    },
-
-    _edgeCrossingsByFutureEdge: function (newVRank, newVOrder, existingURank, existingUOrder, crossingChildhubEdgesPenalty, existingU) {
-        // Note: newVOrder is expected to be a number between two existing orders, or higher than all, or lower than all
-
-        // counts how many existing edges a new edge from given rank&order to given rank&order would cross
-        // if order is an integer, it is assumed it goes form an existing vertex
-        // if order is inbetween two integers, it is assumed it is the position used for a new-to-be-inserted vertex
-
-        // for simplicity (to know if we need to check outEdges or inEdges) get the edge in the correct direction
-        // (i.e. from lower ranks to higher ranks)
-        var rankFrom = Math.min(newVRank, existingURank);
-        var rankTo = Math.max(newVRank, existingURank);
-        var orderFrom = newVRank < existingURank ? newVOrder : existingUOrder;
-        var orderTo = newVRank < existingURank ? existingUOrder : newVOrder;
-
-        // for better penalty computation handle the special case of adding a new child to an existing childhub
-        var vSibglingInfo = undefined;
-        if (this.DG.GG.isChildhub(existingU) && newVRank > existingURank && this.DG.GG.getOutEdges(existingU).length > 0) {
-            vSibglingInfo = this._heuristics.analizeChildren(existingU);
-
-            if (vSibglingInfo.numWithTwoPartners < vSibglingInfo.orderedChildren.length) {
-                // need to insert new node next to a sibling
-                var okPosition = false;
-                if (newVOrder > 0) {
-                    // check left neighbour
-                    var leftNeighbour = this.DG.order.order[newVRank][Math.floor(newVOrder)];
-                    var neighbourInEdges = this.DG.GG.getInEdges(leftNeighbour);
-                    if (neighbourInEdges.length == 1 && neighbourInEdges[0] == existingU) {
-                        okPosition = true; // left neighbour is a sibling
-                    }
-                }
-                if (newVOrder < this.DG.order.order[newVRank].length - 1) {
-                    // check right neighbour
-                    var rightNeighbour = this.DG.order.order[newVRank][Math.ceil(newVOrder)];
-                    var neighbourInEdges = this.DG.GG.getInEdges(rightNeighbour);
-                    if (neighbourInEdges.length == 1 && neighbourInEdges[0] == existingU) {
-                        okPosition = true; // right neighbour is a sibling
-                    }
-                }
-                if (!okPosition) {
-                    return Infinity;
-                }
-            }
-        }
-
-        var crossings = 0;
-
-        if (rankFrom == rankTo) throw "TODO: probably not needed";
-
-        // For multi-rank edges, crossing occurs if either
-        // 1) there is an edge going from rank[v]-ranked vertex with a smaller order
-        //     than v to a rank[targetV]-ranked vertex with a larger order than targetV
-        // 2) there is an edge going from rank[v]-ranked vertex with a larger order
-        //     than v to a rank[targetV]-ranked vertex with a smaller order than targetV
-
-        var verticesAtRankTo = this.DG.order.order[rankTo];
-
-        for (var ord = 0; ord < verticesAtRankTo.length; ord++) {
-            if (ord == orderTo) continue;
-
-            var vertex = verticesAtRankTo[ord];
-
-            var inEdges = this.DG.GG.getInEdges(vertex);
-            var len = inEdges.length;
-
-            for (var j = 0; j < len; j++) {
-                var target = inEdges[j];
-
-                var penalty = 1;
-                if (crossingChildhubEdgesPenalty && this.DG.GG.isChildhub(target)) {
-                    // don't want to insert a node inbetween siblings
-                    penalty = 100000;
-                    // ...unless siblings of the inserted node are already inbetween those siblings:
-                    if (vSibglingInfo) {
-                        var targetChildren = this._heuristics.analizeChildren(target);
-
-                        if (targetChildren.leftMostChildOrder < vSibglingInfo.rightMostChildOrder && targetChildren.rightMostChildOrder > vSibglingInfo.leftMostChildOrder) {
-                            penalty = 1;
-                        }
-                    }
-                }
-
-                var orderTarget = this.DG.order.vOrder[target];
-                var rankTarget = this.DG.ranks[target];
-
-                if (rankTarget == rankTo) {
-                    if (ord < orderTo && orderTarget > orderTo || ord > orderTo && orderTarget < orderTo) crossings += 2;
-                } else {
-                    if (ord < orderTo && orderTarget > orderFrom || ord > orderTo && orderTarget < orderFrom) crossings += penalty;
-                }
-            }
-        }
-
-        // try not to insert between a node and it's relationship
-        // (for that only need check edges on the insertion rank)
-        var verticesAtNewRank = this.DG.order.order[newVRank];
-        for (var ord = 0; ord < verticesAtNewRank.length; ord++) {
-            if (ord == newVOrder) continue;
-
-            var vertex = verticesAtNewRank[ord];
-
-            var outEdges = this.DG.GG.getOutEdges(vertex);
-            var len = outEdges.length;
-
-            for (var j = 0; j < len; j++) {
-                var target = outEdges[j];
-
-                var orderTarget = this.DG.order.vOrder[target];
-                var rankTarget = this.DG.ranks[target];
-
-                if (rankTarget == newVRank) {
-                    if (newVOrder < ord && newVOrder > orderTarget || newVOrder > ord && newVOrder < orderTarget) crossings += 0.1;
-                }
-            }
-        }
-
-        return crossings;
-    },
-
-    _findBestRelationshipPosition: function (v, preferLeft, u) {
-        // Handles two different cases:
-        // 1) both partners are given ("v" and "u"). Then need to insert between v and u
-        // 2) only one partner is given ("v"). Then given the choice prefer the left side if "preferleft" is true
-
-        var rank = this.DG.ranks[v];
-        var orderR = this.DG.order.order[rank];
-        var isTwin = this.DG.GG.getTwinGroupId(v) != null;
-        var vOrder = this.DG.order.vOrder[v];
-
-        var penaltyBelow = [];
-        var penaltySameRank = [];
-        for (var o = 0; o <= orderR.length; o++) {
-            penaltyBelow[o] = 0;
-            penaltySameRank[o] = 0;
-        }
-
-        // for each order on "rank" compute heuristic penalty for inserting a node before that order
-        // based on the structure of nodes below
-        for (var o = 0; o < orderR.length; o++) {
-            var node = orderR[o];
-            if (!this.isRelationship(node)) continue;
-            var childrenInfo = this._heuristics.analizeChildren(node);
-
-            // TODO: do a complete analysis without any heuristics
-            if (childrenInfo.leftMostHasLParner) {
-                penaltyBelow[o] += 1;penaltyBelow[o - 1] += 0.25;
-            } // 0.25 is just a heuristic estimation of how busy the level below is.
-            if (childrenInfo.rightMostHasRParner) {
-                penaltyBelow[o + 1] += 1;penaltyBelow[o + 2] += 0.25;
-            }
-        }
-
-        // for each order on "rank" compute heuristic penalty for inserting a node before that order
-        // based on the edges on that rank
-        for (var o = 0; o < orderR.length; o++) {
-            var node = orderR[o];
-            if (!this.isRelationship(node)) continue;
-
-            var relOrder = this.DG.order.vOrder[node];
-
-            var parents = this.DG.GG.getInEdges(node);
-
-            for (var p = 0; p < parents.length; p++) {
-                var parent = parents[p];
-                if (parent != v && this.DG.ranks[parent] == rank && parent != u) {
-                    var parentOrder = this.DG.order.vOrder[parent];
-
-                    var from = parentOrder > relOrder ? relOrder + 1 : parentOrder + 1;
-                    var to = parentOrder > relOrder ? parentOrder : relOrder;
-                    for (var j = from; j <= to; j++) penaltySameRank[j] = Infinity;
-                }
-            }
-        }
-
-        // add penalties for crossing child-to-parent lines, and forbid inserting inbetween twin nodes
-        for (var o = 0; o < orderR.length; o++) {
-            if (o == vOrder) continue;
-
-            var node = orderR[o];
-            if (!this.isPerson(node)) continue;
-            var allTwins = this.getAllTwinsSortedByOrder(node);
-
-            // forbid inserting inbetween twins
-            if (allTwins.length > 1) {
-                var leftMostTwinOrder = this.DG.order.vOrder[allTwins[0]];
-                var rightMostTwinOrder = this.DG.order.vOrder[allTwins[allTwins.length - 1]];
-                for (var j = leftMostTwinOrder + 1; j <= rightMostTwinOrder; j++) penaltySameRank[j] = Infinity;
-                o = rightMostTwinOrder; // skip thorugh all other twins in this group
-            }
-
-            // penalty for crossing peron-to-parent line
-            if (this.DG.GG.getProducingRelationship(node) != null) {
-                if (o < vOrder) {
-                    for (var j = 0; j <= o; j++) penaltySameRank[j]++;
-                } else {
-                    for (var j = o + 1; j <= orderR.length; j++) penaltySameRank[j]++;
-                }
-            }
-        }
-
-        console.log("Insertion same rank penalties: " + __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_4__helpers__["c" /* stringifyObject */])(penaltySameRank));
-        console.log("Insertion below penalties:     " + __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_4__helpers__["c" /* stringifyObject */])(penaltyBelow));
-
-        if (u === undefined) {
-            if (preferLeft && vOrder == 0) return 0;
-
-            var partnerInfo = this.DG._findLeftAndRightPartners(v);
-            var numLeftOf = partnerInfo.leftPartners.length;
-            var numRightOf = partnerInfo.rightPartners.length;
-
-            // Note: given everything else being equal, prefer the right side - to move fewer nodes
-
-            console.log("v: " + v + ", vOrder: " + vOrder + ", numL: " + numLeftOf + ", numR: " + numRightOf);
-
-            if (!isTwin && numLeftOf == 0 && (preferLeft || numRightOf > 0)) return vOrder;
-            if (!isTwin && numRightOf == 0) return vOrder + 1;
-
-            var bestPosition = vOrder + 1;
-            var bestPenalty = Infinity;
-            for (var o = 0; o <= orderR.length; o++) {
-                var penalty = penaltyBelow[o] + penaltySameRank[o];
-                if (o <= vOrder) {
-                    penalty += numLeftOf + (vOrder - o); // o == order     => insert immediately to the left of, distance penalty = 0
-                    if (preferLeft) penalty -= 0.5; // preferLeft => given equal penalty prefer left (0.5 is less than penalty diff due to other factors)
-                    else penalty += 0.5; //
-                } else {
-                    penalty += numRightOf + (o - vOrder - 1); // o == (order+1) => insert immediately to the right of, distance penalty = 0
-                }
-
-                //console.log("order: " + o + ", penalty: " + penalty);
-                if (penalty < bestPenalty) {
-                    bestPenalty = penalty;
-                    bestPosition = o;
-                }
-            }
-            return bestPosition;
-        }
-
-        // for simplicity, lets make sure v is to the left of u
-        if (this.DG.order.vOrder[v] > this.DG.order.vOrder[u]) {
-            var tmp = u;
-            u = v;
-            v = tmp;
-        }
-
-        var orderV = this.DG.order.vOrder[v];
-        var orderU = this.DG.order.vOrder[u];
-
-        var partnerInfoV = this.DG._findLeftAndRightPartners(v);
-        var numRightOf = partnerInfoV.rightPartners.length;
-        var partnerInfoU = this.DG._findLeftAndRightPartners(u);
-        var numLeftOf = partnerInfoU.leftPartners.length;
-
-        if (numRightOf == 0 && numLeftOf > 0) return orderV + 1;
-        if (numRightOf > 0 && numLeftOf == 0) return orderU;
-
-        var bestPosition = orderV + 1;
-        var bestPenalty = Infinity;
-        for (var o = orderV + 1; o <= orderU; o++) {
-            var penalty = penaltyBelow[o] + penaltySameRank[o];
-
-            for (var p = 0; p < partnerInfoV.rightPartners.length; p++) {
-                var partner = partnerInfoV.rightPartners[p];
-                if (o <= this.DG.order.vOrder[partner]) penalty++;
-            }
-            for (var p = 0; p < partnerInfoU.leftPartners.length; p++) {
-                var partner = partnerInfoU.leftPartners[p];
-                if (o > this.DG.order.vOrder[partner]) penalty++;
-            }
-
-            //console.log("order: " + o + ", penalty: " + penalty);
-
-            if (penalty <= bestPenalty) {
-                bestPenalty = penalty;
-                bestPosition = o;
-            }
-        }
-        return bestPosition;
-    },
-
-    //=============================================================
-
-    _getAllPersonsOfGenders: function (validGendersSet) {
-        // all person nodes whose gender matches one of genders in the validGendersSet array
-
-        // validate input genders
-        for (var i = 0; i < validGendersSet.length; i++) {
-            validGendersSet[i] = validGendersSet[i].toLowerCase();
-            if (validGendersSet[i] != "u" && validGendersSet[i] != "m" && validGendersSet[i] != "f") throw "Invalid gender: " + validGendersSet[i];
-        }
-
-        var result = [];
-
-        for (var i = 0; i <= this.DG.GG.getMaxRealVertexId(); i++) {
-            if (!this.isPerson(i)) continue;
-            if (this.isPersonGroup(i)) continue;
-            var gender = this.getProperties(i)["gender"].toLowerCase();
-            //console.log("trying: " + i + ", gender: " + gender + ", validSet: " + stringifyObject(validGendersSet));
-            if (__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_4__helpers__["h" /* arrayContains */])(validGendersSet, gender)) result.push(i);
-        }
-
-        return result;
-    }
+HPOTerm.desanitizeID = function (id) {
+    var temp = id.replace(/__/g, " ");
+    temp = temp.replace(/_C_/g, ":");
+    temp = temp.replace(/_L_/g, "(");
+    return temp.replace(/_J_/g, ")");
 };
 
+HPOTerm.isValidID = function (id) {
+    var pattern = /^HP\:(\d)+$/i;
+    return pattern.test(id);
+};
+
+HPOTerm.getServiceURL = function () {
+    return "";
+};
+/* WEBPACK VAR INJECTION */}.call(__webpack_exports__, __webpack_require__(3), __webpack_require__(27)))
+
 /***/ }),
-/* 82 */
+/* 77 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* WEBPACK VAR INJECTION */(function(Class, Raphael) {/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__legend__ = __webpack_require__(58);
-
-
-/**
- * Class responsible for keeping track of candidate genes.
- * This information is graphically displayed in a 'Legend' box.
- *
- * @class GeneLegend
- * @constructor
- */
-const GeneLegend = Class.create(__WEBPACK_IMPORTED_MODULE_0__legend__["a" /* Legend */], {
-
-    initialize: function ($super) {
-        $super("Candidate Genes", true);
-    },
-
-    _getPrefix: function (id) {
-        return "gene";
-    },
-
-    /**
-     * Generate the element that will display information about the given disorder in the legend
-     *
-     * @method _generateElement
-     * @param {String} geneID The id for the gene
-     * @param {String} name The human-readable gene description
-     * @return {HTMLLIElement} List element to be insert in the legend
-     */
-    _generateElement: function ($super, geneID, name) {
-        if (!this._objectColors.hasOwnProperty(geneID)) {
-            var color = this._generateColor(geneID);
-            this._objectColors[geneID] = color;
-            document.fire("gene:color", { "id": geneID, color: color });
-        }
-
-        return $super(geneID, name);
-    },
-
-    /**
-     * Callback for dragging an object from the legend onto nodes
-     *
-     * @method _onDropGeneric
-     * @param {Person} Person node
-     * @param {String|Number} id ID of the gene being dropped
-     */
-    _onDropObject: function (node, geneID) {
-        if (node.isPersonGroup()) {
-            return;
-        }
-        var currentGenes = node.getGenes().slice(0);
-        if (currentGenes.indexOf(geneID) == -1) {
-            // only if the node does not have this gene yet
-            currentGenes.push(geneID);
-            editor.getView().unmarkAll();
-            var properties = { "setGenes": currentGenes };
-            var event = { "nodeID": node.getID(), "properties": properties };
-            document.fire("pedigree:node:setproperty", event);
-        } else {
-            alert("This person already has the selected candidate gene");
-        }
-    },
-
-    /**
-     * Generates a CSS color.
-     * Has preference for some predefined colors that can be distinguished in gray-scale
-     * and are distint from disorder colors.
-     *
-     * @method generateColor
-     * @return {String} CSS color
-     */
-    _generateColor: function (geneID) {
-        if (this._objectColors.hasOwnProperty(geneID)) {
-            return this._objectColors[geneID];
-        }
-
-        var usedColors = Object.values(this._objectColors),
-
-        // green palette
-        prefColors = ["#81a270", "#c4e8c4", "#56a270", "#b3b16f", "#4a775a", "#65caa3"];
-        usedColors.each(function (color) {
-            prefColors = prefColors.without(color);
-        });
-        if (prefColors.length > 0) {
-            return prefColors[0];
-        } else {
-            var randomColor = Raphael.getColor();
-            while (randomColor == "#ffffff" || usedColors.indexOf(randomColor) != -1) {
-                randomColor = "#" + ((1 << 24) * Math.random() | 0).toString(16);
-            }
-            return randomColor;
-        }
-    }
-});
-/* harmony export (immutable) */ __webpack_exports__["a"] = GeneLegend;
-
-/* WEBPACK VAR INJECTION */}.call(__webpack_exports__, __webpack_require__(3), __webpack_require__(21)))
-
-/***/ }),
-/* 83 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* WEBPACK VAR INJECTION */(function(Class) {/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__legend__ = __webpack_require__(58);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__hpoTerm__ = __webpack_require__(57);
-
-
-/**
- * Class responsible for keeping track of HPO terms and their properties, and for
- * caching disorders data as loaded from the OMIM database.
- * This information is graphically displayed in a 'Legend' box
- *
- * @class HPOLegend
- * @constructor
- */
-const HPOLegend = Class.create(__WEBPACK_IMPORTED_MODULE_0__legend__["a" /* Legend */], {
-
-    initialize: function ($super) {
-        $super("Phenotypes", true);
-
-        this._termCache = {};
-    },
-
-    _getPrefix: function (id) {
-        return "phenotype";
-    },
-
-    /**
-     * Returns the HPOTerm object with the given ID. If object is not in cache yet
-     * returns a newly created one which may have the term name & other attributes not loaded yet
-     *
-     * @method getTerm
-     * @return {Object}
-     */
-    getTerm: function (hpoID) {
-        hpoID = __WEBPACK_IMPORTED_MODULE_1__hpoTerm__["a" /* HPOTerm */].sanitizeID(hpoID);
-        if (!this._termCache.hasOwnProperty(hpoID)) {
-            var whenNameIsLoaded = function () {
-                this._updateTermName(hpoID);
-            };
-            this._termCache[hpoID] = new __WEBPACK_IMPORTED_MODULE_1__hpoTerm__["a" /* HPOTerm */](hpoID, null, whenNameIsLoaded.bind(this));
-        }
-        return this._termCache[hpoID];
-    },
-
-    /**
-     * Retrieve the color associated with the given object
-     *
-     * @method getObjectColor
-     * @param {String|Number} id ID of the object
-     * @return {String} CSS color value for that disorder
-     */
-    getObjectColor: function (id) {
-        return "#CCCCCC";
-    },
-
-    /**
-     * Registers an occurrence of a phenotype.
-     *
-     * @method addCase
-     * @param {Number|String} id ID for this term taken from the HPO database
-     * @param {String} name The description of the phenotype
-     * @param {Number} nodeID ID of the Person who has this phenotype
-     */
-    addCase: function ($super, id, name, nodeID) {
-        if (!this._termCache.hasOwnProperty(id)) this._termCache[id] = new __WEBPACK_IMPORTED_MODULE_1__hpoTerm__["a" /* HPOTerm */](id, name);
-
-        $super(id, name, nodeID);
-    },
-
-    /**
-     * Updates the displayed phenotype name for the given phenotype
-     *
-     * @method _updateTermName
-     * @param {Number} id The identifier of the phenotype to update
-     * @private
-     */
-    _updateTermName: function (id) {
-        //console.log("updating phenotype display for " + id + ", name = " + this.getTerm(id).getName());
-        var name = this._legendBox.down("li#" + this._getPrefix() + "-" + id + " .disorder-name");
-        name.update(this.getTerm(id).getName());
-    },
-
-    /**
-     * Callback for dragging an object from the legend onto nodes
-     *
-     * @method _onDropGeneric
-     * @param {Person} Person node
-     * @param {String|Number} id ID of the phenotype being dropped
-     */
-    _onDropObject: function (node, hpoID) {
-        if (node.isPersonGroup()) {
-            return;
-        }
-        var currentHPO = node.getHPO().slice(0);
-        if (currentHPO.indexOf(hpoID) == -1) {
-            currentHPO.push(hpoID);
-            editor.getView().unmarkAll();
-            var properties = { "setHPO": currentHPO };
-            var event = { "nodeID": node.getID(), "properties": properties };
-            document.fire("pedigree:node:setproperty", event);
-        } else {
-            alert("This person already has the selected phenotype");
-        }
-    }
-});
-/* harmony export (immutable) */ __webpack_exports__["a"] = HPOLegend;
-
-/* WEBPACK VAR INJECTION */}.call(__webpack_exports__, __webpack_require__(3)))
-
-/***/ }),
-/* 84 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* WEBPACK VAR INJECTION */(function(Class) {/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__abstractPerson__ = __webpack_require__(152);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__personVisuals__ = __webpack_require__(86);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__disorder__ = __webpack_require__(56);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__hpoTerm__ = __webpack_require__(57);
+/* WEBPACK VAR INJECTION */(function(Class) {/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__abstractPerson__ = __webpack_require__(144);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__personVisuals__ = __webpack_require__(79);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__disorder__ = __webpack_require__(75);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__hpoTerm__ = __webpack_require__(76);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__abstractNode__ = __webpack_require__(55);
 
 
@@ -47864,6 +44766,8 @@ const Person = Class.create(__WEBPACK_IMPORTED_MODULE_0__abstractPerson__["a" /*
         //var timer = new Timer();
         !this._type && (this._type = "Person");
         this._setDefault();
+        console.info('setting proband info', properties.isProband);
+        console.info(JSON.stringify(properties));
         this._isProband = properties.isProband;
         this.setFocused(properties.focused);
         var gender = properties.hasOwnProperty("gender") ? properties["gender"] : "U";
@@ -47901,6 +44805,7 @@ const Person = Class.create(__WEBPACK_IMPORTED_MODULE_0__abstractPerson__["a" /*
         this._pedNumber = "";
         this._lostContact = false;
         this._focused = false;
+        this._isProband = false;
     },
 
     /**
@@ -47924,6 +44829,7 @@ const Person = Class.create(__WEBPACK_IMPORTED_MODULE_0__abstractPerson__["a" /*
      * @return {Boolean}
      */
     isProband: function () {
+        console.log('getting proband info', this._isProband);
         return this._isProband;
     },
 
@@ -48012,9 +44918,8 @@ const Person = Class.create(__WEBPACK_IMPORTED_MODULE_0__abstractPerson__["a" /*
      * @method setFocused
      */
     setFocused: function (focused) {
-        const clean = focused === 1 ? true : false;
-        if (clean == this._focused) return;
-        this._focused = clean;
+        if (focused == this._focused) return;
+        this._focused = focused;
     },
 
     /**
@@ -48455,7 +45360,7 @@ const Person = Class.create(__WEBPACK_IMPORTED_MODULE_0__abstractPerson__["a" /*
             editor.getDisorderLegend().addCase(disorder.getDisorderID(), disorder.getName(), this.getID());
             this.getDisorders().push(disorder.getDisorderID());
         } else {
-            alert("This person already has the specified disorder");
+            console.warn("This person already has the specified disorder");
         }
 
         // if any "real" disorder has been added
@@ -48477,7 +45382,7 @@ const Person = Class.create(__WEBPACK_IMPORTED_MODULE_0__abstractPerson__["a" /*
             this._disorders = this.getDisorders().without(disorderID);
         } else {
             if (disorderID != "affected") {
-                alert("This person doesn't have the specified disorder");
+                console.warn("This person doesn't have the specified disorder");
             }
         }
     },
@@ -48539,7 +45444,7 @@ const Person = Class.create(__WEBPACK_IMPORTED_MODULE_0__abstractPerson__["a" /*
             editor.getHPOLegend().addCase(hpo.getID(), hpo.getName(), this.getID());
             this.getHPO().push(hpo.getID());
         } else {
-            alert("This person already has the specified phenotype");
+            console.warn("This person already has the specified phenotype");
         }
     },
 
@@ -48554,7 +45459,7 @@ const Person = Class.create(__WEBPACK_IMPORTED_MODULE_0__abstractPerson__["a" /*
             editor.getHPOLegend().removeCase(hpoID, this.getID());
             this._hpo = this.getHPO().without(hpoID);
         } else {
-            alert("This person doesn't have the specified HPO term");
+            console.warn("This person doesn't have the specified HPO term");
         }
     },
 
@@ -48652,30 +45557,6 @@ const Person = Class.create(__WEBPACK_IMPORTED_MODULE_0__abstractPerson__["a" /*
     getGenes: function () {
         return this._candidateGenes;
     },
-    // 
-    // /**
-    //  * Returns the "in contact" status of this node.
-    //  * "False" means proband has lost contaxt with this individual
-    //  *
-    //  * @method getLostContact
-    //  * @return {Boolean}
-    //  */
-    // getFocused: function() {
-    //     return this._focused;
-    // },
-    // 
-    // /**
-    //  * Sets the "in contact" status of this node
-    //  *
-    //  * @method setFocused
-    //  */
-    // setFocused: function(focused) {
-    //     const clean = focused === 1 ? true : false;
-    //     if (clean == this._focused) return;
-    //     this._focused = clean;
-    //     console.info('setting focus');
-    //     // this.getGraphics().setGenderGraphics();
-    // },
 
     /**
      * Removes the node and its visuals.
@@ -48843,6 +45724,7 @@ const Person = Class.create(__WEBPACK_IMPORTED_MODULE_0__abstractPerson__["a" /*
         if (this.getLostContact()) info["lostContact"] = this.getLostContact();
         if (this.getPedNumber() != "") info["nodeNumber"] = this.getPedNumber();
         info["focused"] = this.getFocused();
+        info["isProband"] = this.isProband();
         return info;
     },
 
@@ -48926,6 +45808,9 @@ const Person = Class.create(__WEBPACK_IMPORTED_MODULE_0__abstractPerson__["a" /*
             if (info.hasOwnProperty("focused")) {
                 this.setFocused(info.focused);
             }
+            if (info.hasOwnProperty("isProband")) {
+                this._isProband = info.isProband;
+            }
             return true;
         }
         return false;
@@ -48939,12 +45824,12 @@ Person.addMethods(__WEBPACK_IMPORTED_MODULE_4__abstractNode__["a" /* ChildlessBe
 /* WEBPACK VAR INJECTION */}.call(__webpack_exports__, __webpack_require__(3)))
 
 /***/ }),
-/* 85 */
+/* 78 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* WEBPACK VAR INJECTION */(function(Class) {/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__abstractHoverbox__ = __webpack_require__(54);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__pedigreeEditorAttributes__ = __webpack_require__(9);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__pedigreeEditorAttributes__ = __webpack_require__(10);
 
 
 
@@ -49210,16 +46095,16 @@ const PersonHoverbox = Class.create(__WEBPACK_IMPORTED_MODULE_0__abstractHoverbo
 /* WEBPACK VAR INJECTION */}.call(__webpack_exports__, __webpack_require__(3)))
 
 /***/ }),
-/* 86 */
+/* 79 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* WEBPACK VAR INJECTION */(function(Class, Raphael) {/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__abstractPersonVisuals__ = __webpack_require__(78);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__readonlyHoverbox__ = __webpack_require__(59);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__personHoverbox__ = __webpack_require__(85);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__pedigreeEditorAttributes__ = __webpack_require__(9);
+/* WEBPACK VAR INJECTION */(function(Class, Raphael) {/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__abstractPersonVisuals__ = __webpack_require__(74);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__readonlyHoverbox__ = __webpack_require__(57);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__personHoverbox__ = __webpack_require__(78);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__pedigreeEditorAttributes__ = __webpack_require__(10);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__graphicHelpers__ = __webpack_require__(37);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__ageCalc__ = __webpack_require__(153);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__ageCalc__ = __webpack_require__(145);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__abstractNodeVisuals__ = __webpack_require__(35);
 
 
@@ -49245,7 +46130,6 @@ const PersonVisuals = Class.create(__WEBPACK_IMPORTED_MODULE_0__abstractPersonVi
     initialize: function ($super, node, x, y) {
         //var timer = new Timer();
         //console.log("person visuals");
-        console.info('PersonVisuals initialize: node.focus', node.isFocused());
         $super(node, x, y);
         this._nameLabel = null;
         this._stillBirthLabel = null;
@@ -49298,7 +46182,7 @@ const PersonVisuals = Class.create(__WEBPACK_IMPORTED_MODULE_0__abstractPersonVi
 
             if (this.getNode().isProband()) {
                 shape.transform(["...s", 1.07]);
-                shape.attr("stroke-width", 5);
+                // shape.attr("stroke-width", 5);
             }
 
             if (this.getNode().getGender() == "U") {
@@ -49317,10 +46201,10 @@ const PersonVisuals = Class.create(__WEBPACK_IMPORTED_MODULE_0__abstractPersonVi
         if (this.getNode().isProband()) {
             this._genderGraphics.push(this.generateProbandArrow());
             this.getGenderShape().transform(["...s", 1.08]);
-            this.getGenderShape().attr("stroke-width", 5.5);
+            // this.getGenderShape().attr("stroke-width", 5.5);
         }
-        console.log(this.getNode().isFocused());
         if (this.getNode().isFocused()) {
+            this.getGenderShape().attr("stroke-width", 1.5);
             this.getGenderShape().attr("stroke", "blue");
         }
         if (!editor.isUnsupportedBrowser() && this.getHoverBox()) {
@@ -49493,6 +46377,7 @@ const PersonVisuals = Class.create(__WEBPACK_IMPORTED_MODULE_0__abstractPersonVi
 
             for (var i = 0; i < colors.length; i++) {
                 color = gradient(colors[i], i * disorderAngle + delta);
+                console.warn(color);
                 disorderShapes.push(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_4__graphicHelpers__["c" /* sector */])(editor.getPaper(), this.getX(), this.getY(), radius, this.getNode().getGender(), i * disorderAngle, (i + 1) * disorderAngle, color));
             }
 
@@ -49762,6 +46647,9 @@ const PersonVisuals = Class.create(__WEBPACK_IMPORTED_MODULE_0__abstractPersonVi
             this._commentsLabel = null;
         }
         this.drawLabels();
+        /**        
+         *     
+         */
     },
 
     /**
@@ -49938,1352 +46826,320 @@ PersonVisuals.addMethods(__WEBPACK_IMPORTED_MODULE_6__abstractNodeVisuals__["b" 
 /* WEBPACK VAR INJECTION */}.call(__webpack_exports__, __webpack_require__(3), __webpack_require__(21)))
 
 /***/ }),
-/* 87 */
+/* 80 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* WEBPACK VAR INJECTION */(function(Class) {/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__helpers__ = __webpack_require__(6);
+/* WEBPACK VAR INJECTION */(function(Class, Ajax) {/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__helpers__ = __webpack_require__(6);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__templateSelector__ = __webpack_require__(81);
 
 
 /**
- * ActionStack is responsible for keeping track of user actions and providing an undo/redo functionality
+ * SaveLoadEngine is responsible for automatic and manual save and load operations.
  *
- * @class ActionStack
- * @constructor
- */
-const ActionStack = Class.create({
-    initialize: function () {
-        this._currentState = 0;
-        this._stack = [];
-        this._MAXUNDOSIZE = 100;
-    },
-
-    /**
-     * Moves one state forward in the action stack
-     *
-     * @method redo
-     */
-    redo: function () {
-        var nextState = this._getNextState();
-        //console.log("Next state: " + stringifyObject(nextState));
-        if (!nextState) return;
-
-        if (nextState.eventToGetToThisState) {
-            var memo = nextState.eventToGetToThisState.memo;
-            memo["noUndoRedo"] = true; // so that this event is not added to the undo/redo stack again
-            document.fire(nextState.eventToGetToThisState.eventName, memo);
-            this._currentState++;
-            return;
-        }
-
-        editor.getSaveLoadEngine().createGraphFromSerializedData(nextState.serializedState, true /* do not re-add to undo/redo stack */);
-        this._currentState++;
-    },
-
-    /**
-     * Moves one state backwards in the action stack
-     *
-     * @method undo
-     */
-    undo: function () {
-        var prevState = this._getPreviousState();
-        if (!prevState) return;
-
-        // it may be more efficient to undo the current state instead of full prev state restore
-        var currentState = this._getCurrentState();
-        //console.log("Current state: " + stringifyObject(currentState));
-        if (currentState.eventToUndo) {
-            var memo = currentState.eventToUndo.memo;
-            memo["noUndoRedo"] = true; // so that this event is not added to the undo/redo stack again
-            document.fire(currentState.eventToUndo.eventName, memo);
-            this._currentState--;
-            return;
-        }
-
-        // no easy way - have to recreate the graph from serialization
-        editor.getSaveLoadEngine().createGraphFromSerializedData(prevState.serializedState, true /* do not re-add to undo/redo stack */);
-        this._currentState--;
-    },
-
-    /**
-     * Pushes a new state to the end of the action stack
-     * 
-     *   eventToGetToThisState - optional. Event which should bring the graph from the previous state to this tsate
-     *   eventToGoBack         - optional. Event which should bring the graph back to the previous state
-     *   serializedState       - optional. Serialized state of the graph as accepted by the load() funciton.
-     *                           may only be used when one of the events is not provided. Will be generated
-     *                           automatically when needed if not provided.
-     *   
-     * If one of the events is not provided a complete serializatiomn of the graph will be used to transition
-     * in that direction, which is less efficient (slower/requires more memory for state storage). 
-     *
-     * @method addState
-     */
-    addState: function (eventToGetToThisState, eventToUndo, serializedState) {
-        //this._debug_print_states();
-
-        // 1. remove all states after current state (i.e. all "redo" states) -
-        //    they are replaced by the current chain of states starting with this state 
-        if (this._currentState < this._size()) this._stack.splice(this._currentState, this._stack.length - this._currentState);
-
-        if (!serializedState) {
-            serializedState = editor.getSaveLoadEngine().serialize();
-        }
-        //console.log("Serialized state: " + stringifyObject(serializedState));
-
-        //if (!eventToGetToThisState && !serializedState)
-        //    serializedState = editor.getSaveLoadEngine().serialize();
-        //
-        //if (!eventToUndo && this._currentState > 0) {
-        //    // no event procided to undo this action AND have a current state:
-        //    // => current state needs to have a serialization
-        //    .. TODO
-        //}
-
-        var state = new State(serializedState, eventToGetToThisState, eventToUndo);
-
-        // 2. push this new state to the array and increment the current index
-
-        // spcial case: consequtive name property changes are combined into one property change        
-        var currentState = this._getCurrentState();
-        if (eventToGetToThisState && currentState && currentState.eventToGetToThisState && currentState.eventToGetToThisState.eventName == "pedigree:node:setproperty" && this._combinableEvents(currentState.eventToGetToThisState, eventToGetToThisState)) {
-            //console.log("[UNDOREDO] combining state changes");
-            currentState.eventToGetToThisState = eventToGetToThisState;
-            currentState.serializedState = serializedState;
-            //this._debug_print_states();
-            return;
-        }
-
-        this._addNewest(state);
-
-        if (this._size() > this._MAXUNDOSIZE) this._removeOldest();
-
-        //this._debug_print_states();
-    },
-
-    /**
-     * Returns true iff undo/redo should combine event1 and event2,
-     * e.g. name change from "some_old_value" to "Abc" and then to "Abcd" will be combined into
-     *      one name chnage from "some_old_value" to "Abcd"
-     *
-     * @method _size
-     * @return {Number}
-     */
-    _combinableEvents: function (event1, event2) {
-        if (!event1.memo.hasOwnProperty("nodeID") || !event2.memo.hasOwnProperty("nodeID") || event1.memo.nodeID != event2.memo.nodeID) return false;
-        if (event1.memo.properties.hasOwnProperty("setFirstName") && event2.memo.properties.hasOwnProperty("setFirstName")) return true;
-        if (event1.memo.properties.hasOwnProperty("setLastName") && event2.memo.properties.hasOwnProperty("setLastName")) return true;
-        if (event1.memo.properties.hasOwnProperty("setLastNameAtBirth") && event2.memo.properties.hasOwnProperty("setLastNameAtBirth")) return true;
-        if (event1.memo.properties.hasOwnProperty("setComments") && event2.memo.properties.hasOwnProperty("setComments")) return true;
-        if (event1.memo.properties.hasOwnProperty("setChildlessReason") && event2.memo.properties.hasOwnProperty("setChildlessReason")) return true;
-        return false;
-    },
-
-    /**
-     * Returns the number of elements in the stack
-     *
-     * @method _size
-     * @return {Number}
-     */
-    _size: function () {
-        return this._stack.length;
-    },
-
-    /**
-     * Adds the given state as the latest state in the sequence
-     *
-     * @method _addNewest
-     */
-    _addNewest: function (state) {
-        this._stack.push(state);
-        this._currentState++;
-    },
-
-    /**
-     * Removes the front element of the stack (i.e. the oldest stored state)
-     *
-     * @method _removeOldest
-     */
-    _removeOldest: function () {
-        this._stack.splice(0, 1);
-        this._currentState--;
-    },
-
-    /**
-     * Returns the current state
-     *
-     * @method _getCurrentState
-     * @return {null|Object}
-     */
-    _getCurrentState: function () {
-        return this._size() == 0 || this._currentState == 0 ? null : this._stack[this._currentState - 1];
-    },
-
-    /**
-     * Returns the next state
-     *
-     * @method _getNextState
-     * @return {null|Object}
-     */
-    _getNextState: function () {
-        return this._size() <= 1 || this._currentState >= this._size() ? null : this._stack[this._currentState];
-    },
-
-    /**
-     * Returns the previous state
-     *
-     * @method _getPreviousState
-     * @return {null|Object}
-     */
-    _getPreviousState: function () {
-        return this._size() == 1 || this._currentState <= 1 ? null : this._stack[this._currentState - 2];
-    },
-
-    _debug_print_states: function () {
-        console.log("------------");
-        for (var i = 0; i < this._stack.length; i++) {
-            console.log("[" + i + "] EventToState: " + __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__helpers__["c" /* stringifyObject */])(this._stack[i].eventToGetToThisState) + "\n" + "    EventUndo: " + __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__helpers__["c" /* stringifyObject */])(this._stack[i].eventToUndo) + "\n" + "    EventSerial: " + __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__helpers__["c" /* stringifyObject */])(this._stack[i].serializedState));
-        }
-        console.log("------------");
-    }
-});
-/* harmony export (immutable) */ __webpack_exports__["a"] = ActionStack;
-
-
-var State = Class.create({
-    initialize: function (serializedState, eventToGetToThisState, eventToUndo) {
-        this.serializedState = serializedState;
-        this.eventToGetToThisState = eventToGetToThisState;
-        this.eventToUndo = eventToUndo;
-    }
-});
-/* WEBPACK VAR INJECTION */}.call(__webpack_exports__, __webpack_require__(3)))
-
-/***/ }),
-/* 88 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* WEBPACK VAR INJECTION */(function(Class, Raphael) {/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__lineSet__ = __webpack_require__(161);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__helpers__ = __webpack_require__(6);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__pedigreeEditorAttributes__ = __webpack_require__(9);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__graphicHelpers__ = __webpack_require__(37);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__partnership__ = __webpack_require__(166);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__person__ = __webpack_require__(84);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__personGroup__ = __webpack_require__(170);
-
-
-
-
-
-
-
-/**
- * View is responsible for graphical representation of th epedigree as well as user interaction
- *
- * @class View
+ * @class SaveLoadEngine
  * @constructor
  */
 
-const View = Class.create({
+const ProbandDataLoader = Class.create({
+    initialize: function () {
+        this.probandData = undefined;
+    },
+    load: function (callWhenReady) {
+        new Ajax.Request("public/xwiki/PhenoTips.PatientClass/0.xml", {
+            method: "GET",
+            onSuccess: this.onProbandDataReady.bind(this),
+            onComplete: callWhenReady ? callWhenReady : {}
+        });
+    },
+
+    onProbandDataReady: function (response) {
+        var responseXML = response.responseXML; //documentElement.
+        this.probandData = {};
+        this.probandData.firstName = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__helpers__["b" /* unescapeRestData */])(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__helpers__["a" /* getSubSelectorTextFromXML */])(responseXML, "property", "name", "first_name", "value"));
+        this.probandData.lastName = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__helpers__["b" /* unescapeRestData */])(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__helpers__["a" /* getSubSelectorTextFromXML */])(responseXML, "property", "name", "last_name", "value"));
+        this.probandData.gender = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__helpers__["b" /* unescapeRestData */])(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__helpers__["a" /* getSubSelectorTextFromXML */])(responseXML, "property", "name", "gender", "value"));
+        if (this.probandData.gender === undefined || this.probandData.gender == "") this.probandData.gender = "U";
+        console.log("Proband data: " + __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__helpers__["c" /* stringifyObject */])(this.probandData));
+    }
+});
+/* harmony export (immutable) */ __webpack_exports__["a"] = ProbandDataLoader;
+
+
+const SaveLoadEngine = Class.create({
 
     initialize: function () {
-        console.log("--- view init ---");
-
-        this.preGenerateGraphics();
-
-        this._nodeMap = {}; // {nodeID} : {AbstractNode}
-
-        this.hoverModeZones = editor.getPaper().set();
-
-        this._currentMarkedNew = [];
-        this._currentGrownNodes = [];
-        this._currentHoveredNode = null;
-        this._currentDraggable = null;
-
-        this._lineSet = new __WEBPACK_IMPORTED_MODULE_0__lineSet__["a" /* LineSet */](); // used to track intersecting lines
+        this._saveInProgress = false;
     },
 
     /**
-     * Pre-generates paths and pre-computes bounding boxes for shapes which are commonly used in the graph.
-     * Raphael is slow and re-computing each path/box for every node is noticeably slow
+     * Saves the state of the graph
      *
-     * @method preGenerateGraphics
+     * @return Serialization data for the entire graph
      */
-    preGenerateGraphics: function () {
-        //
-        // computing scaled icons:
-        //   var iconScale = 0.6;
-        //   var path = "...";
-        //   console.log("scaled path: " + Raphael.transformPath(path, ["s", iconScale, iconScale, 0, 0]));
-        //
-
-        // 1) menu button
-        // nonScaledPath = "M2.021,9.748L2.021,9.748V9.746V9.748zM2.022,9.746l5.771,5.773l-5.772,5.771l2.122,2.123l7.894-7.895L4.143,7.623L2.022,9.746zM12.248,23.269h14.419V20.27H12.248V23.269zM16.583,17.019h10.084V14.02H16.583V17.019zM12.248,7.769v3.001h14.419V7.769H12.248z";
-        this.__menuButton_svgPath = "M1.213,5.849C1.213,5.849,1.213,5.849,1.213,5.849C1.213,5.849,1.213,5.848,1.213,5.848C1.213,5.848,1.213,5.849,1.213,5.849C1.213,5.849,1.213,5.849,1.213,5.849M1.213,5.848C1.213,5.848,4.676,9.3114,4.676,9.3114C4.676,9.3114,1.2126,12.774,1.2126,12.774C1.2126,12.774,2.486,14.048,2.486,14.048C2.486,14.048,7.222,9.311,7.222,9.311C7.222,9.311,2.486,4.574,2.486,4.574C2.486,4.574,1.213,5.848,1.213,5.8476C1.2131999999999998,5.8476,1.2131999999999998,5.8476,1.2131999999999998,5.8476M7.348799999999999,13.9614C7.348799999999999,13.9614,16.0002,13.9614,16.0002,13.9614C16.0002,13.9614,16.0002,12.161999999999999,16.0002,12.161999999999999C16.0002,12.161999999999999,7.348799999999999,12.161999999999999,7.348799999999999,12.161999999999999C7.348799999999999,12.161999999999999,7.348799999999999,13.9614,7.348799999999999,13.9614C7.348799999999999,13.9614,7.348799999999999,13.9614,7.348799999999999,13.9614M9.949799999999998,10.2114C9.949799999999998,10.2114,16.0002,10.2114,16.0002,10.2114C16.0002,10.2114,16.0002,8.411999999999999,16.0002,8.411999999999999C16.0002,8.411999999999999,9.949799999999998,8.411999999999999,9.949799999999998,8.411999999999999C9.949799999999998,8.411999999999999,9.949799999999998,10.2114,9.949799999999998,10.2114C9.949799999999998,10.2114,9.949799999999998,10.2114,9.949799999999998,10.2114M7.348799999999999,4.6613999999999995C7.348799999999999,4.6613999999999995,7.348799999999999,6.462,7.348799999999999,6.462C7.348799999999999,6.462,16.0002,6.462,16.0002,6.462C16.0002,6.462,16.0002,4.661,16.0,4.6614C16.0,4.6614,7.349,4.6614,7.349,4.6614C7.349,4.6614,7.349,4.6614,7.349,4.6614";
-        this.__menuButton_BBox = Raphael.pathBBox(this.__menuButton_svgPath);
-
-        // 2) delete button
-        // nonScaledPath = var path = "M24.778,21.419 19.276,15.917 24.777,10.415 21.949,7.585 16.447,13.087 10.945,7.585 8.117,10.415 13.618,15.917 8.116,21.419 10.946,24.248 16.447,18.746 21.948,24.248z";
-        this.__deleteButton_svgPath = "M14.867,12.851C14.867,12.851,11.566,9.55,11.566,9.55C11.566,9.55,14.866,6.249,14.866,6.249C14.866,6.249,13.169,4.551,13.169,4.551C13.169,4.551,9.868,7.852,9.868,7.852C9.868,7.852,6.567,4.551,6.567,4.551C6.567,4.551,4.87,6.249,4.87,6.249C4.87,6.249,8.171,9.55,8.171,9.55C8.171,9.55,4.87,12.851,4.870,12.851C4.870,12.851,6.568,14.549,6.568,14.549C6.568,14.549,9.868,11.248,9.868,11.248C9.868,11.248,13.169,14.549,13.169,14.549C13.169,14.549,14.867,12.851,14.867,12.851";
-        this.__deleteButton_BBox = Raphael.pathBBox(this.__deleteButton_svgPath);
-
-        // 3) twins button
-        //this.__twinsButton_svgPath = "M0,15L8,0L16,15";
-        //this.__twinsButton_BBox    = Raphael.pathBBox(this.__twinsButton_svgPath);
-
-        // 4) proband arrow
-        //this.__arrow_svgPath = "M7.589,20.935l-6.87,6.869l2.476,2.476l6.869-6.869l1.858,1.857l2.258-8.428l-8.428,2.258L7.589,20.935z";
-        this.__arrow_svgPath = "M8.348,23.029C8.348,23.029,0.791,30.584,0.791,30.584C0.791,30.584,3.515,33.308,3.515,33.308C3.515,33.308,11.07,25.752,11.0704,25.752C11.07,25.752,13.114,27.795,13.114,27.795C13.114,27.795,15.598,18.524,15.598,18.524C15.598,18.524,6.327,21.008,6.327,21.008C6.327,21.008,8.348,23.029,8.348,23.0285C8.348,23.029,8.348,23.029,8.348,23.029";
-        this.__probandArrowPath = Raphael.transformPath(this.__arrow_svgPath, ["s", 1.1, 1.1, 0, 0]);
+    serialize: function () {
+        return editor.getGraph().toJSON();
     },
 
-    /**
-     * Returns a map of node IDs to nodes
-     *
-     * @method getNodeMap
-     * @return {Object}
-     *
-     {
-        {nodeID} : {AbstractNode}
-     }
-     */
-    getNodeMap: function () {
-        return this._nodeMap;
-    },
-
-    /**
-     * Returns a node with the given node ID
-     *
-     * @method getNode
-     * @param {nodeId} id of the node to be returned
-     * @return {AbstractNode}
-     *
-     */
-    getNode: function (nodeId) {
-        if (!this._nodeMap.hasOwnProperty(nodeId)) {
-            console.log("ERROR: requesting non-existent node " + nodeId);
-            throw "ERROR";
-            return null;
-        }
-        return this._nodeMap[nodeId];
-    },
-
-    getMaxNodeID: function () {
-        var max = 0;
-        for (var node in this._nodeMap) if (this._nodeMap.hasOwnProperty(node)) if (parseInt(node) > max) max = node;
-        return max;
-    },
-
-    /**
-     * Returns the person node containing x and y coordinates, or null if outside all person nodes
-     *
-     * @method getPersonNodeNear
-     * @return {Object} or null
-     */
-    getPersonNodeNear: function (x, y) {
-        for (var nodeID in this._nodeMap) {
-            if (this._nodeMap.hasOwnProperty(nodeID)) {
-                var node = this.getNode(nodeID);
-                if ((node.getType() == "Person" || node.getType() == "PersonGroup") && node.getGraphics().containsXY(x, y)) return node;
-            }
-        }
-        return null;
-    },
-
-    /**
-     * Returns the node that is currently selected
-     *
-     * @method getCurrentHoveredNode
-     * @return {AbstractNode}
-     */
-    getCurrentHoveredNode: function () {
-        return this._currentHoveredNode;
-    },
-
-    /**
-     * Returns the currently dragged element
-     *
-     * @method getCurrentDraggable
-     * @return Either a handle from a hoverbox, or a PlaceHolder
-     */
-    getCurrentDraggable: function () {
-        return this._currentDraggable;
-    },
-
-    /**
-     * Returns the Object that is currently being dragged
-     *
-     * @method setCurrentDraggable
-     * @param draggable A handle or a PlaceHolder
-     */
-    setCurrentDraggable: function (draggable) {
-        this._currentDraggable = draggable;
-    },
-
-    /**
-     * Removes given node from node index (Does not delete the node visuals).
-     *
-     * @method removeFromNodeMap
-     * @param {nodeId} id of the node to be removed
-     */
-    removeFromNodeMap: function (nodeID) {
-        delete this.getNodeMap()[nodeID];
-    },
-
-    /**
-     * Creates a new set of raphael objects representing a curve from (xFrom, yFrom) trough (...,yTop) to (xTo, yTo).
-     * The bend from (xTo,yTo) to vertical level yTop will happen "lastBend" pixels from xTo.
-     * In case the flat part intersects any existing known lines a special crossing is drawn and added to the set.
-     *
-     * @method drawCurvedLineWithCrossings
-     */
-    drawCurvedLineWithCrossings: function (id, xFrom, yFrom, yTop, xTo, yTo, lastBend, attr, twoLines, secondLineBelow) {
-        //console.log("yFrom: " + yFrom + ", yTo: " + yTo + ", yTop: " + yTop);
-
-        if (yFrom == yTop && yFrom == yTo) return this.drawLineWithCrossings(id, xFrom, yFrom, xTo, yTo, attr, twoLines, secondLineBelow);
-
-        var cornerRadius = __WEBPACK_IMPORTED_MODULE_2__pedigreeEditorAttributes__["a" /* PedigreeEditorAttributes */].curvedLinesCornerRadius * 0.8;
-        var goesRight = xFrom > xTo;
-        if (isFinite(lastBend)) {
-            var xFinalBend = goesRight ? xTo + lastBend : xTo - lastBend;
-            var xFinalBendVert = goesRight ? xTo + lastBend + cornerRadius : xTo - lastBend - cornerRadius;
-            var xBeforeFinalBend = goesRight ? xTo + lastBend + cornerRadius * 2 : xTo - lastBend - cornerRadius * 2;
-        } else {
-            var xBeforeFinalBend = xTo;
-        }
-        var xFromAndBit = goesRight ? xFrom - cornerRadius / 2 : xFrom + cornerRadius / 2;
-        var xFromAfterCorner = goesRight ? xFromAndBit - cornerRadius : xFromAndBit + cornerRadius;
-        var xFromAfter2Corners = goesRight ? xFromAndBit - 2 * cornerRadius : xFromAndBit + 2 * cornerRadius;
-
-        //console.log("XFinalBend: " + xFinalBend + ", xTo : " + xTo);
-
-        if (yFrom <= yTop) {
-            this.drawLineWithCrossings(id, xFrom, yFrom, xBeforeFinalBend, yFrom, attr, twoLines, !goesRight, true);
-        } else {
-            this.drawLineWithCrossings(id, xFrom, yFrom, xFromAndBit, yFrom, attr, twoLines, !goesRight, true);
-
-            if (Math.abs(yFrom - yTop) >= cornerRadius * 2) {
-                if (goesRight) __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_3__graphicHelpers__["a" /* drawCornerCurve */])(xFromAndBit, yFrom, xFromAfterCorner, yFrom - cornerRadius, true, attr, twoLines, -2.5, 2.5, 2.5, -2.5);else __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_3__graphicHelpers__["a" /* drawCornerCurve */])(xFromAndBit, yFrom, xFromAfterCorner, yFrom - cornerRadius, true, attr, twoLines, 2.5, 2.5, -2.5, -2.5);
-                this.drawLineWithCrossings(id, xFromAfterCorner, yFrom - cornerRadius, xFromAfterCorner, yTop + cornerRadius, attr, twoLines, goesRight);
-                if (goesRight) __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_3__graphicHelpers__["a" /* drawCornerCurve */])(xFromAfterCorner, yTop + cornerRadius, xFromAfter2Corners, yTop, false, attr, twoLines, -2.5, 2.5, 2.5, -2.5);else __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_3__graphicHelpers__["a" /* drawCornerCurve */])(xFromAfterCorner, yTop + cornerRadius, xFromAfter2Corners, yTop, false, attr, twoLines, 2.5, 2.5, -2.5, -2.5);
-            } else {
-                // draw one continuous curve
-                if (goesRight) __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_3__graphicHelpers__["b" /* drawLevelChangeCurve */])(xFromAndBit, yFrom, xFromAfter2Corners, yTop, attr, twoLines, -2.5, 2.5, 2.5, -2.5);else __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_3__graphicHelpers__["b" /* drawLevelChangeCurve */])(xFromAndBit, yFrom, xFromAfter2Corners, yTop, attr, twoLines, 2.5, 2.5, -2.5, -2.5);
-            }
-            this.drawLineWithCrossings(id, xFromAfter2Corners, yTop, xBeforeFinalBend, yTop, attr, twoLines, !goesRight, true);
-        }
-
-        if (xBeforeFinalBend != xTo) {
-            // curve down to yTo level
-            if (Math.abs(yTo - yTop) >= cornerRadius * 2) {
-                // draw corner
-                if (goesRight) __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_3__graphicHelpers__["a" /* drawCornerCurve */])(xBeforeFinalBend, yTop, xFinalBendVert, yTop + cornerRadius, true, attr, twoLines, 2.5, 2.5, -2.5, -2.5);else __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_3__graphicHelpers__["a" /* drawCornerCurve */])(xBeforeFinalBend, yTop, xFinalBendVert, yTop + cornerRadius, true, attr, twoLines, 2.5, -2.5, -2.5, 2.5);
-                this.drawLineWithCrossings(id, xFinalBendVert, yTop + cornerRadius, xFinalBendVert, yTo - cornerRadius, attr, twoLines, !goesRight);
-                if (goesRight) __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_3__graphicHelpers__["a" /* drawCornerCurve */])(xFinalBendVert, yTo - cornerRadius, xFinalBend, yTo, false, attr, twoLines, 2.5, 2.5, -2.5, -2.5);else __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_3__graphicHelpers__["a" /* drawCornerCurve */])(xFinalBendVert, yTo - cornerRadius, xFinalBend, yTo, false, attr, twoLines, 2.5, -2.5, -2.5, 2.5);
-            } else {
-                // draw one continuous curve
-                if (goesRight) __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_3__graphicHelpers__["b" /* drawLevelChangeCurve */])(xBeforeFinalBend, yTop, xFinalBend, yTo, attr, twoLines, 2.5, 2.5, -2.5, -2.5);else __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_3__graphicHelpers__["b" /* drawLevelChangeCurve */])(xBeforeFinalBend, yTop, xFinalBend, yTo, attr, twoLines, 2.5, -2.5, -2.5, 2.5);
-            }
-            this.drawLineWithCrossings(id, xFinalBend, yTo, xTo, yTo, attr, twoLines, !goesRight);
-        }
-    },
-
-    /**
-     * Creates a new set of raphael objects representing a line segment from (x1,y1) to (x2,y2).
-     * In case this line segment intersects any existing known segments a special crossing is drawn and added to the set.
-     *
-     * @method drawLineWithCrossings
-     */
-    drawLineWithCrossings: function (owner, x1, y1, x2, y2, attr, twoLines, secondLineBelow, bothEndsGoDown) {
-
-        // make sure line goes from the left to the right (and if vertical from the top to the bottom):
-        // this simplifies drawing the line piece by piece from intersection to intersection
-        if (x1 > x2 || x1 == x2 && y1 > y2) {
-            var tx = x1;
-            var ty = y1;
-            x1 = x2;
-            y1 = y2;
-            x2 = tx;
-            y2 = ty;
-        }
-
-        var isHorizontal = y1 == y2;
-        var isVertical = x1 == x2;
-
-        var intersections = this._lineSet.addLine(owner, x1, y1, x2, y2);
-
-        // sort intersections by distance form the start
-        var compareDistanceToStart = function (p1, p2) {
-            var dist1 = (x1 - p1.x) * (x1 - p1.x) + (y1 - p1.y) * (y1 - p1.y);
-            var dist2 = (x1 - p2.x) * (x1 - p2.x) + (y1 - p2.y) * (y1 - p2.y);
-            return dist1 - dist2;
-        };
-        intersections.sort(compareDistanceToStart);
-        //console.log("intersection points: " + stringifyObject(intersections));
-
-        for (var lineNum = 0; lineNum < (twoLines ? 2 : 1); lineNum++) {
-
-            // TODO: this is a bit hairy, just a quick hack to make two nice parallel curves
-            //       for consang. relationships: simple raphael.transform() does not work well
-            //       because then the curves around crossings wont be exactly above the crossing
-            if (twoLines) {
-                if (!bothEndsGoDown) {
-                    x1 += -2.5 + lineNum * 7.5;
-                    x2 += -2.5 + lineNum * 7.5;
-                } else {
-                    x1 -= 2.5;
-                    x2 += 2.5;
-                }
-
-                if (secondLineBelow) {
-                    y1 += 2.5 - lineNum * 7.5;
-                    y2 += 2.5 - lineNum * 7.5;
-                } else {
-                    y1 += -2.5 + lineNum * 7.5;
-                    y2 += -2.5 + lineNum * 7.5;
-                }
-            }
-
-            var raphaelPath = "M " + x1 + " " + y1;
-            for (var i = 0; i < intersections.length; i++) {
-                var intersectPoint = intersections[i];
-
-                var distance = function (p1, p2) {
-                    return (p1.x - p2.x) * (p1.x - p2.x) + (p1.y - p2.y) * (p1.y - p2.y);
-                };
-
-                var noCrossSymbolProximity = isHorizontal ? 20 * 20 : 9 * 9;
-
-                if (distance(intersectPoint, { "x": x1, "y": y1 }) < noCrossSymbolProximity) continue;
-                if (distance(intersectPoint, { "x": x2, "y": y2 }) < noCrossSymbolProximity) continue;
-
-                if (isHorizontal) {
-                    if (twoLines) {
-                        if (secondLineBelow) intersectPoint.y += 2.5 - lineNum * 7.5;else intersectPoint.y += -2.5 + lineNum * 7.5;
-                    }
-                    // a curve above the crossing
-                    raphaelPath += " L " + (intersectPoint.x - 10) + " " + intersectPoint.y;
-                    raphaelPath += " C " + (intersectPoint.x - 7) + " " + (intersectPoint.y + 1) + " " + (intersectPoint.x - 7) + " " + (intersectPoint.y - 7) + " " + intersectPoint.x + " " + (intersectPoint.y - 7);
-                    raphaelPath += " C " + (intersectPoint.x + 7) + " " + (intersectPoint.y - 7) + " " + (intersectPoint.x + 7) + " " + (intersectPoint.y + 1) + " " + (intersectPoint.x + 10) + " " + intersectPoint.y;
-                } else if (isVertical) {
-                    if (twoLines) {
-                        intersectPoint.x += -2.5 + lineNum * 7.5;
-                    }
-                    // a curve on the right around crossing
-                    raphaelPath += " L " + intersectPoint.x + " " + (intersectPoint.y - 10);
-                    raphaelPath += " C " + (intersectPoint.x - 1) + " " + (intersectPoint.y - 7) + " " + (intersectPoint.x + 7) + " " + (intersectPoint.y - 7) + " " + (intersectPoint.x + 7) + " " + intersectPoint.y;
-                    raphaelPath += " C " + (intersectPoint.x + 7) + " " + (intersectPoint.y + 7) + " " + (intersectPoint.x - 1) + " " + (intersectPoint.y + 7) + " " + intersectPoint.x + " " + (intersectPoint.y + 10);
-                }
-                // else: some diagonal line: presumably there should be none, if there are some
-                //       everything will be ok except there will be no special intersection graphic drawn
-            }
-            raphaelPath += " L " + x2 + " " + y2;
-            editor.getPaper().path(raphaelPath).attr(attr).toBack();
-        }
-    },
-
-    /**
-     * Creates a new node in the graph and returns it. The node type is obtained from
-     * editor.getGraph() and may be on of Person, Partnership or ... TODO. The position
-     * of the node is also obtained form editor.getGraph()
-     *
-     * @method addPerson
-     * @param {Number} [id] The id of the node
-     * @return {Person}
-     */
-    addNode: function (id) {
-        //console.log("add node");
-        var positionedGraph = editor.getGraph();
-
-        if (!positionedGraph.isValidID(id)) throw "addNode(): Invalid id";
-
-        var node;
-        var properties = positionedGraph.getProperties(id);
-
-        var graphPos = positionedGraph.getPosition(id);
-        var position = editor.convertGraphCoordToCanvasCoord(graphPos.x, graphPos.y);
-
-        if (positionedGraph.isRelationship(id)) {
-            console.log("-> add partnership");
-            node = new __WEBPACK_IMPORTED_MODULE_4__partnership__["a" /* Partnership */](position.x, position.y, id, properties);
-        } else if (positionedGraph.isPersonGroup(id)) {
-            console.log("-> add person group");
-            node = new __WEBPACK_IMPORTED_MODULE_6__personGroup__["a" /* PersonGroup */](position.x, position.y, id, properties);
-        } else if (positionedGraph.isPerson(id)) {
-            console.log("-> add person");
-            node = new __WEBPACK_IMPORTED_MODULE_5__person__["a" /* Person */](position.x, position.y, id, properties);
-        } else {
-            throw "addNode(): unsupported node type";
-        }
-
-        this.getNodeMap()[id] = node;
-
-        return node;
-    },
-
-    moveNode: function (id, animate) {
-        var positionedGraph = editor.getGraph();
-        var graphPos = positionedGraph.getPosition(id);
-        var position = editor.convertGraphCoordToCanvasCoord(graphPos.x, graphPos.y);
-        this.getNode(id).setPos(position.x, position.y, animate);
-    },
-
-    changeNodeIds: function (changedIdsSet) {
-        var newNodeMap = {};
-
-        // change all IDs at once so that have both new and old references at the same time
-        for (var oldID in this._nodeMap) {
-            var node = this.getNode(oldID);
-
-            var newID = changedIdsSet.hasOwnProperty(oldID) ? changedIdsSet[oldID] : oldID;
-            node.setID(newID);
-
-            newNodeMap[newID] = node;
-        }
-
-        this._nodeMap = newNodeMap;
-
-        this._lineSet.replaceIDs(changedIdsSet);
-    },
-
-    /**
-     * Enters hover-mode state, which is when a handle or a PlaceHolder is being dragged around the screen
-     *
-     * @method enterHoverMode
-     * @param sourceNode The node whose handle is being dragged, or the placeholder that is being dragged
-     * @param hoverTypes Should be 'parent', 'child' or 'partner'. Only nodes which can be in the correponding
-     *                   relationship with sourceNode will be highlighted
-     * dragged on top of them.
-     */
-    enterHoverMode: function (sourceNode, hoverType) {
-
-        //var timer = new Timer();
-
-        var me = this;
-        var validTargets = this.getValidDragTargets(sourceNode.getID(), hoverType);
-
-        validTargets.each(function (nodeID) {
-            me._currentGrownNodes.push(nodeID);
-
-            var node = me.getNode(nodeID);
-            node.getGraphics().grow();
-
-            var hoverModeZone = node.getGraphics().getHoverBox().getHoverZoneMask().clone().toFront();
-            //var hoverModeZone = node.getGraphics().getHoverBox().getHoverZoneMask().toFront();
-            hoverModeZone.hover(function () {
-                me._currentHoveredNode = nodeID;
-                node.getGraphics().getHoverBox().setHighlighted(true);
-            }, function () {
-                me._currentHoveredNode = null;
-                node.getGraphics().getHoverBox().setHighlighted(false);
-            });
-
-            me.hoverModeZones.push(hoverModeZone);
-        });
-
-        //timer.printSinceLast("=== Enter hover mode - highlight: ");
-    },
-
-    /**
-     * Exits hover-mode state, which is when a handle or a PlaceHolder is being dragged around the screen
-     *
-     * @method exitHoverMode
-     */
-    exitHoverMode: function () {
-        this._currentHoveredNode = null;
-
-        this.hoverModeZones.remove();
-
-        var me = this;
-        this._currentGrownNodes.each(function (nodeID) {
-            var node = me.getNode(nodeID);
-            node.getGraphics().shrink();
-            node.getGraphics().getHoverBox().setHighlighted(false);
-        });
-
-        this._currentGrownNodes = [];
-    },
-
-    unmarkAll: function () {
-        for (var i = 0; i < this._currentMarkedNew.length; i++) {
-            var node = this.getNode(this._currentMarkedNew[i]);
-            node.getGraphics().unmark();
-        }
-        this._currentMarkedNew = [];
-    },
-
-    getValidDragTargets: function (sourceNodeID, hoverType) {
-        var result = [];
-        switch (hoverType) {
-            case "sibling":
-                result = editor.getGraph().getPossibleSiblingsOf(sourceNodeID);
-                break;
-            case "child":
-                // all person nodes which are not ancestors of sourse node and which do not already have parents
-                result = editor.getGraph().getPossibleChildrenOf(sourceNodeID);
-                break;
-            case "parent":
-                result = editor.getGraph().getPossibleParentsOf(sourceNodeID);
-                break;
-            case "partnerR":
-            case "partnerL":
-                // all person nodes of the other gender or unknown gender (who ar enot already partners)
-                result = editor.getGraph().getPossiblePartnersOf(sourceNodeID);
-                //console.log("possible partners: " + stringifyObject(result));
-                break;
-            case "PlaceHolder":
-                // all nodes which can be this placehodler: e.g. all that can be child of it's parents &&
-                // partners of it's partners
-                throw "TODO";
-            default:
-                throw "Incorrect hoverType";
-        }
-        return result;
-    },
-
-    applyChanges: function (changeSet, markNew) {
-        // applies change set of the form {"new": {list of nodes}, "moved": {list of nodes} }
-        console.log("Change set: " + __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__helpers__["c" /* stringifyObject */])(changeSet));
-
-        var timer = new __WEBPACK_IMPORTED_MODULE_1__helpers__["g" /* Timer */]();
-        var timer2 = new __WEBPACK_IMPORTED_MODULE_1__helpers__["g" /* Timer */]();
+    createGraphFromSerializedData: function (JSONString, noUndo, centerAround0) {
+        console.log("---- load: parsing data ----");
+        console.log(JSONString);
+        document.fire("pedigree:load:start");
 
         try {
-
-            this.unmarkAll();
-
-            // to simplify code which deals woith removed nodes making other mnodes to move
-            if (!changeSet.hasOwnProperty("moved")) changeSet["moved"] = [];
-            if (!changeSet.hasOwnProperty("removed")) changeSet["removed"] = [];
-            if (!changeSet.hasOwnProperty("removedInternally")) changeSet["removedInternally"] = [];
-
-            // 0. remove all removed
-            //
-            // 1. move all person nodes
-            // 2. create all new person nodes
-            //
-            // 3. move all existing relationships - as all lines are attached to relationships we want to draw
-            //                                      them after all person nodes are already in correct position
-            // 4. create new relationships
-
-            if (changeSet.hasOwnProperty("removed")) {
-                var affectedByLineRemoval = {};
-
-                for (var i = 0; i < changeSet.removed.length; i++) {
-                    var nextRemoved = changeSet.removed[i];
-
-                    this.getNodeMap()[nextRemoved].remove();
-                    this.removeFromNodeMap(nextRemoved);
-
-                    var affected = this._lineSet.removeAllLinesAffectedByOwnerMovement(nextRemoved);
-
-                    for (var j = 0; j < affected.length; j++) if (!__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__helpers__["h" /* arrayContains */])(changeSet.removed, affected[j])) {
-                        // ignore nodes which are removed anyway
-                        //console.log("adding due to line removal: " + affected[j]);
-                        affectedByLineRemoval[affected[j]] = true;
-                    }
-                }
-
-                // for each removed node all nodes with higher ids get their IDs shifted down by 1
-                var idChanged = false;
-                var changedIDs = {};
-                var maxCurrentNodeId = this.getMaxNodeID();
-                for (var i = 0; i < changeSet.removedInternally.length; i++) {
-                    var nextRemoved = changeSet.removedInternally[i];
-                    for (var u = nextRemoved + 1; u <= maxCurrentNodeId; u++) {
-                        idChanged = true;
-                        if (!changedIDs.hasOwnProperty(u)) changedIDs[u] = u - 1;else changedIDs[u]--;
-                    }
-                }
-
-                // change all IDs at once so that have both new and old references at the same time
-                if (idChanged) this.changeNodeIds(changedIDs);
-
-                //console.log("Affected by line removal: " + stringifyObject(affectedByLineRemoval));
-                //console.log("LineSet: " + stringifyObject(this._lineSet));
-
-                for (var node in affectedByLineRemoval) if (affectedByLineRemoval.hasOwnProperty(node)) {
-                    var newID = changedIDs.hasOwnProperty(node) ? changedIDs[node] : node;
-                    if (!__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__helpers__["h" /* arrayContains */])(changeSet.moved, newID)) {
-                        //console.log("moved due to line removal: oldID="+node + ", newID=" + newID);
-                        changeSet.moved.push(newID);
-                    }
-                }
-            }
-
-            timer.printSinceLast("=== Removal runtime: ");
-
-            var movedPersons = [];
-            var movedRelationships = [];
-            var newPersons = [];
-            var newRelationships = [];
-            var animate = {};
-
-            /*
-            // TODO: animations disabled because hoverboxes & labels behave strangely
-            if (changeSet.hasOwnProperty("animate")) {
-                for (var i = 0; i < changeSet.animate.length; i++) {
-                    animate[changeSet.animate[i]] = true;
-                }
-            }*/
-
-            //console.log("moved: " + stringifyObject(changeSet.moved));
-
-            if (changeSet.hasOwnProperty("moved")) {
-                // remove all lines so that we start drawing anew
-                for (var i = 0; i < changeSet.moved.length; i++) {
-                    var nextMoved = changeSet.moved[i];
-                    if (editor.getGraph().isRelationship(nextMoved)) {
-                        var affected = this._lineSet.removeAllLinesAffectedByOwnerMovement(nextMoved);
-                        for (var j = 0; j < affected.length; j++) {
-                            var node = affected[j];
-                            if (!__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__helpers__["h" /* arrayContains */])(changeSet.moved, node)) changeSet.moved.push(node);
-                        }
-                    }
-                }
-
-                // move actual nodes
-                for (var i = 0; i < changeSet.moved.length; i++) {
-                    var nextMoved = changeSet.moved[i];
-                    if (editor.getGraph().isRelationship(nextMoved)) movedRelationships.push(nextMoved);else movedPersons.push(nextMoved);
-                }
-            }
-            console.log("moved: " + __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__helpers__["c" /* stringifyObject */])(changeSet.moved));
-            if (changeSet.hasOwnProperty("new")) {
-                for (var i = 0; i < changeSet["new"].length; i++) {
-                    var nextNew = changeSet["new"][i];
-                    if (editor.getGraph().isRelationship(nextNew)) newRelationships.push(nextNew);else newPersons.push(nextNew);
-                }
-            }
-
-            timer.printSinceLast("=== Bookkeeping/sorting runtime: ");
-
-            for (var i = 0; i < movedPersons.length; i++) this.moveNode(movedPersons[i], animate.hasOwnProperty(movedPersons[i]));
-
-            timer.printSinceLast("=== Move persons runtime: ");
-
-            for (var i = 0; i < newPersons.length; i++) {
-                var newPerson = this.addNode(newPersons[i]);
-                if (markNew) {
-                    newPerson.getGraphics().markPermanently();
-                    this._currentMarkedNew.push(newPersons[i]);
-                }
-            }
-
-            timer.printSinceLast("=== New persons runtime: ");
-
-            for (var i = 0; i < movedRelationships.length; i++) this.moveNode(movedRelationships[i]);
-
-            timer.printSinceLast("=== Move rels runtime: ");
-
-            for (var i = 0; i < newRelationships.length; i++) this.addNode(newRelationships[i]);
-
-            timer.printSinceLast("=== New rels runtime: ");
-
-            if (changeSet.hasOwnProperty("highlight")) {
-                for (var i = 0; i < changeSet.highlight.length; i++) {
-                    var nextHighlight = changeSet.highlight[i];
-                    this.getNode(nextHighlight).getGraphics().markPermanently();
-                    this._currentMarkedNew.push(nextHighlight);
-                }
-            }
-
-            //timer.printSinceLast("=== highlight: ");
-
-            // re-evaluate which buttons & handles are appropriate for the nodes (e.g. twin button appears/disappears)
-            for (var nodeID in this._nodeMap) {
-                if (this._nodeMap.hasOwnProperty(nodeID)) {
-                    if (editor.getGraph().isPerson(nodeID) && !this.getNode(nodeID).getGraphics().getHoverBox().isMenuToggled()) {
-                        this.getNode(nodeID).getGraphics().getHoverBox().removeButtons();
-                        this.getNode(nodeID).getGraphics().getHoverBox().removeHandles();
-                    }
-                }
-            }
-
-            var checkNumberingEvent = { "memo": { "check": true, "noUndoRedo": true } };
-            editor.getController().handleRenumber(checkNumberingEvent);
-
-            // TODO: move the viewport to make changeSet.makevisible nodes visible on screen
-
-            timer.printSinceLast("=== highlight & update handles runtime: ");
-            timer2.printSinceLast("=== Total apply changes runtime: ");
+            var changeSet = editor.getGraph().fromJSON(JSONString);
         } catch (err) {
-            console.log("[view] update error");
-            console.trace(err);
+            console.log("ERROR loading the graph: " + err);
+            console.warn("Error loading the graph");
+            document.fire("pedigree:graph:clear");
+            document.fire("pedigree:load:finish");
+            return;
         }
+
+        if (!noUndo) {
+            var probandData = editor.getProbandDataFromPhenotips();
+            if (probandData) {
+                var genderOk = editor.getGraph().setProbandData(probandData.firstName, probandData.lastName, probandData.gender);
+                if (!genderOk) console.warn("Proband gender defined in Phenotips is incompatible with this pedigree. Setting proband gender to 'Unknown'");
+            }
+
+            JSONString = editor.getGraph().toJSON();
+        }
+
+        if (editor.getView().applyChanges(changeSet, false)) {
+            editor.getWorkspace().adjustSizeToScreen();
+        }
+
+        if (centerAround0) editor.getWorkspace().centerAroundNode(0);
+
+        if (!noUndo) editor.getActionStack().addState(null, null, JSONString);
+
+        document.fire("pedigree:load:finish");
+    },
+
+    createGraphFromImportData: function (importString, importType, importOptions, noUndo, centerAround0) {
+        let JSONString;
+        console.log("---- import: parsing data ----");
+        document.fire("pedigree:load:start");
+
+        try {
+            var changeSet = editor.getGraph().fromImport(importString, importType, importOptions);
+            if (changeSet == null) throw "unable to create a pedigree from imported data";
+        } catch (err) {
+            console.warn("Error importing pedigree: " + err);
+            document.fire("pedigree:load:finish");
+            return;
+        }
+
+        if (!noUndo) {
+            var probandData = editor.getProbandDataFromPhenotips();
+            if (probandData) {
+                var genderOk = editor.getGraph().setProbandData(probandData.firstName, probandData.lastName, probandData.gender);
+                if (!genderOk) console.warn("Proband gender defined in Phenotips is incompatible with this pedigree. Setting proband gender to 'Unknown'");
+            }
+            JSONString = editor.getGraph().toJSON();
+        }
+
+        if (editor.getView().applyChanges(changeSet, false)) {
+            editor.getWorkspace().adjustSizeToScreen();
+        }
+
+        if (centerAround0) editor.getWorkspace().centerAroundNode(0);
+
+        if (!noUndo) editor.getActionStack().addState(null, null, JSONString);
+
+        document.fire("pedigree:load:finish");
+    },
+
+    save: function () {
+        if (this._saveInProgress) return; // Don't send parallel save requests
+
+        var me = this;
+
+        var jsonData = this.serialize();
+
+        console.log("[SAVE] data: " + __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__helpers__["c" /* stringifyObject */])(jsonData));
+
+        var image = $("canvas");
+        var background = image.getElementsByClassName("panning-background")[0];
+        var backgroundPosition = background.nextSibling;
+        var backgroundParent = background.parentNode;
+        backgroundParent.removeChild(background);
+        var bbox = image.down().getBBox();
+        new Ajax.Request("public/xwiki/PhenoTips.PedigreeClass/0.xml", {
+            method: "POST",
+            onCreate: function () {
+                me._saveInProgress = true;
+            },
+            onComplete: function () {
+                me._saveInProgress = false;
+            },
+            onSuccess: function () {
+                console.log("saved");
+            },
+            parameters: { "property#data": jsonData, "property#image": image.innerHTML.replace(/xmlns:xlink=".*?"/, "").replace(/width=".*?"/, "").replace(/height=".*?"/, "").replace(/viewBox=".*?"/, "viewBox=\"" + bbox.x + " " + bbox.y + " " + bbox.width + " " + bbox.height + "\" width=\"" + bbox.width + "\" height=\"" + bbox.height + "\" xmlns:xlink=\"http://www.w3.org/1999/xlink\"") }
+        });
+        backgroundParent.insertBefore(background, backgroundPosition);
+    },
+
+    load: function () {
+        console.log("initiating load process");
+
+        new Ajax.Request("public/xwiki/PhenoTips.PedigreeClass/0.xml", {
+            method: "GET",
+            onCreate: function () {
+                document.fire("pedigree:load:start");
+            },
+            onSuccess: function (response) {
+                //console.log("Data from LOAD: " + stringifyObject(response));
+                //console.log("[Data from LOAD]");
+                var rawdata = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__helpers__["a" /* getSubSelectorTextFromXML */])(response.responseXML, "property", "name", "data", "value");
+                var jsonData = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__helpers__["b" /* unescapeRestData */])(rawdata);
+                if (jsonData.trim()) {
+                    console.log("[LOAD] recived JSON: " + __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__helpers__["c" /* stringifyObject */])(jsonData));
+
+                    jsonData = editor.getVersionUpdater().updateToCurrentVersion(jsonData);
+
+                    this.createGraphFromSerializedData(jsonData);
+                } else {
+                    new __WEBPACK_IMPORTED_MODULE_1__templateSelector__["a" /* TemplateSelector */](true);
+                }
+            }.bind(this)
+        });
     }
 });
-/* harmony export (immutable) */ __webpack_exports__["a"] = View;
+/* harmony export (immutable) */ __webpack_exports__["b"] = SaveLoadEngine;
 
-/* WEBPACK VAR INJECTION */}.call(__webpack_exports__, __webpack_require__(3), __webpack_require__(21)))
+/* WEBPACK VAR INJECTION */}.call(__webpack_exports__, __webpack_require__(3), __webpack_require__(27)))
 
 /***/ }),
-/* 89 */
+/* 81 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* WEBPACK VAR INJECTION */(function(Class, Raphael) {/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__slider__ = __webpack_require__(175);
+/* WEBPACK VAR INJECTION */(function(Class, Ajax) {/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__helpers__ = __webpack_require__(6);
 
 
 /**
- * Workspace contains the Raphael canvas, the zoom/pan controls and the menu bar
- * on the top. The class includes functions for managing the Raphael paper object and coordinate transformation methods
- * for taking pan and zoom levels into account.
+ * The UI Element for browsing and selecting pre-defined Pedigree templates
  *
- * @class Workspace
+ * @class TemplateSelector
  * @constructor
+ * @param {Boolean} isStartupTemplateSelector Set to True if no pedigree has been loaded yet
  */
 
-const Workspace = Class.create({
+const TemplateSelector = Class.create({
 
-    initialize: function () {
-        var me = this;
-        this.canvas = new Element('div', { 'id': 'canvas' });
-        this.workArea = new Element('div', { 'id': 'work-area' }).update(this.canvas);
-        $('panogram').update(this.workArea);
-        var screenDimensions = document.viewport.getDimensions();
-        this.generateTopMenu();
-        this.width = screenDimensions.width;
-        this.height = screenDimensions.height - this.canvas.cumulativeOffset().top - 4;
-        this._paper = Raphael("canvas", this.width, this.height);
-        this.viewBoxX = 0;
-        this.viewBoxY = 0;
-        this.zoomCoefficient = 1;
-
-        this.background = this.getPaper().rect(0, 0, this.width, this.height).attr({ fill: 'blue', stroke: 'none', opacity: 0 }).toBack();
-        this.background.node.setAttribute("class", "panning-background");
-
-        this.adjustSizeToScreen = this.adjustSizeToScreen.bind(this);
-        Event.observe(window, 'resize', me.adjustSizeToScreen);
-        this.generateViewControls();
-
-        //Initialize pan by dragging
-        var start = function () {
-            if (editor.isAnyMenuVisible()) {
-                return;
-            }
-            me.background.ox = me.background.attr("x");
-            me.background.oy = me.background.attr("y");
-            //me.background.attr({cursor: 'url(https://mail.google.com/mail/images/2/closedhand.cur)'});
-            me.background.attr({ cursor: 'move' });
-        };
-        var move = function (dx, dy) {
-            var deltax = me.viewBoxX - dx / me.zoomCoefficient;
-            var deltay = me.viewBoxY - dy / me.zoomCoefficient;
-
-            me.getPaper().setViewBox(deltax, deltay, me.width / me.zoomCoefficient, me.height / me.zoomCoefficient);
-            me.background.ox = deltax;
-            me.background.oy = deltay;
-            me.background.attr({ x: deltax, y: deltay });
-        };
-        var end = function () {
-            me.viewBoxX = me.background.ox;
-            me.viewBoxY = me.background.oy;
-            me.background.attr({ cursor: 'default' });
-        };
-        me.background.drag(move, start, end);
-
-        if (document.addEventListener) {
-            // adapted from from raphaelZPD
-            me.handleMouseWheel = function (evt) {
-                if (evt.preventDefault) evt.preventDefault();else evt.returnValue = false;
-
-                // disable while menu is active - too easy to scroll and get the active node out of sight, which is confusing
-                if (editor.isAnyMenuVisible()) {
-                    return;
-                }
-
-                var delta;
-                if (evt.wheelDelta) delta = -evt.wheelDelta; // Chrome/Safari
-                else delta = evt.detail; // Mozilla
-
-                //console.log("Mouse wheel: " + delta);
-                if (delta > 0) {
-                    var x = $$('.zoom-out')[0];
-                    $$('.zoom-out')[0].click();
-                } else {
-                    $$('.zoom-in')[0].click();
-                }
-            };
-
-            if (navigator.userAgent.toLowerCase().indexOf('webkit') >= 0) {
-                this.canvas.addEventListener('mousewheel', me.handleMouseWheel, false); // Chrome/Safari
-            } else {
-                this.canvas.addEventListener('DOMMouseScroll', me.handleMouseWheel, false); // Others
-            }
-        }
+    initialize: function (isStartupTemplateSelector) {
+        this._isStartupTemplateSelector = isStartupTemplateSelector;
+        this.mainDiv = new Element("div", { "class": "template-picture-container" });
+        this.mainDiv.update("Loading list of templates...");
+        var closeShortcut = isStartupTemplateSelector ? [] : ["Esc"];
+        this.dialog = new PhenoTips.widgets.ModalPopup(this.mainDiv, { close: { method: this.hide.bind(this), keys: closeShortcut } }, { extraClassName: "pedigree-template-chooser", title: "Please select a pedigree template", displayCloseButton: !isStartupTemplateSelector, verticalPosition: "top" });
+        isStartupTemplateSelector && this.dialog.show();
+        new Ajax.Request("public/xwiki/PhenoTips.PedigreeClass/index.xml", {
+            method: "GET",
+            onSuccess: this._onTemplateListAvailable.bind(this)
+        });
     },
 
     /**
-     * Returns the Raphael paper object.
+     * Returns True if this template selector is the one displayed on startup
      *
-     * @method getPaper
-     * @return {Object} Raphael Paper element
+     * @method isStartupTemplateSelector
+     * @return {Boolean}
      */
-    getPaper: function () {
-        return this._paper;
+    isStartupTemplateSelector: function () {
+        return this._isStartupTemplateSelector;
     },
 
     /**
-     * Returns the div element containing everything except the top menu bar
+     * Displays the templates once they have been downloaded
      *
-     * @method getWorkArea
-     * @return {HTMLElement}
+     * @param response
+     * @private
      */
-    getWorkArea: function () {
-        return this.workArea;
-    },
-
-    /**
-     * Returns width of the work area
-     *
-     * @method getWidth
-     * @return {Number}
-     */
-    getWidth: function () {
-        return this.width;
-    },
-
-    /**
-     * Returns height of the work area
-     *
-     * @method getHeight
-     * @return {Number}
-     */
-    getHeight: function () {
-        return this.height;
-    },
-
-    /**
-     * Creates the menu on the top
-     *
-     * @method generateTopMenu
-     */
-    generateTopMenu: function () {
-        var menu = new Element('div', { 'id': 'editor-menu' });
-        this.getWorkArea().insert({ before: menu });
-        var submenus = [];
-
-        if (editor.isUnsupportedBrowser()) {
-            submenus = [{
-                name: 'input',
-                items: [{ key: 'readonlymessage', label: 'Unsuported browser mode', icon: 'exclamation-triangle' }]
-            }, {
-                name: 'output',
-                items: [{ key: 'export', label: 'Export', icon: 'download' }, { key: 'reload', label: 'Reload', icon: 'refresh' }]
-            }];
-        } else {
-            submenus = [{
-                name: 'input',
-                items: [{ key: 'templates', label: 'Templates', icon: 'copy' }, { key: 'import', label: 'Import', icon: 'upload' }]
-            }, {
-                name: 'edit',
-                items: [{ key: 'undo', label: 'Undo', icon: 'undo' }, { key: 'redo', label: 'Redo', icon: 'repeat' }, { key: 'layout', label: 'Automatic layout', icon: 'sitemap' }, { key: 'number', label: 'Renumber', icon: 'sort-numeric-asc' }]
-            }, {
-                name: 'reset',
-                items: [{ key: 'clear', label: 'Clear all', icon: 'times-circle' }, { key: 'reload', label: 'Reload', icon: 'refresh' }]
-            }, {
-                name: 'output',
-                items: [{ key: 'export', label: 'Export', icon: 'download' }
-                //{ key : 'print',     label : 'Print', icon : 'print'},
-                ]
-            }];
-        }
-        var _createSubmenu = function (data) {
-            var submenu = new Element('div', { 'class': data.name + '-actions action-group' });
-            menu.insert(submenu);
-            data.items.each(function (item) {
-                submenu.insert(_createMenuItem(item));
+    _onTemplateListAvailable: function (response) {
+        this.mainDiv.update();
+        var objects = response.responseXML.documentElement.getElementsByTagName("objectSummary");
+        for (var i = 0; i < objects.length; ++i) {
+            var pictureBox = new Element("div", { "class": "picture-box" });
+            pictureBox.update("Loading...");
+            this.mainDiv.insert(pictureBox);
+            var href = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__helpers__["d" /* getSelectorFromXML */])(objects[i], "link", "rel", "http://www.xwiki.org/rel/properties").getAttribute("href").substring(1);
+            new Ajax.Request(href, {
+                method: "GET",
+                onSuccess: this._onTemplateAvailable.bind(this, pictureBox)
             });
-        };
-        var _createMenuItem = function (data) {
-            var mi = new Element('span', { 'id': 'action-' + data.key, 'class': 'menu-item ' + data.key }).insert(new Element('span', { 'class': 'fa fa-' + data.icon })).insert(' ').insert(data.label);
-            if (data.callback && typeof this[data.callback] == 'function') {
-                mi.observe('click', function () {
-                    this[data.callback]();
-                });
-            }
-            return mi;
-        };
-        submenus.each(_createSubmenu);
+        }
     },
 
     /**
-     * Adjusts the canvas viewbox to the given zoom coefficient
+     * Creates a clickable template thumbnail once the information has been downloaded
      *
-     * @method zoom
-     * @param {Number} zoomCoefficient The zooming ratio
+     * @param pictureBox
+     * @param response
+     * @private
      */
-    zoom: function (zoomCoefficient) {
-        if (zoomCoefficient < 0.15) zoomCoefficient = 0.15;
-        if (zoomCoefficient > 0.15 && zoomCoefficient < 0.25) zoomCoefficient = 0.25;
-        zoomCoefficient = Math.round(zoomCoefficient / 0.05) / 20;
-        //console.log("zoom: " + zoomCoefficient);
-        var newWidth = this.width / zoomCoefficient;
-        var newHeight = this.height / zoomCoefficient;
-        this.viewBoxX = this.viewBoxX + (this.width / this.zoomCoefficient - newWidth) / 2;
-        this.viewBoxY = this.viewBoxY + (this.height / this.zoomCoefficient - newHeight) / 2;
-        this.getPaper().setViewBox(this.viewBoxX, this.viewBoxY, newWidth, newHeight);
-        this.zoomCoefficient = zoomCoefficient;
-        this.background.attr({ x: this.viewBoxX, y: this.viewBoxY, width: newWidth, height: newHeight });
-    },
+    _onTemplateAvailable: function (pictureBox, response) {
+        pictureBox.innerHTML = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__helpers__["a" /* getSubSelectorTextFromXML */])(response.responseXML, "property", "name", "image", "value").replace(/&amp;/, "&");
+        pictureBox.pedigreeData = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__helpers__["a" /* getSubSelectorTextFromXML */])(response.responseXML, "property", "name", "data", "value");
+        pictureBox.type = "internal";
+        pictureBox.description = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__helpers__["a" /* getSubSelectorTextFromXML */])(response.responseXML, "property", "name", "description", "value");
+        pictureBox.title = pictureBox.description;
 
-    /**
-     * Creates the controls for panning and zooming
-     *
-     * @method generateViewControls
-     */
-    generateViewControls: function () {
-        var _this = this;
-        this.__controls = new Element('div', { 'class': 'view-controls' });
-        // Pan controls
-        this.__pan = new Element('div', { 'class': 'view-controls-pan', title: 'Pan' });
-        this.__controls.insert(this.__pan);
-        ['up', 'right', 'down', 'left', 'home'].each(function (direction) {
-            var faIconClass = direction == 'home' ? "fa-user" : "fa-arrow-" + direction;
-            _this.__pan[direction] = new Element('span', { 'class': 'view-control-pan pan-' + direction + ' fa fa-fw ' + faIconClass, 'title': 'Pan ' + direction });
-            _this.__pan.insert(_this.__pan[direction]);
-            _this.__pan[direction].observe('click', function (event) {
-                if (direction == 'home') {
-                    _this.centerAroundNode(0);
-                } else if (direction == 'up') {
-                    _this.panTo(_this.viewBoxX, _this.viewBoxY - 300);
-                } else if (direction == 'down') {
-                    _this.panTo(_this.viewBoxX, _this.viewBoxY + 300);
-                } else if (direction == 'left') {
-                    _this.panTo(_this.viewBoxX - 300, _this.viewBoxY);
-                } else {
-                    _this.panTo(_this.viewBoxX + 300, _this.viewBoxY);
-                }
-            });
-        });
-        // Zoom controls
-        var trackLength = 200;
-        this.__zoom = new Element('div', { 'class': 'view-controls-zoom', title: 'Zoom' });
-        this.__controls.insert(this.__zoom);
-        this.__zoom.track = new Element('div', { 'class': 'zoom-track' });
-        this.__zoom.handle = new Element('div', { 'class': 'zoom-handle', title: 'Drag to zoom' });
-        this.__zoom['in'] = new Element('div', { 'class': 'zoom-button zoom-in fa fa-fw fa-search-plus', title: 'Zoom in' });
-        this.__zoom['out'] = new Element('div', { 'class': 'zoom-button zoom-out fa fa-fw fa-search-minus', title: 'Zoom out' });
-        this.__zoom.label = new Element('div', { 'class': 'zoom-crt-value' });
-        this.__zoom.insert(this.__zoom['in']);
-        this.__zoom.insert(this.__zoom.track);
-        this.__zoom.track.insert(this.__zoom.handle);
-        this.__zoom.track.style.height = trackLength + 'px';
-        this.__zoom.insert(this.__zoom.out);
-        this.__zoom.insert(this.__zoom.label);
-        // Scriptaculous slider
-        // see also http://madrobby.github.com/scriptaculous/slider/
-        //
-        // Here a non-linear scale is used: slider positions form [0 to 0.9] correspond to
-        // zoom coefficients from 1.25x to 0.25x, and zoom positions from (0.9 to 1]
-        // correspond to single deepest zoom level 0.15x
-        this.zoomSlider = new __WEBPACK_IMPORTED_MODULE_0__slider__["a" /* Control */].Slider(this.__zoom.handle, this.__zoom.track, {
-            axis: 'vertical',
-            minimum: 0,
-            maximum: trackLength,
-            increment: 1,
-            alignY: 6,
-            onSlide: function (value) {
-                // Called whenever the Slider is moved by dragging.
-                // The called function gets the slider value (or array if slider has multiple handles) as its parameter.
-                //console.log("new val: " + value + " current coeff: " + _this.zoomCoefficient );
-                if (value <= 0.9) {
-                    _this.zoom(-value / 0.9 + 1.25);
-                } else {
-                    _this.zoom(0.15);
-                }
-            },
-            onChange: function (value) {
-                // Called whenever the Slider has finished moving or has had its value changed via the setSlider Value function.
-                // The called function gets the slider value (or array if slider has multiple handles) as its parameter.
-                if (value <= 0.9) {
-                    _this.zoom(-value / 0.9 + 1.25);
-                } else {
-                    _this.zoom(0.15);
-                }
-            }
-        });
-        if (editor.isUnsupportedBrowser()) {
-            this.zoomSlider.setValue(0.25 * 0.9); // 0.25 * 0.9 corresponds to zoomCoefficient of 1, i.e. 1:1
-            // - for best chance of decent looks on non-SVG browsers like IE8
+        //console.log("[Data from Template] - " + stringifyObject(pictureBox.pedigreeData));
+
+        // TODO: render images with JavaScript instead
+        if (window.SVGSVGElement && document.implementation.hasFeature("http://www.w3.org/TR/SVG11/feature#Image", "1.1")) {
+            pictureBox.update(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__helpers__["a" /* getSubSelectorTextFromXML */])(response.responseXML, "property", "name", "image", "value"));
         } else {
-            this.zoomSlider.setValue(0.5 * 0.9); // 0.5 * 0.9 corresponds to zoomCoefficient of 0.75x
+            pictureBox.innerHTML = "<table bgcolor='#FFFAFA'><tr><td><br>&nbsp;" + pictureBox.description + "&nbsp;<br><br></td></tr></table>";
         }
-        this.__zoom['in'].observe('click', function (event) {
-            if (_this.zoomCoefficient < 0.25) _this.zoomSlider.setValue(0.9); // zoom in from the any value below 0.25x goes to 0.25x (which is 0.9 on the slider)
-            else _this.zoomSlider.setValue(-(_this.zoomCoefficient - 1) * 0.9); // +0.25x
-        });
-        this.__zoom['out'].observe('click', function (event) {
-            if (_this.zoomCoefficient <= 0.25) _this.zoomSlider.setValue(1); // zoom out from 0.25x goes to the final slider position
-            else _this.zoomSlider.setValue(-(_this.zoomCoefficient - 1.5) * 0.9); // -0.25x
-        });
-        // Insert all controls in the document
-        this.getWorkArea().insert(this.__controls);
-    },
-
-    /* To work around a bug in Raphael or Raphaelzpd (?) which creates differently sized lines
-     * @ different zoom levels given the same "stroke-width" in pixels this function computes
-     * the pixel size to be used at this zoom level to create a line of the correct size.
-     *
-     * Returns the pixel value to be used in stoke-width
-     */
-    getSizeNormalizedToDefaultZoom: function (pixelSizeAtDefaultZoom) {
-        return pixelSizeAtDefaultZoom;
+        pictureBox.observe("click", this._onTemplateSelected.bindAsEventListener(this, pictureBox));
     },
 
     /**
-     * Returns the current zoom level (not normalized to any value, larger numbers mean deeper zoom-in)
-     */
-    getCurrentZoomLevel: function (pixelSizeAtDefaultZoom) {
-        return this.zoomCoefficient;
-    },
-
-    /**
-     * Converts the coordinates relative to the Raphael canvas to coordinates relative to the canvas div
-     * and returns them
+     * Loads the template once it has been selected
      *
-     * @method canvasToDiv
-     * @param {Number} canvasX The x coordinate relative to the Raphael canvas (ie with pan/zoom transformations)
-     * @param {Number} canvasY The y coordinate relative to the Raphael canvas (ie with pan/zoom transformations)
-     * @return {{x: number, y: number}} Object with coordinates
+     * @param event
+     * @param pictureBox
+     * @private
      */
-    canvasToDiv: function (canvasX, canvasY) {
-        return {
-            x: this.zoomCoefficient * (canvasX - this.viewBoxX),
-            y: this.zoomCoefficient * (canvasY - this.viewBoxY)
-        };
-    },
-
-    /**
-     * Converts the coordinates relative to the canvas div to coordinates relative to the Raphael canvas
-     * by applying zoom/pan transformations and returns them.
-     *
-     * @method divToCanvas
-     * @param {Number} divX The x coordinate relative to the canvas
-     * @param {Number} divY The y coordinate relative to the canvas
-     * @return {{x: number, y: number}} Object with coordinates
-     */
-    divToCanvas: function (divX, divY) {
-        return {
-            x: divX / this.zoomCoefficient + this.viewBoxX,
-            y: divY / this.zoomCoefficient + this.viewBoxY
-        };
-    },
-
-    /**
-     * Converts the coordinates relative to the browser viewport to coordinates relative to the canvas div,
-     * and returns them.
-     *
-     * @method viewportToDiv
-     * @param {Number} absX The x coordinate relative to the viewport
-     * @param {Number} absY The y coordinate relative to the viewport
-     * @return {{x: number, y: number}} Object with coordinates
-     */
-    viewportToDiv: function (absX, absY) {
-        return {
-            x: +absX - this.canvas.cumulativeOffset().left,
-            y: absY - this.canvas.cumulativeOffset().top
-        };
-    },
-
-    /**
-     * Animates a transformation of the viewbox to the given coordinate
-     *
-     * @method panTo
-     * @param {Number} x The x coordinate relative to the Raphael canvas
-     * @param {Number} y The y coordinate relative to the Raphael canvas
-     */
-    panTo: function (x, y, instant) {
-        var me = this,
-            oX = this.viewBoxX,
-            oY = this.viewBoxY,
-            xDisplacement = x - oX,
-            yDisplacement = y - oY;
-
-        if (editor.isUnsupportedBrowser()) {
-            instant = true;
-        }
-
-        var numSeconds = instant ? 0 : .4;
-        var frames = instant ? 1 : 11;
-
-        var xStep = xDisplacement / frames,
-            yStep = yDisplacement / frames;
-
-        if (xStep == 0 && yStep == 0) return;
-
-        var progress = 0;
-
-        (function draw() {
-            setTimeout(function () {
-                if (progress++ < frames) {
-                    me.viewBoxX += xStep;
-                    me.viewBoxY += yStep;
-                    me.getPaper().setViewBox(me.viewBoxX, me.viewBoxY, me.width / me.zoomCoefficient, me.height / me.zoomCoefficient);
-                    me.background.attr({ x: me.viewBoxX, y: me.viewBoxY });
-                    draw();
-                }
-            }, 1000 * numSeconds / frames);
-        })();
-    },
-
-    /**
-     * Animates a transformation of the viewbox by the given delta in the X direction
-     *
-     * @method panTo
-     * @param {Number} deltaX The move size
-     */
-    panByX: function (deltaX, instant) {
-        this.panTo(this.viewBoxX + Math.floor(deltaX / this.zoomCoefficient), this.viewBoxY, instant);
-    },
-
-    /**
-     * Adjusts the canvas size to the current viewport dimensions.
-     *
-     * @method adjustSizeToScreen
-     */
-    adjustSizeToScreen: function () {
-        var screenDimensions = document.viewport.getDimensions();
-        this.width = screenDimensions.width;
-        this.height = screenDimensions.height - this.canvas.cumulativeOffset().top - 4;
-        this.getPaper().setSize(this.width, this.height);
-        this.getPaper().setViewBox(this.viewBoxX, this.viewBoxY, this.width / this.zoomCoefficient, this.height / this.zoomCoefficient);
-        this.background && this.background.attr({ "width": this.width, "height": this.height });
-        if (editor.getNodeMenu()) {
-            editor.getNodeMenu().reposition();
+    _onTemplateSelected: function (event, pictureBox) {
+        //console.log("observe onTemplateSelected");
+        this.dialog.close();
+        if (pictureBox.type == "internal") {
+            editor.getSaveLoadEngine().createGraphFromSerializedData(pictureBox.pedigreeData, false /* add to undo stack */, true /*center around 0*/);
+        } else if (pictureBox.type == "simpleJSON") {
+            editor.getSaveLoadEngine().createGraphFromImportData(pictureBox.pedigreeData, "simpleJSON", {}, false /* add to undo stack */, true /*center around 0*/);
         }
     },
 
     /**
-     * Pans the canvas to put the node with the given id at the center.
+     * Displays the template selector
      *
-     * When (xCenterShift, yCenterShift) are given positions the node with the given shift relative
-     * to the center instead of exact center of the screen
-     *
-     * @method centerAroundNode
-     * @param {Number} nodeID The id of the node
+     * @method show
      */
-    centerAroundNode: function (nodeID, instant, xCenterShift, yCenterShift) {
-        var node = editor.getNode(nodeID);
-        if (node) {
-            var x = node.getX(),
-                y = node.getY();
-            if (!xCenterShift) xCenterShift = 0;
-            if (!yCenterShift) yCenterShift = 0;
-            var xOffset = this.getWidth() / this.zoomCoefficient;
-            var yOffset = this.getHeight() / this.zoomCoefficient;
-            this.panTo(x - xOffset / 2 - xCenterShift, y - yOffset / 2 - yCenterShift, instant);
-        }
+    show: function () {
+        this.dialog.show();
+    },
+
+    /**
+     * Removes the the template selector
+     *
+     * @method hide
+     */
+    hide: function () {
+        this.dialog.closeDialog();
     }
 });
-/* harmony export (immutable) */ __webpack_exports__["a"] = Workspace;
+/* harmony export (immutable) */ __webpack_exports__["a"] = TemplateSelector;
 
-/* WEBPACK VAR INJECTION */}.call(__webpack_exports__, __webpack_require__(3), __webpack_require__(21)))
+/* WEBPACK VAR INJECTION */}.call(__webpack_exports__, __webpack_require__(3), __webpack_require__(27)))
 
 /***/ }),
-/* 90 */
+/* 82 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -51577,253 +47433,253 @@ VerticalLevels.prototype = {
 };
 
 /***/ }),
-/* 91 */
+/* 83 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports = {
-  F: __webpack_require__(181),
-  T: __webpack_require__(182),
-  __: __webpack_require__(183),
+  F: __webpack_require__(172),
+  T: __webpack_require__(173),
+  __: __webpack_require__(174),
   add: __webpack_require__(39),
-  addIndex: __webpack_require__(184),
-  adjust: __webpack_require__(92),
-  all: __webpack_require__(185),
-  allPass: __webpack_require__(186),
+  addIndex: __webpack_require__(175),
+  adjust: __webpack_require__(84),
+  all: __webpack_require__(176),
+  allPass: __webpack_require__(177),
   always: __webpack_require__(25),
-  and: __webpack_require__(93),
-  any: __webpack_require__(94),
-  anyPass: __webpack_require__(187),
-  ap: __webpack_require__(63),
-  aperture: __webpack_require__(188),
-  append: __webpack_require__(189),
-  apply: __webpack_require__(95),
-  applySpec: __webpack_require__(190),
-  ascend: __webpack_require__(191),
+  and: __webpack_require__(85),
+  any: __webpack_require__(86),
+  anyPass: __webpack_require__(178),
+  ap: __webpack_require__(59),
+  aperture: __webpack_require__(179),
+  append: __webpack_require__(180),
+  apply: __webpack_require__(87),
+  applySpec: __webpack_require__(181),
+  ascend: __webpack_require__(182),
   assoc: __webpack_require__(40),
-  assocPath: __webpack_require__(96),
-  binary: __webpack_require__(192),
-  bind: __webpack_require__(97),
-  both: __webpack_require__(193),
-  call: __webpack_require__(194),
-  chain: __webpack_require__(64),
-  clamp: __webpack_require__(195),
-  clone: __webpack_require__(196),
-  comparator: __webpack_require__(197),
-  complement: __webpack_require__(198),
-  compose: __webpack_require__(65),
-  composeK: __webpack_require__(98),
-  composeP: __webpack_require__(199),
-  concat: __webpack_require__(66),
-  cond: __webpack_require__(200),
-  construct: __webpack_require__(201),
-  constructN: __webpack_require__(99),
-  contains: __webpack_require__(202),
-  converge: __webpack_require__(100),
-  countBy: __webpack_require__(203),
+  assocPath: __webpack_require__(88),
+  binary: __webpack_require__(183),
+  bind: __webpack_require__(89),
+  both: __webpack_require__(184),
+  call: __webpack_require__(185),
+  chain: __webpack_require__(60),
+  clamp: __webpack_require__(186),
+  clone: __webpack_require__(187),
+  comparator: __webpack_require__(188),
+  complement: __webpack_require__(189),
+  compose: __webpack_require__(61),
+  composeK: __webpack_require__(90),
+  composeP: __webpack_require__(190),
+  concat: __webpack_require__(62),
+  cond: __webpack_require__(191),
+  construct: __webpack_require__(192),
+  constructN: __webpack_require__(91),
+  contains: __webpack_require__(193),
+  converge: __webpack_require__(92),
+  countBy: __webpack_require__(194),
   curry: __webpack_require__(41),
   curryN: __webpack_require__(7),
-  dec: __webpack_require__(204),
-  descend: __webpack_require__(205),
-  defaultTo: __webpack_require__(101),
-  difference: __webpack_require__(102),
-  differenceWith: __webpack_require__(103),
-  dissoc: __webpack_require__(104),
-  dissocPath: __webpack_require__(206),
-  divide: __webpack_require__(207),
-  drop: __webpack_require__(105),
-  dropLast: __webpack_require__(208),
-  dropLastWhile: __webpack_require__(209),
-  dropRepeats: __webpack_require__(210),
-  dropRepeatsWith: __webpack_require__(106),
-  dropWhile: __webpack_require__(211),
-  either: __webpack_require__(212),
-  empty: __webpack_require__(107),
-  eqBy: __webpack_require__(213),
-  eqProps: __webpack_require__(214),
-  equals: __webpack_require__(14),
-  evolve: __webpack_require__(215),
-  filter: __webpack_require__(67),
-  find: __webpack_require__(216),
-  findIndex: __webpack_require__(217),
-  findLast: __webpack_require__(218),
-  findLastIndex: __webpack_require__(219),
-  flatten: __webpack_require__(220),
+  dec: __webpack_require__(195),
+  descend: __webpack_require__(196),
+  defaultTo: __webpack_require__(93),
+  difference: __webpack_require__(94),
+  differenceWith: __webpack_require__(95),
+  dissoc: __webpack_require__(96),
+  dissocPath: __webpack_require__(197),
+  divide: __webpack_require__(198),
+  drop: __webpack_require__(97),
+  dropLast: __webpack_require__(199),
+  dropLastWhile: __webpack_require__(200),
+  dropRepeats: __webpack_require__(201),
+  dropRepeatsWith: __webpack_require__(98),
+  dropWhile: __webpack_require__(202),
+  either: __webpack_require__(203),
+  empty: __webpack_require__(99),
+  eqBy: __webpack_require__(204),
+  eqProps: __webpack_require__(205),
+  equals: __webpack_require__(13),
+  evolve: __webpack_require__(206),
+  filter: __webpack_require__(63),
+  find: __webpack_require__(207),
+  findIndex: __webpack_require__(208),
+  findLast: __webpack_require__(209),
+  findLastIndex: __webpack_require__(210),
+  flatten: __webpack_require__(211),
   flip: __webpack_require__(42),
-  forEach: __webpack_require__(221),
-  forEachObjIndexed: __webpack_require__(222),
-  fromPairs: __webpack_require__(223),
-  groupBy: __webpack_require__(224),
-  groupWith: __webpack_require__(225),
-  gt: __webpack_require__(226),
-  gte: __webpack_require__(227),
-  has: __webpack_require__(228),
-  hasIn: __webpack_require__(229),
-  head: __webpack_require__(230),
-  identical: __webpack_require__(108),
-  identity: __webpack_require__(68),
-  ifElse: __webpack_require__(231),
-  inc: __webpack_require__(232),
-  indexBy: __webpack_require__(233),
-  indexOf: __webpack_require__(234),
-  init: __webpack_require__(235),
-  insert: __webpack_require__(236),
-  insertAll: __webpack_require__(237),
-  intersection: __webpack_require__(272),
-  intersectionWith: __webpack_require__(273),
-  intersperse: __webpack_require__(274),
-  into: __webpack_require__(275),
-  invert: __webpack_require__(276),
-  invertObj: __webpack_require__(277),
+  forEach: __webpack_require__(212),
+  forEachObjIndexed: __webpack_require__(213),
+  fromPairs: __webpack_require__(214),
+  groupBy: __webpack_require__(215),
+  groupWith: __webpack_require__(216),
+  gt: __webpack_require__(217),
+  gte: __webpack_require__(218),
+  has: __webpack_require__(219),
+  hasIn: __webpack_require__(220),
+  head: __webpack_require__(221),
+  identical: __webpack_require__(100),
+  identity: __webpack_require__(64),
+  ifElse: __webpack_require__(222),
+  inc: __webpack_require__(223),
+  indexBy: __webpack_require__(224),
+  indexOf: __webpack_require__(225),
+  init: __webpack_require__(226),
+  insert: __webpack_require__(227),
+  insertAll: __webpack_require__(228),
+  intersection: __webpack_require__(263),
+  intersectionWith: __webpack_require__(264),
+  intersperse: __webpack_require__(265),
+  into: __webpack_require__(266),
+  invert: __webpack_require__(267),
+  invertObj: __webpack_require__(268),
   invoker: __webpack_require__(29),
-  is: __webpack_require__(123),
+  is: __webpack_require__(115),
   isArrayLike: __webpack_require__(30),
-  isEmpty: __webpack_require__(278),
-  isNil: __webpack_require__(279),
-  join: __webpack_require__(280),
-  juxt: __webpack_require__(124),
-  keys: __webpack_require__(16),
-  keysIn: __webpack_require__(281),
-  last: __webpack_require__(125),
-  lastIndexOf: __webpack_require__(282),
-  length: __webpack_require__(126),
+  isEmpty: __webpack_require__(269),
+  isNil: __webpack_require__(270),
+  join: __webpack_require__(271),
+  juxt: __webpack_require__(116),
+  keys: __webpack_require__(15),
+  keysIn: __webpack_require__(272),
+  last: __webpack_require__(117),
+  lastIndexOf: __webpack_require__(273),
+  length: __webpack_require__(118),
   lens: __webpack_require__(48),
-  lensIndex: __webpack_require__(283),
-  lensPath: __webpack_require__(284),
-  lensProp: __webpack_require__(285),
+  lensIndex: __webpack_require__(274),
+  lensPath: __webpack_require__(275),
+  lensProp: __webpack_require__(276),
   lift: __webpack_require__(49),
-  liftN: __webpack_require__(127),
-  lt: __webpack_require__(286),
-  lte: __webpack_require__(287),
-  map: __webpack_require__(10),
-  mapAccum: __webpack_require__(288),
-  mapAccumRight: __webpack_require__(289),
-  mapObjIndexed: __webpack_require__(290),
-  match: __webpack_require__(291),
-  mathMod: __webpack_require__(292),
+  liftN: __webpack_require__(119),
+  lt: __webpack_require__(277),
+  lte: __webpack_require__(278),
+  map: __webpack_require__(9),
+  mapAccum: __webpack_require__(279),
+  mapAccumRight: __webpack_require__(280),
+  mapObjIndexed: __webpack_require__(281),
+  match: __webpack_require__(282),
+  mathMod: __webpack_require__(283),
   max: __webpack_require__(26),
-  maxBy: __webpack_require__(293),
-  mean: __webpack_require__(128),
-  median: __webpack_require__(294),
-  memoize: __webpack_require__(295),
-  merge: __webpack_require__(296),
-  mergeAll: __webpack_require__(297),
-  mergeWith: __webpack_require__(298),
-  mergeWithKey: __webpack_require__(129),
-  min: __webpack_require__(299),
-  minBy: __webpack_require__(300),
-  modulo: __webpack_require__(301),
-  multiply: __webpack_require__(130),
+  maxBy: __webpack_require__(284),
+  mean: __webpack_require__(120),
+  median: __webpack_require__(285),
+  memoize: __webpack_require__(286),
+  merge: __webpack_require__(287),
+  mergeAll: __webpack_require__(288),
+  mergeWith: __webpack_require__(289),
+  mergeWithKey: __webpack_require__(121),
+  min: __webpack_require__(290),
+  minBy: __webpack_require__(291),
+  modulo: __webpack_require__(292),
+  multiply: __webpack_require__(122),
   nAry: __webpack_require__(50),
-  negate: __webpack_require__(302),
-  none: __webpack_require__(303),
-  not: __webpack_require__(131),
+  negate: __webpack_require__(293),
+  none: __webpack_require__(294),
+  not: __webpack_require__(123),
   nth: __webpack_require__(31),
-  nthArg: __webpack_require__(304),
-  objOf: __webpack_require__(132),
-  of: __webpack_require__(305),
-  omit: __webpack_require__(306),
-  once: __webpack_require__(307),
-  or: __webpack_require__(133),
-  over: __webpack_require__(134),
-  pair: __webpack_require__(308),
-  partial: __webpack_require__(309),
-  partialRight: __webpack_require__(310),
-  partition: __webpack_require__(311),
+  nthArg: __webpack_require__(295),
+  objOf: __webpack_require__(124),
+  of: __webpack_require__(296),
+  omit: __webpack_require__(297),
+  once: __webpack_require__(298),
+  or: __webpack_require__(125),
+  over: __webpack_require__(126),
+  pair: __webpack_require__(299),
+  partial: __webpack_require__(300),
+  partialRight: __webpack_require__(301),
+  partition: __webpack_require__(302),
   path: __webpack_require__(32),
-  pathEq: __webpack_require__(312),
-  pathOr: __webpack_require__(313),
-  pathSatisfies: __webpack_require__(314),
-  pick: __webpack_require__(315),
-  pickAll: __webpack_require__(135),
-  pickBy: __webpack_require__(316),
-  pipe: __webpack_require__(136),
-  pipeK: __webpack_require__(317),
-  pipeP: __webpack_require__(137),
+  pathEq: __webpack_require__(303),
+  pathOr: __webpack_require__(304),
+  pathSatisfies: __webpack_require__(305),
+  pick: __webpack_require__(306),
+  pickAll: __webpack_require__(127),
+  pickBy: __webpack_require__(307),
+  pipe: __webpack_require__(128),
+  pipeK: __webpack_require__(308),
+  pipeP: __webpack_require__(129),
   pluck: __webpack_require__(33),
-  prepend: __webpack_require__(138),
-  product: __webpack_require__(318),
-  project: __webpack_require__(319),
-  prop: __webpack_require__(73),
-  propEq: __webpack_require__(320),
-  propIs: __webpack_require__(321),
-  propOr: __webpack_require__(322),
-  propSatisfies: __webpack_require__(323),
-  props: __webpack_require__(324),
-  range: __webpack_require__(325),
-  reduce: __webpack_require__(17),
+  prepend: __webpack_require__(130),
+  product: __webpack_require__(309),
+  project: __webpack_require__(310),
+  prop: __webpack_require__(69),
+  propEq: __webpack_require__(311),
+  propIs: __webpack_require__(312),
+  propOr: __webpack_require__(313),
+  propSatisfies: __webpack_require__(314),
+  props: __webpack_require__(315),
+  range: __webpack_require__(316),
+  reduce: __webpack_require__(16),
   reduceBy: __webpack_require__(51),
-  reduceRight: __webpack_require__(139),
-  reduceWhile: __webpack_require__(326),
-  reduced: __webpack_require__(327),
+  reduceRight: __webpack_require__(131),
+  reduceWhile: __webpack_require__(317),
+  reduced: __webpack_require__(318),
   reject: __webpack_require__(52),
-  remove: __webpack_require__(328),
-  repeat: __webpack_require__(329),
-  replace: __webpack_require__(330),
+  remove: __webpack_require__(319),
+  repeat: __webpack_require__(320),
+  replace: __webpack_require__(321),
   reverse: __webpack_require__(53),
-  scan: __webpack_require__(331),
-  sequence: __webpack_require__(140),
-  set: __webpack_require__(332),
+  scan: __webpack_require__(322),
+  sequence: __webpack_require__(132),
+  set: __webpack_require__(323),
   slice: __webpack_require__(23),
-  sort: __webpack_require__(333),
-  sortBy: __webpack_require__(334),
-  sortWith: __webpack_require__(335),
-  split: __webpack_require__(336),
-  splitAt: __webpack_require__(337),
-  splitEvery: __webpack_require__(338),
-  splitWhen: __webpack_require__(339),
-  subtract: __webpack_require__(340),
-  sum: __webpack_require__(141),
-  symmetricDifference: __webpack_require__(341),
-  symmetricDifferenceWith: __webpack_require__(342),
-  tail: __webpack_require__(74),
-  take: __webpack_require__(142),
-  takeLast: __webpack_require__(343),
-  takeLastWhile: __webpack_require__(344),
-  takeWhile: __webpack_require__(345),
-  tap: __webpack_require__(346),
-  test: __webpack_require__(347),
-  times: __webpack_require__(143),
-  toLower: __webpack_require__(348),
-  toPairs: __webpack_require__(349),
-  toPairsIn: __webpack_require__(350),
+  sort: __webpack_require__(324),
+  sortBy: __webpack_require__(325),
+  sortWith: __webpack_require__(326),
+  split: __webpack_require__(327),
+  splitAt: __webpack_require__(328),
+  splitEvery: __webpack_require__(329),
+  splitWhen: __webpack_require__(330),
+  subtract: __webpack_require__(331),
+  sum: __webpack_require__(133),
+  symmetricDifference: __webpack_require__(332),
+  symmetricDifferenceWith: __webpack_require__(333),
+  tail: __webpack_require__(70),
+  take: __webpack_require__(134),
+  takeLast: __webpack_require__(334),
+  takeLastWhile: __webpack_require__(335),
+  takeWhile: __webpack_require__(336),
+  tap: __webpack_require__(337),
+  test: __webpack_require__(338),
+  times: __webpack_require__(135),
+  toLower: __webpack_require__(339),
+  toPairs: __webpack_require__(340),
+  toPairsIn: __webpack_require__(341),
   toString: __webpack_require__(34),
-  toUpper: __webpack_require__(351),
-  transduce: __webpack_require__(352),
-  transpose: __webpack_require__(353),
-  traverse: __webpack_require__(354),
-  trim: __webpack_require__(355),
-  tryCatch: __webpack_require__(356),
-  type: __webpack_require__(75),
-  unapply: __webpack_require__(357),
-  unary: __webpack_require__(358),
-  uncurryN: __webpack_require__(359),
-  unfold: __webpack_require__(360),
-  union: __webpack_require__(361),
-  unionWith: __webpack_require__(362),
-  uniq: __webpack_require__(76),
-  uniqBy: __webpack_require__(144),
-  uniqWith: __webpack_require__(77),
-  unless: __webpack_require__(363),
-  unnest: __webpack_require__(364),
-  until: __webpack_require__(365),
-  update: __webpack_require__(145),
-  useWith: __webpack_require__(146),
-  values: __webpack_require__(147),
-  valuesIn: __webpack_require__(366),
-  view: __webpack_require__(367),
-  when: __webpack_require__(368),
-  where: __webpack_require__(148),
-  whereEq: __webpack_require__(369),
-  without: __webpack_require__(370),
-  xprod: __webpack_require__(371),
-  zip: __webpack_require__(372),
-  zipObj: __webpack_require__(373),
-  zipWith: __webpack_require__(374)
+  toUpper: __webpack_require__(342),
+  transduce: __webpack_require__(343),
+  transpose: __webpack_require__(344),
+  traverse: __webpack_require__(345),
+  trim: __webpack_require__(346),
+  tryCatch: __webpack_require__(347),
+  type: __webpack_require__(71),
+  unapply: __webpack_require__(348),
+  unary: __webpack_require__(349),
+  uncurryN: __webpack_require__(350),
+  unfold: __webpack_require__(351),
+  union: __webpack_require__(352),
+  unionWith: __webpack_require__(353),
+  uniq: __webpack_require__(72),
+  uniqBy: __webpack_require__(136),
+  uniqWith: __webpack_require__(73),
+  unless: __webpack_require__(354),
+  unnest: __webpack_require__(355),
+  until: __webpack_require__(356),
+  update: __webpack_require__(137),
+  useWith: __webpack_require__(138),
+  values: __webpack_require__(139),
+  valuesIn: __webpack_require__(357),
+  view: __webpack_require__(358),
+  when: __webpack_require__(359),
+  where: __webpack_require__(140),
+  whereEq: __webpack_require__(360),
+  without: __webpack_require__(361),
+  xprod: __webpack_require__(362),
+  zip: __webpack_require__(363),
+  zipObj: __webpack_require__(364),
+  zipWith: __webpack_require__(365)
 };
 
 
 /***/ }),
-/* 92 */
+/* 84 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var _concat = __webpack_require__(12);
@@ -51868,7 +47724,7 @@ module.exports = _curry3(function adjust(fn, idx, list) {
 
 
 /***/ }),
-/* 93 */
+/* 85 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var _curry2 = __webpack_require__(0);
@@ -51899,12 +47755,12 @@ module.exports = _curry2(function and(a, b) {
 
 
 /***/ }),
-/* 94 */
+/* 86 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var _curry2 = __webpack_require__(0);
 var _dispatchable = __webpack_require__(4);
-var _xany = __webpack_require__(120);
+var _xany = __webpack_require__(112);
 
 
 /**
@@ -51945,7 +47801,7 @@ module.exports = _curry2(_dispatchable(['any'], _xany, function any(fn, list) {
 
 
 /***/ }),
-/* 95 */
+/* 87 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var _curry2 = __webpack_require__(0);
@@ -51977,13 +47833,13 @@ module.exports = _curry2(function apply(fn, args) {
 
 
 /***/ }),
-/* 96 */
+/* 88 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var _curry3 = __webpack_require__(2);
 var _has = __webpack_require__(8);
 var _isArray = __webpack_require__(19);
-var _isInteger = __webpack_require__(116);
+var _isInteger = __webpack_require__(108);
 var assoc = __webpack_require__(40);
 
 
@@ -52031,10 +47887,10 @@ module.exports = _curry3(function assocPath(path, val, obj) {
 
 
 /***/ }),
-/* 97 */
+/* 89 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var _arity = __webpack_require__(15);
+var _arity = __webpack_require__(14);
 var _curry2 = __webpack_require__(0);
 
 
@@ -52068,12 +47924,12 @@ module.exports = _curry2(function bind(fn, thisObj) {
 
 
 /***/ }),
-/* 98 */
+/* 90 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var chain = __webpack_require__(64);
-var compose = __webpack_require__(65);
-var map = __webpack_require__(10);
+var chain = __webpack_require__(60);
+var compose = __webpack_require__(61);
+var map = __webpack_require__(9);
 
 
 /**
@@ -52117,7 +47973,7 @@ module.exports = function composeK() {
 
 
 /***/ }),
-/* 99 */
+/* 91 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var _curry2 = __webpack_require__(0);
@@ -52185,7 +48041,7 @@ module.exports = _curry2(function constructN(n, Fn) {
 
 
 /***/ }),
-/* 100 */
+/* 92 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var _curry2 = __webpack_require__(0);
@@ -52193,7 +48049,7 @@ var _map = __webpack_require__(47);
 var curryN = __webpack_require__(7);
 var max = __webpack_require__(26);
 var pluck = __webpack_require__(33);
-var reduce = __webpack_require__(17);
+var reduce = __webpack_require__(16);
 
 
 /**
@@ -52235,7 +48091,7 @@ module.exports = _curry2(function converge(after, fns) {
 
 
 /***/ }),
-/* 101 */
+/* 93 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var _curry2 = __webpack_require__(0);
@@ -52269,7 +48125,7 @@ module.exports = _curry2(function defaultTo(d, v) {
 
 
 /***/ }),
-/* 102 */
+/* 94 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var _contains = __webpack_require__(22);
@@ -52311,10 +48167,10 @@ module.exports = _curry2(function difference(first, second) {
 
 
 /***/ }),
-/* 103 */
+/* 95 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var _containsWith = __webpack_require__(70);
+var _containsWith = __webpack_require__(66);
 var _curry3 = __webpack_require__(2);
 
 
@@ -52356,7 +48212,7 @@ module.exports = _curry3(function differenceWith(pred, first, second) {
 
 
 /***/ }),
-/* 104 */
+/* 96 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var _curry2 = __webpack_require__(0);
@@ -52389,12 +48245,12 @@ module.exports = _curry2(function dissoc(prop, obj) {
 
 
 /***/ }),
-/* 105 */
+/* 97 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var _curry2 = __webpack_require__(0);
 var _dispatchable = __webpack_require__(4);
-var _xdrop = __webpack_require__(259);
+var _xdrop = __webpack_require__(250);
 var slice = __webpack_require__(23);
 
 
@@ -52428,13 +48284,13 @@ module.exports = _curry2(_dispatchable(['drop'], _xdrop, function drop(n, xs) {
 
 
 /***/ }),
-/* 106 */
+/* 98 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var _curry2 = __webpack_require__(0);
 var _dispatchable = __webpack_require__(4);
-var _xdropRepeatsWith = __webpack_require__(121);
-var last = __webpack_require__(125);
+var _xdropRepeatsWith = __webpack_require__(113);
+var last = __webpack_require__(117);
 
 
 /**
@@ -52477,13 +48333,13 @@ module.exports = _curry2(_dispatchable([], _xdropRepeatsWith, function dropRepea
 
 
 /***/ }),
-/* 107 */
+/* 99 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var _curry1 = __webpack_require__(1);
-var _isArguments = __webpack_require__(115);
+var _isArguments = __webpack_require__(107);
 var _isArray = __webpack_require__(19);
-var _isObject = __webpack_require__(118);
+var _isObject = __webpack_require__(110);
 var _isString = __webpack_require__(46);
 
 
@@ -52530,7 +48386,7 @@ module.exports = _curry1(function empty(x) {
 
 
 /***/ }),
-/* 108 */
+/* 100 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var _curry2 = __webpack_require__(0);
@@ -52572,11 +48428,11 @@ module.exports = _curry2(function identical(a, b) {
 
 
 /***/ }),
-/* 109 */
+/* 101 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var _cloneRegExp = __webpack_require__(110);
-var type = __webpack_require__(75);
+var _cloneRegExp = __webpack_require__(102);
+var type = __webpack_require__(71);
 
 
 /**
@@ -52618,7 +48474,7 @@ module.exports = function _clone(value, refFrom, refTo, deep) {
 
 
 /***/ }),
-/* 110 */
+/* 102 */
 /***/ (function(module, exports) {
 
 module.exports = function _cloneRegExp(pattern) {
@@ -52631,7 +48487,7 @@ module.exports = function _cloneRegExp(pattern) {
 
 
 /***/ }),
-/* 111 */
+/* 103 */
 /***/ (function(module, exports) {
 
 module.exports = function _complement(f) {
@@ -52642,10 +48498,10 @@ module.exports = function _complement(f) {
 
 
 /***/ }),
-/* 112 */
+/* 104 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var _arity = __webpack_require__(15);
+var _arity = __webpack_require__(14);
 var _curry2 = __webpack_require__(0);
 
 
@@ -52659,7 +48515,7 @@ module.exports = function _createPartialApplicator(concat) {
 
 
 /***/ }),
-/* 113 */
+/* 105 */
 /***/ (function(module, exports) {
 
 module.exports = function _filter(fn, list) {
@@ -52678,10 +48534,10 @@ module.exports = function _filter(fn, list) {
 
 
 /***/ }),
-/* 114 */
+/* 106 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var equals = __webpack_require__(14);
+var equals = __webpack_require__(13);
 
 
 module.exports = function _indexOf(list, a, idx) {
@@ -52741,7 +48597,7 @@ module.exports = function _indexOf(list, a, idx) {
 
 
 /***/ }),
-/* 115 */
+/* 107 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var _has = __webpack_require__(8);
@@ -52756,7 +48612,7 @@ module.exports = (function() {
 
 
 /***/ }),
-/* 116 */
+/* 108 */
 /***/ (function(module, exports) {
 
 /**
@@ -52773,7 +48629,7 @@ module.exports = Number.isInteger || function _isInteger(n) {
 
 
 /***/ }),
-/* 117 */
+/* 109 */
 /***/ (function(module, exports) {
 
 module.exports = function _isNumber(x) {
@@ -52782,7 +48638,7 @@ module.exports = function _isNumber(x) {
 
 
 /***/ }),
-/* 118 */
+/* 110 */
 /***/ (function(module, exports) {
 
 module.exports = function _isObject(x) {
@@ -52791,7 +48647,7 @@ module.exports = function _isObject(x) {
 
 
 /***/ }),
-/* 119 */
+/* 111 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var isArrayLike = __webpack_require__(30);
@@ -52830,7 +48686,7 @@ module.exports = function _makeFlat(recursive) {
 
 
 /***/ }),
-/* 120 */
+/* 112 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var _curry2 = __webpack_require__(0);
@@ -52864,7 +48720,7 @@ module.exports = (function() {
 
 
 /***/ }),
-/* 121 */
+/* 113 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var _curry2 = __webpack_require__(0);
@@ -52897,7 +48753,7 @@ module.exports = (function() {
 
 
 /***/ }),
-/* 122 */
+/* 114 */
 /***/ (function(module, exports) {
 
 module.exports = (function() {
@@ -52917,7 +48773,7 @@ module.exports = (function() {
 
 
 /***/ }),
-/* 123 */
+/* 115 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var _curry2 = __webpack_require__(0);
@@ -52952,11 +48808,11 @@ module.exports = _curry2(function is(Ctor, val) {
 
 
 /***/ }),
-/* 124 */
+/* 116 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var _curry1 = __webpack_require__(1);
-var converge = __webpack_require__(100);
+var converge = __webpack_require__(92);
 
 
 /**
@@ -52982,7 +48838,7 @@ module.exports = _curry1(function juxt(fns) {
 
 
 /***/ }),
-/* 125 */
+/* 117 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var nth = __webpack_require__(31);
@@ -53012,11 +48868,11 @@ module.exports = nth(-1);
 
 
 /***/ }),
-/* 126 */
+/* 118 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var _curry1 = __webpack_require__(1);
-var _isNumber = __webpack_require__(117);
+var _isNumber = __webpack_require__(109);
 
 
 /**
@@ -53040,14 +48896,14 @@ module.exports = _curry1(function length(list) {
 
 
 /***/ }),
-/* 127 */
+/* 119 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var _curry2 = __webpack_require__(0);
 var _reduce = __webpack_require__(11);
-var ap = __webpack_require__(63);
+var ap = __webpack_require__(59);
 var curryN = __webpack_require__(7);
-var map = __webpack_require__(10);
+var map = __webpack_require__(9);
 
 
 /**
@@ -53076,11 +48932,11 @@ module.exports = _curry2(function liftN(arity, fn) {
 
 
 /***/ }),
-/* 128 */
+/* 120 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var _curry1 = __webpack_require__(1);
-var sum = __webpack_require__(141);
+var sum = __webpack_require__(133);
 
 
 /**
@@ -53104,7 +48960,7 @@ module.exports = _curry1(function mean(list) {
 
 
 /***/ }),
-/* 129 */
+/* 121 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var _curry3 = __webpack_require__(2);
@@ -53159,7 +49015,7 @@ module.exports = _curry3(function mergeWithKey(fn, l, r) {
 
 
 /***/ }),
-/* 130 */
+/* 122 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var _curry2 = __webpack_require__(0);
@@ -53189,7 +49045,7 @@ module.exports = _curry2(function multiply(a, b) { return a * b; });
 
 
 /***/ }),
-/* 131 */
+/* 123 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var _curry1 = __webpack_require__(1);
@@ -53220,7 +49076,7 @@ module.exports = _curry1(function not(a) {
 
 
 /***/ }),
-/* 132 */
+/* 124 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var _curry2 = __webpack_require__(0);
@@ -53254,7 +49110,7 @@ module.exports = _curry2(function objOf(key, val) {
 
 
 /***/ }),
-/* 133 */
+/* 125 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var _curry2 = __webpack_require__(0);
@@ -53286,7 +49142,7 @@ module.exports = _curry2(function or(a, b) {
 
 
 /***/ }),
-/* 134 */
+/* 126 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var _curry3 = __webpack_require__(2);
@@ -53331,7 +49187,7 @@ module.exports = (function() {
 
 
 /***/ }),
-/* 135 */
+/* 127 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var _curry2 = __webpack_require__(0);
@@ -53369,13 +49225,13 @@ module.exports = _curry2(function pickAll(names, obj) {
 
 
 /***/ }),
-/* 136 */
+/* 128 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var _arity = __webpack_require__(15);
-var _pipe = __webpack_require__(250);
-var reduce = __webpack_require__(17);
-var tail = __webpack_require__(74);
+var _arity = __webpack_require__(14);
+var _pipe = __webpack_require__(241);
+var reduce = __webpack_require__(16);
+var tail = __webpack_require__(70);
 
 
 /**
@@ -53411,13 +49267,13 @@ module.exports = function pipe() {
 
 
 /***/ }),
-/* 137 */
+/* 129 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var _arity = __webpack_require__(15);
-var _pipeP = __webpack_require__(251);
-var reduce = __webpack_require__(17);
-var tail = __webpack_require__(74);
+var _arity = __webpack_require__(14);
+var _pipeP = __webpack_require__(242);
+var reduce = __webpack_require__(16);
+var tail = __webpack_require__(70);
 
 
 /**
@@ -53448,7 +49304,7 @@ module.exports = function pipeP() {
 
 
 /***/ }),
-/* 138 */
+/* 130 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var _concat = __webpack_require__(12);
@@ -53478,7 +49334,7 @@ module.exports = _curry2(function prepend(el, list) {
 
 
 /***/ }),
-/* 139 */
+/* 131 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var _curry3 = __webpack_require__(2);
@@ -53537,14 +49393,14 @@ module.exports = _curry3(function reduceRight(fn, acc, list) {
 
 
 /***/ }),
-/* 140 */
+/* 132 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var _curry2 = __webpack_require__(0);
-var ap = __webpack_require__(63);
-var map = __webpack_require__(10);
-var prepend = __webpack_require__(138);
-var reduceRight = __webpack_require__(139);
+var ap = __webpack_require__(59);
+var map = __webpack_require__(9);
+var prepend = __webpack_require__(130);
+var reduceRight = __webpack_require__(131);
 
 
 /**
@@ -53581,11 +49437,11 @@ module.exports = _curry2(function sequence(of, traversable) {
 
 
 /***/ }),
-/* 141 */
+/* 133 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var add = __webpack_require__(39);
-var reduce = __webpack_require__(17);
+var reduce = __webpack_require__(16);
 
 
 /**
@@ -53607,12 +49463,12 @@ module.exports = reduce(add, 0);
 
 
 /***/ }),
-/* 142 */
+/* 134 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var _curry2 = __webpack_require__(0);
 var _dispatchable = __webpack_require__(4);
-var _xtake = __webpack_require__(270);
+var _xtake = __webpack_require__(261);
 var slice = __webpack_require__(23);
 
 
@@ -53665,7 +49521,7 @@ module.exports = _curry2(_dispatchable(['take'], _xtake, function take(n, xs) {
 
 
 /***/ }),
-/* 143 */
+/* 135 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var _curry2 = __webpack_require__(0);
@@ -53711,10 +49567,10 @@ module.exports = _curry2(function times(fn, n) {
 
 
 /***/ }),
-/* 144 */
+/* 136 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var _Set = __webpack_require__(238);
+var _Set = __webpack_require__(229);
 var _curry2 = __webpack_require__(0);
 
 
@@ -53755,11 +49611,11 @@ module.exports = _curry2(function uniqBy(fn, list) {
 
 
 /***/ }),
-/* 145 */
+/* 137 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var _curry3 = __webpack_require__(2);
-var adjust = __webpack_require__(92);
+var adjust = __webpack_require__(84);
 var always = __webpack_require__(25);
 
 
@@ -53791,7 +49647,7 @@ module.exports = _curry3(function update(idx, x, list) {
 
 
 /***/ }),
-/* 146 */
+/* 138 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var _curry2 = __webpack_require__(0);
@@ -53841,11 +49697,11 @@ module.exports = _curry2(function useWith(fn, transformers) {
 
 
 /***/ }),
-/* 147 */
+/* 139 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var _curry1 = __webpack_require__(1);
-var keys = __webpack_require__(16);
+var keys = __webpack_require__(15);
 
 
 /**
@@ -53878,7 +49734,7 @@ module.exports = _curry1(function values(obj) {
 
 
 /***/ }),
-/* 148 */
+/* 140 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var _curry2 = __webpack_require__(0);
@@ -53930,25 +49786,22 @@ module.exports = _curry2(function where(spec, testObj) {
 
 
 /***/ }),
-/* 149 */
+/* 141 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* WEBPACK VAR INJECTION */(function(Class) {/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_ramda__ = __webpack_require__(91);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_ramda__ = __webpack_require__(83);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_ramda___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_ramda__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__pedigree__ = __webpack_require__(169);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__pedigreeEditorAttributes__ = __webpack_require__(9);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__dynamicGraph__ = __webpack_require__(81);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__viewerWorkspace__ = __webpack_require__(178);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__view__ = __webpack_require__(88);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__disorderLegend__ = __webpack_require__(80);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__hpoLegend__ = __webpack_require__(83);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__geneLegend__ = __webpack_require__(82);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__viewerSaveLoadEngine__ = __webpack_require__(177);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__controller__ = __webpack_require__(79);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__undoRedo__ = __webpack_require__(87);
-
-
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__pedigreeEditorAttributes__ = __webpack_require__(10);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__dynamicGraph__ = __webpack_require__(149);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__viewerWorkspace__ = __webpack_require__(168);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__view__ = __webpack_require__(166);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__disorderLegend__ = __webpack_require__(147);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__hpoLegend__ = __webpack_require__(153);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__geneLegend__ = __webpack_require__(151);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__viewerSaveLoadEngine__ = __webpack_require__(167);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__controller__ = __webpack_require__(146);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__undoRedo__ = __webpack_require__(165);
 
 
 
@@ -53963,70 +49816,726 @@ module.exports = _curry2(function where(spec, testObj) {
 
 const isTruthy = val => {
     const truthy = ['1', 'y', 'yes', 'ye', 't', 'tr', 'true'];
-    if (__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0_ramda__["contains"])(val.toString().trim().toLowerCase(), truthy)) {
+    if (val && __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0_ramda__["contains"])(val.toString().trim().toLowerCase(), truthy)) {
         return true;
     }
     return false;
 };
 
-const ViewerPedigree = Class.create(__WEBPACK_IMPORTED_MODULE_1__pedigree__["a" /* PedigreeEditor */], {
-    initialize: function (args) {
+const cleanBooleanField = val => {
+    if (val && isTruthy(val)) return true;
+    return false;
+};
+
+const cleanGender = val => {
+    const maleLike = ['m', 'male'];
+    const femaleLike = ['f', 'female'];
+    if (val && __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0_ramda__["contains"])(val.toString().trim().toLowerCase(), maleLike)) {
+        return "M";
+    }
+    if (val && __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0_ramda__["contains"])(val.toString().trim().toLowerCase(), femaleLike)) {
+        return "F";
+    }
+    return "U";
+};
+
+/*
+    HAHAHAHAHAHAHAHAHAHAHAHAHAHAHAHAHAHAHAHAHAHAHAHAHAHAHAHAHAHAHAHAHA
+ */
+const cleanData = data => {
+    return JSON.parse(data).map(datum => {
+        const {
+            hpoTerms,
+            mother,
+            father,
+            proband,
+            focused,
+            externalIDHref,
+            sex,
+            externalId,
+            disorders,
+            gender,
+            id
+        } = datum;
+        return {
+            proband: cleanBooleanField(proband),
+            focused: cleanBooleanField(focused),
+            hpoTerms: hpoTerms,
+            mother: mother,
+            father: father,
+            sex: cleanGender(sex),
+            externalIDHref: externalIDHref,
+            externalId: externalId,
+            disorders: disorders,
+            gender: cleanGender(gender),
+            id: id
+        };
+    });
+};
+
+class ViewerPedigree {
+    constructor(args) {
         var me = this;
         //this.DEBUG_MODE = true;
         window.editor = this;
 
+        const data = cleanData(args.data); // hahahaha
+
         // initialize main data structure which holds the graph structure
-        this._graphModel = __WEBPACK_IMPORTED_MODULE_3__dynamicGraph__["a" /* DynamicPositionedGraph */].makeEmpty(ViewerPedigree.attributes.layoutRelativePersonWidth, ViewerPedigree.attributes.layoutRelativeOtherWidth);
+        this._graphModel = __WEBPACK_IMPORTED_MODULE_2__dynamicGraph__["a" /* DynamicPositionedGraph */].makeEmpty(ViewerPedigree.attributes.layoutRelativePersonWidth, ViewerPedigree.attributes.layoutRelativeOtherWidth);
 
         //initialize the elements of the app
-        this._workspace = new __WEBPACK_IMPORTED_MODULE_4__viewerWorkspace__["a" /* ViewerWorkspace */]();
-        this._disorderLegend = new __WEBPACK_IMPORTED_MODULE_6__disorderLegend__["a" /* DisorderLegend */]();
-        this._geneLegend = new __WEBPACK_IMPORTED_MODULE_8__geneLegend__["a" /* GeneLegend */]();
-        this._hpoLegend = new __WEBPACK_IMPORTED_MODULE_7__hpoLegend__["a" /* HPOLegend */]();
+        this._workspace = new __WEBPACK_IMPORTED_MODULE_3__viewerWorkspace__["a" /* ViewerWorkspace */]();
+        this._disorderLegend = new __WEBPACK_IMPORTED_MODULE_5__disorderLegend__["a" /* DisorderLegend */]();
+        this._geneLegend = new __WEBPACK_IMPORTED_MODULE_7__geneLegend__["a" /* GeneLegend */]();
+        this._hpoLegend = new __WEBPACK_IMPORTED_MODULE_6__hpoLegend__["a" /* HPOLegend */]();
 
-        this._view = new __WEBPACK_IMPORTED_MODULE_5__view__["a" /* View */]();
+        this._view = new __WEBPACK_IMPORTED_MODULE_4__view__["a" /* View */]();
 
-        this._controller = new __WEBPACK_IMPORTED_MODULE_10__controller__["a" /* Controller */]();
-        this._actionStack = new __WEBPACK_IMPORTED_MODULE_11__undoRedo__["a" /* ActionStack */]();
-        this._saveLoadEngine = new __WEBPACK_IMPORTED_MODULE_9__viewerSaveLoadEngine__["a" /* ViewerSaveLoadEngine */](args.pedigreeDataUrl);
+        this._controller = new __WEBPACK_IMPORTED_MODULE_9__controller__["a" /* Controller */]();
+        this._actionStack = new __WEBPACK_IMPORTED_MODULE_10__undoRedo__["a" /* ActionStack */]();
+        this._saveLoadEngine = new __WEBPACK_IMPORTED_MODULE_8__viewerSaveLoadEngine__["a" /* ViewerSaveLoadEngine */](args.pedigreeDataUrl);
+        const probandData = data.filter(node => isTruthy(node.proband))[0] || false;
+        if (probandData) {
+            this._probandData = probandData;
+        }
 
-        const probandData = JSON.parse(args.data).filter(node => isTruthy(node.isProband))[0] || {};
-        this._probandData = { probandData };
-
-        me._saveLoadEngine.createGraphFromImportData(args.data, args.type, {});
-    },
-
-    isReadOnlyMode: function () {
-        return true;
-    },
-
-    isAnyMenuVisible: function () {
-        return false;
-    },
-
-    getNodeMenu: function () {},
-
-    getNodeGroupMenu: function () {},
-
-    generateNodeMenu: function () {
-        throw new Error('Not implemented');
-    },
-
-    generateNodeGroupMenu: function () {
-        throw new Error('Not implemented');
+        me._saveLoadEngine.createGraphFromImportData(JSON.stringify(data), args.type, {});
     }
-});
-/* harmony export (immutable) */ __webpack_exports__["a"] = ViewerPedigree;
+    /**
+     * Returns the graph node with the corresponding nodeID
+     * @method getNode
+     * @param {Number} nodeID The id of the desired node
+     * @return {AbstractNode} the node whose id is nodeID
+     */
+    getNode(nodeID) {
+        return this.getView().getNode(nodeID);
+    }
 
+    /**
+     * @method getView
+     * @return {View} (responsible for managing graphical representations of nodes and interactive elements)
+     */
+    getView() {
+        return this._view;
+    }
+
+    /**
+     * @method getVersionUpdater
+     * @return {VersionUpdater}
+     */
+    getVersionUpdater() {
+        return this._versionUpdater;
+    }
+
+    /**
+     * @method getGraph
+     * @return {DynamicPositionedGraph} (data model: responsible for managing nodes and their positions)
+     */
+    getGraph() {
+        return this._graphModel;
+    }
+
+    /**
+     * @method getController
+     * @return {Controller} (responsible for managing user input and corresponding data changes)
+     */
+    getController() {
+        return this._controller;
+    }
+
+    /**
+     * @method getActionStack
+     * @return {ActionStack} (responsible for undoing and redoing actions)
+     */
+    getActionStack() {
+        return this._actionStack;
+    }
+
+    /**
+     * @method getOkCancelDialogue
+     * @return {OkCancelDialogue} (responsible for displaying ok/cancel prompts)
+     */
+    getOkCancelDialogue() {
+        return this._okCancelDialogue;
+    }
+
+    /**
+     * @method getNodetypeSelectionBubble
+     * @return {NodetypeSelectionBubble} (floating window with initialization options for new nodes)
+     */
+    getNodetypeSelectionBubble() {
+        return this._nodetypeSelectionBubble;
+    }
+
+    /**
+     * @method getSiblingSelectionBubble
+     * @return {NodetypeSelectionBubble} (floating window with initialization options for new sibling nodes)
+     */
+    getSiblingSelectionBubble() {
+        return this._siblingSelectionBubble;
+    }
+
+    /**
+     * @method getWorkspace
+     * @return {Workspace}
+     */
+    getWorkspace() {
+        return this._workspace;
+    }
+
+    /**
+     * @method getDisorderLegend
+     * @return {Legend} Responsible for managing and displaying the disorder legend
+     */
+    getDisorderLegend() {
+        return this._disorderLegend;
+    }
+
+    /**
+     * @method getHPOLegend
+     * @return {Legend} Responsible for managing and displaying the phenotype/HPO legend
+     */
+    getHPOLegend() {
+        return this._hpoLegend;
+    }
+
+    /**
+     * @method getGeneLegend
+     * @return {Legend} Responsible for managing and displaying the candidate genes legend
+     */
+    getGeneLegend() {
+        return this._geneLegend;
+    }
+
+    /**
+     * @method getPaper
+     * @return {Workspace.paper} Raphael paper element
+     */
+    getPaper() {
+        return this.getWorkspace().getPaper();
+    }
+
+    /**
+     * @method isReadOnlyMode
+     * @return {Boolean} True iff pedigree drawn should be read only with no handles
+     *                   (read-only mode is used for IE8 as well as for template display and
+     *                   print and export versions).
+     */
+    isReadOnlyMode() {
+        return true;
+    }
+
+    isUnsupportedBrowser() {
+        // http://voormedia.com/blog/2012/10/displaying-and-detecting-support-for-svg-images
+        if (!document.implementation.hasFeature("http://www.w3.org/TR/SVG11/feature#BasicStructure", "1.1")) {
+            // implies unpredictable behavior when using handles & interactive elements,
+            // and most likely extremely slow on any CPU
+            return true;
+        }
+        // http://kangax.github.io/es5-compat-table/
+        if (!window.JSON) {
+            // no built-in JSON parser - can't proceed in any way; note that this also implies
+            // no support for some other functions such as parsing XML.
+            //
+            // TODO: include free third-party JSON parser and replace XML with JSON when loading data;
+            //       (e.g. https://github.com/douglascrockford/JSON-js)
+            //
+            //       => at that point all browsers which suport SVG but are treated as unsupported
+            //          should theoreticaly start working (FF 3.0, Safari 3 & Opera 9/10 - need to test).
+            //          IE7 does not support SVG and JSON and is completely out of the running;
+            console.warn("Your browser is not supported and is unable to load and display any pedigrees.\n\n" + "Suported browsers include Internet Explorer version 9 and higher, Safari version 4 and higher, " + "Firefox version 3.6 and higher, Opera version 10.5 and higher, any version of Chrome and most " + "other modern browsers (including mobile). IE8 is able to display pedigrees in read-only mode.");
+            window.stop && window.stop();
+            return true;
+        }
+        return false;
+    }
+
+    /**
+     * @method getSaveLoadEngine
+     * @return {SaveLoadEngine} Engine responsible for saving and loading operations
+     */
+    getSaveLoadEngine() {
+        return this._saveLoadEngine;
+    }
+
+    /**
+     * @method getProbandDataFromPhenotips
+     * @return {firstName: "...", lastName: "..."}
+     */
+    getProbandDataFromPhenotips() {
+        return this._probandData;
+    }
+
+    /**
+     * @method getTemplateSelector
+     * @return {TemplateSelector}
+     */
+    getTemplateSelector() {
+        return this._templateSelector;
+    }
+
+    /**
+     * @method getImportSelector
+     * @return {ImportSelector}
+     */
+    getImportSelector() {
+        return this._importSelector;
+    }
+
+    /**
+     * @method getExportSelector
+     * @return {ExportSelector}
+     */
+    getExportSelector() {
+        return this._exportSelector;
+    }
+
+    /**
+     * Returns true if any of the node menus are visible
+     * (since some UI interactions should be disabled while menu is active - e.g. mouse wheel zoom)
+     *
+     * @method isAnyMenuVisible
+     */
+    isAnyMenuVisible() {
+        return false;
+    }
+
+    /**
+     * Creates the context menu for Person nodes
+     *
+     * @method generateNodeMenu
+     * @return {NodeMenu}
+     */
+    generateNodeMenu() {
+        if (this.isReadOnlyMode()) return null;
+        var _this = this;
+        return new NodeMenu([{
+            'name': 'identifier',
+            'label': '',
+            'type': 'hidden',
+            'tab': 'Personal'
+        }, {
+            'name': 'gender',
+            'label': 'Gender',
+            'type': 'radio',
+            'tab': 'Personal',
+            'columns': 3,
+            'values': [{
+                'actual': 'M',
+                'displayed': 'Male'
+            }, {
+                'actual': 'F',
+                'displayed': 'Female'
+            }, {
+                'actual': 'U',
+                'displayed': 'Unknown'
+            }],
+            'default': 'U',
+            'function': 'setGender'
+        }, {
+            'name': 'first_name',
+            'label': 'First name',
+            'type': 'text',
+            'tab': 'Personal',
+            'function': 'setFirstName'
+        }, {
+            'name': 'last_name',
+            'label': 'Last name',
+            'type': 'text',
+            'tab': 'Personal',
+            'function': 'setLastName'
+        }, {
+            'name': 'last_name_birth',
+            'label': 'Last name at birth',
+            'type': 'text',
+            'tab': 'Personal',
+            'function': 'setLastNameAtBirth'
+        }, {
+            'name': 'external_id',
+            'label': 'External ID',
+            'type': 'text',
+            'tab': 'Personal',
+            'function': 'setExternalID'
+        }, {
+            'name': 'ethnicity',
+            'label': 'Ethnicities',
+            'type': 'ethnicity-picker',
+            'tab': 'Personal',
+            'function': 'setEthnicities'
+        }, {
+            'name': 'carrier',
+            'label': 'Carrier status',
+            'type': 'radio',
+            'tab': 'Clinical',
+            'values': [{
+                'actual': '',
+                'displayed': 'Not affected'
+            }, {
+                'actual': 'carrier',
+                'displayed': 'Carrier'
+            },
+            //{ 'actual' : 'obligate', 'displayed' : 'Obligate carrier' },
+            {
+                'actual': 'affected',
+                'displayed': 'Affected'
+            }, {
+                'actual': 'presymptomatic',
+                'displayed': 'Pre-symptomatic'
+            }],
+            'default': '',
+            'function': 'setCarrierStatus'
+        }, {
+            'name': 'evaluated',
+            'label': 'Documented evaluation',
+            'type': 'checkbox',
+            'tab': 'Clinical',
+            'function': 'setEvaluated'
+        }, {
+            'name': 'disorders',
+            'label': 'Known disorders of this individual',
+            'type': 'disease-picker',
+            'tab': 'Clinical',
+            'function': 'setDisorders'
+        }, {
+            'name': 'hpo_positive',
+            'label': 'Clinical symptoms: observed phenotypes',
+            'type': 'hpo-picker',
+            'tab': 'Clinical',
+            'function': 'setHPO'
+        }, {
+            'name': 'candidate_genes',
+            'label': 'Genotype information: candidate genes',
+            'type': 'gene-picker',
+            'tab': 'Clinical',
+            'function': 'setGenes'
+        }, {
+            'name': 'date_of_birth',
+            'label': 'Date of birth',
+            'type': 'date-picker',
+            'tab': 'Personal',
+            'format': 'dd/MM/yyyy',
+            'function': 'setBirthDate'
+        }, {
+            'name': 'date_of_death',
+            'label': 'Date of death',
+            'type': 'date-picker',
+            'tab': 'Personal',
+            'format': 'dd/MM/yyyy',
+            'function': 'setDeathDate'
+        }, {
+            'name': 'gestation_age',
+            'label': 'Gestation age',
+            'type': 'select',
+            'tab': 'Personal',
+            'range': {
+                'start': 0,
+                'end': 50,
+                'item': ['week', 'weeks']
+            },
+            'nullValue': true,
+            'function': 'setGestationAge'
+        }, {
+            'name': 'state',
+            'label': 'Individual is',
+            'type': 'radio',
+            'tab': 'Personal',
+            'columns': 3,
+            'values': [{
+                'actual': 'alive',
+                'displayed': 'Alive'
+            }, {
+                'actual': 'stillborn',
+                'displayed': 'Stillborn'
+            }, {
+                'actual': 'deceased',
+                'displayed': 'Deceased'
+            }, {
+                'actual': 'miscarriage',
+                'displayed': 'Miscarriage'
+            }, {
+                'actual': 'unborn',
+                'displayed': 'Unborn'
+            }, {
+                'actual': 'aborted',
+                'displayed': 'Aborted'
+            }],
+            'default': 'alive',
+            'function': 'setLifeStatus'
+        }, {
+            'label': 'Heredity options',
+            'name': 'childlessSelect',
+            'values': [{
+                'actual': 'none',
+                displayed: 'None'
+            }, {
+                'actual': 'childless',
+                displayed: 'Childless'
+            }, {
+                'actual': 'infertile',
+                displayed: 'Infertile'
+            }],
+            'type': 'select',
+            'tab': 'Personal',
+            'function': 'setChildlessStatus'
+        }, {
+            'name': 'childlessText',
+            'type': 'text',
+            'dependency': 'childlessSelect != none',
+            'tip': 'Reason',
+            'tab': 'Personal',
+            'function': 'setChildlessReason'
+        }, {
+            'name': 'adopted',
+            'label': 'Adopted in',
+            'type': 'checkbox',
+            'tab': 'Personal',
+            'function': 'setAdopted'
+        }, {
+            'name': 'monozygotic',
+            'label': 'Monozygotic twin',
+            'type': 'checkbox',
+            'tab': 'Personal',
+            'function': 'setMonozygotic'
+        }, {
+            'name': 'nocontact',
+            'label': 'Not in contact with proband',
+            'type': 'checkbox',
+            'tab': 'Personal',
+            'function': 'setLostContact'
+        }, {
+            'name': 'placeholder',
+            'label': 'Placeholder node',
+            'type': 'checkbox',
+            'tab': 'Personal',
+            'function': 'makePlaceholder'
+        }, {
+            'name': 'comments',
+            'label': 'Comments',
+            'type': 'textarea',
+            'tab': 'Clinical',
+            'rows': 2,
+            'function': 'setComments'
+        }], ["Personal", "Clinical"]);
+    }
+
+    /**
+     * @method getNodeMenu
+     * @return {NodeMenu} Context menu for nodes
+     */
+    getNodeMenu() {
+        return this._nodeMenu;
+    }
+
+    /**
+     * Creates the context menu for PersonGroup nodes
+     *
+     * @method generateNodeGroupMenu
+     * @return {NodeMenu}
+     */
+    generateNodeGroupMenu() {
+        if (this.isReadOnlyMode()) return null;
+        var _this = this;
+        return new NodeMenu([{
+            'name': 'identifier',
+            'label': '',
+            'type': 'hidden'
+        }, {
+            'name': 'gender',
+            'label': 'Gender',
+            'type': 'radio',
+            'columns': 3,
+            'values': [{
+                'actual': 'M',
+                'displayed': 'Male'
+            }, {
+                'actual': 'F',
+                'displayed': 'Female'
+            }, {
+                'actual': 'U',
+                'displayed': 'Unknown'
+            }],
+            'default': 'U',
+            'function': 'setGender'
+        }, {
+            'name': 'numInGroup',
+            'label': 'Number of persons in this group',
+            'type': 'select',
+            'values': [{
+                'actual': 1,
+                displayed: 'N'
+            }, {
+                'actual': 2,
+                displayed: '2'
+            }, {
+                'actual': 3,
+                displayed: '3'
+            }, {
+                'actual': 4,
+                displayed: '4'
+            }, {
+                'actual': 5,
+                displayed: '5'
+            }, {
+                'actual': 6,
+                displayed: '6'
+            }, {
+                'actual': 7,
+                displayed: '7'
+            }, {
+                'actual': 8,
+                displayed: '8'
+            }, {
+                'actual': 9,
+                displayed: '9'
+            }],
+            'function': 'setNumPersons'
+        }, {
+            'name': 'external_ids',
+            'label': 'External ID(s)',
+            'type': 'text',
+            'function': 'setExternalID'
+        }, {
+            'name': 'ethnicity',
+            'label': 'Ethnicities<br>(common to all individuals in the group)',
+            'type': 'ethnicity-picker',
+            'function': 'setEthnicities'
+        }, {
+            'name': 'disorders',
+            'label': 'Known disorders<br>(common to all individuals in the group)',
+            'type': 'disease-picker',
+            'function': 'setDisorders'
+        }, {
+            'name': 'comments',
+            'label': 'Comments',
+            'type': 'textarea',
+            'rows': 2,
+            'function': 'setComments'
+        }, {
+            'name': 'state',
+            'label': 'All individuals in the group are',
+            'type': 'radio',
+            'values': [{
+                'actual': 'alive',
+                'displayed': 'Alive'
+            }, {
+                'actual': 'aborted',
+                'displayed': 'Aborted'
+            }, {
+                'actual': 'deceased',
+                'displayed': 'Deceased'
+            }, {
+                'actual': 'miscarriage',
+                'displayed': 'Miscarriage'
+            }],
+            'default': 'alive',
+            'function': 'setLifeStatus'
+        }, {
+            'name': 'evaluatedGrp',
+            'label': 'Documented evaluation',
+            'type': 'checkbox',
+            'function': 'setEvaluated'
+        }, {
+            'name': 'adopted',
+            'label': 'Adopted in',
+            'type': 'checkbox',
+            'function': 'setAdopted'
+        }], []);
+    }
+
+    /**
+     * @method getNodeGroupMenu
+     * @return {NodeMenu} Context menu for nodes
+     */
+    getNodeGroupMenu() {
+        return this._nodeGroupMenu;
+    }
+
+    /**
+     * Creates the context menu for Partnership nodes
+     *
+     * @method generatePartnershipMenu
+     * @return {NodeMenu}
+     */
+    generatePartnershipMenu() {
+        if (this.isReadOnlyMode()) return null;
+        var _this = this;
+        return new NodeMenu([{
+            'label': 'Heredity options',
+            'name': 'childlessSelect',
+            'values': [{
+                'actual': 'none',
+                displayed: 'None'
+            }, {
+                'actual': 'childless',
+                displayed: 'Childless'
+            }, {
+                'actual': 'infertile',
+                displayed: 'Infertile'
+            }],
+            'type': 'select',
+            'function': 'setChildlessStatus'
+        }, {
+            'name': 'childlessText',
+            'type': 'text',
+            'dependency': 'childlessSelect != none',
+            'tip': 'Reason',
+            'function': 'setChildlessReason'
+        }, {
+            'name': 'consangr',
+            'label': 'Consanguinity of this relationship',
+            'type': 'radio',
+            'values': [{
+                'actual': 'A',
+                'displayed': 'Automatic'
+            }, {
+                'actual': 'Y',
+                'displayed': 'Yes'
+            }, {
+                'actual': 'N',
+                'displayed': 'No'
+            }],
+            'default': 'A',
+            'function': 'setConsanguinity'
+        }, {
+            'name': 'broken',
+            'label': 'Separated',
+            'type': 'checkbox',
+            'function': 'setBrokenStatus'
+        }], [], "relationship-menu");
+    }
+
+    /**
+     * @method getPartnershipMenu
+     * @return {NodeMenu} The context menu for Partnership nodes
+     */
+    getPartnershipMenu() {
+        return this._partnershipMenu;
+    }
+
+    /**
+     * @method convertGraphCoordToCanvasCoord
+     * @return [x,y] coordinates on the canvas
+     */
+    convertGraphCoordToCanvasCoord(x, y) {
+        var scale = __WEBPACK_IMPORTED_MODULE_1__pedigreeEditorAttributes__["a" /* PedigreeEditorAttributes */].layoutScale;
+        return {
+            x: x * scale.xscale,
+            y: y * scale.yscale
+        };
+    }
+
+}
+/* harmony export (immutable) */ __webpack_exports__["a"] = ViewerPedigree;
+;
 
 var editor; // ????
 
 //attributes for graphical elements in the editor
-ViewerPedigree.attributes = __WEBPACK_IMPORTED_MODULE_2__pedigreeEditorAttributes__["a" /* PedigreeEditorAttributes */];
-/* WEBPACK VAR INJECTION */}.call(__webpack_exports__, __webpack_require__(3)))
+ViewerPedigree.attributes = __WEBPACK_IMPORTED_MODULE_1__pedigreeEditorAttributes__["a" /* PedigreeEditorAttributes */];
 
 /***/ }),
-/* 150 */
+/* 142 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
@@ -64253,7 +60762,7 @@ return jQuery;
 
 
 /***/ }),
-/* 151 */
+/* 143 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(Prototype, Class, Enumerable, $H, $R, $w) {String.prototype.parseColor = function () {
@@ -64755,16 +61264,16 @@ return jQuery;
 });$w("getInlineOpacity forceRerendering setContentZoom collectTextNodes collectTextNodesIgnoreClass getStyles").each(function (a) {
   Effect.Methods[a] = Element[a];
 });Element.addMethods(Effect.Methods);
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(62), __webpack_require__(3), __webpack_require__(180), __webpack_require__(18), __webpack_require__(13), __webpack_require__(179)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(58), __webpack_require__(3), __webpack_require__(171), __webpack_require__(18), __webpack_require__(17), __webpack_require__(170)))
 
 /***/ }),
-/* 152 */
+/* 144 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* WEBPACK VAR INJECTION */(function(Class) {/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__abstractPersonVisuals__ = __webpack_require__(78);
+/* WEBPACK VAR INJECTION */(function(Class) {/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__abstractPersonVisuals__ = __webpack_require__(74);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__abstractNode__ = __webpack_require__(55);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_ramda__ = __webpack_require__(91);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_ramda__ = __webpack_require__(83);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_ramda___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_ramda__);
 
 
@@ -64895,6 +61404,7 @@ const AbstractPerson = Class.create(__WEBPACK_IMPORTED_MODULE_1__abstractNode__[
         var info = $super();
         info["gender"] = this.getGender();
         info["focused"] = this.getFocused();
+        info["isProband"] = this.isProband();
         return info;
     },
 
@@ -64907,10 +61417,12 @@ const AbstractPerson = Class.create(__WEBPACK_IMPORTED_MODULE_1__abstractNode__[
      */
     assignProperties: function ($super, properties) {
         if (!$super(properties)) return false;
-        if (__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2_ramda__["isNil"])(properties.gender) && __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2_ramda__["isNil"])(properties.focused)) return false;
+        if (__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2_ramda__["isNil"])(properties.gender) && __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2_ramda__["isNil"])(properties.focused) && __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2_ramda__["isNil"])(properties.isProband)) return false;
         if (!__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2_ramda__["isNil"])(properties.gender) && this.getGender() != this.parseGender(properties.gender)) this.setGender(properties.gender);
         if (!__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2_ramda__["isNil"])(properties.gender) && this.getFocused() !== properties.focused) this.setFocused(properties.focused);
-        console.log(this.getFocused());
+        if (!__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2_ramda__["isNil"])(properties.isProband) && this.isProband() !== properties.isProband) {
+            this._isProband = properties.isProband;
+        }
         return true;
     }
 });
@@ -64919,7 +61431,7 @@ const AbstractPerson = Class.create(__WEBPACK_IMPORTED_MODULE_1__abstractNode__[
 /* WEBPACK VAR INJECTION */}.call(__webpack_exports__, __webpack_require__(3)))
 
 /***/ }),
-/* 153 */
+/* 145 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -64985,7 +61497,785 @@ function getAge(birthDate, deathDate) {
 }
 
 /***/ }),
-/* 154 */
+/* 146 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* WEBPACK VAR INJECTION */(function(Class) {/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__pedigreeEditorAttributes__ = __webpack_require__(10);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__helpers__ = __webpack_require__(6);
+
+
+
+/**
+ * ...
+ *
+ * @class Controller
+ * @constructor
+ */
+
+// TODO: undo/redo in all handlers
+
+const Controller = Class.create({
+    initialize: function () {
+        document.observe("pedigree:autolayout", this.handleAutoLayout);
+        document.observe("pedigree:graph:clear", this.handleClearGraph);
+        document.observe("pedigree:undo", this.handleUndo);
+        document.observe("pedigree:redo", this.handleRedo);
+        document.observe("pedigree:renumber", this.handleRenumber);
+        document.observe("pedigree:node:remove", this.handleRemove);
+        document.observe("pedigree:node:setproperty", this.handleSetProperty);
+        document.observe("pedigree:node:modify", this.handleModification);
+        document.observe("pedigree:person:drag:newparent", this.handlePersonDragToNewParent);
+        document.observe("pedigree:person:drag:newpartner", this.handlePersonDragToNewPartner);
+        document.observe("pedigree:person:drag:newsibling", this.handlePersonDragToNewSibling);
+        document.observe("pedigree:person:newparent", this.handlePersonNewParents);
+        document.observe("pedigree:person:newsibling", this.handlePersonNewSibling);
+        document.observe("pedigree:person:newpartnerandchild", this.handlePersonNewPartnerAndChild);
+        document.observe("pedigree:partnership:newchild", this.handleRelationshipNewChild);
+    },
+
+    handleUndo: function (event) {
+        console.log("event: " + event.eventName + ", memo: " + __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__helpers__["c" /* stringifyObject */])(event.memo));
+        editor.getActionStack().undo();
+    },
+
+    handleRedo: function (event) {
+        console.log("event: " + event.eventName + ", memo: " + __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__helpers__["c" /* stringifyObject */])(event.memo));
+        editor.getActionStack().redo();
+    },
+
+    handleRenumber: function (event) {
+        // Assigns user-visible node labels for all person nodes, based on generation and order
+        // ("I-1","I-2","I-3", "II-1", "II-2", etc.)
+
+        console.log("event: " + event.eventName + ", memo: " + __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__helpers__["c" /* stringifyObject */])(event.memo));
+
+        var check = event.memo.hasOwnProperty("check");
+        var clear = false;
+        var needRedraw = false;
+
+        do {
+            var secondPass = false;
+
+            for (var nodeID in editor.getView().getNodeMap()) {
+                if (editor.getView().getNodeMap().hasOwnProperty(nodeID)) {
+                    if (editor.getGraph().isPerson(nodeID)) {
+                        var node = editor.getView().getNode(nodeID);
+                        var currentPedNumber = node.getPedNumber();
+
+                        if (clear) {
+                            var pedNumber = "";
+                        } else {
+                            var generation = editor.getGraph().getGeneration(nodeID);
+                            var order = editor.getGraph().getOrderWithinGeneration(nodeID);
+                            pedNumber = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__helpers__["e" /* romanize */])(generation) + "-" + order;
+
+                            if (check) {
+                                if (pedNumber != currentPedNumber) {
+                                    // one of the nodes PED number is not correct
+                                    clear = true;
+                                    secondPass = true;
+                                    break;
+                                }
+                            }
+                        }
+
+                        if (currentPedNumber != pedNumber) {
+                            needRedraw = true;
+                            node.setPedNumber(pedNumber);
+                            var allProperties = node.getProperties();
+                            editor.getGraph().setProperties(nodeID, allProperties);
+                        }
+                    }
+                }
+            }
+        } while (secondPass);
+
+        var renumberButton = $("action-number");
+        if (renumberButton) {
+            if (clear) {
+                renumberButton.className = renumberButton.className.replace("disabled-menu-item", "menu-item");
+            } else {
+                renumberButton.className = renumberButton.className.replace(/^menu-item/, "disabled-menu-item");
+            }
+        }
+
+        if (!event.memo.noUndoRedo && needRedraw) {
+            editor.getView().unmarkAll();
+            editor.getActionStack().addState(event);
+        }
+    },
+
+    handleAutoLayout: function (event) {
+        try {
+            console.log("event: " + event.eventName + ", memo: " + __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__helpers__["c" /* stringifyObject */])(event.memo));
+            var changeSet = editor.getGraph().redrawAll();
+            editor.getView().applyChanges(changeSet, true);
+
+            if (!event.memo.noUndoRedo) editor.getActionStack().addState(event);
+        } catch (err) {
+            console.log("Autolayout error: ");
+            console.trace(err);
+        }
+    },
+
+    handleClearGraph: function (event) {
+        console.log("event: " + event.eventName + ", memo: " + __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__helpers__["c" /* stringifyObject */])(event.memo));
+        var changeSet = editor.getGraph().clearAll();
+        editor.getView().applyChanges(changeSet, true);
+
+        editor.getWorkspace().centerAroundNode(0, false);
+
+        if (!event.memo.noUndoRedo) editor.getActionStack().addState(event);
+    },
+
+    handleRemove: function (event) {
+        console.log("event: " + event.eventName + ", memo: " + __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__helpers__["c" /* stringifyObject */])(event.memo));
+        var nodeID = event.memo.nodeID;
+
+        // get the list of affected nodes
+        var disconnectedList = editor.getGraph().getDisconnectedSetIfNodeRemoved(nodeID);
+
+        var removeSelected = function () {
+            try {
+                var changeSet = editor.getGraph().removeNodes(disconnectedList);
+
+                editor.getView().applyChanges(changeSet, true);
+
+                changeSet = editor.getGraph().improvePosition();
+                editor.getView().applyChanges(changeSet, true);
+
+                if (!event.memo.noUndoRedo) editor.getActionStack().addState(event);
+            } catch (err) {
+                console.log("[DEBUG] Remove error: ");
+                console.trace(err);
+            }
+        };
+
+        // if there is only one node or this removal is done as part of an undo/redo action
+        // => just remove without asking any questions or highlighting any nodes
+        if (disconnectedList.length <= 1 || event.memo.hasOwnProperty("noUndoRedo")) {
+            removeSelected();
+            return;
+        }
+
+        // otherwise remove current highlighting and highlight all nodes which will be removed
+        editor.getView().unmarkAll();
+        for (var i = 0; i < disconnectedList.length; i++) {
+            var nextHighlight = disconnectedList[i];
+            editor.getView().getNode(nextHighlight).getGraphics().markPermanently();
+        }
+
+        var unhighlightSelected = function () {
+            for (var i = 0; i < disconnectedList.length; i++) {
+                var nextHighlight = disconnectedList[i];
+                editor.getView().getNode(nextHighlight).getGraphics().unmark();
+            }
+        };
+
+        // ...and display a OK/Cancel dialogue, calling "removeSelected()" on OK and "unhighlightSelected" on Cancel
+        editor.getOkCancelDialogue().show("All highlighted nodes will be removed. Do you want to proceed?", "Delete nodes?", removeSelected, unhighlightSelected);
+    },
+
+    handleSetProperty: function (event) {
+        //console.log("event: " + event.eventName + ", memo: " + stringifyObject(event.memo));
+        var nodeID = event.memo.nodeID;
+        var properties = event.memo.properties;
+        var undoEvent = { "eventName": event.eventName, "memo": { "nodeID": nodeID, "properties": __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__helpers__["f" /* cloneObject */])(event.memo.properties) } };
+
+        var node = editor.getView().getNode(nodeID);
+        var changed = false;
+
+        var twinUpdate = undefined;
+        var needUpdateAncestors = false;
+        var needUpdateRelationship = false;
+        var needUpdateAllRelationships = false;
+
+        var changedValue = false;
+
+        for (var propertySetFunction in properties) {
+            if (properties.hasOwnProperty(propertySetFunction)) {
+                var propValue = properties[propertySetFunction];
+
+                //console.log("attmepting to set property " + propertySetFunction + " to " + propValue);
+                if (!Controller._validatePropertyValue(nodeID, propertySetFunction, propValue)) continue;
+
+                //console.log("validated");
+                // prepare undo event
+                var propertyGetFunction = propertySetFunction.replace("set", "get");
+                var oldValue = node[propertyGetFunction]();
+                if (oldValue == propValue) continue;
+
+                if (Object.prototype.toString.call(oldValue) === "[object Array]") {
+                    oldValue = oldValue.slice(0);
+                }
+
+                undoEvent.memo.properties[propertySetFunction] = oldValue;
+
+                if (propertySetFunction == "setDeathDate" || propertySetFunction == "setBirthDate") {
+                    // some browsers may not treat the date string as provided by the date widget the same way,
+                    // so convert to the least common denominator which seems to be the toDateString()
+                    if (propValue != "") {
+                        try {
+                            var parsedDate = new Date(propValue);
+                            propValue = parsedDate.toDateString();
+                        } catch (err) {
+                            console.trace(err);
+                            // in case date did not parse: set date exactly as provided
+                        }
+                    }
+                }
+
+                // sometimes UNDO includes more then the property itself: e.g. changing life status
+                // from "dead" to "alive" also clears the death date. Need to add it to the "undo" event
+                if (propertySetFunction == "setLifeStatus") {
+                    undoEvent.memo.properties["setDeathDate"] = node.getDeathDate();
+                    undoEvent.memo.properties["setGestationAge"] = node.getGestationAge();
+                    undoEvent.memo.properties["setBirthDate"] = node.getBirthDate();
+                    undoEvent.memo.properties["setAdopted"] = node.getAdopted();
+                }
+                if (propertySetFunction == "setDeathDate") {
+                    undoEvent.memo.properties["setLifeStatus"] = node.getLifeStatus();
+                }
+                if (propertySetFunction == "setChildlessStatus") {
+                    undoEvent.memo.properties["setChildlessReason"] = node.getChildlessReason();
+                }
+                if (propertySetFunction == "setDisorders") {
+                    undoEvent.memo.properties["setCarrierStatus"] = node.getCarrierStatus();
+                }
+                if (propertySetFunction == "setCarrierStatus") {
+                    undoEvent.memo.properties["setDisorders"] = node.getDisorders().slice(0);
+                }
+
+                node[propertySetFunction](propValue);
+
+                if (propertySetFunction == "setDisorders") {
+                    var newDisorders = node[propertyGetFunction]();
+                    if (JSON.stringify(oldValue) == JSON.stringify(newDisorders)) continue;
+                }
+
+                changedValue = true;
+
+                if (propertySetFunction == "setLastName") {
+                    if (__WEBPACK_IMPORTED_MODULE_0__pedigreeEditorAttributes__["a" /* PedigreeEditorAttributes */].propagateLastName) {
+                        if (node.getGender(nodeID) == "M") {
+                            if (propValue != "") {
+                                // propagate last name as "last name at birth" to all descendants (by the male line)
+                                Controller._propagateLastNameAtBirth(nodeID, propValue, oldValue);
+                                undoEvent = null; // there is no easy undo other than just remember the previous graph state
+                            }
+                        }
+                    }
+                }
+
+                if (propertySetFunction == "setGender") {
+                    if (node.getMonozygotic()) {
+                        if (!twinUpdate) twinUpdate = {};
+                        twinUpdate[propertySetFunction] = propValue;
+                    }
+                }
+
+                if (propertySetFunction == "setAdopted") {
+                    needUpdateAncestors = true;
+                    if (!twinUpdate) twinUpdate = {};
+                    twinUpdate[propertySetFunction] = propValue;
+                }
+
+                if (propertySetFunction == "setMonozygotic") {
+                    needUpdateRelationship = true;
+                    if (!twinUpdate) twinUpdate = {};
+                    twinUpdate[propertySetFunction] = propValue;
+                }
+
+                if (propertySetFunction == "setConsanguinity" || propertySetFunction == "setBrokenStatus") {
+                    // this updates the relationship lines, as well as any lines
+                    // crossed by the relationship llines to maintain correct crossing graphics
+                    needUpdateRelationship = true;
+                }
+
+                if (propertySetFunction == "setLostContact") {
+                    // it is hard to say which of the incoming/outgoing lines needs to be redraws/updated,
+                    // so it is easier to just redraw all
+                    needUpdateAllRelationships = true;
+                }
+            }
+        }
+
+        // some properties should be the same for all the twins. If one of those
+        // was changed, need to update all the twins
+        if (twinUpdate) {
+            var allTwins = editor.getGraph().getAllTwinsSortedByOrder(nodeID);
+            for (var propertySetFunction in twinUpdate) {
+                if (twinUpdate.hasOwnProperty(propertySetFunction)) {
+                    var propValue = twinUpdate[propertySetFunction];
+
+                    for (var i = 0; i < allTwins.length; i++) {
+                        var twin = allTwins[i];
+                        if (twin == nodeID) continue;
+                        var twinNode = editor.getView().getNode(twin);
+                        twinNode[propertySetFunction](propValue);
+                        var twinProperties = twinNode.getProperties();
+                        console.log("Setting twin properties: " + __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__helpers__["c" /* stringifyObject */])(twinProperties));
+                        editor.getGraph().setProperties(twin, twinProperties);
+                    }
+                }
+            }
+        }
+
+        var allProperties = node.getProperties();
+        editor.getGraph().setProperties(nodeID, allProperties);
+
+        if (needUpdateAncestors) {
+            var changeSet = editor.getGraph().updateAncestors();
+            editor.getView().applyChanges(changeSet, true);
+        }
+
+        if (needUpdateAllRelationships) {
+            var rels = editor.getGraph().getAllRelatedRelationships(nodeID);
+            var changeSet = { "moved": rels };
+            editor.getView().applyChanges(changeSet, true);
+        }
+
+        if (needUpdateRelationship) {
+            var relID = editor.getGraph().isRelationship(nodeID) ? nodeID : editor.getGraph().getParentRelationship(nodeID);
+            var changeSet = { "moved": [relID] };
+            editor.getView().applyChanges(changeSet, true);
+        }
+
+        editor.getNodeMenu().update(); // for example, user selected a wrong gender in the nodeMenu, which
+        // gets reverted back - need to select the correct one in the nodeMenu as well
+
+        //console.log("event: " + event.eventName + ", memo: " + stringifyObject(event.memo));
+        //console.log("Undo event: " + stringifyObject(undoEvent));
+        if (!event.memo.noUndoRedo && changedValue) editor.getActionStack().addState(event, undoEvent);
+    },
+
+    handleModification: function (event) {
+        try {
+            console.log("event: " + event.eventName + ", memo: " + __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__helpers__["c" /* stringifyObject */])(event.memo));
+            var nodeID = event.memo.nodeID;
+            var modifications = event.memo.modifications;
+
+            var node = editor.getView().getNode(nodeID);
+
+            //var allProperties = node.getProperties();
+
+            for (var modificationType in modifications) if (modifications.hasOwnProperty(modificationType)) {
+                var modValue = modifications[modificationType];
+
+                if (modificationType == "addTwin") {
+                    var numNewTwins = modValue - 1; // current node is one of the twins, so need to create one less
+                    for (var i = 0; i < numNewTwins; i++) {
+                        var twinProperty = { "gender": node.getGender() };
+                        var changeSet = editor.getGraph().addTwin(nodeID, twinProperty);
+                        editor.getView().applyChanges(changeSet, true);
+                    }
+                    node.assignProperties(editor.getGraph().getProperties(nodeID));
+                }
+
+                if (modificationType == "makePlaceholder") {
+                    // TODO
+                }
+            }
+
+            if (!event.memo.noUndoRedo) editor.getActionStack().addState(event);
+        } catch (err) {
+            console.log("err: " + err);
+        }
+    },
+
+    handlePersonDragToNewParent: function (event) {
+        console.log("event: " + event.eventName + ", memo: " + __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__helpers__["c" /* stringifyObject */])(event.memo));
+
+        var personID = event.memo.personID;
+        var parentID = event.memo.parentID;
+        if (!editor.getGraph().isPerson(personID) || !editor.getGraph().isValidID(parentID)) return;
+
+        if (editor.getGraph().isChildless(parentID)) {
+            editor.getController().handleSetProperty({ "memo": { "nodeID": personID, "properties": { "setAdopted": true }, "noUndoRedo": true } });
+        }
+
+        try {
+            var changeSet = editor.getGraph().assignParent(parentID, personID);
+            editor.getView().applyChanges(changeSet, true);
+
+            if (changeSet.moved.indexOf(personID) != -1) editor.getWorkspace().centerAroundNode(personID, true);
+
+            if (!event.memo.noUndoRedo) editor.getActionStack().addState(event);
+        } catch (err) {
+            console.trace(err);
+        }
+    },
+
+    handlePersonNewParents: function (event) {
+        console.log("event: " + event.eventName + ", memo: " + __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__helpers__["c" /* stringifyObject */])(event.memo));
+
+        var personID = event.memo.personID;
+        if (!editor.getGraph().isPerson(personID)) return;
+
+        var changeSet = editor.getGraph().addNewParents(personID);
+        editor.getView().applyChanges(changeSet, true);
+
+        if (!event.memo.noUndoRedo) editor.getActionStack().addState(event);
+
+        return changeSet["new"][0]; // new relationship
+    },
+
+    handlePersonNewSibling: function (event) {
+        console.log("event: " + event.eventName + ", memo: " + __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__helpers__["c" /* stringifyObject */])(event.memo));
+
+        // { "personID": id, "childParams": data.params.parameters, "preferLeft": false };
+        var personID = event.memo.personID;
+        var childParams = event.memo.childParams ? __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__helpers__["f" /* cloneObject */])(event.memo.childParams) : {};
+        var numTwins = event.memo.twins ? event.memo.twins : 1;
+        var numPersons = event.memo.groupSize ? event.memo.groupSize : 0;
+
+        var parentRelationship = editor.getGraph().getParentRelationship(personID);
+
+        if (parentRelationship === null) {
+            // need to add new parents
+            parentRelationship = editor.getController().handlePersonNewParents({ "memo": { "personID": personID, "noUndoRedo": true } });
+        }
+
+        if (event.memo.twins) {
+            var nextEvent = { "nodeID": personID, "modifications": { "addTwin": event.memo.twins }, "noUndoRedo": true };
+            editor.getController().handleModification({ "memo": nextEvent });
+        } else {
+            var nextEvent = { "partnershipID": parentRelationship, "childParams": childParams, "noUndoRedo": true };
+            if (event.memo.groupSize) nextEvent["groupSize"] = event.memo.groupSize;
+
+            editor.getController().handleRelationshipNewChild({ "memo": nextEvent });
+        }
+
+        if (!event.memo.noUndoRedo) editor.getActionStack().addState(event);
+    },
+
+    handlePersonDragToNewSibling: function (event) {
+        console.log("event: " + event.eventName + ", memo: " + __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__helpers__["c" /* stringifyObject */])(event.memo));
+
+        var sibling1 = event.memo.sibling1ID;
+        var sibling2 = event.memo.sibling2ID;
+
+        var parentRelationship = editor.getGraph().getParentRelationship(sibling1);
+        if (parentRelationship == null) parentRelationship = editor.getGraph().getParentRelationship(sibling2);
+
+        if (parentRelationship === null) {
+            // need to add new parents
+            parentRelationship = editor.getController().handlePersonNewParents({ "memo": { "personID": sibling1, "noUndoRedo": true } });
+        }
+
+        if (editor.getGraph().getParentRelationship(sibling2) != parentRelationship) {
+            // assign sibling 2 to this relationship: covers the case when none have parents or sibling1 has parents
+            editor.getController().handlePersonDragToNewParent({ "memo": { "personID": sibling2, "parentID": parentRelationship, "noUndoRedo": true } });
+        } else {
+            // assign sibling 1 to this relationship
+            editor.getController().handlePersonDragToNewParent({ "memo": { "personID": sibling1, "parentID": parentRelationship, "noUndoRedo": true } });
+        }
+
+        if (!event.memo.noUndoRedo) editor.getActionStack().addState(event);
+    },
+
+    handlePersonNewPartnerAndChild: function (event) {
+        var timer = new __WEBPACK_IMPORTED_MODULE_1__helpers__["g" /* Timer */]();
+
+        try {
+            console.log("event: " + event.eventName + ", memo: " + __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__helpers__["c" /* stringifyObject */])(event.memo));
+
+            var personID = event.memo.personID;
+            if (!editor.getGraph().isPerson(personID)) return;
+            var preferLeft = event.memo.preferLeft;
+            var childParams = event.memo.childParams ? __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__helpers__["f" /* cloneObject */])(event.memo.childParams) : {};
+            var numTwins = event.memo.twins ? event.memo.twins : 1;
+            var numPersons = event.memo.groupSize ? event.memo.groupSize : 0;
+
+            if (editor.getGraph().isChildless(personID)) {
+                childParams["isAdopted"] = true;
+            }
+
+            if (numPersons > 0) {
+                childParams["numPersons"] = numPersons;
+            }
+
+            var changeSet = editor.getGraph().addNewRelationship(personID, childParams, preferLeft, numTwins);
+            editor.getView().applyChanges(changeSet, true);
+
+            if (!event.memo.noUndoRedo) editor.getActionStack().addState(event);
+        } catch (err) {
+            console.trace(err);
+        }
+
+        timer.printSinceLast("=== Total new partner+child runtime: ");
+    },
+
+    handlePersonDragToNewPartner: function (event) {
+        console.log("event: " + event.eventName + ", memo: " + __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__helpers__["c" /* stringifyObject */])(event.memo));
+
+        var personID = event.memo.personID;
+        var partnerID = event.memo.partnerID;
+        if (!editor.getGraph().isPerson(personID) || !editor.getGraph().isPerson(partnerID)) return;
+
+        var childProperties = {};
+        if (editor.getGraph().isChildless(personID) || editor.getGraph().isChildless(partnerID)) {
+            childProperties = { "isAdopted": true };
+        }
+
+        // when partnering up a node with unknown gender with a node of known gender
+        // change the unknown gender to the opposite of known
+        var node1 = editor.getView().getNode(personID);
+        var node2 = editor.getView().getNode(partnerID);
+
+        if (node1.getGender() == "U" && node2.getGender() != "U") {
+            var gender1 = editor.getGraph().getOppositeGender(partnerID);
+            node1.setGender(gender1);
+            editor.getGraph().setProperties(personID, node1.getProperties());
+        } else if (node1.getGender() != "U" && node2.getGender() == "U") {
+            var gender2 = editor.getGraph().getOppositeGender(personID);
+            node2.setGender(gender2);
+            editor.getGraph().setProperties(partnerID, node2.getProperties());
+        }
+
+        // TODO: propagate change of gender down the partnership chain
+
+        var changeSet = editor.getGraph().assignPartner(personID, partnerID, childProperties);
+        editor.getView().applyChanges(changeSet, true);
+
+        if (!event.memo.noUndoRedo) editor.getActionStack().addState(event);
+    },
+
+    handleRelationshipNewChild: function (event) {
+        console.log("event: " + event.eventName + ", memo: " + __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__helpers__["c" /* stringifyObject */])(event.memo));
+
+        var partnershipID = event.memo.partnershipID;
+        if (!editor.getGraph().isRelationship(partnershipID)) return;
+
+        var numTwins = event.memo.twins ? event.memo.twins : 1;
+
+        var childParams = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__helpers__["f" /* cloneObject */])(event.memo.childParams);
+        if (editor.getGraph().isChildless(partnershipID)) {
+            childParams["isAdopted"] = true;
+        }
+
+        var numPersons = event.memo.groupSize ? event.memo.groupSize : 0;
+        if (numPersons > 0) {
+            childParams["numPersons"] = numPersons;
+        }
+
+        var changeSet = editor.getGraph().addNewChild(partnershipID, childParams, numTwins);
+        editor.getView().applyChanges(changeSet, true);
+
+        if (!event.memo.noUndoRedo) editor.getActionStack().addState(event);
+    }
+});
+/* harmony export (immutable) */ __webpack_exports__["a"] = Controller;
+
+
+Controller._validatePropertyValue = function (nodeID, propertySetFunction, propValue) {
+    if (propertySetFunction == "setGender") {
+        var possibleGenders = editor.getGraph().getPossibleGenders(nodeID);
+        //console.log("valid genders: " + stringifyObject(possibleGenders));
+        return possibleGenders[propValue];
+    }
+    return true;
+};
+
+Controller._propagateLastNameAtBirth = function (parentID, parentLastName, changeIfEqualTo) {
+    var children = editor.getGraph().getAllChildren(parentID);
+
+    for (var i = 0; i < children.length; i++) {
+        var childID = children[i];
+        var childNode = editor.getView().getNode(childID);
+
+        if (childNode.getLastName() == "" && (childNode.getLastNameAtBirth() == "" || childNode.getLastNameAtBirth() == changeIfEqualTo)) {
+            childNode.setLastNameAtBirth(parentLastName);
+            var allProperties = childNode.getProperties();
+            editor.getGraph().setProperties(childID, allProperties);
+            if (childNode.getGender() == "M") {
+                Controller._propagateLastNameAtBirth(childID, parentLastName, changeIfEqualTo);
+            }
+        }
+    }
+};
+/* WEBPACK VAR INJECTION */}.call(__webpack_exports__, __webpack_require__(3)))
+
+/***/ }),
+/* 147 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* WEBPACK VAR INJECTION */(function(Class, Raphael) {/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__legend__ = __webpack_require__(56);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__helpers__ = __webpack_require__(6);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__disorder__ = __webpack_require__(75);
+
+
+
+
+/**
+ * Class responsible for keeping track of disorders and their properties, and for
+ * caching disorders data as loaded from the OMIM database.
+ * This information is graphically displayed in a 'Legend' box.
+ *
+ * @class DisorderLegend
+ * @constructor
+ */
+const DisorderLegend = Class.create(__WEBPACK_IMPORTED_MODULE_0__legend__["a" /* Legend */], {
+
+    initialize: function ($super) {
+        $super("Disorders", true);
+
+        this._disorderCache = {};
+
+        this._specialDisordersRegexps = [new RegExp("^1BrCa", "i"), new RegExp("^2BrCa", "i"), new RegExp("^OvCa", "i"), new RegExp("^ProCa", "i"), new RegExp("^PanCa", "i")];
+    },
+
+    _getPrefix: function (id) {
+        return "disorder";
+    },
+
+    /**
+     * Returns the disorder object with the given ID. If object is not in cache yet
+     * returns a newly created one which may have the disorder name & other attributes not loaded yet
+     *
+     * @method getDisorder
+     * @return {Object}
+     */
+    getDisorder: function (disorderID) {
+        if (!__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__helpers__["i" /* isInt */])(disorderID)) {
+            disorderID = __WEBPACK_IMPORTED_MODULE_2__disorder__["a" /* Disorder */].sanitizeID(disorderID);
+        }
+        if (!this._disorderCache.hasOwnProperty(disorderID)) {
+            var whenNameIsLoaded = function () {
+                this._updateDisorderName(disorderID);
+            };
+            this._disorderCache[disorderID] = new __WEBPACK_IMPORTED_MODULE_2__disorder__["a" /* Disorder */](disorderID, null, whenNameIsLoaded.bind(this));
+        }
+        return this._disorderCache[disorderID];
+    },
+
+    /**
+     * Registers an occurrence of a disorder. If disorder hasn't been documented yet,
+     * designates a color for it.
+     *
+     * @method addCase
+     * @param {Number|String} disorderID ID for this disorder taken from the OMIM database
+     * @param {String} disorderName The name of the disorder
+     * @param {Number} nodeID ID of the Person who has this disorder
+     */
+    addCase: function ($super, disorderID, disorderName, nodeID) {
+        if (!this._disorderCache.hasOwnProperty(disorderID)) this._disorderCache[disorderID] = new __WEBPACK_IMPORTED_MODULE_2__disorder__["a" /* Disorder */](disorderID, disorderName);
+
+        $super(disorderID, disorderName, nodeID);
+    },
+
+    /**
+     * Updates the displayed disorder name for the given disorder
+     *
+     * @method _updateDisorderName
+     * @param {Number} disorderID The identifier of the disorder to update
+     * @private
+     */
+    _updateDisorderName: function (disorderID) {
+        //console.log("updating disorder display for " + disorderID + ", name = " + this.getDisorder(disorderID).getName());
+        var name = this._legendBox.down("li#" + this._getPrefix() + "-" + disorderID + " .disorder-name");
+        name.update(this.getDisorder(disorderID).getName());
+    },
+
+    /**
+     * Generate the element that will display information about the given disorder in the legend
+     *
+     * @method _generateElement
+     * @param {Number} disorderID The id for the disorder, taken from the OMIM database
+     * @param {String} name The human-readable disorder name
+     * @return {HTMLLIElement} List element to be insert in the legend
+     */
+    _generateElement: function ($super, disorderID, name) {
+        if (!this._objectColors.hasOwnProperty(disorderID)) {
+            var color = this._generateColor(disorderID);
+            this._objectColors[disorderID] = color;
+            document.fire("disorder:color", { "id": disorderID, color: color });
+        }
+
+        return $super(disorderID, name);
+    },
+
+    /**
+     * Callback for dragging an object from the legend onto nodes
+     *
+     * @method _onDropGeneric
+     * @param {Person} Person node
+     * @param {String|Number} id ID of the disorder being dropped
+     */
+    _onDropObject: function (node, disorderID) {
+        var currentDisorders = node.getDisorders().slice(0);
+        if (currentDisorders.indexOf(disorderID) == -1) {
+            // only if the node does not have this disorder yet
+            currentDisorders.push(disorderID);
+            editor.getView().unmarkAll();
+            var properties = { "setDisorders": currentDisorders };
+            var event = { "nodeID": node.getID(), "properties": properties };
+            document.fire("pedigree:node:setproperty", event);
+        } else {
+            console.warn("This person already has the specified disorder");
+        }
+    },
+
+    /**
+     * Generates a CSS color.
+     * Has preference for some predefined colors that can be distinguished in gray-scale
+     * and are distint from gene colors.
+     *
+     * @method generateColor
+     * @return {String} CSS color
+     */
+    _generateColor: function (disorderID) {
+        if (this._objectColors.hasOwnProperty(disorderID)) {
+            return this._objectColors[disorderID];
+        }
+
+        // check special disorder prefixes
+        for (var i = 0; i < this._specialDisordersRegexps.length; i++) {
+            if (disorderID.match(this._specialDisordersRegexps[i]) !== null) {
+                for (var disorder in this._objectColors) {
+                    if (this._objectColors.hasOwnProperty(disorder)) {
+                        if (disorder.match(this._specialDisordersRegexps[i]) !== null) return this._objectColors[disorder];
+                    }
+                }
+                break;
+            }
+        }
+
+        var usedColors = Object.values(this._objectColors);
+        // [red/yellow]           prefColors = ["#FEE090", '#f8ebb7', '#eac080', '#bf6632', '#9a4500', '#a47841', '#c95555', '#ae6c57'];        
+        // [original yellow/blue] 
+        var prefColors = ["#000000", "#FEE090", '#E0F8F8', '#8ebbd6', '#4575B4', '#fca860', '#9a4500', '#81a270'];
+        // [green]                var prefColors = ['#81a270', '#c4e8c4', '#56a270', '#b3b16f', '#4a775a', '#65caa3'];
+        // var prefColors = ["#E0F8F8", "#92c0db", "#4575B4", "#949ab8", "#FEE090", "#bf6632", "#fca860", "#9a4500", "#d12943", "#00a2bf"];
+        usedColors.each(function (color) {
+            prefColors = prefColors.without(color);
+        });
+        if (disorderID == "affected") {
+            if (usedColors.indexOf("#FEE090") > -1) {
+                return "#dbad71";
+            } else {
+                return "#FEE090";
+            }
+        }
+        if (prefColors.length > 0) {
+            return prefColors[0];
+        } else {
+            var randomColor = Raphael.getColor();
+            while (randomColor == "#ffffff" || usedColors.indexOf(randomColor) != -1) {
+                randomColor = "#" + ((1 << 24) * Math.random() | 0).toString(16);
+            }
+            return randomColor;
+        }
+    }
+});
+/* harmony export (immutable) */ __webpack_exports__["a"] = DisorderLegend;
+
+/* WEBPACK VAR INJECTION */}.call(__webpack_exports__, __webpack_require__(3), __webpack_require__(21)))
+
+/***/ }),
+/* 148 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -65952,10 +63242,1810 @@ Element.findChildren = function (d, b, a, c) {
 Element.offsetSize = function (a, b) {
     return a["offset" + (b == "vertical" || b == "height" ? "Height" : "Width")];
 };
-/* WEBPACK VAR INJECTION */}.call(__webpack_exports__, __webpack_require__(3), __webpack_require__(62), __webpack_require__(151)))
+/* WEBPACK VAR INJECTION */}.call(__webpack_exports__, __webpack_require__(3), __webpack_require__(58), __webpack_require__(143)))
 
 /***/ }),
-/* 155 */
+/* 149 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__baseGraph__ = __webpack_require__(36);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__positionedGraph__ = __webpack_require__(163);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__heuristics__ = __webpack_require__(152);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__import__ = __webpack_require__(154);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__helpers__ = __webpack_require__(6);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__queues__ = __webpack_require__(38);
+/* harmony export (immutable) */ __webpack_exports__["a"] = DynamicPositionedGraph;
+
+
+
+
+
+
+
+// DynamicPositionedGraph adds support for online modifications and provides a convenient API for UI implementations
+
+function DynamicPositionedGraph(drawGraph) {
+    this.DG = drawGraph;
+
+    this._heuristics = new __WEBPACK_IMPORTED_MODULE_2__heuristics__["a" /* Heuristics */](drawGraph); // heuristics & helper methods separated into a separate class
+
+    this._heuristics.improvePositioning();
+
+    this._onlyProbandGraph = [{ name: "proband" }];
+}
+
+DynamicPositionedGraph.makeEmpty = function (layoutRelativePersonWidth, layoutRelativeOtherWidth) {
+    var baseG = new __WEBPACK_IMPORTED_MODULE_0__baseGraph__["a" /* BaseGraph */](layoutRelativePersonWidth, layoutRelativeOtherWidth);
+    var positionedG = new __WEBPACK_IMPORTED_MODULE_1__positionedGraph__["a" /* PositionedGraph */](baseG);
+    return new DynamicPositionedGraph(positionedG);
+};
+
+DynamicPositionedGraph.prototype = {
+
+    isValidID: function (id) {
+        if (id < 0 || id > this.DG.GG.getMaxRealVertexId()) return false;
+        if (!this.DG.GG.isPerson(id) && !this.DG.GG.isRelationship(id)) return false;
+        return true;
+    },
+
+    getMaxNodeId: function () {
+        return this.DG.GG.getMaxRealVertexId();
+    },
+
+    isPersonGroup: function (id) {
+        return this.getProperties(id).hasOwnProperty("numPersons");
+    },
+
+    isPerson: function (id) {
+        return this.DG.GG.isPerson(id);
+    },
+
+    isRelationship: function (id) {
+        return this.DG.GG.isRelationship(id);
+    },
+
+    isPlaceholder: function (id) {
+        if (!this.isPerson(id)) return false;
+        // TODO
+        return false;
+    },
+
+    isAdopted: function (id) {
+        if (!this.isPerson(id)) throw "Assertion failed: isAdopted() is applied to a non-person";
+        return this.DG.GG.isAdopted(id);
+    },
+
+    getGeneration: function (id) {
+        var minRank = Math.min.apply(null, this.DG.ranks);
+        return (this.DG.ranks[id] - minRank) / 2 + 1;
+    },
+
+    getOrderWithinGeneration: function (id) {
+        if (!this.isPerson(id)) throw "Assertion failed: getOrderWithinGeneration() is applied to a non-person";
+
+        var order = 0;
+        var rank = this.DG.ranks[id];
+        for (var i = 0; i < this.DG.order.order[rank].length; i++) {
+            var next = this.DG.order.order[rank][i];
+            if (this.DG.GG.isPerson(next)) order++;
+            if (next == id) break;
+        }
+        return order;
+    },
+
+    // returns null if person has no twins
+    getTwinGroupId: function (id) {
+        return this.DG.GG.getTwinGroupId(id);
+    },
+
+    // returns and array of twins, sorted by order left to right. Always contains at least "id" itself
+    getAllTwinsSortedByOrder: function (id) {
+        var twins = this.DG.GG.getAllTwinsOf(id);
+        var vOrder = this.DG.order.vOrder;
+        var byOrder = function (a, b) {
+            return vOrder[a] - vOrder[b];
+        };
+        twins.sort(byOrder);
+        return twins;
+    },
+
+    isChildless: function (id) {
+        if (!this.getProperties(id).hasOwnProperty("childlessStatus")) return false;
+        var res = this.getProperties(id)["childlessStatus"] !== null;
+        //console.log("childless status of " + id + " : " + res);
+        return res;
+    },
+
+    isConsangrRelationship: function (id) {
+        if (!this.isRelationship(id)) throw "Assertion failed: isConsangrRelationship() is applied to a non-relationship";
+
+        return this.DG.consangr.hasOwnProperty(id);
+    },
+
+    getProperties: function (id) {
+        return this.DG.GG.properties[id];
+    },
+
+    setProperties: function (id, newSetOfProperties) {
+        this.DG.GG.properties[id] = newSetOfProperties;
+    },
+
+    // returns false if this gender is incompatible with this pedigree; true otherwise
+    setProbandData: function (firstName, lastName, gender) {
+        this.DG.GG.properties[0].fName = firstName;
+        this.DG.GG.properties[0].lName = lastName;
+
+        var setGender = gender;
+        var possibleGenders = this.getPossibleGenders(0);
+
+        if (!possibleGenders.hasOwnProperty(gender) || !possibleGenders[gender]) setGender = "U";
+        this.DG.GG.properties[0].gender = setGender;
+
+        return gender == setGender;
+    },
+
+    getPosition: function (v) {
+        // returns coordinates of node v
+        var x = this.DG.positions[v];
+
+        var rank = this.DG.ranks[v];
+
+        var vertLevel = this.DG.GG.isChildhub(v) ? this.DG.vertLevel.childEdgeLevel[v] : 1;
+
+        var y = this.DG.computeNodeY(rank, vertLevel);
+
+        if (this.DG.GG.isVirtual(v)) {
+            var relId = this.DG.GG.downTheChainUntilNonVirtual(v);
+            var personId = this.DG.GG.upTheChainUntilNonVirtual(v);
+
+            var rankPerson = this.DG.ranks[personId];
+            if (rank == rankPerson) {
+                var level = this.DG.vertLevel.outEdgeVerticalLevel[personId][relId].verticalLevel;
+                y = this.DG.computeRelLineY(rank, 0, level).relLineY;
+            }
+
+            var rankRelationship = this.DG.ranks[relId];
+            if (rank == rankRelationship) {
+                y = this.getPosition(relId).y;
+            }
+        } else if (this.isRelationship(v)) {
+            var partners = this.DG.GG.getParents(v);
+            var level1 = this.DG.vertLevel.outEdgeVerticalLevel[partners[0]].hasOwnProperty(v) ? this.DG.vertLevel.outEdgeVerticalLevel[partners[0]][v].verticalLevel : 0;
+            var level2 = this.DG.vertLevel.outEdgeVerticalLevel[partners[1]].hasOwnProperty(v) ? this.DG.vertLevel.outEdgeVerticalLevel[partners[1]][v].verticalLevel : 0;
+            var level = Math.min(level1, level2);
+            var attach1 = this.DG.vertLevel.outEdgeVerticalLevel[partners[0]].hasOwnProperty(v) ? this.DG.vertLevel.outEdgeVerticalLevel[partners[0]][v].attachlevel : 0;
+            var attach2 = this.DG.vertLevel.outEdgeVerticalLevel[partners[1]].hasOwnProperty(v) ? this.DG.vertLevel.outEdgeVerticalLevel[partners[1]][v].attachlevel : 0;
+            var attach = Math.min(attach1, attach2);
+            y = this.DG.computeRelLineY(rank, attach, level).relLineY;
+        }
+
+        return { "x": x, "y": y };
+    },
+
+    getRelationshipChildhubPosition: function (v) {
+        if (!this.isRelationship(v)) throw "Assertion failed: getRelationshipChildhubPosition() is applied to a non-relationship";
+
+        var childhubId = this.DG.GG.getRelationshipChildhub(v);
+
+        return this.getPosition(childhubId);
+    },
+
+    getRelationshipLineInfo: function (relationship, person) {
+        if (!this.isRelationship(relationship)) throw "Assertion failed: getRelationshipToPersonLinePosition() is applied to a non-relationship";
+        if (!this.isPerson(person)) throw "Assertion failed: getRelationshipToPersonLinePosition() is applied to a non-person";
+
+        var info = this.DG.vertLevel.outEdgeVerticalLevel[person].hasOwnProperty(relationship) ? this.DG.vertLevel.outEdgeVerticalLevel[person][relationship] : { attachlevel: 0, verticalLevel: 0, numAttachLevels: 1 };
+
+        //console.log("Info: " +  stringifyObject(info));
+
+        var verticalRelInfo = this.DG.computeRelLineY(this.DG.ranks[person], info.attachlevel, info.verticalLevel);
+
+        var result = {
+            "attachmentPort": info.attachlevel,
+            "attachY": verticalRelInfo.attachY,
+            "verticalLevel": info.verticalLevel,
+            "verticalY": verticalRelInfo.relLineY,
+            "numAttachPorts": info.numAttachLevels
+        };
+
+        //console.log("rel: " + relationship + ", person: " + person + " => " + stringifyObject(result));
+        return result;
+    },
+
+    // returns all the children sorted by their order in the graph (left to right)
+    getRelationshipChildrenSortedByOrder: function (v) {
+        if (!this.isRelationship(v)) throw "Assertion failed: getRelationshipChildren() is applied to a non-relationship";
+
+        var childhubId = this.DG.GG.getRelationshipChildhub(v);
+
+        var children = this.DG.GG.getOutEdges(childhubId);
+
+        var vOrder = this.DG.order.vOrder;
+        var byOrder = function (a, b) {
+            return vOrder[a] - vOrder[b];
+        };
+        children.sort(byOrder);
+
+        return children;
+    },
+
+    getAllChildren: function (v) {
+        if (!this.isPerson(v) && !this.isRelationship(v)) throw "Assertion failed: getAllChildren() is applied to a non-person non-relationship node";
+
+        var rels = this.isRelationship(v) ? [v] : this.DG.GG.getAllRelationships(v);
+
+        var allChildren = [];
+        for (var i = 0; i < rels.length; i++) {
+            var chhub = this.DG.GG.getOutEdges(rels[i])[0];
+            var children = this.DG.GG.getOutEdges(chhub);
+
+            allChildren = allChildren.concat(children);
+        }
+        return allChildren;
+    },
+
+    isChildOfProband: function (v) {
+        var parents = this.DG.GG.getParents(v);
+        if (__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_4__helpers__["h" /* arrayContains */])(parents, 0)) return true;
+        return false;
+    },
+
+    isPartnershipRelatedToProband: function (v) {
+        var parents = this.DG.GG.getParents(v);
+        if (__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_4__helpers__["h" /* arrayContains */])(parents, 0)) return true;
+        if (v == this.DG.GG.getProducingRelationship(0)) {
+            return true;
+        }
+        return false;
+    },
+
+    // returns true iff node v is either a sibling, a child or a parent of proband node
+    isRelatedToProband: function (v) {
+        var probandRelatedRels = this.getAllRelatedRelationships(0);
+        for (var i = 0; i < probandRelatedRels.length; i++) {
+            var rel = probandRelatedRels[i];
+
+            var parents = this.DG.GG.getParents(rel);
+            if (__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_4__helpers__["h" /* arrayContains */])(parents, v)) return true;
+
+            var children = this.getAllChildren(rel);
+            if (__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_4__helpers__["h" /* arrayContains */])(children, v)) return true;
+        }
+        return false;
+    },
+
+    // returns all relationships of node v and its parent relationship, if any
+    getAllRelatedRelationships: function (v) {
+        var allRels = this.DG.GG.getAllRelationships(v);
+        var parentRel = this.DG.GG.getProducingRelationship(v);
+        if (parentRel != null) {
+            allRels.push(parentRel);
+        }
+        return allRels;
+    },
+
+    hasNonPlaceholderNonAdoptedChildren: function (v) {
+        if (this.isRelationship(v)) {
+            var children = this.getRelationshipChildrenSortedByOrder(v);
+
+            //console.log("Childtren: " + children);
+            for (var i = 0; i < children.length; i++) {
+                var child = children[i];
+                if (!this.isPlaceholder(child) && !this.isAdopted(child)) {
+                    //console.log("child: " + child + ", isAdopted: " + this.isAdopted(child));
+                    return true;
+                }
+            }
+        } else if (this.isPerson(v)) {
+            //var children = ...
+            //TODO
+        }
+
+        return false;
+    },
+
+    getParentRelationship: function (v) {
+        if (!this.isPerson(v)) throw "Assertion failed: getParentRelationship() is applied to a non-person";
+
+        return this.DG.GG.getProducingRelationship(v);
+    },
+
+    hasToBeAdopted: function (v) {
+        if (!this.isPerson(v)) throw "Assertion failed: hasToBeAdopted() is applied to a non-person";
+
+        var parentRel = this.getParentRelationship(v);
+        if (parentRel !== null && this.isChildless(parentRel)) return true;
+        return false;
+    },
+
+    hasRelationships: function (v) {
+        if (!this.isPerson(v)) throw "Assertion failed: hasRelationships() is applied to a non-person";
+
+        return this.DG.GG.v[v].length > 0; // if it had relationships it must have been alive at some point
+    },
+
+    getPossibleGenders: function (v) {
+        var possible = { "M": true, "F": true, "U": true };
+        // any if no partners or all partners are of unknown genders; opposite of the partner gender otherwise
+        var partners = this.DG.GG.getAllPartners(v);
+
+        var knownGenderPartner = undefined;
+        for (var i = 0; i < partners.length; i++) {
+            var partnerGender = this.getGender(partners[i]);
+            if (partnerGender != "U") {
+                possible[partnerGender] = false;
+                break;
+            }
+        }
+
+        //console.log("Possible genders for " + v + ": " + stringifyObject(possible));
+        return possible;
+    },
+
+    getPossibleChildrenOf: function (v) {
+        // all person nodes which are not ancestors of v and which do not already have parents
+        var result = [];
+        for (var i = 0; i <= this.DG.GG.getMaxRealVertexId(); i++) {
+            if (!this.isPerson(i)) continue;
+            if (this.DG.GG.inedges[i].length != 0) continue;
+            if (this.DG.ancestors[v].hasOwnProperty(i)) continue;
+            result.push(i);
+        }
+        return result;
+    },
+
+    getPossibleSiblingsOf: function (v) {
+        // all person nodes which are not ancestors and not descendants
+        // if v has parents only nodes without parents are returned
+        var hasParents = this.getParentRelationship(v) !== null;
+        var result = [];
+        for (var i = 0; i <= this.DG.GG.getMaxRealVertexId(); i++) {
+            if (!this.isPerson(i)) continue;
+            if (this.DG.ancestors[v].hasOwnProperty(i)) continue;
+            if (this.DG.ancestors[i].hasOwnProperty(v)) continue;
+            if (hasParents && this.DG.GG.inedges[i].length != 0) continue;
+            result.push(i);
+        }
+        return result;
+    },
+
+    getPossibleParentsOf: function (v) {
+        // all person nodes which are not descendants of source node
+        var result = [];
+        //console.log("Ancestors: " + stringifyObject(this.DG.ancestors));
+        for (var i = 0; i <= this.DG.GG.getMaxRealVertexId(); i++) {
+            if (!this.isRelationship(i) && !this.isPerson(i)) continue;
+            if (this.isPersonGroup(i)) continue;
+            if (this.DG.ancestors[i].hasOwnProperty(v)) continue;
+            result.push(i);
+        }
+        return result;
+    },
+
+    getPossiblePartnersOf: function (v) {
+        // returns all person nodes of the other gender or unknown gender (who are not already partners)
+        var oppositeGender = this.DG.GG.getOppositeGender(v);
+        var validGendersSet = oppositeGender == "U" ? ["M", "F", "U"] : [oppositeGender, "U"];
+
+        var result = this._getAllPersonsOfGenders(validGendersSet);
+
+        var partners = this.DG.GG.getAllPartners(v);
+        partners.push(v);
+        for (var i = 0; i < partners.length; i++) __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_4__helpers__["j" /* removeFirstOccurrenceByValue */])(result, partners[i]);
+
+        return result;
+    },
+
+    getOppositeGender: function (v) {
+        if (!this.isPerson(v)) throw "Assertion failed: getOppositeGender() is applied to a non-person";
+
+        return this.DG.GG.getOppositeGender(v);
+    },
+
+    getGender: function (v) {
+        if (!this.isPerson(v)) throw "Assertion failed: getGender() is applied to a non-person";
+
+        return this.DG.GG.getGender(v);
+    },
+
+    getDisconnectedSetIfNodeRemoved: function (v) {
+        var removedList = {};
+        removedList[v] = true;
+
+        if (this.isPerson(v)) {
+            // special case: removing the only child also removes the relationship
+            if (this.DG.GG.getInEdges(v).length != 0) {
+                var chhub = this.DG.GG.getInEdges(v)[0];
+                if (this.DG.GG.getOutEdges(chhub).length == 1) {
+                    removedList[this.DG.GG.getInEdges(chhub)[0]] = true;
+                }
+            }
+
+            // also remove all relationships by this person
+            var allRels = this.DG.GG.getAllRelationships(v);
+            for (var i = 0; i < allRels.length; i++) {
+                removedList[allRels[i]] = true;
+            }
+        }
+
+        // remove all childhubs of all relationships that need to be removed
+        for (var node in removedList) {
+            if (removedList.hasOwnProperty(node) && this.isRelationship(node)) {
+                var chhubId = this.DG.GG.getOutEdges(node)[0];
+                removedList[chhubId] = true;
+            }
+        }
+
+        // go through all the edges in the tree starting from proband and disregarding any edges going to or from v
+        var connected = {};
+
+        var queue = new __WEBPACK_IMPORTED_MODULE_5__queues__["a" /* Queue */]();
+        queue.push(0);
+
+        while (queue.size() > 0) {
+            var next = parseInt(queue.pop());
+
+            if (connected.hasOwnProperty(next)) continue;
+            connected[next] = true;
+
+            var outEdges = this.DG.GG.getOutEdges(next);
+            for (var i = 0; i < outEdges.length; i++) {
+                if (!removedList.hasOwnProperty(outEdges[i])) queue.push(outEdges[i]);
+            }
+            var inEdges = this.DG.GG.getInEdges(next);
+            for (var i = 0; i < inEdges.length; i++) {
+                if (!removedList.hasOwnProperty(inEdges[i])) queue.push(inEdges[i]);
+            }
+        }
+        console.log("Connected nodes: " + __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_4__helpers__["c" /* stringifyObject */])(connected));
+
+        var affected = [];
+        for (var i = 0; i < this.DG.GG.getNumVertices(); i++) {
+            if (this.isPerson(i) || this.isRelationship(i)) {
+                if (!connected.hasOwnProperty(i)) affected.push(i);
+            }
+        }
+
+        console.log("Affected nodes: " + __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_4__helpers__["c" /* stringifyObject */])(affected));
+        return affected;
+    },
+
+    _debugPrintAll: function (headerMessage) {
+        console.log("========== " + headerMessage + " ==========");
+        //console.log("== GG:");
+        //console.log(stringifyObject(this.DG.GG));
+        //console.log("== Ranks:");
+        //console.log(stringifyObject(this.DG.ranks));
+        //console.log("== Orders:");
+        //console.log(stringifyObject(this.DG.order));
+        //console.log("== Positions:");
+        //console.log(stringifyObject(this.DG.positions));
+        //console.log("== RankY:");
+        //console.log(stringifyObject(this.DG.rankY));
+    },
+
+    updateAncestors: function () // sometimes have to do this after the "adopted" property change
+    {
+        var ancestors = this.DG.findAllAncestors();
+        this.DG.ancestors = ancestors.ancestors;
+        this.DG.consangr = ancestors.consangr;
+
+        // after consang has changes a random set or relationships may become/no longer be a consangr. relationship
+        var movedNodes = [];
+        for (var i = 0; i <= this.DG.GG.getMaxRealVertexId(); i++) {
+            if (!this.isRelationship(i)) continue;
+            movedNodes.push(i);
+        }
+
+        return { "moved": movedNodes };
+    },
+
+    addNewChild: function (childhubId, properties, numTwins) {
+        this._debugPrintAll("before");
+        var timer = new __WEBPACK_IMPORTED_MODULE_4__helpers__["g" /* Timer */]();
+
+        if (!this.DG.GG.isChildhub(childhubId)) {
+            if (this.DG.GG.isRelationship(childhubId)) childhubId = this.DG.GG.getRelationshipChildhub(childhubId);else throw "Assertion failed: adding children to a non-childhub node";
+        }
+
+        var positionsBefore = this.DG.positions.slice(0);
+        var ranksBefore = this.DG.ranks.slice(0);
+        var vertLevelsBefore = this.DG.vertLevel.copy();
+        var rankYBefore = this.DG.rankY.slice(0);
+        var numNodesBefore = this.DG.GG.getMaxRealVertexId();
+
+        if (!properties) properties = {};
+        if (!numTwins) numTwins = 1;
+
+        var insertRank = this.DG.ranks[childhubId] + 1;
+
+        // find the best order to use for this new vertex: scan all orders on the rank, check number of crossed edges
+        var insertOrder = this._findBestInsertPosition(insertRank, childhubId);
+
+        // insert the vertex into the base graph and update ranks, orders & positions
+        var newNodeId = this._insertVertex(__WEBPACK_IMPORTED_MODULE_0__baseGraph__["b" /* TYPE */].PERSON, properties, 1.0, childhubId, null, insertRank, insertOrder);
+
+        var newNodes = [newNodeId];
+        for (var i = 0; i < numTwins - 1; i++) {
+            var changeSet = this.addTwin(newNodeId, properties);
+            newNodes.push(changeSet["new"][0]);
+        }
+
+        // validate: by now the graph should satisfy all assumptions
+        this.DG.GG.validate();
+
+        // fix common layout mistakes (e.g. relationship not right above the only child)
+        // and update vertical positioning of all edges
+        this._heuristics.improvePositioning(ranksBefore, rankYBefore);
+
+        // update ancestors
+        this.updateAncestors();
+
+        timer.printSinceLast("=== AddChild runtime: ");
+        this._debugPrintAll("after");
+
+        var movedNodes = this._findMovedNodes(numNodesBefore, positionsBefore, ranksBefore, vertLevelsBefore, rankYBefore);
+        var relationshipId = this.DG.GG.getInEdges(childhubId)[0];
+        if (!__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_4__helpers__["h" /* arrayContains */])(movedNodes, relationshipId)) movedNodes.push(relationshipId);
+        var animateNodes = this.DG.GG.getInEdges(relationshipId); // animate parents if they move. if not, nothing will be done with them
+        return { "new": newNodes, "moved": movedNodes, "animate": animateNodes };
+    },
+
+    addNewParents: function (personId) {
+        this._debugPrintAll("before");
+        var timer = new __WEBPACK_IMPORTED_MODULE_4__helpers__["g" /* Timer */]();
+
+        if (!this.DG.GG.isPerson(personId)) throw "Assertion failed: adding parents to a non-person node";
+
+        if (this.DG.GG.getInEdges(personId).length > 0) throw "Assertion failed: adding parents to a person with parents";
+
+        var positionsBefore = this.DG.positions.slice(0);
+        var ranksBefore = this.DG.ranks.slice(0);
+        var vertLevelsBefore = this.DG.vertLevel.copy();
+        var rankYBefore = this.DG.rankY.slice(0);
+        var numNodesBefore = this.DG.GG.getMaxRealVertexId();
+
+        // a few special cases which involve not only insertions but also existing node rearrangements:
+        this._heuristics.swapBeforeParentsToBringToSideIfPossible(personId);
+
+        var insertChildhubRank = this.DG.ranks[personId] - 1;
+
+        // find the best order to use for this new vertex: scan all orders on the rank, check number of crossed edges
+        var insertChildhubOrder = this._findBestInsertPosition(insertChildhubRank, personId);
+
+        // insert the vertex into the base graph and update ranks, orders & positions
+        var newChildhubId = this._insertVertex(__WEBPACK_IMPORTED_MODULE_0__baseGraph__["b" /* TYPE */].CHILDHUB, {}, 1.0, null, personId, insertChildhubRank, insertChildhubOrder);
+
+        var insertParentsRank = this.DG.ranks[newChildhubId] - 1; // note: rank may have changed since last insertion
+        //       (iff childhub was insertion above all at rank 0 - which becomes rank1)
+
+        // find the best order to use for this new vertex: scan all orders on the rank, check number of crossed edges
+        var insertParentOrder = this._findBestInsertPosition(insertParentsRank, newChildhubId);
+
+        var newRelationshipId = this._insertVertex(__WEBPACK_IMPORTED_MODULE_0__baseGraph__["b" /* TYPE */].RELATIONSHIP, {}, 1.0, null, newChildhubId, insertParentsRank, insertParentOrder);
+
+        insertParentsRank = this.DG.ranks[newRelationshipId]; // note: rank may have changed since last insertion again
+        //       (iff relationship was insertion above all at rank 0 - which becomes rank1)
+
+        var newParent1Id = this._insertVertex(__WEBPACK_IMPORTED_MODULE_0__baseGraph__["b" /* TYPE */].PERSON, { "gender": "F" }, 1.0, null, newRelationshipId, insertParentsRank, insertParentOrder + 1);
+        var newParent2Id = this._insertVertex(__WEBPACK_IMPORTED_MODULE_0__baseGraph__["b" /* TYPE */].PERSON, { "gender": "M" }, 1.0, null, newRelationshipId, insertParentsRank, insertParentOrder);
+
+        // validate: by now the graph should satisfy all assumptions
+        this.DG.GG.validate();
+
+        // fix common layout mistakes (e.g. relationship not right above the only child)
+        // and update vertical positioning of all edges
+        this._heuristics.improvePositioning(ranksBefore, rankYBefore);
+
+        // update ancestors
+        this.updateAncestors();
+
+        timer.printSinceLast("=== NewParents runtime: ");
+        this._debugPrintAll("after");
+
+        var animateNodes = this.DG.GG.getAllPartners(personId);
+        if (animateNodes.length == 1) // only animate node partners if there is only one - ow it may get too confusing with a lot of stuff animating around
+            animateNodes.push(personId);else animateNodes = [personId];
+        var movedNodes = this._findMovedNodes(numNodesBefore, positionsBefore, ranksBefore, vertLevelsBefore, rankYBefore);
+        var newNodes = [newRelationshipId, newParent1Id, newParent2Id];
+        return { "new": newNodes, "moved": movedNodes, "highlight": [personId], "animate": animateNodes };
+    },
+
+    addNewRelationship: function (personId, childProperties, preferLeft, numTwins) {
+        this._debugPrintAll("before");
+        var timer = new __WEBPACK_IMPORTED_MODULE_4__helpers__["g" /* Timer */]();
+
+        if (!this.DG.GG.isPerson(personId)) throw "Assertion failed: adding relationship to a non-person node";
+
+        var positionsBefore = this.DG.positions.slice(0);
+        var ranksBefore = this.DG.ranks.slice(0);
+        var vertLevelsBefore = this.DG.vertLevel.copy();
+        var rankYBefore = this.DG.rankY.slice(0);
+        var consangrBefore = this.DG.consangr;
+        var numNodesBefore = this.DG.GG.getMaxRealVertexId();
+
+        if (!childProperties) childProperties = {};
+
+        if (!numTwins) numTwins = 1;
+
+        var partnerProperties = { "gender": this.DG.GG.getOppositeGender(personId) };
+
+        var insertRank = this.DG.ranks[personId];
+        var personOrder = this.DG.order.vOrder[personId];
+
+        // a few special cases which involve not only insertions but also existing node rearrangements:
+        this._heuristics.swapPartnerToBringToSideIfPossible(personId);
+        this._heuristics.swapTwinsToBringToSideIfPossible(personId);
+
+        // find the best order to use for this new vertex: scan all orders on the rank, check number of crossed edges
+        var insertOrder = this._findBestInsertPosition(insertRank, personId, preferLeft);
+
+        console.log("vOrder: " + personOrder + ", inserting @ " + insertOrder);
+        console.log("Orders before: " + __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_4__helpers__["c" /* stringifyObject */])(this.DG.order.order[this.DG.ranks[personId]]));
+
+        var newRelationshipId = this._insertVertex(__WEBPACK_IMPORTED_MODULE_0__baseGraph__["b" /* TYPE */].RELATIONSHIP, {}, 1.0, personId, null, insertRank, insertOrder);
+
+        console.log("Orders after: " + __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_4__helpers__["c" /* stringifyObject */])(this.DG.order.order[this.DG.ranks[personId]]));
+
+        var insertPersonOrder = insertOrder > personOrder ? insertOrder + 1 : insertOrder;
+
+        var newPersonId = this._insertVertex(__WEBPACK_IMPORTED_MODULE_0__baseGraph__["b" /* TYPE */].PERSON, partnerProperties, 1.0, null, newRelationshipId, insertRank, insertPersonOrder);
+
+        var insertChildhubRank = insertRank + 1;
+        var insertChildhubOrder = this._findBestInsertPosition(insertChildhubRank, newRelationshipId);
+        var newChildhubId = this._insertVertex(__WEBPACK_IMPORTED_MODULE_0__baseGraph__["b" /* TYPE */].CHILDHUB, {}, 1.0, newRelationshipId, null, insertChildhubRank, insertChildhubOrder);
+
+        var insertChildRank = insertChildhubRank + 1;
+        var insertChildOrder = this._findBestInsertPosition(insertChildRank, newChildhubId);
+        var newChildId = this._insertVertex(__WEBPACK_IMPORTED_MODULE_0__baseGraph__["b" /* TYPE */].PERSON, childProperties, 1.0, newChildhubId, null, insertChildRank, insertChildOrder);
+
+        var newNodes = [newRelationshipId, newPersonId, newChildId];
+        for (var i = 0; i < numTwins - 1; i++) {
+            var changeSet = this.addTwin(newChildId, childProperties);
+            newNodes.push(changeSet["new"][0]);
+        }
+
+        console.log("Orders after all: " + __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_4__helpers__["c" /* stringifyObject */])(this.DG.order.order[this.DG.ranks[personId]]));
+
+        // validate: by now the graph should satisfy all assumptions
+        this.DG.GG.validate();
+
+        //this._debugPrintAll("middle");
+
+        // fix common layout mistakes (e.g. relationship not right above the only child)
+        // and update vertical positioning of all edges
+        this._heuristics.improvePositioning(ranksBefore, rankYBefore);
+
+        // update ancestors
+        this.updateAncestors();
+
+        timer.printSinceLast("=== NewRelationship runtime: ");
+        this._debugPrintAll("after");
+
+        var movedNodes = this._findMovedNodes(numNodesBefore, positionsBefore, ranksBefore, vertLevelsBefore, rankYBefore, consangrBefore);
+        return { "new": newNodes, "moved": movedNodes, "highlight": [personId] };
+    },
+
+    assignParent: function (parentId, childId) {
+        if (this.isRelationship(parentId)) {
+            var childHubId = this.DG.GG.getRelationshipChildhub(parentId);
+            var rankChildHub = this.DG.ranks[childHubId];
+            var rankChild = this.DG.ranks[childId];
+
+            var weight = 1;
+            this.DG.GG.addEdge(childHubId, childId, weight);
+
+            var animateList = [childId];
+
+            if (rankChildHub != rankChild - 1) {
+                return this.redrawAll(animateList);
+            }
+
+            var positionsBefore = this.DG.positions.slice(0);
+            var ranksBefore = this.DG.ranks.slice(0);
+            var vertLevelsBefore = this.DG.vertLevel.copy();
+            var rankYBefore = this.DG.rankY.slice(0);
+            var consangrBefore = this.DG.consangr;
+            var numNodesBefore = this.DG.GG.getMaxRealVertexId();
+
+            // TODO: move vertex closer to other children, if possible?
+
+            // validate: by now the graph should satisfy all assumptions
+            this.DG.GG.validate();
+
+            // update vertical separation for all nodes & compute ancestors
+            this._updateauxiliaryStructures(ranksBefore, rankYBefore);
+
+            positionsBefore[parentId] = Infinity; // so that it is added to the list of moved nodes
+            var movedNodes = this._findMovedNodes(numNodesBefore, positionsBefore, ranksBefore, vertLevelsBefore, rankYBefore, consangrBefore);
+            return { "moved": movedNodes, "animate": [childId] };
+        } else {
+            var rankParent = this.DG.ranks[parentId];
+            var rankChild = this.DG.ranks[childId];
+
+            var partnerProperties = { "gender": this.DG.GG.getOppositeGender(parentId) };
+
+            //console.log("rankParent: " + rankParent + ", rankChild: " + rankChild );
+
+            if (rankParent >= rankChild) {
+                var ranksBefore = this.DG.ranks.slice(0);
+                // need a complete redraw, since this violates the core layout rule. In this case insert orders do not matter
+                var insertChildhubRank = rankChild - 1;
+                var newChildhubId = this._insertVertex(__WEBPACK_IMPORTED_MODULE_0__baseGraph__["b" /* TYPE */].CHILDHUB, {}, 1.0, null, childId, insertChildhubRank, 0);
+                var insertParentsRank = this.DG.ranks[newChildhubId] - 1; // note: rank may have changed since last insertion
+                var newRelationshipId = this._insertVertex(__WEBPACK_IMPORTED_MODULE_0__baseGraph__["b" /* TYPE */].RELATIONSHIP, {}, 1.0, null, newChildhubId, insertParentsRank, 0);
+                var newParentId = this._insertVertex(__WEBPACK_IMPORTED_MODULE_0__baseGraph__["b" /* TYPE */].PERSON, partnerProperties, 1.0, null, newRelationshipId, insertParentsRank, 0);
+                this.DG.GG.addEdge(parentId, newRelationshipId, 1);
+                var animateList = [childId, parentId];
+                var newList = [newRelationshipId, newParentId];
+                return this.redrawAll(animateList, newList, ranksBefore);
+            }
+
+            // add new childhub     @ rank (rankChild - 1)
+            // add new relationship @ rank (rankChild - 2)
+            // add new parent       @ rank (rankChild - 2) right next to new relationship
+            //                        (left or right depends on if the other parent is right or left)
+            // depending on other parent rank either draw a multi-rank relationship edge or regular relationship edge
+
+            this._debugPrintAll("before");
+            var timer = new __WEBPACK_IMPORTED_MODULE_4__helpers__["g" /* Timer */]();
+
+            var positionsBefore = this.DG.positions.slice(0);
+            var ranksBefore = this.DG.ranks.slice(0);
+            var vertLevelsBefore = this.DG.vertLevel.copy();
+            var rankYBefore = this.DG.rankY.slice(0);
+            var consangrBefore = this.DG.consangr;
+            var numNodesBefore = this.DG.GG.getMaxRealVertexId();
+
+            var x_parent = this.DG.positions[parentId];
+            var x_child = this.DG.positions[childId];
+
+            if (rankParent == rankChild - 2) {
+                // the order of new node creation is then:
+                // 1) new relationship node
+                // 2) new partner
+                // 3) new childhub
+                var preferLeft = x_child < x_parent;
+
+                // add same-rank relationship edge
+                var insertRelatOrder = this._findBestInsertPosition(rankParent, parentId, preferLeft);
+                var newRelationshipId = this._insertVertex(__WEBPACK_IMPORTED_MODULE_0__baseGraph__["b" /* TYPE */].RELATIONSHIP, {}, 1.0, parentId, null, rankParent, insertRelatOrder);
+
+                var newParentOrder = this.DG.order.vOrder[parentId] > this.DG.order.vOrder[newRelationshipId] ? insertRelatOrder : insertRelatOrder + 1;
+                var newParentId = this._insertVertex(__WEBPACK_IMPORTED_MODULE_0__baseGraph__["b" /* TYPE */].PERSON, partnerProperties, 1.0, null, newRelationshipId, rankParent, newParentOrder);
+
+                var insertChildhubRank = rankChild - 1;
+                var insertChildhubOrder = this._findBestInsertPosition(insertChildhubRank, newRelationshipId);
+                var newChildhubId = this._insertVertex(__WEBPACK_IMPORTED_MODULE_0__baseGraph__["b" /* TYPE */].CHILDHUB, {}, 1.0, newRelationshipId, null, insertChildhubRank, insertChildhubOrder);
+
+                this.DG.GG.addEdge(newChildhubId, childId, 1);
+            } else {
+                // need to add a multi-rank edge: order of node creation is different:
+                // 1) new childhub
+                // 2) new relationship node
+                // 3) new partner
+                // 4) multi-rank edge
+                // add a multi-rank relationship edge (e.g. a sequence of edges between virtual nodes on intermediate ranks)
+
+                var insertChildhubRank = rankChild - 1;
+                var insertChildhubOrder = this._findBestInsertPosition(insertChildhubRank, childId);
+                var newChildhubId = this._insertVertex(__WEBPACK_IMPORTED_MODULE_0__baseGraph__["b" /* TYPE */].CHILDHUB, {}, 1.0, null, childId, insertChildhubRank, insertChildhubOrder);
+
+                var insertParentsRank = rankChild - 2;
+
+                var insertRelatOrder = this._findBestInsertPosition(insertParentsRank, newChildhubId);
+                var newRelationshipId = this._insertVertex(__WEBPACK_IMPORTED_MODULE_0__baseGraph__["b" /* TYPE */].RELATIONSHIP, {}, 1.0, null, newChildhubId, insertParentsRank, insertRelatOrder);
+
+                var newParentOrder = this.DG.positions[parentId] > this.DG.positions[newRelationshipId] ? insertRelatOrder : insertRelatOrder + 1;
+                var newParentId = this._insertVertex(__WEBPACK_IMPORTED_MODULE_0__baseGraph__["b" /* TYPE */].PERSON, partnerProperties, 1.0, null, newRelationshipId, insertParentsRank, newParentOrder);
+
+                this._addMultiRankEdge(parentId, newRelationshipId);
+            }
+
+            // validate: by now the graph should satisfy all assumptions
+            this.DG.GG.validate();
+
+            // fix common layout mistakes (e.g. relationship not right above the only child)
+            // and update vertical positioning of all edges
+            this._heuristics.improvePositioning(ranksBefore, rankYBefore);
+
+            // update ancestors
+            this.updateAncestors();
+
+            timer.printSinceLast("=== DragToParentOrChild runtime: ");
+            this._debugPrintAll("after");
+
+            if (this.DG.positions.length >= 31) console.log("position of node 32: " + this.DG.positions[32] + ", was: " + positionsBefore[32]);
+            var movedNodes = this._findMovedNodes(numNodesBefore, positionsBefore, ranksBefore, vertLevelsBefore, rankYBefore, consangrBefore);
+            var newNodes = [newRelationshipId, newParentId];
+            return { "new": newNodes, "moved": movedNodes, "highlight": [parentId, newParentId, childId] };
+        }
+    },
+
+    assignPartner: function (person1, person2, childProperties) {
+        var positionsBefore = this.DG.positions.slice(0);
+        var ranksBefore = this.DG.ranks.slice(0);
+        var vertLevelsBefore = this.DG.vertLevel.copy();
+        var rankYBefore = this.DG.rankY.slice(0);
+        var consangrBefore = this.DG.consangr;
+        var numNodesBefore = this.DG.GG.getMaxRealVertexId();
+
+        var rankP1 = this.DG.ranks[person1];
+        var rankP2 = this.DG.ranks[person2];
+
+        if (rankP1 < rankP2 || rankP1 == rankP2 && this.DG.order.vOrder[person2] < this.DG.order.vOrder[person1]) {
+            var tmpPerson = person2;
+            person2 = person1;
+            person1 = tmpPerson;
+
+            rankP1 = rankP2;
+            rankP2 = this.DG.ranks[person2];
+        }
+
+        var x_person1 = this.DG.positions[person1];
+        var x_person2 = this.DG.positions[person2];
+
+        var weight = 1;
+
+        var preferLeft = x_person2 < x_person1;
+        var insertRelatOrder = rankP1 == rankP2 ? this._findBestRelationshipPosition(person1, false, person2) : this._findBestRelationshipPosition(person1, preferLeft);
+        var newRelationshipId = this._insertVertex(__WEBPACK_IMPORTED_MODULE_0__baseGraph__["b" /* TYPE */].RELATIONSHIP, {}, weight, person1, null, rankP1, insertRelatOrder);
+
+        var insertChildhubRank = this.DG.ranks[newRelationshipId] + 1;
+        var insertChildhubOrder = this._findBestInsertPosition(insertChildhubRank, newRelationshipId);
+        var newChildhubId = this._insertVertex(__WEBPACK_IMPORTED_MODULE_0__baseGraph__["b" /* TYPE */].CHILDHUB, {}, 1.0, newRelationshipId, null, insertChildhubRank, insertChildhubOrder);
+
+        var insertChildRank = insertChildhubRank + 1;
+        var insertChildOrder = this._findBestInsertPosition(insertChildRank, newChildhubId);
+        var newChildId = this._insertVertex(__WEBPACK_IMPORTED_MODULE_0__baseGraph__["b" /* TYPE */].PERSON, childProperties, 1.0, newChildhubId, null, insertChildRank, insertChildOrder);
+
+        if (rankP1 == rankP2) {
+            this.DG.GG.addEdge(person2, newRelationshipId, weight);
+        } else {
+            this._addMultiRankEdge(person2, newRelationshipId);
+        }
+
+        // validate: by now the graph should satisfy all assumptions
+        this.DG.GG.validate();
+
+        // fix common layout mistakes (e.g. relationship not right above the only child)
+        // and update vertical positioning of all edges
+        this._heuristics.improvePositioning(ranksBefore, rankYBefore);
+
+        // update ancestors
+        this.updateAncestors();
+
+        this._debugPrintAll("after");
+
+        var movedNodes = this._findMovedNodes(numNodesBefore, positionsBefore, ranksBefore, vertLevelsBefore, rankYBefore, consangrBefore);
+        var newNodes = [newRelationshipId, newChildId];
+        return { "new": newNodes, "moved": movedNodes, "highlight": [person1, person2, newChildId] };
+    },
+
+    addTwin: function (personId, properties) {
+        var positionsBefore = this.DG.positions.slice(0);
+        var ranksBefore = this.DG.ranks.slice(0);
+        var vertLevelsBefore = this.DG.vertLevel.copy();
+        var rankYBefore = this.DG.rankY.slice(0);
+        var numNodesBefore = this.DG.GG.getMaxRealVertexId();
+
+        var parentRel = this.DG.GG.getProducingRelationship(personId);
+
+        var twinGroupId = this.DG.GG.getTwinGroupId(personId);
+        if (twinGroupId === null) {
+            twinGroupId = this.DG.GG.getUnusedTwinGroupId(parentRel);
+            console.log("new twin id: " + twinGroupId);
+            this.DG.GG.properties[personId]["twinGroup"] = twinGroupId;
+        }
+        properties["twinGroup"] = twinGroupId;
+
+        var insertRank = this.DG.ranks[personId];
+
+        // find the best order to use for this new vertex: scan all orders on the rank, check number of crossed edges
+        var insertOrder = this.DG.findBestTwinInsertPosition(personId, []);
+
+        // insert the vertex into the base graph and update ranks, orders & positions
+        var childhubId = this.DG.GG.getInEdges(personId)[0];
+        var newNodeId = this._insertVertex(__WEBPACK_IMPORTED_MODULE_0__baseGraph__["b" /* TYPE */].PERSON, properties, 1.0, childhubId, null, insertRank, insertOrder);
+
+        // validate: by now the graph should satisfy all assumptions
+        this.DG.GG.validate();
+
+        // fix common layout mistakes (e.g. relationship not right above the only child)
+        this._heuristics.improvePositioning(ranksBefore, rankYBefore);
+
+        var movedNodes = this._findMovedNodes(numNodesBefore, positionsBefore, ranksBefore, vertLevelsBefore, rankYBefore);
+        if (!__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_4__helpers__["h" /* arrayContains */])(movedNodes, parentRel)) movedNodes.push(parentRel);
+        var animateNodes = this.DG.GG.getInEdges(parentRel).slice(0); // animate parents if they move. if not, nothing will be done with them
+        animateNodes.push(personId);
+        var newNodes = [newNodeId];
+        return { "new": newNodes, "moved": movedNodes, "animate": animateNodes };
+    },
+
+    removeNodes: function (nodeList) {
+        this._debugPrintAll("before");
+
+        //var positionsBefore  = this.DG.positions.slice(0);
+        //var ranksBefore      = this.DG.ranks.slice(0);
+        //var vertLevelsBefore = this.DG.vertLevel.copy();
+        //var rankYBefore      = this.DG.rankY.slice(0);
+        //var consangrBefore   = this.DG.consangr;
+        //var numNodesBefore   = this.DG.GG.getMaxRealVertexId();
+
+        var removed = nodeList.slice(0);
+        removed.sort();
+        var moved = [];
+
+        for (var i = 0; i < nodeList.length; i++) {
+            if (this.isRelationship(nodeList[i])) {
+                // also add its childhub
+                var chHub = this.DG.GG.getOutEdges(nodeList[i])[0];
+                nodeList.push(chHub);
+                console.log("adding " + chHub + " to removal list (chhub of " + nodeList[i] + ")");
+
+                // also add its long multi-rank edges
+                var pathToParents = this.getPathToParents(nodeList[i]);
+                for (var p = 0; p < pathToParents.length; p++) {
+                    for (var j = 0; j < pathToParents[p].length; j++) if (this.DG.GG.isVirtual(pathToParents[p][j])) {
+                        console.log("adding " + pathToParents[p][j] + " to removal list (virtual of " + nodeList[i] + ")");
+                        nodeList.push(pathToParents[p][j]);
+                    }
+                }
+            }
+        }
+
+        nodeList.sort(function (a, b) {
+            return a - b;
+        });
+
+        //console.log("nodeList: " + stringifyObject(nodeList));
+
+        for (var i = nodeList.length - 1; i >= 0; i--) {
+            var v = nodeList[i];
+            //console.log("removing: " + v);
+
+            //// add person't relationship to the list of moved nodes
+            //if (this.isPerson(v)) {
+            //    var rel = this.DG.GG.getProducingRelationship(v);
+            //    // rel may have been already removed
+            //    if (rel !== null && !arrayContains(nodeList, rel))
+            //        moved.push(rel);
+            //}
+
+            this.DG.GG.remove(v);
+            //console.log("order before: " + stringifyObject(this.DG.order));
+            this.DG.order.remove(v, this.DG.ranks[v]);
+            //console.log("order after: " + stringifyObject(this.DG.order));
+            this.DG.ranks.splice(v, 1);
+            this.DG.positions.splice(v, 1);
+
+            //// update moved IDs accordingly
+            //for (var m = 0; m < moved.length; m++ ) {
+            //    if (moved[m] > v)
+            //        moved[m]--;
+            //}
+        }
+
+        this.DG.maxRank = Math.max.apply(null, this.DG.ranks);
+
+        this.DG.GG.validate();
+
+        // note: do not update rankY, as we do not want to move anything (we know we don't need more Y space after a deletion)
+        this.DG.vertLevel = this.DG.positionVertically();
+        this.updateAncestors();
+
+        // TODO: for now: redraw all relationships
+        for (var i = 0; i <= this.getMaxNodeId(); i++) if (this.isRelationship(i)) moved.push(i);
+
+        // note: _findMovedNodes() does not work when IDs have changed. TODO
+        //var movedNodes = this._findMovedNodes( numNodesBefore, positionsBefore, ranksBefore, vertLevelsBefore, rankYBefore );
+        //for (var i = 0; i < moved.length; i++)
+        //    if (!arrayContains(movedNodes, moved[i]))
+        //        movedNodes.push(moved[i]);
+
+        // note: moved now has the correct IDs valid in the graph with all affected nodes removed
+        return { "removed": removed, "removedInternally": nodeList, "moved": moved };
+    },
+
+    improvePosition: function () {
+        //this.DG.positions = this.DG.position(this.DG.horizontalPersonSeparationDist, this.DG.horizontalRelSeparationDist);
+        //var movedNodes = this._getAllNodes();
+        //return {"moved": movedNodes};
+        var positionsBefore = this.DG.positions.slice(0);
+        var ranksBefore = this.DG.ranks.slice(0);
+        var vertLevelsBefore = this.DG.vertLevel.copy();
+        var rankYBefore = this.DG.rankY.slice(0);
+        var numNodesBefore = this.DG.GG.getMaxRealVertexId();
+
+        // fix common layout mistakes (e.g. relationship not right above the only child)
+        this._heuristics.improvePositioning(ranksBefore, rankYBefore);
+
+        var movedNodes = this._findMovedNodes(numNodesBefore, positionsBefore, ranksBefore, vertLevelsBefore, rankYBefore);
+
+        return { "moved": movedNodes };
+    },
+
+    clearAll: function () {
+        var removedNodes = this._getAllNodes(1); // all nodes from 1 and up
+
+        var emptyGraph = this.DG.GG.getNumVertices() == 0;
+
+        var node0properties = emptyGraph ? {} : this.getProperties(0);
+
+        // it is easier to create abrand new graph transferirng node 0 propertie sthna to remove on-by-one
+        // each time updating ranks, orders, etc
+
+        var baseGraph = __WEBPACK_IMPORTED_MODULE_3__import__["a" /* PedigreeImport */].initFromPhenotipsInternal(this._onlyProbandGraph);
+
+        this._recreateUsingBaseGraph(baseGraph);
+
+        this.setProperties(0, node0properties);
+
+        if (emptyGraph) return { "new": [0], "makevisible": [0] };
+
+        return { "removed": removedNodes, "moved": [0], "makevisible": [0] };
+    },
+
+    redrawAll: function (animateList, newList, ranksBefore) {
+        var ranksBefore = ranksBefore ? ranksBefore : this.DG.ranks.slice(0); // sometimes we want to use ranksbefore as they were before some stuff was added to the graph before a redraw
+
+        this._debugPrintAll("before");
+
+        var baseGraph = this.DG.GG.makeGWithCollapsedMultiRankEdges();
+
+        // collect current node ranks so that the new layout can be made more similar to the current one
+        var oldRanks = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_4__helpers__["k" /* clone2DArray */])(this.DG.order.order);
+        for (var i = oldRanks.length - 1; i >= 0; i--) {
+            oldRanks[i] = oldRanks[i].filter(this.DG.GG.isPerson.bind(this.DG.GG));
+            if (oldRanks[i].length == 0) oldRanks.splice(i, 1);
+        }
+
+        if (!this._recreateUsingBaseGraph(baseGraph, oldRanks)) return {}; // no changes
+
+        var movedNodes = this._getAllNodes();
+
+        var probandReRankSize = ranksBefore[0] - this.DG.ranks[0];
+        var reRankedDiffFrom0 = [];
+        var reRanked = [];
+        for (var i = 0; i <= this.DG.GG.getMaxRealVertexId(); i++) {
+            if (this.DG.GG.isPerson(i)) if (this.DG.ranks[i] != ranksBefore[i]) {
+                reRanked.push(i);
+            }
+            if (ranksBefore[i] - this.DG.ranks[i] != probandReRankSize) {
+                reRankedDiffFrom0.push(i);
+            }
+        }
+        if (reRankedDiffFrom0.length < reRanked.length) {
+            reRanked = reRankedDiffFrom0;
+        }
+
+        if (!animateList) animateList = [];
+
+        if (!newList) newList = [];else {
+            // nodes which are force-marked as new can't be in the "moved" list
+            for (var i = 0; i < newList.length; i++) __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_4__helpers__["j" /* removeFirstOccurrenceByValue */])(movedNodes, newList[i]);
+        }
+
+        this._debugPrintAll("after");
+
+        return { "new": newList, "moved": movedNodes, "highlight": reRanked, "animate": animateList };
+    },
+
+    // remove empty-values optional properties, e.g. "fName: ''" or "disorders: []"
+    stripUnusedProperties: function () {
+        for (var i = 0; i <= this.DG.GG.getMaxRealVertexId(); i++) {
+            if (this.isPerson(i)) {
+                this.deleteEmptyProperty(i, "fName");
+                this.deleteEmptyProperty(i, "lName");
+                this.deleteEmptyProperty(i, "gestationAge");
+                this.deleteEmptyProperty(i, "carrierStatus");
+                this.deleteEmptyProperty(i, "comments");
+                this.deleteEmptyProperty(i, "disorders");
+            }
+        }
+    },
+
+    deleteEmptyProperty: function (nodeID, propName) {
+        if (this.DG.GG.properties[nodeID].hasOwnProperty(propName)) {
+            if (Object.prototype.toString.call(this.DG.GG.properties[nodeID][propName]) === "[object Array]" && this.DG.GG.properties[nodeID][propName].length == 0) {
+                delete this.DG.GG.properties[nodeID][propName];
+            } else if (this.DG.GG.properties[nodeID][propName] == "") {
+                delete this.DG.GG.properties[nodeID][propName];
+            }
+        }
+    },
+
+    toJSON: function () {
+        this.stripUnusedProperties();
+
+        //var timer = new Timer();
+        var output = {};
+
+        // note: when saving positioned graph, need to save the version of the graph which has virtual edge pieces
+        output["GG"] = this.DG.GG.serialize();
+
+        output["ranks"] = this.DG.ranks;
+        output["order"] = this.DG.order.serialize();
+        output["positions"] = this.DG.positions;
+
+        // note: everything else can be recomputed based on the information above
+
+        console.log("JSON represenation: " + JSON.stringify(output));
+        //timer.printSinceLast("=== to JSON: ");
+
+        return JSON.stringify(output);
+    },
+
+    fromJSON: function (serializedAsJSON) {
+        var removedNodes = this._getAllNodes();
+
+        var serializedData = JSON.parse(serializedAsJSON);
+
+        //console.log("Got serialization object: " + stringifyObject(serializedData));
+
+        this.DG.GG = __WEBPACK_IMPORTED_MODULE_3__import__["a" /* PedigreeImport */].initFromPhenotipsInternal(serializedData["GG"]);
+
+        this.DG.ranks = serializedData["ranks"];
+
+        this.DG.maxRank = Math.max.apply(null, this.DG.ranks);
+
+        this.DG.order.deserialize(serializedData["order"]);
+
+        this.DG.positions = serializedData["positions"];
+
+        this._updateauxiliaryStructures();
+
+        this.screenRankShift = 0;
+
+        var newNodes = this._getAllNodes();
+
+        return { "new": newNodes, "removed": removedNodes };
+    },
+
+    fromImport: function (importString, importType, importOptions) {
+        var removedNodes = this._getAllNodes();
+
+        //this._debugPrintAll("before");
+
+        if (importType == "ped") {
+            var baseGraph = __WEBPACK_IMPORTED_MODULE_3__import__["a" /* PedigreeImport */].initFromPED(importString, importOptions.acceptUnknownPhenotypes, importOptions.markEvaluated, importOptions.externalIdMark);
+            if (!this._recreateUsingBaseGraph(baseGraph)) return null; // no changes
+        } else if (importType == "BOADICEA") {
+            var baseGraph = __WEBPACK_IMPORTED_MODULE_3__import__["a" /* PedigreeImport */].initFromBOADICEA(importString, importOptions.externalIdMark);
+            if (!this._recreateUsingBaseGraph(baseGraph)) return null; // no changes
+        } else if (importType == "gedcom") {
+            var baseGraph = __WEBPACK_IMPORTED_MODULE_3__import__["a" /* PedigreeImport */].initFromGEDCOM(importString, importOptions.markEvaluated, importOptions.externalIdMark);
+            if (!this._recreateUsingBaseGraph(baseGraph)) return null; // no changes
+        } else if (importType == "simpleJSON") {
+            var baseGraph = __WEBPACK_IMPORTED_MODULE_3__import__["a" /* PedigreeImport */].initFromSimpleJSON(importString);
+            if (!this._recreateUsingBaseGraph(baseGraph)) return null; // no changes            
+        } else if (importType == "phenotipsJSON") {}
+
+        // TODO
+
+
+        //this._debugPrintAll("after");
+
+        var newNodes = this._getAllNodes();
+
+        return { "new": newNodes, "removed": removedNodes };
+    },
+
+    getPathToParents: function (v) {
+        // returns an array with two elements: path to parent1 (excluding v) and path to parent2 (excluding v):
+        // [ [virtual_node_11, ..., virtual_node_1n, parent1], [virtual_node_21, ..., virtual_node_2n, parent21] ]
+        return this.DG.GG.getPathToParents(v);
+    },
+
+    //=============================================================
+
+    // suggestedRanks: when provided, attempt to use the suggested rank for all nodes,
+    //                 in order to keep the new layout as close as possible to the previous layout
+    _recreateUsingBaseGraph: function (baseGraph, suggestedRanks) {
+        try {
+            var newDG = new __WEBPACK_IMPORTED_MODULE_1__positionedGraph__["a" /* PositionedGraph */](baseGraph, this.DG.horizontalPersonSeparationDist, this.DG.horizontalRelSeparationDist, this.DG.maxInitOrderingBuckets, this.DG.maxOrderingIterations, this.DG.maxXcoordIterations, false, suggestedRanks);
+        } catch (e) {
+            console.trace(e);
+            return false;
+        }
+
+        this.DG = newDG;
+        this._heuristics = new __WEBPACK_IMPORTED_MODULE_2__heuristics__["a" /* Heuristics */](this.DG);
+
+        //this._debugPrintAll("before improvement");
+        this._heuristics.improvePositioning();
+        //this._debugPrintAll("after improvement");
+
+        return true;
+    },
+
+    _insertVertex: function (type, properties, edgeWeights, inedge, outedge, insertRank, insertOrder) {
+        // all nodes are connected to some other node, so either inedge or outedge should be given
+        if (inedge === null && outedge === null) throw "Assertion failed: each node should be connected to at least one other node";
+        if (inedge !== null && outedge !== null) throw "Assertion failed: not clear which edge crossing to optimize, can only insert one edge";
+
+        var inedges = inedge !== null ? [inedge] : [];
+        var outedges = outedge !== null ? [outedge] : [];
+
+        var newNodeId = this.DG.GG.insertVertex(type, properties, edgeWeights, inedges, outedges);
+
+        // note: the graph may be inconsistent at this point, e.g. there may be childhubs with
+        // no relationships or relationships without any people attached
+
+        if (insertRank == 0) {
+            for (var i = 0; i < this.DG.ranks.length; i++) this.DG.ranks[i]++;
+            this.DG.maxRank++;
+
+            this.DG.order.insertRank(1);
+
+            insertRank = 1;
+        } else if (insertRank > this.DG.maxRank) {
+            this.DG.maxRank = insertRank;
+            this.DG.order.insertRank(insertRank);
+        }
+
+        this.DG.ranks.splice(newNodeId, 0, insertRank);
+
+        this.DG.order.insertAndShiftAllIdsAboveVByOne(newNodeId, insertRank, insertOrder);
+
+        // update positions
+        this.DG.positions.splice(newNodeId, 0, -Infinity); // temporary position: will move to the correct location and shift other nodes below
+
+        var nodeToKeepEdgeStraightTo = inedge != null ? inedge : outedge;
+        this._heuristics.moveToCorrectPositionAndMoveOtherNodesAsNecessary(newNodeId, nodeToKeepEdgeStraightTo);
+
+        return newNodeId;
+    },
+
+    _updateauxiliaryStructures: function (ranksBefore, rankYBefore) {
+        var timer = new __WEBPACK_IMPORTED_MODULE_4__helpers__["g" /* Timer */]();
+
+        // update vertical levels
+        this.DG.vertLevel = this.DG.positionVertically();
+        this.DG.rankY = this.DG.computeRankY(ranksBefore, rankYBefore);
+
+        // update ancestors
+        this.updateAncestors();
+
+        timer.printSinceLast("=== Vertical spacing + ancestors runtime: ");
+    },
+
+    _getAllNodes: function (minID, maxID) {
+        var nodes = [];
+        var minID = minID ? minID : 0;
+        var maxID = maxID ? Math.min(maxID, this.DG.GG.getMaxRealVertexId()) : this.DG.GG.getMaxRealVertexId();
+        for (var i = minID; i <= maxID; i++) {
+            if (this.DG.GG.type[i] == __WEBPACK_IMPORTED_MODULE_0__baseGraph__["b" /* TYPE */].PERSON || this.DG.GG.type[i] == __WEBPACK_IMPORTED_MODULE_0__baseGraph__["b" /* TYPE */].RELATIONSHIP) nodes.push(i);
+        }
+        return nodes;
+    },
+
+    _findMovedNodes: function (maxOldID, positionsBefore, ranksBefore, vertLevelsBefore, rankYBefore, consangrBefore) {
+        //console.log("Before: " + stringifyObject(vertLevelsBefore));
+        //console.log("After:  " + stringifyObject(this.DG.vertLevel));
+        //console.log("Before: " + stringifyObject(positionsBefore));
+        //console.log("After: " + stringifyObject(this.DG.positions));
+
+        // TODO: some heuristics cause this behaviour. Easy to fix by normalization, but better look into root cause later
+        // normalize positions: if the leftmost coordinate is now greater than it was before
+        // make the old leftmost node keep it's coordinate
+        var oldMin = Math.min.apply(Math, positionsBefore);
+        var newMin = Math.min.apply(Math, this.DG.positions);
+        if (newMin > oldMin) {
+            var oldMinNodeID = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_4__helpers__["l" /* arrayIndexOf */])(positionsBefore, oldMin);
+            var newMinValue = this.DG.positions[oldMinNodeID];
+            var shiftAmount = newMinValue - oldMin;
+
+            for (var i = 0; i < this.DG.positions.length; i++) this.DG.positions[i] -= shiftAmount;
+        }
+
+        var result = {};
+        for (var i = 0; i <= maxOldID; i++) {
+            // this node was moved
+            if (this.DG.GG.type[i] == __WEBPACK_IMPORTED_MODULE_0__baseGraph__["b" /* TYPE */].RELATIONSHIP || this.DG.GG.type[i] == __WEBPACK_IMPORTED_MODULE_0__baseGraph__["b" /* TYPE */].PERSON) {
+                var rank = this.DG.ranks[i];
+                //if (rank != ranksBefore[i]) {
+                //    this._addNodeAndAssociatedRelationships(i, result, maxOldID);
+                //    continue;
+                //}
+                if (rankYBefore && this.DG.rankY[rank] != rankYBefore[ranksBefore[i]]) {
+                    this._addNodeAndAssociatedRelationships(i, result, maxOldID);
+                    continue;
+                }
+                if (this.DG.positions[i] != positionsBefore[i]) {
+                    this._addNodeAndAssociatedRelationships(i, result, maxOldID);
+                    continue;
+                }
+                // or it is a relationship with a long edge - redraw just in case since long edges may have complicated curves around other nodes
+                if (this.DG.GG.type[i] == __WEBPACK_IMPORTED_MODULE_0__baseGraph__["b" /* TYPE */].RELATIONSHIP) {
+                    if (consangrBefore && !consangrBefore.hasOwnProperty(i) && this.DG.consangr.hasOwnProperty(i)) {
+                        result[i] = true;
+                        continue;
+                    }
+                    var inEdges = this.DG.GG.getInEdges(i);
+                    if (inEdges[0] > this.DG.GG.maxRealVertexId || inEdges[1] > this.DG.GG.maxRealVertexId) {
+                        result[i] = true;
+                        continue;
+                    }
+                    // check vertical positioning changes
+                    var parents = this.DG.GG.getParents(i);
+                    if (vertLevelsBefore.outEdgeVerticalLevel[parents[0]] !== undefined && // vertical levels may be outdated if multiple nodes were created in one batch
+                    vertLevelsBefore.outEdgeVerticalLevel[parents[1]] !== undefined) {
+                        if (vertLevelsBefore.outEdgeVerticalLevel[parents[0]][i].verticalLevel != this.DG.vertLevel.outEdgeVerticalLevel[parents[0]][i].verticalLevel || vertLevelsBefore.outEdgeVerticalLevel[parents[1]][i].verticalLevel != this.DG.vertLevel.outEdgeVerticalLevel[parents[1]][i].verticalLevel) {
+                            result[i] = true;
+                            continue;
+                        }
+                    }
+
+                    var childHub = this.DG.GG.getRelationshipChildhub(i);
+                    if (vertLevelsBefore.childEdgeLevel[childHub] !== undefined && vertLevelsBefore.childEdgeLevel[childHub] != this.DG.vertLevel.childEdgeLevel[childHub]) {
+                        result[i] = true;
+                        continue;
+                    }
+                }
+            }
+        }
+
+        var resultArray = [];
+        for (var node in result) {
+            if (result.hasOwnProperty(node)) {
+                resultArray.push(parseInt(node));
+            }
+        }
+
+        return resultArray;
+    },
+
+    _addNodeAndAssociatedRelationships: function (node, addToSet, maxOldID) {
+        addToSet[node] = true;
+        if (this.DG.GG.type[node] != __WEBPACK_IMPORTED_MODULE_0__baseGraph__["b" /* TYPE */].PERSON) return;
+
+        var inEdges = this.DG.GG.getInEdges(node);
+        if (inEdges.length > 0) {
+            var parentChildhub = inEdges[0];
+            var parentRelationship = this.DG.GG.getInEdges(parentChildhub)[0];
+            if (parentRelationship <= maxOldID) addToSet[parentRelationship] = true;
+        }
+
+        var outEdges = this.DG.GG.getOutEdges(node);
+        for (var i = 0; i < outEdges.length; i++) {
+            if (outEdges[i] <= maxOldID) addToSet[outEdges[i]] = true;
+        }
+    },
+
+    //=============================================================
+
+    _addMultiRankEdge: function (personId, relationshipId, _weight) {
+        var weight = _weight ? _weight : 1.0;
+
+        var rankPerson = this.DG.ranks[personId];
+        var rankRelationship = this.DG.ranks[relationshipId];
+
+        if (rankPerson > rankRelationship - 2) throw "Assertion failed: attempt to make a multi-rank edge between non-multirank ranks";
+
+        var otherpartner = this.DG.GG.getInEdges(relationshipId)[0];
+
+        var order_person = this.DG.order.vOrder[personId];
+        var order_rel = this.DG.order.vOrder[relationshipId];
+
+        var x_person = this.DG.positions[otherpartner];
+        var x_relationship = this.DG.positions[relationshipId];
+
+        var prevPieceOrder = x_person < x_relationship ? order_rel + 1 : order_rel;
+        var prevPieceId = this._insertVertex(__WEBPACK_IMPORTED_MODULE_0__baseGraph__["b" /* TYPE */].VIRTUALEDGE, {}, weight, null, relationshipId, rankRelationship, prevPieceOrder);
+
+        // TODO: an algorithm which optimizes the entire edge placement globally (not one piece at a time)
+
+        var rankNext = rankRelationship;
+        while (--rankNext > rankPerson) {
+
+            var prevNodeX = this.DG.positions[prevPieceId];
+            var orderToMakeEdgeStraight = this.DG.order.order[rankNext].length;
+            for (var o = 0; o < this.DG.order.order[rankNext].length; o++) if (this.DG.positions[this.DG.order.order[rankNext][o]] >= prevNodeX) {
+                orderToMakeEdgeStraight = o;
+                break;
+            }
+
+            console.log("adding piece @ rank: " + rankNext + " @ order " + orderToMakeEdgeStraight);
+
+            prevPieceId = this._insertVertex(__WEBPACK_IMPORTED_MODULE_0__baseGraph__["b" /* TYPE */].VIRTUALEDGE, {}, weight, null, prevPieceId, rankNext, orderToMakeEdgeStraight);
+        }
+
+        //connect last piece with personId
+        this.DG.GG.addEdge(personId, prevPieceId, weight);
+    },
+
+    //=============================================================
+
+    _findBestInsertPosition: function (rank, edgeToV, preferLeft, _fromOrder, _toOrder) {
+        // note: does not assert that the graph satisfies all the assumptions in BaseGraph.validate()
+
+        if (rank == 0 || rank > this.DG.maxRank) return 0;
+
+        // find the order on rank 'rank' to insert a new vertex so that the edge connecting this new vertex
+        // and vertex 'edgeToV' crosses the smallest number of edges.
+        var edgeToRank = this.DG.ranks[edgeToV];
+        var edgeToOrder = this.DG.order.vOrder[edgeToV];
+
+        if (edgeToRank == rank && this.isPerson(edgeToV)) return this._findBestRelationshipPosition(edgeToV, preferLeft);
+
+        var bestInsertOrder = 0;
+        var bestCrossings = Infinity;
+        var bestDistance = Infinity;
+
+        var crossingChildhubEdgesPenalty = false;
+        if (this.DG.GG.type[edgeToV] == __WEBPACK_IMPORTED_MODULE_0__baseGraph__["b" /* TYPE */].CHILDHUB) crossingChildhubEdgesPenalty = true;
+
+        var desiredOrder = 0;
+
+        var edgeToX = this.DG.positions[edgeToV];
+        for (var o = 0; o < this.DG.order.order[rank].length; o++) {
+            var uAtPos = this.DG.order.order[rank][o];
+            var uX = this.DG.positions[uAtPos];
+            if (uX < edgeToX) {
+                desiredOrder = o + 1;
+            } else {
+                break;
+            }
+        }
+
+        // when inserting children below childhubs: next to other children
+        if (this.DG.GG.type[edgeToV] == __WEBPACK_IMPORTED_MODULE_0__baseGraph__["b" /* TYPE */].CHILDHUB && rank > edgeToRank && this.DG.GG.getOutEdges(edgeToV).length > 0) desiredOrder = this._findRightmostChildPosition(edgeToV) + 1;
+
+        var fromOrder = _fromOrder ? Math.max(_fromOrder, 0) : 0;
+        var toOrder = _toOrder ? Math.min(_toOrder, this.DG.order.order[rank].length) : this.DG.order.order[rank].length;
+        for (var o = fromOrder; o <= toOrder; o++) {
+
+            // make sure not inserting inbetween some twins
+            if (o > 0 && o < this.DG.order.order[rank].length) {
+                // skip virtual edges which may appear between twins
+                var leftNodePos = o - 1;
+                while (leftNodePos > 0 && this.DG.GG.isVirtual(this.DG.order.order[rank][leftNodePos])) leftNodePos--;
+                rightNodePos = o;
+                while (rightNodePos < this.DG.order.order[rank].length - 1 && this.DG.GG.isVirtual(this.DG.order.order[rank][rightNodePos])) rightNodePos--;
+                var nodeToTheLeft = this.DG.order.order[rank][leftNodePos];
+                var nodeToTheRight = this.DG.order.order[rank][rightNodePos];
+
+                if (this.isPerson(nodeToTheLeft) && this.isPerson(nodeToTheRight)) {
+                    var rel1 = this.DG.GG.getProducingRelationship(nodeToTheLeft);
+                    var rel2 = this.DG.GG.getProducingRelationship(nodeToTheRight);
+                    if (rel1 == rel2) {
+                        var twinGroupId1 = this.DG.GG.getTwinGroupId(nodeToTheLeft);
+                        var twinGroupId2 = this.DG.GG.getTwinGroupId(nodeToTheRight);
+                        if (twinGroupId1 !== null && twinGroupId1 == twinGroupId2) continue;
+                    }
+                }
+            }
+
+            var numCrossings = this._edgeCrossingsByFutureEdge(rank, o - 0.5, edgeToRank, edgeToOrder, crossingChildhubEdgesPenalty, edgeToV);
+
+            //console.log("position: " + o + ", numCross: " + numCrossings);
+
+            if (numCrossings < bestCrossings || // less crossings
+            numCrossings == bestCrossings && Math.abs(o - desiredOrder) <= bestDistance // closer to desired position
+            ) {
+                    bestInsertOrder = o;
+                    bestCrossings = numCrossings;
+                    bestDistance = Math.abs(o - desiredOrder);
+                }
+        }
+
+        //console.log("inserting @ rank " + rank + " with edge from " + edgeToV + " --> " + bestInsertOrder);
+        return bestInsertOrder;
+    },
+
+    _findRightmostChildPosition: function (vertex) {
+        var childrenInfo = this._heuristics.analizeChildren(vertex);
+        return childrenInfo.rightMostChildOrder;
+    },
+
+    _edgeCrossingsByFutureEdge: function (newVRank, newVOrder, existingURank, existingUOrder, crossingChildhubEdgesPenalty, existingU) {
+        // Note: newVOrder is expected to be a number between two existing orders, or higher than all, or lower than all
+
+        // counts how many existing edges a new edge from given rank&order to given rank&order would cross
+        // if order is an integer, it is assumed it goes form an existing vertex
+        // if order is inbetween two integers, it is assumed it is the position used for a new-to-be-inserted vertex
+
+        // for simplicity (to know if we need to check outEdges or inEdges) get the edge in the correct direction
+        // (i.e. from lower ranks to higher ranks)
+        var rankFrom = Math.min(newVRank, existingURank);
+        var rankTo = Math.max(newVRank, existingURank);
+        var orderFrom = newVRank < existingURank ? newVOrder : existingUOrder;
+        var orderTo = newVRank < existingURank ? existingUOrder : newVOrder;
+
+        // for better penalty computation handle the special case of adding a new child to an existing childhub
+        var vSibglingInfo = undefined;
+        if (this.DG.GG.isChildhub(existingU) && newVRank > existingURank && this.DG.GG.getOutEdges(existingU).length > 0) {
+            vSibglingInfo = this._heuristics.analizeChildren(existingU);
+
+            if (vSibglingInfo.numWithTwoPartners < vSibglingInfo.orderedChildren.length) {
+                // need to insert new node next to a sibling
+                var okPosition = false;
+                if (newVOrder > 0) {
+                    // check left neighbour
+                    var leftNeighbour = this.DG.order.order[newVRank][Math.floor(newVOrder)];
+                    var neighbourInEdges = this.DG.GG.getInEdges(leftNeighbour);
+                    if (neighbourInEdges.length == 1 && neighbourInEdges[0] == existingU) {
+                        okPosition = true; // left neighbour is a sibling
+                    }
+                }
+                if (newVOrder < this.DG.order.order[newVRank].length - 1) {
+                    // check right neighbour
+                    var rightNeighbour = this.DG.order.order[newVRank][Math.ceil(newVOrder)];
+                    var neighbourInEdges = this.DG.GG.getInEdges(rightNeighbour);
+                    if (neighbourInEdges.length == 1 && neighbourInEdges[0] == existingU) {
+                        okPosition = true; // right neighbour is a sibling
+                    }
+                }
+                if (!okPosition) {
+                    return Infinity;
+                }
+            }
+        }
+
+        var crossings = 0;
+
+        if (rankFrom == rankTo) throw "TODO: probably not needed";
+
+        // For multi-rank edges, crossing occurs if either
+        // 1) there is an edge going from rank[v]-ranked vertex with a smaller order
+        //     than v to a rank[targetV]-ranked vertex with a larger order than targetV
+        // 2) there is an edge going from rank[v]-ranked vertex with a larger order
+        //     than v to a rank[targetV]-ranked vertex with a smaller order than targetV
+
+        var verticesAtRankTo = this.DG.order.order[rankTo];
+
+        for (var ord = 0; ord < verticesAtRankTo.length; ord++) {
+            if (ord == orderTo) continue;
+
+            var vertex = verticesAtRankTo[ord];
+
+            var inEdges = this.DG.GG.getInEdges(vertex);
+            var len = inEdges.length;
+
+            for (var j = 0; j < len; j++) {
+                var target = inEdges[j];
+
+                var penalty = 1;
+                if (crossingChildhubEdgesPenalty && this.DG.GG.isChildhub(target)) {
+                    // don't want to insert a node inbetween siblings
+                    penalty = 100000;
+                    // ...unless siblings of the inserted node are already inbetween those siblings:
+                    if (vSibglingInfo) {
+                        var targetChildren = this._heuristics.analizeChildren(target);
+
+                        if (targetChildren.leftMostChildOrder < vSibglingInfo.rightMostChildOrder && targetChildren.rightMostChildOrder > vSibglingInfo.leftMostChildOrder) {
+                            penalty = 1;
+                        }
+                    }
+                }
+
+                var orderTarget = this.DG.order.vOrder[target];
+                var rankTarget = this.DG.ranks[target];
+
+                if (rankTarget == rankTo) {
+                    if (ord < orderTo && orderTarget > orderTo || ord > orderTo && orderTarget < orderTo) crossings += 2;
+                } else {
+                    if (ord < orderTo && orderTarget > orderFrom || ord > orderTo && orderTarget < orderFrom) crossings += penalty;
+                }
+            }
+        }
+
+        // try not to insert between a node and it's relationship
+        // (for that only need check edges on the insertion rank)
+        var verticesAtNewRank = this.DG.order.order[newVRank];
+        for (var ord = 0; ord < verticesAtNewRank.length; ord++) {
+            if (ord == newVOrder) continue;
+
+            var vertex = verticesAtNewRank[ord];
+
+            var outEdges = this.DG.GG.getOutEdges(vertex);
+            var len = outEdges.length;
+
+            for (var j = 0; j < len; j++) {
+                var target = outEdges[j];
+
+                var orderTarget = this.DG.order.vOrder[target];
+                var rankTarget = this.DG.ranks[target];
+
+                if (rankTarget == newVRank) {
+                    if (newVOrder < ord && newVOrder > orderTarget || newVOrder > ord && newVOrder < orderTarget) crossings += 0.1;
+                }
+            }
+        }
+
+        return crossings;
+    },
+
+    _findBestRelationshipPosition: function (v, preferLeft, u) {
+        // Handles two different cases:
+        // 1) both partners are given ("v" and "u"). Then need to insert between v and u
+        // 2) only one partner is given ("v"). Then given the choice prefer the left side if "preferleft" is true
+
+        var rank = this.DG.ranks[v];
+        var orderR = this.DG.order.order[rank];
+        var isTwin = this.DG.GG.getTwinGroupId(v) != null;
+        var vOrder = this.DG.order.vOrder[v];
+
+        var penaltyBelow = [];
+        var penaltySameRank = [];
+        for (var o = 0; o <= orderR.length; o++) {
+            penaltyBelow[o] = 0;
+            penaltySameRank[o] = 0;
+        }
+
+        // for each order on "rank" compute heuristic penalty for inserting a node before that order
+        // based on the structure of nodes below
+        for (var o = 0; o < orderR.length; o++) {
+            var node = orderR[o];
+            if (!this.isRelationship(node)) continue;
+            var childrenInfo = this._heuristics.analizeChildren(node);
+
+            // TODO: do a complete analysis without any heuristics
+            if (childrenInfo.leftMostHasLParner) {
+                penaltyBelow[o] += 1;penaltyBelow[o - 1] += 0.25;
+            } // 0.25 is just a heuristic estimation of how busy the level below is.
+            if (childrenInfo.rightMostHasRParner) {
+                penaltyBelow[o + 1] += 1;penaltyBelow[o + 2] += 0.25;
+            }
+        }
+
+        // for each order on "rank" compute heuristic penalty for inserting a node before that order
+        // based on the edges on that rank
+        for (var o = 0; o < orderR.length; o++) {
+            var node = orderR[o];
+            if (!this.isRelationship(node)) continue;
+
+            var relOrder = this.DG.order.vOrder[node];
+
+            var parents = this.DG.GG.getInEdges(node);
+
+            for (var p = 0; p < parents.length; p++) {
+                var parent = parents[p];
+                if (parent != v && this.DG.ranks[parent] == rank && parent != u) {
+                    var parentOrder = this.DG.order.vOrder[parent];
+
+                    var from = parentOrder > relOrder ? relOrder + 1 : parentOrder + 1;
+                    var to = parentOrder > relOrder ? parentOrder : relOrder;
+                    for (var j = from; j <= to; j++) penaltySameRank[j] = Infinity;
+                }
+            }
+        }
+
+        // add penalties for crossing child-to-parent lines, and forbid inserting inbetween twin nodes
+        for (var o = 0; o < orderR.length; o++) {
+            if (o == vOrder) continue;
+
+            var node = orderR[o];
+            if (!this.isPerson(node)) continue;
+            var allTwins = this.getAllTwinsSortedByOrder(node);
+
+            // forbid inserting inbetween twins
+            if (allTwins.length > 1) {
+                var leftMostTwinOrder = this.DG.order.vOrder[allTwins[0]];
+                var rightMostTwinOrder = this.DG.order.vOrder[allTwins[allTwins.length - 1]];
+                for (var j = leftMostTwinOrder + 1; j <= rightMostTwinOrder; j++) penaltySameRank[j] = Infinity;
+                o = rightMostTwinOrder; // skip thorugh all other twins in this group
+            }
+
+            // penalty for crossing peron-to-parent line
+            if (this.DG.GG.getProducingRelationship(node) != null) {
+                if (o < vOrder) {
+                    for (var j = 0; j <= o; j++) penaltySameRank[j]++;
+                } else {
+                    for (var j = o + 1; j <= orderR.length; j++) penaltySameRank[j]++;
+                }
+            }
+        }
+
+        console.log("Insertion same rank penalties: " + __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_4__helpers__["c" /* stringifyObject */])(penaltySameRank));
+        console.log("Insertion below penalties:     " + __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_4__helpers__["c" /* stringifyObject */])(penaltyBelow));
+
+        if (u === undefined) {
+            if (preferLeft && vOrder == 0) return 0;
+
+            var partnerInfo = this.DG._findLeftAndRightPartners(v);
+            var numLeftOf = partnerInfo.leftPartners.length;
+            var numRightOf = partnerInfo.rightPartners.length;
+
+            // Note: given everything else being equal, prefer the right side - to move fewer nodes
+
+            console.log("v: " + v + ", vOrder: " + vOrder + ", numL: " + numLeftOf + ", numR: " + numRightOf);
+
+            if (!isTwin && numLeftOf == 0 && (preferLeft || numRightOf > 0)) return vOrder;
+            if (!isTwin && numRightOf == 0) return vOrder + 1;
+
+            var bestPosition = vOrder + 1;
+            var bestPenalty = Infinity;
+            for (var o = 0; o <= orderR.length; o++) {
+                var penalty = penaltyBelow[o] + penaltySameRank[o];
+                if (o <= vOrder) {
+                    penalty += numLeftOf + (vOrder - o); // o == order     => insert immediately to the left of, distance penalty = 0
+                    if (preferLeft) penalty -= 0.5; // preferLeft => given equal penalty prefer left (0.5 is less than penalty diff due to other factors)
+                    else penalty += 0.5; //
+                } else {
+                    penalty += numRightOf + (o - vOrder - 1); // o == (order+1) => insert immediately to the right of, distance penalty = 0
+                }
+
+                //console.log("order: " + o + ", penalty: " + penalty);
+                if (penalty < bestPenalty) {
+                    bestPenalty = penalty;
+                    bestPosition = o;
+                }
+            }
+            return bestPosition;
+        }
+
+        // for simplicity, lets make sure v is to the left of u
+        if (this.DG.order.vOrder[v] > this.DG.order.vOrder[u]) {
+            var tmp = u;
+            u = v;
+            v = tmp;
+        }
+
+        var orderV = this.DG.order.vOrder[v];
+        var orderU = this.DG.order.vOrder[u];
+
+        var partnerInfoV = this.DG._findLeftAndRightPartners(v);
+        var numRightOf = partnerInfoV.rightPartners.length;
+        var partnerInfoU = this.DG._findLeftAndRightPartners(u);
+        var numLeftOf = partnerInfoU.leftPartners.length;
+
+        if (numRightOf == 0 && numLeftOf > 0) return orderV + 1;
+        if (numRightOf > 0 && numLeftOf == 0) return orderU;
+
+        var bestPosition = orderV + 1;
+        var bestPenalty = Infinity;
+        for (var o = orderV + 1; o <= orderU; o++) {
+            var penalty = penaltyBelow[o] + penaltySameRank[o];
+
+            for (var p = 0; p < partnerInfoV.rightPartners.length; p++) {
+                var partner = partnerInfoV.rightPartners[p];
+                if (o <= this.DG.order.vOrder[partner]) penalty++;
+            }
+            for (var p = 0; p < partnerInfoU.leftPartners.length; p++) {
+                var partner = partnerInfoU.leftPartners[p];
+                if (o > this.DG.order.vOrder[partner]) penalty++;
+            }
+
+            //console.log("order: " + o + ", penalty: " + penalty);
+
+            if (penalty <= bestPenalty) {
+                bestPenalty = penalty;
+                bestPosition = o;
+            }
+        }
+        return bestPosition;
+    },
+
+    //=============================================================
+
+    _getAllPersonsOfGenders: function (validGendersSet) {
+        // all person nodes whose gender matches one of genders in the validGendersSet array
+
+        // validate input genders
+        for (var i = 0; i < validGendersSet.length; i++) {
+            validGendersSet[i] = validGendersSet[i].toLowerCase();
+            if (validGendersSet[i] != "u" && validGendersSet[i] != "m" && validGendersSet[i] != "f") throw "Invalid gender: " + validGendersSet[i];
+        }
+
+        var result = [];
+
+        for (var i = 0; i <= this.DG.GG.getMaxRealVertexId(); i++) {
+            if (!this.isPerson(i)) continue;
+            if (this.isPersonGroup(i)) continue;
+            var gender = this.getProperties(i)["gender"].toLowerCase();
+            //console.log("trying: " + i + ", gender: " + gender + ", validSet: " + stringifyObject(validGendersSet));
+            if (__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_4__helpers__["h" /* arrayContains */])(validGendersSet, gender)) result.push(i);
+        }
+
+        return result;
+    }
+};
+
+/***/ }),
+/* 150 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -66563,523 +65653,114 @@ Complonents.prototype = {
 };
 
 /***/ }),
-/* 156 */
+/* 151 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony export (immutable) */ __webpack_exports__["a"] = PedigreeExport;
-function PedigreeExport() {}
-
-PedigreeExport.prototype = {};
-
-/* ===============================================================================================
- * 
- * Creates and returns a JSON in the "simple JSON" format (see PedigreeImport.initFromSimpleJSON)
- * 
- *  Simple JSON format: an array of objects, each object representing one person, e.g.:
- *
- *    [ { "name": "f11", "sex": "female", "lifeStatus": "deceased" },
- *      { "name": "m11", "sex": "male" },
- *      { "name": "f12", "sex": "female", "disorders": [603235, "142763", "custom disorder"] },
- *      { "name": "m12", "sex": "male" },
- *      { "name": "m21", "sex": "male", "mother": "f11", "father": "m11" },
- *      { "name": "f21", "sex": "female", "mother": "f12", "father": "m12" },
- *      { "name": "ch1", "sex": "female", "mother": "f21", "father": "m21", "disorders": [603235], "proband": true } ]
- *
- * @param pedigree {PositionedGraph} 
- * ===============================================================================================
- */
-PedigreeExport.exportAsSimpleJSON = function (pedigree, privacySetting) {
-    var exportObj = [];
-
-    for (var i = 0; i <= pedigree.GG.getMaxRealVertexId(); i++) {
-        if (!pedigree.GG.isPerson(i)) continue;
-
-        var person = { "id": i };
-
-        // mother & father
-        var parents = pedigree.GG.getParents(i);
-        if (parents.length > 0) {
-            var father = parents[0];
-            var mother = parents[1];
-
-            if (pedigree.GG.properties[parents[0]]["gender"] == "F" || pedigree.GG.properties[parents[1]]["gender"] == "M") {
-                father = parents[1];
-                mother = parents[0];
-            }
-            person["father"] = father;
-            person["mother"] = mother;
-        }
-
-        // all other properties
-        var properties = pedigree.GG.properties[i];
-        for (var property in properties) {
-            if (properties.hasOwnProperty(property)) {
-                if (privacySetting != "all") {
-                    if (property == "lName" || property == "fName" || property == "lNameAtB" || property == "dob" || property == "bob") continue;
-                    if (privacySetting == "minimal" && property == "comments") continue;
-                }
-                var converted = PedigreeExport.convertProperty(property, properties[property]);
-                if (converted !== null) {
-                    person[converted.propertyName] = converted.value;
-                }
-            }
-        }
-
-        exportObj.push(person);
-    }
-
-    return JSON.stringify(exportObj);
-};
-
-//===============================================================================================
-
-/*
- *  PED format:
- *  (from http://pngu.mgh.harvard.edu/~purcell/plink/data.shtml#ped)
- *   Family ID
- *   Individual ID
- *   Paternal ID
- *   Maternal ID
- *   Sex (1=male; 2=female; other=unknown)
- *   Phenotype
- *
- *   Phenotype, by default, should be coded as:
- *      -9 missing
- *       0 missing
- *       1 unaffected
- *       2 affected
- */
-PedigreeExport.exportAsPED = function (pedigree, idGenerationPreference) {
-    var output = "";
-
-    var familyID = "";
-
-    var idToPedId = PedigreeExport.createNewIDs(pedigree, idGenerationPreference);
-
-    for (var i = 0; i <= pedigree.GG.getMaxRealVertexId(); i++) {
-        if (!pedigree.GG.isPerson(i)) continue;
-
-        output += familyID + " " + idToPedId[i] + " ";
-
-        // mother & father
-        var parents = pedigree.GG.getParents(i);
-        if (parents.length > 0) {
-            var father = parents[0];
-            var mother = parents[1];
-
-            if (pedigree.GG.properties[parents[0]]["gender"] == "F" || pedigree.GG.properties[parents[1]]["gender"] == "M") {
-                father = parents[1];
-                mother = parents[0];
-            }
-            output += idToPedId[father] + " " + idToPedId[mother] + " ";
-        } else {
-            output += "0 0 ";
-        }
-
-        var sex = 3;
-        if (pedigree.GG.properties[i]["gender"] == "M") {
-            sex = 1;
-        } else if (pedigree.GG.properties[i]["gender"] == "F") {
-            sex = 2;
-        }
-        output += sex + " ";
-
-        var status = -9; //missing
-        if (pedigree.GG.properties[i].hasOwnProperty("carrierStatus")) {
-            if (pedigree.GG.properties[i]["carrierStatus"] == "affected" || pedigree.GG.properties[i]["carrierStatus"] == "carrier" || pedigree.GG.properties[i]["carrierStatus"] == "presymptomatic") status = 2;else status = 1;
-        }
-        output += status + "\n";
-    }
-
-    return output;
-};
-
-//===============================================================================================
-
-/*
- *  BOADICEA format:
- *  (from https://pluto.srl.cam.ac.uk/bd3/v3/docs/BWA_v3_user_guide.pdf)
- *
- *  line1: BOADICEA import pedigree file format 2.0
- *  line2: column titles
- *  line3+: one patient per line, with values separated by spaces or tabs, as follows:
- *
- *   FamID: Family/pedigree ID, character string (maximum 13 characters)
- *   Name: First name/ID of the family member, character string (maximum 8 characters)
- *   Target: The family member for whom the BOADICEA risk calculation is made, 1 = target for BOADICEA risk calculation, 0 = other family members. There must only be one BOADICEA target individual.
- *   IndivID: Unique ID of the family member, character string (maximum 7 characters)
- *   FathID: Unique ID of their father, 0 = no father, or character string (maximum 7 characters)
- *   MothID: Unique ID of their mother, 0 = unspecified, or character string (maximum 7 characters)
- *   Sex: M or F
- *   Twin: Identical twins, 0 = no identical twin, any non-zero character = twin.
- *   Dead: The current status of the family member, 0 = alive, 1 = dead
- *   Age: Age at last follow up, 0 = unspecified, integer = age at last follow up
- *   Yob: Year of birth, 0 = unspecified, or integer (consistent with Age if the person is alive)
- *   1BrCa: Age at first breast cancer diagnosis, 0 = unaffected, integer = age at diagnosis, AU = unknown age at diagnosis (affected unknown)
- *   2BrCa: Age at contralateral breast cancer diagnosis, 0 = unaffected, integer = age at diagnosis, AU = unknown age at diagnosis (affected unknown)
- *   OvCa: Age at ovarian cancer diagnosis, 0 = unaffected, integer = age at diagnosis, AU = unknown age at diagnosis (affected unknown)
- *   ProCa: Age at prostate cancer diagnosis 0 = unaffected, integer = age at diagnosis, AU = unknown age at diagnosis (affected unknown)
- *   PanCa: Age at pancreatic cancer diagnosis 0 = unaffected, integer = age at diagnosis, AU = unknown age at diagnosis (affected unknown)
- *   Gtest: Genetic test status, 0 = untested, S = mutation search, T = direct gene test
- *   Mutn: 0 = untested, N = no mutation, 1 = BRCA1 positive, 2 = BRCA2 positive, 3 = BRCA1 and BRCA2 positive
- *   Ashkn: 0 = not Ashkenazi, 1 = Ashkenazi
- *   ER: Estrogen receptor status, 0 = unspecified, N = negative, P = positive
- *   PR: Progestrogen receptor status, 0 = unspecified, N = negative, P = positive
- *   HER2: Human epidermal growth factor receptor 2 status, 0 = unspecified, N = negative, P = positive
- *   CK14: Cytokeratin 14 status, 0 = unspecified, N = negative, P = positive
- *   CK56: Cytoke ratin 56 status, 0 = unspecified, N = negative, P = positive
- */
-PedigreeExport.exportAsBOADICEA = function (pedigree, idGenerationPreference) {
-    var output = "BOADICEA import pedigree file format 2.0\n";
-    output += "FamilyID\tName\tTarget\tIndivID\tFathID\tMothID\tSex\tTwin\tDead\tAge\tYob\tNot_implemented_yet_except_Ahkenazi\n";
-
-    var familyID = "";
-
-    var idToBoadId = PedigreeExport.createNewIDs(pedigree, idGenerationPreference, 7 /* max ID length */);
-
-    var alertUnknownGenderFound = false; // BOADICEA does not support unknown genders
-
-    for (var i = 0; i <= pedigree.GG.getMaxRealVertexId(); i++) {
-        if (!pedigree.GG.isPerson(i)) continue;
-
-        var id = idToBoadId[i];
-
-        var name = pedigree.GG.properties[i].hasOwnProperty("fName") ? pedigree.GG.properties[i]["fName"].substring(0, 8) : id;
-
-        var proband = i == 0 ? "1" : "0";
-
-        output += familyID + "\t" + name + "\t" + proband + "\t" + id + "\t";
-
-        // mother & father
-        var parents = pedigree.GG.getParents(i);
-        if (parents.length > 0) {
-            var father = parents[0];
-            var mother = parents[1];
-
-            if (pedigree.GG.properties[parents[0]]["gender"] == "F" || pedigree.GG.properties[parents[1]]["gender"] == "M") {
-                father = parents[1];
-                mother = parents[0];
-            }
-            output += idToBoadId[father] + "\t" + idToBoadId[mother] + "\t";
-        } else {
-            output += "0\t0\t";
-        }
-
-        var sex = "M";
-        if (pedigree.GG.properties[i]["gender"] == "F") {
-            sex = "F";
-        } else if (pedigree.GG.properties[i]["gender"] == "U") {
-            alertUnknownGenderFound = true;
-        }
-        output += sex + "\t";
-
-        if (pedigree.GG.getTwinGroupId(i) !== null) {
-            output += "1\t";
-        } else {
-            output += "0\t";
-        }
-
-        var dead = "0";
-        if (pedigree.GG.properties[i].hasOwnProperty("lifeStatus")) {
-            if (pedigree.GG.properties[i]["lifeStatus"] != "alive") {
-                var dead = "1";
-            }
-        }
-        output += dead + "\t";
-
-        var age = "0";
-        var yob = "0";
-        if (pedigree.GG.properties[i].hasOwnProperty("dob")) {
-            var date = new Date(pedigree.GG.properties[i]["dob"]);
-            yob = date.getFullYear();
-            age = new Date().getFullYear() - yob;
-        }
-        output += age + "\t" + yob + "\t";
-
-        output += "AU\tAU\tAU\tAU\tAU\t"; // unimplemented fields: age at cancer detection
-
-        output += "0\t0\t"; // unimplemented fields: Genetic test status + mutations
-
-        var ashkenazi = "0";
-        if (pedigree.GG.properties[i].hasOwnProperty("ethnicities")) {
-            var ethnicities = pedigree.GG.properties[i]["ethnicities"];
-            for (var k = 0; k < ethnicities.length; k++) {
-                if (ethnicities[k].match(/ashkenaz/i) !== null) {
-                    ashkenazi = "1";
-                    break;
-                }
-            }
-        }
-        output += ashkenazi + "\t";
-
-        output += "0\t0\t0\t0\t0"; // unimplemented fields: receptor status, etc.
-
-        output += "\n";
-    }
-
-    if (alertUnknownGenderFound) {
-        alert("BOADICEA format does not support unknown genders. All persons of unknown gender were saved as male in the export file");
-    }
-
-    return output;
-};
-
-// ===============================================================================================
-
-// TODO: convert internal properties to match public names and rename this to "supportedProperties"
-PedigreeExport.internalToJSONPropertyMapping = {
-    "proband": "proband",
-    "fName": "firstName",
-    "lName": "lastName",
-    "lNameAtB": "lastNameAtBirth",
-    "comments": "comments",
-    "twinGroup": "twinGroup",
-    "monozygotic": "monozygotic",
-    "isAdopted": "adoptedIn",
-    "evaluated": "evaluated",
-    "dob": "birthDate",
-    "dod": "deathDate",
-    "gestationAge": "gestationAge",
-    "lifeStatus": "lifeStatus",
-    "disorders": "disorders",
-    "ethnicities": "ethnicities",
-    "carrierStatus": "carrierStatus",
-    "externalID": "externalId",
-    "gender": "sex",
-    "numPersons": "numPersons",
-    "hpoTerms": "hpoTerms",
-    "candidateGenes": "candidateGenes",
-    "lostContact": "lostContact",
-    "nodeNumber": "nodeNumber"
-};
-
-/*
- * Converts property name from external JSON format to internal - also helps to
- * support aliases for some terms and weed out unsupported terms.
- */
-PedigreeExport.convertProperty = function (internalPropertyName, value) {
-
-    if (!PedigreeExport.internalToJSONPropertyMapping.hasOwnProperty(internalPropertyName)) return null;
-
-    var externalPropertyName = PedigreeExport.internalToJSONPropertyMapping[internalPropertyName];
-
-    if (externalPropertyName == "sex") {
-        if (value == "M") value = "male";else if (value == "F") value = "female";else value = "unknown";
-    }
-
-    return { "propertyName": externalPropertyName, "value": value };
-};
-
-PedigreeExport.createNewIDs = function (pedigree, idGenerationPreference, maxLength) {
-    var idToNewId = {};
-    var usedIDs = {};
-
-    var nextUnusedID = 1;
-
-    for (var i = 0; i <= pedigree.GG.getMaxRealVertexId(); i++) {
-        if (!pedigree.GG.isPerson(i)) continue;
-
-        var id = nextUnusedID++;
-        if (idGenerationPreference == "external" && pedigree.GG.properties[i].hasOwnProperty("externalID")) {
-            nextUnusedID--;
-            id = pedigree.GG.properties[i]["externalID"].replace(/\s/g, "_");
-        } else if (idGenerationPreference == "name" && pedigree.GG.properties[i].hasOwnProperty("fName")) {
-            nextUnusedID--;
-            id = pedigree.GG.properties[i]["fName"].replace(/\s/g, "_");
-        }
-        if (maxLength && id.length > maxLength) {
-            id = id.substring(0, maxLength);
-        }
-        while (usedIDs.hasOwnProperty(id)) {
-            if (!maxLength || id.length < maxLength) {
-                id = "_" + id;
-            } else {
-                id = nextUnusedID++;
-            }
-        }
-
-        idToNewId[i] = id;
-        usedIDs[id] = true;
-    }
-
-    return idToNewId;
-};
-
-/***/ }),
-/* 157 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* WEBPACK VAR INJECTION */(function(Class) {/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__export__ = __webpack_require__(156);
+/* WEBPACK VAR INJECTION */(function(Class, Raphael) {/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__legend__ = __webpack_require__(56);
 
 
 /**
- * The UI Element for exporting pedigrees
+ * Class responsible for keeping track of candidate genes.
+ * This information is graphically displayed in a 'Legend' box.
  *
- * @class ExportSelector
+ * @class GeneLegend
+ * @constructor
  */
+const GeneLegend = Class.create(__WEBPACK_IMPORTED_MODULE_0__legend__["a" /* Legend */], {
 
-const ExportSelector = Class.create({
-
-    initialize: function () {
-        var _this = this;
-
-        var mainDiv = new Element("div", { "class": "import-selector" });
-
-        var _addTypeOption = function (checked, labelText, value) {
-            var optionWrapper = new Element("tr");
-            var input = new Element("input", { "type": "radio", "value": value, "name": "export-type" });
-            input.observe("click", _this.disableEnableOptions);
-            if (checked) {
-                input.checked = true;
-            }
-            var label = new Element("label", { "class": "import-type-label" }).insert(input).insert(labelText);
-            optionWrapper.insert(label.wrap("td"));
-            return optionWrapper;
-        };
-        var typeListElement = new Element("table");
-        typeListElement.insert(_addTypeOption(true, "PED", "ped"));
-        typeListElement.insert(_addTypeOption(false, "BOADICEA", "BOADICEA"));
-        typeListElement.insert(_addTypeOption(false, "Simple JSON", "simpleJSON"));
-        //TODO: typeListElement.insert(_addTypeOption(false, "Phenotips Pedigree JSON", "phenotipsJSON"));
-
-        var fileDownload = new Element("a", { "id": "downloadLink", "style": "display:none" });
-        mainDiv.insert(fileDownload);
-
-        var promptType = new Element("div", { "class": "import-section" }).update("Data format:");
-        var dataSection2 = new Element("div", { "class": "import-block" });
-        dataSection2.insert(promptType).insert(typeListElement);
-        mainDiv.insert(dataSection2);
-
-        var _addConfigOption = function (checked, name, cssClass, labelText, value) {
-            var optionWrapper = new Element("tr");
-            var input = new Element("input", { "type": "radio", "value": value, "name": name });
-            if (checked) {
-                input.checked = true;
-            }
-            var label = new Element("label", { "class": cssClass }).insert(input).insert(labelText);
-            optionWrapper.insert(label.wrap("td"));
-            return optionWrapper;
-        };
-        var configListElementJSON = new Element("table", { "id": "jsonOptions", "style": "display:none" });
-        configListElementJSON.insert(_addConfigOption(true, "export-options", "import-config-label", "All data", "all"));
-        configListElementJSON.insert(_addConfigOption(false, "export-options", "import-config-label", "Remove personal information (name and age)", "nopersonal"));
-        configListElementJSON.insert(_addConfigOption(false, "export-options", "import-config-label", "Remove personal information and free-form comments", "minimal"));
-
-        var configListElementPED = new Element("table", { "id": "pedOptions" });
-        var label = new Element("label", { "class": "export-config-header" }).insert("Which of the following fields should be used to generate person IDs?");
-        configListElementPED.insert(label.wrap("td").wrap("tr"));
-        configListElementPED.insert(_addConfigOption(true, "ped-options", "export-subconfig-label", "External ID", "external"));
-        configListElementPED.insert(_addConfigOption(false, "ped-options", "export-subconfig-label", "Name", "name"));
-        configListElementPED.insert(_addConfigOption(false, "ped-options", "export-subconfig-label", "None, generate new numeric ID for everyone", "newid"));
-
-        var promptConfig = new Element("div", { "class": "import-section" }).update("Options:");
-        var dataSection3 = new Element("div", { "class": "import-block" });
-        dataSection3.insert(promptConfig).insert(configListElementJSON).insert(configListElementPED);
-        mainDiv.insert(dataSection3);
-
-        var buttons = new Element("div", { "class": "buttons import-block-bottom" });
-        buttons.insert(new Element("input", { type: "button", name: "export", "value": "Export", "class": "button", "id": "export_button" }).wrap("span", { "class": "buttonwrapper" }));
-        buttons.insert(new Element("input", { type: "button", name: "cancel", "value": "Cancel", "class": "button secondary" }).wrap("span", { "class": "buttonwrapper" }));
-        mainDiv.insert(buttons);
-
-        var cancelButton = buttons.down("input[name=\"cancel\"]");
-        cancelButton.observe("click", function (event) {
-            _this.hide();
-        });
-        var exportButton = buttons.down("input[name=\"export\"]");
-        exportButton.observe("click", function (event) {
-            _this._onExportStarted();
-        });
-
-        var closeShortcut = ["Esc"];
-        this.dialog = new PhenoTips.widgets.ModalPopup(mainDiv, { close: { method: this.hide.bind(this), keys: closeShortcut } }, { extraClassName: "pedigree-import-chooser", title: "Pedigree export", displayCloseButton: true });
+    initialize: function ($super) {
+        $super("Candidate Genes", true);
     },
 
-    /*
-     * Disables unapplicable options on input type selection
+    _getPrefix: function (id) {
+        return "gene";
+    },
+
+    /**
+     * Generate the element that will display information about the given disorder in the legend
+     *
+     * @method _generateElement
+     * @param {String} geneID The id for the gene
+     * @param {String} name The human-readable gene description
+     * @return {HTMLLIElement} List element to be insert in the legend
      */
-    disableEnableOptions: function () {
-        var exportType = $$("input:checked[type=radio][name=\"export-type\"]")[0].value;
+    _generateElement: function ($super, geneID, name) {
+        if (!this._objectColors.hasOwnProperty(geneID)) {
+            var color = this._generateColor(geneID);
+            this._objectColors[geneID] = color;
+            document.fire("gene:color", { "id": geneID, color: color });
+        }
 
-        var pedOptionsTable = $("pedOptions");
-        var jsonOptionsTable = $("jsonOptions");
+        return $super(geneID, name);
+    },
 
-        if (exportType == "ped" || exportType == "BOADICEA") {
-            pedOptionsTable.show();
-            jsonOptionsTable.hide();
+    /**
+     * Callback for dragging an object from the legend onto nodes
+     *
+     * @method _onDropGeneric
+     * @param {Person} Person node
+     * @param {String|Number} id ID of the gene being dropped
+     */
+    _onDropObject: function (node, geneID) {
+        if (node.isPersonGroup()) {
+            return;
+        }
+        var currentGenes = node.getGenes().slice(0);
+        if (currentGenes.indexOf(geneID) == -1) {
+            // only if the node does not have this gene yet
+            currentGenes.push(geneID);
+            editor.getView().unmarkAll();
+            var properties = { "setGenes": currentGenes };
+            var event = { "nodeID": node.getID(), "properties": properties };
+            document.fire("pedigree:node:setproperty", event);
         } else {
-            pedOptionsTable.hide();
-            jsonOptionsTable.show();
+            console.warn("This person already has the selected candidate gene");
         }
     },
 
     /**
-     * Loads the template once it has been selected
+     * Generates a CSS color.
+     * Has preference for some predefined colors that can be distinguished in gray-scale
+     * and are distint from disorder colors.
      *
-     * @param event
-     * @param pictureBox
-     * @private
+     * @method generateColor
+     * @return {String} CSS color
      */
-    _onExportStarted: function () {
-        this.hide();
-
-        var patientDocument = "pedigree";
-
-        var exportType = $$("input:checked[type=radio][name=\"export-type\"]")[0].value;
-        //console.log("Import type: " + exportType);
-
-        if (exportType == "simpleJSON") {
-            var privacySetting = $$("input:checked[type=radio][name=\"export-options\"]")[0].value;
-            var exportString = __WEBPACK_IMPORTED_MODULE_0__export__["a" /* PedigreeExport */].exportAsSimpleJSON(editor.getGraph().DG, privacySetting);
-            var fileName = patientDocument + ".json";
-            var mimeType = "application/json";
-        } else {
-            var idGenerationSetting = $$("input:checked[type=radio][name=\"ped-options\"]")[0].value;
-            if (exportType == "ped") {
-                var exportString = __WEBPACK_IMPORTED_MODULE_0__export__["a" /* PedigreeExport */].exportAsPED(editor.getGraph().DG, idGenerationSetting);
-                var fileName = patientDocument + ".ped";
-            } else if (exportType == "BOADICEA") {
-                var exportString = __WEBPACK_IMPORTED_MODULE_0__export__["a" /* PedigreeExport */].exportAsBOADICEA(editor.getGraph().DG, idGenerationSetting);
-                var fileName = patientDocument + ".dat";
-            }
-            var mimeType = "text/plain";
+    _generateColor: function (geneID) {
+        if (this._objectColors.hasOwnProperty(geneID)) {
+            return this._objectColors[geneID];
         }
 
-        console.log("Export data: >>" + exportString + "<<");
-        saveTextAs(exportString, fileName);
-    },
+        var usedColors = Object.values(this._objectColors),
 
-    /**
-     * Displays the template selector
-     *
-     * @method show
-     */
-    show: function () {
-        this.dialog.show();
-    },
-
-    /**
-     * Removes the the template selector
-     *
-     * @method hide
-     */
-    hide: function () {
-        this.dialog.closeDialog();
+        // green palette
+        prefColors = ["#81a270", "#c4e8c4", "#56a270", "#b3b16f", "#4a775a", "#65caa3"];
+        usedColors.each(function (color) {
+            prefColors = prefColors.without(color);
+        });
+        if (prefColors.length > 0) {
+            return prefColors[0];
+        } else {
+            var randomColor = Raphael.getColor();
+            while (randomColor == "#ffffff" || usedColors.indexOf(randomColor) != -1) {
+                randomColor = "#" + ((1 << 24) * Math.random() | 0).toString(16);
+            }
+            return randomColor;
+        }
     }
 });
-/* harmony export (immutable) */ __webpack_exports__["a"] = ExportSelector;
+/* harmony export (immutable) */ __webpack_exports__["a"] = GeneLegend;
 
-/* WEBPACK VAR INJECTION */}.call(__webpack_exports__, __webpack_require__(3)))
+/* WEBPACK VAR INJECTION */}.call(__webpack_exports__, __webpack_require__(3), __webpack_require__(21)))
 
 /***/ }),
-/* 158 */
+/* 152 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__helpers__ = __webpack_require__(6);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__xcoordclass__ = __webpack_require__(90);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__xcoordclass__ = __webpack_require__(82);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__baseGraph__ = __webpack_require__(36);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__queues__ = __webpack_require__(38);
 /* harmony export (immutable) */ __webpack_exports__["a"] = Heuristics;
@@ -68587,7 +67268,119 @@ Heuristics.prototype = {
 };
 
 /***/ }),
-/* 159 */
+/* 153 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* WEBPACK VAR INJECTION */(function(Class) {/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__legend__ = __webpack_require__(56);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__hpoTerm__ = __webpack_require__(76);
+
+
+/**
+ * Class responsible for keeping track of HPO terms and their properties, and for
+ * caching disorders data as loaded from the OMIM database.
+ * This information is graphically displayed in a 'Legend' box
+ *
+ * @class HPOLegend
+ * @constructor
+ */
+const HPOLegend = Class.create(__WEBPACK_IMPORTED_MODULE_0__legend__["a" /* Legend */], {
+
+    initialize: function ($super) {
+        $super("Phenotypes", true);
+
+        this._termCache = {};
+    },
+
+    _getPrefix: function (id) {
+        return "phenotype";
+    },
+
+    /**
+     * Returns the HPOTerm object with the given ID. If object is not in cache yet
+     * returns a newly created one which may have the term name & other attributes not loaded yet
+     *
+     * @method getTerm
+     * @return {Object}
+     */
+    getTerm: function (hpoID) {
+        hpoID = __WEBPACK_IMPORTED_MODULE_1__hpoTerm__["a" /* HPOTerm */].sanitizeID(hpoID);
+        if (!this._termCache.hasOwnProperty(hpoID)) {
+            var whenNameIsLoaded = function () {
+                this._updateTermName(hpoID);
+            };
+            this._termCache[hpoID] = new __WEBPACK_IMPORTED_MODULE_1__hpoTerm__["a" /* HPOTerm */](hpoID, null, whenNameIsLoaded.bind(this));
+        }
+        return this._termCache[hpoID];
+    },
+
+    /**
+     * Retrieve the color associated with the given object
+     *
+     * @method getObjectColor
+     * @param {String|Number} id ID of the object
+     * @return {String} CSS color value for that disorder
+     */
+    getObjectColor: function (id) {
+        return "#CCCCCC";
+    },
+
+    /**
+     * Registers an occurrence of a phenotype.
+     *
+     * @method addCase
+     * @param {Number|String} id ID for this term taken from the HPO database
+     * @param {String} name The description of the phenotype
+     * @param {Number} nodeID ID of the Person who has this phenotype
+     */
+    addCase: function ($super, id, name, nodeID) {
+        if (!this._termCache.hasOwnProperty(id)) this._termCache[id] = new __WEBPACK_IMPORTED_MODULE_1__hpoTerm__["a" /* HPOTerm */](id, name);
+
+        $super(id, name, nodeID);
+    },
+
+    /**
+     * Updates the displayed phenotype name for the given phenotype
+     *
+     * @method _updateTermName
+     * @param {Number} id The identifier of the phenotype to update
+     * @private
+     */
+    _updateTermName: function (id) {
+        //console.log("updating phenotype display for " + id + ", name = " + this.getTerm(id).getName());
+        var name = this._legendBox.down("li#" + this._getPrefix() + "-" + id + " .disorder-name");
+        name.update(this.getTerm(id).getName());
+    },
+
+    /**
+     * Callback for dragging an object from the legend onto nodes
+     *
+     * @method _onDropGeneric
+     * @param {Person} Person node
+     * @param {String|Number} id ID of the phenotype being dropped
+     */
+    _onDropObject: function (node, hpoID) {
+        if (node.isPersonGroup()) {
+            return;
+        }
+        var currentHPO = node.getHPO().slice(0);
+        if (currentHPO.indexOf(hpoID) == -1) {
+            currentHPO.push(hpoID);
+            editor.getView().unmarkAll();
+            var properties = { "setHPO": currentHPO };
+            var event = { "nodeID": node.getID(), "properties": properties };
+            document.fire("pedigree:node:setproperty", event);
+        } else {
+            console.warn("This person already has the selected phenotype");
+        }
+    }
+});
+/* harmony export (immutable) */ __webpack_exports__["a"] = HPOLegend;
+
+/* WEBPACK VAR INJECTION */}.call(__webpack_exports__, __webpack_require__(3)))
+
+/***/ }),
+/* 154 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -69492,7 +68285,7 @@ PedigreeImport.initFromGEDCOM = function (inputText, markEvaluated, saveIDAsExte
     if (gedcom.header.hasOwnProperty("GEDC")) {
         if (gedcom.header.GEDC.hasOwnProperty("VERS")) {
             if (gedcom.header.GEDC.VERS != "5.5" && gedcom.header.GEDC.VERS != "5.5.1") {
-                alert("Unsupported GEDCOM version detected: [" + gedcom.header.GEDC.VERS + "]. " + "Import will continue but the correctness is not guaranteed. Supportede versions are 5.5 and 5.5.1");
+                console.warn("Unsupported GEDCOM version detected: [" + gedcom.header.GEDC.VERS + "]. " + "Import will continue but the correctness is not guaranteed. Supportede versions are 5.5 and 5.5.1");
             }
         }
     }
@@ -69704,7 +68497,7 @@ PedigreeImport.initFromGEDCOM = function (inputText, markEvaluated, saveIDAsExte
 
     if (noChildFamilies.length > 0) {
         // stringifyObject(noChildFamilies)
-        alert("Some families with no children were found in the imported pedigree: this is not supported at the moment, so a child was added to each childless family");
+        console.warn("Some families with no children were found in the imported pedigree: this is not supported at the moment, so a child was added to each childless family");
     }
 
     PedigreeImport.validateBaseGraph(newG);
@@ -69717,7 +68510,7 @@ PedigreeImport.initFromGEDCOM = function (inputText, markEvaluated, saveIDAsExte
 
 // TODO: convert internal properties to match public names and rename this to "supportedProperties"
 PedigreeImport.JSONToInternalPropertyMapping = {
-    "proband": "proband",
+    "proband": "isProband",
     "lastname": "lName",
     "lastnameatbirth": "lNameAtB",
     "comments": "comments",
@@ -69801,225 +68594,7 @@ RelationshipTracker.prototype = {
 };
 
 /***/ }),
-/* 160 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* WEBPACK VAR INJECTION */(function(Class) {/**
- * The UI Element for importing pedigrees from text representationin various formats
- *
- * @class ImportSelector
- */
-
-const ImportSelector = Class.create({
-
-    initialize: function () {
-        if (editor.isReadOnlyMode()) return;
-
-        var _this = this;
-
-        var mainDiv = new Element("div", { "class": "import-selector" });
-
-        var promptImport = new Element("div", { "class": "import-section" }).update("Import data:");
-        this.importValue = new Element("textarea", { "id": "import", "value": "", "class": "import-textarea" });
-        mainDiv.insert(promptImport).insert(this.importValue);
-
-        if (!!window.FileReader && !!window.FileList) {
-            // only show the upload link if browser supports FileReader/DOM File API
-            // Of the browsers suported by pedigree editor, IE9 and Safari 4 & 5 do not support file API 
-            var uploadFileSelector = new Element("input", { "type": "file", "id": "pedigreeInputFile", "style": "display:none" });
-            uploadFileSelector.observe("change", function (event) {
-                _this.handleFileUpload(this.files);
-                try {
-                    this.value = ""; // clear file selector
-                } catch (err) {
-                    console.trace(err);
-                    // some older browsers do not allow setting value of a file input element and may generate a security error
-                }
-            });
-            var uploadLink = new Element("div", { "class": "import-upload" }).update("(<a>Select a local file to be imported</a>)");
-            uploadLink.observe("click", function (event) {
-                var fileElem = document.getElementById("pedigreeInputFile");
-                fileElem.click();
-            });
-            mainDiv.insert(uploadFileSelector).insert(uploadLink);
-        }
-
-        var _addTypeOption = function (checked, labelText, value) {
-            var optionWrapper = new Element("tr");
-            var input = new Element("input", { "type": "radio", "value": value, "name": "select-type" });
-            input.observe("click", _this.disableEnableOptions);
-            if (checked) {
-                input.checked = true;
-            }
-            var label = new Element("label", { "class": "import-type-label" }).insert(input).insert(labelText);
-            optionWrapper.insert(label.wrap("td"));
-            return optionWrapper;
-        };
-        var typeListElement = new Element("table");
-        //TODO: typeListElement.insert(_addTypeOption(true,  "Autodetect", "auto"));
-        typeListElement.insert(_addTypeOption(true, "PED or LINKAGE (pre- or post- makeped)", "ped"));
-        typeListElement.insert(_addTypeOption(false, "GEDCOM", "gedcom"));
-        typeListElement.insert(_addTypeOption(false, "BOADICEA", "BOADICEA"));
-        typeListElement.insert(_addTypeOption(false, "Simple JSON", "simpleJSON"));
-        //TODO: typeListElement.insert(_addTypeOption(false, "Phenotips Pedigree JSON", "phenotipsJSON"));
-
-        var promptType = new Element("div", { "class": "import-section" }).update("Data format:");
-        var dataSection2 = new Element("div", { "class": "import-block" });
-        dataSection2.insert(promptType).insert(typeListElement);
-        mainDiv.insert(dataSection2);
-
-        var _addConfigOption = function (checked, labelText, value) {
-            var optionWrapper = new Element("tr");
-            var input = new Element("input", { "type": "radio", "value": value, "name": "select-options" });
-            if (checked) {
-                input.checked = true;
-            }
-            var label = new Element("label", { "class": "import-config-label" }).insert(input).insert(labelText);
-            optionWrapper.insert(label.wrap("td"));
-            return optionWrapper;
-        };
-        var configListElement = new Element("table", { id: "import-type" });
-        configListElement.insert(_addConfigOption(true, "Treat non-standard phenotype values as new disorders", "accept"));
-        configListElement.insert(_addConfigOption(false, "Treat non-standard phenotype values as \"no information\"", "dontaccept"));
-
-        var markEvaluated = new Element("input", { "type": "checkbox", "value": "1", "name": "mark-evaluated" });
-        var markLabel1 = new Element("label", { "class": "import-mark-label1" }).insert(markEvaluated).insert("Mark all patients with known disorder status with 'documented evaluation' mark").wrap("td").wrap("tr");
-        configListElement.insert(markLabel1);
-        var markExternal = new Element("input", { "type": "checkbox", "value": "1", "name": "mark-external" });
-        markExternal.checked = true;
-        var markLabel2 = new Element("label", { "class": "import-mark-label2" }).insert(markExternal).insert("Save individual IDs as given in the input data as 'external ID'").wrap("td").wrap("tr");
-        configListElement.insert(markLabel2);
-
-        var promptConfig = new Element("div", { "class": "import-section" }).update("Options:");
-        var dataSection3 = new Element("div", { "class": "import-block" });
-        dataSection3.insert(promptConfig).insert(configListElement);
-        mainDiv.insert(dataSection3);
-
-        //TODO: [x] auto-combine multiple unaffected children when the number of children is greater than [5]
-
-        var buttons = new Element("div", { "class": "buttons import-block-bottom" });
-        buttons.insert(new Element("input", { type: "button", name: "import", "value": "Import", "class": "button", "id": "import_button" }).wrap("span", { "class": "buttonwrapper" }));
-        buttons.insert(new Element("input", { type: "button", name: "cancel", "value": "Cancel", "class": "button secondary" }).wrap("span", { "class": "buttonwrapper" }));
-        mainDiv.insert(buttons);
-
-        var cancelButton = buttons.down("input[name=\"cancel\"]");
-        cancelButton.observe("click", function (event) {
-            _this.hide();
-        });
-        var importButton = buttons.down("input[name=\"import\"]");
-        importButton.observe("click", function (event) {
-            _this._onImportStarted();
-        });
-
-        var closeShortcut = ["Esc"];
-        this.dialog = new PhenoTips.widgets.ModalPopup(mainDiv, { close: { method: this.hide.bind(this), keys: closeShortcut } }, { extraClassName: "pedigree-import-chooser", title: "Pedigree import", displayCloseButton: true });
-    },
-
-    /*
-     * Populates the text input box with the selected file content (asynchronously)
-     */
-    handleFileUpload: function (files) {
-        for (var i = 0, numFiles = files.length; i < numFiles; i++) {
-            var nextFile = files[i];
-            console.log("loading file: " + nextFile.name + ", size: " + nextFile.size);
-
-            var _this = this;
-            var fr = new FileReader();
-            fr.onload = function (e) {
-                _this.importValue.value = e.target.result; // e.target.result should contain the text 
-            };
-            fr.readAsText(nextFile);
-        }
-    },
-
-    /*
-     * Disables unapplicable options on input type selection
-     */
-    disableEnableOptions: function () {
-        var importType = $$("input:checked[type=radio][name=\"select-type\"]")[0].value;
-        //console.log("Import type: " + importType);        
-        var pedOnlyOptions = $$("input[type=radio][name=\"select-options\"]");
-        for (var i = 0; i < pedOnlyOptions.length; i++) {
-            if (importType != "ped") {
-                pedOnlyOptions[i].disabled = true;
-            } else {
-                pedOnlyOptions[i].disabled = false;
-            }
-        }
-        var pedAndGedcomOption = $$("input[type=checkbox][name=\"mark-evaluated\"]")[0];
-        if (importType != "ped" && importType != "gedcom") {
-            pedAndGedcomOption.disabled = true;
-        } else {
-            pedAndGedcomOption.disabled = false;
-        }
-
-        var saveExternalID = $$("input[type=checkbox][name=\"mark-external\"]")[0];
-        if (importType == "simpleJSON") {
-            saveExternalID.disabled = true;
-        } else {
-            saveExternalID.disabled = false;
-        }
-    },
-
-    /**
-     * Loads the template once it has been selected
-     *
-     * @param event
-     * @param pictureBox
-     * @private
-     */
-    _onImportStarted: function () {
-        var importValue = this.importValue.value;
-        console.log("Importing:\n" + importValue);
-
-        this.hide();
-
-        if (!importValue || importValue == "") {
-            alert("Nothing to import!");
-            return;
-        }
-
-        var importType = $$("input:checked[type=radio][name=\"select-type\"]")[0].value;
-        console.log("Import type: " + importType);
-
-        var importMark = $$("input[type=checkbox][name=\"mark-evaluated\"]")[0].checked;
-
-        var externalIdMark = $$("input[type=checkbox][name=\"mark-external\"]")[0].checked;
-
-        var optionSelected = $$("input:checked[type=radio][name=\"select-options\"]")[0].value;
-        var acceptUnknownPhenotypes = optionSelected == "accept";
-
-        var importOptions = { "markEvaluated": importMark, "externalIdMark": externalIdMark, "acceptUnknownPhenotypes": acceptUnknownPhenotypes };
-
-        editor.getSaveLoadEngine().createGraphFromImportData(importValue, importType, importOptions, false /* add to undo stack */, true /*center around 0*/);
-    },
-
-    /**
-     * Displays the template selector
-     *
-     * @method show
-     */
-    show: function () {
-        this.dialog.show();
-    },
-
-    /**
-     * Removes the the template selector
-     *
-     * @method hide
-     */
-    hide: function () {
-        this.importValue.value = "";
-        this.dialog.closeDialog();
-    }
-});
-/* harmony export (immutable) */ __webpack_exports__["a"] = ImportSelector;
-
-/* WEBPACK VAR INJECTION */}.call(__webpack_exports__, __webpack_require__(3)))
-
-/***/ }),
-/* 161 */
+/* 155 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -70187,1493 +68762,7 @@ const LineSet = Class.create({
 /* WEBPACK VAR INJECTION */}.call(__webpack_exports__, __webpack_require__(3)))
 
 /***/ }),
-/* 162 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* WEBPACK VAR INJECTION */(function(Class, $R) {/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__disorder__ = __webpack_require__(56);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__hpoTerm__ = __webpack_require__(57);
-
-
-/**
- * NodeMenu is a UI Element containing options for AbstractNode elements
- *
- * @class NodeMenu
- * @constructor
- * @param {Array} data Contains objects corresponding to different menu items
- *
- {
- [
-    {
-        'name' : the name of the menu item,
-        'label' : the text label above this menu option,
-        'type' : the type of form input. (eg. 'radio', 'date-picker', 'text', 'textarea', 'disease-picker', 'select'),
-        'values' : [
-                    {'actual' : actual value of the option, 'displayed' : the way the option will be seen in the menu} ...
-                    ]
-    }, ...
- ]
- }
-
- Note: when an item is specified as "inactive" it is completely removed from the menu; when it
-       is specified as "disabled" it is greyed-out and does not allow selection, but is still visible.
- */
-const NodeMenu = Class.create({
-    initialize: function (data, tabs, otherCSSClass) {
-        //console.log("nodeMenu initialize");
-        this.canvas = editor.getWorkspace().canvas || $("panogram");
-        var cssClass = "menu-box";
-        if (otherCSSClass) cssClass += " " + otherCSSClass;
-        this.menuBox = new Element("div", { "class": cssClass });
-
-        this.closeButton = new Element("span", { "class": "close-button" }).update("×");
-        this.menuBox.insert({ "top": this.closeButton });
-        this.closeButton.observe("click", this.hide.bindAsEventListener(this));
-
-        this.form = new Element("form", { "method": "get", "action": "", "class": "tabs-content" });
-
-        this.tabs = {};
-        this.tabHeaders = {};
-        if (tabs && tabs.length > 0) {
-            this.tabTop = new Element("dl", { "class": "tabs" });
-            for (var i = 0; i < tabs.length; i++) {
-                var tabName = tabs[i];
-                var activeClass = i == 0 ? "active" : "";
-                this.tabs[tabName] = new Element("div", { "id": "tab_" + tabName, "class": "content " + activeClass });
-                this.form.insert(this.tabs[tabName]);
-
-                this.tabHeaders[tabName] = new Element("dd", { "class": activeClass }).insert("<a>" + tabName + "</a>");
-                var _this = this;
-                var switchTab = function (tabName) {
-                    return function () {
-                        for (var tab in _this.tabs) {
-                            if (_this.tabs.hasOwnProperty(tab)) {
-                                if (tab != tabName) {
-                                    _this.tabs[tab].className = "content";
-                                    _this.tabHeaders[tab].className = "";
-                                } else {
-                                    _this.tabs[tab].className = "content active";
-                                    _this.tabHeaders[tab].className = "active";
-                                }
-                            }
-                        }
-                        _this.reposition();
-                    };
-                };
-                this.tabHeaders[tabName].observe("click", switchTab(tabName));
-                this.tabTop.insert(this.tabHeaders[tabName]);
-            }
-            var div = new Element("div", { "class": "tabholder" }).insert(this.tabTop).insert(this.form);
-            this.menuBox.insert({ "bottom": div });
-        } else {
-            this.singleTab = new Element("div", { "class": "tabholder" }).insert(this.form);
-            this.menuBox.insert({ "bottom": this.singleTab });
-            this.closeButton.addClassName("close-button-old");
-            this.form.addClassName("content");
-        }
-
-        this.fieldMap = {};
-        // Generate fields
-        var _this = this;
-        data.each(function (d) {
-            if (typeof _this._generateField[d.type] == "function") {
-                var insertLocation = _this.form;
-                if (d.tab && _this.tabs.hasOwnProperty(d.tab)) {
-                    insertLocation = _this.tabs[d.tab];
-                }
-                insertLocation.insert(_this._generateField[d.type].call(_this, d));
-            }
-        });
-
-        // Insert in document
-        this.hide();
-        editor.getWorkspace().getWorkArea().insert(this.menuBox);
-
-        this._onClickOutside = this._onClickOutside.bindAsEventListener(this);
-
-        // Attach pickers
-        // date
-        var crtYear = new Date().getFullYear();
-        // window.dateTimePicker = new XWiki.widgets.DateTimePicker({
-        //     year_range: [crtYear - 99, crtYear + 1],
-        //     after_navigate : function(date) {
-        //         this._selector.updateSelectedDate({day: date.getDate(), month: date.getMonth(), year : date.getYear() + 1900}, false);
-        //     }
-        // });
-        // disease
-        this.form.select("input.suggest-omim").each(function (item) {
-            if (!item.hasClassName("initialized")) {
-                // Create the Suggest.
-                item._suggest = new PhenoTips.widgets.Suggest(item, {
-                    script: __WEBPACK_IMPORTED_MODULE_0__disorder__["a" /* Disorder */].getOMIMServiceURL() + "&",
-                    queryProcessor: typeof PhenoTips.widgets.SolrQueryProcessor == "undefined" ? null : new PhenoTips.widgets.SolrQueryProcessor({
-                        "name": { "wordBoost": 20, "phraseBoost": 40 },
-                        "nameSpell": { "wordBoost": 50, "phraseBoost": 100, "stubBoost": 20 },
-                        "keywords": { "wordBoost": 2, "phraseBoost": 6, "stubBoost": 2 },
-                        "text": { "wordBoost": 1, "phraseBoost": 3, "stubBoost": 1 },
-                        "textSpell": { "wordBoost": 2, "phraseBoost": 5, "stubBoost": 2, "stubTrigger": true }
-                    }, {
-                        "-nameSort": ["\\**", "\\+*", "\\^*"]
-                    }),
-                    varname: "q",
-                    noresults: "No matching terms",
-                    json: true,
-                    resultsParameter: "rows",
-                    resultId: "id",
-                    resultValue: "name",
-                    resultInfo: {},
-                    enableHierarchy: false,
-                    fadeOnClear: false,
-                    timeout: 30000,
-                    tooltip: "omim-disease-info",
-                    parentContainer: $("panogram")
-                });
-                if (item.hasClassName("multi") && typeof PhenoTips.widgets.SuggestPicker != "undefined") {
-                    item._suggestPicker = new PhenoTips.widgets.SuggestPicker(item, item._suggest, {
-                        "showKey": false,
-                        "showTooltip": false,
-                        "showDeleteTool": true,
-                        "enableSort": false,
-                        "showClearTool": true,
-                        "inputType": "hidden",
-                        "listInsertionElt": "input",
-                        "listInsertionPosition": "after",
-                        "acceptFreeText": true
-                    });
-                }
-                item.addClassName("initialized");
-                document.observe("ms:suggest:containerCreated", function (event) {
-                    if (event.memo && event.memo.suggest === item._suggest) {
-                        item._suggest.container.setStyle({ "overflow": "auto", "maxHeight": document.viewport.getHeight() - item._suggest.container.cumulativeOffset().top + "px" });
-                    }
-                });
-            }
-        });
-        // ethnicities
-        this.form.select("input.suggest-ethnicity").each(function (item) {
-            if (!item.hasClassName("initialized")) {
-                var ethnicityServiceURL = "";
-                //console.log("Ethnicity URL: " + ethnicityServiceURL);
-                item._suggest = new PhenoTips.widgets.Suggest(item, {
-                    script: ethnicityServiceURL + "&json=true&",
-                    varname: "input",
-                    noresults: "No matching terms",
-                    resultsParameter: "rows",
-                    json: true,
-                    resultId: "id",
-                    resultValue: "ethnicity",
-                    resultInfo: {},
-                    enableHierarchy: false,
-                    fadeOnClear: false,
-                    timeout: 30000,
-                    parentContainer: $("panogram")
-                });
-                if (item.hasClassName("multi") && typeof PhenoTips.widgets.SuggestPicker != "undefined") {
-                    item._suggestPicker = new PhenoTips.widgets.SuggestPicker(item, item._suggest, {
-                        "showKey": false,
-                        "showTooltip": false,
-                        "showDeleteTool": true,
-                        "enableSort": false,
-                        "showClearTool": true,
-                        "inputType": "hidden",
-                        "listInsertionElt": "input",
-                        "listInsertionPosition": "after",
-                        "acceptFreeText": true
-                    });
-                }
-                item.addClassName("initialized");
-                document.observe("ms:suggest:containerCreated", function (event) {
-                    if (event.memo && event.memo.suggest === item._suggest) {
-                        item._suggest.container.setStyle({ "overflow": "auto", "maxHeight": document.viewport.getHeight() - item._suggest.container.cumulativeOffset().top + "px" });
-                    }
-                });
-            }
-        });
-        // genes
-        this.form.select("input.suggest-genes").each(function (item) {
-            if (!item.hasClassName("initialized")) {
-                var geneServiceURL = "";
-                //console.log("GeneService URL: " + geneServiceURL);
-                item._suggest = new PhenoTips.widgets.Suggest(item, {
-                    script: geneServiceURL + "&json=true&",
-                    varname: "q",
-                    noresults: "No matching terms",
-                    resultsParameter: "docs",
-                    json: true,
-                    resultId: "symbol",
-                    resultValue: "symbol",
-                    resultInfo: {},
-                    enableHierarchy: false,
-                    tooltip: "gene-info",
-                    fadeOnClear: false,
-                    timeout: 30000,
-                    parentContainer: $("panogram")
-                });
-                if (item.hasClassName("multi") && typeof PhenoTips.widgets.SuggestPicker != "undefined") {
-                    item._suggestPicker = new PhenoTips.widgets.SuggestPicker(item, item._suggest, {
-                        "showKey": false,
-                        "showTooltip": false,
-                        "showDeleteTool": true,
-                        "enableSort": false,
-                        "showClearTool": true,
-                        "inputType": "hidden",
-                        "listInsertionElt": "input",
-                        "listInsertionPosition": "after",
-                        "acceptFreeText": true
-                    });
-                }
-                item.addClassName("initialized");
-                document.observe("ms:suggest:containerCreated", function (event) {
-                    if (event.memo && event.memo.suggest === item._suggest) {
-                        item._suggest.container.setStyle({ "overflow": "auto", "maxHeight": document.viewport.getHeight() - item._suggest.container.cumulativeOffset().top + "px" });
-                    }
-                });
-            }
-        });
-        // HPO terms
-        this.form.select("input.suggest-hpo").each(function (item) {
-            if (!item.hasClassName("initialized")) {
-                var solrServiceURL = __WEBPACK_IMPORTED_MODULE_1__hpoTerm__["a" /* HPOTerm */].getServiceURL();
-                //console.log("HPO\SOLR URL: " + solrServiceURL);
-                item._suggest = new PhenoTips.widgets.Suggest(item, {
-                    script: solrServiceURL + "rows=100&",
-                    queryProcessor: typeof PhenoTips.widgets.SolrQueryProcessor == "undefined" ? null : new PhenoTips.widgets.SolrQueryProcessor({
-                        "name": { "wordBoost": 10, "phraseBoost": 20 },
-                        "nameSpell": { "wordBoost": 18, "phraseBoost": 36, "stubBoost": 14 },
-                        "nameExact": { "phraseBoost": 100 },
-                        "namePrefix": { "phraseBoost": 30 },
-                        "synonym": { "wordBoost": 6, "phraseBoost": 15 },
-                        "synonymSpell": { "wordBoost": 10, "phraseBoost": 25, "stubBoost": 7 },
-                        "synonymExact": { "phraseBoost": 70 },
-                        "synonymPrefix": { "phraseBoost": 20 },
-                        "text": { "wordBoost": 1, "phraseBoost": 3, "stubBoost": 1 },
-                        "textSpell": { "wordBoost": 2, "phraseBoost": 5, "stubBoost": 2, "stubTrigger": true },
-                        "id": { "activationRegex": /^HP:[0-9]+$/i, "mandatory": true, "transform": function (query) {
-                                return query.toUpperCase().replace(/:/g, "\\:");
-                            } },
-                        "alt_id": { "activationRegex": /^HP:[0-9]+$/i, "mandatory": true, "transform": function (query) {
-                                return query.toUpperCase().replace(/:/g, "\\:");
-                            } }
-                    }, {
-                        "term_category": ["HP:0000118"]
-                    }),
-                    varname: "q",
-                    noresults: "No matching terms",
-                    json: true,
-                    resultsParameter: "rows",
-                    resultId: "id",
-                    resultValue: "name",
-                    resultAltName: "synonym",
-                    resultCategory: "term_category",
-                    resultInfo: {},
-                    enableHierarchy: false,
-                    resultParent: "is_a",
-                    tooltip: "phenotype-info",
-                    fadeOnClear: false,
-                    timeout: 30000,
-                    parentContainer: $("panogram")
-                });
-                if (item.hasClassName("multi") && typeof PhenoTips.widgets.SuggestPicker != "undefined") {
-                    item._suggestPicker = new PhenoTips.widgets.SuggestPicker(item, item._suggest, {
-                        "showKey": false,
-                        "showTooltip": false,
-                        "showDeleteTool": true,
-                        "enableSort": false,
-                        "showClearTool": true,
-                        "inputType": "hidden",
-                        "listInsertionElt": "input",
-                        "listInsertionPosition": "after",
-                        "acceptFreeText": true
-                    });
-                }
-                item.addClassName("initialized");
-                document.observe("ms:suggest:containerCreated", function (event) {
-                    if (event.memo && event.memo.suggest === item._suggest) {
-                        item._suggest.container.setStyle({ "overflow": "auto", "maxHeight": document.viewport.getHeight() - item._suggest.container.cumulativeOffset().top + "px" });
-                    }
-                });
-            }
-        });
-
-        // Update disorder colors
-        this._updateDisorderColor = function (id, color) {
-            this.menuBox.select(".field-disorders li input[value=\"" + id + "\"]").each(function (item) {
-                var colorBubble = item.up("li").down(".disorder-color");
-                if (!colorBubble) {
-                    colorBubble = new Element("span", { "class": "disorder-color" });
-                    item.up("li").insert({ top: colorBubble });
-                }
-                colorBubble.setStyle({ background: color });
-            });
-        }.bind(this);
-        document.observe("disorder:color", function (event) {
-            if (!event.memo || !event.memo.id || !event.memo.color) {
-                return;
-            }
-            _this._updateDisorderColor(event.memo.id, event.memo.color);
-        });
-        //this._setFieldValue['disease-picker'].bind(this);
-
-        // Update gene colors
-        this._updateGeneColor = function (id, color) {
-            this.menuBox.select(".field-candidate_genes li input[value=\"" + id + "\"]").each(function (item) {
-                var colorBubble = item.up("li").down(".disorder-color");
-                if (!colorBubble) {
-                    colorBubble = new Element("span", { "class": "disorder-color" });
-                    item.up("li").insert({ top: colorBubble });
-                }
-                colorBubble.setStyle({ background: color });
-            });
-        }.bind(this);
-        document.observe("gene:color", function (event) {
-            if (!event.memo || !event.memo.id || !event.memo.color) {
-                return;
-            }
-            _this._updateGeneColor(event.memo.id, event.memo.color);
-        });
-    },
-
-    _generateEmptyField: function (data) {
-        var result = new Element("div", { "class": "field-box field-" + data.name });
-        var label = new Element("label", { "class": "field-name" }).update(data.label);
-        result.inputsContainer = new Element("div", { "class": "field-inputs" });
-        result.insert(label).insert(result.inputsContainer);
-        this.fieldMap[data.name] = {
-            "type": data.type,
-            "element": result,
-            "default": data["default"] || "",
-            "crtValue": data["default"] || "",
-            "function": data["function"],
-            "inactive": false
-        };
-        return result;
-    },
-
-    _attachFieldEventListeners: function (field, eventNames, values) {
-        var _this = this;
-        eventNames.each(function (eventName) {
-            field.observe(eventName, function (event) {
-                if (_this._updating) return; // otherwise a field change triggers an update which triggers field change etc
-                var target = _this.targetNode;
-                if (!target) return;
-                _this.fieldMap[field.name].crtValue = field._getValue && field._getValue()[0];
-                var method = _this.fieldMap[field.name]["function"];
-
-                if (target.getSummary()[field.name].value == _this.fieldMap[field.name].crtValue) return;
-
-                if (method.indexOf("set") == 0 && typeof target[method] == "function") {
-                    var properties = {};
-                    properties[method] = _this.fieldMap[field.name].crtValue;
-                    var event = { "nodeID": target.getID(), "properties": properties };
-                    document.fire("pedigree:node:setproperty", event);
-                } else {
-                    var properties = {};
-                    properties[method] = _this.fieldMap[field.name].crtValue;
-                    var event = { "nodeID": target.getID(), "modifications": properties };
-                    document.fire("pedigree:node:modify", event);
-                }
-                field.fire("pedigree:change");
-            });
-        });
-    },
-
-    update: function (newTarget) {
-        //console.log("Node menu: update");
-        if (newTarget) this.targetNode = newTarget;
-
-        if (this.targetNode) {
-            this._updating = true; // needed to avoid infinite loop: update -> _attachFieldEventListeners -> update -> ...
-            this._setCrtData(this.targetNode.getSummary());
-            this.reposition();
-            delete this._updating;
-        }
-    },
-
-    _attachDependencyBehavior: function (field, data) {
-        if (data.dependency) {
-            var dependency = data.dependency.split(" ", 3);
-            var element = this.fieldMap[dependency[0]].element;
-            dependency[0] = this.form[dependency[0]];
-            element.inputsContainer.insert(field.up());
-            this.fieldMap[field.name].element = element;
-            this._updatedDependency(field, dependency);
-            dependency[0].observe("pedigree:change", function () {
-                this._updatedDependency(field, dependency);
-                field.value = "";
-                //console.log("dependency observed: " + field + ", dep: " + dependency);
-            }.bindAsEventListener(this));
-        }
-    },
-
-    _updatedDependency: function (field, dependency) {
-        switch (dependency[1]) {
-            case "!=":
-                field.disabled = dependency[0].value == dependency[2];
-                break;
-            default:
-                field.disabled = dependency[0].value == dependency[2];
-                break;
-        }
-    },
-
-    _generateField: {
-        "radio": function (data) {
-            var result = this._generateEmptyField(data);
-            var columnClass = data.columns ? "field-values-" + data.columns + "-columns" : "field-values";
-            var values = new Element("div", { "class": columnClass });
-            result.inputsContainer.insert(values);
-            var _this = this;
-            var _generateRadioButton = function (v) {
-                var radioLabel = new Element("label", { "class": data.name + "_" + v.actual }).update(v.displayed);
-                var radioButton = new Element("input", { type: "radio", name: data.name, value: v.actual });
-                radioLabel.insert({ "top": radioButton });
-                radioButton._getValue = function () {
-                    return [this.value];
-                }.bind(radioButton);
-                values.insert(radioLabel);
-                _this._attachFieldEventListeners(radioButton, ["click"]);
-                _this._attachDependencyBehavior(radioButton, data);
-            };
-            data.values.each(_generateRadioButton);
-
-            return result;
-        },
-        "checkbox": function (data) {
-            var result = this._generateEmptyField(data);
-            var checkbox = new Element("input", { type: "checkbox", name: data.name, value: "1" });
-            result.down("label").insert({ "top": checkbox });
-            checkbox._getValue = function () {
-                return [this.checked];
-            }.bind(checkbox);
-            this._attachFieldEventListeners(checkbox, ["click"]);
-            return result;
-        },
-        "text": function (data) {
-            var result = this._generateEmptyField(data);
-            var text = new Element("input", { type: "text", name: data.name });
-            if (data.tip) {
-                text.placeholder = data.tip;
-            }
-            result.inputsContainer.insert(text);
-            text.wrap("span");
-            text._getValue = function () {
-                return [this.value];
-            }.bind(text);
-            //this._attachFieldEventListeners(text, ['keypress', 'keyup'], [true]);
-            this._attachFieldEventListeners(text, ["keyup"], [true]);
-            this._attachDependencyBehavior(text, data);
-            return result;
-        },
-        "textarea": function (data) {
-            var result = this._generateEmptyField(data);
-            var properties = { name: data.name };
-            properties["class"] = "textarea-" + data.rows + "-rows"; // for compatibiloity with older browsers not accepting {class: ...}
-            var text = new Element("textarea", properties);
-            result.inputsContainer.insert(text);
-            //text.wrap('span');
-            text._getValue = function () {
-                return [this.value];
-            }.bind(text);
-            this._attachFieldEventListeners(text, ["keyup"], [true]);
-            this._attachDependencyBehavior(text, data);
-            return result;
-        },
-        "date-picker": function (data) {
-            var result = this._generateEmptyField(data);
-            var datePicker = new Element("input", { type: "text", "class": "xwiki-date", name: data.name, "title": data.format, alt: "" });
-            result.insert(datePicker);
-            datePicker._getValue = function () {
-                return [this.alt && Date.parseISO_8601(this.alt)];
-            }.bind(datePicker);
-            this._attachFieldEventListeners(datePicker, ["xwiki:date:changed"]);
-            return result;
-        },
-        "disease-picker": function (data) {
-            var result = this._generateEmptyField(data);
-            var diseasePicker = new Element("input", { type: "text", "class": "suggest multi suggest-omim", name: data.name });
-            result.insert(diseasePicker);
-            diseasePicker._getValue = function () {
-                var results = [];
-                var container = this.up(".field-box");
-                if (container) {
-                    container.select("input[type=hidden][name=" + data.name + "]").each(function (item) {
-                        results.push(new __WEBPACK_IMPORTED_MODULE_0__disorder__["a" /* Disorder */](item.value, item.next(".value") && item.next(".value").firstChild.nodeValue || item.value));
-                    });
-                }
-                return [results];
-            }.bind(diseasePicker);
-            // Forward the 'custom:selection:changed' to the input
-            var _this = this;
-            document.observe("custom:selection:changed", function (event) {
-                if (event.memo && event.memo.fieldName == data.name && event.memo.trigger && event.findElement() != event.memo.trigger && !event.memo.trigger._silent) {
-                    Event.fire(event.memo.trigger, "custom:selection:changed");
-                    _this.reposition();
-                }
-            });
-            this._attachFieldEventListeners(diseasePicker, ["custom:selection:changed"]);
-            return result;
-        },
-        "ethnicity-picker": function (data) {
-            var result = this._generateEmptyField(data);
-            var ethnicityPicker = new Element("input", { type: "text", "class": "suggest multi suggest-ethnicity", name: data.name });
-            result.insert(ethnicityPicker);
-            ethnicityPicker._getValue = function () {
-                var results = [];
-                var container = this.up(".field-box");
-                if (container) {
-                    container.select("input[type=hidden][name=" + data.name + "]").each(function (item) {
-                        results.push(item.next(".value") && item.next(".value").firstChild.nodeValue || item.value);
-                    });
-                }
-                return [results];
-            }.bind(ethnicityPicker);
-            // Forward the 'custom:selection:changed' to the input
-            var _this = this;
-            document.observe("custom:selection:changed", function (event) {
-                if (event.memo && event.memo.fieldName == data.name && event.memo.trigger && event.findElement() != event.memo.trigger && !event.memo.trigger._silent) {
-                    Event.fire(event.memo.trigger, "custom:selection:changed");
-                    _this.reposition();
-                }
-            });
-            this._attachFieldEventListeners(ethnicityPicker, ["custom:selection:changed"]);
-            return result;
-        },
-        "hpo-picker": function (data) {
-            var result = this._generateEmptyField(data);
-            var hpoPicker = new Element("input", { type: "text", "class": "suggest multi suggest-hpo", name: data.name });
-            result.insert(hpoPicker);
-            hpoPicker._getValue = function () {
-                var results = [];
-                var container = this.up(".field-box");
-                if (container) {
-                    container.select("input[type=hidden][name=" + data.name + "]").each(function (item) {
-                        results.push(new __WEBPACK_IMPORTED_MODULE_1__hpoTerm__["a" /* HPOTerm */](item.value, item.next(".value") && item.next(".value").firstChild.nodeValue || item.value));
-                    });
-                }
-                return [results];
-            }.bind(hpoPicker);
-            // Forward the 'custom:selection:changed' to the input
-            var _this = this;
-            document.observe("custom:selection:changed", function (event) {
-                if (event.memo && event.memo.fieldName == data.name && event.memo.trigger && event.findElement() != event.memo.trigger && !event.memo.trigger._silent) {
-                    Event.fire(event.memo.trigger, "custom:selection:changed");
-                    _this.reposition();
-                }
-            });
-            this._attachFieldEventListeners(hpoPicker, ["custom:selection:changed"]);
-            return result;
-        },
-        "gene-picker": function (data) {
-            var result = this._generateEmptyField(data);
-            var genePicker = new Element("input", { type: "text", "class": "suggest multi suggest-genes", name: data.name });
-            result.insert(genePicker);
-            genePicker._getValue = function () {
-                var results = [];
-                var container = this.up(".field-box");
-                if (container) {
-                    container.select("input[type=hidden][name=" + data.name + "]").each(function (item) {
-                        results.push(item.next(".value") && item.next(".value").firstChild.nodeValue || item.value);
-                    });
-                }
-                return [results];
-            }.bind(genePicker);
-            // Forward the 'custom:selection:changed' to the input
-            var _this = this;
-            document.observe("custom:selection:changed", function (event) {
-                if (event.memo && event.memo.fieldName == data.name && event.memo.trigger && event.findElement() != event.memo.trigger && !event.memo.trigger._silent) {
-                    Event.fire(event.memo.trigger, "custom:selection:changed");
-                    _this.reposition();
-                }
-            });
-            this._attachFieldEventListeners(genePicker, ["custom:selection:changed"]);
-            return result;
-        },
-        "select": function (data) {
-            var result = this._generateEmptyField(data);
-            var select = new Element("select", { "name": data.name });
-            result.inputsContainer.insert(select);
-            select.wrap("span");
-            var _generateSelectOption = function (v) {
-                var option = new Element("option", { "value": v.actual }).update(v.displayed);
-                select.insert(option);
-            };
-            if (data.nullValue) {
-                _generateSelectOption({ "actual": "", displayed: "-" });
-            }
-            if (data.values) {
-                data.values.each(_generateSelectOption);
-            } else if (data.range) {
-                $A($R(data.range.start, data.range.end)).each(function (i) {
-                    _generateSelectOption({ "actual": i, "displayed": i + " " + data.range.item[+(i != 1)] });
-                });
-            }
-            select._getValue = function () {
-                return [this.selectedIndex >= 0 && this.options[this.selectedIndex].value || ""];
-            }.bind(select);
-            this._attachFieldEventListeners(select, ["change"]);
-            return result;
-        },
-        "hidden": function (data) {
-            var result = this._generateEmptyField(data);
-            result.addClassName("hidden");
-            var input = new Element("input", { type: "hidden", name: data.name, value: "" });
-            result.update(input);
-            return result;
-        }
-    },
-
-    show: function (node, x, y) {
-        this._onscreen = true;
-        //console.log("nodeMenu show");
-        this.targetNode = node;
-        this._setCrtData(node.getSummary());
-        this.menuBox.show();
-        this.reposition(x, y);
-        document.observe("mousedown", this._onClickOutside);
-    },
-
-    hide: function () {
-        this.hideSuggestPicker();
-        this._onscreen = false;
-        //console.log("nodeMenu hide");
-        document.stopObserving("mousedown", this._onClickOutside);
-        if (this.targetNode) {
-            this.targetNode.onWidgetHide();
-            delete this.targetNode;
-        }
-        this.menuBox.hide();
-        this._clearCrtData();
-    },
-
-    hideSuggestPicker: function () {
-        this.form.select("input.suggest").each(function (item) {
-            if (item._suggest) {
-                item._suggest.clearSuggestions();
-            }
-        });
-    },
-
-    isVisible: function () {
-        return this._onscreen;
-    },
-
-    _onClickOutside: function (event) {
-        //console.log("nodeMenu clickoutside");
-        if (!event.findElement(".menu-box") && !event.findElement(".calendar_date_select") && !event.findElement(".suggestItems")) {
-            this.hide();
-        }
-    },
-
-    reposition: function (x, y) {
-        x = Math.floor(x);
-        if (x !== undefined && isFinite(x)) {
-            if (this.canvas && x + this.menuBox.getWidth() > this.canvas.getWidth() + 10) {
-                var delta = x + this.menuBox.getWidth() - this.canvas.getWidth();
-                editor.getWorkspace().panByX(delta, true);
-                x -= delta;
-            }
-            this.menuBox.style.left = x + "px";
-        }
-
-        this.menuBox.style.height = "";
-        var height = "";
-        var top = "";
-        if (y !== undefined && isFinite(y)) {
-            y = Math.floor(y);
-        } else {
-            if (this.menuBox.style.top.length > 0) {
-                y = parseInt(this.menuBox.style.top.match(/^(\d+)/g)[0]);
-            }
-            if (y === undefined || !isFinite(y) || y < 0) y = 0;
-        }
-
-        // Make sure the menu fits inside the screen
-        if (this.canvas && this.menuBox.getHeight() >= this.canvas.getHeight() - 1) {
-            // menu is too big to fit the screen
-            top = 0;
-            height = this.canvas.getHeight() - 1 + "px";
-        } else if (this.canvas.getHeight() < y + this.menuBox.getHeight() + 1) {
-            // menu fits the screen, but have to move it higher for that
-            var diff = y + this.menuBox.getHeight() - this.canvas.getHeight() + 1;
-            var position = y - diff;
-            if (position < 0) {
-                top = 0;
-                height = this.canvas.getHeight() - 1 + "px";
-            } else {
-                top = position + "px";
-                height = "";
-            }
-        } else {
-            top = y + "px";
-            height = "";
-        }
-
-        this.menuBox.style.top = top;
-        this.menuBox.style.height = height;
-        this.menuBox.style.overflow = "auto";
-    },
-
-    _clearCrtData: function () {
-        var _this = this;
-        Object.keys(this.fieldMap).each(function (name) {
-            _this.fieldMap[name].crtValue = _this.fieldMap[name]["default"];
-            _this._setFieldValue[_this.fieldMap[name].type].call(_this, _this.fieldMap[name].element, _this.fieldMap[name].crtValue);
-            _this.fieldMap[name].inactive = false;
-        });
-    },
-
-    _setCrtData: function (data) {
-        var _this = this;
-        Object.keys(this.fieldMap).each(function (name) {
-            _this.fieldMap[name].crtValue = data && data[name] && typeof data[name].value != "undefined" ? data[name].value : _this.fieldMap[name].crtValue || _this.fieldMap[name]["default"];
-            _this.fieldMap[name].inactive = data && data[name] && (typeof data[name].inactive == "boolean" || typeof data[name].inactive == "object") ? data[name].inactive : _this.fieldMap[name].inactive;
-            _this.fieldMap[name].disabled = data && data[name] && (typeof data[name].disabled == "boolean" || typeof data[name].disabled == "object") ? data[name].disabled : _this.fieldMap[name].disabled;
-            _this._setFieldValue[_this.fieldMap[name].type].call(_this, _this.fieldMap[name].element, _this.fieldMap[name].crtValue);
-            _this._setFieldInactive[_this.fieldMap[name].type].call(_this, _this.fieldMap[name].element, _this.fieldMap[name].inactive);
-            _this._setFieldDisabled[_this.fieldMap[name].type].call(_this, _this.fieldMap[name].element, _this.fieldMap[name].disabled);
-            //_this._updatedDependency(_this.fieldMap[name].element, _this.fieldMap[name].element);
-            //console.log("name = " + name + ", data = " + stringifyObject(data[name]) + ", inactive: " + stringifyObject(_this.fieldMap[name].inactive));
-        });
-    },
-
-    _setFieldValue: {
-        "radio": function (container, value) {
-            var target = container.down("input[type=radio][value=" + value + "]");
-            if (target) {
-                target.checked = true;
-            }
-        },
-        "checkbox": function (container, value) {
-            var checkbox = container.down("input[type=checkbox]");
-            if (checkbox) {
-                checkbox.checked = value;
-            }
-        },
-        "text": function (container, value) {
-            var target = container.down("input[type=text]");
-            if (target) {
-                target.value = value;
-            }
-        },
-        "textarea": function (container, value) {
-            var target = container.down("textarea");
-            if (target) {
-                target.value = value;
-            }
-        },
-        "date-picker": function (container, value) {
-            var target = container.down("input[type=text].xwiki-date");
-            if (target) {
-                target.value = value && value.toFormattedString({ "format_mask": target.title }) || "";
-                target.alt = value && value.toISO8601() || "";
-                //Event.fire(target, 'xwiki:date:changed');
-            }
-        },
-        "disease-picker": function (container, values) {
-            var _this = this;
-            var target = container.down("input[type=text].suggest-omim");
-            if (target && target._suggestPicker) {
-                target._silent = true;
-                target._suggestPicker.clearAcceptedList();
-                if (values) {
-                    values.each(function (v) {
-                        target._suggestPicker.addItem(v.id, v.value, "");
-                        _this._updateDisorderColor(v.id, editor.getDisorderLegend().getObjectColor(v.id));
-                    });
-                }
-                target._silent = false;
-            }
-        },
-        "ethnicity-picker": function (container, values) {
-            var _this = this;
-            var target = container.down("input[type=text].suggest-ethnicity");
-            if (target && target._suggestPicker) {
-                target._silent = true;
-                target._suggestPicker.clearAcceptedList();
-                if (values) {
-                    values.each(function (v) {
-                        target._suggestPicker.addItem(v, v, "");
-                    });
-                }
-                target._silent = false;
-            }
-        },
-        "hpo-picker": function (container, values) {
-            var _this = this;
-            var target = container.down("input[type=text].suggest-hpo");
-            if (target && target._suggestPicker) {
-                target._silent = true;
-                target._suggestPicker.clearAcceptedList();
-                if (values) {
-                    values.each(function (v) {
-                        target._suggestPicker.addItem(v.id, v.value, "");
-                    });
-                }
-                target._silent = false;
-            }
-        },
-        "gene-picker": function (container, values) {
-            var _this = this;
-            var target = container.down("input[type=text].suggest-genes");
-            if (target && target._suggestPicker) {
-                target._silent = true;
-                target._suggestPicker.clearAcceptedList();
-                if (values) {
-                    values.each(function (v) {
-                        target._suggestPicker.addItem(v, v, "");
-                        _this._updateGeneColor(v, editor.getGeneLegend().getObjectColor(v));
-                    });
-                }
-                target._silent = false;
-            }
-        },
-        "select": function (container, value) {
-            var target = container.down("select option[value=" + value + "]");
-            if (target) {
-                target.selected = "selected";
-            }
-        },
-        "hidden": function (container, value) {
-            var target = container.down("input[type=hidden]");
-            if (target) {
-                target.value = value;
-            }
-        }
-    },
-
-    _toggleFieldVisibility: function (container, doHide) {
-        if (doHide) {
-            container.addClassName("hidden");
-        } else {
-            container.removeClassName("hidden");
-        }
-    },
-
-    _setFieldInactive: {
-        "radio": function (container, inactive) {
-            if (inactive === true) {
-                container.addClassName("hidden");
-            } else {
-                container.removeClassName("hidden");
-                container.select("input[type=radio]").each(function (item) {
-                    if (inactive && Object.prototype.toString.call(inactive) === "[object Array]") {
-                        item.disabled = inactive.indexOf(item.value) >= 0;
-                        if (item.disabled) item.up().addClassName("hidden");else item.up().removeClassName("hidden");
-                    } else if (!inactive) {
-                        item.disabled = false;
-                        item.up().removeClassName("hidden");
-                    }
-                });
-            }
-        },
-        "checkbox": function (container, inactive) {
-            this._toggleFieldVisibility(container, inactive);
-        },
-        "text": function (container, inactive) {
-            this._toggleFieldVisibility(container, inactive);
-        },
-        "textarea": function (container, inactive) {
-            this._toggleFieldVisibility(container, inactive);
-        },
-        "date-picker": function (container, inactive) {
-            this._toggleFieldVisibility(container, inactive);
-        },
-        "disease-picker": function (container, inactive) {
-            this._toggleFieldVisibility(container, inactive);
-        },
-        "ethnicity-picker": function (container, inactive) {
-            this._toggleFieldVisibility(container, inactive);
-        },
-        "hpo-picker": function (container, inactive) {
-            this._toggleFieldVisibility(container, inactive);
-        },
-        "gene-picker": function (container, inactive) {
-            this._toggleFieldVisibility(container, inactive);
-        },
-        "select": function (container, inactive) {
-            this._toggleFieldVisibility(container, inactive);
-        },
-        "hidden": function (container, inactive) {
-            this._toggleFieldVisibility(container, inactive);
-        }
-    },
-
-    _setFieldDisabled: {
-        "radio": function (container, disabled) {
-            if (disabled === true) {
-                container.addClassName("hidden");
-            } else {
-                container.removeClassName("hidden");
-                container.select("input[type=radio]").each(function (item) {
-                    if (disabled && Object.prototype.toString.call(disabled) === "[object Array]") item.disabled = disabled.indexOf(item.value) >= 0;
-                    if (!disabled) item.disabled = false;
-                });
-            }
-        },
-        "checkbox": function (container, disabled) {
-            var target = container.down("input[type=checkbox]");
-            if (target) {
-                target.disabled = disabled;
-            }
-        },
-        "text": function (container, disabled) {
-            var target = container.down("input[type=text]");
-            if (target) {
-                target.disabled = disabled;
-            }
-        },
-        "textarea": function (container, inactive) {
-            // FIXME: Not implemented
-        },
-        "date-picker": function (container, inactive) {
-            // FIXME: Not implemented
-        },
-        "disease-picker": function (container, inactive) {
-            // FIXME: Not implemented
-        },
-        "ethnicity-picker": function (container, inactive) {
-            // FIXME: Not implemented
-        },
-        "hpo-picker": function (container, inactive) {
-            // FIXME: Not implemented
-        },
-        "gene-picker": function (container, inactive) {
-            // FIXME: Not implemented
-        },
-        "select": function (container, inactive) {
-            // FIXME: Not implemented
-        },
-        "hidden": function (container, inactive) {
-            // FIXME: Not implemented
-        }
-    }
-});
-/* harmony export (immutable) */ __webpack_exports__["a"] = NodeMenu;
-
-/* WEBPACK VAR INJECTION */}.call(__webpack_exports__, __webpack_require__(3), __webpack_require__(13)))
-
-/***/ }),
-/* 163 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* WEBPACK VAR INJECTION */(function(Class) {/**
- * The UI element ("bubble") that contains options for the creation of a new node.
- *
- * @class NodetypeSelectionBubble
- * @constructor
- */
-
-const NodetypeSelectionBubble = Class.create({
-
-    //The skeleton for the bubble contents
-    buttonsDefs: [{
-        key: "M",
-        type: "person",
-        label: "Male",
-        tip: "Create a person of male gender",
-        symbol: "",
-        cssclass: "fa fa-square-o",
-        callback: "CreateChild",
-        params: { parameters: { "gender": "M" } },
-        inSiblingMode: true
-    }, {
-        key: "F",
-        type: "person",
-        label: "Female",
-        tip: "Create a person of female gender",
-        symbol: "",
-        cssclass: "fa fa-circle-thin",
-        callback: "CreateChild",
-        params: { parameters: { "gender": "F" } },
-        inSiblingMode: true
-    }, {
-        key: "U",
-        type: "person",
-        label: "Unknown",
-        tip: "Create a person of unknown gender",
-        symbol: "<div class='fa fa-square-o fa-rotate-45'></div>",
-        cssclass: "",
-        callback: "CreateChild",
-        params: { parameters: { "gender": "U" } },
-        inSiblingMode: true
-    }, {
-        key: "T",
-        type: "person",
-        label: "Twins",
-        tip: "Create twins (expandable to triplets or more)",
-        symbol: "⋀",
-        cssclass: "",
-        callback: "CreateChild",
-        params: { "twins": true, "parameters": { "gender": "U" } },
-        expandsTo: "expandTwins",
-        inSiblingMode: true
-    }, {
-        key: "m",
-        type: "person",
-        label: "Multiple",
-        tip: "Create a node representing multiple siblings",
-        symbol: "〈n〉",
-        cssclass: "",
-        callback: "CreateChild",
-        params: { "group": true },
-        expandsTo: "expandPersonGroup",
-        inSiblingMode: true
-    }, {
-        type: "separator"
-    }, {
-        key: "n",
-        type: "marker",
-        label: "No children",
-        tip: "Mark as childless by choice",
-        symbol: "┴",
-        cssclass: "",
-        callback: "setProperty",
-        params: { setChildlessStatus: "childless" },
-        inSiblingMode: false
-    }, {
-        key: "i",
-        type: "marker",
-        label: "Infertile",
-        tip: "Mark as infertile",
-        symbol: "╧",
-        cssclass: "",
-        callback: "setProperty",
-        params: { setChildlessStatus: "infertile" },
-        inSiblingMode: false
-    }],
-
-    initialize: function (siblingMode) {
-        this._siblingMode = siblingMode;
-
-        this.element = new Element("div", { "class": "callout" });
-        this.element.insert(new Element("span", { "class": "callout-handle" }));
-
-        var container = new Element("div", { "class": "node-type-options" });
-        this.expandedOptionsContainer = new Element("div", { "class": "node-type-options-extended" });
-        this.element.insert(container);
-        this.element.insert(this.expandedOptionsContainer);
-
-        var _this = this;
-        this.buttonsDefs.each(function (def) {
-            if (!siblingMode || def.hasOwnProperty("inSiblingMode") && def.inSiblingMode) container.insert(def.type == "separator" ? _this._generateSeparator() : _this._createOption(def));
-        });
-        this.element.hide();
-        editor.getWorkspace().getWorkArea().insert(this.element);
-
-        this._onClickOutside = this._onClickOutside.bindAsEventListener(this);
-
-        this.resetParameters();
-    },
-
-    resetParameters: function () {
-        this.numPersonsInGroup = 1;
-        this.numTwinNodes = 2;
-    },
-
-    /**
-     * Creates a button in the bubble corresponding do the definition from the skeleton
-     *
-     * @method _createOption
-     * @param data The definition object from the bubble skeleton
-     * @return {HTMLElement} The span containing the button
-     * @private
-     */
-    _createOption: function (data) {
-        var i = 1;
-        if (!data) {
-            return null;
-        }
-        var expandablePrefix = typeof this[data.expandsTo] == "function" ? "expandable-" : "";
-        var o = new Element("a", {
-            "class": data.cssclass + " " + expandablePrefix + "node-type-option " + (data.type || "") + "-type-option node-type-" + data.key,
-            "title": data.tip,
-            "href": "#"
-        }).update(data.symbol); // TODO: eliminate symbol, do ".update(data.label)", add style (icons);
-        var _this = this;
-        o.observe("click", function (event) {
-            event.stop();
-            if (!_this._node) return;
-            console.log("observe nodetype click: " + data.callback);
-            if (data.callback == "setProperty") {
-                var event = { "nodeID": _this._node.getID(), "properties": data.params };
-                document.fire("pedigree:node:setproperty", event);
-            } else if (data.callback == "CreateChild") {
-                _this.handleCreateAction(data);
-            }
-            _this.hide();
-        });
-        var container = new Element("span");
-        container.insert(o);
-        expandablePrefix && container.insert(this.generateExpandArrow(data));
-        return container;
-    },
-
-    handleCreateAction: function (data) {
-        var id = this._node.getID();
-        var nodeType = this._node.getType();
-        if (nodeType == "Person") {
-            var event = { "personID": id, "childParams": data.params.parameters, "preferLeft": false };
-            if (data.params.twins) {
-                event["twins"] = this.numTwinNodes;
-            }
-            if (data.params.group) {
-                event["groupSize"] = this.numPersonsInGroup;
-            }
-
-            if (this._siblingMode) document.fire("pedigree:person:newsibling", event);else document.fire("pedigree:person:newpartnerandchild", event);
-        } else if (nodeType == "Partnership") {
-            var event = { "partnershipID": id, "childParams": data.params.parameters };
-            if (data.params.twins) {
-                event["twins"] = this.numTwinNodes;
-            }
-            if (data.params.group) {
-                event["groupSize"] = this.numPersonsInGroup;
-            }
-            document.fire("pedigree:partnership:newchild", event);
-        }
-        this.hide();
-    },
-
-    /**
-     * Creates an arrow button that expands or shrinks the bubble
-     *
-     * @method generateExpandArrow
-     * @param data The definition object from the bubble skeleton
-     * @return {HTMLElement} The span containing the button
-     */
-    generateExpandArrow: function (data) {
-        var expandArrow = new Element("span", {
-            "class": "expand-arrow collapsed",
-            "title": "show more options",
-            "href": "#"
-        }).update("▾");
-
-        expandArrow.expand = function () {
-            $$(".expand-arrow").forEach(function (arrow) {
-                arrow.collapse();
-            });
-            this[data.expandsTo](data);
-            expandArrow.update("▴");
-            Element.removeClassName(expandArrow, "collapsed");
-        }.bind(this);
-
-        expandArrow.collapse = function () {
-            this.expandedOptionsContainer.update("");
-            expandArrow.update("▾");
-            Element.addClassName(expandArrow, "collapsed");
-        }.bind(this);
-
-        expandArrow.observe("click", function () {
-            console.log("observe2");
-            if (expandArrow.hasClassName("collapsed")) {
-                expandArrow.expand();
-            } else {
-                expandArrow.collapse();
-            }
-        });
-        return expandArrow;
-    },
-
-    /**
-     * Creates a line to separate buttons in the bubble
-     *
-     * @method _generateSeparator
-     * @return {HTMLElement}
-     * @private
-     */
-    _generateSeparator: function () {
-        return new Element("span", { "class": "separator" }).update(" | ");
-    },
-
-    /**
-     * Repositions the bubble to the given coordinates coordinates
-     *
-     * @method _positionAt
-     * @param {Number} x The x coordinate in the viewport
-     * @param {Number} y The y coordinate in the viewport
-     * @private
-     */
-    _positionAt: function (x, y) {
-        y = Math.round(y);
-        if (y + this.element.getHeight() > editor.getWorkspace().getWorkArea().getHeight()) {
-            this.element.addClassName("upside");
-            y = Math.round(y - this.element.getHeight());
-        }
-        this.element.style.top = y + "px";
-        var dx = Math.round(this.element.getWidth() / 2);
-        if (x - dx + this.element.getWidth() > editor.getWorkspace().getWorkArea().getWidth()) {
-            dx = Math.round(this.element.getWidth() - (editor.getWorkspace().getWorkArea().getWidth() - x));
-        } else if (dx > x) {
-            dx = Math.round(x);
-        }
-        this.element.down(".callout-handle").style.left = dx + "px";
-        this.element.style.left = Math.round(x - dx) + "px";
-    },
-
-    /**
-     * Displays the bubble for the specified node
-     *
-     * @method show
-     * @param {AbstractNode} node The node for which the bubble is displayed
-     * @param {Number} x The x coordinate in the viewport
-     * @param {Number} y The y coordinate in the viewport
-     */
-    show: function (node, x, y) {
-        this._node = node;
-        if (!this._node) return;
-        //console.log("show1");
-        this._node.onWidgetShow();
-        // TODO decide which options to display, depending on the source node's status
-        // E.g.:
-        // if (/* the node has actual (person) children */) {
-        //   this.element.select('.marker-type-option').invoke('hide');
-        // } else if (/* the node cannot have children */) {
-        //   this.element.select('.person-type-option').invoke('hide');
-        // }
-        this.element.show();
-        this.expandedOptionsContainer.update("");
-        this._positionAt(x, y);
-        document.observe("mousedown", this._onClickOutside);
-    },
-
-    /**
-     * Hides the bubble from the viewport
-     *
-     * @method hide
-     */
-    hide: function () {
-        //console.log("hide1");
-        document.stopObserving("mousedown", this._onClickOutside);
-        $$(".expand-arrow").forEach(function (arrow) {
-            arrow.collapse();
-        });
-        if (this._node) {
-            this._node.onWidgetHide();
-            delete this._node;
-            // reset the state
-            this.element.select(".node-type-option").invoke("show");
-            this.element.removeClassName("upside");
-        }
-        this.element.hide();
-        this.resetParameters(); // reset number of twins/number of persons
-    },
-
-    /**
-     * Hides the bubble if the user clicks outside
-     *
-     * @method _onClickOutside
-     * @param {Event} event
-     * @private
-     */
-    _onClickOutside: function (event) {
-        //console.log("observe clickoutside nodetype");
-        if (!event.findElement(".callout")) {
-            this.hide();
-        }
-    },
-
-    /**
-     * Decrement the number of nodes to be created
-     *
-     * @method _decrementNumNodes
-     * @return {Number} The resulting number of nodes to be created
-     * @private
-     */
-    _decrementNumNodes: function () {
-        return this.numPersonsInGroup > 1 ? --this.numPersonsInGroup : this.numPersonsInGroup;
-    },
-
-    /**
-     * Increment the number of nodes to be created
-     *
-     * @method _incrementNumNodes
-     * @return {Number} The resulting number of nodes to be created
-     * @private
-     */
-    _incrementNumNodes: function () {
-        return this.numPersonsInGroup < 9 ? ++this.numPersonsInGroup : this.numPersonsInGroup;
-    },
-
-    /**
-     * Decrement the number of twins to be created
-     *
-     * @method _decrementNumTwins
-     * @return {Number} The resulting number of twins to be created
-     * @private
-     */
-    _decrementNumTwins: function () {
-        return this.numTwinNodes > 2 ? --this.numTwinNodes : this.numTwinNodes;
-    },
-
-    /**
-     * Increment the number of twins to be created
-     *
-     * @method _incrementNumTwins
-     * @return {Number} The resulting number of twins to be created
-     * @private
-     */
-    _incrementNumTwins: function () {
-        return this.numTwinNodes < 9 ? ++this.numTwinNodes : this.numTwinNodes;
-    },
-
-    /**
-     * Expand the bubble and show additional options for creation of PersonGroup nodes
-     *
-     * @method expandPersonGroup
-     */
-    expandPersonGroup: function (personGroupMenuInfo) {
-        //create rhombus icon
-        // put counter on top of rhombus
-        //add plus minus buttons on the sides
-        //add ok button
-        //var icon = '<svg <desc>Number of children</desc><text x="250" y="150" font-family="Verdana" font-size="12" fill="blue" >n</text></svg>';
-        var me = this;
-        var generateIcon = function () {
-            var iconText = me.numPersonsInGroup > 1 ? String(me.numPersonsInGroup) : "n";
-            return "<svg version=\"1.1\" viewBox=\"0.0 0.0 100.0 100.0\" width=50 height=50 fill=\"none\" stroke=\"none\" stroke-linecap=\"square\" stroke-miterlimit=\"10\" xmlns=\"http://www.w3.org/2000/svg\" xmlns:xlink=\"http://www.w3.org/1999/xlink\"><clipPath id=\"p.0\"><path d=\"m0 0l960.0 0l0 720.0l-960.0 0l0 -720.0z\" clip-rule=\"nonzero\"></path></clipPath><g clip-path=\"url(#p.0)\"><path fill=\"#000000\" fill-opacity=\"0.0\" d=\"m0 0l960.0 0l0 720.0l-960.0 0z\" fill-rule=\"nonzero\"></path><path fill=\"#cfe2f3\" d=\"m1.2283465 49.97113l48.53543 -48.535435l48.53543 48.535435l-48.53543 48.53543z\" fill-rule=\"nonzero\"></path><path stroke=\"#000000\" stroke-width=\"2.0\" stroke-linejoin=\"round\" stroke-linecap=\"butt\" d=\"m1.2283465 49.97113l48.53543 -48.535435l48.53543 48.535435l-48.53543 48.53543z\" fill-rule=\"nonzero\"></path><path fill=\"#000000\" fill-opacity=\"0.0\" d=\"m20.661417 22.068241l58.204727 0l0 48.000004l-58.204727 0z\" fill-rule=\"nonzero\"></path></g><desc>Number of children</desc><text x=\"35\" y=\"60\" font-family=\"Verdana\" font-size=\"40\" fill=\"black\">" + iconText + "</text></svg>";
-        };
-        var createBtn = new Element("input", { "type": "button", "value": "create", "class": "button" });
-        var svgContainer = new Element("span").update(generateIcon());
-        var minusBtn = new Element("span", {
-            "class": "minus-button value-control-button"
-        }).update("-");
-        var plusBtn = new Element("span", {
-            "class": "plus-button value-control-button"
-        }).update("+");
-        minusBtn.observe("click", function () {
-            me._decrementNumNodes();svgContainer.update(generateIcon());
-        });
-        plusBtn.observe("click", function () {
-            me._incrementNumNodes();svgContainer.update(generateIcon());
-        });
-        createBtn.observe("click", function () {
-            //console.log("observeCreate1");
-            me.handleCreateAction(personGroupMenuInfo);
-        });
-        this.expandedOptionsContainer.insert(minusBtn);
-        this.expandedOptionsContainer.insert(svgContainer);
-        this.expandedOptionsContainer.insert(plusBtn);
-        this.expandedOptionsContainer.insert(createBtn);
-
-        //        var height = this.element.getHeight();
-        //        new Effect.Morph( this.element, {
-        //            style: 'background:#f00; color: #fff;', // CSS Properties
-        //            width: 400,
-        //            duration: 0.8 // Core Effect properties
-        //        });
-        //this.element.morph('background:#00ff00; height:' + (height + 20) + 'px;');
-    },
-
-    /**
-     * Expand the bubble and show additional options for creation of twin nodes
-     *
-     * @method expandTwins
-     */
-    expandTwins: function (twinMenuInfo) {
-        var me = this;
-        var generateIcon = function () {
-            return "<svg version=\"1.1\" viewBox=\"0.0 0.0 100.0 100.0\" width=50 height=50 fill=\"none\" stroke=\"none\" stroke-linecap=\"square\" stroke-miterlimit=\"10\" xmlns=\"http://www.w3.org/2000/svg\" xmlns:xlink=\"http://www.w3.org/1999/xlink\"><clipPath id=\"p.0\"><path d=\"m0 0l960.0 0l0 720.0l-960.0 0l0 -720.0z\" clip-rule=\"nonzero\"></path></clipPath><g clip-path=\"url(#p.0)\"><path fill=\"#000000\" fill-opacity=\"0.0\" d=\"m0 0l960.0 0l0 720.0l-960.0 0z\" fill-rule=\"nonzero\"></path><path fill=\"#cfe2f3\" d=\"m1.2283465 49.97113l48.53543 -48.535435l48.53543 48.535435l-48.53543 48.53543z\" fill-rule=\"nonzero\"></path><path stroke=\"#000000\" stroke-width=\"2.0\" stroke-linejoin=\"round\" stroke-linecap=\"butt\" d=\"m1.2283465 49.97113l48.53543 -48.535435l48.53543 48.535435l-48.53543 48.53543z\" fill-rule=\"nonzero\"></path><path fill=\"#000000\" fill-opacity=\"0.0\" d=\"m20.661417 22.068241l58.204727 0l0 48.000004l-58.204727 0z\" fill-rule=\"nonzero\"></path></g><desc>Number of children</desc><text x=\"35\" y=\"60\" font-family=\"Verdana\" font-size=\"40\" fill=\"black\">" + me.numTwinNodes + "</text></svg>";
-        };
-        var createBtn = new Element("input", { "type": "button", "value": "create", "class": "button" });
-        var svgContainer = new Element("span").update(generateIcon());
-        var minusBtn = new Element("span", {
-            "class": "minus-button value-control-button"
-        }).update("-");
-        var plusBtn = new Element("span", {
-            "class": "plus-button value-control-button"
-        }).update("+");
-        minusBtn.observe("click", function () {
-            me._decrementNumTwins();svgContainer.update(generateIcon());
-        });
-        plusBtn.observe("click", function () {
-            me._incrementNumTwins();svgContainer.update(generateIcon());
-        });
-        createBtn.observe("click", function () {
-            me.handleCreateAction(twinMenuInfo);
-        });
-        this.expandedOptionsContainer.insert(minusBtn);
-        this.expandedOptionsContainer.insert(svgContainer);
-        this.expandedOptionsContainer.insert(plusBtn);
-        this.expandedOptionsContainer.insert(createBtn);
-    }
-});
-/* harmony export (immutable) */ __webpack_exports__["a"] = NodetypeSelectionBubble;
-
-/* WEBPACK VAR INJECTION */}.call(__webpack_exports__, __webpack_require__(3)))
-
-/***/ }),
-/* 164 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* WEBPACK VAR INJECTION */(function(Class) {/**
- * The UI Element for displaying prompts to the user in a movable/semi-transparent dialogue
- *
- * @class OkCancelDialogue
- */
-
-const OkCancelDialogue = Class.create({
-
-    initialize: function () {
-        var _this = this;
-
-        this._onOK = undefined;
-        this._onCancel = undefined;
-
-        var mainDiv = new Element("div", { "class": "ok-cancel-dialogue" });
-
-        this._promptBody = new Element("div", { "class": "ok-cancel-body" });
-        mainDiv.insert(this._promptBody);
-
-        var buttons = new Element("div", { "class": "buttons import-block-bottom" });
-        buttons.insert(new Element("input", { type: "button", name: "ok", "value": "OK", "class": "button width80px", "id": "OK_button" }).wrap("span", { "class": "buttonwrapper" }));
-        buttons.insert(new Element("input", { type: "button", name: "cancel", "value": "Cancel", "class": "button secondary width80px" }).wrap("span", { "class": "buttonwrapper" }));
-        mainDiv.insert(buttons);
-
-        var cancelButton = buttons.down("input[name=\"cancel\"]");
-        cancelButton.observe("click", function (event) {
-            _this.hide();
-            _this._onCancel && _this._onCancel();
-        });
-        var okButton = buttons.down("input[name=\"ok\"]");
-        okButton.observe("click", function (event) {
-            _this.hide();
-            _this._onOK && _this._onOK();
-        });
-
-        var closeShortcut = ["Esc"];
-        this.dialog = new PhenoTips.widgets.ModalPopup(mainDiv, { close: { method: this.hide.bind(this), keys: closeShortcut } }, { extraClassName: "pedigree-import-chooser", title: "?", displayCloseButton: false });
-    },
-
-    /**
-     * Displays the template selector
-     *
-     * @method show
-     */
-    show: function (message, title, onOKFunction, onCancelFunction) {
-        this._onOK = onOKFunction;
-        this._onCancel = onCancelFunction;
-        this._promptBody.update(message);
-        this.dialog.show();
-        this.dialog.dialogBox.down("div.msdialog-title").update(title); // this.dialog.dialogBox is available only after show() 
-    },
-
-    /**
-     * Removes the the template selector
-     *
-     * @method hide
-     */
-    hide: function () {
-        this.dialog.closeDialog();
-    }
-});
-/* harmony export (immutable) */ __webpack_exports__["a"] = OkCancelDialogue;
-
-/* WEBPACK VAR INJECTION */}.call(__webpack_exports__, __webpack_require__(3)))
-
-/***/ }),
-/* 165 */
+/* 156 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -71875,11 +68964,11 @@ Ordering.prototype = {
 };
 
 /***/ }),
-/* 166 */
+/* 157 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* WEBPACK VAR INJECTION */(function(Class) {/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__partnershipVisuals__ = __webpack_require__(168);
+/* WEBPACK VAR INJECTION */(function(Class) {/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__partnershipVisuals__ = __webpack_require__(159);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__abstractNode__ = __webpack_require__(55);
 
 
@@ -72071,12 +69160,12 @@ Partnership.addMethods(__WEBPACK_IMPORTED_MODULE_1__abstractNode__["a" /* Childl
 /* WEBPACK VAR INJECTION */}.call(__webpack_exports__, __webpack_require__(3)))
 
 /***/ }),
-/* 167 */
+/* 158 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* WEBPACK VAR INJECTION */(function(Class) {/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__abstractHoverbox__ = __webpack_require__(54);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__pedigreeEditorAttributes__ = __webpack_require__(9);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__pedigreeEditorAttributes__ = __webpack_require__(10);
 
 
 
@@ -72244,14 +69333,14 @@ const PartnershipHoverbox = Class.create(__WEBPACK_IMPORTED_MODULE_0__abstractHo
 /* WEBPACK VAR INJECTION */}.call(__webpack_exports__, __webpack_require__(3)))
 
 /***/ }),
-/* 168 */
+/* 159 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* WEBPACK VAR INJECTION */(function(Class, Raphael) {/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__abstractNodeVisuals__ = __webpack_require__(35);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__pedigreeEditorAttributes__ = __webpack_require__(9);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__readonlyHoverbox__ = __webpack_require__(59);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__partnershipHoverbox__ = __webpack_require__(167);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__pedigreeEditorAttributes__ = __webpack_require__(10);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__readonlyHoverbox__ = __webpack_require__(57);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__partnershipHoverbox__ = __webpack_require__(158);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__graphicHelpers__ = __webpack_require__(37);
 
 
@@ -72734,682 +69823,12 @@ PartnershipVisuals.addMethods(__WEBPACK_IMPORTED_MODULE_0__abstractNodeVisuals__
 /* WEBPACK VAR INJECTION */}.call(__webpack_exports__, __webpack_require__(3), __webpack_require__(21)))
 
 /***/ }),
-/* 169 */
+/* 160 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* WEBPACK VAR INJECTION */(function(Class) {/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__nodeMenu__ = __webpack_require__(162);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__dynamicGraph__ = __webpack_require__(81);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__nodetypeSelectionBubble__ = __webpack_require__(163);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__workspace__ = __webpack_require__(89);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__okCancelDialogue__ = __webpack_require__(164);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__disorderLegend__ = __webpack_require__(80);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__view__ = __webpack_require__(88);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__geneLegend__ = __webpack_require__(82);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__hpoLegend__ = __webpack_require__(83);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__undoRedo__ = __webpack_require__(87);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__templateSelector__ = __webpack_require__(61);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__importSelector__ = __webpack_require__(160);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__exportSelector__ = __webpack_require__(157);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_13__saveLoadIndicator__ = __webpack_require__(174);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_14__versionUpdater__ = __webpack_require__(176);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_15__saveLoadEngine__ = __webpack_require__(60);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_16__controller__ = __webpack_require__(79);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_17__pedigreeEditorAttributes__ = __webpack_require__(9);
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-/**
- * The main class of the Pedigree Editor, responsible for initializing all the basic elements of the app.
- * Contains wrapper methods for the most commonly used functions.
- * This class should be initialized only once.
- *
- * @class PedigreeEditor
- * @constructor
- */
-const PedigreeEditor = Class.create({
-    initialize: function () {
-        //this.DEBUG_MODE = true;
-        window.editor = this;
-
-        // initialize main data structure which holds the graph structure
-        this._graphModel = __WEBPACK_IMPORTED_MODULE_1__dynamicGraph__["a" /* DynamicPositionedGraph */].makeEmpty(__WEBPACK_IMPORTED_MODULE_17__pedigreeEditorAttributes__["a" /* PedigreeEditorAttributes */].layoutRelativePersonWidth, __WEBPACK_IMPORTED_MODULE_17__pedigreeEditorAttributes__["a" /* PedigreeEditorAttributes */].layoutRelativeOtherWidth);
-
-        //initialize the elements of the app
-        this._workspace = new __WEBPACK_IMPORTED_MODULE_3__workspace__["a" /* Workspace */]();
-        this._nodeMenu = this.generateNodeMenu();
-        this._nodeGroupMenu = this.generateNodeGroupMenu();
-        this._partnershipMenu = this.generatePartnershipMenu();
-        this._nodetypeSelectionBubble = new __WEBPACK_IMPORTED_MODULE_2__nodetypeSelectionBubble__["a" /* NodetypeSelectionBubble */](false);
-        this._siblingSelectionBubble = new __WEBPACK_IMPORTED_MODULE_2__nodetypeSelectionBubble__["a" /* NodetypeSelectionBubble */](true);
-        this._okCancelDialogue = new __WEBPACK_IMPORTED_MODULE_4__okCancelDialogue__["a" /* OkCancelDialogue */]();
-        this._disorderLegend = new __WEBPACK_IMPORTED_MODULE_5__disorderLegend__["a" /* DisorderLegend */]();
-        this._geneLegend = new __WEBPACK_IMPORTED_MODULE_7__geneLegend__["a" /* GeneLegend */]();
-        this._hpoLegend = new __WEBPACK_IMPORTED_MODULE_8__hpoLegend__["a" /* HPOLegend */]();
-
-        this._view = new __WEBPACK_IMPORTED_MODULE_6__view__["a" /* View */]();
-
-        this._actionStack = new __WEBPACK_IMPORTED_MODULE_9__undoRedo__["a" /* ActionStack */]();
-        this._templateSelector = new __WEBPACK_IMPORTED_MODULE_10__templateSelector__["a" /* TemplateSelector */]();
-        this._importSelector = new __WEBPACK_IMPORTED_MODULE_11__importSelector__["a" /* ImportSelector */]();
-        this._exportSelector = new __WEBPACK_IMPORTED_MODULE_12__exportSelector__["a" /* ExportSelector */]();
-        this._saveLoadIndicator = new __WEBPACK_IMPORTED_MODULE_13__saveLoadIndicator__["a" /* SaveLoadIndicator */]();
-        this._versionUpdater = new __WEBPACK_IMPORTED_MODULE_14__versionUpdater__["a" /* VersionUpdater */]();
-        this._saveLoadEngine = new __WEBPACK_IMPORTED_MODULE_15__saveLoadEngine__["b" /* SaveLoadEngine */]();
-        this._probandData = new __WEBPACK_IMPORTED_MODULE_15__saveLoadEngine__["a" /* ProbandDataLoader */]();
-
-        // load proband data and load the graph after proband data is available
-        this._probandData.load(this._saveLoadEngine.load.bind(this._saveLoadEngine));
-
-        this._controller = new __WEBPACK_IMPORTED_MODULE_16__controller__["a" /* Controller */]();
-
-        //attach actions to buttons on the top bar
-        var undoButton = $('action-undo');
-        undoButton && undoButton.on("click", function (event) {
-            document.fire("pedigree:undo");
-        });
-        var redoButton = $('action-redo');
-        redoButton && redoButton.on("click", function (event) {
-            document.fire("pedigree:redo");
-        });
-
-        var autolayoutButton = $('action-layout');
-        autolayoutButton && autolayoutButton.on("click", function (event) {
-            document.fire("pedigree:autolayout");
-        });
-        var clearButton = $('action-clear');
-        clearButton && clearButton.on("click", function (event) {
-            document.fire("pedigree:graph:clear");
-        });
-
-        var saveButton = $('action-save');
-        saveButton && saveButton.on("click", function (event) {
-            editor.getView().unmarkAll();
-            editor.getSaveLoadEngine().save();
-        });
-        var loadButton = $('action-reload');
-        loadButton && loadButton.on("click", function (event) {
-            editor.getSaveLoadEngine().load();
-        });
-
-        var templatesButton = $('action-templates');
-        templatesButton && templatesButton.on("click", function (event) {
-            editor.getTemplateSelector().show();
-        });
-        var importButton = $('action-import');
-        importButton && importButton.on("click", function (event) {
-            editor.getImportSelector().show();
-        });
-        var exportButton = $('action-export');
-        exportButton && exportButton.on("click", function (event) {
-            editor.getExportSelector().show();
-        });
-
-        var closeButton = $('action-close');
-        closeButton && closeButton.on("click", function (event) {
-            //editor.getSaveLoadEngine().save();
-            console.log("closing");
-        });
-
-        var renumberButton = $('action-number');
-        renumberButton && renumberButton.on("click", function (event) {
-            document.fire("pedigree:renumber");
-        });
-
-        var unsupportedBrowserButton = $('action-readonlymessage');
-        unsupportedBrowserButton && unsupportedBrowserButton.on("click", function (event) {
-            alert("Your browser does not support all the features required for " + "Pedigree Editor, so pedigree is displayed in read-only mode (and may have quirks).\n\n" + "Supported browsers include Firefox v3.5+, Internet Explorer v9+, " + "Chrome, Safari v4+, Opera v10.5+ and most mobile browsers.");
-        });
-
-        //this.startAutoSave(30);
-    },
-
-    /**
-     * Returns the graph node with the corresponding nodeID
-     * @method getNode
-     * @param {Number} nodeID The id of the desired node
-     * @return {AbstractNode} the node whose id is nodeID
-     */
-    getNode: function (nodeID) {
-        return this.getView().getNode(nodeID);
-    },
-
-    /**
-     * @method getView
-     * @return {View} (responsible for managing graphical representations of nodes and interactive elements)
-     */
-    getView: function () {
-        return this._view;
-    },
-
-    /**
-     * @method getVersionUpdater
-     * @return {VersionUpdater}
-     */
-    getVersionUpdater: function () {
-        return this._versionUpdater;
-    },
-
-    /**
-     * @method getGraph
-     * @return {DynamicPositionedGraph} (data model: responsible for managing nodes and their positions)
-     */
-    getGraph: function () {
-        return this._graphModel;
-    },
-
-    /**
-     * @method getController
-     * @return {Controller} (responsible for managing user input and corresponding data changes)
-     */
-    getController: function () {
-        return this._controller;
-    },
-
-    /**
-     * @method getActionStack
-     * @return {ActionStack} (responsible for undoing and redoing actions)
-     */
-    getActionStack: function () {
-        return this._actionStack;
-    },
-
-    /**
-     * @method getOkCancelDialogue
-     * @return {OkCancelDialogue} (responsible for displaying ok/cancel prompts)
-     */
-    getOkCancelDialogue: function () {
-        return this._okCancelDialogue;
-    },
-
-    /**
-     * @method getNodetypeSelectionBubble
-     * @return {NodetypeSelectionBubble} (floating window with initialization options for new nodes)
-     */
-    getNodetypeSelectionBubble: function () {
-        return this._nodetypeSelectionBubble;
-    },
-
-    /**
-     * @method getSiblingSelectionBubble
-     * @return {NodetypeSelectionBubble} (floating window with initialization options for new sibling nodes)
-     */
-    getSiblingSelectionBubble: function () {
-        return this._siblingSelectionBubble;
-    },
-
-    /**
-     * @method getWorkspace
-     * @return {Workspace}
-     */
-    getWorkspace: function () {
-        return this._workspace;
-    },
-
-    /**
-     * @method getDisorderLegend
-     * @return {Legend} Responsible for managing and displaying the disorder legend
-     */
-    getDisorderLegend: function () {
-        return this._disorderLegend;
-    },
-
-    /**
-     * @method getHPOLegend
-     * @return {Legend} Responsible for managing and displaying the phenotype/HPO legend
-     */
-    getHPOLegend: function () {
-        return this._hpoLegend;
-    },
-
-    /**
-     * @method getGeneLegend
-     * @return {Legend} Responsible for managing and displaying the candidate genes legend
-     */
-    getGeneLegend: function () {
-        return this._geneLegend;
-    },
-
-    /**
-     * @method getPaper
-     * @return {Workspace.paper} Raphael paper element
-     */
-    getPaper: function () {
-        return this.getWorkspace().getPaper();
-    },
-
-    /**
-     * @method isReadOnlyMode
-     * @return {Boolean} True iff pedigree drawn should be read only with no handles
-     *                   (read-only mode is used for IE8 as well as for template display and
-     *                   print and export versions).
-     */
-    isReadOnlyMode: function () {
-        if (this.isUnsupportedBrowser()) return true;
-        return false;
-    },
-
-    isUnsupportedBrowser: function () {
-        // http://voormedia.com/blog/2012/10/displaying-and-detecting-support-for-svg-images
-        if (!document.implementation.hasFeature("http://www.w3.org/TR/SVG11/feature#BasicStructure", "1.1")) {
-            // implies unpredictable behavior when using handles & interactive elements,
-            // and most likely extremely slow on any CPU
-            return true;
-        }
-        // http://kangax.github.io/es5-compat-table/
-        if (!window.JSON) {
-            // no built-in JSON parser - can't proceed in any way; note that this also implies
-            // no support for some other functions such as parsing XML.
-            //
-            // TODO: include free third-party JSON parser and replace XML with JSON when loading data;
-            //       (e.g. https://github.com/douglascrockford/JSON-js)
-            //
-            //       => at that point all browsers which suport SVG but are treated as unsupported
-            //          should theoreticaly start working (FF 3.0, Safari 3 & Opera 9/10 - need to test).
-            //          IE7 does not support SVG and JSON and is completely out of the running;
-            alert("Your browser is not supported and is unable to load and display any pedigrees.\n\n" + "Suported browsers include Internet Explorer version 9 and higher, Safari version 4 and higher, " + "Firefox version 3.6 and higher, Opera version 10.5 and higher, any version of Chrome and most " + "other modern browsers (including mobile). IE8 is able to display pedigrees in read-only mode.");
-            window.stop && window.stop();
-            return true;
-        }
-        return false;
-    },
-
-    /**
-     * @method getSaveLoadEngine
-     * @return {SaveLoadEngine} Engine responsible for saving and loading operations
-     */
-    getSaveLoadEngine: function () {
-        return this._saveLoadEngine;
-    },
-
-    /**
-     * @method getProbandDataFromPhenotips
-     * @return {firstName: "...", lastName: "..."}
-     */
-    getProbandDataFromPhenotips: function () {
-        return this._probandData.probandData;
-    },
-
-    /**
-     * @method getTemplateSelector
-     * @return {TemplateSelector}
-     */
-    getTemplateSelector: function () {
-        return this._templateSelector;
-    },
-
-    /**
-     * @method getImportSelector
-     * @return {ImportSelector}
-     */
-    getImportSelector: function () {
-        return this._importSelector;
-    },
-
-    /**
-     * @method getExportSelector
-     * @return {ExportSelector}
-     */
-    getExportSelector: function () {
-        return this._exportSelector;
-    },
-
-    /**
-     * Returns true if any of the node menus are visible
-     * (since some UI interactions should be disabled while menu is active - e.g. mouse wheel zoom)
-     *
-     * @method isAnyMenuVisible
-     */
-    isAnyMenuVisible: function () {
-        if (this.getNodeMenu().isVisible() || this.getNodeGroupMenu().isVisible() || this.getPartnershipMenu().isVisible()) {
-            return;
-        }
-    },
-
-    /**
-     * Creates the context menu for Person nodes
-     *
-     * @method generateNodeMenu
-     * @return {NodeMenu}
-     */
-    generateNodeMenu: function () {
-        if (this.isReadOnlyMode()) return null;
-        var _this = this;
-        return new __WEBPACK_IMPORTED_MODULE_0__nodeMenu__["a" /* NodeMenu */]([{
-            'name': 'identifier',
-            'label': '',
-            'type': 'hidden',
-            'tab': 'Personal'
-        }, {
-            'name': 'gender',
-            'label': 'Gender',
-            'type': 'radio',
-            'tab': 'Personal',
-            'columns': 3,
-            'values': [{ 'actual': 'M', 'displayed': 'Male' }, { 'actual': 'F', 'displayed': 'Female' }, { 'actual': 'U', 'displayed': 'Unknown' }],
-            'default': 'U',
-            'function': 'setGender'
-        }, {
-            'name': 'first_name',
-            'label': 'First name',
-            'type': 'text',
-            'tab': 'Personal',
-            'function': 'setFirstName'
-        }, {
-            'name': 'last_name',
-            'label': 'Last name',
-            'type': 'text',
-            'tab': 'Personal',
-            'function': 'setLastName'
-        }, {
-            'name': 'last_name_birth',
-            'label': 'Last name at birth',
-            'type': 'text',
-            'tab': 'Personal',
-            'function': 'setLastNameAtBirth'
-        }, {
-            'name': 'external_id',
-            'label': 'External ID',
-            'type': 'text',
-            'tab': 'Personal',
-            'function': 'setExternalID'
-        }, {
-            'name': 'ethnicity',
-            'label': 'Ethnicities',
-            'type': 'ethnicity-picker',
-            'tab': 'Personal',
-            'function': 'setEthnicities'
-        }, {
-            'name': 'carrier',
-            'label': 'Carrier status',
-            'type': 'radio',
-            'tab': 'Clinical',
-            'values': [{ 'actual': '', 'displayed': 'Not affected' }, { 'actual': 'carrier', 'displayed': 'Carrier' },
-            //{ 'actual' : 'obligate', 'displayed' : 'Obligate carrier' },
-            { 'actual': 'affected', 'displayed': 'Affected' }, { 'actual': 'presymptomatic', 'displayed': 'Pre-symptomatic' }],
-            'default': '',
-            'function': 'setCarrierStatus'
-        }, {
-            'name': 'evaluated',
-            'label': 'Documented evaluation',
-            'type': 'checkbox',
-            'tab': 'Clinical',
-            'function': 'setEvaluated'
-        }, {
-            'name': 'disorders',
-            'label': 'Known disorders of this individual',
-            'type': 'disease-picker',
-            'tab': 'Clinical',
-            'function': 'setDisorders'
-        }, {
-            'name': 'hpo_positive',
-            'label': 'Clinical symptoms: observed phenotypes',
-            'type': 'hpo-picker',
-            'tab': 'Clinical',
-            'function': 'setHPO'
-        }, {
-            'name': 'candidate_genes',
-            'label': 'Genotype information: candidate genes',
-            'type': 'gene-picker',
-            'tab': 'Clinical',
-            'function': 'setGenes'
-        }, {
-            'name': 'date_of_birth',
-            'label': 'Date of birth',
-            'type': 'date-picker',
-            'tab': 'Personal',
-            'format': 'dd/MM/yyyy',
-            'function': 'setBirthDate'
-        }, {
-            'name': 'date_of_death',
-            'label': 'Date of death',
-            'type': 'date-picker',
-            'tab': 'Personal',
-            'format': 'dd/MM/yyyy',
-            'function': 'setDeathDate'
-        }, {
-            'name': 'gestation_age',
-            'label': 'Gestation age',
-            'type': 'select',
-            'tab': 'Personal',
-            'range': { 'start': 0, 'end': 50, 'item': ['week', 'weeks'] },
-            'nullValue': true,
-            'function': 'setGestationAge'
-        }, {
-            'name': 'state',
-            'label': 'Individual is',
-            'type': 'radio',
-            'tab': 'Personal',
-            'columns': 3,
-            'values': [{ 'actual': 'alive', 'displayed': 'Alive' }, { 'actual': 'stillborn', 'displayed': 'Stillborn' }, { 'actual': 'deceased', 'displayed': 'Deceased' }, { 'actual': 'miscarriage', 'displayed': 'Miscarriage' }, { 'actual': 'unborn', 'displayed': 'Unborn' }, { 'actual': 'aborted', 'displayed': 'Aborted' }],
-            'default': 'alive',
-            'function': 'setLifeStatus'
-        }, {
-            'label': 'Heredity options',
-            'name': 'childlessSelect',
-            'values': [{ 'actual': 'none', displayed: 'None' }, { 'actual': 'childless', displayed: 'Childless' }, { 'actual': 'infertile', displayed: 'Infertile' }],
-            'type': 'select',
-            'tab': 'Personal',
-            'function': 'setChildlessStatus'
-        }, {
-            'name': 'childlessText',
-            'type': 'text',
-            'dependency': 'childlessSelect != none',
-            'tip': 'Reason',
-            'tab': 'Personal',
-            'function': 'setChildlessReason'
-        }, {
-            'name': 'adopted',
-            'label': 'Adopted in',
-            'type': 'checkbox',
-            'tab': 'Personal',
-            'function': 'setAdopted'
-        }, {
-            'name': 'monozygotic',
-            'label': 'Monozygotic twin',
-            'type': 'checkbox',
-            'tab': 'Personal',
-            'function': 'setMonozygotic'
-        }, {
-            'name': 'nocontact',
-            'label': 'Not in contact with proband',
-            'type': 'checkbox',
-            'tab': 'Personal',
-            'function': 'setLostContact'
-        }, {
-            'name': 'placeholder',
-            'label': 'Placeholder node',
-            'type': 'checkbox',
-            'tab': 'Personal',
-            'function': 'makePlaceholder'
-        }, {
-            'name': 'comments',
-            'label': 'Comments',
-            'type': 'textarea',
-            'tab': 'Clinical',
-            'rows': 2,
-            'function': 'setComments'
-        }], ["Personal", "Clinical"]);
-    },
-
-    /**
-     * @method getNodeMenu
-     * @return {NodeMenu} Context menu for nodes
-     */
-    getNodeMenu: function () {
-        return this._nodeMenu;
-    },
-
-    /**
-     * Creates the context menu for PersonGroup nodes
-     *
-     * @method generateNodeGroupMenu
-     * @return {NodeMenu}
-     */
-    generateNodeGroupMenu: function () {
-        if (this.isReadOnlyMode()) return null;
-        var _this = this;
-        return new __WEBPACK_IMPORTED_MODULE_0__nodeMenu__["a" /* NodeMenu */]([{
-            'name': 'identifier',
-            'label': '',
-            'type': 'hidden'
-        }, {
-            'name': 'gender',
-            'label': 'Gender',
-            'type': 'radio',
-            'columns': 3,
-            'values': [{ 'actual': 'M', 'displayed': 'Male' }, { 'actual': 'F', 'displayed': 'Female' }, { 'actual': 'U', 'displayed': 'Unknown' }],
-            'default': 'U',
-            'function': 'setGender'
-        }, {
-            'name': 'numInGroup',
-            'label': 'Number of persons in this group',
-            'type': 'select',
-            'values': [{ 'actual': 1, displayed: 'N' }, { 'actual': 2, displayed: '2' }, { 'actual': 3, displayed: '3' }, { 'actual': 4, displayed: '4' }, { 'actual': 5, displayed: '5' }, { 'actual': 6, displayed: '6' }, { 'actual': 7, displayed: '7' }, { 'actual': 8, displayed: '8' }, { 'actual': 9, displayed: '9' }],
-            'function': 'setNumPersons'
-        }, {
-            'name': 'external_ids',
-            'label': 'External ID(s)',
-            'type': 'text',
-            'function': 'setExternalID'
-        }, {
-            'name': 'ethnicity',
-            'label': 'Ethnicities<br>(common to all individuals in the group)',
-            'type': 'ethnicity-picker',
-            'function': 'setEthnicities'
-        }, {
-            'name': 'disorders',
-            'label': 'Known disorders<br>(common to all individuals in the group)',
-            'type': 'disease-picker',
-            'function': 'setDisorders'
-        }, {
-            'name': 'comments',
-            'label': 'Comments',
-            'type': 'textarea',
-            'rows': 2,
-            'function': 'setComments'
-        }, {
-            'name': 'state',
-            'label': 'All individuals in the group are',
-            'type': 'radio',
-            'values': [{ 'actual': 'alive', 'displayed': 'Alive' }, { 'actual': 'aborted', 'displayed': 'Aborted' }, { 'actual': 'deceased', 'displayed': 'Deceased' }, { 'actual': 'miscarriage', 'displayed': 'Miscarriage' }],
-            'default': 'alive',
-            'function': 'setLifeStatus'
-        }, {
-            'name': 'evaluatedGrp',
-            'label': 'Documented evaluation',
-            'type': 'checkbox',
-            'function': 'setEvaluated'
-        }, {
-            'name': 'adopted',
-            'label': 'Adopted in',
-            'type': 'checkbox',
-            'function': 'setAdopted'
-        }], []);
-    },
-
-    /**
-     * @method getNodeGroupMenu
-     * @return {NodeMenu} Context menu for nodes
-     */
-    getNodeGroupMenu: function () {
-        return this._nodeGroupMenu;
-    },
-
-    /**
-     * Creates the context menu for Partnership nodes
-     *
-     * @method generatePartnershipMenu
-     * @return {NodeMenu}
-     */
-    generatePartnershipMenu: function () {
-        if (this.isReadOnlyMode()) return null;
-        var _this = this;
-        return new __WEBPACK_IMPORTED_MODULE_0__nodeMenu__["a" /* NodeMenu */]([{
-            'label': 'Heredity options',
-            'name': 'childlessSelect',
-            'values': [{ 'actual': 'none', displayed: 'None' }, { 'actual': 'childless', displayed: 'Childless' }, { 'actual': 'infertile', displayed: 'Infertile' }],
-            'type': 'select',
-            'function': 'setChildlessStatus'
-        }, {
-            'name': 'childlessText',
-            'type': 'text',
-            'dependency': 'childlessSelect != none',
-            'tip': 'Reason',
-            'function': 'setChildlessReason'
-        }, {
-            'name': 'consangr',
-            'label': 'Consanguinity of this relationship',
-            'type': 'radio',
-            'values': [{ 'actual': 'A', 'displayed': 'Automatic' }, { 'actual': 'Y', 'displayed': 'Yes' }, { 'actual': 'N', 'displayed': 'No' }],
-            'default': 'A',
-            'function': 'setConsanguinity'
-        }, {
-            'name': 'broken',
-            'label': 'Separated',
-            'type': 'checkbox',
-            'function': 'setBrokenStatus'
-        }], [], "relationship-menu");
-    },
-
-    /**
-     * @method getPartnershipMenu
-     * @return {NodeMenu} The context menu for Partnership nodes
-     */
-    getPartnershipMenu: function () {
-        return this._partnershipMenu;
-    },
-
-    /**
-     * @method convertGraphCoordToCanvasCoord
-     * @return [x,y] coordinates on the canvas
-     */
-    convertGraphCoordToCanvasCoord: function (x, y) {
-        var scale = __WEBPACK_IMPORTED_MODULE_17__pedigreeEditorAttributes__["a" /* PedigreeEditorAttributes */].layoutScale;
-        return { x: x * scale.xscale,
-            y: y * scale.yscale };
-    },
-
-    /**
-     * Starts a timer to save the application state every 30 seconds
-     *
-     * @method initializeSave
-     */
-    startAutoSave: function (intervalInSeconds) {
-        setInterval(function () {
-            editor.getSaveLoadEngine().save();
-        }, intervalInSeconds * 1000);
-    }
-});
-/* harmony export (immutable) */ __webpack_exports__["a"] = PedigreeEditor;
-
-
-var editor;
-/* WEBPACK VAR INJECTION */}.call(__webpack_exports__, __webpack_require__(3)))
-
-/***/ }),
-/* 170 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* WEBPACK VAR INJECTION */(function(Class) {/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__person__ = __webpack_require__(84);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__personGroupVisuals__ = __webpack_require__(172);
+/* WEBPACK VAR INJECTION */(function(Class) {/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__person__ = __webpack_require__(77);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__personGroupVisuals__ = __webpack_require__(162);
 
 
 
@@ -73559,12 +69978,12 @@ const PersonGroup = Class.create(__WEBPACK_IMPORTED_MODULE_0__person__["a" /* Pe
 /* WEBPACK VAR INJECTION */}.call(__webpack_exports__, __webpack_require__(3)))
 
 /***/ }),
-/* 171 */
+/* 161 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* WEBPACK VAR INJECTION */(function(Class) {/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__personHoverbox__ = __webpack_require__(85);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__pedigreeEditorAttributes__ = __webpack_require__(9);
+/* WEBPACK VAR INJECTION */(function(Class) {/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__personHoverbox__ = __webpack_require__(78);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__pedigreeEditorAttributes__ = __webpack_require__(10);
 
 
 
@@ -73678,14 +70097,14 @@ const PersonGroupHoverbox = Class.create(__WEBPACK_IMPORTED_MODULE_0__personHove
 /* WEBPACK VAR INJECTION */}.call(__webpack_exports__, __webpack_require__(3)))
 
 /***/ }),
-/* 172 */
+/* 162 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* WEBPACK VAR INJECTION */(function(Class) {/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__personVisuals__ = __webpack_require__(86);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__readonlyHoverbox__ = __webpack_require__(59);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__personGroupHoverbox__ = __webpack_require__(171);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__pedigreeEditorAttributes__ = __webpack_require__(9);
+/* WEBPACK VAR INJECTION */(function(Class) {/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__personVisuals__ = __webpack_require__(79);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__readonlyHoverbox__ = __webpack_require__(57);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__personGroupHoverbox__ = __webpack_require__(161);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__pedigreeEditorAttributes__ = __webpack_require__(10);
 
 
 
@@ -73748,15 +70167,15 @@ const PersonGroupVisuals = Class.create(__WEBPACK_IMPORTED_MODULE_0__personVisua
 /* WEBPACK VAR INJECTION */}.call(__webpack_exports__, __webpack_require__(3)))
 
 /***/ }),
-/* 173 */
+/* 163 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__helpers__ = __webpack_require__(6);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__ordering__ = __webpack_require__(165);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__xcoordclass__ = __webpack_require__(90);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__ordering__ = __webpack_require__(156);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__xcoordclass__ = __webpack_require__(82);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__queues__ = __webpack_require__(38);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__edgeOptimization__ = __webpack_require__(155);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__edgeOptimization__ = __webpack_require__(150);
 /* harmony export (immutable) */ __webpack_exports__["a"] = PositionedGraph;
 
 
@@ -76950,64 +73369,7 @@ function make_dynamic_positioned_graph(inputG, debugOutput) {
 }
 
 /***/ }),
-/* 174 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* WEBPACK VAR INJECTION */(function(Class) {/**
- * SaveLoadIndicator is a window that notifies the user of loading and saving progress.
- *
- * @class SaveLoadIndicator
- * @constructor
- */
-
-const SaveLoadIndicator = Class.create({
-    initialize: function () {
-        var me = this;
-        var mainDiv = new Element("div", {
-            "class": "load-status-container"
-        });
-        this._isHidden = true;
-        this.dialog = new PhenoTips.widgets.ModalPopup(mainDiv, false, {
-            extraClassName: "loading-indicator",
-            displayCloseButton: false
-        });
-        document.observe("pedigree:load:start", function (event) {
-            if (me._isHidden) {
-                me.show();
-            }
-        });
-        document.observe("pedigree:load:finish", function (event) {
-            if (!me._isHidden) {
-                me.hide();
-            }
-        });
-    },
-
-    /**
-     * Displays the the loading window
-     * @method show
-     */
-    show: function () {
-        this.dialog.show();
-        this._isHidden = false;
-    },
-
-    /**
-     * Hides the the loading window
-     * @method hide
-     */
-    hide: function () {
-        this.dialog.close();
-        this._isHidden = true;
-    }
-});
-/* harmony export (immutable) */ __webpack_exports__["a"] = SaveLoadIndicator;
-
-/* WEBPACK VAR INJECTION */}.call(__webpack_exports__, __webpack_require__(3)))
-
-/***/ }),
-/* 175 */
+/* 164 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -77264,73 +73626,897 @@ Control.Slider = Class.create({
         this.event = null;
     }
 });
-/* WEBPACK VAR INJECTION */}.call(__webpack_exports__, __webpack_require__(3), __webpack_require__(13), __webpack_require__(62)))
+/* WEBPACK VAR INJECTION */}.call(__webpack_exports__, __webpack_require__(3), __webpack_require__(17), __webpack_require__(58)))
 
 /***/ }),
-/* 176 */
+/* 165 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* WEBPACK VAR INJECTION */(function(Class) {/* 
- * VersionUpdater is responsible for updating pedigree JSON represenatation to the current version.
+/* WEBPACK VAR INJECTION */(function(Class) {/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__helpers__ = __webpack_require__(6);
+
+
+/**
+ * ActionStack is responsible for keeping track of user actions and providing an undo/redo functionality
+ *
+ * @class ActionStack
+ * @constructor
  */
-const VersionUpdater = Class.create({
+const ActionStack = Class.create({
     initialize: function () {
-        this.availableUpdates = [{ "comment": "group node comment representation",
-            "introduced": "May2014",
-            "func": "updateGroupNodeComments" }];
+        this._currentState = 0;
+        this._stack = [];
+        this._MAXUNDOSIZE = 100;
     },
 
-    updateToCurrentVersion: function (pedigreeJSON) {
-        for (var i = 0; i < this.availableUpdates.length; i++) {
-            var update = this.availableUpdates[i];
-
-            var updateResult = this[update.func](pedigreeJSON);
-
-            if (updateResult !== null) {
-                console.log("[update #" + i + "] [updating to " + update.introduced + " version] - performing " + update.comment + " update");
-                pedigreeJSON = updateResult;
-            }
-        }
-
-        return pedigreeJSON;
-    },
-
-    /* - assumes input is in the pre-May-2014 format
-     * - returns true if there was a change
+    /**
+     * Moves one state forward in the action stack
+     *
+     * @method redo
      */
-    updateGroupNodeComments: function (pedigreeJSON) {
-        var change = false;
-        var data = JSON.parse(pedigreeJSON);
-        for (var i = 0; i < data.GG.length; i++) {
-            var node = data.GG[i];
+    redo: function () {
+        var nextState = this._getNextState();
+        //console.log("Next state: " + stringifyObject(nextState));
+        if (!nextState) return;
 
-            if (node.hasOwnProperty("prop")) {
-                if (node.prop.hasOwnProperty("numPersons") && !node.prop.hasOwnProperty("comments") && node.prop.hasOwnProperty("fName") && node.prop.hasOwnProperty("fName") != "") {
-                    node.prop["comments"] = node.prop.fName;
-                    delete node.prop.fName;
-                    change = true;
-                }
-            }
+        if (nextState.eventToGetToThisState) {
+            var memo = nextState.eventToGetToThisState.memo;
+            memo["noUndoRedo"] = true; // so that this event is not added to the undo/redo stack again
+            document.fire(nextState.eventToGetToThisState.eventName, memo);
+            this._currentState++;
+            return;
         }
 
-        if (!change) return null;
+        editor.getSaveLoadEngine().createGraphFromSerializedData(nextState.serializedState, true /* do not re-add to undo/redo stack */);
+        this._currentState++;
+    },
 
-        return JSON.stringify(data);
+    /**
+     * Moves one state backwards in the action stack
+     *
+     * @method undo
+     */
+    undo: function () {
+        var prevState = this._getPreviousState();
+        if (!prevState) return;
+
+        // it may be more efficient to undo the current state instead of full prev state restore
+        var currentState = this._getCurrentState();
+        //console.log("Current state: " + stringifyObject(currentState));
+        if (currentState.eventToUndo) {
+            var memo = currentState.eventToUndo.memo;
+            memo["noUndoRedo"] = true; // so that this event is not added to the undo/redo stack again
+            document.fire(currentState.eventToUndo.eventName, memo);
+            this._currentState--;
+            return;
+        }
+
+        // no easy way - have to recreate the graph from serialization
+        editor.getSaveLoadEngine().createGraphFromSerializedData(prevState.serializedState, true /* do not re-add to undo/redo stack */);
+        this._currentState--;
+    },
+
+    /**
+     * Pushes a new state to the end of the action stack
+     * 
+     *   eventToGetToThisState - optional. Event which should bring the graph from the previous state to this tsate
+     *   eventToGoBack         - optional. Event which should bring the graph back to the previous state
+     *   serializedState       - optional. Serialized state of the graph as accepted by the load() funciton.
+     *                           may only be used when one of the events is not provided. Will be generated
+     *                           automatically when needed if not provided.
+     *   
+     * If one of the events is not provided a complete serializatiomn of the graph will be used to transition
+     * in that direction, which is less efficient (slower/requires more memory for state storage). 
+     *
+     * @method addState
+     */
+    addState: function (eventToGetToThisState, eventToUndo, serializedState) {
+        //this._debug_print_states();
+
+        // 1. remove all states after current state (i.e. all "redo" states) -
+        //    they are replaced by the current chain of states starting with this state 
+        if (this._currentState < this._size()) this._stack.splice(this._currentState, this._stack.length - this._currentState);
+
+        if (!serializedState) {
+            serializedState = editor.getSaveLoadEngine().serialize();
+        }
+        //console.log("Serialized state: " + stringifyObject(serializedState));
+
+        //if (!eventToGetToThisState && !serializedState)
+        //    serializedState = editor.getSaveLoadEngine().serialize();
+        //
+        //if (!eventToUndo && this._currentState > 0) {
+        //    // no event procided to undo this action AND have a current state:
+        //    // => current state needs to have a serialization
+        //    .. TODO
+        //}
+
+        var state = new State(serializedState, eventToGetToThisState, eventToUndo);
+
+        // 2. push this new state to the array and increment the current index
+
+        // spcial case: consequtive name property changes are combined into one property change        
+        var currentState = this._getCurrentState();
+        if (eventToGetToThisState && currentState && currentState.eventToGetToThisState && currentState.eventToGetToThisState.eventName == "pedigree:node:setproperty" && this._combinableEvents(currentState.eventToGetToThisState, eventToGetToThisState)) {
+            //console.log("[UNDOREDO] combining state changes");
+            currentState.eventToGetToThisState = eventToGetToThisState;
+            currentState.serializedState = serializedState;
+            //this._debug_print_states();
+            return;
+        }
+
+        this._addNewest(state);
+
+        if (this._size() > this._MAXUNDOSIZE) this._removeOldest();
+
+        //this._debug_print_states();
+    },
+
+    /**
+     * Returns true iff undo/redo should combine event1 and event2,
+     * e.g. name change from "some_old_value" to "Abc" and then to "Abcd" will be combined into
+     *      one name chnage from "some_old_value" to "Abcd"
+     *
+     * @method _size
+     * @return {Number}
+     */
+    _combinableEvents: function (event1, event2) {
+        if (!event1.memo.hasOwnProperty("nodeID") || !event2.memo.hasOwnProperty("nodeID") || event1.memo.nodeID != event2.memo.nodeID) return false;
+        if (event1.memo.properties.hasOwnProperty("setFirstName") && event2.memo.properties.hasOwnProperty("setFirstName")) return true;
+        if (event1.memo.properties.hasOwnProperty("setLastName") && event2.memo.properties.hasOwnProperty("setLastName")) return true;
+        if (event1.memo.properties.hasOwnProperty("setLastNameAtBirth") && event2.memo.properties.hasOwnProperty("setLastNameAtBirth")) return true;
+        if (event1.memo.properties.hasOwnProperty("setComments") && event2.memo.properties.hasOwnProperty("setComments")) return true;
+        if (event1.memo.properties.hasOwnProperty("setChildlessReason") && event2.memo.properties.hasOwnProperty("setChildlessReason")) return true;
+        return false;
+    },
+
+    /**
+     * Returns the number of elements in the stack
+     *
+     * @method _size
+     * @return {Number}
+     */
+    _size: function () {
+        return this._stack.length;
+    },
+
+    /**
+     * Adds the given state as the latest state in the sequence
+     *
+     * @method _addNewest
+     */
+    _addNewest: function (state) {
+        this._stack.push(state);
+        this._currentState++;
+    },
+
+    /**
+     * Removes the front element of the stack (i.e. the oldest stored state)
+     *
+     * @method _removeOldest
+     */
+    _removeOldest: function () {
+        this._stack.splice(0, 1);
+        this._currentState--;
+    },
+
+    /**
+     * Returns the current state
+     *
+     * @method _getCurrentState
+     * @return {null|Object}
+     */
+    _getCurrentState: function () {
+        return this._size() == 0 || this._currentState == 0 ? null : this._stack[this._currentState - 1];
+    },
+
+    /**
+     * Returns the next state
+     *
+     * @method _getNextState
+     * @return {null|Object}
+     */
+    _getNextState: function () {
+        return this._size() <= 1 || this._currentState >= this._size() ? null : this._stack[this._currentState];
+    },
+
+    /**
+     * Returns the previous state
+     *
+     * @method _getPreviousState
+     * @return {null|Object}
+     */
+    _getPreviousState: function () {
+        return this._size() == 1 || this._currentState <= 1 ? null : this._stack[this._currentState - 2];
+    },
+
+    _debug_print_states: function () {
+        console.log("------------");
+        for (var i = 0; i < this._stack.length; i++) {
+            console.log("[" + i + "] EventToState: " + __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__helpers__["c" /* stringifyObject */])(this._stack[i].eventToGetToThisState) + "\n" + "    EventUndo: " + __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__helpers__["c" /* stringifyObject */])(this._stack[i].eventToUndo) + "\n" + "    EventSerial: " + __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__helpers__["c" /* stringifyObject */])(this._stack[i].serializedState));
+        }
+        console.log("------------");
     }
 });
-/* harmony export (immutable) */ __webpack_exports__["a"] = VersionUpdater;
+/* harmony export (immutable) */ __webpack_exports__["a"] = ActionStack;
 
+
+var State = Class.create({
+    initialize: function (serializedState, eventToGetToThisState, eventToUndo) {
+        this.serializedState = serializedState;
+        this.eventToGetToThisState = eventToGetToThisState;
+        this.eventToUndo = eventToUndo;
+    }
+});
 /* WEBPACK VAR INJECTION */}.call(__webpack_exports__, __webpack_require__(3)))
 
 /***/ }),
-/* 177 */
+/* 166 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* WEBPACK VAR INJECTION */(function(Class, Ajax) {/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__saveLoadEngine__ = __webpack_require__(60);
+/* WEBPACK VAR INJECTION */(function(Class, Raphael) {/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__lineSet__ = __webpack_require__(155);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__helpers__ = __webpack_require__(6);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__templateSelector__ = __webpack_require__(61);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__pedigreeEditorAttributes__ = __webpack_require__(10);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__graphicHelpers__ = __webpack_require__(37);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__partnership__ = __webpack_require__(157);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__person__ = __webpack_require__(77);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__personGroup__ = __webpack_require__(160);
+
+
+
+
+
+
+
+/**
+ * View is responsible for graphical representation of th epedigree as well as user interaction
+ *
+ * @class View
+ * @constructor
+ */
+
+const View = Class.create({
+
+    initialize: function () {
+        console.log("--- view init ---");
+
+        this.preGenerateGraphics();
+
+        this._nodeMap = {}; // {nodeID} : {AbstractNode}
+
+        this.hoverModeZones = editor.getPaper().set();
+
+        this._currentMarkedNew = [];
+        this._currentGrownNodes = [];
+        this._currentHoveredNode = null;
+        this._currentDraggable = null;
+
+        this._lineSet = new __WEBPACK_IMPORTED_MODULE_0__lineSet__["a" /* LineSet */](); // used to track intersecting lines
+    },
+
+    /**
+     * Pre-generates paths and pre-computes bounding boxes for shapes which are commonly used in the graph.
+     * Raphael is slow and re-computing each path/box for every node is noticeably slow
+     *
+     * @method preGenerateGraphics
+     */
+    preGenerateGraphics: function () {
+        //
+        // computing scaled icons:
+        //   var iconScale = 0.6;
+        //   var path = "...";
+        //   console.log("scaled path: " + Raphael.transformPath(path, ["s", iconScale, iconScale, 0, 0]));
+        //
+
+        // 1) menu button
+        // nonScaledPath = "M2.021,9.748L2.021,9.748V9.746V9.748zM2.022,9.746l5.771,5.773l-5.772,5.771l2.122,2.123l7.894-7.895L4.143,7.623L2.022,9.746zM12.248,23.269h14.419V20.27H12.248V23.269zM16.583,17.019h10.084V14.02H16.583V17.019zM12.248,7.769v3.001h14.419V7.769H12.248z";
+        this.__menuButton_svgPath = "M1.213,5.849C1.213,5.849,1.213,5.849,1.213,5.849C1.213,5.849,1.213,5.848,1.213,5.848C1.213,5.848,1.213,5.849,1.213,5.849C1.213,5.849,1.213,5.849,1.213,5.849M1.213,5.848C1.213,5.848,4.676,9.3114,4.676,9.3114C4.676,9.3114,1.2126,12.774,1.2126,12.774C1.2126,12.774,2.486,14.048,2.486,14.048C2.486,14.048,7.222,9.311,7.222,9.311C7.222,9.311,2.486,4.574,2.486,4.574C2.486,4.574,1.213,5.848,1.213,5.8476C1.2131999999999998,5.8476,1.2131999999999998,5.8476,1.2131999999999998,5.8476M7.348799999999999,13.9614C7.348799999999999,13.9614,16.0002,13.9614,16.0002,13.9614C16.0002,13.9614,16.0002,12.161999999999999,16.0002,12.161999999999999C16.0002,12.161999999999999,7.348799999999999,12.161999999999999,7.348799999999999,12.161999999999999C7.348799999999999,12.161999999999999,7.348799999999999,13.9614,7.348799999999999,13.9614C7.348799999999999,13.9614,7.348799999999999,13.9614,7.348799999999999,13.9614M9.949799999999998,10.2114C9.949799999999998,10.2114,16.0002,10.2114,16.0002,10.2114C16.0002,10.2114,16.0002,8.411999999999999,16.0002,8.411999999999999C16.0002,8.411999999999999,9.949799999999998,8.411999999999999,9.949799999999998,8.411999999999999C9.949799999999998,8.411999999999999,9.949799999999998,10.2114,9.949799999999998,10.2114C9.949799999999998,10.2114,9.949799999999998,10.2114,9.949799999999998,10.2114M7.348799999999999,4.6613999999999995C7.348799999999999,4.6613999999999995,7.348799999999999,6.462,7.348799999999999,6.462C7.348799999999999,6.462,16.0002,6.462,16.0002,6.462C16.0002,6.462,16.0002,4.661,16.0,4.6614C16.0,4.6614,7.349,4.6614,7.349,4.6614C7.349,4.6614,7.349,4.6614,7.349,4.6614";
+        this.__menuButton_BBox = Raphael.pathBBox(this.__menuButton_svgPath);
+
+        // 2) delete button
+        // nonScaledPath = var path = "M24.778,21.419 19.276,15.917 24.777,10.415 21.949,7.585 16.447,13.087 10.945,7.585 8.117,10.415 13.618,15.917 8.116,21.419 10.946,24.248 16.447,18.746 21.948,24.248z";
+        this.__deleteButton_svgPath = "M14.867,12.851C14.867,12.851,11.566,9.55,11.566,9.55C11.566,9.55,14.866,6.249,14.866,6.249C14.866,6.249,13.169,4.551,13.169,4.551C13.169,4.551,9.868,7.852,9.868,7.852C9.868,7.852,6.567,4.551,6.567,4.551C6.567,4.551,4.87,6.249,4.87,6.249C4.87,6.249,8.171,9.55,8.171,9.55C8.171,9.55,4.87,12.851,4.870,12.851C4.870,12.851,6.568,14.549,6.568,14.549C6.568,14.549,9.868,11.248,9.868,11.248C9.868,11.248,13.169,14.549,13.169,14.549C13.169,14.549,14.867,12.851,14.867,12.851";
+        this.__deleteButton_BBox = Raphael.pathBBox(this.__deleteButton_svgPath);
+
+        // 3) twins button
+        //this.__twinsButton_svgPath = "M0,15L8,0L16,15";
+        //this.__twinsButton_BBox    = Raphael.pathBBox(this.__twinsButton_svgPath);
+
+        // 4) proband arrow
+        //this.__arrow_svgPath = "M7.589,20.935l-6.87,6.869l2.476,2.476l6.869-6.869l1.858,1.857l2.258-8.428l-8.428,2.258L7.589,20.935z";
+        this.__arrow_svgPath = "M8.348,23.029C8.348,23.029,0.791,30.584,0.791,30.584C0.791,30.584,3.515,33.308,3.515,33.308C3.515,33.308,11.07,25.752,11.0704,25.752C11.07,25.752,13.114,27.795,13.114,27.795C13.114,27.795,15.598,18.524,15.598,18.524C15.598,18.524,6.327,21.008,6.327,21.008C6.327,21.008,8.348,23.029,8.348,23.0285C8.348,23.029,8.348,23.029,8.348,23.029";
+        this.__probandArrowPath = Raphael.transformPath(this.__arrow_svgPath, ["s", 1.1, 1.1, 0, 0]);
+    },
+
+    /**
+     * Returns a map of node IDs to nodes
+     *
+     * @method getNodeMap
+     * @return {Object}
+     *
+     {
+        {nodeID} : {AbstractNode}
+     }
+     */
+    getNodeMap: function () {
+        return this._nodeMap;
+    },
+
+    /**
+     * Returns a node with the given node ID
+     *
+     * @method getNode
+     * @param {nodeId} id of the node to be returned
+     * @return {AbstractNode}
+     *
+     */
+    getNode: function (nodeId) {
+        if (!this._nodeMap.hasOwnProperty(nodeId)) {
+            console.log("ERROR: requesting non-existent node " + nodeId);
+            throw "ERROR";
+            return null;
+        }
+        return this._nodeMap[nodeId];
+    },
+
+    getMaxNodeID: function () {
+        var max = 0;
+        for (var node in this._nodeMap) if (this._nodeMap.hasOwnProperty(node)) if (parseInt(node) > max) max = node;
+        return max;
+    },
+
+    /**
+     * Returns the person node containing x and y coordinates, or null if outside all person nodes
+     *
+     * @method getPersonNodeNear
+     * @return {Object} or null
+     */
+    getPersonNodeNear: function (x, y) {
+        for (var nodeID in this._nodeMap) {
+            if (this._nodeMap.hasOwnProperty(nodeID)) {
+                var node = this.getNode(nodeID);
+                if ((node.getType() == "Person" || node.getType() == "PersonGroup") && node.getGraphics().containsXY(x, y)) return node;
+            }
+        }
+        return null;
+    },
+
+    /**
+     * Returns the node that is currently selected
+     *
+     * @method getCurrentHoveredNode
+     * @return {AbstractNode}
+     */
+    getCurrentHoveredNode: function () {
+        return this._currentHoveredNode;
+    },
+
+    /**
+     * Returns the currently dragged element
+     *
+     * @method getCurrentDraggable
+     * @return Either a handle from a hoverbox, or a PlaceHolder
+     */
+    getCurrentDraggable: function () {
+        return this._currentDraggable;
+    },
+
+    /**
+     * Returns the Object that is currently being dragged
+     *
+     * @method setCurrentDraggable
+     * @param draggable A handle or a PlaceHolder
+     */
+    setCurrentDraggable: function (draggable) {
+        this._currentDraggable = draggable;
+    },
+
+    /**
+     * Removes given node from node index (Does not delete the node visuals).
+     *
+     * @method removeFromNodeMap
+     * @param {nodeId} id of the node to be removed
+     */
+    removeFromNodeMap: function (nodeID) {
+        delete this.getNodeMap()[nodeID];
+    },
+
+    /**
+     * Creates a new set of raphael objects representing a curve from (xFrom, yFrom) trough (...,yTop) to (xTo, yTo).
+     * The bend from (xTo,yTo) to vertical level yTop will happen "lastBend" pixels from xTo.
+     * In case the flat part intersects any existing known lines a special crossing is drawn and added to the set.
+     *
+     * @method drawCurvedLineWithCrossings
+     */
+    drawCurvedLineWithCrossings: function (id, xFrom, yFrom, yTop, xTo, yTo, lastBend, attr, twoLines, secondLineBelow) {
+        //console.log("yFrom: " + yFrom + ", yTo: " + yTo + ", yTop: " + yTop);
+
+        if (yFrom == yTop && yFrom == yTo) return this.drawLineWithCrossings(id, xFrom, yFrom, xTo, yTo, attr, twoLines, secondLineBelow);
+
+        var cornerRadius = __WEBPACK_IMPORTED_MODULE_2__pedigreeEditorAttributes__["a" /* PedigreeEditorAttributes */].curvedLinesCornerRadius * 0.8;
+        var goesRight = xFrom > xTo;
+        if (isFinite(lastBend)) {
+            var xFinalBend = goesRight ? xTo + lastBend : xTo - lastBend;
+            var xFinalBendVert = goesRight ? xTo + lastBend + cornerRadius : xTo - lastBend - cornerRadius;
+            var xBeforeFinalBend = goesRight ? xTo + lastBend + cornerRadius * 2 : xTo - lastBend - cornerRadius * 2;
+        } else {
+            var xBeforeFinalBend = xTo;
+        }
+        var xFromAndBit = goesRight ? xFrom - cornerRadius / 2 : xFrom + cornerRadius / 2;
+        var xFromAfterCorner = goesRight ? xFromAndBit - cornerRadius : xFromAndBit + cornerRadius;
+        var xFromAfter2Corners = goesRight ? xFromAndBit - 2 * cornerRadius : xFromAndBit + 2 * cornerRadius;
+
+        //console.log("XFinalBend: " + xFinalBend + ", xTo : " + xTo);
+
+        if (yFrom <= yTop) {
+            this.drawLineWithCrossings(id, xFrom, yFrom, xBeforeFinalBend, yFrom, attr, twoLines, !goesRight, true);
+        } else {
+            this.drawLineWithCrossings(id, xFrom, yFrom, xFromAndBit, yFrom, attr, twoLines, !goesRight, true);
+
+            if (Math.abs(yFrom - yTop) >= cornerRadius * 2) {
+                if (goesRight) __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_3__graphicHelpers__["a" /* drawCornerCurve */])(xFromAndBit, yFrom, xFromAfterCorner, yFrom - cornerRadius, true, attr, twoLines, -2.5, 2.5, 2.5, -2.5);else __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_3__graphicHelpers__["a" /* drawCornerCurve */])(xFromAndBit, yFrom, xFromAfterCorner, yFrom - cornerRadius, true, attr, twoLines, 2.5, 2.5, -2.5, -2.5);
+                this.drawLineWithCrossings(id, xFromAfterCorner, yFrom - cornerRadius, xFromAfterCorner, yTop + cornerRadius, attr, twoLines, goesRight);
+                if (goesRight) __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_3__graphicHelpers__["a" /* drawCornerCurve */])(xFromAfterCorner, yTop + cornerRadius, xFromAfter2Corners, yTop, false, attr, twoLines, -2.5, 2.5, 2.5, -2.5);else __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_3__graphicHelpers__["a" /* drawCornerCurve */])(xFromAfterCorner, yTop + cornerRadius, xFromAfter2Corners, yTop, false, attr, twoLines, 2.5, 2.5, -2.5, -2.5);
+            } else {
+                // draw one continuous curve
+                if (goesRight) __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_3__graphicHelpers__["b" /* drawLevelChangeCurve */])(xFromAndBit, yFrom, xFromAfter2Corners, yTop, attr, twoLines, -2.5, 2.5, 2.5, -2.5);else __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_3__graphicHelpers__["b" /* drawLevelChangeCurve */])(xFromAndBit, yFrom, xFromAfter2Corners, yTop, attr, twoLines, 2.5, 2.5, -2.5, -2.5);
+            }
+            this.drawLineWithCrossings(id, xFromAfter2Corners, yTop, xBeforeFinalBend, yTop, attr, twoLines, !goesRight, true);
+        }
+
+        if (xBeforeFinalBend != xTo) {
+            // curve down to yTo level
+            if (Math.abs(yTo - yTop) >= cornerRadius * 2) {
+                // draw corner
+                if (goesRight) __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_3__graphicHelpers__["a" /* drawCornerCurve */])(xBeforeFinalBend, yTop, xFinalBendVert, yTop + cornerRadius, true, attr, twoLines, 2.5, 2.5, -2.5, -2.5);else __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_3__graphicHelpers__["a" /* drawCornerCurve */])(xBeforeFinalBend, yTop, xFinalBendVert, yTop + cornerRadius, true, attr, twoLines, 2.5, -2.5, -2.5, 2.5);
+                this.drawLineWithCrossings(id, xFinalBendVert, yTop + cornerRadius, xFinalBendVert, yTo - cornerRadius, attr, twoLines, !goesRight);
+                if (goesRight) __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_3__graphicHelpers__["a" /* drawCornerCurve */])(xFinalBendVert, yTo - cornerRadius, xFinalBend, yTo, false, attr, twoLines, 2.5, 2.5, -2.5, -2.5);else __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_3__graphicHelpers__["a" /* drawCornerCurve */])(xFinalBendVert, yTo - cornerRadius, xFinalBend, yTo, false, attr, twoLines, 2.5, -2.5, -2.5, 2.5);
+            } else {
+                // draw one continuous curve
+                if (goesRight) __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_3__graphicHelpers__["b" /* drawLevelChangeCurve */])(xBeforeFinalBend, yTop, xFinalBend, yTo, attr, twoLines, 2.5, 2.5, -2.5, -2.5);else __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_3__graphicHelpers__["b" /* drawLevelChangeCurve */])(xBeforeFinalBend, yTop, xFinalBend, yTo, attr, twoLines, 2.5, -2.5, -2.5, 2.5);
+            }
+            this.drawLineWithCrossings(id, xFinalBend, yTo, xTo, yTo, attr, twoLines, !goesRight);
+        }
+    },
+
+    /**
+     * Creates a new set of raphael objects representing a line segment from (x1,y1) to (x2,y2).
+     * In case this line segment intersects any existing known segments a special crossing is drawn and added to the set.
+     *
+     * @method drawLineWithCrossings
+     */
+    drawLineWithCrossings: function (owner, x1, y1, x2, y2, attr, twoLines, secondLineBelow, bothEndsGoDown) {
+
+        // make sure line goes from the left to the right (and if vertical from the top to the bottom):
+        // this simplifies drawing the line piece by piece from intersection to intersection
+        if (x1 > x2 || x1 == x2 && y1 > y2) {
+            var tx = x1;
+            var ty = y1;
+            x1 = x2;
+            y1 = y2;
+            x2 = tx;
+            y2 = ty;
+        }
+
+        var isHorizontal = y1 == y2;
+        var isVertical = x1 == x2;
+
+        var intersections = this._lineSet.addLine(owner, x1, y1, x2, y2);
+
+        // sort intersections by distance form the start
+        var compareDistanceToStart = function (p1, p2) {
+            var dist1 = (x1 - p1.x) * (x1 - p1.x) + (y1 - p1.y) * (y1 - p1.y);
+            var dist2 = (x1 - p2.x) * (x1 - p2.x) + (y1 - p2.y) * (y1 - p2.y);
+            return dist1 - dist2;
+        };
+        intersections.sort(compareDistanceToStart);
+        //console.log("intersection points: " + stringifyObject(intersections));
+
+        for (var lineNum = 0; lineNum < (twoLines ? 2 : 1); lineNum++) {
+
+            // TODO: this is a bit hairy, just a quick hack to make two nice parallel curves
+            //       for consang. relationships: simple raphael.transform() does not work well
+            //       because then the curves around crossings wont be exactly above the crossing
+            if (twoLines) {
+                if (!bothEndsGoDown) {
+                    x1 += -2.5 + lineNum * 7.5;
+                    x2 += -2.5 + lineNum * 7.5;
+                } else {
+                    x1 -= 2.5;
+                    x2 += 2.5;
+                }
+
+                if (secondLineBelow) {
+                    y1 += 2.5 - lineNum * 7.5;
+                    y2 += 2.5 - lineNum * 7.5;
+                } else {
+                    y1 += -2.5 + lineNum * 7.5;
+                    y2 += -2.5 + lineNum * 7.5;
+                }
+            }
+
+            var raphaelPath = "M " + x1 + " " + y1;
+            for (var i = 0; i < intersections.length; i++) {
+                var intersectPoint = intersections[i];
+
+                var distance = function (p1, p2) {
+                    return (p1.x - p2.x) * (p1.x - p2.x) + (p1.y - p2.y) * (p1.y - p2.y);
+                };
+
+                var noCrossSymbolProximity = isHorizontal ? 20 * 20 : 9 * 9;
+
+                if (distance(intersectPoint, { "x": x1, "y": y1 }) < noCrossSymbolProximity) continue;
+                if (distance(intersectPoint, { "x": x2, "y": y2 }) < noCrossSymbolProximity) continue;
+
+                if (isHorizontal) {
+                    if (twoLines) {
+                        if (secondLineBelow) intersectPoint.y += 2.5 - lineNum * 7.5;else intersectPoint.y += -2.5 + lineNum * 7.5;
+                    }
+                    // a curve above the crossing
+                    raphaelPath += " L " + (intersectPoint.x - 10) + " " + intersectPoint.y;
+                    raphaelPath += " C " + (intersectPoint.x - 7) + " " + (intersectPoint.y + 1) + " " + (intersectPoint.x - 7) + " " + (intersectPoint.y - 7) + " " + intersectPoint.x + " " + (intersectPoint.y - 7);
+                    raphaelPath += " C " + (intersectPoint.x + 7) + " " + (intersectPoint.y - 7) + " " + (intersectPoint.x + 7) + " " + (intersectPoint.y + 1) + " " + (intersectPoint.x + 10) + " " + intersectPoint.y;
+                } else if (isVertical) {
+                    if (twoLines) {
+                        intersectPoint.x += -2.5 + lineNum * 7.5;
+                    }
+                    // a curve on the right around crossing
+                    raphaelPath += " L " + intersectPoint.x + " " + (intersectPoint.y - 10);
+                    raphaelPath += " C " + (intersectPoint.x - 1) + " " + (intersectPoint.y - 7) + " " + (intersectPoint.x + 7) + " " + (intersectPoint.y - 7) + " " + (intersectPoint.x + 7) + " " + intersectPoint.y;
+                    raphaelPath += " C " + (intersectPoint.x + 7) + " " + (intersectPoint.y + 7) + " " + (intersectPoint.x - 1) + " " + (intersectPoint.y + 7) + " " + intersectPoint.x + " " + (intersectPoint.y + 10);
+                }
+                // else: some diagonal line: presumably there should be none, if there are some
+                //       everything will be ok except there will be no special intersection graphic drawn
+            }
+            raphaelPath += " L " + x2 + " " + y2;
+            editor.getPaper().path(raphaelPath).attr(attr).toBack();
+        }
+    },
+
+    /**
+     * Creates a new node in the graph and returns it. The node type is obtained from
+     * editor.getGraph() and may be on of Person, Partnership or ... TODO. The position
+     * of the node is also obtained form editor.getGraph()
+     *
+     * @method addPerson
+     * @param {Number} [id] The id of the node
+     * @return {Person}
+     */
+    addNode: function (id) {
+        //console.log("add node");
+        var positionedGraph = editor.getGraph();
+
+        if (!positionedGraph.isValidID(id)) throw "addNode(): Invalid id";
+
+        var node;
+        var properties = positionedGraph.getProperties(id);
+
+        var graphPos = positionedGraph.getPosition(id);
+        var position = editor.convertGraphCoordToCanvasCoord(graphPos.x, graphPos.y);
+
+        if (positionedGraph.isRelationship(id)) {
+            console.log("-> add partnership");
+            node = new __WEBPACK_IMPORTED_MODULE_4__partnership__["a" /* Partnership */](position.x, position.y, id, properties);
+        } else if (positionedGraph.isPersonGroup(id)) {
+            console.log("-> add person group");
+            node = new __WEBPACK_IMPORTED_MODULE_6__personGroup__["a" /* PersonGroup */](position.x, position.y, id, properties);
+        } else if (positionedGraph.isPerson(id)) {
+            console.log("-> add person");
+            node = new __WEBPACK_IMPORTED_MODULE_5__person__["a" /* Person */](position.x, position.y, id, properties);
+        } else {
+            throw "addNode(): unsupported node type";
+        }
+
+        this.getNodeMap()[id] = node;
+
+        return node;
+    },
+
+    moveNode: function (id, animate) {
+        var positionedGraph = editor.getGraph();
+        var graphPos = positionedGraph.getPosition(id);
+        var position = editor.convertGraphCoordToCanvasCoord(graphPos.x, graphPos.y);
+        this.getNode(id).setPos(position.x, position.y, animate);
+    },
+
+    changeNodeIds: function (changedIdsSet) {
+        var newNodeMap = {};
+
+        // change all IDs at once so that have both new and old references at the same time
+        for (var oldID in this._nodeMap) {
+            var node = this.getNode(oldID);
+
+            var newID = changedIdsSet.hasOwnProperty(oldID) ? changedIdsSet[oldID] : oldID;
+            node.setID(newID);
+
+            newNodeMap[newID] = node;
+        }
+
+        this._nodeMap = newNodeMap;
+
+        this._lineSet.replaceIDs(changedIdsSet);
+    },
+
+    /**
+     * Enters hover-mode state, which is when a handle or a PlaceHolder is being dragged around the screen
+     *
+     * @method enterHoverMode
+     * @param sourceNode The node whose handle is being dragged, or the placeholder that is being dragged
+     * @param hoverTypes Should be 'parent', 'child' or 'partner'. Only nodes which can be in the correponding
+     *                   relationship with sourceNode will be highlighted
+     * dragged on top of them.
+     */
+    enterHoverMode: function (sourceNode, hoverType) {
+
+        //var timer = new Timer();
+
+        var me = this;
+        var validTargets = this.getValidDragTargets(sourceNode.getID(), hoverType);
+
+        validTargets.each(function (nodeID) {
+            me._currentGrownNodes.push(nodeID);
+
+            var node = me.getNode(nodeID);
+            node.getGraphics().grow();
+
+            var hoverModeZone = node.getGraphics().getHoverBox().getHoverZoneMask().clone().toFront();
+            //var hoverModeZone = node.getGraphics().getHoverBox().getHoverZoneMask().toFront();
+            hoverModeZone.hover(function () {
+                me._currentHoveredNode = nodeID;
+                node.getGraphics().getHoverBox().setHighlighted(true);
+            }, function () {
+                me._currentHoveredNode = null;
+                node.getGraphics().getHoverBox().setHighlighted(false);
+            });
+
+            me.hoverModeZones.push(hoverModeZone);
+        });
+
+        //timer.printSinceLast("=== Enter hover mode - highlight: ");
+    },
+
+    /**
+     * Exits hover-mode state, which is when a handle or a PlaceHolder is being dragged around the screen
+     *
+     * @method exitHoverMode
+     */
+    exitHoverMode: function () {
+        this._currentHoveredNode = null;
+
+        this.hoverModeZones.remove();
+
+        var me = this;
+        this._currentGrownNodes.each(function (nodeID) {
+            var node = me.getNode(nodeID);
+            node.getGraphics().shrink();
+            node.getGraphics().getHoverBox().setHighlighted(false);
+        });
+
+        this._currentGrownNodes = [];
+    },
+
+    unmarkAll: function () {
+        for (var i = 0; i < this._currentMarkedNew.length; i++) {
+            var node = this.getNode(this._currentMarkedNew[i]);
+            node.getGraphics().unmark();
+        }
+        this._currentMarkedNew = [];
+    },
+
+    getValidDragTargets: function (sourceNodeID, hoverType) {
+        var result = [];
+        switch (hoverType) {
+            case "sibling":
+                result = editor.getGraph().getPossibleSiblingsOf(sourceNodeID);
+                break;
+            case "child":
+                // all person nodes which are not ancestors of sourse node and which do not already have parents
+                result = editor.getGraph().getPossibleChildrenOf(sourceNodeID);
+                break;
+            case "parent":
+                result = editor.getGraph().getPossibleParentsOf(sourceNodeID);
+                break;
+            case "partnerR":
+            case "partnerL":
+                // all person nodes of the other gender or unknown gender (who ar enot already partners)
+                result = editor.getGraph().getPossiblePartnersOf(sourceNodeID);
+                //console.log("possible partners: " + stringifyObject(result));
+                break;
+            case "PlaceHolder":
+                // all nodes which can be this placehodler: e.g. all that can be child of it's parents &&
+                // partners of it's partners
+                throw "TODO";
+            default:
+                throw "Incorrect hoverType";
+        }
+        return result;
+    },
+
+    applyChanges: function (changeSet, markNew) {
+        // applies change set of the form {"new": {list of nodes}, "moved": {list of nodes} }
+        console.log("Change set: " + __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__helpers__["c" /* stringifyObject */])(changeSet));
+
+        var timer = new __WEBPACK_IMPORTED_MODULE_1__helpers__["g" /* Timer */]();
+        var timer2 = new __WEBPACK_IMPORTED_MODULE_1__helpers__["g" /* Timer */]();
+
+        try {
+
+            this.unmarkAll();
+
+            // to simplify code which deals woith removed nodes making other mnodes to move
+            if (!changeSet.hasOwnProperty("moved")) changeSet["moved"] = [];
+            if (!changeSet.hasOwnProperty("removed")) changeSet["removed"] = [];
+            if (!changeSet.hasOwnProperty("removedInternally")) changeSet["removedInternally"] = [];
+
+            // 0. remove all removed
+            //
+            // 1. move all person nodes
+            // 2. create all new person nodes
+            //
+            // 3. move all existing relationships - as all lines are attached to relationships we want to draw
+            //                                      them after all person nodes are already in correct position
+            // 4. create new relationships
+
+            if (changeSet.hasOwnProperty("removed")) {
+                var affectedByLineRemoval = {};
+
+                for (var i = 0; i < changeSet.removed.length; i++) {
+                    var nextRemoved = changeSet.removed[i];
+
+                    this.getNodeMap()[nextRemoved].remove();
+                    this.removeFromNodeMap(nextRemoved);
+
+                    var affected = this._lineSet.removeAllLinesAffectedByOwnerMovement(nextRemoved);
+
+                    for (var j = 0; j < affected.length; j++) if (!__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__helpers__["h" /* arrayContains */])(changeSet.removed, affected[j])) {
+                        // ignore nodes which are removed anyway
+                        //console.log("adding due to line removal: " + affected[j]);
+                        affectedByLineRemoval[affected[j]] = true;
+                    }
+                }
+
+                // for each removed node all nodes with higher ids get their IDs shifted down by 1
+                var idChanged = false;
+                var changedIDs = {};
+                var maxCurrentNodeId = this.getMaxNodeID();
+                for (var i = 0; i < changeSet.removedInternally.length; i++) {
+                    var nextRemoved = changeSet.removedInternally[i];
+                    for (var u = nextRemoved + 1; u <= maxCurrentNodeId; u++) {
+                        idChanged = true;
+                        if (!changedIDs.hasOwnProperty(u)) changedIDs[u] = u - 1;else changedIDs[u]--;
+                    }
+                }
+
+                // change all IDs at once so that have both new and old references at the same time
+                if (idChanged) this.changeNodeIds(changedIDs);
+
+                //console.log("Affected by line removal: " + stringifyObject(affectedByLineRemoval));
+                //console.log("LineSet: " + stringifyObject(this._lineSet));
+
+                for (var node in affectedByLineRemoval) if (affectedByLineRemoval.hasOwnProperty(node)) {
+                    var newID = changedIDs.hasOwnProperty(node) ? changedIDs[node] : node;
+                    if (!__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__helpers__["h" /* arrayContains */])(changeSet.moved, newID)) {
+                        //console.log("moved due to line removal: oldID="+node + ", newID=" + newID);
+                        changeSet.moved.push(newID);
+                    }
+                }
+            }
+
+            timer.printSinceLast("=== Removal runtime: ");
+
+            var movedPersons = [];
+            var movedRelationships = [];
+            var newPersons = [];
+            var newRelationships = [];
+            var animate = {};
+
+            /*
+            // TODO: animations disabled because hoverboxes & labels behave strangely
+            if (changeSet.hasOwnProperty("animate")) {
+                for (var i = 0; i < changeSet.animate.length; i++) {
+                    animate[changeSet.animate[i]] = true;
+                }
+            }*/
+
+            //console.log("moved: " + stringifyObject(changeSet.moved));
+
+            if (changeSet.hasOwnProperty("moved")) {
+                // remove all lines so that we start drawing anew
+                for (var i = 0; i < changeSet.moved.length; i++) {
+                    var nextMoved = changeSet.moved[i];
+                    if (editor.getGraph().isRelationship(nextMoved)) {
+                        var affected = this._lineSet.removeAllLinesAffectedByOwnerMovement(nextMoved);
+                        for (var j = 0; j < affected.length; j++) {
+                            var node = affected[j];
+                            if (!__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__helpers__["h" /* arrayContains */])(changeSet.moved, node)) changeSet.moved.push(node);
+                        }
+                    }
+                }
+
+                // move actual nodes
+                for (var i = 0; i < changeSet.moved.length; i++) {
+                    var nextMoved = changeSet.moved[i];
+                    if (editor.getGraph().isRelationship(nextMoved)) movedRelationships.push(nextMoved);else movedPersons.push(nextMoved);
+                }
+            }
+            console.log("moved: " + __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__helpers__["c" /* stringifyObject */])(changeSet.moved));
+            if (changeSet.hasOwnProperty("new")) {
+                for (var i = 0; i < changeSet["new"].length; i++) {
+                    var nextNew = changeSet["new"][i];
+                    if (editor.getGraph().isRelationship(nextNew)) newRelationships.push(nextNew);else newPersons.push(nextNew);
+                }
+            }
+
+            timer.printSinceLast("=== Bookkeeping/sorting runtime: ");
+
+            for (var i = 0; i < movedPersons.length; i++) this.moveNode(movedPersons[i], animate.hasOwnProperty(movedPersons[i]));
+
+            timer.printSinceLast("=== Move persons runtime: ");
+
+            for (var i = 0; i < newPersons.length; i++) {
+                var newPerson = this.addNode(newPersons[i]);
+                if (markNew) {
+                    newPerson.getGraphics().markPermanently();
+                    this._currentMarkedNew.push(newPersons[i]);
+                }
+            }
+
+            timer.printSinceLast("=== New persons runtime: ");
+
+            for (var i = 0; i < movedRelationships.length; i++) this.moveNode(movedRelationships[i]);
+
+            timer.printSinceLast("=== Move rels runtime: ");
+
+            for (var i = 0; i < newRelationships.length; i++) this.addNode(newRelationships[i]);
+
+            timer.printSinceLast("=== New rels runtime: ");
+
+            if (changeSet.hasOwnProperty("highlight")) {
+                for (var i = 0; i < changeSet.highlight.length; i++) {
+                    var nextHighlight = changeSet.highlight[i];
+                    this.getNode(nextHighlight).getGraphics().markPermanently();
+                    this._currentMarkedNew.push(nextHighlight);
+                }
+            }
+
+            //timer.printSinceLast("=== highlight: ");
+
+            // re-evaluate which buttons & handles are appropriate for the nodes (e.g. twin button appears/disappears)
+            for (var nodeID in this._nodeMap) {
+                if (this._nodeMap.hasOwnProperty(nodeID)) {
+                    if (editor.getGraph().isPerson(nodeID) && !this.getNode(nodeID).getGraphics().getHoverBox().isMenuToggled()) {
+                        this.getNode(nodeID).getGraphics().getHoverBox().removeButtons();
+                        this.getNode(nodeID).getGraphics().getHoverBox().removeHandles();
+                    }
+                }
+            }
+
+            var checkNumberingEvent = { "memo": { "check": true, "noUndoRedo": true } };
+            editor.getController().handleRenumber(checkNumberingEvent);
+
+            // TODO: move the viewport to make changeSet.makevisible nodes visible on screen
+
+            timer.printSinceLast("=== highlight & update handles runtime: ");
+            timer2.printSinceLast("=== Total apply changes runtime: ");
+        } catch (err) {
+            console.log("[view] update error");
+            console.trace(err);
+        }
+    }
+});
+/* harmony export (immutable) */ __webpack_exports__["a"] = View;
+
+/* WEBPACK VAR INJECTION */}.call(__webpack_exports__, __webpack_require__(3), __webpack_require__(21)))
+
+/***/ }),
+/* 167 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* WEBPACK VAR INJECTION */(function(Class, Ajax) {/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__saveLoadEngine__ = __webpack_require__(80);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__helpers__ = __webpack_require__(6);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__templateSelector__ = __webpack_require__(81);
 
 
 
@@ -77389,11 +74575,11 @@ const ViewerSaveLoadEngine = Class.create(__WEBPACK_IMPORTED_MODULE_0__saveLoadE
 /* WEBPACK VAR INJECTION */}.call(__webpack_exports__, __webpack_require__(3), __webpack_require__(27)))
 
 /***/ }),
-/* 178 */
+/* 168 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* WEBPACK VAR INJECTION */(function(Class, Raphael) {/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__workspace__ = __webpack_require__(89);
+/* WEBPACK VAR INJECTION */(function(Class, Raphael) {/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__workspace__ = __webpack_require__(169);
 
 
 const ViewerWorkspace = Class.create(__WEBPACK_IMPORTED_MODULE_0__workspace__["a" /* Workspace */], {
@@ -77484,7 +74670,471 @@ const ViewerWorkspace = Class.create(__WEBPACK_IMPORTED_MODULE_0__workspace__["a
 /* WEBPACK VAR INJECTION */}.call(__webpack_exports__, __webpack_require__(3), __webpack_require__(21)))
 
 /***/ }),
-/* 179 */
+/* 169 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* WEBPACK VAR INJECTION */(function(Class, Raphael) {/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__slider__ = __webpack_require__(164);
+
+
+/**
+ * Workspace contains the Raphael canvas, the zoom/pan controls and the menu bar
+ * on the top. The class includes functions for managing the Raphael paper object and coordinate transformation methods
+ * for taking pan and zoom levels into account.
+ *
+ * @class Workspace
+ * @constructor
+ */
+
+const Workspace = Class.create({
+
+    initialize: function () {
+        var me = this;
+        this.canvas = new Element('div', { 'id': 'canvas' });
+        this.workArea = new Element('div', { 'id': 'work-area' }).update(this.canvas);
+        $('panogram').update(this.workArea);
+        var screenDimensions = document.viewport.getDimensions();
+        this.generateTopMenu();
+        this.width = screenDimensions.width;
+        this.height = screenDimensions.height - this.canvas.cumulativeOffset().top - 4;
+        this._paper = Raphael("canvas", this.width, this.height);
+        this.viewBoxX = 0;
+        this.viewBoxY = 0;
+        this.zoomCoefficient = 1;
+
+        this.background = this.getPaper().rect(0, 0, this.width, this.height).attr({ fill: 'blue', stroke: 'none', opacity: 0 }).toBack();
+        this.background.node.setAttribute("class", "panning-background");
+
+        this.adjustSizeToScreen = this.adjustSizeToScreen.bind(this);
+        Event.observe(window, 'resize', me.adjustSizeToScreen);
+        this.generateViewControls();
+
+        //Initialize pan by dragging
+        var start = function () {
+            if (editor.isAnyMenuVisible()) {
+                return;
+            }
+            me.background.ox = me.background.attr("x");
+            me.background.oy = me.background.attr("y");
+            //me.background.attr({cursor: 'url(https://mail.google.com/mail/images/2/closedhand.cur)'});
+            me.background.attr({ cursor: 'move' });
+        };
+        var move = function (dx, dy) {
+            var deltax = me.viewBoxX - dx / me.zoomCoefficient;
+            var deltay = me.viewBoxY - dy / me.zoomCoefficient;
+
+            me.getPaper().setViewBox(deltax, deltay, me.width / me.zoomCoefficient, me.height / me.zoomCoefficient);
+            me.background.ox = deltax;
+            me.background.oy = deltay;
+            me.background.attr({ x: deltax, y: deltay });
+        };
+        var end = function () {
+            me.viewBoxX = me.background.ox;
+            me.viewBoxY = me.background.oy;
+            me.background.attr({ cursor: 'default' });
+        };
+        me.background.drag(move, start, end);
+
+        if (document.addEventListener) {
+            // adapted from from raphaelZPD
+            me.handleMouseWheel = function (evt) {
+                if (evt.preventDefault) evt.preventDefault();else evt.returnValue = false;
+
+                // disable while menu is active - too easy to scroll and get the active node out of sight, which is confusing
+                if (editor.isAnyMenuVisible()) {
+                    return;
+                }
+
+                var delta;
+                if (evt.wheelDelta) delta = -evt.wheelDelta; // Chrome/Safari
+                else delta = evt.detail; // Mozilla
+
+                //console.log("Mouse wheel: " + delta);
+                if (delta > 0) {
+                    var x = $$('.zoom-out')[0];
+                    $$('.zoom-out')[0].click();
+                } else {
+                    $$('.zoom-in')[0].click();
+                }
+            };
+
+            if (navigator.userAgent.toLowerCase().indexOf('webkit') >= 0) {
+                this.canvas.addEventListener('mousewheel', me.handleMouseWheel, false); // Chrome/Safari
+            } else {
+                this.canvas.addEventListener('DOMMouseScroll', me.handleMouseWheel, false); // Others
+            }
+        }
+    },
+
+    /**
+     * Returns the Raphael paper object.
+     *
+     * @method getPaper
+     * @return {Object} Raphael Paper element
+     */
+    getPaper: function () {
+        return this._paper;
+    },
+
+    /**
+     * Returns the div element containing everything except the top menu bar
+     *
+     * @method getWorkArea
+     * @return {HTMLElement}
+     */
+    getWorkArea: function () {
+        return this.workArea;
+    },
+
+    /**
+     * Returns width of the work area
+     *
+     * @method getWidth
+     * @return {Number}
+     */
+    getWidth: function () {
+        return this.width;
+    },
+
+    /**
+     * Returns height of the work area
+     *
+     * @method getHeight
+     * @return {Number}
+     */
+    getHeight: function () {
+        return this.height;
+    },
+
+    /**
+     * Creates the menu on the top
+     *
+     * @method generateTopMenu
+     */
+    generateTopMenu: function () {
+        var menu = new Element('div', { 'id': 'editor-menu' });
+        this.getWorkArea().insert({ before: menu });
+        var submenus = [];
+
+        if (editor.isUnsupportedBrowser()) {
+            submenus = [{
+                name: 'input',
+                items: [{ key: 'readonlymessage', label: 'Unsuported browser mode', icon: 'exclamation-triangle' }]
+            }, {
+                name: 'output',
+                items: [{ key: 'export', label: 'Export', icon: 'download' }, { key: 'reload', label: 'Reload', icon: 'refresh' }]
+            }];
+        } else {
+            submenus = [{
+                name: 'input',
+                items: [{ key: 'templates', label: 'Templates', icon: 'copy' }, { key: 'import', label: 'Import', icon: 'upload' }]
+            }, {
+                name: 'edit',
+                items: [{ key: 'undo', label: 'Undo', icon: 'undo' }, { key: 'redo', label: 'Redo', icon: 'repeat' }, { key: 'layout', label: 'Automatic layout', icon: 'sitemap' }, { key: 'number', label: 'Renumber', icon: 'sort-numeric-asc' }]
+            }, {
+                name: 'reset',
+                items: [{ key: 'clear', label: 'Clear all', icon: 'times-circle' }, { key: 'reload', label: 'Reload', icon: 'refresh' }]
+            }, {
+                name: 'output',
+                items: [{ key: 'export', label: 'Export', icon: 'download' }
+                //{ key : 'print',     label : 'Print', icon : 'print'},
+                ]
+            }];
+        }
+        var _createSubmenu = function (data) {
+            var submenu = new Element('div', { 'class': data.name + '-actions action-group' });
+            menu.insert(submenu);
+            data.items.each(function (item) {
+                submenu.insert(_createMenuItem(item));
+            });
+        };
+        var _createMenuItem = function (data) {
+            var mi = new Element('span', { 'id': 'action-' + data.key, 'class': 'menu-item ' + data.key }).insert(new Element('span', { 'class': 'fa fa-' + data.icon })).insert(' ').insert(data.label);
+            if (data.callback && typeof this[data.callback] == 'function') {
+                mi.observe('click', function () {
+                    this[data.callback]();
+                });
+            }
+            return mi;
+        };
+        submenus.each(_createSubmenu);
+    },
+
+    /**
+     * Adjusts the canvas viewbox to the given zoom coefficient
+     *
+     * @method zoom
+     * @param {Number} zoomCoefficient The zooming ratio
+     */
+    zoom: function (zoomCoefficient) {
+        if (zoomCoefficient < 0.15) zoomCoefficient = 0.15;
+        if (zoomCoefficient > 0.15 && zoomCoefficient < 0.25) zoomCoefficient = 0.25;
+        zoomCoefficient = Math.round(zoomCoefficient / 0.05) / 20;
+        //console.log("zoom: " + zoomCoefficient);
+        var newWidth = this.width / zoomCoefficient;
+        var newHeight = this.height / zoomCoefficient;
+        this.viewBoxX = this.viewBoxX + (this.width / this.zoomCoefficient - newWidth) / 2;
+        this.viewBoxY = this.viewBoxY + (this.height / this.zoomCoefficient - newHeight) / 2;
+        this.getPaper().setViewBox(this.viewBoxX, this.viewBoxY, newWidth, newHeight);
+        this.zoomCoefficient = zoomCoefficient;
+        this.background.attr({ x: this.viewBoxX, y: this.viewBoxY, width: newWidth, height: newHeight });
+    },
+
+    /**
+     * Creates the controls for panning and zooming
+     *
+     * @method generateViewControls
+     */
+    generateViewControls: function () {
+        var _this = this;
+        this.__controls = new Element('div', { 'class': 'view-controls' });
+        // Pan controls
+        this.__pan = new Element('div', { 'class': 'view-controls-pan', title: 'Pan' });
+        this.__controls.insert(this.__pan);
+        ['up', 'right', 'down', 'left', 'home'].each(function (direction) {
+            var faIconClass = direction == 'home' ? "fa-user" : "fa-arrow-" + direction;
+            _this.__pan[direction] = new Element('span', { 'class': 'view-control-pan pan-' + direction + ' fa fa-fw ' + faIconClass, 'title': 'Pan ' + direction });
+            _this.__pan.insert(_this.__pan[direction]);
+            _this.__pan[direction].observe('click', function (event) {
+                if (direction == 'home') {
+                    _this.centerAroundNode(0);
+                } else if (direction == 'up') {
+                    _this.panTo(_this.viewBoxX, _this.viewBoxY - 300);
+                } else if (direction == 'down') {
+                    _this.panTo(_this.viewBoxX, _this.viewBoxY + 300);
+                } else if (direction == 'left') {
+                    _this.panTo(_this.viewBoxX - 300, _this.viewBoxY);
+                } else {
+                    _this.panTo(_this.viewBoxX + 300, _this.viewBoxY);
+                }
+            });
+        });
+        // Zoom controls
+        var trackLength = 200;
+        this.__zoom = new Element('div', { 'class': 'view-controls-zoom', title: 'Zoom' });
+        this.__controls.insert(this.__zoom);
+        this.__zoom.track = new Element('div', { 'class': 'zoom-track' });
+        this.__zoom.handle = new Element('div', { 'class': 'zoom-handle', title: 'Drag to zoom' });
+        this.__zoom['in'] = new Element('div', { 'class': 'zoom-button zoom-in fa fa-fw fa-search-plus', title: 'Zoom in' });
+        this.__zoom['out'] = new Element('div', { 'class': 'zoom-button zoom-out fa fa-fw fa-search-minus', title: 'Zoom out' });
+        this.__zoom.label = new Element('div', { 'class': 'zoom-crt-value' });
+        this.__zoom.insert(this.__zoom['in']);
+        this.__zoom.insert(this.__zoom.track);
+        this.__zoom.track.insert(this.__zoom.handle);
+        this.__zoom.track.style.height = trackLength + 'px';
+        this.__zoom.insert(this.__zoom.out);
+        this.__zoom.insert(this.__zoom.label);
+        // Scriptaculous slider
+        // see also http://madrobby.github.com/scriptaculous/slider/
+        //
+        // Here a non-linear scale is used: slider positions form [0 to 0.9] correspond to
+        // zoom coefficients from 1.25x to 0.25x, and zoom positions from (0.9 to 1]
+        // correspond to single deepest zoom level 0.15x
+        this.zoomSlider = new __WEBPACK_IMPORTED_MODULE_0__slider__["a" /* Control */].Slider(this.__zoom.handle, this.__zoom.track, {
+            axis: 'vertical',
+            minimum: 0,
+            maximum: trackLength,
+            increment: 1,
+            alignY: 6,
+            onSlide: function (value) {
+                // Called whenever the Slider is moved by dragging.
+                // The called function gets the slider value (or array if slider has multiple handles) as its parameter.
+                //console.log("new val: " + value + " current coeff: " + _this.zoomCoefficient );
+                if (value <= 0.9) {
+                    _this.zoom(-value / 0.9 + 1.25);
+                } else {
+                    _this.zoom(0.15);
+                }
+            },
+            onChange: function (value) {
+                // Called whenever the Slider has finished moving or has had its value changed via the setSlider Value function.
+                // The called function gets the slider value (or array if slider has multiple handles) as its parameter.
+                if (value <= 0.9) {
+                    _this.zoom(-value / 0.9 + 1.25);
+                } else {
+                    _this.zoom(0.15);
+                }
+            }
+        });
+        if (editor.isUnsupportedBrowser()) {
+            this.zoomSlider.setValue(0.25 * 0.9); // 0.25 * 0.9 corresponds to zoomCoefficient of 1, i.e. 1:1
+            // - for best chance of decent looks on non-SVG browsers like IE8
+        } else {
+            this.zoomSlider.setValue(0.5 * 0.9); // 0.5 * 0.9 corresponds to zoomCoefficient of 0.75x
+        }
+        this.__zoom['in'].observe('click', function (event) {
+            if (_this.zoomCoefficient < 0.25) _this.zoomSlider.setValue(0.9); // zoom in from the any value below 0.25x goes to 0.25x (which is 0.9 on the slider)
+            else _this.zoomSlider.setValue(-(_this.zoomCoefficient - 1) * 0.9); // +0.25x
+        });
+        this.__zoom['out'].observe('click', function (event) {
+            if (_this.zoomCoefficient <= 0.25) _this.zoomSlider.setValue(1); // zoom out from 0.25x goes to the final slider position
+            else _this.zoomSlider.setValue(-(_this.zoomCoefficient - 1.5) * 0.9); // -0.25x
+        });
+        // Insert all controls in the document
+        this.getWorkArea().insert(this.__controls);
+    },
+
+    /* To work around a bug in Raphael or Raphaelzpd (?) which creates differently sized lines
+     * @ different zoom levels given the same "stroke-width" in pixels this function computes
+     * the pixel size to be used at this zoom level to create a line of the correct size.
+     *
+     * Returns the pixel value to be used in stoke-width
+     */
+    getSizeNormalizedToDefaultZoom: function (pixelSizeAtDefaultZoom) {
+        return pixelSizeAtDefaultZoom;
+    },
+
+    /**
+     * Returns the current zoom level (not normalized to any value, larger numbers mean deeper zoom-in)
+     */
+    getCurrentZoomLevel: function (pixelSizeAtDefaultZoom) {
+        return this.zoomCoefficient;
+    },
+
+    /**
+     * Converts the coordinates relative to the Raphael canvas to coordinates relative to the canvas div
+     * and returns them
+     *
+     * @method canvasToDiv
+     * @param {Number} canvasX The x coordinate relative to the Raphael canvas (ie with pan/zoom transformations)
+     * @param {Number} canvasY The y coordinate relative to the Raphael canvas (ie with pan/zoom transformations)
+     * @return {{x: number, y: number}} Object with coordinates
+     */
+    canvasToDiv: function (canvasX, canvasY) {
+        return {
+            x: this.zoomCoefficient * (canvasX - this.viewBoxX),
+            y: this.zoomCoefficient * (canvasY - this.viewBoxY)
+        };
+    },
+
+    /**
+     * Converts the coordinates relative to the canvas div to coordinates relative to the Raphael canvas
+     * by applying zoom/pan transformations and returns them.
+     *
+     * @method divToCanvas
+     * @param {Number} divX The x coordinate relative to the canvas
+     * @param {Number} divY The y coordinate relative to the canvas
+     * @return {{x: number, y: number}} Object with coordinates
+     */
+    divToCanvas: function (divX, divY) {
+        return {
+            x: divX / this.zoomCoefficient + this.viewBoxX,
+            y: divY / this.zoomCoefficient + this.viewBoxY
+        };
+    },
+
+    /**
+     * Converts the coordinates relative to the browser viewport to coordinates relative to the canvas div,
+     * and returns them.
+     *
+     * @method viewportToDiv
+     * @param {Number} absX The x coordinate relative to the viewport
+     * @param {Number} absY The y coordinate relative to the viewport
+     * @return {{x: number, y: number}} Object with coordinates
+     */
+    viewportToDiv: function (absX, absY) {
+        return {
+            x: +absX - this.canvas.cumulativeOffset().left,
+            y: absY - this.canvas.cumulativeOffset().top
+        };
+    },
+
+    /**
+     * Animates a transformation of the viewbox to the given coordinate
+     *
+     * @method panTo
+     * @param {Number} x The x coordinate relative to the Raphael canvas
+     * @param {Number} y The y coordinate relative to the Raphael canvas
+     */
+    panTo: function (x, y, instant) {
+        var me = this,
+            oX = this.viewBoxX,
+            oY = this.viewBoxY,
+            xDisplacement = x - oX,
+            yDisplacement = y - oY;
+
+        if (editor.isUnsupportedBrowser()) {
+            instant = true;
+        }
+
+        var numSeconds = instant ? 0 : .4;
+        var frames = instant ? 1 : 11;
+
+        var xStep = xDisplacement / frames,
+            yStep = yDisplacement / frames;
+
+        if (xStep == 0 && yStep == 0) return;
+
+        var progress = 0;
+
+        (function draw() {
+            setTimeout(function () {
+                if (progress++ < frames) {
+                    me.viewBoxX += xStep;
+                    me.viewBoxY += yStep;
+                    me.getPaper().setViewBox(me.viewBoxX, me.viewBoxY, me.width / me.zoomCoefficient, me.height / me.zoomCoefficient);
+                    me.background.attr({ x: me.viewBoxX, y: me.viewBoxY });
+                    draw();
+                }
+            }, 1000 * numSeconds / frames);
+        })();
+    },
+
+    /**
+     * Animates a transformation of the viewbox by the given delta in the X direction
+     *
+     * @method panTo
+     * @param {Number} deltaX The move size
+     */
+    panByX: function (deltaX, instant) {
+        this.panTo(this.viewBoxX + Math.floor(deltaX / this.zoomCoefficient), this.viewBoxY, instant);
+    },
+
+    /**
+     * Adjusts the canvas size to the current viewport dimensions.
+     *
+     * @method adjustSizeToScreen
+     */
+    adjustSizeToScreen: function () {
+        var screenDimensions = document.viewport.getDimensions();
+        this.width = screenDimensions.width;
+        this.height = screenDimensions.height - this.canvas.cumulativeOffset().top - 4;
+        this.getPaper().setSize(this.width, this.height);
+        this.getPaper().setViewBox(this.viewBoxX, this.viewBoxY, this.width / this.zoomCoefficient, this.height / this.zoomCoefficient);
+        this.background && this.background.attr({ "width": this.width, "height": this.height });
+        if (editor.getNodeMenu()) {
+            editor.getNodeMenu().reposition();
+        }
+    },
+
+    /**
+     * Pans the canvas to put the node with the given id at the center.
+     *
+     * When (xCenterShift, yCenterShift) are given positions the node with the given shift relative
+     * to the center instead of exact center of the screen
+     *
+     * @method centerAroundNode
+     * @param {Number} nodeID The id of the node
+     */
+    centerAroundNode: function (nodeID, instant, xCenterShift, yCenterShift) {
+        var node = editor.getNode(nodeID);
+        if (node) {
+            var x = node.getX(),
+                y = node.getY();
+            if (!xCenterShift) xCenterShift = 0;
+            if (!yCenterShift) yCenterShift = 0;
+            var xOffset = this.getWidth() / this.zoomCoefficient;
+            var yOffset = this.getHeight() / this.zoomCoefficient;
+            this.panTo(x - xOffset / 2 - xCenterShift, y - yOffset / 2 - yCenterShift, instant);
+        }
+    }
+});
+/* harmony export (immutable) */ __webpack_exports__["a"] = Workspace;
+
+/* WEBPACK VAR INJECTION */}.call(__webpack_exports__, __webpack_require__(3), __webpack_require__(21)))
+
+/***/ }),
+/* 170 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function($H, $R, Sizzle) {var __WEBPACK_AMD_DEFINE_RESULT__;/*** IMPORTS FROM imports-loader ***/
@@ -84824,10 +82474,10 @@ Object.extend(Element.ClassNames.prototype, Enumerable);
 /*** EXPORTS FROM exports-loader ***/
 module.exports = $w;
 }.call(window));
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(18), __webpack_require__(13), __webpack_require__(24)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(18), __webpack_require__(17), __webpack_require__(24)))
 
 /***/ }),
-/* 180 */
+/* 171 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function($H, $R, Sizzle) {var __WEBPACK_AMD_DEFINE_RESULT__;/*** IMPORTS FROM imports-loader ***/
@@ -92167,10 +89817,10 @@ Object.extend(Element.ClassNames.prototype, Enumerable);
 /*** EXPORTS FROM exports-loader ***/
 module.exports = Enumerable;
 }.call(window));
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(18), __webpack_require__(13), __webpack_require__(24)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(18), __webpack_require__(17), __webpack_require__(24)))
 
 /***/ }),
-/* 181 */
+/* 172 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var always = __webpack_require__(25);
@@ -92195,7 +89845,7 @@ module.exports = always(false);
 
 
 /***/ }),
-/* 182 */
+/* 173 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var always = __webpack_require__(25);
@@ -92220,7 +89870,7 @@ module.exports = always(true);
 
 
 /***/ }),
-/* 183 */
+/* 174 */
 /***/ (function(module, exports) {
 
 /**
@@ -92253,7 +89903,7 @@ module.exports = {'@@functional/placeholder': true};
 
 
 /***/ }),
-/* 184 */
+/* 175 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var _concat = __webpack_require__(12);
@@ -92302,12 +89952,12 @@ module.exports = _curry1(function addIndex(fn) {
 
 
 /***/ }),
-/* 185 */
+/* 176 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var _curry2 = __webpack_require__(0);
 var _dispatchable = __webpack_require__(4);
-var _xall = __webpack_require__(256);
+var _xall = __webpack_require__(247);
 
 
 /**
@@ -92347,14 +89997,14 @@ module.exports = _curry2(_dispatchable(['all'], _xall, function all(fn, list) {
 
 
 /***/ }),
-/* 186 */
+/* 177 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var _curry1 = __webpack_require__(1);
 var curryN = __webpack_require__(7);
 var max = __webpack_require__(26);
 var pluck = __webpack_require__(33);
-var reduce = __webpack_require__(17);
+var reduce = __webpack_require__(16);
 
 
 /**
@@ -92398,14 +90048,14 @@ module.exports = _curry1(function allPass(preds) {
 
 
 /***/ }),
-/* 187 */
+/* 178 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var _curry1 = __webpack_require__(1);
 var curryN = __webpack_require__(7);
 var max = __webpack_require__(26);
 var pluck = __webpack_require__(33);
-var reduce = __webpack_require__(17);
+var reduce = __webpack_require__(16);
 
 
 /**
@@ -92450,13 +90100,13 @@ module.exports = _curry1(function anyPass(preds) {
 
 
 /***/ }),
-/* 188 */
+/* 179 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var _aperture = __webpack_require__(239);
+var _aperture = __webpack_require__(230);
 var _curry2 = __webpack_require__(0);
 var _dispatchable = __webpack_require__(4);
-var _xaperture = __webpack_require__(257);
+var _xaperture = __webpack_require__(248);
 
 
 /**
@@ -92484,7 +90134,7 @@ module.exports = _curry2(_dispatchable([], _xaperture, _aperture));
 
 
 /***/ }),
-/* 189 */
+/* 180 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var _concat = __webpack_require__(12);
@@ -92517,17 +90167,17 @@ module.exports = _curry2(function append(el, list) {
 
 
 /***/ }),
-/* 190 */
+/* 181 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var _curry1 = __webpack_require__(1);
-var apply = __webpack_require__(95);
+var apply = __webpack_require__(87);
 var curryN = __webpack_require__(7);
-var map = __webpack_require__(10);
+var map = __webpack_require__(9);
 var max = __webpack_require__(26);
 var pluck = __webpack_require__(33);
-var reduce = __webpack_require__(17);
-var values = __webpack_require__(147);
+var reduce = __webpack_require__(16);
+var values = __webpack_require__(139);
 
 
 /**
@@ -92567,7 +90217,7 @@ module.exports = _curry1(function applySpec(spec) {
 
 
 /***/ }),
-/* 191 */
+/* 182 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var _curry3 = __webpack_require__(2);
@@ -92602,7 +90252,7 @@ module.exports = _curry3(function ascend(fn, a, b) {
 
 
 /***/ }),
-/* 192 */
+/* 183 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var _curry1 = __webpack_require__(1);
@@ -92642,12 +90292,12 @@ module.exports = _curry1(function binary(fn) {
 
 
 /***/ }),
-/* 193 */
+/* 184 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var _curry2 = __webpack_require__(0);
 var _isFunction = __webpack_require__(44);
-var and = __webpack_require__(93);
+var and = __webpack_require__(85);
 var lift = __webpack_require__(49);
 
 
@@ -92689,7 +90339,7 @@ module.exports = _curry2(function both(f, g) {
 
 
 /***/ }),
-/* 194 */
+/* 185 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var curry = __webpack_require__(41);
@@ -92732,7 +90382,7 @@ module.exports = curry(function call(fn) {
 
 
 /***/ }),
-/* 195 */
+/* 186 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var _curry3 = __webpack_require__(2);
@@ -92768,10 +90418,10 @@ module.exports = _curry3(function clamp(min, max, value) {
 
 
 /***/ }),
-/* 196 */
+/* 187 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var _clone = __webpack_require__(109);
+var _clone = __webpack_require__(101);
 var _curry1 = __webpack_require__(1);
 
 
@@ -92804,7 +90454,7 @@ module.exports = _curry1(function clone(value) {
 
 
 /***/ }),
-/* 197 */
+/* 188 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var _curry1 = __webpack_require__(1);
@@ -92838,11 +90488,11 @@ module.exports = _curry1(function comparator(pred) {
 
 
 /***/ }),
-/* 198 */
+/* 189 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var lift = __webpack_require__(49);
-var not = __webpack_require__(131);
+var not = __webpack_require__(123);
 
 
 /**
@@ -92871,10 +90521,10 @@ module.exports = lift(not);
 
 
 /***/ }),
-/* 199 */
+/* 190 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var pipeP = __webpack_require__(137);
+var pipeP = __webpack_require__(129);
 var reverse = __webpack_require__(53);
 
 
@@ -92921,14 +90571,14 @@ module.exports = function composeP() {
 
 
 /***/ }),
-/* 200 */
+/* 191 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var _arity = __webpack_require__(15);
+var _arity = __webpack_require__(14);
 var _curry1 = __webpack_require__(1);
-var map = __webpack_require__(10);
+var map = __webpack_require__(9);
 var max = __webpack_require__(26);
-var reduce = __webpack_require__(17);
+var reduce = __webpack_require__(16);
 
 
 /**
@@ -92974,11 +90624,11 @@ module.exports = _curry1(function cond(pairs) {
 
 
 /***/ }),
-/* 201 */
+/* 192 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var _curry1 = __webpack_require__(1);
-var constructN = __webpack_require__(99);
+var constructN = __webpack_require__(91);
 
 
 /**
@@ -93018,7 +90668,7 @@ module.exports = _curry1(function construct(Fn) {
 
 
 /***/ }),
-/* 202 */
+/* 193 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var _contains = __webpack_require__(22);
@@ -93049,7 +90699,7 @@ module.exports = _curry2(_contains);
 
 
 /***/ }),
-/* 203 */
+/* 194 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var reduceBy = __webpack_require__(51);
@@ -93083,7 +90733,7 @@ module.exports = reduceBy(function(acc, elem) { return acc + 1; }, 0);
 
 
 /***/ }),
-/* 204 */
+/* 195 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var add = __webpack_require__(39);
@@ -93108,7 +90758,7 @@ module.exports = add(-1);
 
 
 /***/ }),
-/* 205 */
+/* 196 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var _curry3 = __webpack_require__(2);
@@ -93143,12 +90793,12 @@ module.exports = _curry3(function descend(fn, a, b) {
 
 
 /***/ }),
-/* 206 */
+/* 197 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var _curry2 = __webpack_require__(0);
 var assoc = __webpack_require__(40);
-var dissoc = __webpack_require__(104);
+var dissoc = __webpack_require__(96);
 
 
 /**
@@ -93184,7 +90834,7 @@ module.exports = _curry2(function dissocPath(path, obj) {
 
 
 /***/ }),
-/* 207 */
+/* 198 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var _curry2 = __webpack_require__(0);
@@ -93216,13 +90866,13 @@ module.exports = _curry2(function divide(a, b) { return a / b; });
 
 
 /***/ }),
-/* 208 */
+/* 199 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var _curry2 = __webpack_require__(0);
 var _dispatchable = __webpack_require__(4);
-var _dropLast = __webpack_require__(241);
-var _xdropLast = __webpack_require__(260);
+var _dropLast = __webpack_require__(232);
+var _xdropLast = __webpack_require__(251);
 
 
 /**
@@ -93250,13 +90900,13 @@ module.exports = _curry2(_dispatchable([], _xdropLast, _dropLast));
 
 
 /***/ }),
-/* 209 */
+/* 200 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var _curry2 = __webpack_require__(0);
 var _dispatchable = __webpack_require__(4);
-var _dropLastWhile = __webpack_require__(242);
-var _xdropLastWhile = __webpack_require__(261);
+var _dropLastWhile = __webpack_require__(233);
+var _xdropLastWhile = __webpack_require__(252);
 
 
 /**
@@ -93285,14 +90935,14 @@ module.exports = _curry2(_dispatchable([], _xdropLastWhile, _dropLastWhile));
 
 
 /***/ }),
-/* 210 */
+/* 201 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var _curry1 = __webpack_require__(1);
 var _dispatchable = __webpack_require__(4);
-var _xdropRepeatsWith = __webpack_require__(121);
-var dropRepeatsWith = __webpack_require__(106);
-var equals = __webpack_require__(14);
+var _xdropRepeatsWith = __webpack_require__(113);
+var dropRepeatsWith = __webpack_require__(98);
+var equals = __webpack_require__(13);
 
 
 /**
@@ -93317,12 +90967,12 @@ module.exports = _curry1(_dispatchable([], _xdropRepeatsWith(equals), dropRepeat
 
 
 /***/ }),
-/* 211 */
+/* 202 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var _curry2 = __webpack_require__(0);
 var _dispatchable = __webpack_require__(4);
-var _xdropWhile = __webpack_require__(262);
+var _xdropWhile = __webpack_require__(253);
 
 
 /**
@@ -93361,13 +91011,13 @@ module.exports = _curry2(_dispatchable(['dropWhile'], _xdropWhile, function drop
 
 
 /***/ }),
-/* 212 */
+/* 203 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var _curry2 = __webpack_require__(0);
 var _isFunction = __webpack_require__(44);
 var lift = __webpack_require__(49);
-var or = __webpack_require__(133);
+var or = __webpack_require__(125);
 
 
 /**
@@ -93407,11 +91057,11 @@ module.exports = _curry2(function either(f, g) {
 
 
 /***/ }),
-/* 213 */
+/* 204 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var _curry3 = __webpack_require__(2);
-var equals = __webpack_require__(14);
+var equals = __webpack_require__(13);
 
 
 /**
@@ -93437,11 +91087,11 @@ module.exports = _curry3(function eqBy(f, x, y) {
 
 
 /***/ }),
-/* 214 */
+/* 205 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var _curry3 = __webpack_require__(2);
-var equals = __webpack_require__(14);
+var equals = __webpack_require__(13);
 
 
 /**
@@ -93471,7 +91121,7 @@ module.exports = _curry3(function eqProps(prop, obj1, obj2) {
 
 
 /***/ }),
-/* 215 */
+/* 206 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var _curry2 = __webpack_require__(0);
@@ -93519,12 +91169,12 @@ module.exports = _curry2(function evolve(transformations, object) {
 
 
 /***/ }),
-/* 216 */
+/* 207 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var _curry2 = __webpack_require__(0);
 var _dispatchable = __webpack_require__(4);
-var _xfind = __webpack_require__(264);
+var _xfind = __webpack_require__(255);
 
 
 /**
@@ -93564,12 +91214,12 @@ module.exports = _curry2(_dispatchable(['find'], _xfind, function find(fn, list)
 
 
 /***/ }),
-/* 217 */
+/* 208 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var _curry2 = __webpack_require__(0);
 var _dispatchable = __webpack_require__(4);
-var _xfindIndex = __webpack_require__(265);
+var _xfindIndex = __webpack_require__(256);
 
 
 /**
@@ -93608,12 +91258,12 @@ module.exports = _curry2(_dispatchable([], _xfindIndex, function findIndex(fn, l
 
 
 /***/ }),
-/* 218 */
+/* 209 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var _curry2 = __webpack_require__(0);
 var _dispatchable = __webpack_require__(4);
-var _xfindLast = __webpack_require__(266);
+var _xfindLast = __webpack_require__(257);
 
 
 /**
@@ -93650,12 +91300,12 @@ module.exports = _curry2(_dispatchable([], _xfindLast, function findLast(fn, lis
 
 
 /***/ }),
-/* 219 */
+/* 210 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var _curry2 = __webpack_require__(0);
 var _dispatchable = __webpack_require__(4);
-var _xfindLastIndex = __webpack_require__(267);
+var _xfindLastIndex = __webpack_require__(258);
 
 
 /**
@@ -93693,11 +91343,11 @@ module.exports = _curry2(_dispatchable([], _xfindLastIndex, function findLastInd
 
 
 /***/ }),
-/* 220 */
+/* 211 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var _curry1 = __webpack_require__(1);
-var _makeFlat = __webpack_require__(119);
+var _makeFlat = __webpack_require__(111);
 
 
 /**
@@ -93721,7 +91371,7 @@ module.exports = _curry1(_makeFlat(true));
 
 
 /***/ }),
-/* 221 */
+/* 212 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var _checkForMethod = __webpack_require__(28);
@@ -93774,11 +91424,11 @@ module.exports = _curry2(_checkForMethod('forEach', function forEach(fn, list) {
 
 
 /***/ }),
-/* 222 */
+/* 213 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var _curry2 = __webpack_require__(0);
-var keys = __webpack_require__(16);
+var keys = __webpack_require__(15);
 
 
 /**
@@ -93816,7 +91466,7 @@ module.exports = _curry2(function forEachObjIndexed(fn, obj) {
 
 
 /***/ }),
-/* 223 */
+/* 214 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var _curry1 = __webpack_require__(1);
@@ -93850,7 +91500,7 @@ module.exports = _curry1(function fromPairs(pairs) {
 
 
 /***/ }),
-/* 224 */
+/* 215 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var _checkForMethod = __webpack_require__(28);
@@ -93907,7 +91557,7 @@ module.exports = _curry2(_checkForMethod('groupBy', reduceBy(function(acc, item)
 
 
 /***/ }),
-/* 225 */
+/* 216 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var _curry2 = __webpack_require__(0);
@@ -93955,7 +91605,7 @@ module.exports = _curry2(function(fn, list) {
 
 
 /***/ }),
-/* 226 */
+/* 217 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var _curry2 = __webpack_require__(0);
@@ -93986,7 +91636,7 @@ module.exports = _curry2(function gt(a, b) { return a > b; });
 
 
 /***/ }),
-/* 227 */
+/* 218 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var _curry2 = __webpack_require__(0);
@@ -94017,7 +91667,7 @@ module.exports = _curry2(function gte(a, b) { return a >= b; });
 
 
 /***/ }),
-/* 228 */
+/* 219 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var _curry2 = __webpack_require__(0);
@@ -94052,7 +91702,7 @@ module.exports = _curry2(_has);
 
 
 /***/ }),
-/* 229 */
+/* 220 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var _curry2 = __webpack_require__(0);
@@ -94090,7 +91740,7 @@ module.exports = _curry2(function hasIn(prop, obj) {
 
 
 /***/ }),
-/* 230 */
+/* 221 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var nth = __webpack_require__(31);
@@ -94121,7 +91771,7 @@ module.exports = nth(0);
 
 
 /***/ }),
-/* 231 */
+/* 222 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var _curry3 = __webpack_require__(2);
@@ -94163,7 +91813,7 @@ module.exports = _curry3(function ifElse(condition, onTrue, onFalse) {
 
 
 /***/ }),
-/* 232 */
+/* 223 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var add = __webpack_require__(39);
@@ -94188,7 +91838,7 @@ module.exports = add(1);
 
 
 /***/ }),
-/* 233 */
+/* 224 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var reduceBy = __webpack_require__(51);
@@ -94220,11 +91870,11 @@ module.exports = reduceBy(function(acc, elem) { return elem; }, null);
 
 
 /***/ }),
-/* 234 */
+/* 225 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var _curry2 = __webpack_require__(0);
-var _indexOf = __webpack_require__(114);
+var _indexOf = __webpack_require__(106);
 var _isArray = __webpack_require__(19);
 
 
@@ -94255,7 +91905,7 @@ module.exports = _curry2(function indexOf(target, xs) {
 
 
 /***/ }),
-/* 235 */
+/* 226 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var slice = __webpack_require__(23);
@@ -94289,7 +91939,7 @@ module.exports = slice(0, -1);
 
 
 /***/ }),
-/* 236 */
+/* 227 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var _curry3 = __webpack_require__(2);
@@ -94322,7 +91972,7 @@ module.exports = _curry3(function insert(idx, elt, list) {
 
 
 /***/ }),
-/* 237 */
+/* 228 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var _curry3 = __webpack_require__(2);
@@ -94355,7 +92005,7 @@ module.exports = _curry3(function insertAll(idx, elts, list) {
 
 
 /***/ }),
-/* 238 */
+/* 229 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var _contains = __webpack_require__(22);
@@ -94532,7 +92182,7 @@ module.exports = (function() {
 
 
 /***/ }),
-/* 239 */
+/* 230 */
 /***/ (function(module, exports) {
 
 module.exports = function _aperture(n, list) {
@@ -94548,7 +92198,7 @@ module.exports = function _aperture(n, list) {
 
 
 /***/ }),
-/* 240 */
+/* 231 */
 /***/ (function(module, exports) {
 
 module.exports = function _arrayFromIterator(iter) {
@@ -94562,10 +92212,10 @@ module.exports = function _arrayFromIterator(iter) {
 
 
 /***/ }),
-/* 241 */
+/* 232 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var take = __webpack_require__(142);
+var take = __webpack_require__(134);
 
 module.exports = function dropLast(n, xs) {
   return take(n < xs.length ? xs.length - n : 0, xs);
@@ -94573,7 +92223,7 @@ module.exports = function dropLast(n, xs) {
 
 
 /***/ }),
-/* 242 */
+/* 233 */
 /***/ (function(module, exports) {
 
 module.exports = function dropLastWhile(pred, list) {
@@ -94586,15 +92236,15 @@ module.exports = function dropLastWhile(pred, list) {
 
 
 /***/ }),
-/* 243 */
+/* 234 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var _arrayFromIterator = __webpack_require__(240);
-var _functionName = __webpack_require__(246);
+var _arrayFromIterator = __webpack_require__(231);
+var _functionName = __webpack_require__(237);
 var _has = __webpack_require__(8);
-var identical = __webpack_require__(108);
-var keys = __webpack_require__(16);
-var type = __webpack_require__(75);
+var identical = __webpack_require__(100);
+var keys = __webpack_require__(15);
+var type = __webpack_require__(71);
 
 
 module.exports = function _equals(a, b, stackA, stackB) {
@@ -94701,10 +92351,10 @@ module.exports = function _equals(a, b, stackA, stackB) {
 
 
 /***/ }),
-/* 244 */
+/* 235 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var _forceReduced = __webpack_require__(245);
+var _forceReduced = __webpack_require__(236);
 var _reduce = __webpack_require__(11);
 var _xfBase = __webpack_require__(5);
 var isArrayLike = __webpack_require__(30);
@@ -94739,7 +92389,7 @@ module.exports = (function() {
 
 
 /***/ }),
-/* 245 */
+/* 236 */
 /***/ (function(module, exports) {
 
 module.exports = function _forceReduced(x) {
@@ -94751,7 +92401,7 @@ module.exports = function _forceReduced(x) {
 
 
 /***/ }),
-/* 246 */
+/* 237 */
 /***/ (function(module, exports) {
 
 module.exports = function _functionName(f) {
@@ -94762,7 +92412,7 @@ module.exports = function _functionName(f) {
 
 
 /***/ }),
-/* 247 */
+/* 238 */
 /***/ (function(module, exports) {
 
 module.exports = function _isRegExp(x) {
@@ -94771,7 +92421,7 @@ module.exports = function _isRegExp(x) {
 
 
 /***/ }),
-/* 248 */
+/* 239 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var _has = __webpack_require__(8);
@@ -94801,14 +92451,14 @@ module.exports = function _objectAssign(target) {
 
 
 /***/ }),
-/* 249 */
+/* 240 */
 /***/ (function(module, exports) {
 
 module.exports = function _of(x) { return [x]; };
 
 
 /***/ }),
-/* 250 */
+/* 241 */
 /***/ (function(module, exports) {
 
 module.exports = function _pipe(f, g) {
@@ -94819,7 +92469,7 @@ module.exports = function _pipe(f, g) {
 
 
 /***/ }),
-/* 251 */
+/* 242 */
 /***/ (function(module, exports) {
 
 module.exports = function _pipeP(f, g) {
@@ -94833,7 +92483,7 @@ module.exports = function _pipeP(f, g) {
 
 
 /***/ }),
-/* 252 */
+/* 243 */
 /***/ (function(module, exports) {
 
 module.exports = function _quote(s) {
@@ -94852,14 +92502,14 @@ module.exports = function _quote(s) {
 
 
 /***/ }),
-/* 253 */
+/* 244 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var _assign = __webpack_require__(69);
-var _identity = __webpack_require__(71);
-var _isTransformer = __webpack_require__(72);
+var _assign = __webpack_require__(65);
+var _identity = __webpack_require__(67);
+var _isTransformer = __webpack_require__(68);
 var isArrayLike = __webpack_require__(30);
-var objOf = __webpack_require__(132);
+var objOf = __webpack_require__(124);
 
 
 module.exports = (function() {
@@ -94906,7 +92556,7 @@ module.exports = (function() {
 
 
 /***/ }),
-/* 254 */
+/* 245 */
 /***/ (function(module, exports) {
 
 /**
@@ -94934,14 +92584,14 @@ module.exports = (function() {
 
 
 /***/ }),
-/* 255 */
+/* 246 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var _contains = __webpack_require__(22);
 var _map = __webpack_require__(47);
-var _quote = __webpack_require__(252);
-var _toISOString = __webpack_require__(254);
-var keys = __webpack_require__(16);
+var _quote = __webpack_require__(243);
+var _toISOString = __webpack_require__(245);
+var keys = __webpack_require__(15);
 var reject = __webpack_require__(52);
 
 
@@ -94986,7 +92636,7 @@ module.exports = function _toString(x, seen) {
 
 
 /***/ }),
-/* 256 */
+/* 247 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var _curry2 = __webpack_require__(0);
@@ -95020,7 +92670,7 @@ module.exports = (function() {
 
 
 /***/ }),
-/* 257 */
+/* 248 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var _concat = __webpack_require__(12);
@@ -95062,12 +92712,12 @@ module.exports = (function() {
 
 
 /***/ }),
-/* 258 */
+/* 249 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var _curry2 = __webpack_require__(0);
-var _flatCat = __webpack_require__(244);
-var map = __webpack_require__(10);
+var _flatCat = __webpack_require__(235);
+var map = __webpack_require__(9);
 
 
 module.exports = _curry2(function _xchain(f, xf) {
@@ -95076,7 +92726,7 @@ module.exports = _curry2(function _xchain(f, xf) {
 
 
 /***/ }),
-/* 259 */
+/* 250 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var _curry2 = __webpack_require__(0);
@@ -95103,7 +92753,7 @@ module.exports = (function() {
 
 
 /***/ }),
-/* 260 */
+/* 251 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var _curry2 = __webpack_require__(0);
@@ -95143,7 +92793,7 @@ module.exports = (function() {
 
 
 /***/ }),
-/* 261 */
+/* 252 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var _curry2 = __webpack_require__(0);
@@ -95184,7 +92834,7 @@ module.exports = (function() {
 
 
 /***/ }),
-/* 262 */
+/* 253 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var _curry2 = __webpack_require__(0);
@@ -95213,7 +92863,7 @@ module.exports = (function() {
 
 
 /***/ }),
-/* 263 */
+/* 254 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var _curry2 = __webpack_require__(0);
@@ -95236,7 +92886,7 @@ module.exports = (function() {
 
 
 /***/ }),
-/* 264 */
+/* 255 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var _curry2 = __webpack_require__(0);
@@ -95270,7 +92920,7 @@ module.exports = (function() {
 
 
 /***/ }),
-/* 265 */
+/* 256 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var _curry2 = __webpack_require__(0);
@@ -95306,7 +92956,7 @@ module.exports = (function() {
 
 
 /***/ }),
-/* 266 */
+/* 257 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var _curry2 = __webpack_require__(0);
@@ -95334,7 +92984,7 @@ module.exports = (function() {
 
 
 /***/ }),
-/* 267 */
+/* 258 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var _curry2 = __webpack_require__(0);
@@ -95365,7 +93015,7 @@ module.exports = (function() {
 
 
 /***/ }),
-/* 268 */
+/* 259 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var _curry2 = __webpack_require__(0);
@@ -95388,7 +93038,7 @@ module.exports = (function() {
 
 
 /***/ }),
-/* 269 */
+/* 260 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var _curryN = __webpack_require__(43);
@@ -95434,7 +93084,7 @@ module.exports = (function() {
 
 
 /***/ }),
-/* 270 */
+/* 261 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var _curry2 = __webpack_require__(0);
@@ -95460,7 +93110,7 @@ module.exports = (function() {
 
 
 /***/ }),
-/* 271 */
+/* 262 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var _curry2 = __webpack_require__(0);
@@ -95484,14 +93134,14 @@ module.exports = (function() {
 
 
 /***/ }),
-/* 272 */
+/* 263 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var _contains = __webpack_require__(22);
 var _curry2 = __webpack_require__(0);
-var _filter = __webpack_require__(113);
+var _filter = __webpack_require__(105);
 var flip = __webpack_require__(42);
-var uniq = __webpack_require__(76);
+var uniq = __webpack_require__(72);
 
 
 /**
@@ -95525,12 +93175,12 @@ module.exports = _curry2(function intersection(list1, list2) {
 
 
 /***/ }),
-/* 273 */
+/* 264 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var _containsWith = __webpack_require__(70);
+var _containsWith = __webpack_require__(66);
 var _curry3 = __webpack_require__(2);
-var uniqWith = __webpack_require__(77);
+var uniqWith = __webpack_require__(73);
 
 
 /**
@@ -95590,7 +93240,7 @@ module.exports = _curry3(function intersectionWith(pred, list1, list2) {
 
 
 /***/ }),
-/* 274 */
+/* 265 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var _checkForMethod = __webpack_require__(28);
@@ -95631,14 +93281,14 @@ module.exports = _curry2(_checkForMethod('intersperse', function intersperse(sep
 
 
 /***/ }),
-/* 275 */
+/* 266 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var _clone = __webpack_require__(109);
+var _clone = __webpack_require__(101);
 var _curry3 = __webpack_require__(2);
-var _isTransformer = __webpack_require__(72);
+var _isTransformer = __webpack_require__(68);
 var _reduce = __webpack_require__(11);
-var _stepCat = __webpack_require__(253);
+var _stepCat = __webpack_require__(244);
 
 
 /**
@@ -95686,12 +93336,12 @@ module.exports = _curry3(function into(acc, xf, list) {
 
 
 /***/ }),
-/* 276 */
+/* 267 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var _curry1 = __webpack_require__(1);
 var _has = __webpack_require__(8);
-var keys = __webpack_require__(16);
+var keys = __webpack_require__(15);
 
 
 /**
@@ -95734,11 +93384,11 @@ module.exports = _curry1(function invert(obj) {
 
 
 /***/ }),
-/* 277 */
+/* 268 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var _curry1 = __webpack_require__(1);
-var keys = __webpack_require__(16);
+var keys = __webpack_require__(15);
 
 
 /**
@@ -95783,12 +93433,12 @@ module.exports = _curry1(function invertObj(obj) {
 
 
 /***/ }),
-/* 278 */
+/* 269 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var _curry1 = __webpack_require__(1);
-var empty = __webpack_require__(107);
-var equals = __webpack_require__(14);
+var empty = __webpack_require__(99);
+var equals = __webpack_require__(13);
 
 
 /**
@@ -95818,7 +93468,7 @@ module.exports = _curry1(function isEmpty(x) {
 
 
 /***/ }),
-/* 279 */
+/* 270 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var _curry1 = __webpack_require__(1);
@@ -95845,7 +93495,7 @@ module.exports = _curry1(function isNil(x) { return x == null; });
 
 
 /***/ }),
-/* 280 */
+/* 271 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var invoker = __webpack_require__(29);
@@ -95874,7 +93524,7 @@ module.exports = invoker(1, 'join');
 
 
 /***/ }),
-/* 281 */
+/* 272 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var _curry1 = __webpack_require__(1);
@@ -95911,12 +93561,12 @@ module.exports = _curry1(function keysIn(obj) {
 
 
 /***/ }),
-/* 282 */
+/* 273 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var _curry2 = __webpack_require__(0);
 var _isArray = __webpack_require__(19);
-var equals = __webpack_require__(14);
+var equals = __webpack_require__(13);
 
 
 /**
@@ -95955,13 +93605,13 @@ module.exports = _curry2(function lastIndexOf(target, xs) {
 
 
 /***/ }),
-/* 283 */
+/* 274 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var _curry1 = __webpack_require__(1);
 var lens = __webpack_require__(48);
 var nth = __webpack_require__(31);
-var update = __webpack_require__(145);
+var update = __webpack_require__(137);
 
 
 /**
@@ -95990,11 +93640,11 @@ module.exports = _curry1(function lensIndex(n) {
 
 
 /***/ }),
-/* 284 */
+/* 275 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var _curry1 = __webpack_require__(1);
-var assocPath = __webpack_require__(96);
+var assocPath = __webpack_require__(88);
 var lens = __webpack_require__(48);
 var path = __webpack_require__(32);
 
@@ -96029,13 +93679,13 @@ module.exports = _curry1(function lensPath(p) {
 
 
 /***/ }),
-/* 285 */
+/* 276 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var _curry1 = __webpack_require__(1);
 var assoc = __webpack_require__(40);
 var lens = __webpack_require__(48);
-var prop = __webpack_require__(73);
+var prop = __webpack_require__(69);
 
 
 /**
@@ -96064,7 +93714,7 @@ module.exports = _curry1(function lensProp(k) {
 
 
 /***/ }),
-/* 286 */
+/* 277 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var _curry2 = __webpack_require__(0);
@@ -96095,7 +93745,7 @@ module.exports = _curry2(function lt(a, b) { return a < b; });
 
 
 /***/ }),
-/* 287 */
+/* 278 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var _curry2 = __webpack_require__(0);
@@ -96126,7 +93776,7 @@ module.exports = _curry2(function lte(a, b) { return a <= b; });
 
 
 /***/ }),
-/* 288 */
+/* 279 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var _curry3 = __webpack_require__(2);
@@ -96181,7 +93831,7 @@ module.exports = _curry3(function mapAccum(fn, acc, list) {
 
 
 /***/ }),
-/* 289 */
+/* 280 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var _curry3 = __webpack_require__(2);
@@ -96238,12 +93888,12 @@ module.exports = _curry3(function mapAccumRight(fn, acc, list) {
 
 
 /***/ }),
-/* 290 */
+/* 281 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var _curry2 = __webpack_require__(0);
 var _reduce = __webpack_require__(11);
-var keys = __webpack_require__(16);
+var keys = __webpack_require__(15);
 
 
 /**
@@ -96276,7 +93926,7 @@ module.exports = _curry2(function mapObjIndexed(fn, obj) {
 
 
 /***/ }),
-/* 291 */
+/* 282 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var _curry2 = __webpack_require__(0);
@@ -96309,11 +93959,11 @@ module.exports = _curry2(function match(rx, str) {
 
 
 /***/ }),
-/* 292 */
+/* 283 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var _curry2 = __webpack_require__(0);
-var _isInteger = __webpack_require__(116);
+var _isInteger = __webpack_require__(108);
 
 
 /**
@@ -96356,7 +94006,7 @@ module.exports = _curry2(function mathMod(m, p) {
 
 
 /***/ }),
-/* 293 */
+/* 284 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var _curry3 = __webpack_require__(2);
@@ -96392,11 +94042,11 @@ module.exports = _curry3(function maxBy(f, a, b) {
 
 
 /***/ }),
-/* 294 */
+/* 285 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var _curry1 = __webpack_require__(1);
-var mean = __webpack_require__(128);
+var mean = __webpack_require__(120);
 
 
 /**
@@ -96429,10 +94079,10 @@ module.exports = _curry1(function median(list) {
 
 
 /***/ }),
-/* 295 */
+/* 286 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var _arity = __webpack_require__(15);
+var _arity = __webpack_require__(14);
 var _curry1 = __webpack_require__(1);
 var _has = __webpack_require__(8);
 var toString = __webpack_require__(34);
@@ -96477,10 +94127,10 @@ module.exports = _curry1(function memoize(fn) {
 
 
 /***/ }),
-/* 296 */
+/* 287 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var _assign = __webpack_require__(69);
+var _assign = __webpack_require__(65);
 var _curry2 = __webpack_require__(0);
 
 
@@ -96513,10 +94163,10 @@ module.exports = _curry2(function merge(l, r) {
 
 
 /***/ }),
-/* 297 */
+/* 288 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var _assign = __webpack_require__(69);
+var _assign = __webpack_require__(65);
 var _curry1 = __webpack_require__(1);
 
 
@@ -96543,11 +94193,11 @@ module.exports = _curry1(function mergeAll(list) {
 
 
 /***/ }),
-/* 298 */
+/* 289 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var _curry3 = __webpack_require__(2);
-var mergeWithKey = __webpack_require__(129);
+var mergeWithKey = __webpack_require__(121);
 
 
 /**
@@ -96582,7 +94232,7 @@ module.exports = _curry3(function mergeWith(fn, l, r) {
 
 
 /***/ }),
-/* 299 */
+/* 290 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var _curry2 = __webpack_require__(0);
@@ -96609,7 +94259,7 @@ module.exports = _curry2(function min(a, b) { return b < a ? b : a; });
 
 
 /***/ }),
-/* 300 */
+/* 291 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var _curry3 = __webpack_require__(2);
@@ -96645,7 +94295,7 @@ module.exports = _curry3(function minBy(f, a, b) {
 
 
 /***/ }),
-/* 301 */
+/* 292 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var _curry2 = __webpack_require__(0);
@@ -96680,7 +94330,7 @@ module.exports = _curry2(function modulo(a, b) { return a % b; });
 
 
 /***/ }),
-/* 302 */
+/* 293 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var _curry1 = __webpack_require__(1);
@@ -96704,14 +94354,14 @@ module.exports = _curry1(function negate(n) { return -n; });
 
 
 /***/ }),
-/* 303 */
+/* 294 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var _complement = __webpack_require__(111);
+var _complement = __webpack_require__(103);
 var _curry2 = __webpack_require__(0);
 var _dispatchable = __webpack_require__(4);
-var _xany = __webpack_require__(120);
-var any = __webpack_require__(94);
+var _xany = __webpack_require__(112);
+var any = __webpack_require__(86);
 
 
 /**
@@ -96740,7 +94390,7 @@ module.exports = _curry2(_complement(_dispatchable(['any'], _xany, any)));
 
 
 /***/ }),
-/* 304 */
+/* 295 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var _curry1 = __webpack_require__(1);
@@ -96775,11 +94425,11 @@ module.exports = _curry1(function nthArg(n) {
 
 
 /***/ }),
-/* 305 */
+/* 296 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var _curry1 = __webpack_require__(1);
-var _of = __webpack_require__(249);
+var _of = __webpack_require__(240);
 
 
 /**
@@ -96804,7 +94454,7 @@ module.exports = _curry1(_of);
 
 
 /***/ }),
-/* 306 */
+/* 297 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var _contains = __webpack_require__(22);
@@ -96839,10 +94489,10 @@ module.exports = _curry2(function omit(names, obj) {
 
 
 /***/ }),
-/* 307 */
+/* 298 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var _arity = __webpack_require__(15);
+var _arity = __webpack_require__(14);
 var _curry1 = __webpack_require__(1);
 
 
@@ -96880,7 +94530,7 @@ module.exports = _curry1(function once(fn) {
 
 
 /***/ }),
-/* 308 */
+/* 299 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var _curry2 = __webpack_require__(0);
@@ -96906,11 +94556,11 @@ module.exports = _curry2(function pair(fst, snd) { return [fst, snd]; });
 
 
 /***/ }),
-/* 309 */
+/* 300 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var _concat = __webpack_require__(12);
-var _createPartialApplicator = __webpack_require__(112);
+var _createPartialApplicator = __webpack_require__(104);
 
 
 /**
@@ -96945,11 +94595,11 @@ module.exports = _createPartialApplicator(_concat);
 
 
 /***/ }),
-/* 310 */
+/* 301 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var _concat = __webpack_require__(12);
-var _createPartialApplicator = __webpack_require__(112);
+var _createPartialApplicator = __webpack_require__(104);
 var flip = __webpack_require__(42);
 
 
@@ -96981,11 +94631,11 @@ module.exports = _createPartialApplicator(flip(_concat));
 
 
 /***/ }),
-/* 311 */
+/* 302 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var filter = __webpack_require__(67);
-var juxt = __webpack_require__(124);
+var filter = __webpack_require__(63);
+var juxt = __webpack_require__(116);
 var reject = __webpack_require__(52);
 
 
@@ -97016,11 +94666,11 @@ module.exports = juxt([filter, reject]);
 
 
 /***/ }),
-/* 312 */
+/* 303 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var _curry3 = __webpack_require__(2);
-var equals = __webpack_require__(14);
+var equals = __webpack_require__(13);
 var path = __webpack_require__(32);
 
 
@@ -97054,11 +94704,11 @@ module.exports = _curry3(function pathEq(_path, val, obj) {
 
 
 /***/ }),
-/* 313 */
+/* 304 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var _curry3 = __webpack_require__(2);
-var defaultTo = __webpack_require__(101);
+var defaultTo = __webpack_require__(93);
 var path = __webpack_require__(32);
 
 
@@ -97087,7 +94737,7 @@ module.exports = _curry3(function pathOr(d, p, obj) {
 
 
 /***/ }),
-/* 314 */
+/* 305 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var _curry3 = __webpack_require__(2);
@@ -97119,7 +94769,7 @@ module.exports = _curry3(function pathSatisfies(pred, propPath, obj) {
 
 
 /***/ }),
-/* 315 */
+/* 306 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var _curry2 = __webpack_require__(0);
@@ -97157,7 +94807,7 @@ module.exports = _curry2(function pick(names, obj) {
 
 
 /***/ }),
-/* 316 */
+/* 307 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var _curry2 = __webpack_require__(0);
@@ -97195,10 +94845,10 @@ module.exports = _curry2(function pickBy(test, obj) {
 
 
 /***/ }),
-/* 317 */
+/* 308 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var composeK = __webpack_require__(98);
+var composeK = __webpack_require__(90);
 var reverse = __webpack_require__(53);
 
 /**
@@ -97244,11 +94894,11 @@ module.exports = function pipeK() {
 
 
 /***/ }),
-/* 318 */
+/* 309 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var multiply = __webpack_require__(130);
-var reduce = __webpack_require__(17);
+var multiply = __webpack_require__(122);
+var reduce = __webpack_require__(16);
 
 
 /**
@@ -97270,13 +94920,13 @@ module.exports = reduce(multiply, 1);
 
 
 /***/ }),
-/* 319 */
+/* 310 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var _map = __webpack_require__(47);
-var identity = __webpack_require__(68);
-var pickAll = __webpack_require__(135);
-var useWith = __webpack_require__(146);
+var identity = __webpack_require__(64);
+var pickAll = __webpack_require__(127);
+var useWith = __webpack_require__(138);
 
 
 /**
@@ -97302,11 +94952,11 @@ module.exports = useWith(_map, [pickAll, identity]); // passing `identity` gives
 
 
 /***/ }),
-/* 320 */
+/* 311 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var _curry3 = __webpack_require__(2);
-var equals = __webpack_require__(14);
+var equals = __webpack_require__(13);
 
 
 /**
@@ -97339,11 +94989,11 @@ module.exports = _curry3(function propEq(name, val, obj) {
 
 
 /***/ }),
-/* 321 */
+/* 312 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var _curry3 = __webpack_require__(2);
-var is = __webpack_require__(123);
+var is = __webpack_require__(115);
 
 
 /**
@@ -97372,7 +95022,7 @@ module.exports = _curry3(function propIs(type, name, obj) {
 
 
 /***/ }),
-/* 322 */
+/* 313 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var _curry3 = __webpack_require__(2);
@@ -97411,7 +95061,7 @@ module.exports = _curry3(function propOr(val, p, obj) {
 
 
 /***/ }),
-/* 323 */
+/* 314 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var _curry3 = __webpack_require__(2);
@@ -97441,7 +95091,7 @@ module.exports = _curry3(function propSatisfies(pred, name, obj) {
 
 
 /***/ }),
-/* 324 */
+/* 315 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var _curry2 = __webpack_require__(0);
@@ -97482,11 +95132,11 @@ module.exports = _curry2(function props(ps, obj) {
 
 
 /***/ }),
-/* 325 */
+/* 316 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var _curry2 = __webpack_require__(0);
-var _isNumber = __webpack_require__(117);
+var _isNumber = __webpack_require__(109);
 
 
 /**
@@ -97520,7 +95170,7 @@ module.exports = _curry2(function range(from, to) {
 
 
 /***/ }),
-/* 326 */
+/* 317 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var _curryN = __webpack_require__(43);
@@ -97565,7 +95215,7 @@ module.exports = _curryN(4, [], function _reduceWhile(pred, fn, a, list) {
 
 
 /***/ }),
-/* 327 */
+/* 318 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var _curry1 = __webpack_require__(1);
@@ -97599,7 +95249,7 @@ module.exports = _curry1(_reduced);
 
 
 /***/ }),
-/* 328 */
+/* 319 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var _curry3 = __webpack_require__(2);
@@ -97632,12 +95282,12 @@ module.exports = _curry3(function remove(start, count, list) {
 
 
 /***/ }),
-/* 329 */
+/* 320 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var _curry2 = __webpack_require__(0);
 var always = __webpack_require__(25);
-var times = __webpack_require__(143);
+var times = __webpack_require__(135);
 
 
 /**
@@ -97668,7 +95318,7 @@ module.exports = _curry2(function repeat(value, n) {
 
 
 /***/ }),
-/* 330 */
+/* 321 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var _curry3 = __webpack_require__(2);
@@ -97700,7 +95350,7 @@ module.exports = _curry3(function replace(regex, replacement, str) {
 
 
 /***/ }),
-/* 331 */
+/* 322 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var _curry3 = __webpack_require__(2);
@@ -97740,12 +95390,12 @@ module.exports = _curry3(function scan(fn, acc, list) {
 
 
 /***/ }),
-/* 332 */
+/* 323 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var _curry3 = __webpack_require__(2);
 var always = __webpack_require__(25);
-var over = __webpack_require__(134);
+var over = __webpack_require__(126);
 
 
 /**
@@ -97776,7 +95426,7 @@ module.exports = _curry3(function set(lens, v, x) {
 
 
 /***/ }),
-/* 333 */
+/* 324 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var _curry2 = __webpack_require__(0);
@@ -97808,7 +95458,7 @@ module.exports = _curry2(function sort(comparator, list) {
 
 
 /***/ }),
-/* 334 */
+/* 325 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var _curry2 = __webpack_require__(0);
@@ -97856,7 +95506,7 @@ module.exports = _curry2(function sortBy(fn, list) {
 
 
 /***/ }),
-/* 335 */
+/* 326 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var _curry2 = __webpack_require__(0);
@@ -97908,7 +95558,7 @@ module.exports = _curry2(function sortWith(fns, list) {
 
 
 /***/ }),
-/* 336 */
+/* 327 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var invoker = __webpack_require__(29);
@@ -97938,11 +95588,11 @@ module.exports = invoker(1, 'split');
 
 
 /***/ }),
-/* 337 */
+/* 328 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var _curry2 = __webpack_require__(0);
-var length = __webpack_require__(126);
+var length = __webpack_require__(118);
 var slice = __webpack_require__(23);
 
 
@@ -97970,7 +95620,7 @@ module.exports = _curry2(function splitAt(index, array) {
 
 
 /***/ }),
-/* 338 */
+/* 329 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var _curry2 = __webpack_require__(0);
@@ -98008,7 +95658,7 @@ module.exports = _curry2(function splitEvery(n, list) {
 
 
 /***/ }),
-/* 339 */
+/* 330 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var _curry2 = __webpack_require__(0);
@@ -98048,7 +95698,7 @@ module.exports = _curry2(function splitWhen(pred, list) {
 
 
 /***/ }),
-/* 340 */
+/* 331 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var _curry2 = __webpack_require__(0);
@@ -98083,12 +95733,12 @@ module.exports = _curry2(function subtract(a, b) {
 
 
 /***/ }),
-/* 341 */
+/* 332 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var _curry2 = __webpack_require__(0);
-var concat = __webpack_require__(66);
-var difference = __webpack_require__(102);
+var concat = __webpack_require__(62);
+var difference = __webpack_require__(94);
 
 
 /**
@@ -98115,12 +95765,12 @@ module.exports = _curry2(function symmetricDifference(list1, list2) {
 
 
 /***/ }),
-/* 342 */
+/* 333 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var _curry3 = __webpack_require__(2);
-var concat = __webpack_require__(66);
-var differenceWith = __webpack_require__(103);
+var concat = __webpack_require__(62);
+var differenceWith = __webpack_require__(95);
 
 
 /**
@@ -98151,11 +95801,11 @@ module.exports = _curry3(function symmetricDifferenceWith(pred, list1, list2) {
 
 
 /***/ }),
-/* 343 */
+/* 334 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var _curry2 = __webpack_require__(0);
-var drop = __webpack_require__(105);
+var drop = __webpack_require__(97);
 
 
 /**
@@ -98186,7 +95836,7 @@ module.exports = _curry2(function takeLast(n, xs) {
 
 
 /***/ }),
-/* 344 */
+/* 335 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var _curry2 = __webpack_require__(0);
@@ -98224,12 +95874,12 @@ module.exports = _curry2(function takeLastWhile(fn, list) {
 
 
 /***/ }),
-/* 345 */
+/* 336 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var _curry2 = __webpack_require__(0);
 var _dispatchable = __webpack_require__(4);
-var _xtakeWhile = __webpack_require__(271);
+var _xtakeWhile = __webpack_require__(262);
 
 
 /**
@@ -98269,7 +95919,7 @@ module.exports = _curry2(_dispatchable(['takeWhile'], _xtakeWhile, function take
 
 
 /***/ }),
-/* 346 */
+/* 337 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var _curry2 = __webpack_require__(0);
@@ -98300,12 +95950,12 @@ module.exports = _curry2(function tap(fn, x) {
 
 
 /***/ }),
-/* 347 */
+/* 338 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var _cloneRegExp = __webpack_require__(110);
+var _cloneRegExp = __webpack_require__(102);
 var _curry2 = __webpack_require__(0);
-var _isRegExp = __webpack_require__(247);
+var _isRegExp = __webpack_require__(238);
 var toString = __webpack_require__(34);
 
 
@@ -98335,7 +95985,7 @@ module.exports = _curry2(function test(pattern, str) {
 
 
 /***/ }),
-/* 348 */
+/* 339 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var invoker = __webpack_require__(29);
@@ -98360,7 +96010,7 @@ module.exports = invoker(0, 'toLowerCase');
 
 
 /***/ }),
-/* 349 */
+/* 340 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var _curry1 = __webpack_require__(1);
@@ -98397,7 +96047,7 @@ module.exports = _curry1(function toPairs(obj) {
 
 
 /***/ }),
-/* 350 */
+/* 341 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var _curry1 = __webpack_require__(1);
@@ -98434,7 +96084,7 @@ module.exports = _curry1(function toPairsIn(obj) {
 
 
 /***/ }),
-/* 351 */
+/* 342 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var invoker = __webpack_require__(29);
@@ -98459,11 +96109,11 @@ module.exports = invoker(0, 'toUpperCase');
 
 
 /***/ }),
-/* 352 */
+/* 343 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var _reduce = __webpack_require__(11);
-var _xwrap = __webpack_require__(122);
+var _xwrap = __webpack_require__(114);
 var curryN = __webpack_require__(7);
 
 
@@ -98517,7 +96167,7 @@ module.exports = curryN(4, function transduce(xf, fn, acc, list) {
 
 
 /***/ }),
-/* 353 */
+/* 344 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var _curry1 = __webpack_require__(1);
@@ -98568,12 +96218,12 @@ module.exports = _curry1(function transpose(outerlist) {
 
 
 /***/ }),
-/* 354 */
+/* 345 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var _curry3 = __webpack_require__(2);
-var map = __webpack_require__(10);
-var sequence = __webpack_require__(140);
+var map = __webpack_require__(9);
+var sequence = __webpack_require__(132);
 
 
 /**
@@ -98608,7 +96258,7 @@ module.exports = _curry3(function traverse(of, f, traversable) {
 
 
 /***/ }),
-/* 355 */
+/* 346 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var _curry1 = __webpack_require__(1);
@@ -98650,10 +96300,10 @@ module.exports = (function() {
 
 
 /***/ }),
-/* 356 */
+/* 347 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var _arity = __webpack_require__(15);
+var _arity = __webpack_require__(14);
 var _concat = __webpack_require__(12);
 var _curry2 = __webpack_require__(0);
 
@@ -98691,7 +96341,7 @@ module.exports = _curry2(function _tryCatch(tryer, catcher) {
 
 
 /***/ }),
-/* 357 */
+/* 348 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var _curry1 = __webpack_require__(1);
@@ -98729,7 +96379,7 @@ module.exports = _curry1(function unapply(fn) {
 
 
 /***/ }),
-/* 358 */
+/* 349 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var _curry1 = __webpack_require__(1);
@@ -98769,7 +96419,7 @@ module.exports = _curry1(function unary(fn) {
 
 
 /***/ }),
-/* 359 */
+/* 350 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var _curry2 = __webpack_require__(0);
@@ -98813,7 +96463,7 @@ module.exports = _curry2(function uncurryN(depth, fn) {
 
 
 /***/ }),
-/* 360 */
+/* 351 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var _curry2 = __webpack_require__(0);
@@ -98856,13 +96506,13 @@ module.exports = _curry2(function unfold(fn, seed) {
 
 
 /***/ }),
-/* 361 */
+/* 352 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var _concat = __webpack_require__(12);
 var _curry2 = __webpack_require__(0);
-var compose = __webpack_require__(65);
-var uniq = __webpack_require__(76);
+var compose = __webpack_require__(61);
+var uniq = __webpack_require__(72);
 
 
 /**
@@ -98886,12 +96536,12 @@ module.exports = _curry2(compose(uniq, _concat));
 
 
 /***/ }),
-/* 362 */
+/* 353 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var _concat = __webpack_require__(12);
 var _curry3 = __webpack_require__(2);
-var uniqWith = __webpack_require__(77);
+var uniqWith = __webpack_require__(73);
 
 
 /**
@@ -98922,7 +96572,7 @@ module.exports = _curry3(function unionWith(pred, list1, list2) {
 
 
 /***/ }),
-/* 363 */
+/* 354 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var _curry3 = __webpack_require__(2);
@@ -98959,11 +96609,11 @@ module.exports = _curry3(function unless(pred, whenFalseFn, x) {
 
 
 /***/ }),
-/* 364 */
+/* 355 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var _identity = __webpack_require__(71);
-var chain = __webpack_require__(64);
+var _identity = __webpack_require__(67);
+var chain = __webpack_require__(60);
 
 
 /**
@@ -98987,7 +96637,7 @@ module.exports = chain(_identity);
 
 
 /***/ }),
-/* 365 */
+/* 356 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var _curry3 = __webpack_require__(2);
@@ -99022,7 +96672,7 @@ module.exports = _curry3(function until(pred, fn, init) {
 
 
 /***/ }),
-/* 366 */
+/* 357 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var _curry1 = __webpack_require__(1);
@@ -99059,7 +96709,7 @@ module.exports = _curry1(function valuesIn(obj) {
 
 
 /***/ }),
-/* 367 */
+/* 358 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var _curry2 = __webpack_require__(0);
@@ -99101,7 +96751,7 @@ module.exports = (function() {
 
 
 /***/ }),
-/* 368 */
+/* 359 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var _curry3 = __webpack_require__(2);
@@ -99141,13 +96791,13 @@ module.exports = _curry3(function when(pred, whenTrueFn, x) {
 
 
 /***/ }),
-/* 369 */
+/* 360 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var _curry2 = __webpack_require__(0);
-var equals = __webpack_require__(14);
-var map = __webpack_require__(10);
-var where = __webpack_require__(148);
+var equals = __webpack_require__(13);
+var map = __webpack_require__(9);
+var where = __webpack_require__(140);
 
 
 /**
@@ -99183,7 +96833,7 @@ module.exports = _curry2(function whereEq(spec, testObj) {
 
 
 /***/ }),
-/* 370 */
+/* 361 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var _contains = __webpack_require__(22);
@@ -99217,7 +96867,7 @@ module.exports = _curry2(function(xs, list) {
 
 
 /***/ }),
-/* 371 */
+/* 362 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var _curry2 = __webpack_require__(0);
@@ -99260,7 +96910,7 @@ module.exports = _curry2(function xprod(a, b) { // = xprodWith(prepend); (takes 
 
 
 /***/ }),
-/* 372 */
+/* 363 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var _curry2 = __webpack_require__(0);
@@ -99298,7 +96948,7 @@ module.exports = _curry2(function zip(a, b) {
 
 
 /***/ }),
-/* 373 */
+/* 364 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var _curry2 = __webpack_require__(0);
@@ -99334,7 +96984,7 @@ module.exports = _curry2(function zipObj(keys, values) {
 
 
 /***/ }),
-/* 374 */
+/* 365 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var _curry3 = __webpack_require__(2);
@@ -99377,12 +97027,12 @@ module.exports = _curry3(function zipWith(fn, a, b) {
 
 
 /***/ }),
-/* 375 */
+/* 366 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* WEBPACK VAR INJECTION */(function(jquery) {Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__src_viewerPedigree__ = __webpack_require__(149);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__src_viewerPedigree__ = __webpack_require__(141);
 
 
 // window.$ = jquery;
@@ -99394,6 +97044,47 @@ const render = ({ data, probandDataUrl, pedigreeDataUrl }) => {
         probandDataUrl, // TODO replace loading of this with webpak module
         pedigreeDataUrl
     }));
+};
+
+const getPedigreeData = patientId => jquery.ajax({
+    url: `/patient/${patientId}/pedigree.json`,
+    method: "GET"
+});
+
+const getDataAndRender = patientId => {
+    getPedigreeData(patientId).then(data => render({
+        data,
+        probandDataUrl,
+        pedigreeDataUrl
+    })).catch(err => {
+        if (err.status === 403) {
+            jquery('body').append('<p>please <a href="http://localhost:8000">log in</a></p>');
+        }
+        console.trace(err);
+    });
+};
+
+const createInput = () => {
+    jquery(document).ready(() => {
+        jquery('body').prepend('<span>Patient ID: </span><input type="number" name="patientId" id="patientId"></input><button id="go">go</button> <a href="" id="525">525</a>, <a href="" id="9971">9971</a>, <a href="" id="4247">4247</a>');
+        jquery('#go').on('click', e => {
+            e.preventDefault();
+            const patientId = jquery('#patientId').val().strip();
+            getDataAndRender(patientId);
+        });
+        jquery('#9971').on('click', e => {
+            e.preventDefault();
+            getDataAndRender(9971);
+        });
+        jquery('#525').on('click', e => {
+            e.preventDefault();
+            getDataAndRender(525);
+        });
+        jquery('#4247').on('click', e => {
+            e.preventDefault();
+            getDataAndRender(4247);
+        });
+    });
 };
 
 const prefix = "/js/ext-lib/panogram";
@@ -99408,21 +97099,12 @@ if (window.pedigreeData) {
         pedigreeDataUrl: prefix + pedigreeDataUrl
     });
 } else {
-    jquery.ajax({
-        url: "/patient/525/pedigree.json",
-        method: "GET"
-    }).then(data => render({
-        data,
-        probandDataUrl,
-        pedigreeDataUrl
-    })).catch(err => {
-        if (err.status === 403) {
-            jquery('body').append('<p>please <a href="http://localhost:8000">log in</a></p>');
-        }
-        console.trace(err);
-    });
+    // this is dev mode
+    const patientId = 525;
+    createInput();
+    getDataAndRender(patientId);
 }
-/* WEBPACK VAR INJECTION */}.call(__webpack_exports__, __webpack_require__(150)))
+/* WEBPACK VAR INJECTION */}.call(__webpack_exports__, __webpack_require__(142)))
 
 /***/ })
 /******/ ]);

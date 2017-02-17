@@ -291,7 +291,7 @@ export const PedigreeEditor = Class.create({
      * @return {firstName: "...", lastName: "..."}
      */
     getProbandDataFromPhenotips: function() {
-        return this._probandData.probandData;
+        return this._probandData;
     },
 
     /**

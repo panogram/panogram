@@ -140,6 +140,7 @@ DynamicPositionedGraph.prototype = {
 
         var setGender = gender;
         var possibleGenders = this.getPossibleGenders(0);
+        
         if (!possibleGenders.hasOwnProperty(gender) || !possibleGenders[gender])
             setGender = "U";
         this.DG.GG.properties[0].gender = setGender;

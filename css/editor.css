@@ -158,18 +158,7 @@
 /* =========================================
  * CANVAS
  */
-#panogram #canvas {
-  overflow: hidden;
 
-  /* fallback */
-  background-color: #F8F8F8;
-  background-position: center center;
-  background-repeat: no-repeat;
-
-  background: -o-radial-gradient(circle, #FBFBFB, #DFDFDF);
-  background: -webkit-radial-gradient(circle, #FBFBFB, #DFDFDF);
-  background: radial-gradient(circle, #FBFBFB, #DFDFDF);
-}
 /* ===========================================
  * LEGEND
  */

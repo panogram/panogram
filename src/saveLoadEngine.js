@@ -66,9 +66,12 @@ export const SaveLoadEngine = Class.create( {
 
         if (!noUndo) {
             var probandData = editor.getProbandDataFromPhenotips();
-            var genderOk = editor.getGraph().setProbandData( probandData.firstName, probandData.lastName, probandData.gender );
-            if (!genderOk)
-                console.warn("Proband gender defined in Phenotips is incompatible with this pedigree. Setting proband gender to 'Unknown'");
+            if ( probandData ) {
+              var genderOk = editor.getGraph().setProbandData( probandData.firstName, probandData.lastName, probandData.gender );
+              if (!genderOk)
+                  console.warn("Proband gender defined in Phenotips is incompatible with this pedigree. Setting proband gender to 'Unknown'");
+            }
+
             JSONString = editor.getGraph().toJSON();
         }
 
@@ -103,9 +106,11 @@ export const SaveLoadEngine = Class.create( {
 
         if (!noUndo) {
             var probandData = editor.getProbandDataFromPhenotips();
-            var genderOk = editor.getGraph().setProbandData( probandData.firstName, probandData.lastName, probandData.gender );
-            if (!genderOk)
-                console.warn("Proband gender defined in Phenotips is incompatible with the imported pedigree. Setting proband gender to 'Unknown'");
+            if ( probandData ) {
+                var genderOk = editor.getGraph().setProbandData( probandData.firstName, probandData.lastName, probandData.gender );
+                if (!genderOk)
+                    console.warn("Proband gender defined in Phenotips is incompatible with this pedigree. Setting proband gender to 'Unknown'");
+            }            
             JSONString = editor.getGraph().toJSON();
         }
 
