@@ -806,7 +806,7 @@ export class ViewerPedigree {
     convertGraphCoordToCanvasCoord(x, y) {
         var scale = PedigreeEditorAttributes.layoutScale;
         return {
-            x: x * scale.xscale,
+            x: x * scale.xscale + 100,
             y: y * scale.yscale
         };
     }

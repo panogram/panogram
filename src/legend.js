@@ -62,6 +62,7 @@ export const Legend = Class.create( {
      * @return {String} CSS color value for the object, displayed on affected nodes in the pedigree and in the legend
      */
     getObjectColor: function(id) {
+        console.info(this._objectColors);
         if (!this._objectColors.hasOwnProperty(id))
             return "#ff0000";
         return this._objectColors[id];
@@ -165,7 +166,14 @@ export const Legend = Class.create( {
         var me = this;
         Element.observe(item, "mouseover", function() {
             //item.setStyle({'text-decoration':'underline', 'cursor' : 'default'});
-            item.down(".disorder-name").setStyle({"background": color, "cursor" : "default"});
+            //console.log(color);
+            if (color === "#010101") {
+              item.down(".disorder-name").setStyle({"background": color, "cursor" : "default", color: '#eee'});
+            }
+            else {
+              item.down(".disorder-name").setStyle({"background": color, "cursor" : "default"});
+            }
+            
             me._affectedNodes[id] && me._affectedNodes[id].forEach(function(nodeID) {
                 var node = editor.getNode(nodeID);
                 node && node.getGraphics().highlight();
@@ -173,7 +181,12 @@ export const Legend = Class.create( {
         });
         Element.observe(item, "mouseout", function() {
             //item.setStyle({'text-decoration':'none'});
-            item.down(".disorder-name").setStyle({"background":"", "cursor" : "default"});
+            if (color === "#010101") {
+              item.down(".disorder-name").setStyle({"background":"", "cursor" : "default", color: '#000'});
+            }
+            else {
+              item.down(".disorder-name").setStyle({"background":"", "cursor" : "default"});
+            }
             me._affectedNodes[id] && me._affectedNodes[id].forEach(function(nodeID) {
                 var node = editor.getNode(nodeID);
                 node && node.getGraphics().unHighlight();

@@ -26,8 +26,6 @@ export const Person = Class.create(AbstractPerson, {
         //var timer = new Timer();
         !this._type && (this._type = "Person");
         this._setDefault();
-        console.info('setting proband info', properties.isProband)
-        console.info(JSON.stringify(properties))
         this._isProband = properties.isProband;
         this.setFocused(properties.focused);
         var gender = properties.hasOwnProperty("gender") ? properties["gender"] : "U"; 

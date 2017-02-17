@@ -1,5 +1,6 @@
 import { Disorder } from "./disorder";
 import { HPOTerm } from "./hpoTerm";
+import { range } from 'lodash';
 /**
  * NodeMenu is a UI Element containing options for AbstractNode elements
  *
@@ -598,7 +599,7 @@ export const NodeMenu = Class.create({
             if (data.values) {
                 data.values.each(_generateSelectOption);
             } else if (data.range) {
-                $A($R(data.range.start, data.range.end)).each(function(i) {_generateSelectOption({"actual": i, "displayed" : i + " " + data.range.item[+(i!=1)]});});
+                $A(range(data.range.start, data.range.end)).each(function(i) {_generateSelectOption({"actual": i, "displayed" : i + " " + data.range.item[+(i!=1)]});});
             }
             select._getValue = function() { return [(this.selectedIndex >= 0) && this.options[this.selectedIndex].value || ""]; }.bind(select);
             this._attachFieldEventListeners(select, ["change"]);

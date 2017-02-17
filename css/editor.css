@@ -58,8 +58,8 @@
  * CONTROLS
  */
 #panogram .view-controls {
-  position: absolute;
-  left: 10px;
+  position:absolute;
+  right: 80px;
   top: 10px;
   padding: 4px;
   opacity: .8;
@@ -173,7 +173,7 @@
 #panogram .legend-container {
   top:5px;
   position: absolute;
-  right: 0;
+  left: 0;
   z-index: 10000;
   min-width: 140px;
   max-width: 250px;

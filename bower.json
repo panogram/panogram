@@ -1,0 +1,21 @@
+{
+  "name": "Panogram",
+  "description": "",
+  "main": "index.html",
+  "authors": [
+    "Tim Richardson <tim.richardson@congenica.com>"
+  ],
+  "license": "MIT",
+  "homepage": "https://github.com/Congenica/panogram",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "prototypejs": "^1.7.1",
+    "sizzle": "^2.3.3"
+  }
+}

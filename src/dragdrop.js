@@ -34,8 +34,8 @@ export const Droppables = {
         this.drops.push(a);
     },
     findDeepestChild: function(a) {
-        deepest = a[0];
-        for (i = 1; i < a.length; ++i) {
+        var deepest = a[0];
+        for (var i = 1; i < a.length; ++i) {
             if (Element.isParent(a[i].element, deepest.element)) {
                 deepest = a[i];
             }
@@ -384,9 +384,9 @@ export const Draggable = Class.create({
             }
             this.startScrolling(speed);
         }
-        if (Prototype.Browser.WebKit) {
-            window.scrollBy(0, 0);
-        }
+        // if (Prototype.Browser.WebKit) {
+        //     window.scrollBy(0, 0);
+        // }
         Event.stop(event);
     },
     finishDrag: function(b, f) {
@@ -646,8 +646,8 @@ export const Sortable = {
             format: this.SERIALIZE_RULE,
             elements: false,
             handles: false,
-            onChange: Prototype.emptyFunction,
-            onUpdate: Prototype.emptyFunction
+            onChange: () => {}, // Prototype.emptyFunction,
+            onUpdate: () => {}, // Prototype.emptyFunction
         }, arguments[1] || {});
         this.destroy(c);
         var a = {

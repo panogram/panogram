@@ -2,7 +2,6 @@
     "env": {
         "browser": true,
         "es6": true,
-        "prototypejs": true,
         "jquery": true
     },
     "extends": "eslint:recommended",
@@ -13,10 +12,7 @@
         "jquery": true,
         "editor": true,
         "Raphael": true,
-        "XWiki": true,
-        "PhenoTips": true,
-        "Effect": true,
-        "saveTextAs": true
+        "$$": true
     },
     "rules": {
         "indent": [

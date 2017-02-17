@@ -18,7 +18,7 @@ export const Workspace = Class.create({
         this.workArea = new Element('div', {'id' : 'work-area'}).update(this.canvas);
         $('panogram').update(this.workArea);
         var screenDimensions = document.viewport.getDimensions();
-        this.generateTopMenu();
+        // this.generateTopMenu();
         this.width = screenDimensions.width;
         this.height = screenDimensions.height - this.canvas.cumulativeOffset().top - 4;
         this._paper = Raphael("canvas",this.width, this.height);

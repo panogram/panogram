@@ -1,17 +1,20 @@
 import { ViewerPedigree } from "./src/viewerPedigree";
 
-// window.$ = jquery;
+window.jQuery = jquery;
+window.jquery = jquery;
 
 const render = ({ data, probandDataUrl, pedigreeDataUrl }) => {
-    jquery(document).ready(
+    jquery("doc").ready(() => {
         new ViewerPedigree({
             type: "simpleJSON",
             data,
             probandDataUrl, // TODO replace loading of this with webpak module
             pedigreeDataUrl,
-        })
-    );
+        });
+    });
 };
+
+console.log(1);
 
 const getPedigreeData = patientId => jquery.ajax({
     url: `/patient/${patientId}/pedigree.json`,

@@ -99,7 +99,7 @@ export const PersonVisuals = Class.create(AbstractPersonVisuals, {
             // this.getGenderShape().attr("stroke-width", 5.5);
         }
         if(this.getNode().isFocused()) {
-            this.getGenderShape().attr("stroke-width", 1.5);
+            this.getGenderShape().attr("stroke-width", 3);
             this.getGenderShape().attr("stroke", "blue")
         }
         if(!editor.isUnsupportedBrowser() && this.getHoverBox()) {
@@ -231,11 +231,12 @@ export const PersonVisuals = Class.create(AbstractPersonVisuals, {
     updateDisorderShapes: function() {
         this._disorderShapes && this._disorderShapes.remove();
         var colors = this.getNode().getAllNodeColors();
+        console.error(colors);
         if (colors.length == 0) return;
 
         var gradient = function(color, angle) {
             var hsb = Raphael.rgb2hsb(color),
-                darker = Raphael.hsb2rgb(hsb["h"],hsb["s"],hsb["b"]-.25)["hex"];
+                darker = Raphael.hsb2rgb(hsb["h"],hsb["s"],hsb["b"]-.1)["hex"];
             return angle +"-"+darker+":0-"+color+":100";
         };
         var disorderShapes = editor.getPaper().set();
@@ -280,10 +281,9 @@ export const PersonVisuals = Class.create(AbstractPersonVisuals, {
                 radius *= 1.155;                     // TODO: magic number hack: due to a Raphael transform bug (?) just using correct this._shapeRadius does not work
 
             for(var i = 0; i < colors.length; i++) {
-                color = gradient(colors[i], (i * disorderAngle)+delta);
-                console.warn(color);
+                //color = gradient(colors[i], (i * disorderAngle)+delta);
                 disorderShapes.push(sector(editor.getPaper(), this.getX(), this.getY(), radius,
-                                    this.getNode().getGender(), i * disorderAngle, (i+1) * disorderAngle, color));
+                                    this.getNode().getGender(), i * disorderAngle, (i+1) * disorderAngle, colors[i]));
             }
 
             (disorderShapes.length < 2) ? disorderShapes.attr("stroke", "none") : disorderShapes.attr({stroke: "#595959", "stroke-width":.03});
