@@ -3,6 +3,12 @@ import { ViewerPedigree } from "./src/viewerPedigree";
 window.jQuery = jquery;
 window.jquery = jquery;
 
+
+const prefix = "/js/ext-lib/panogram";
+const probandDataUrl = "/public/xwiki/PhenoTips.PatientClass/0.xml";
+const pedigreeDataUrl = "/public/xwiki/PhenoTips.PedigreeClass/0.xml";
+
+
 const render = ({ data, probandDataUrl, pedigreeDataUrl }) => {
     jquery("doc").ready(() => {
         new ViewerPedigree({
@@ -13,8 +19,6 @@ const render = ({ data, probandDataUrl, pedigreeDataUrl }) => {
         });
     });
 };
-
-console.log(1);
 
 const getPedigreeData = patientId => jquery.ajax({
     url: `/patient/${patientId}/pedigree.json`,
@@ -59,20 +63,13 @@ const createInput = () => {
     });
 };
 
-const prefix = "/js/ext-lib/panogram";
-const probandDataUrl = "/public/xwiki/PhenoTips.PatientClass/0.xml";
-const pedigreeDataUrl = "/public/xwiki/PhenoTips.PedigreeClass/0.xml";
+jquery('doc').ready(() => {
+    const patientId = jQuery('#panogram').data('patient-id');
+    const development = jQuery('#panogram').data('env') === 'dev';
 
-// get the data and draw the stuff
-if (window.pedigreeData) {
-    render({
-        data: window.pedigreeData,
-        probandDataUrl: prefix + probandDataUrl,
-        pedigreeDataUrl: prefix + pedigreeDataUrl,
-    });
-} else {
-    // this is dev mode
-    const patientId = 525;
-    createInput();
+    if (development) {
+        createInput();
+    }
+
     getDataAndRender(patientId);
-}
+});
