@@ -11,7 +11,7 @@ import { HPOTerm } from "./hpoTerm";
 export const HPOLegend = Class.create( Legend, {
 
     initialize: function($super) {
-        $super("Phenotypes", true);
+        $super("Phenotypes in family", true);
 
         this._termCache = {};
     },

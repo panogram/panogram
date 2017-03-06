@@ -47520,7 +47520,7 @@ Heuristics.prototype = {
 const HPOLegend = Class.create(__WEBPACK_IMPORTED_MODULE_0__legend__["a" /* Legend */], {
 
     initialize: function ($super) {
-        $super("Phenotypes", true);
+        $super("Phenotypes in family", true);
 
         this._termCache = {};
     },
