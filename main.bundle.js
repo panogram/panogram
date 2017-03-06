@@ -4036,12 +4036,13 @@ function drawCornerCurve(xFrom, yFrom, xTo, yTo, bendDown, attr, doubleCurve, sh
     var dist2y = yDistance / 10;
 
     var curve;
+    var raphaelPath;
 
     if (bendDown) {
-        var raphaelPath = "M " + xFrom + " " + yFrom + " C " + (xFrom + dist1x) + " " + (yFrom + dist2y) + " " + (xTo + dist2x) + " " + (yTo + dist1y) + " " + xTo + " " + yTo;
+        raphaelPath = "M " + xFrom + " " + yFrom + " C " + (xFrom + dist1x) + " " + (yFrom + dist2y) + " " + (xTo + dist2x) + " " + (yTo + dist1y) + " " + xTo + " " + yTo;
         curve = editor.getPaper().path(raphaelPath).attr(attr).toBack();
     } else {
-        var raphaelPath = "M " + xFrom + " " + yFrom + " C " + (xFrom - dist2x) + " " + (yFrom - dist1y) + " " + (xTo - dist1x) + " " + (yTo - dist2y) + " " + xTo + " " + yTo;
+        raphaelPath = "M " + xFrom + " " + yFrom + " C " + (xFrom - dist2x) + " " + (yFrom - dist1y) + " " + (xTo - dist1x) + " " + (yTo - dist2y) + " " + xTo + " " + yTo;
         curve = editor.getPaper().path(raphaelPath).attr(attr).toBack();
     }
 
@@ -4059,7 +4060,7 @@ function drawLevelChangeCurve(xFrom, yFrom, xTo, yTo, attr, doubleCurve, shiftx1
     var raphaelPath = " M " + xFrom + " " + yFrom;
     raphaelPath += " C " + (xFrom + dist1x) + " " + yFrom + " " + (xTo - dist1x) + " " + yTo + " " + xTo + " " + yTo;
 
-    curve = editor.getPaper().path(raphaelPath).attr(attr).toBack();
+    var curve = editor.getPaper().path(raphaelPath).attr(attr).toBack();
     if (doubleCurve) {
         var curve2 = curve.clone().toBack();
         curve.transform("t " + shiftx1 + "," + shifty1 + "...");
@@ -36616,7 +36617,7 @@ const SaveLoadEngine = Class.create({
             var changeSet = editor.getGraph().fromImport(importString, importType, importOptions);
             if (changeSet == null) throw "unable to create a pedigree from imported data";
         } catch (err) {
-            console.warn("Error importing pedigree: " + err);
+            console.warn("Error importing pedigree: " + err.stack);
             document.fire("pedigree:load:finish");
             return;
         }
@@ -46373,7 +46374,7 @@ Heuristics.prototype = {
 
             // sort all by their xcoordinate if to the left of parent, and in reverse order if to the right of parent
             var _this = this;
-            byXcoord = function (v1, v2) {
+            var byXcoord = function (v1, v2) {
                 var rel1 = _this.DG.GG.downTheChainUntilNonVirtual(v1);
                 var rel2 = _this.DG.GG.downTheChainUntilNonVirtual(v2);
                 var position1 = _this.DG.positions[rel1];

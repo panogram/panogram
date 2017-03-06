@@ -99,7 +99,7 @@ export const SaveLoadEngine = Class.create( {
         }
         catch(err)
         {
-            console.warn("Error importing pedigree: " + err);
+            console.warn("Error importing pedigree: " + err.stack);
             document.fire("pedigree:load:finish");
             return;
         }

@@ -399,7 +399,7 @@ Heuristics.prototype = {
 
             // sort all by their xcoordinate if to the left of parent, and in reverse order if to the right of parent
             var _this = this;
-            byXcoord = function(v1,v2) {
+            var byXcoord = function(v1,v2) {
                 var rel1      = _this.DG.GG.downTheChainUntilNonVirtual(v1);
                 var rel2      = _this.DG.GG.downTheChainUntilNonVirtual(v2);
                 var position1 = _this.DG.positions[rel1];
