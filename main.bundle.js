@@ -36022,7 +36022,6 @@ const PersonVisuals = Class.create(__WEBPACK_IMPORTED_MODULE_0__abstractPersonVi
     updateDisorderShapes: function () {
         this._disorderShapes && this._disorderShapes.remove();
         var colors = this.getNode().getAllNodeColors();
-        console.error(colors);
         if (colors.length == 0) return;
 
         var gradient = function (color, angle) {

@@ -100,7 +100,7 @@ export const PersonVisuals = Class.create(AbstractPersonVisuals, {
         }
         if(this.getNode().isFocused()) {
             this.getGenderShape().attr("stroke-width", 3);
-            this.getGenderShape().attr("stroke", "blue")
+            this.getGenderShape().attr("stroke", "blue");
         }
         if(!editor.isUnsupportedBrowser() && this.getHoverBox()) {
             this._genderGraphics.flatten().insertBefore(this.getFrontElements().flatten());
@@ -231,7 +231,6 @@ export const PersonVisuals = Class.create(AbstractPersonVisuals, {
     updateDisorderShapes: function() {
         this._disorderShapes && this._disorderShapes.remove();
         var colors = this.getNode().getAllNodeColors();
-        console.error(colors);
         if (colors.length == 0) return;
 
         var gradient = function(color, angle) {
@@ -240,10 +239,10 @@ export const PersonVisuals = Class.create(AbstractPersonVisuals, {
             return angle +"-"+darker+":0-"+color+":100";
         };
         var disorderShapes = editor.getPaper().set();
-        var delta, color;
+        var delta, color, radius;
 
         if (this.getNode().getLifeStatus() == "aborted" || this.getNode().getLifeStatus() == "miscarriage") {
-            var radius = PedigreeEditorAttributes.radius;
+            radius = PedigreeEditorAttributes.radius;
             if (this.getNode().isPersonGroup())
                 radius *= PedigreeEditorAttributes.groupNodesScale;
 
@@ -276,7 +275,7 @@ export const PersonVisuals = Class.create(AbstractPersonVisuals, {
             if (colors.length == 1 && this.getNode().getGender() == "U")
                 delta -= 45; // since this will be rotated by shape transform later
 
-            var radius = (this._shapeRadius-0.6);    // -0.6 to avoid disorder fills to overlap with shape borders (due to aliasing/Raphael pixel layout)
+            radius = (this._shapeRadius-0.6);    // -0.6 to avoid disorder fills to overlap with shape borders (due to aliasing/Raphael pixel layout)
             if (this.getNode().getGender() == "U")
                 radius *= 1.155;                     // TODO: magic number hack: due to a Raphael transform bug (?) just using correct this._shapeRadius does not work
 
@@ -309,11 +308,11 @@ export const PersonVisuals = Class.create(AbstractPersonVisuals, {
             if (this.getNode().isPersonGroup())
                 height *= PedigreeEditorAttributes.groupNodesScale;
 
-            var x = this.getX() - height/1.5;
+            x = this.getX() - height/1.5;
             if (this.getNode().isPersonGroup())
                 x -= PedigreeEditorAttributes.radius/4;
 
-            var y = this.getY() + height/3;
+            y = this.getY() + height/3;
             this._deadShape = editor.getPaper().path(["M", x, y, "l", height + height/3, -(height+ height/3), "z"]);
             this._deadShape.attr("stroke-width", strokeWidth);
         }
@@ -359,7 +358,7 @@ export const PersonVisuals = Class.create(AbstractPersonVisuals, {
      * @method updateAgeLabel
      */
     updateAgeLabel: function() {
-        var text,
+        var text, age,
             person = this.getNode();
         if (person.isFetus()) {
             var date = person.getGestationAge();
@@ -367,7 +366,7 @@ export const PersonVisuals = Class.create(AbstractPersonVisuals, {
         }
         else if(person.getLifeStatus() == "alive") {
             if (person.getBirthDate()) {
-                var age = getAge(person.getBirthDate(), null);
+                age = getAge(person.getBirthDate(), null);
                 if (age.indexOf("day") != -1) {
                     text = age;                                                                // 5 days
                 } else if (age.indexOf(" y") == -1) {
@@ -379,7 +378,7 @@ export const PersonVisuals = Class.create(AbstractPersonVisuals, {
         }
         else {
             if(person.getDeathDate() && person.getBirthDate()) {
-                var age = getAge(person.getBirthDate(), person.getDeathDate());
+                age = getAge(person.getBirthDate(), person.getDeathDate());
                 if (age.indexOf("day") != -1 || age.indexOf("wk") != -1 || age.indexOf("mo") != -1) {
                     text = "d. " + person.getDeathDate().getFullYear() + " (" + age + ")";
                 } else {
@@ -430,19 +429,20 @@ export const PersonVisuals = Class.create(AbstractPersonVisuals, {
      * @method updateEvaluationLabel
      */
     updateEvaluationLabel: function() {
+        var x, y;
         this._evalLabel && this._evalLabel.remove();
         if (this.getNode().getEvaluated()) {
             if (this.getNode().getLifeStatus() == "aborted" || this.getNode().getLifeStatus() == "miscarriage") {
-                var x = this.getX() + this._shapeRadius * 1.6;
-                var y = this.getY() + this._shapeRadius * 0.6;
+                x = this.getX() + this._shapeRadius * 1.6;
+                y = this.getY() + this._shapeRadius * 0.6;
             }
             else {
                 var mult = 1.1;
                 if (this.getNode().getGender() == "U") mult = 1.3;
                 else if (this.getNode().getGender() == "M") mult = 1.4;
                 if (this.getNode().isProband) mult *= 1.1;
-                var x = this.getX() + this._shapeRadius*mult - 5;
-                var y = this.getY() + this._shapeRadius*mult;
+                x = this.getX() + this._shapeRadius*mult - 5;
+                y = this.getY() + this._shapeRadius*mult;
             }
             this._evalLabel = editor.getPaper().text(x, y, "*").attr(PedigreeEditorAttributes.evaluationShape).toBack();
         } else {
@@ -467,6 +467,7 @@ export const PersonVisuals = Class.create(AbstractPersonVisuals, {
      * @method updateCarrierGraphic
      */
     updateCarrierGraphic: function() {
+        var x, y;
         this._carrierGraphic && this._carrierGraphic.remove();
         var status = this.getNode().getCarrierStatus();
 
