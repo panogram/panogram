@@ -15,7 +15,7 @@ export const Legend = Class.create( {
 
         var legendContainer = $("legend-container");
         if (legendContainer == undefined) {
-            var legendContainer = new Element("div", {"class": "legend-container", "id": "legend-container"});
+            legendContainer = new Element("div", {"class": "legend-container", "id": "legend-container"});
             editor.getWorkspace().getWorkArea().insert(legendContainer);
         }
 
@@ -168,10 +168,10 @@ export const Legend = Class.create( {
             //item.setStyle({'text-decoration':'underline', 'cursor' : 'default'});
             //console.log(color);
             if (color === "#010101") {
-              item.down(".disorder-name").setStyle({"background": color, "cursor" : "default", color: '#eee'});
+                item.down(".disorder-name").setStyle({"background": color, "cursor" : "default", color: '#eee'});
             }
             else {
-              item.down(".disorder-name").setStyle({"background": color, "cursor" : "default"});
+                item.down(".disorder-name").setStyle({"background": color, "cursor" : "default"});
             }
             
             me._affectedNodes[id] && me._affectedNodes[id].forEach(function(nodeID) {
@@ -182,10 +182,10 @@ export const Legend = Class.create( {
         Element.observe(item, "mouseout", function() {
             //item.setStyle({'text-decoration':'none'});
             if (color === "#010101") {
-              item.down(".disorder-name").setStyle({"background":"", "cursor" : "default", color: '#000'});
+                item.down(".disorder-name").setStyle({"background":"", "cursor" : "default", color: '#000'});
             }
             else {
-              item.down(".disorder-name").setStyle({"background":"", "cursor" : "default"});
+                item.down(".disorder-name").setStyle({"background":"", "cursor" : "default"});
             }
             me._affectedNodes[id] && me._affectedNodes[id].forEach(function(nodeID) {
                 var node = editor.getNode(nodeID);

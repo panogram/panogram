@@ -99,7 +99,11 @@ export const SaveLoadEngine = Class.create( {
         }
         catch(err)
         {
-            console.warn("Error importing pedigree: " + err.stack);
+            jquery("#family_table", window.parent.document).removeClass("hidden");
+            jquery("#panogram_error", window.parent.document).text(err);
+            jquery("iframe#panogram", window.parent.document).addClass("hidden");
+            console.warn("Error importing pedigree: " + err);
+            console.warn(err.stack);
             document.fire("pedigree:load:finish");
             return;
         }

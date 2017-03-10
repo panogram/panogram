@@ -1,3 +1,5 @@
+console.log(1);
+
 import { ViewerPedigree } from "./src/viewerPedigree";
 
 window.jQuery = jquery;
@@ -7,6 +9,42 @@ window.jquery = jquery;
 const prefix = "/js/ext-lib/panogram";
 const probandDataUrl = "/public/xwiki/PhenoTips.PatientClass/0.xml";
 const pedigreeDataUrl = "/public/xwiki/PhenoTips.PedigreeClass/0.xml";
+
+
+var am = [[0,0,1,0,0,0,0,0],//1
+          [0,0,1,0,0,0,0,0],//2
+          [1,1,0,0,0,1,0,0],//3
+          [0,0,0,0,0,1,1,0],//4
+          [0,0,0,0,0,0,1,0],//5
+          [0,0,1,1,0,0,0,1],//6
+          [0,0,0,1,1,0,0,1],//7
+          [0,0,0,0,0,1,1,0]];//8
+//         1 2 3 4 5 6 7 8
+
+
+
+const isFullyConected = (adjMatrix) => {
+    const seen = [];
+    const build = (currentNode = 1) => {
+        seen.push(currentNode);
+        const nextNodes = adjMatrix[currentNode-1]
+        .map((edge, i) => {
+            if (edge) return i + 1;
+            return 0;
+        })
+        .filter(node => node > 0);
+        nextNodes.forEach((node) => {
+            if(seen.indexOf(node) === -1) {
+                build(node);
+            }
+        });
+    };
+    build();
+    if (seen.length === adjMatrix.length) {
+        return true;
+    }
+    return false;
+};
 
 
 const render = ({ data, probandDataUrl, pedigreeDataUrl }) => {
@@ -27,11 +65,14 @@ const getPedigreeData = patientId => jquery.ajax({
 
 const getDataAndRender = patientId => {
     getPedigreeData(patientId)
-    .then(data => render({
+    .then(data => {
+      console.log(data);
+      render({
         data,
         probandDataUrl,
         pedigreeDataUrl,
-    }))
+      })
+    })
     .catch(err => {
         if (err.status === 403) {
             jquery('body').append('<p>please <a href="http://localhost:8000">log in</a></p>');
