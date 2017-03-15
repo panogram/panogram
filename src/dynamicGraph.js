@@ -1248,19 +1248,19 @@ DynamicPositionedGraph.prototype = {
         var removedNodes = this._getAllNodes();
 
         //this._debugPrintAll("before");
-
+        var baseGraph;
         if (importType == "ped") {
-            var baseGraph = PedigreeImport.initFromPED(importString, importOptions.acceptUnknownPhenotypes, importOptions.markEvaluated, importOptions.externalIdMark);
+            baseGraph = PedigreeImport.initFromPED(importString, importOptions.acceptUnknownPhenotypes, importOptions.markEvaluated, importOptions.externalIdMark);
             if (!this._recreateUsingBaseGraph(baseGraph)) return null;  // no changes
         } else if (importType == "BOADICEA") {
-            var baseGraph = PedigreeImport.initFromBOADICEA(importString, importOptions.externalIdMark);
+            baseGraph = PedigreeImport.initFromBOADICEA(importString, importOptions.externalIdMark);
             if (!this._recreateUsingBaseGraph(baseGraph)) return null;  // no changes
         } else if (importType == "gedcom") {
-            var baseGraph = PedigreeImport.initFromGEDCOM(importString, importOptions.markEvaluated, importOptions.externalIdMark);
+            baseGraph = PedigreeImport.initFromGEDCOM(importString, importOptions.markEvaluated, importOptions.externalIdMark);
             if (!this._recreateUsingBaseGraph(baseGraph)) return null;  // no changes
         } else if (importType == "simpleJSON") {
-            var baseGraph = PedigreeImport.initFromSimpleJSON(importString);
-            if (!this._recreateUsingBaseGraph(baseGraph)) return null;  // no changes            
+            baseGraph = PedigreeImport.initFromSimpleJSON(importString);
+            if (!this._recreateUsingBaseGraph(baseGraph)) return null;  // no changes
         }  else if (importType == "phenotipsJSON") {
             
             // TODO

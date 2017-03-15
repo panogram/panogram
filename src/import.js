@@ -729,7 +729,6 @@ PedigreeImport.initFromSimpleJSON = function(inputText)
             externalIDToID[nextPerson.externalId] = pedigreeID;
             hasID[pedigreeID] = true;
         }
-
         newG.properties[pedigreeID] = properties;
     }
 
@@ -773,20 +772,20 @@ PedigreeImport.initFromSimpleJSON = function(inputText)
         if (motherLink == null && fatherLink == null)
             continue;
            
-       // create a virtual parent in case one of the parents is missing       
+       // create a virtual parent in case one of the parents is missing
         if (fatherLink == null) {
-            var fatherID = newG._addVertex( null, TYPE.PERSON, {"gender": "M", "comments": "unknown"}, newG.defaultPersonNodeWidth );
+            var fatherID = newG._addVertex( null, TYPE.PERSON, {"gender": "M", "comments": "unknown", inferred:true }, newG.defaultPersonNodeWidth );
         } else {
             var fatherID = findReferencedPerson(fatherLink, "father");
             if (newG.properties[fatherID].gender == "F")
-                throw "Unable to import pedigree: a person declared as female is also declared as being a father ("+fatherLink+")";
+                throw "Unable to import pedigree: a person declared as female is also declared as being a father";
         }
         if (motherLink == null) {
-            var motherID = newG._addVertex( null, TYPE.PERSON, {"gender": "F", "comments": "unknown"}, newG.defaultPersonNodeWidth );
+            var motherID = newG._addVertex( null, TYPE.PERSON, {"gender": "F", "comments": "unknown", inferred:true}, newG.defaultPersonNodeWidth );
         } else {
             var motherID = findReferencedPerson(motherLink, "mother");
             if (newG.properties[motherID].gender == "M")
-                throw "Unable to import pedigree: a person declared as male is also declared as being a mother ("+motherLink+")";          
+                throw "Unable to import pedigree: a person declared as male is also declared as being a mother";          
         }
        
         if (fatherID == personID || motherID == personID)

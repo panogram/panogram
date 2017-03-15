@@ -27,6 +27,8 @@ export const Person = Class.create(AbstractPerson, {
         !this._type && (this._type = "Person");
         this._setDefault();
         this._isProband = properties.isProband;
+        if (properties.inferred) this._inferred = true;
+        console.info(properties);
         this.setFocused(properties.focused);
         var gender = properties.hasOwnProperty("gender") ? properties["gender"] : "U"; 
         $super(x, y, gender, id);
@@ -64,6 +66,7 @@ export const Person = Class.create(AbstractPerson, {
         this._lostContact = false;
         this._focused = false;
         this._isProband = false;
+        this._inferred = false;
     },
 
     /**
@@ -87,8 +90,17 @@ export const Person = Class.create(AbstractPerson, {
      * @return {Boolean}
      */
     isProband: function() {
-        console.log('getting proband info', this._isProband)
         return this._isProband;
+    },
+    
+    /**
+     * Returns True if this node was added by panogram (and not specified in the imported json)
+     *
+     * @method isInferred
+     * @return {Boolean}
+     */
+    isInferred: function() {
+        return this._inferred;
     },
 
     /**

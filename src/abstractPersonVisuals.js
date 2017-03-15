@@ -283,12 +283,12 @@ export const AbstractPersonVisuals = Class.create(AbstractNodeVisuals, {
 
         this._shapeRadius = (this.getNode().getGender() == "U") ? PedigreeEditorAttributes.radius * 1.1 / Math.sqrt(2) : PedigreeEditorAttributes.radius;            
         if (this.getNode().isPersonGroup())
-            this._shapeRadius *= PedigreeEditorAttributes.groupNodesScale;            
+            this._shapeRadius *= PedigreeEditorAttributes.groupNodesScale;
         
         var shape;
         var x      = this.getX(),
             y      = this.getY(),
-            radius = this._shapeRadius;        
+            radius = this._shapeRadius;
 
         if (this.getNode().getGender() == "F") {
             shape = editor.getPaper().circle(x, y, radius);
@@ -305,12 +305,16 @@ export const AbstractPersonVisuals = Class.create(AbstractNodeVisuals, {
             shape.attr(PedigreeEditorAttributes.nodeShapeDiag);
             shape.attr({transform: "...R45"});            
         } else {
-            shape.attr(PedigreeEditorAttributes.nodeShape);
+            let attrs = PedigreeEditorAttributes.nodeShape;
+            if (this.getNode().isInferred()) {
+                attrs = {fill:'white', stroke:'#ccc'};
+            }
+            shape.attr(attrs);
         }
         
         if (!editor.isUnsupportedBrowser()) {
             //var shadow = shape.glow({width: 5, fill: true, opacity: 0.1}).translate(3,3);
-            var shadow = shape.clone().attr({stroke: "none", fill: "gray", opacity: .3});
+            var shadow = shape.clone().attr({stroke: "none", fill: "grey", opacity: .3});
             shadow.translate(3,3);
             shadow.insertBefore(shape);
         }

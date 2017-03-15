@@ -1,3 +1,19 @@
+## developing with webpack
+
+do this:
+```
+npm install
+bower install
+npm run dev
+```
+head to localhost:8080
+
+### building:
+```
+npm run building
+```
+
+
 ## Panogram v0.1.2 Readme
 HealthHack Sydney, October 2014
 
