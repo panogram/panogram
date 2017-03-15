@@ -36420,7 +36420,7 @@ window.requestAnimFrame = function () {
 
 "use strict";
 /* harmony export (immutable) */ __webpack_exports__["a"] = Queue;
-/* unused harmony export Stack */
+/* harmony export (immutable) */ __webpack_exports__["b"] = Stack;
 function Queue() {
     this.data = [];
 }
@@ -41516,9 +41516,11 @@ const AbstractPersonVisuals = Class.create(__WEBPACK_IMPORTED_MODULE_1__abstract
             shape.attr(__WEBPACK_IMPORTED_MODULE_0__pedigreeEditorAttributes__["a" /* PedigreeEditorAttributes */].nodeShapeDiag);
             shape.attr({ transform: "...R45" });
         } else {
-            let attrs = __WEBPACK_IMPORTED_MODULE_0__pedigreeEditorAttributes__["a" /* PedigreeEditorAttributes */].nodeShape;
+            let attrs;
             if (this.getNode().isInferred()) {
                 attrs = { fill: 'white', stroke: '#ccc' };
+            } else {
+                attrs = __WEBPACK_IMPORTED_MODULE_0__pedigreeEditorAttributes__["a" /* PedigreeEditorAttributes */].nodeShape;
             }
             shape.attr(attrs);
         }
@@ -51922,7 +51924,7 @@ DynamicPositionedGraph.prototype = {
         try {
             var newDG = new __WEBPACK_IMPORTED_MODULE_1__positionedGraph__["a" /* PositionedGraph */](baseGraph, this.DG.horizontalPersonSeparationDist, this.DG.horizontalRelSeparationDist, this.DG.maxInitOrderingBuckets, this.DG.maxOrderingIterations, this.DG.maxXcoordIterations, false, suggestedRanks);
         } catch (e) {
-            console.trace(e);
+            console.error(e);
             return false;
         }
 
@@ -58743,7 +58745,7 @@ PositionedGraph.prototype = {
         for (var i = 0; i < this.GG.getNumVertices(); i++) vOrder[i] = undefined;
 
         // Use BFS -----------------------------
-        var queue = useStack ? new Stack() : new __WEBPACK_IMPORTED_MODULE_3__queues__["a" /* Queue */]();
+        var queue = useStack ? new __WEBPACK_IMPORTED_MODULE_3__queues__["b" /* Stack */]() : new __WEBPACK_IMPORTED_MODULE_3__queues__["a" /* Queue */]();
         queue.setTo(parentlessNodes);
 
         //console.log("Use stacK: " + useStack + ", parentless: " + stringifyObject(parentlessNodes));
@@ -58788,7 +58790,7 @@ PositionedGraph.prototype = {
 
         for (var i = 0; i < this.GG.getNumVertices(); i++) vOrder[i] = undefined;
 
-        var queue = useStack ? new Stack() : new __WEBPACK_IMPORTED_MODULE_3__queues__["a" /* Queue */]();
+        var queue = useStack ? new __WEBPACK_IMPORTED_MODULE_3__queues__["b" /* Stack */]() : new __WEBPACK_IMPORTED_MODULE_3__queues__["a" /* Queue */]();
         queue.setTo(leafNodes);
 
         while (queue.size() > 0) {

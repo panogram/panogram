@@ -1,7 +1,7 @@
 import { Timer, printObject, stringifyObject, permute2DArrayInFirstDimension, removeFirstOccurrenceByValue } from "./helpers";
 import { Ordering } from "./ordering";
 import { XCoord, XCoordScore, VerticalLevels } from "./xcoordclass";
-import { Queue } from "./queues";
+import { Queue, Stack } from "./queues";
 import { VerticalPosIntOptimizer } from "./edgeOptimization";
 
 

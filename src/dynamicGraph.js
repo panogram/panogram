@@ -1296,7 +1296,7 @@ DynamicPositionedGraph.prototype = {
                                              false,
                                              suggestedRanks );
         } catch (e) {
-            console.trace(e);
+            console.error(e);
             return false;
         }
 

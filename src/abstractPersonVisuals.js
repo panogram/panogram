@@ -305,9 +305,11 @@ export const AbstractPersonVisuals = Class.create(AbstractNodeVisuals, {
             shape.attr(PedigreeEditorAttributes.nodeShapeDiag);
             shape.attr({transform: "...R45"});            
         } else {
-            let attrs = PedigreeEditorAttributes.nodeShape;
+            let attrs;
             if (this.getNode().isInferred()) {
                 attrs = {fill:'white', stroke:'#ccc'};
+            } else {
+                attrs = PedigreeEditorAttributes.nodeShape;
             }
             shape.attr(attrs);
         }
