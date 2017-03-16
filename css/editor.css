@@ -1,7 +1,13 @@
 .hidden {
   display: none;
 }
-
+#panogram {
+  font-family: 'Helvetica Neue', Helvetica, freesans, sans-serif;
+}
+body {
+  font-size: 14px;
+  /*letter-spacing: 0.001em;*/
+}
 /* =========================================
  * MENU
  */
@@ -180,16 +186,22 @@
   left: 0;
   z-index: 10000;
   min-width: 140px;
-  max-width: 250px;
+  max-width: 270px;
 }
 #panogram .legend-box .legend-title {
-  font-size: 1.1em;
-  margin: 0 0 0.3em;
+  font-size: 1.25em;
+  margin: 0 0 0.75em;
+  text-decoration: underline;
 }
 #panogram .legend-box .disorder-list {
   list-style-type: none;
   margin: 0;
   padding: 0;
+  margin-left: 1.4em;
+}
+
+#panogram .legend-box .disorder-list li.disorder {
+  padding-bottom: 0.6em;
 }
 
 #panogram .disorder-color {
@@ -200,6 +212,7 @@
   border-radius: .4em;
   background-color: #DDD;
   vertical-align: middle;
+  margin-left: -1.3em;
 }
 #panogram .disorder-cases-container {
   font-size: .8em;
