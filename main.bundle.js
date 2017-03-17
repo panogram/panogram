@@ -62164,7 +62164,7 @@ const ViewerWorkspace = Class.create(__WEBPACK_IMPORTED_MODULE_0__workspace__["a
         this.viewBoxY = 0;
         this.zoomCoefficient = 1;
 
-        this.background = this.getPaper().rect(0, 0, this.width, this.height).attr({ stroke: 'none', opacity: 0 }).toBack();
+        this.background = this.getPaper().rect(0, 0, this.width, this.height).attr({ fill: 'white', stroke: 'none', opacity: 0 }).toBack();
         this.background.node.setAttribute("class", "panning-background");
 
         this.adjustSizeToScreen = this.adjustSizeToScreen.bind(this);
