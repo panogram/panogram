@@ -1027,7 +1027,7 @@ DynamicPositionedGraph.prototype = {
 
         //console.log("nodeList: " + stringifyObject(nodeList));
 
-        for (var i = nodeList.length-1; i >= 0; i--) {
+        for (i = nodeList.length-1; i >= 0; i--) {
             var v = nodeList[i];
             //console.log("removing: " + v);
 
@@ -1062,7 +1062,7 @@ DynamicPositionedGraph.prototype = {
         this.updateAncestors();
 
         // TODO: for now: redraw all relationships
-        for (var i = 0 ; i <= this.getMaxNodeId(); i++)
+        for (i = 0 ; i <= this.getMaxNodeId(); i++)
             if (this.isRelationship(i))
                 moved.push(i);
 
@@ -1120,7 +1120,7 @@ DynamicPositionedGraph.prototype = {
 
     redrawAll: function (animateList, newList, ranksBefore)
     {
-        var ranksBefore = ranksBefore ? ranksBefore : this.DG.ranks.slice(0);  // sometimes we want to use ranksbefore as they were before some stuff was added to the graph before a redraw
+        ranksBefore = ranksBefore ? ranksBefore : this.DG.ranks.slice(0);  // sometimes we want to use ranksbefore as they were before some stuff was added to the graph before a redraw
 
         this._debugPrintAll("before");
 
@@ -1141,7 +1141,7 @@ DynamicPositionedGraph.prototype = {
         var probandReRankSize = (ranksBefore[0] - this.DG.ranks[0]);
         var reRankedDiffFrom0 = [];
         var reRanked          = [];
-        for (var i = 0; i <= this.DG.GG.getMaxRealVertexId(); i++) {
+        for (i = 0; i <= this.DG.GG.getMaxRealVertexId(); i++) {
             if (this.DG.GG.isPerson(i))
                 if (this.DG.ranks[i] != ranksBefore[i]) {
                     reRanked.push(i);
@@ -1160,7 +1160,7 @@ DynamicPositionedGraph.prototype = {
             newList = [];
         else {
             // nodes which are force-marked as new can't be in the "moved" list
-            for (var i = 0; i < newList.length; i++)
+            for (i = 0; i < newList.length; i++)
                 removeFirstOccurrenceByValue(movedNodes, newList[i]);
         }
 
@@ -1370,8 +1370,8 @@ DynamicPositionedGraph.prototype = {
     _getAllNodes: function (minID, maxID)
     {
         var nodes = [];
-        var minID = minID ? minID : 0;
-        var maxID = maxID ? Math.min( maxID, this.DG.GG.getMaxRealVertexId()) : this.DG.GG.getMaxRealVertexId();
+        minID = minID ? minID : 0;
+        maxID = maxID ? Math.min( maxID, this.DG.GG.getMaxRealVertexId()) : this.DG.GG.getMaxRealVertexId();
         for (var i = minID; i <= maxID; i++) {
             if ( this.DG.GG.type[i] == TYPE.PERSON || this.DG.GG.type[i] == TYPE.RELATIONSHIP )
                 nodes.push(i);
@@ -1402,7 +1402,7 @@ DynamicPositionedGraph.prototype = {
 
 
         var result = {};
-        for (var i = 0; i <= maxOldID; i++) {
+        for (i = 0; i <= maxOldID; i++) {
             // this node was moved
             if (this.DG.GG.type[i] == TYPE.RELATIONSHIP || this.DG.GG.type[i] == TYPE.PERSON)
             {
@@ -1572,7 +1572,7 @@ DynamicPositionedGraph.prototype = {
 
         var fromOrder = _fromOrder ? Math.max(_fromOrder,0) : 0;
         var toOrder   = _toOrder   ? Math.min(_toOrder,this.DG.order.order[rank].length) : this.DG.order.order[rank].length;
-        for (var o = fromOrder; o <= toOrder; o++) {
+        for (o = fromOrder; o <= toOrder; o++) {
 
             // make sure not inserting inbetween some twins
             if (o > 0 && o < this.DG.order.order[rank].length) {
@@ -1580,7 +1580,7 @@ DynamicPositionedGraph.prototype = {
                 var leftNodePos = o-1;
                 while (leftNodePos > 0 && this.DG.GG.isVirtual(this.DG.order.order[rank][leftNodePos]))
                     leftNodePos--;
-                rightNodePos = o;
+                var rightNodePos = o;
                 while (rightNodePos < this.DG.order.order[rank].length-1 && this.DG.GG.isVirtual(this.DG.order.order[rank][rightNodePos]))
                     rightNodePos--;
                 var nodeToTheLeft  = this.DG.order.order[rank][leftNodePos];
@@ -1654,7 +1654,7 @@ DynamicPositionedGraph.prototype = {
                 }
                 if (newVOrder < this.DG.order.order[newVRank].length - 1) {  // check right neighbour
                     var rightNeighbour = this.DG.order.order[newVRank][ Math.ceil(newVOrder)];
-                    var neighbourInEdges = this.DG.GG.getInEdges(rightNeighbour);
+                    neighbourInEdges = this.DG.GG.getInEdges(rightNeighbour);
                     if (neighbourInEdges.length == 1 && neighbourInEdges[0] == existingU) {
                         okPosition = true;  // right neighbour is a sibling
                     }
@@ -1724,19 +1724,19 @@ DynamicPositionedGraph.prototype = {
         // try not to insert between a node and it's relationship
         // (for that only need check edges on the insertion rank)
         var verticesAtNewRank = this.DG.order.order[ newVRank ];
-        for (var ord = 0; ord < verticesAtNewRank.length; ord++) {
+        for (ord = 0; ord < verticesAtNewRank.length; ord++) {
             if ( ord == newVOrder ) continue;
 
-            var vertex = verticesAtNewRank[ord];
+            vertex = verticesAtNewRank[ord];
 
             var outEdges = this.DG.GG.getOutEdges(vertex);
-            var len      = outEdges.length;
+            len      = outEdges.length;
 
-            for (var j = 0; j < len; j++) {
-                var target = outEdges[j];
+            for (j = 0; j < len; j++) {
+                target = outEdges[j];
 
-                var orderTarget = this.DG.order.vOrder[target];
-                var rankTarget  = this.DG.ranks[target];
+                orderTarget = this.DG.order.vOrder[target];
+                rankTarget  = this.DG.ranks[target];
 
                 if (rankTarget == newVRank)
                 {
@@ -1771,7 +1771,7 @@ DynamicPositionedGraph.prototype = {
 
         // for each order on "rank" compute heuristic penalty for inserting a node before that order
         // based on the structure of nodes below
-        for (var o = 0; o < orderR.length; o++) {
+        for (o = 0; o < orderR.length; o++) {
             var node = orderR[o];
             if (!this.isRelationship(node)) continue;
             var childrenInfo = this._heuristics.analizeChildren(node);
@@ -1783,8 +1783,8 @@ DynamicPositionedGraph.prototype = {
 
         // for each order on "rank" compute heuristic penalty for inserting a node before that order
         // based on the edges on that rank
-        for (var o = 0; o < orderR.length; o++) {
-            var node = orderR[o];
+        for (o = 0; o < orderR.length; o++) {
+            node = orderR[o];
             if (!this.isRelationship(node)) continue;
 
             var relOrder = this.DG.order.vOrder[node];
@@ -1805,10 +1805,10 @@ DynamicPositionedGraph.prototype = {
         }
 
         // add penalties for crossing child-to-parent lines, and forbid inserting inbetween twin nodes
-        for (var o = 0; o < orderR.length; o++) {
+        for (o = 0; o < orderR.length; o++) {
             if (o == vOrder) continue;
 
-            var node = orderR[o];
+            node = orderR[o];
             if (!this.isPerson(node)) continue;
             var allTwins = this.getAllTwinsSortedByOrder(node);
 
@@ -1816,7 +1816,7 @@ DynamicPositionedGraph.prototype = {
             if (allTwins.length > 1) {
                 var leftMostTwinOrder  = this.DG.order.vOrder[ allTwins[0] ];
                 var rightMostTwinOrder = this.DG.order.vOrder[ allTwins[allTwins.length-1] ];
-                for (var j = leftMostTwinOrder+1; j <= rightMostTwinOrder; j++)
+                for (j = leftMostTwinOrder+1; j <= rightMostTwinOrder; j++)
                     penaltySameRank[j] = Infinity;
                 o = rightMostTwinOrder; // skip thorugh all other twins in this group
             }
@@ -1824,11 +1824,11 @@ DynamicPositionedGraph.prototype = {
             // penalty for crossing peron-to-parent line
             if (this.DG.GG.getProducingRelationship(node) != null) {
                 if (o < vOrder) {
-                    for (var j = 0; j <= o; j++)
+                    for (j = 0; j <= o; j++)
                         penaltySameRank[j]++;
                 }
                 else {
-                    for (var j = o+1; j <= orderR.length; j++)
+                    for (j = o+1; j <= orderR.length; j++)
                         penaltySameRank[j]++;
                 }
             }
@@ -1853,7 +1853,7 @@ DynamicPositionedGraph.prototype = {
 
             var bestPosition = vOrder + 1;
             var bestPenalty  = Infinity;
-            for (var o = 0; o <= orderR.length; o++) {
+            for (o = 0; o <= orderR.length; o++) {
                 var penalty = penaltyBelow[o] + penaltySameRank[o];
                 if (o <= vOrder) {
                     penalty += numLeftOf + (vOrder - o);        // o == order     => insert immediately to the left of, distance penalty = 0
@@ -1886,24 +1886,24 @@ DynamicPositionedGraph.prototype = {
         var orderU = this.DG.order.vOrder[u];
 
         var partnerInfoV = this.DG._findLeftAndRightPartners(v);
-        var numRightOf  = partnerInfoV.rightPartners.length;
+        numRightOf  = partnerInfoV.rightPartners.length;
         var partnerInfoU = this.DG._findLeftAndRightPartners(u);
-        var numLeftOf   = partnerInfoU.leftPartners.length;
+        numLeftOf   = partnerInfoU.leftPartners.length;
 
         if (numRightOf == 0 && numLeftOf > 0)  return orderV + 1;
         if (numRightOf > 0  && numLeftOf == 0) return orderU;
 
-        var bestPosition = orderV + 1;
-        var bestPenalty  = Infinity;
-        for (var o = orderV+1; o <= orderU; o++) {
-            var penalty = penaltyBelow[o] + penaltySameRank[o];
+        bestPosition = orderV + 1;
+        bestPenalty  = Infinity;
+        for (o = orderV+1; o <= orderU; o++) {
+            penalty = penaltyBelow[o] + penaltySameRank[o];
 
-            for (var p = 0; p < partnerInfoV.rightPartners.length; p++) {
+            for (p = 0; p < partnerInfoV.rightPartners.length; p++) {
                 var partner = partnerInfoV.rightPartners[p];
                 if (o <= this.DG.order.vOrder[partner]) penalty++;
             }
-            for (var p = 0; p < partnerInfoU.leftPartners.length; p++) {
-                var partner = partnerInfoU.leftPartners[p];
+            for (p = 0; p < partnerInfoU.leftPartners.length; p++) {
+                partner = partnerInfoU.leftPartners[p];
                 if (o > this.DG.order.vOrder[partner]) penalty++;
             }
 
@@ -1932,7 +1932,7 @@ DynamicPositionedGraph.prototype = {
 
         var result = [];
 
-        for (var i = 0; i <= this.DG.GG.getMaxRealVertexId(); i++) {
+        for (i = 0; i <= this.DG.GG.getMaxRealVertexId(); i++) {
             if (!this.isPerson(i)) continue;
             if (this.isPersonGroup(i)) continue;
             var gender = this.getProperties(i)["gender"].toLowerCase();

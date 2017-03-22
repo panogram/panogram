@@ -43,18 +43,18 @@ export function sector(canvas, xPosition, yPosition, radius, gender, startAngle,
     else if(gen === "M") {
         //returns the side of the square on which the coordinate exists. Sides are numbered 0-3 counter-clockwise,
         //starting with the right side
-        function sideAtAngle(angle) {
+        const sideAtAngle = function(angle) {
             return (((angle + 45)/90).floor()) % 4;
-        }
+        };
 
         //returns the tangent value of the parameter degrees
-        function tanOfDegrees(degrees) {
+        const tanOfDegrees = function(degrees) {
             var radians = degrees * Math.PI/180;
             return Math.tan(radians);
-        }
+        };
 
         //returns the coordinate of point at angle alpha on the square
-        function getCoord(alpha) {
+        const getCoord = function(alpha) {
             var side = sideAtAngle(alpha);
             var result = {};
             var xFactor = (side % 2);
@@ -68,18 +68,18 @@ export function sector(canvas, xPosition, yPosition, radius, gender, startAngle,
             result.x = cx + xFactor * d + yFactor * sideFactor * r;
             result.y = cy + yFactor * d + xFactor * sideFactor * r;
             return result;
-        }
+        };
 
         //returns the coordinate of the next corner (going counter-clockwise, and starting with side given in the
         //parameter
-        function getNextCorner(side) {
+        const getNextCorner = function(side) {
             var factorA = (side % 3) ? -1: 1,
                 factorB = (side < 2) ? -1: 1,
                 result = {};
             result.x = cx + factorA * r;
             result.y = cy + factorB * r;
             return result;
-        }
+        };
 
         var startSide = sideAtAngle(startAngle),
             endSide = sideAtAngle(endAngle);
@@ -137,7 +137,7 @@ export function generateOrb (canvas, x, y, r, gender) {
     }
     
     if (gender == "U") {
-        var rr = (r-1) * 0.9;
+        rr = (r-1) * 0.9;
         return canvas.set(                                
                 canvas.rect(x-rr, y-rr, rr*2, rr*2, 0).attr({transform: "r45"}),
                 canvas.rect(x-rr, y-rr, rr*2, rr*2, 1).attr({stroke: "none", fill: "330-#ccc-#ccc", opacity: 0}).attr({transform: "r45"})

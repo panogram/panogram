@@ -340,7 +340,7 @@ BaseGraph.prototype = {
             for (var j = 0; j < this.v[i].length; j++)
                 if ( test(this.v[i][j]) )
                     this.v[i][j] = modification(this.v[i][j]);
-            for (var j = 0; j < this.inedges[i].length; j++)
+            for (j = 0; j < this.inedges[i].length; j++)
                 if ( test(this.inedges[i][j]) )
                     this.inedges[i][j] = modification(this.inedges[i][j]);
 
@@ -396,7 +396,7 @@ BaseGraph.prototype = {
             else if (this.isChildhub(v)) {
                 if (outEdges.length < 1)
                     throw "Assertion failed: all childhubs should have at least one child associated with them";  // if not, re-ranking relationship nodes breaks
-                for (var i = 0; i < outEdges.length; i++)
+                for (i = 0; i < outEdges.length; i++)
                     if (!this.isPerson(outEdges[i]))
                         throw "Assertion failed: childhubs are only connected to people (failed for " + this.getVertexDescription(v) + ")";
             }
@@ -415,7 +415,7 @@ BaseGraph.prototype = {
         // check for disconnected components
         var reachable = {};
         this._markAllReachableComponents( leafAndRootlessInfo.parentlessNodes[0], reachable );
-        for (var v = 0; v < this.v.length; v++) {
+        for (v = 0; v < this.v.length; v++) {
             if (!reachable.hasOwnProperty(v))
                 throw "Assertion failed: disconnected component detected (" + this.getVertexDescription(v) + ")";
         }
@@ -454,7 +454,7 @@ BaseGraph.prototype = {
 
         var inEdges = this.getInEdges(vertex);
         for (var j = 0; j < inEdges.length; j++) {
-            var v = inEdges[j];
+            v = inEdges[j];
             if ( !reachable.hasOwnProperty(v) )
                 this._markAllReachableComponents( v, reachable );
         }
@@ -526,8 +526,8 @@ BaseGraph.prototype = {
             edgeToWeight[u] = {"weight": this.weights[v][u], "out": true };
         }
         var inEdges = this.getInEdges(v);
-        for (var i = 0; i < inEdges.length; i++) {
-            var u = inEdges[i];
+        for (i = 0; i < inEdges.length; i++) {
+            u = inEdges[i];
             edgeToWeight[u] = {"weight": this.weights[u][v], "out": false };
         }
 
@@ -773,7 +773,7 @@ BaseGraph.prototype = {
 
             var inEdges = this.getInEdges(nextV);
             for (var j = 0; j < inEdges.length; j++) {
-                var v = inEdges[j];
+                v = inEdges[j];
                 if ( !ancestors.hasOwnProperty(v) ) {
                     q.push(v);
                     ancestors[v] = true;

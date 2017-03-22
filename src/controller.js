@@ -311,9 +311,9 @@ export const Controller = Class.create({
         // was changed, need to update all the twins
         if (twinUpdate) {
             var allTwins = editor.getGraph().getAllTwinsSortedByOrder(nodeID);
-            for (var propertySetFunction in twinUpdate) {
+            for (propertySetFunction in twinUpdate) {
                 if (twinUpdate.hasOwnProperty(propertySetFunction)) {
-                    var propValue = twinUpdate[propertySetFunction];
+                    propValue = twinUpdate[propertySetFunction];
 
                     for (var i = 0; i < allTwins.length; i++) {
                         var twin = allTwins[i];
@@ -338,13 +338,13 @@ export const Controller = Class.create({
 
         if (needUpdateAllRelationships) {
             var rels = editor.getGraph().getAllRelatedRelationships(nodeID);
-            var changeSet = {"moved": rels};
+            changeSet = {"moved": rels};
             editor.getView().applyChanges(changeSet, true);
         }
 
         if (needUpdateRelationship) {
             var relID = editor.getGraph().isRelationship(nodeID) ? nodeID : editor.getGraph().getParentRelationship(nodeID);
-            var changeSet = {"moved": [relID]};
+            changeSet = {"moved": [relID]};
             editor.getView().applyChanges(changeSet, true);
         }
 
@@ -461,7 +461,7 @@ export const Controller = Class.create({
         }
         else
         {
-            var nextEvent = { "partnershipID": parentRelationship, "childParams": childParams, "noUndoRedo": true };
+            nextEvent = { "partnershipID": parentRelationship, "childParams": childParams, "noUndoRedo": true };
             if (event.memo.groupSize)
                 nextEvent["groupSize"] = event.memo.groupSize;
 

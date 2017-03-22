@@ -35747,7 +35747,7 @@ BaseGraph.prototype = {
 
         for (var i = 0; i < this.v.length; i++) {
             for (var j = 0; j < this.v[i].length; j++) if (test(this.v[i][j])) this.v[i][j] = modification(this.v[i][j]);
-            for (var j = 0; j < this.inedges[i].length; j++) if (test(this.inedges[i][j])) this.inedges[i][j] = modification(this.inedges[i][j]);
+            for (j = 0; j < this.inedges[i].length; j++) if (test(this.inedges[i][j])) this.inedges[i][j] = modification(this.inedges[i][j]);
 
             var newWeights = {};
             var weights = this.weights[i];
@@ -35783,7 +35783,7 @@ BaseGraph.prototype = {
                 if (!this.isRelationship(outEdges[0]) && !this.isVirtual(outEdges[0])) throw "Assertion failed: all virtual nodes may only have an outedge to a virtual node or a relationship";
             } else if (this.isChildhub(v)) {
                 if (outEdges.length < 1) throw "Assertion failed: all childhubs should have at least one child associated with them"; // if not, re-ranking relationship nodes breaks
-                for (var i = 0; i < outEdges.length; i++) if (!this.isPerson(outEdges[i])) throw "Assertion failed: childhubs are only connected to people (failed for " + this.getVertexDescription(v) + ")";
+                for (i = 0; i < outEdges.length; i++) if (!this.isPerson(outEdges[i])) throw "Assertion failed: childhubs are only connected to people (failed for " + this.getVertexDescription(v) + ")";
             }
         }
 
@@ -35798,7 +35798,7 @@ BaseGraph.prototype = {
         // check for disconnected components
         var reachable = {};
         this._markAllReachableComponents(leafAndRootlessInfo.parentlessNodes[0], reachable);
-        for (var v = 0; v < this.v.length; v++) {
+        for (v = 0; v < this.v.length; v++) {
             if (!reachable.hasOwnProperty(v)) throw "Assertion failed: disconnected component detected (" + this.getVertexDescription(v) + ")";
         }
     },
@@ -35833,7 +35833,7 @@ BaseGraph.prototype = {
 
         var inEdges = this.getInEdges(vertex);
         for (var j = 0; j < inEdges.length; j++) {
-            var v = inEdges[j];
+            v = inEdges[j];
             if (!reachable.hasOwnProperty(v)) this._markAllReachableComponents(v, reachable);
         }
     },
@@ -35909,8 +35909,8 @@ BaseGraph.prototype = {
             edgeToWeight[u] = { "weight": this.weights[v][u], "out": true };
         }
         var inEdges = this.getInEdges(v);
-        for (var i = 0; i < inEdges.length; i++) {
-            var u = inEdges[i];
+        for (i = 0; i < inEdges.length; i++) {
+            u = inEdges[i];
             edgeToWeight[u] = { "weight": this.weights[u][v], "out": false };
         }
 
@@ -36121,7 +36121,7 @@ BaseGraph.prototype = {
 
             var inEdges = this.getInEdges(nextV);
             for (var j = 0; j < inEdges.length; j++) {
-                var v = inEdges[j];
+                v = inEdges[j];
                 if (!ancestors.hasOwnProperty(v)) {
                     q.push(v);
                     ancestors[v] = true;
@@ -36186,18 +36186,18 @@ function sector(canvas, xPosition, yPosition, radius, gender, startAngle, endAng
     } else if (gen === "M") {
         //returns the side of the square on which the coordinate exists. Sides are numbered 0-3 counter-clockwise,
         //starting with the right side
-        function sideAtAngle(angle) {
+        const sideAtAngle = function (angle) {
             return ((angle + 45) / 90).floor() % 4;
-        }
+        };
 
         //returns the tangent value of the parameter degrees
-        function tanOfDegrees(degrees) {
+        const tanOfDegrees = function (degrees) {
             var radians = degrees * Math.PI / 180;
             return Math.tan(radians);
-        }
+        };
 
         //returns the coordinate of point at angle alpha on the square
-        function getCoord(alpha) {
+        const getCoord = function (alpha) {
             var side = sideAtAngle(alpha);
             var result = {};
             var xFactor = side % 2;
@@ -36211,18 +36211,18 @@ function sector(canvas, xPosition, yPosition, radius, gender, startAngle, endAng
             result.x = cx + xFactor * d + yFactor * sideFactor * r;
             result.y = cy + yFactor * d + xFactor * sideFactor * r;
             return result;
-        }
+        };
 
         //returns the coordinate of the next corner (going counter-clockwise, and starting with side given in the
         //parameter
-        function getNextCorner(side) {
+        const getNextCorner = function (side) {
             var factorA = side % 3 ? -1 : 1,
                 factorB = side < 2 ? -1 : 1,
                 result = {};
             result.x = cx + factorA * r;
             result.y = cy + factorB * r;
             return result;
-        }
+        };
 
         var startSide = sideAtAngle(startAngle),
             endSide = sideAtAngle(endAngle);
@@ -36272,7 +36272,7 @@ function generateOrb(canvas, x, y, r, gender) {
     }
 
     if (gender == "U") {
-        var rr = (r - 1) * 0.9;
+        rr = (r - 1) * 0.9;
         return canvas.set(canvas.rect(x - rr, y - rr, rr * 2, rr * 2, 0).attr({ transform: "r45" }), canvas.rect(x - rr, y - rr, rr * 2, rr * 2, 1).attr({ stroke: "none", fill: "330-#ccc-#ccc", opacity: 0 }).attr({ transform: "r45" }));
     }
 }
@@ -42947,17 +42947,17 @@ const PersonHoverbox = Class.create(__WEBPACK_IMPORTED_MODULE_0__abstractHoverbo
                 var topHandleHint = undefined;
                 if (__WEBPACK_IMPORTED_MODULE_1__pedigreeEditorAttributes__["a" /* PedigreeEditorAttributes */].enableHandleHintImages) {
                     var hintSize = __WEBPACK_IMPORTED_MODULE_1__pedigreeEditorAttributes__["a" /* PedigreeEditorAttributes */].radius / 2;
-                    var path = [["M", x - hintSize, y - __WEBPACK_IMPORTED_MODULE_1__pedigreeEditorAttributes__["a" /* PedigreeEditorAttributes */].personHandleLength], ["L", x + hintSize, y - __WEBPACK_IMPORTED_MODULE_1__pedigreeEditorAttributes__["a" /* PedigreeEditorAttributes */].personHandleLength]];
+                    path = [["M", x - hintSize, y - __WEBPACK_IMPORTED_MODULE_1__pedigreeEditorAttributes__["a" /* PedigreeEditorAttributes */].personHandleLength], ["L", x + hintSize, y - __WEBPACK_IMPORTED_MODULE_1__pedigreeEditorAttributes__["a" /* PedigreeEditorAttributes */].personHandleLength]];
                     var line1 = editor.getPaper().path(path).attr({ "stroke-width": strokeWidth / 3, stroke: "#555555" }).toBack();
                     var father = editor.getPaper().rect(x - hintSize - 11, y - __WEBPACK_IMPORTED_MODULE_1__pedigreeEditorAttributes__["a" /* PedigreeEditorAttributes */].personHandleLength - 5.5, 11, 11).attr({ fill: "#CCCCCC" }).toBack();
                     var mother = editor.getPaper().circle(x + hintSize + 6, y - __WEBPACK_IMPORTED_MODULE_1__pedigreeEditorAttributes__["a" /* PedigreeEditorAttributes */].personHandleLength, 6).attr({ fill: "#CCCCCC" }).toBack();
-                    var topHandleHint = editor.getPaper().set().push(line1, father, mother);
+                    topHandleHint = editor.getPaper().set().push(line1, father, mother);
                 }
                 // parent handle
                 this.generateHandle("parent", x, splitLocationY, x, y - __WEBPACK_IMPORTED_MODULE_1__pedigreeEditorAttributes__["a" /* PedigreeEditorAttributes */].personHandleLength, "Click to create new nodes for the parents or drag to an existing person or partnership (valid choices will be highlighted in green). Dragging to a person will create a new relationship.", "F", topHandleHint);
             } else {
                 if (__WEBPACK_IMPORTED_MODULE_1__pedigreeEditorAttributes__["a" /* PedigreeEditorAttributes */].enableHandleHintImages) {
-                    var path = [["M", x, splitLocationY], ["L", x, y - __WEBPACK_IMPORTED_MODULE_1__pedigreeEditorAttributes__["a" /* PedigreeEditorAttributes */].personHoverBoxRadius + 4]];
+                    path = [["M", x, splitLocationY], ["L", x, y - __WEBPACK_IMPORTED_MODULE_1__pedigreeEditorAttributes__["a" /* PedigreeEditorAttributes */].personHoverBoxRadius + 4]];
                     editor.getPaper().path(path).attr({ "stroke-width": strokeWidth, stroke: "gray" }).insertBefore(nodeShapes);
                 }
             }
@@ -42967,7 +42967,7 @@ const PersonHoverbox = Class.create(__WEBPACK_IMPORTED_MODULE_0__abstractHoverbo
                 if (node.getChildlessStatus() === null) {
                     // children handle
                     //static part (going right below the node)            
-                    var path = [["M", x, y], ["L", x, y + __WEBPACK_IMPORTED_MODULE_1__pedigreeEditorAttributes__["a" /* PedigreeEditorAttributes */].personHandleBreakX]];
+                    path = [["M", x, y], ["L", x, y + __WEBPACK_IMPORTED_MODULE_1__pedigreeEditorAttributes__["a" /* PedigreeEditorAttributes */].personHandleBreakX]];
                     editor.getPaper().path(path).attr({ "stroke-width": strokeWidth, stroke: "gray" }).insertBefore(nodeShapes);
                     this.generateHandle("child", x, y + __WEBPACK_IMPORTED_MODULE_1__pedigreeEditorAttributes__["a" /* PedigreeEditorAttributes */].personHandleBreakX - 2, x, y + __WEBPACK_IMPORTED_MODULE_1__pedigreeEditorAttributes__["a" /* PedigreeEditorAttributes */].personHandleLength, "Click to create a new child node or drag to an existing parentless person (valid choices will be highlighted in green)", "U");
                 }
@@ -42975,7 +42975,7 @@ const PersonHoverbox = Class.create(__WEBPACK_IMPORTED_MODULE_0__abstractHoverbo
                 // partner handle
                 var vertPosForPartnerHandles = y;
                 //static part (going right form the node)            
-                var path = [["M", x, vertPosForPartnerHandles], ["L", x + __WEBPACK_IMPORTED_MODULE_1__pedigreeEditorAttributes__["a" /* PedigreeEditorAttributes */].personHandleBreakX, vertPosForPartnerHandles]];
+                path = [["M", x, vertPosForPartnerHandles], ["L", x + __WEBPACK_IMPORTED_MODULE_1__pedigreeEditorAttributes__["a" /* PedigreeEditorAttributes */].personHandleBreakX, vertPosForPartnerHandles]];
                 editor.getPaper().path(path).attr({ "stroke-width": strokeWidth, stroke: "gray" }).insertBefore(nodeShapes);
                 this.generateHandle("partnerR", x + __WEBPACK_IMPORTED_MODULE_1__pedigreeEditorAttributes__["a" /* PedigreeEditorAttributes */].personHandleBreakX - 2, vertPosForPartnerHandles, x + __WEBPACK_IMPORTED_MODULE_1__pedigreeEditorAttributes__["a" /* PedigreeEditorAttributes */].personHandleLength, vertPosForPartnerHandles, "Click to create a new partner node or drag to an existing node (valid choices will be highlighted in green)", partnerGender);
             }
@@ -43112,32 +43112,32 @@ const PersonHoverbox = Class.create(__WEBPACK_IMPORTED_MODULE_0__abstractHoverbo
                 document.fire("pedigree:person:drag:newparent", event);
             } else if (handleType == "partnerR" || handleType == "partnerL") {
                 this.removeHandles();
-                var event = { "personID": this.getNode().getID(), "partnerID": curHoveredId };
+                event = { "personID": this.getNode().getID(), "partnerID": curHoveredId };
                 document.fire("pedigree:person:drag:newpartner", event);
             } else if (handleType == "child") {
-                var event = { "personID": curHoveredId, "parentID": this.getNode().getID() };
+                event = { "personID": curHoveredId, "parentID": this.getNode().getID() };
                 document.fire("pedigree:person:drag:newparent", event);
             } else if (handleType == "sibling") {
-                var event = { "sibling2ID": curHoveredId, "sibling1ID": this.getNode().getID() };
+                event = { "sibling2ID": curHoveredId, "sibling1ID": this.getNode().getID() };
                 document.fire("pedigree:person:drag:newsibling", event);
             }
         } else if (!isDrag) {
             if (handleType == "partnerR" || handleType == "partnerL") {
                 this.removeHandles();
                 var preferLeft = this.getNode().getGender() == "F" || handleType == "partnerL";
-                var event = { "personID": this.getNode().getID(), "preferLeft": preferLeft };
+                event = { "personID": this.getNode().getID(), "preferLeft": preferLeft };
                 document.fire("pedigree:person:newpartnerandchild", event);
             } else if (handleType == "child") {
                 var position = editor.getWorkspace().canvasToDiv(this.getNodeX(), this.getNodeY() + __WEBPACK_IMPORTED_MODULE_1__pedigreeEditorAttributes__["a" /* PedigreeEditorAttributes */].personHandleLength + 15);
                 editor.getNodetypeSelectionBubble().show(this.getNode(), position.x, position.y);
                 // if user selects anything the bubble will fire an even on its own
             } else if (handleType == "sibling") {
-                var position = editor.getWorkspace().canvasToDiv(this.getNodeX() - __WEBPACK_IMPORTED_MODULE_1__pedigreeEditorAttributes__["a" /* PedigreeEditorAttributes */].personSiblingHandleLengthX, this.getNodeY() - __WEBPACK_IMPORTED_MODULE_1__pedigreeEditorAttributes__["a" /* PedigreeEditorAttributes */].personHandleBreakY + __WEBPACK_IMPORTED_MODULE_1__pedigreeEditorAttributes__["a" /* PedigreeEditorAttributes */].personSiblingHandleLengthY + 15);
+                position = editor.getWorkspace().canvasToDiv(this.getNodeX() - __WEBPACK_IMPORTED_MODULE_1__pedigreeEditorAttributes__["a" /* PedigreeEditorAttributes */].personSiblingHandleLengthX, this.getNodeY() - __WEBPACK_IMPORTED_MODULE_1__pedigreeEditorAttributes__["a" /* PedigreeEditorAttributes */].personHandleBreakY + __WEBPACK_IMPORTED_MODULE_1__pedigreeEditorAttributes__["a" /* PedigreeEditorAttributes */].personSiblingHandleLengthY + 15);
                 editor.getSiblingSelectionBubble().show(this.getNode(), position.x, position.y);
             } else if (handleType == "parent") {
                 this.removeHandles();
                 this.removeButtons();
-                var event = { "personID": this.getNode().getID() };
+                event = { "personID": this.getNode().getID() };
                 document.fire("pedigree:person:newparent", event);
             }
         }
@@ -49283,9 +49283,9 @@ const Controller = Class.create({
         // was changed, need to update all the twins
         if (twinUpdate) {
             var allTwins = editor.getGraph().getAllTwinsSortedByOrder(nodeID);
-            for (var propertySetFunction in twinUpdate) {
+            for (propertySetFunction in twinUpdate) {
                 if (twinUpdate.hasOwnProperty(propertySetFunction)) {
-                    var propValue = twinUpdate[propertySetFunction];
+                    propValue = twinUpdate[propertySetFunction];
 
                     for (var i = 0; i < allTwins.length; i++) {
                         var twin = allTwins[i];
@@ -49310,13 +49310,13 @@ const Controller = Class.create({
 
         if (needUpdateAllRelationships) {
             var rels = editor.getGraph().getAllRelatedRelationships(nodeID);
-            var changeSet = { "moved": rels };
+            changeSet = { "moved": rels };
             editor.getView().applyChanges(changeSet, true);
         }
 
         if (needUpdateRelationship) {
             var relID = editor.getGraph().isRelationship(nodeID) ? nodeID : editor.getGraph().getParentRelationship(nodeID);
-            var changeSet = { "moved": [relID] };
+            changeSet = { "moved": [relID] };
             editor.getView().applyChanges(changeSet, true);
         }
 
@@ -49419,7 +49419,7 @@ const Controller = Class.create({
             var nextEvent = { "nodeID": personID, "modifications": { "addTwin": event.memo.twins }, "noUndoRedo": true };
             editor.getController().handleModification({ "memo": nextEvent });
         } else {
-            var nextEvent = { "partnershipID": parentRelationship, "childParams": childParams, "noUndoRedo": true };
+            nextEvent = { "partnershipID": parentRelationship, "childParams": childParams, "noUndoRedo": true };
             if (event.memo.groupSize) nextEvent["groupSize"] = event.memo.groupSize;
 
             editor.getController().handleRelationshipNewChild({ "memo": nextEvent });
@@ -50063,7 +50063,7 @@ const Draggable = Class.create({
         }
         if (Event.isLeftClick(a)) {
             var c = Event.element(a);
-            if ((tag_name = c.tagName.toUpperCase()) && (tag_name == "INPUT" || tag_name == "SELECT" || tag_name == "OPTION" || tag_name == "BUTTON" || tag_name == "TEXTAREA")) {
+            if (tag_name == c.tagName.toUpperCase() && (tag_name == "INPUT" || tag_name == "SELECT" || tag_name == "OPTION" || tag_name == "BUTTON" || tag_name == "TEXTAREA")) {
                 return;
             }
             var b = [Event.pointerX(a), Event.pointerY(a)];
@@ -50515,7 +50515,7 @@ const Sortable = {
                 Sortable.mark(d, "after");
                 var c = d.nextSibling || null;
                 if (c != e) {
-                    var b = e.parentNode;
+                    b = e.parentNode;
                     e.style.visibility = "hidden";
                     d.parentNode.insertBefore(e, c);
                     if (d.parentNode != b) {
@@ -51679,7 +51679,7 @@ DynamicPositionedGraph.prototype = {
 
         //console.log("nodeList: " + stringifyObject(nodeList));
 
-        for (var i = nodeList.length - 1; i >= 0; i--) {
+        for (i = nodeList.length - 1; i >= 0; i--) {
             var v = nodeList[i];
             //console.log("removing: " + v);
 
@@ -51714,7 +51714,7 @@ DynamicPositionedGraph.prototype = {
         this.updateAncestors();
 
         // TODO: for now: redraw all relationships
-        for (var i = 0; i <= this.getMaxNodeId(); i++) if (this.isRelationship(i)) moved.push(i);
+        for (i = 0; i <= this.getMaxNodeId(); i++) if (this.isRelationship(i)) moved.push(i);
 
         // note: _findMovedNodes() does not work when IDs have changed. TODO
         //var movedNodes = this._findMovedNodes( numNodesBefore, positionsBefore, ranksBefore, vertLevelsBefore, rankYBefore );
@@ -51766,7 +51766,7 @@ DynamicPositionedGraph.prototype = {
     },
 
     redrawAll: function (animateList, newList, ranksBefore) {
-        var ranksBefore = ranksBefore ? ranksBefore : this.DG.ranks.slice(0); // sometimes we want to use ranksbefore as they were before some stuff was added to the graph before a redraw
+        ranksBefore = ranksBefore ? ranksBefore : this.DG.ranks.slice(0); // sometimes we want to use ranksbefore as they were before some stuff was added to the graph before a redraw
 
         this._debugPrintAll("before");
 
@@ -51786,7 +51786,7 @@ DynamicPositionedGraph.prototype = {
         var probandReRankSize = ranksBefore[0] - this.DG.ranks[0];
         var reRankedDiffFrom0 = [];
         var reRanked = [];
-        for (var i = 0; i <= this.DG.GG.getMaxRealVertexId(); i++) {
+        for (i = 0; i <= this.DG.GG.getMaxRealVertexId(); i++) {
             if (this.DG.GG.isPerson(i)) if (this.DG.ranks[i] != ranksBefore[i]) {
                 reRanked.push(i);
             }
@@ -51802,7 +51802,7 @@ DynamicPositionedGraph.prototype = {
 
         if (!newList) newList = [];else {
             // nodes which are force-marked as new can't be in the "moved" list
-            for (var i = 0; i < newList.length; i++) __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_4__helpers__["j" /* removeFirstOccurrenceByValue */])(movedNodes, newList[i]);
+            for (i = 0; i < newList.length; i++) __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_4__helpers__["j" /* removeFirstOccurrenceByValue */])(movedNodes, newList[i]);
         }
 
         this._debugPrintAll("after");
@@ -51991,8 +51991,8 @@ DynamicPositionedGraph.prototype = {
 
     _getAllNodes: function (minID, maxID) {
         var nodes = [];
-        var minID = minID ? minID : 0;
-        var maxID = maxID ? Math.min(maxID, this.DG.GG.getMaxRealVertexId()) : this.DG.GG.getMaxRealVertexId();
+        minID = minID ? minID : 0;
+        maxID = maxID ? Math.min(maxID, this.DG.GG.getMaxRealVertexId()) : this.DG.GG.getMaxRealVertexId();
         for (var i = minID; i <= maxID; i++) {
             if (this.DG.GG.type[i] == __WEBPACK_IMPORTED_MODULE_0__baseGraph__["b" /* TYPE */].PERSON || this.DG.GG.type[i] == __WEBPACK_IMPORTED_MODULE_0__baseGraph__["b" /* TYPE */].RELATIONSHIP) nodes.push(i);
         }
@@ -52019,7 +52019,7 @@ DynamicPositionedGraph.prototype = {
         }
 
         var result = {};
-        for (var i = 0; i <= maxOldID; i++) {
+        for (i = 0; i <= maxOldID; i++) {
             // this node was moved
             if (this.DG.GG.type[i] == __WEBPACK_IMPORTED_MODULE_0__baseGraph__["b" /* TYPE */].RELATIONSHIP || this.DG.GG.type[i] == __WEBPACK_IMPORTED_MODULE_0__baseGraph__["b" /* TYPE */].PERSON) {
                 var rank = this.DG.ranks[i];
@@ -52173,14 +52173,14 @@ DynamicPositionedGraph.prototype = {
 
         var fromOrder = _fromOrder ? Math.max(_fromOrder, 0) : 0;
         var toOrder = _toOrder ? Math.min(_toOrder, this.DG.order.order[rank].length) : this.DG.order.order[rank].length;
-        for (var o = fromOrder; o <= toOrder; o++) {
+        for (o = fromOrder; o <= toOrder; o++) {
 
             // make sure not inserting inbetween some twins
             if (o > 0 && o < this.DG.order.order[rank].length) {
                 // skip virtual edges which may appear between twins
                 var leftNodePos = o - 1;
                 while (leftNodePos > 0 && this.DG.GG.isVirtual(this.DG.order.order[rank][leftNodePos])) leftNodePos--;
-                rightNodePos = o;
+                var rightNodePos = o;
                 while (rightNodePos < this.DG.order.order[rank].length - 1 && this.DG.GG.isVirtual(this.DG.order.order[rank][rightNodePos])) rightNodePos--;
                 var nodeToTheLeft = this.DG.order.order[rank][leftNodePos];
                 var nodeToTheRight = this.DG.order.order[rank][rightNodePos];
@@ -52251,7 +52251,7 @@ DynamicPositionedGraph.prototype = {
                 if (newVOrder < this.DG.order.order[newVRank].length - 1) {
                     // check right neighbour
                     var rightNeighbour = this.DG.order.order[newVRank][Math.ceil(newVOrder)];
-                    var neighbourInEdges = this.DG.GG.getInEdges(rightNeighbour);
+                    neighbourInEdges = this.DG.GG.getInEdges(rightNeighbour);
                     if (neighbourInEdges.length == 1 && neighbourInEdges[0] == existingU) {
                         okPosition = true; // right neighbour is a sibling
                     }
@@ -52313,19 +52313,19 @@ DynamicPositionedGraph.prototype = {
         // try not to insert between a node and it's relationship
         // (for that only need check edges on the insertion rank)
         var verticesAtNewRank = this.DG.order.order[newVRank];
-        for (var ord = 0; ord < verticesAtNewRank.length; ord++) {
+        for (ord = 0; ord < verticesAtNewRank.length; ord++) {
             if (ord == newVOrder) continue;
 
-            var vertex = verticesAtNewRank[ord];
+            vertex = verticesAtNewRank[ord];
 
             var outEdges = this.DG.GG.getOutEdges(vertex);
-            var len = outEdges.length;
+            len = outEdges.length;
 
-            for (var j = 0; j < len; j++) {
-                var target = outEdges[j];
+            for (j = 0; j < len; j++) {
+                target = outEdges[j];
 
-                var orderTarget = this.DG.order.vOrder[target];
-                var rankTarget = this.DG.ranks[target];
+                orderTarget = this.DG.order.vOrder[target];
+                rankTarget = this.DG.ranks[target];
 
                 if (rankTarget == newVRank) {
                     if (newVOrder < ord && newVOrder > orderTarget || newVOrder > ord && newVOrder < orderTarget) crossings += 0.1;
@@ -52355,7 +52355,7 @@ DynamicPositionedGraph.prototype = {
 
         // for each order on "rank" compute heuristic penalty for inserting a node before that order
         // based on the structure of nodes below
-        for (var o = 0; o < orderR.length; o++) {
+        for (o = 0; o < orderR.length; o++) {
             var node = orderR[o];
             if (!this.isRelationship(node)) continue;
             var childrenInfo = this._heuristics.analizeChildren(node);
@@ -52371,8 +52371,8 @@ DynamicPositionedGraph.prototype = {
 
         // for each order on "rank" compute heuristic penalty for inserting a node before that order
         // based on the edges on that rank
-        for (var o = 0; o < orderR.length; o++) {
-            var node = orderR[o];
+        for (o = 0; o < orderR.length; o++) {
+            node = orderR[o];
             if (!this.isRelationship(node)) continue;
 
             var relOrder = this.DG.order.vOrder[node];
@@ -52392,10 +52392,10 @@ DynamicPositionedGraph.prototype = {
         }
 
         // add penalties for crossing child-to-parent lines, and forbid inserting inbetween twin nodes
-        for (var o = 0; o < orderR.length; o++) {
+        for (o = 0; o < orderR.length; o++) {
             if (o == vOrder) continue;
 
-            var node = orderR[o];
+            node = orderR[o];
             if (!this.isPerson(node)) continue;
             var allTwins = this.getAllTwinsSortedByOrder(node);
 
@@ -52403,16 +52403,16 @@ DynamicPositionedGraph.prototype = {
             if (allTwins.length > 1) {
                 var leftMostTwinOrder = this.DG.order.vOrder[allTwins[0]];
                 var rightMostTwinOrder = this.DG.order.vOrder[allTwins[allTwins.length - 1]];
-                for (var j = leftMostTwinOrder + 1; j <= rightMostTwinOrder; j++) penaltySameRank[j] = Infinity;
+                for (j = leftMostTwinOrder + 1; j <= rightMostTwinOrder; j++) penaltySameRank[j] = Infinity;
                 o = rightMostTwinOrder; // skip thorugh all other twins in this group
             }
 
             // penalty for crossing peron-to-parent line
             if (this.DG.GG.getProducingRelationship(node) != null) {
                 if (o < vOrder) {
-                    for (var j = 0; j <= o; j++) penaltySameRank[j]++;
+                    for (j = 0; j <= o; j++) penaltySameRank[j]++;
                 } else {
-                    for (var j = o + 1; j <= orderR.length; j++) penaltySameRank[j]++;
+                    for (j = o + 1; j <= orderR.length; j++) penaltySameRank[j]++;
                 }
             }
         }
@@ -52436,7 +52436,7 @@ DynamicPositionedGraph.prototype = {
 
             var bestPosition = vOrder + 1;
             var bestPenalty = Infinity;
-            for (var o = 0; o <= orderR.length; o++) {
+            for (o = 0; o <= orderR.length; o++) {
                 var penalty = penaltyBelow[o] + penaltySameRank[o];
                 if (o <= vOrder) {
                     penalty += numLeftOf + (vOrder - o); // o == order     => insert immediately to the left of, distance penalty = 0
@@ -52466,24 +52466,24 @@ DynamicPositionedGraph.prototype = {
         var orderU = this.DG.order.vOrder[u];
 
         var partnerInfoV = this.DG._findLeftAndRightPartners(v);
-        var numRightOf = partnerInfoV.rightPartners.length;
+        numRightOf = partnerInfoV.rightPartners.length;
         var partnerInfoU = this.DG._findLeftAndRightPartners(u);
-        var numLeftOf = partnerInfoU.leftPartners.length;
+        numLeftOf = partnerInfoU.leftPartners.length;
 
         if (numRightOf == 0 && numLeftOf > 0) return orderV + 1;
         if (numRightOf > 0 && numLeftOf == 0) return orderU;
 
-        var bestPosition = orderV + 1;
-        var bestPenalty = Infinity;
-        for (var o = orderV + 1; o <= orderU; o++) {
-            var penalty = penaltyBelow[o] + penaltySameRank[o];
+        bestPosition = orderV + 1;
+        bestPenalty = Infinity;
+        for (o = orderV + 1; o <= orderU; o++) {
+            penalty = penaltyBelow[o] + penaltySameRank[o];
 
-            for (var p = 0; p < partnerInfoV.rightPartners.length; p++) {
+            for (p = 0; p < partnerInfoV.rightPartners.length; p++) {
                 var partner = partnerInfoV.rightPartners[p];
                 if (o <= this.DG.order.vOrder[partner]) penalty++;
             }
-            for (var p = 0; p < partnerInfoU.leftPartners.length; p++) {
-                var partner = partnerInfoU.leftPartners[p];
+            for (p = 0; p < partnerInfoU.leftPartners.length; p++) {
+                partner = partnerInfoU.leftPartners[p];
                 if (o > this.DG.order.vOrder[partner]) penalty++;
             }
 
@@ -52510,7 +52510,7 @@ DynamicPositionedGraph.prototype = {
 
         var result = [];
 
-        for (var i = 0; i <= this.DG.GG.getMaxRealVertexId(); i++) {
+        for (i = 0; i <= this.DG.GG.getMaxRealVertexId(); i++) {
             if (!this.isPerson(i)) continue;
             if (this.isPersonGroup(i)) continue;
             var gender = this.getProperties(i)["gender"].toLowerCase();

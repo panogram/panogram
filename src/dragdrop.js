@@ -299,7 +299,7 @@ export const Draggable = Class.create({
         }
         if (Event.isLeftClick(a)) {
             var c = Event.element(a);
-            if ((tag_name = c.tagName.toUpperCase()) && (tag_name == "INPUT" || tag_name == "SELECT" || tag_name == "OPTION" || tag_name == "BUTTON" || tag_name == "TEXTAREA")) {
+            if ((tag_name == c.tagName.toUpperCase()) && (tag_name == "INPUT" || tag_name == "SELECT" || tag_name == "OPTION" || tag_name == "BUTTON" || tag_name == "TEXTAREA")) {
                 return;
             }
             var b = [Event.pointerX(a), Event.pointerY(a)];
@@ -748,7 +748,7 @@ export const Sortable = {
                 Sortable.mark(d, "after");
                 var c = d.nextSibling || null;
                 if (c != e) {
-                    var b = e.parentNode;
+                    b = e.parentNode;
                     e.style.visibility = "hidden";
                     d.parentNode.insertBefore(e, c);
                     if (d.parentNode != b) {
