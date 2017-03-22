@@ -239,30 +239,38 @@ module.exports = {
 
 /***/ }),
 /* 5 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/* harmony export (immutable) */ __webpack_exports__["k"] = clone2DArray;
-/* harmony export (immutable) */ __webpack_exports__["f"] = cloneObject;
-/* harmony export (immutable) */ __webpack_exports__["h"] = arrayContains;
-/* harmony export (immutable) */ __webpack_exports__["l"] = arrayIndexOf;
-/* harmony export (immutable) */ __webpack_exports__["p"] = indexOfLastMinElementInArray;
-/* harmony export (immutable) */ __webpack_exports__["q"] = filterUnique;
-/* harmony export (immutable) */ __webpack_exports__["m"] = replaceInArray;
-/* harmony export (immutable) */ __webpack_exports__["j"] = removeFirstOccurrenceByValue;
-/* harmony export (immutable) */ __webpack_exports__["i"] = isInt;
-/* harmony export (immutable) */ __webpack_exports__["r"] = toObjectWithTrue;
-/* harmony export (immutable) */ __webpack_exports__["e"] = romanize;
-/* unused harmony export makeFlattened2DArrayCopy */
-/* unused harmony export swap */
-/* harmony export (immutable) */ __webpack_exports__["n"] = permute2DArrayInFirstDimension;
-/* harmony export (immutable) */ __webpack_exports__["g"] = Timer;
-/* harmony export (immutable) */ __webpack_exports__["c"] = stringifyObject;
-/* harmony export (immutable) */ __webpack_exports__["o"] = printObject;
-/* unused harmony export padString */
-/* harmony export (immutable) */ __webpack_exports__["a"] = unescapeRestData;
-/* harmony export (immutable) */ __webpack_exports__["d"] = getSelectorFromXML;
-/* harmony export (immutable) */ __webpack_exports__["b"] = getSubSelectorTextFromXML;
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
+
+exports.clone2DArray = clone2DArray;
+exports.cloneObject = cloneObject;
+exports.arrayContains = arrayContains;
+exports.arrayIndexOf = arrayIndexOf;
+exports.indexOfLastMinElementInArray = indexOfLastMinElementInArray;
+exports.filterUnique = filterUnique;
+exports.replaceInArray = replaceInArray;
+exports.removeFirstOccurrenceByValue = removeFirstOccurrenceByValue;
+exports.isInt = isInt;
+exports.toObjectWithTrue = toObjectWithTrue;
+exports.romanize = romanize;
+exports.makeFlattened2DArrayCopy = makeFlattened2DArrayCopy;
+exports.swap = swap;
+exports.permute2DArrayInFirstDimension = permute2DArrayInFirstDimension;
+exports.Timer = Timer;
+exports.stringifyObject = stringifyObject;
+exports.printObject = printObject;
+exports.padString = padString;
+exports.unescapeRestData = unescapeRestData;
+exports.getSelectorFromXML = getSelectorFromXML;
+exports.getSubSelectorTextFromXML = getSubSelectorTextFromXML;
 // Functions in this file provide functionality which is not present in
 // one of { InternetExplorer 8, Chrome v28, Firefox 3 } but may be present
 // in later verisons of the browsers and/or libriries such as Ext/Prototype
@@ -406,8 +414,9 @@ function isInt(n) {
 
 function toObjectWithTrue(array) {
     var obj = {};
-    for (var i = 0; i < array.length; ++i) if (array[i] !== undefined) obj[array[i]] = true;
-    return obj;
+    for (var i = 0; i < array.length; ++i) {
+        if (array[i] !== undefined) obj[array[i]] = true;
+    }return obj;
 }
 
 function romanize(num) {
@@ -416,8 +425,9 @@ function romanize(num) {
         key = ["", "C", "CC", "CCC", "CD", "D", "DC", "DCC", "DCCC", "CM", "", "X", "XX", "XXX", "XL", "L", "LX", "LXX", "LXXX", "XC", "", "I", "II", "III", "IV", "V", "VI", "VII", "VIII", "IX"],
         roman = "",
         i = 3;
-    while (i--) roman = (key[+digits.pop() + i * 10] || "") + roman;
-    return Array(+digits.join("") + 1).join("M") + roman;
+    while (i--) {
+        roman = (key[+digits.pop() + i * 10] || "") + roman;
+    }return Array(+digits.join("") + 1).join("M") + roman;
 }
 
 /*function objectKeys(obj) {
@@ -474,22 +484,22 @@ function Timer() {
 
 Timer.prototype = {
 
-    start: function () {
+    start: function start() {
         this.startTime = new Date().getTime();
         this.lastCheck = this.startTime;
     },
 
-    restart: function () {
+    restart: function restart() {
         this.start();
     },
 
-    report: function () {
+    report: function report() {
         var current = new Date().getTime();
         var elapsed = current - this.lastCheck;
         return elapsed;
     },
 
-    printSinceLast: function (msg) {
+    printSinceLast: function printSinceLast(msg) {
         var current = new Date().getTime();
         var elapsed = current - this.lastCheck;
         this.lastCheck = current;
@@ -513,7 +523,7 @@ function _printObjectInternal(o, level) {
 
     var output = "";
 
-    if (typeof o == "object") {
+    if ((typeof o === "undefined" ? "undefined" : _typeof(o)) == "object") {
 
         if (Object.prototype.toString.call(o) === "[object Array]") {
             output = "[";
@@ -1048,11 +1058,16 @@ module.exports = _curry2(_dispatchable(['map'], _xmap, function map(fn, functor)
 
 /***/ }),
 /* 12 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
 //attributes for graphical elements in the editor
-const PedigreeEditorAttributes = {
+var PedigreeEditorAttributes = exports.PedigreeEditorAttributes = {
     propagateLastName: true, // when true, father's last name is propagated as "last name at birth" to descendants
     radius: 40,
     orbRadius: 6,
@@ -1114,8 +1129,6 @@ const PedigreeEditorAttributes = {
     layoutRelativeOtherWidth: 2,
     layoutScale: { xscale: 12.0, yscale: 8 }
 };
-/* harmony export (immutable) */ __webpack_exports__["a"] = PedigreeEditorAttributes;
-
 
 /***/ }),
 /* 13 */
@@ -1219,8 +1232,8 @@ Object.extend(Function.prototype, (function() {
 /* 14 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var _xwrap = __webpack_require__(126);
-var bind = __webpack_require__(101);
+var _xwrap = __webpack_require__(125);
+var bind = __webpack_require__(100);
 var isArrayLike = __webpack_require__(39);
 
 
@@ -1607,7 +1620,7 @@ module.exports = function _arity(n, fn) {
 
 var _curry1 = __webpack_require__(1);
 var _has = __webpack_require__(9);
-var _isArguments = __webpack_require__(119);
+var _isArguments = __webpack_require__(118);
 
 
 /**
@@ -9708,7 +9721,7 @@ module.exports = Enumerable = (function() {
 /* 30 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var _indexOf = __webpack_require__(118);
+var _indexOf = __webpack_require__(117);
 
 
 module.exports = function _contains(a, list) {
@@ -35150,10 +35163,17 @@ return jQuery;
 
 /***/ }),
 /* 45 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__pedigreeEditorAttributes__ = __webpack_require__(12);
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+exports.ChildlessBehaviorVisuals = exports.AbstractNodeVisuals = undefined;
+
+var _pedigreeEditorAttributes = __webpack_require__(12);
 
 /**
  * AbstractNodeVisuals is the general abstract class for the graphic engine used by nodes on the Pedigree graph.
@@ -35166,9 +35186,9 @@ return jQuery;
  * @param {Number} y The y coordinate on the canvas
  */
 
-const AbstractNodeVisuals = Class.create({
+var AbstractNodeVisuals = exports.AbstractNodeVisuals = Class.create({
 
-    initialize: function (node, x, y) {
+    initialize: function initialize(node, x, y) {
         //console.log("abstract node visuals");
         this._node = node;
         this._absoluteX = x;
@@ -35184,7 +35204,7 @@ const AbstractNodeVisuals = Class.create({
      * @method getNode
      * @return {AbstractNode}
      */
-    getNode: function () {
+    getNode: function getNode() {
         return this._node;
     },
 
@@ -35194,7 +35214,7 @@ const AbstractNodeVisuals = Class.create({
      * @method getX
      * @return {Number} the x coordinate
      */
-    getX: function () {
+    getX: function getX() {
         return this._absoluteX;
     },
 
@@ -35203,7 +35223,7 @@ const AbstractNodeVisuals = Class.create({
      *
      * @method onSetID
      */
-    onSetID: function (id) {},
+    onSetID: function onSetID(id) {},
 
     /**
      * Returns the current Y coordinate of this node on the canvas, taking into consideration transformation data.
@@ -35211,7 +35231,7 @@ const AbstractNodeVisuals = Class.create({
      * @method getY
      * @return {Number} The y coordinate
      */
-    getY: function () {
+    getY: function getY() {
         return this._absoluteY;
     },
 
@@ -35221,7 +35241,7 @@ const AbstractNodeVisuals = Class.create({
      * @method getY
      * @return {Number} The y coordinate
      */
-    getBottomY: function () {
+    getBottomY: function getBottomY() {
         return this._absoluteY;
     },
 
@@ -35234,7 +35254,7 @@ const AbstractNodeVisuals = Class.create({
      * @param {Boolean} animate Set to true if you want to animate the transition
      * @param {Function} callback The function called at the end of the animation
      */
-    setPos: function (x, y, animate, callback) {
+    setPos: function setPos(x, y, animate, callback) {
         //console.log("Node " + this.getNode().getID() + ", xy: " + x + "/" + y);
         this._absoluteX = x;
         this._absoluteY = y;
@@ -35246,7 +35266,7 @@ const AbstractNodeVisuals = Class.create({
      *
      * @method grow
      */
-    grow: function () {
+    grow: function grow() {
         this._isGrown = true;
     },
 
@@ -35255,7 +35275,7 @@ const AbstractNodeVisuals = Class.create({
      *
      * @method shrink
      */
-    shrink: function () {
+    shrink: function shrink() {
         this._isGrown = false;
     },
 
@@ -35264,7 +35284,7 @@ const AbstractNodeVisuals = Class.create({
      *
      * @method isGrown
      */
-    isGrown: function () {
+    isGrown: function isGrown() {
         return this._isGrown;
     },
 
@@ -35273,7 +35293,7 @@ const AbstractNodeVisuals = Class.create({
      *
      * @method containsXY
      */
-    containsXY: function (x, y) {
+    containsXY: function containsXY(x, y) {
         return false;
     },
 
@@ -35283,7 +35303,7 @@ const AbstractNodeVisuals = Class.create({
      * @method isSelected
      * @return {Boolean}
      */
-    isSelected: function () {
+    isSelected: function isSelected() {
         return this._isSelected;
     },
 
@@ -35293,7 +35313,7 @@ const AbstractNodeVisuals = Class.create({
      * @method setSelected
      * @param {Boolean} isSelected True if the node is selected
      */
-    setSelected: function (isSelected) {
+    setSelected: function setSelected(isSelected) {
         this._isSelected = isSelected;
     },
 
@@ -35303,7 +35323,7 @@ const AbstractNodeVisuals = Class.create({
      * @method getAllGraphics
      * @return {Raphael.st}
      */
-    getAllGraphics: function () {
+    getAllGraphics: function getAllGraphics() {
         return editor.getPaper().set(this.getShapes());
     },
 
@@ -35314,7 +35334,7 @@ const AbstractNodeVisuals = Class.create({
      * @method getShapes
      * @return {Raphael.st}
      */
-    getShapes: function () {
+    getShapes: function getShapes() {
         return editor.getPaper().set();
     },
 
@@ -35323,7 +35343,7 @@ const AbstractNodeVisuals = Class.create({
      *
      * @method remove
      */
-    remove: function () {
+    remove: function remove() {
         this.getHoverBox() && this.getHoverBox().remove();
         this.getAllGraphics().remove();
     },
@@ -35334,14 +35354,12 @@ const AbstractNodeVisuals = Class.create({
      * @method getHoverBox
      * @return {AbstractHoverbox}
      */
-    getHoverBox: function () {
+    getHoverBox: function getHoverBox() {
         return this._hoverBox;
     }
 });
-/* harmony export (immutable) */ __webpack_exports__["a"] = AbstractNodeVisuals;
 
-
-const ChildlessBehaviorVisuals = {
+var ChildlessBehaviorVisuals = exports.ChildlessBehaviorVisuals = {
 
     /**
      * Returns the childless status shape for this Person
@@ -35349,7 +35367,7 @@ const ChildlessBehaviorVisuals = {
      * @method getChildlessShape
      * @return {Raphael.el}
      */
-    getChildlessShape: function () {
+    getChildlessShape: function getChildlessShape() {
         return this._childlessShape;
     },
 
@@ -35359,7 +35377,7 @@ const ChildlessBehaviorVisuals = {
      * @method getChildlessStatusLabel
      * @return {Raphael.el}
      */
-    getChildlessStatusLabel: function () {
+    getChildlessStatusLabel: function getChildlessStatusLabel() {
         return this._childlessStatusLabel;
     },
 
@@ -35368,15 +35386,15 @@ const ChildlessBehaviorVisuals = {
      *
      * @method updateChildlessShapes
      */
-    updateChildlessShapes: function () {
+    updateChildlessShapes: function updateChildlessShapes() {
         var status = this.getNode().getChildlessStatus();
         this._childlessShape && this._childlessShape.remove();
 
         if (status) {
             var x = this.getX();
             var y = this.getY();
-            var r = __WEBPACK_IMPORTED_MODULE_0__pedigreeEditorAttributes__["a" /* PedigreeEditorAttributes */].infertileMarkerWidth;
-            var lowY = this.getBottomY() + __WEBPACK_IMPORTED_MODULE_0__pedigreeEditorAttributes__["a" /* PedigreeEditorAttributes */].infertileMarkerHeight;
+            var r = _pedigreeEditorAttributes.PedigreeEditorAttributes.infertileMarkerWidth;
+            var lowY = this.getBottomY() + _pedigreeEditorAttributes.PedigreeEditorAttributes.infertileMarkerHeight;
 
             var childlessPath = [["M", x, y], ["L", x, lowY], ["M", x - r, lowY], ["l", 2 * r, 0]];
             if (status == "infertile") childlessPath.push(["M", x - r, lowY + 5], ["l", 2 * r, 0]);
@@ -35393,7 +35411,7 @@ const ChildlessBehaviorVisuals = {
      *
      * @method updateChildlessStatusLabel
      */
-    updateChildlessStatusLabel: function () {
+    updateChildlessStatusLabel: function updateChildlessStatusLabel() {
         this._childlessStatusLabel && this._childlessStatusLabel.remove();
         this._childlessStatusLabel = null;
 
@@ -35409,19 +35427,23 @@ const ChildlessBehaviorVisuals = {
         this.drawLabels();
     }
 };
-/* harmony export (immutable) */ __webpack_exports__["b"] = ChildlessBehaviorVisuals;
-
 
 /***/ }),
 /* 46 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__queues__ = __webpack_require__(48);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__helpers__ = __webpack_require__(5);
-/* harmony export (immutable) */ __webpack_exports__["a"] = BaseGraph;
 
 
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+exports.TYPE = undefined;
+exports.BaseGraph = BaseGraph;
+
+var _queues = __webpack_require__(48);
+
+var _helpers = __webpack_require__(5);
 
 // BaseGraph represents the pedigree tree as a graph of nodes and edges with certain
 //           properties attached to both (e.g. names for nodes and weights for edges).
@@ -35449,18 +35471,16 @@ function BaseGraph(defaultPersonNodeWidth, defaultNonPersonNodeWidth) {
     this.defaultNonPersonNodeWidth = defaultNonPersonNodeWidth ? defaultNonPersonNodeWidth : 2;
 }
 
-const TYPE = {
+var TYPE = exports.TYPE = {
     RELATIONSHIP: 1,
     CHILDHUB: 2,
     PERSON: 3,
     VIRTUALEDGE: 4 // for nodes not present in the original graph used as intermediate steps in multi-rank edges
 };
-/* harmony export (immutable) */ __webpack_exports__["b"] = TYPE;
-
 
 BaseGraph.prototype = {
 
-    serialize: function (saveWidth) {
+    serialize: function serialize(saveWidth) {
         var output = [];
 
         for (var v = 0; v < this.v.length; v++) {
@@ -35482,7 +35502,7 @@ BaseGraph.prototype = {
 
             data["prop"] = this.properties[v];
 
-            const out = [];
+            var out = [];
             var outEdges = this.getOutEdges(v);
             for (var i = 0; i < outEdges.length; i++) {
                 var to = outEdges[i];
@@ -35507,7 +35527,7 @@ BaseGraph.prototype = {
     //
     // Note: ranks is modified to contain ranks of virtual nodes as well
 
-    makeGWithSplitMultiRankEdges: function (ranks) {
+    makeGWithSplitMultiRankEdges: function makeGWithSplitMultiRankEdges(ranks) {
         var i;
         var newG = new BaseGraph(this.defaultPersonNodeWidth, this.defaultNonPersonNodeWidth);
 
@@ -35553,7 +35573,7 @@ BaseGraph.prototype = {
         return newG;
     },
 
-    makeGWithCollapsedMultiRankEdges: function () {
+    makeGWithCollapsedMultiRankEdges: function makeGWithCollapsedMultiRankEdges() {
         var i;
         // performs the opposite of what makeGWithSplitMultiRankEdges() does
         var newG = new BaseGraph(this.defaultPersonNodeWidth, this.defaultNonPersonNodeWidth);
@@ -35573,9 +35593,9 @@ BaseGraph.prototype = {
 
                 var weight = this.getEdgeWeight(sourceV, targetV);
 
-                while (targetV > this.maxRealVertexId) targetV = this.getOutEdges(targetV)[0];
-
-                newG.addEdge(sourceV, targetV, weight);
+                while (targetV > this.maxRealVertexId) {
+                    targetV = this.getOutEdges(targetV)[0];
+                }newG.addEdge(sourceV, targetV, weight);
             }
         }
 
@@ -35586,7 +35606,7 @@ BaseGraph.prototype = {
 
     //--------------------------[construction for ordering]-
 
-    getLeafAndParentlessNodes: function () {
+    getLeafAndParentlessNodes: function getLeafAndParentlessNodes() {
         var result = { "parentlessNodes": [],
             "leafNodes": [] };
 
@@ -35604,7 +35624,7 @@ BaseGraph.prototype = {
 
     // id: optional. If not specified then next available is used.
     // note: unlike insertVetex() does not do any id shifting and should be used only for initialization of the graph
-    _addVertex: function (id, type, properties, width) {
+    _addVertex: function _addVertex(id, type, properties, width) {
         if (id && this.v[id]) throw "addVertex: vertex with id=" + id + " is already in G";
 
         var nextId = id == null ? this.v.length : id;
@@ -35626,7 +35646,7 @@ BaseGraph.prototype = {
         return nextId;
     },
 
-    addEdge: function (fromV, toV, weight) {
+    addEdge: function addEdge(fromV, toV, weight) {
         // adds an edge, but does not update all the internal structures for performance reasons.
         // shoudl be used for bulk updates where it makes sense to do one maintenance run for all the nodes
         if (this.v.length < Math.max(fromV, toV)) throw "addEdge: vertex ID=" + Math.max(fromV, toV) + "] is not in G";
@@ -35639,11 +35659,11 @@ BaseGraph.prototype = {
         this.weights[fromV][toV] = weight;
     },
 
-    removeEdge: function (fromV, toV) {
+    removeEdge: function removeEdge(fromV, toV) {
         if (!this.hasEdge(fromV, toV)) throw "removeEdge: edge does not exist";
 
-        __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__helpers__["j" /* removeFirstOccurrenceByValue */])(this.v[fromV], toV);
-        __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__helpers__["j" /* removeFirstOccurrenceByValue */])(this.inedges[toV], fromV);
+        (0, _helpers.removeFirstOccurrenceByValue)(this.v[fromV], toV);
+        (0, _helpers.removeFirstOccurrenceByValue)(this.inedges[toV], fromV);
 
         var weight = this.weights[fromV][toV];
         delete this.weights[fromV][toV];
@@ -35651,7 +35671,7 @@ BaseGraph.prototype = {
         return weight;
     },
 
-    insertVertex: function (type, properties, edgeWeights, inedges, outedges, width) {
+    insertVertex: function insertVertex(type, properties, edgeWeights, inedges, outedges, width) {
         width = width ? width : type == TYPE.PERSON ? this.defaultPersonNodeWidth : this.defaultNonPersonNodeWidth;
 
         if (type == TYPE.PERSON && !properties.hasOwnProperty("gender")) properties["gender"] = "U";
@@ -35661,10 +35681,10 @@ BaseGraph.prototype = {
         // shift all IDs greater or equal to newNodeId up by one (can only hapen when virtual nodes are present)
         if (this.v.length >= newNodeId) {
             // as all existing IDs >= v are increased by one, and all references should be updated
-            var test = function (u) {
+            var test = function test(u) {
                 return u >= newNodeId;
             };
-            var modification = function (u) {
+            var modification = function modification(u) {
                 return u + 1;
             };
             this._updateAllReferencesToNewIDs(test, modification);
@@ -35681,13 +35701,14 @@ BaseGraph.prototype = {
 
         var i;
         // add new edges
-        for (i = 0; i < inedges.length; i++) this.addEdge(inedges[i], newNodeId, edgeWeights);
-        for (i = 0; i < outedges.length; i++) this.addEdge(newNodeId, outedges[i], edgeWeights);
-
-        return newNodeId;
+        for (i = 0; i < inedges.length; i++) {
+            this.addEdge(inedges[i], newNodeId, edgeWeights);
+        }for (i = 0; i < outedges.length; i++) {
+            this.addEdge(newNodeId, outedges[i], edgeWeights);
+        }return newNodeId;
     },
 
-    unplugVirtualVertex: function (v) {
+    unplugVirtualVertex: function unplugVirtualVertex(v) {
         // disconnectes virtual node from parent/child so that it is easy to recycle/remove later
         if (v <= this.getMaxRealVertexId()) throw "Attempting to unplug a non-virtual vertex";
 
@@ -35696,27 +35717,27 @@ BaseGraph.prototype = {
         var child = this.v[v][0];
 
         // replace outgoing edge for parent from V to child
-        __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__helpers__["m" /* replaceInArray */])(this.v[parent], v, child);
+        (0, _helpers.replaceInArray)(this.v[parent], v, child);
         this.weights[parent][child] = this.weights[parent][v];
         delete this.weights[parent][v];
 
         // replace incoming edge for child from V to parent
-        __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__helpers__["m" /* replaceInArray */])(this.inedges[child], v, parent);
+        (0, _helpers.replaceInArray)(this.inedges[child], v, parent);
 
         this.v[v] = [];
         this.inedges[v] = [];
         this.weights[v] = {};
     },
 
-    remove: function (v) {
+    remove: function remove(v) {
         var i;
         for (i = 0; i < this.v[v].length; i++) {
             var target = this.v[v][i];
-            __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__helpers__["j" /* removeFirstOccurrenceByValue */])(this.inedges[target], v);
+            (0, _helpers.removeFirstOccurrenceByValue)(this.inedges[target], v);
         }
         for (i = 0; i < this.inedges[v].length; i++) {
             var incoming = this.inedges[v][i];
-            __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__helpers__["j" /* removeFirstOccurrenceByValue */])(this.v[incoming], v);
+            (0, _helpers.removeFirstOccurrenceByValue)(this.v[incoming], v);
             delete this.weights[incoming][v];
         }
 
@@ -35731,25 +35752,26 @@ BaseGraph.prototype = {
         if (v <= this.maxRealVertexId) this.maxRealVertexId--;
 
         // as all IDs above v are decreased by one, and all references should be updated
-        var test = function (u) {
+        var test = function test(u) {
             return u > v;
         };
-        var modification = function (u) {
+        var modification = function modification(u) {
             return u - 1;
         };
         this._updateAllReferencesToNewIDs(test, modification);
     },
 
-    _updateAllReferencesToNewIDs: function (test, modification) {
+    _updateAllReferencesToNewIDs: function _updateAllReferencesToNewIDs(test, modification) {
         // updates all references (e.g. out- and in- edge targets, etc.) pointing to
         // ids passing the test() according to modification()
         // decrease all IDs above v by one in all the arrays (v, inedges, weights)
 
         for (var i = 0; i < this.v.length; i++) {
-            for (var j = 0; j < this.v[i].length; j++) if (test(this.v[i][j])) this.v[i][j] = modification(this.v[i][j]);
-            for (j = 0; j < this.inedges[i].length; j++) if (test(this.inedges[i][j])) this.inedges[i][j] = modification(this.inedges[i][j]);
-
-            var newWeights = {};
+            for (var j = 0; j < this.v[i].length; j++) {
+                if (test(this.v[i][j])) this.v[i][j] = modification(this.v[i][j]);
+            }for (j = 0; j < this.inedges[i].length; j++) {
+                if (test(this.inedges[i][j])) this.inedges[i][j] = modification(this.inedges[i][j]);
+            }var newWeights = {};
             var weights = this.weights[i];
             for (var u in weights) {
                 if (weights.hasOwnProperty(u)) u = parseInt(u);
@@ -35759,7 +35781,7 @@ BaseGraph.prototype = {
         }
     },
 
-    validate: function () {
+    validate: function validate() {
         //console.log("-- VALIDATING: " + stringifyObject(this));
 
         if (this.v.length == 0) return;
@@ -35770,7 +35792,9 @@ BaseGraph.prototype = {
 
             if (this.isPerson(v)) {
                 if (inEdges.length > 1) throw "Assertion failed: person nodes can't have two in-edges as people are produced by a single pregnancy (failed for " + this.getVertexDescription(v) + ")";
-                for (var i = 0; i < outEdges.length; i++) if (!this.isRelationship(outEdges[i]) && !this.isVirtual(outEdges[i])) throw "Assertion failed: person nodes have only out edges to relationships (failed for " + this.getVertexDescription(v) + ")";
+                for (var i = 0; i < outEdges.length; i++) {
+                    if (!this.isRelationship(outEdges[i]) && !this.isVirtual(outEdges[i])) throw "Assertion failed: person nodes have only out edges to relationships (failed for " + this.getVertexDescription(v) + ")";
+                }
             } else if (this.isRelationship(v)) {
                 // TODO: for childless relations this is not true!
                 if (outEdges.length == 0) throw "Assertion failed: all relationships should have a childhub associated with them (failed for " + this.getVertexDescription(v) + ")";
@@ -35783,7 +35807,9 @@ BaseGraph.prototype = {
                 if (!this.isRelationship(outEdges[0]) && !this.isVirtual(outEdges[0])) throw "Assertion failed: all virtual nodes may only have an outedge to a virtual node or a relationship";
             } else if (this.isChildhub(v)) {
                 if (outEdges.length < 1) throw "Assertion failed: all childhubs should have at least one child associated with them"; // if not, re-ranking relationship nodes breaks
-                for (i = 0; i < outEdges.length; i++) if (!this.isPerson(outEdges[i])) throw "Assertion failed: childhubs are only connected to people (failed for " + this.getVertexDescription(v) + ")";
+                for (i = 0; i < outEdges.length; i++) {
+                    if (!this.isPerson(outEdges[i])) throw "Assertion failed: childhubs are only connected to people (failed for " + this.getVertexDescription(v) + ")";
+                }
             }
         }
 
@@ -35803,7 +35829,7 @@ BaseGraph.prototype = {
         }
     },
 
-    _DFSFindCycles: function (vertex, visited) {
+    _DFSFindCycles: function _DFSFindCycles(vertex, visited) {
         visited[vertex] = true;
 
         var outEdges = this.getOutEdges(vertex);
@@ -35822,7 +35848,7 @@ BaseGraph.prototype = {
         return false;
     },
 
-    _markAllReachableComponents: function (vertex, reachable) {
+    _markAllReachableComponents: function _markAllReachableComponents(vertex, reachable) {
         reachable[vertex] = true;
 
         var outEdges = this.getOutEdges(vertex);
@@ -35838,7 +35864,7 @@ BaseGraph.prototype = {
         }
     },
 
-    getVertexNameById: function (v) {
+    getVertexNameById: function getVertexNameById(v) {
         var firstname = this.properties[v].hasOwnProperty("fName") ? this.properties[v]["fName"] : "";
         var lastname = this.properties[v].hasOwnProperty("lName") ? this.properties[v]["lName"] : "";
 
@@ -35847,7 +35873,7 @@ BaseGraph.prototype = {
         return firstname + lastname;
     },
 
-    getVertexDescription: function (v) {
+    getVertexDescription: function getVertexDescription(v) {
         var desc = "id: " + v + ", name: <" + this.getVertexNameById(v) + ">, type: ";
         switch (this.type[v]) {
             case TYPE.PERSON:
@@ -35864,43 +35890,43 @@ BaseGraph.prototype = {
         return "[" + desc + "]";
     },
 
-    getVertexWidth: function (v) {
+    getVertexWidth: function getVertexWidth(v) {
         return this.vWidth[v];
     },
 
-    getVertexHalfWidth: function (v) {
+    getVertexHalfWidth: function getVertexHalfWidth(v) {
         return Math.floor(this.vWidth[v] / 2);
     },
 
-    getEdgeWeight: function (fromV, toV) {
+    getEdgeWeight: function getEdgeWeight(fromV, toV) {
         return this.weights[fromV][toV];
     },
 
-    hasEdge: function (fromV, toV) {
+    hasEdge: function hasEdge(fromV, toV) {
         return this.weights[fromV].hasOwnProperty(toV);
     },
 
-    isValidId: function (v) {
+    isValidId: function isValidId(v) {
         return v >= 0 && v < this.v.length;
     },
 
-    getNumVertices: function () {
+    getNumVertices: function getNumVertices() {
         return this.v.length;
     },
 
-    getMaxRealVertexId: function () {
+    getMaxRealVertexId: function getMaxRealVertexId() {
         return this.maxRealVertexId; // all vertices with IDs greater than this are of type VIRTUALEDGE
     },
 
-    getOutEdges: function (v) {
+    getOutEdges: function getOutEdges(v) {
         return this.v[v];
     },
 
-    getInEdges: function (v) {
+    getInEdges: function getInEdges(v) {
         return this.inedges[v];
     },
 
-    getAllEdgesWithWeights: function (v) {
+    getAllEdgesWithWeights: function getAllEdgesWithWeights(v) {
         var edgeToWeight = {};
 
         var outEdges = this.getOutEdges(v);
@@ -35917,37 +35943,37 @@ BaseGraph.prototype = {
         return edgeToWeight;
     },
 
-    getAllEdges: function (v) {
+    getAllEdges: function getAllEdges(v) {
         return this.getOutEdges(v).concat(this.getInEdges(v));
     },
 
-    isRelationship: function (v) {
+    isRelationship: function isRelationship(v) {
         return this.type[v] == TYPE.RELATIONSHIP;
     },
 
-    isChildhub: function (v) {
+    isChildhub: function isChildhub(v) {
         return this.type[v] == TYPE.CHILDHUB;
     },
 
-    isPerson: function (v) {
+    isPerson: function isPerson(v) {
         return this.type[v] == TYPE.PERSON;
     },
 
-    isVirtual: function (v) {
+    isVirtual: function isVirtual(v) {
         return this.type[v] == TYPE.VIRTUALEDGE; // also: v > getmaxRealVertexId()
     },
 
-    isAdopted: function (v) {
+    isAdopted: function isAdopted(v) {
         if (this.properties[v].hasOwnProperty("isAdopted")) return this.properties[v]["isAdopted"];
         return false;
     },
 
-    getGender: function (v) {
+    getGender: function getGender(v) {
         if (!this.isPerson(v)) throw "Assertion failed: attempting to get gender of a non-person";
         return this.properties[v]["gender"];
     },
 
-    getOppositeGender: function (v) {
+    getOppositeGender: function getOppositeGender(v) {
         if (!this.isPerson(v)) throw "Assertion failed: attempting to get gender of a non-person";
 
         if (this.getGender(v) == "U") {
@@ -35959,13 +35985,13 @@ BaseGraph.prototype = {
         }
     },
 
-    getRelationshipChildhub: function (v) {
+    getRelationshipChildhub: function getRelationshipChildhub(v) {
         if (!this.isRelationship(v)) throw "Assertion failed: applying getRelationshipChildhub() to a non-relationship node";
 
         return this.v[v][0];
     },
 
-    getAllRelationships: function (v) {
+    getAllRelationships: function getAllRelationships(v) {
         if (!this.isPerson(v)) throw "Assertion failed: attempting to get relationships of a non-person";
 
         var relationships = this.v[v];
@@ -35979,7 +36005,7 @@ BaseGraph.prototype = {
         return result;
     },
 
-    getAllPartners: function (v) {
+    getAllPartners: function getAllPartners(v) {
         if (!this.isPerson(v)) throw "Assertion failed: attempting to get partners of a non-person";
 
         var relationships = this.getAllRelationships(v);
@@ -35992,7 +36018,7 @@ BaseGraph.prototype = {
         return result;
     },
 
-    getParents: function (v) {
+    getParents: function getParents(v) {
         if (!this.isPerson(v) && !this.isRelationship(v)) throw "Assertion failed: attempting to get parents of a non-person and non-relationship";
 
         // skips through relationship and child nodes and returns an array of two real parents. If none found returns []
@@ -36009,7 +36035,7 @@ BaseGraph.prototype = {
         return [this.upTheChainUntilNonVirtual(inEdges[0]), this.upTheChainUntilNonVirtual(inEdges[1])];
     },
 
-    getPathToParents: function (v) {
+    getPathToParents: function getPathToParents(v) {
         // returns an array with two elements: path to parent1 (excluding v) and path to parent2 (excluding v):
         // [ [virtual_node_11, ..., virtual_node_1n, parent1], [virtual_node_21, ..., virtual_node_2n, parent21] ]
 
@@ -36025,7 +36051,7 @@ BaseGraph.prototype = {
         return result;
     },
 
-    getProducingRelationship: function (v) {
+    getProducingRelationship: function getProducingRelationship(v) {
         if (!this.isPerson(v)) throw "Assertion failed: attempting to get producing relationship of a non-person";
 
         // find the relationship which produces this node (or null if not present)
@@ -36036,19 +36062,19 @@ BaseGraph.prototype = {
         return this.inedges[chHub][0];
     },
 
-    upTheChainUntilNonVirtual: function (v) {
+    upTheChainUntilNonVirtual: function upTheChainUntilNonVirtual(v) {
         if (!this.isVirtual(v)) return v;
 
         return this.upTheChainUntilNonVirtual(this.inedges[v][0]); // virtual nodes have only one in-edges, all the way up until a person node
     },
 
-    downTheChainUntilNonVirtual: function (v) {
+    downTheChainUntilNonVirtual: function downTheChainUntilNonVirtual(v) {
         if (!this.isVirtual(v)) return v;
 
         return this.downTheChainUntilNonVirtual(this.v[v][0]); // virtual nodes have only one in-edges, all the way up until a person node
     },
 
-    getUpPathEndingInNonVirtual: function (v) {
+    getUpPathEndingInNonVirtual: function getUpPathEndingInNonVirtual(v) {
         var path = [v];
 
         while (this.isVirtual(v)) {
@@ -36059,7 +36085,7 @@ BaseGraph.prototype = {
         return path;
     },
 
-    getUnusedTwinGroupId: function (v) {
+    getUnusedTwinGroupId: function getUnusedTwinGroupId(v) {
         if (!this.isRelationship(v)) throw "Assertion failed: incorrect v in getNumTwinGroups()";
 
         var childhubId = this.v[v][0];
@@ -36078,12 +36104,12 @@ BaseGraph.prototype = {
         return firstFreeTwinGroupId;
     },
 
-    getTwinGroupId: function (v) {
+    getTwinGroupId: function getTwinGroupId(v) {
         if (!this.properties[v].hasOwnProperty("twinGroup")) return null;
         return this.properties[v]["twinGroup"];
     },
 
-    getAllTwinsOf: function (v) {
+    getAllTwinsOf: function getAllTwinsOf(v) {
         if (!this.isPerson(v)) throw "Assertion failed: incorrect v in getAllTwinsOf()";
 
         if (!this.properties[v].hasOwnProperty("twinGroup")) return [v];
@@ -36103,17 +36129,17 @@ BaseGraph.prototype = {
         return twins;
     },
 
-    isParentToTwinEdge: function (fromV, toV) {
+    isParentToTwinEdge: function isParentToTwinEdge(fromV, toV) {
         if (this.isPerson(toV) && this.isChildhub(fromV) && this.getTwinGroupId(toV) != null) return true;
 
         return false;
     },
 
-    getAllAncestors: function (v) {
+    getAllAncestors: function getAllAncestors(v) {
         var ancestors = {};
         ancestors[v] = true;
 
-        var q = new __WEBPACK_IMPORTED_MODULE_0__queues__["a" /* Queue */]();
+        var q = new _queues.Queue();
         q.push(v);
 
         while (q.size() > 0) {
@@ -36134,15 +36160,20 @@ BaseGraph.prototype = {
 
 /***/ }),
 /* 47 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/* WEBPACK VAR INJECTION */(function(Raphael) {/* harmony export (immutable) */ __webpack_exports__["c"] = sector;
-/* harmony export (immutable) */ __webpack_exports__["e"] = generateOrb;
-/* harmony export (immutable) */ __webpack_exports__["a"] = drawCornerCurve;
-/* harmony export (immutable) */ __webpack_exports__["b"] = drawLevelChangeCurve;
-/* harmony export (immutable) */ __webpack_exports__["f"] = findXInterceptGivenLineAndY;
-/* harmony export (immutable) */ __webpack_exports__["d"] = getElementHalfHeight;
+/* WEBPACK VAR INJECTION */(function(Raphael) {
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+exports.sector = sector;
+exports.generateOrb = generateOrb;
+exports.drawCornerCurve = drawCornerCurve;
+exports.drawLevelChangeCurve = drawLevelChangeCurve;
+exports.findXInterceptGivenLineAndY = findXInterceptGivenLineAndY;
+exports.getElementHalfHeight = getElementHalfHeight;
 /**
  * Returns a raphael element representing a Pi-Chart-like slice of the icon representing the given gender
  *
@@ -36167,7 +36198,7 @@ function sector(canvas, xPosition, yPosition, radius, gender, startAngle, endAng
         shapeAttributes = { fill: color, "stroke-width": .0 };
 
     //returns coordinates of the point on the circle (with radius = _radius) at angle alpha
-    var circleCoordinate = function (alpha) {
+    var circleCoordinate = function circleCoordinate(alpha) {
         var x = cx + r * Math.cos(-alpha * rad),
             y = cy + r * Math.sin(-alpha * rad);
         return [x, y];
@@ -36186,18 +36217,18 @@ function sector(canvas, xPosition, yPosition, radius, gender, startAngle, endAng
     } else if (gen === "M") {
         //returns the side of the square on which the coordinate exists. Sides are numbered 0-3 counter-clockwise,
         //starting with the right side
-        const sideAtAngle = function (angle) {
+        var sideAtAngle = function sideAtAngle(angle) {
             return ((angle + 45) / 90).floor() % 4;
         };
 
         //returns the tangent value of the parameter degrees
-        const tanOfDegrees = function (degrees) {
+        var tanOfDegrees = function tanOfDegrees(degrees) {
             var radians = degrees * Math.PI / 180;
             return Math.tan(radians);
         };
 
         //returns the coordinate of point at angle alpha on the square
-        const getCoord = function (alpha) {
+        var getCoord = function getCoord(alpha) {
             var side = sideAtAngle(alpha);
             var result = {};
             var xFactor = side % 2;
@@ -36215,7 +36246,7 @@ function sector(canvas, xPosition, yPosition, radius, gender, startAngle, endAng
 
         //returns the coordinate of the next corner (going counter-clockwise, and starting with side given in the
         //parameter
-        const getNextCorner = function (side) {
+        var getNextCorner = function getNextCorner(side) {
             var factorA = side % 3 ? -1 : 1,
                 factorB = side < 2 ? -1 : 1,
                 result = {};
@@ -36412,38 +36443,43 @@ window.requestAnimFrame = function () {
         window.setTimeout(callback, 1000 / 60);
     };
 }();
-/* WEBPACK VAR INJECTION */}.call(__webpack_exports__, __webpack_require__(27)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(27)))
 
 /***/ }),
 /* 48 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/* harmony export (immutable) */ __webpack_exports__["a"] = Queue;
-/* harmony export (immutable) */ __webpack_exports__["b"] = Stack;
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+exports.Queue = Queue;
+exports.Stack = Stack;
 function Queue() {
     this.data = [];
 }
 
 Queue.prototype = {
 
-    setTo: function (list) {
+    setTo: function setTo(list) {
         this.data = list.slice();
     },
 
-    push: function (v) {
+    push: function push(v) {
         this.data.push(v);
     },
 
-    pop: function (v) {
+    pop: function pop(v) {
         return this.data.shift();
     },
 
-    size: function () {
+    size: function size() {
         return this.data.length;
     },
 
-    clear: function () {
+    clear: function clear() {
         this.data = [];
     }
 };
@@ -36454,19 +36490,19 @@ function Stack() {
 
 Stack.prototype = {
 
-    setTo: function (list) {
+    setTo: function setTo(list) {
         this.data = list.slice();
     },
 
-    push: function (v) {
+    push: function push(v) {
         this.data.push(v);
     },
 
-    pop: function (v) {
+    pop: function pop(v) {
         return this.data.pop();
     },
 
-    size: function () {
+    size: function size() {
         return this.data.length;
     }
 };
@@ -36770,7 +36806,7 @@ module.exports = _curry2(function lens(getter, setter) {
 /***/ (function(module, exports, __webpack_require__) {
 
 var _curry1 = __webpack_require__(1);
-var liftN = __webpack_require__(131);
+var liftN = __webpack_require__(130);
 
 
 /**
@@ -36923,7 +36959,7 @@ module.exports = _curryN(4, [], _dispatchable([], _xreduceBy,
 /* 62 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var _complement = __webpack_require__(115);
+var _complement = __webpack_require__(114);
 var _curry2 = __webpack_require__(0);
 var filter = __webpack_require__(75);
 
@@ -39274,13 +39310,19 @@ if ( true ) {
 
 /***/ }),
 /* 65 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__pedigreeEditorAttributes__ = __webpack_require__(12);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__graphicHelpers__ = __webpack_require__(47);
 
 
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+exports.AbstractHoverbox = undefined;
+
+var _pedigreeEditorAttributes = __webpack_require__(12);
+
+var _graphicHelpers = __webpack_require__(47);
 
 /**
  * AbstractHoverbox is an abstract class for all the UI elements and graphics surrounding a node on the canvas (a Person
@@ -39299,9 +39341,9 @@ if ( true ) {
  * @param {Raphael.st} nodeShapes Raphaël set containing the graphical elements that make up the node
  */
 
-const AbstractHoverbox = Class.create({
+var AbstractHoverbox = exports.AbstractHoverbox = Class.create({
 
-    initialize: function (node, shiftX, shiftY, width, height, nodeX, nodeY, nodeShapes) {
+    initialize: function initialize(node, shiftX, shiftY, width, height, nodeX, nodeY, nodeShapes) {
         //var timer = new Timer();        
         this._node = node;
         this._relativeX = shiftX;
@@ -39317,7 +39359,7 @@ const AbstractHoverbox = Class.create({
         this._currentOrbs = null;
         this._currentButtons = null;
         this._handlesZoomSz = null;
-        this._boxOnHover = editor.getPaper().rect(this.getX(), this.getY(), this._width, this._height, 5).attr(__WEBPACK_IMPORTED_MODULE_0__pedigreeEditorAttributes__["a" /* PedigreeEditorAttributes */].boxOnHover);
+        this._boxOnHover = editor.getPaper().rect(this.getX(), this.getY(), this._width, this._height, 5).attr(_pedigreeEditorAttributes.PedigreeEditorAttributes.boxOnHover);
         this._backElements = editor.getPaper().set(this._boxOnHover);
         this._mask = this._boxOnHover.clone().attr({
             fill: "green",
@@ -39347,7 +39389,7 @@ const AbstractHoverbox = Class.create({
      * @method getX
      * @return {Number} The x coordinate in pixels
      */
-    getX: function () {
+    getX: function getX() {
         return this.getNodeX() + this._relativeX;
     },
 
@@ -39357,7 +39399,7 @@ const AbstractHoverbox = Class.create({
      * @method getY
      * @return {Number} The y coordinate in pixels
      */
-    getY: function () {
+    getY: function getY() {
         return this.getNodeY() + this._relativeY;
     },
 
@@ -39367,7 +39409,7 @@ const AbstractHoverbox = Class.create({
      * @method getNodeX
      * @return {Number} The x coordinate in pixels
      */
-    getNodeX: function () {
+    getNodeX: function getNodeX() {
         // note: during construction getGraphics() isnot yet available, so need to store nodeX.
         //       however node may have been moved later, in which case we need to use current graphics X
         var nodeGraphics = this.getNode().getGraphics();
@@ -39381,7 +39423,7 @@ const AbstractHoverbox = Class.create({
      * @method getNodeY
      * @return {Number} The y coordinate in pixels
      */
-    getNodeY: function () {
+    getNodeY: function getNodeY() {
         var nodeGraphics = this.getNode().getGraphics();
         if (nodeGraphics) this._nodeY = nodeGraphics.getY();
         return this._nodeY;
@@ -39393,7 +39435,7 @@ const AbstractHoverbox = Class.create({
      * @method getWidth
      * @return {Number} The width in pixels
      */
-    getWidth: function () {
+    getWidth: function getWidth() {
         return this._width;
     },
 
@@ -39403,7 +39445,7 @@ const AbstractHoverbox = Class.create({
      * @method getHeight
      * @return {Number} The height in pixels
      */
-    getHeight: function () {
+    getHeight: function getHeight() {
         return this._height;
     },
 
@@ -39413,7 +39455,7 @@ const AbstractHoverbox = Class.create({
      * @method getNode
      * @return {AbstractNode} Can be either a Partnership or a Person
      */
-    getNode: function () {
+    getNode: function getNode() {
         return this._node;
     },
 
@@ -39423,17 +39465,17 @@ const AbstractHoverbox = Class.create({
      * @method generateButtons
      * @return {Raphael.st} A set of buttons
      */
-    generateButtons: function () {
+    generateButtons: function generateButtons() {
         if (this._currentButtons !== null) return;
         this._currentButtons = [];
     },
 
-    regenerateButtons: function () {
+    regenerateButtons: function regenerateButtons() {
         this.removeButtons();
         this.generateButtons();
     },
 
-    removeButtons: function () {
+    removeButtons: function removeButtons() {
         if (!this._currentButtons) return;
 
         var enableState = this._enabled;
@@ -39447,17 +39489,17 @@ const AbstractHoverbox = Class.create({
         enableState && this.enable();
     },
 
-    hideButtons: function () {
+    hideButtons: function hideButtons() {
         if (!this._currentButtons) return;
         for (var i = 0; i < this._currentButtons.length; i++) {
             if (this._currentButtons[i].hasOwnProperty("mask")) {
-                this._currentButtons[i].mask.attr(__WEBPACK_IMPORTED_MODULE_0__pedigreeEditorAttributes__["a" /* PedigreeEditorAttributes */].btnMaskHoverOff);
+                this._currentButtons[i].mask.attr(_pedigreeEditorAttributes.PedigreeEditorAttributes.btnMaskHoverOff);
             }
             this._currentButtons[i].hide();
         }
     },
 
-    showButtons: function () {
+    showButtons: function showButtons() {
         if (!this._currentButtons) return;
         for (var i = 0; i < this._currentButtons.length; i++) {
             this._currentButtons[i].show();
@@ -39470,7 +39512,7 @@ const AbstractHoverbox = Class.create({
      * @method getCurrentButtons
      * @return {Raphael.st} A set of buttons
      */
-    getCurrentButtons: function () {
+    getCurrentButtons: function getCurrentButtons() {
         return this._currentButtons;
     },
 
@@ -39479,28 +39521,34 @@ const AbstractHoverbox = Class.create({
      *
      * @method removeHandles
      */
-    removeHandles: function () {
-        let i;
+    removeHandles: function removeHandles() {
+        var i;
         if (!this._currentHandles) return;
 
         var enableState = this._enabled;
         enableState && this.disable();
-        for (i = 0; i < this._currentOrbs.length; i++) this.getFrontElements().exclude(this._currentOrbs[i]);
-        this._currentOrbs = null;
+        for (i = 0; i < this._currentOrbs.length; i++) {
+            this.getFrontElements().exclude(this._currentOrbs[i]);
+        }this._currentOrbs = null;
         enableState && this.enable();
 
-        for (i = 0; i < this._currentHandles.length; i++) this._currentHandles[i].remove();
-        this._currentHandles = null;
+        for (i = 0; i < this._currentHandles.length; i++) {
+            this._currentHandles[i].remove();
+        }this._currentHandles = null;
     },
 
-    hideHandles: function () {
+    hideHandles: function hideHandles() {
         if (!this._currentHandles) return;
-        for (var i = 0; i < this._currentHandles.length; i++) this._currentHandles[i].hide();
+        for (var i = 0; i < this._currentHandles.length; i++) {
+            this._currentHandles[i].hide();
+        }
     },
 
-    showHandles: function () {
+    showHandles: function showHandles() {
         if (!this._currentHandles) return;
-        for (var i = 0; i < this._currentHandles.length; i++) this._currentHandles[i].show();
+        for (var i = 0; i < this._currentHandles.length; i++) {
+            this._currentHandles[i].show();
+        }
     },
 
     /**
@@ -39508,7 +39556,7 @@ const AbstractHoverbox = Class.create({
      *
      * @method generateHandles
      */
-    generateHandles: function () {
+    generateHandles: function generateHandles() {
         if (this._currentHandles !== null) return;
         this._currentHandles = [];
         this._currentOrbs = [];
@@ -39520,7 +39568,7 @@ const AbstractHoverbox = Class.create({
      *
      * @method regenerateHandles
      */
-    regenerateHandles: function () {
+    regenerateHandles: function regenerateHandles() {
         if (this._currentHandles) this.removeHandles();
         if (!this._hidden || this.isMenuToggled()) this.generateHandles();
     },
@@ -39539,7 +39587,7 @@ const AbstractHoverbox = Class.create({
      *
      * @return {Raphael.st} The generated button
      */
-    createButton: function (x, y, svgPath, svgPathBBox, attributes, onClick, className, title) {
+    createButton: function createButton(x, y, svgPath, svgPathBBox, attributes, onClick, className, title) {
         var icon = editor.getPaper().path(svgPath).attr(attributes);
         icon.transform(["t", x, y]);
 
@@ -39558,32 +39606,32 @@ const AbstractHoverbox = Class.create({
         var button = editor.getPaper().set(mask, icon).toFront();
 
         var me = this;
-        var clickFunct = function () {
+        var clickFunct = function clickFunct() {
             if (me._hidden) {
                 button.isClicked = false;
                 return;
             }
             button.isClicked = !button.isClicked;
             if (button.isClicked) {
-                mask.attr(__WEBPACK_IMPORTED_MODULE_0__pedigreeEditorAttributes__["a" /* PedigreeEditorAttributes */].btnMaskClick);
+                mask.attr(_pedigreeEditorAttributes.PedigreeEditorAttributes.btnMaskClick);
             } else {
-                mask.attr(__WEBPACK_IMPORTED_MODULE_0__pedigreeEditorAttributes__["a" /* PedigreeEditorAttributes */].btnMaskHoverOn);
+                mask.attr(_pedigreeEditorAttributes.PedigreeEditorAttributes.btnMaskHoverOn);
             }
             onClick && onClick();
         };
         button.click(clickFunct);
         button.mousedown(function () {
-            mask.attr(__WEBPACK_IMPORTED_MODULE_0__pedigreeEditorAttributes__["a" /* PedigreeEditorAttributes */].btnMaskClick);
+            mask.attr(_pedigreeEditorAttributes.PedigreeEditorAttributes.btnMaskClick);
         });
         button.hover(function () {
             //console.log("button hover");
-            mask.attr(__WEBPACK_IMPORTED_MODULE_0__pedigreeEditorAttributes__["a" /* PedigreeEditorAttributes */].btnMaskHoverOn);
+            mask.attr(_pedigreeEditorAttributes.PedigreeEditorAttributes.btnMaskHoverOn);
             if (title) mask.attr({
                 "title": title
             });
         }, function () {
             //console.log("button unhover");
-            mask.attr(__WEBPACK_IMPORTED_MODULE_0__pedigreeEditorAttributes__["a" /* PedigreeEditorAttributes */].btnMaskHoverOff);
+            mask.attr(_pedigreeEditorAttributes.PedigreeEditorAttributes.btnMaskHoverOff);
         });
         className && button.forEach(function (element) {
             element.node.setAttribute("class", className);
@@ -39604,12 +39652,12 @@ const AbstractHoverbox = Class.create({
      * @method generateMenuBtn
      * @return {Raphael.st} The generated button
      */
-    generateMenuBtn: function () {
+    generateMenuBtn: function generateMenuBtn() {
         var me = this;
-        var action = function () {
+        var action = function action() {
             me.toggleMenu(!me.isMenuToggled());
         };
-        var attributes = __WEBPACK_IMPORTED_MODULE_0__pedigreeEditorAttributes__["a" /* PedigreeEditorAttributes */].menuBtnIcon;
+        var attributes = _pedigreeEditorAttributes.PedigreeEditorAttributes.menuBtnIcon;
         var x = this.getX() + this.getWidth() - 20 - this.getWidth() / 40;
         var y = this.getY() + this.getHeight() / 40;
         this.createButton(x, y, editor.getView().__menuButton_svgPath, editor.getView().__menuButton_BBox, attributes, action, "menu-trigger", "node properties");
@@ -39620,16 +39668,16 @@ const AbstractHoverbox = Class.create({
      * @method generateDeleteBtn
      * @return {Raphael.st} the generated button
      */
-    generateDeleteBtn: function () {
+    generateDeleteBtn: function generateDeleteBtn() {
         var me = this;
-        var action = function () {
+        var action = function action() {
             me.animateHideHoverZone();
             var event = {
                 "nodeID": me.getNode().getID()
             };
             document.fire("pedigree:node:remove", event);
         };
-        var attributes = __WEBPACK_IMPORTED_MODULE_0__pedigreeEditorAttributes__["a" /* PedigreeEditorAttributes */].deleteBtnIcon;
+        var attributes = _pedigreeEditorAttributes.PedigreeEditorAttributes.deleteBtnIcon;
         var x = this.getX() + this.getWidth() - 20 - this.getWidth() / 40;
         var y = this.getY() + this.getHeight() / 40;
         this.createButton(x, y, editor.getView().__deleteButton_svgPath, editor.getView().__deleteButton_BBox, attributes, action, "delete", "remove node");
@@ -39641,7 +39689,7 @@ const AbstractHoverbox = Class.create({
      * @method getBoxOnHover
      * @return {Raphael.el} Raphael rectangle element
      */
-    getBoxOnHover: function () {
+    getBoxOnHover: function getBoxOnHover() {
         return this._boxOnHover;
     },
 
@@ -39651,7 +39699,7 @@ const AbstractHoverbox = Class.create({
      * @method isHovered
      * @return {Boolean} Raphael rectangle element
      */
-    isHovered: function () {
+    isHovered: function isHovered() {
         return this._isHovered;
     },
 
@@ -39660,7 +39708,7 @@ const AbstractHoverbox = Class.create({
      * @method setHovered
      * @param {Boolean} isHovered Set to true if the box is hovered
      */
-    setHovered: function (isHovered) {
+    setHovered: function setHovered(isHovered) {
         this._isHovered = isHovered;
     },
 
@@ -39669,13 +39717,13 @@ const AbstractHoverbox = Class.create({
      * @method setHighlighted
      * @param {Boolean} isHighlighted Set to true enables green highlight box, false disables it
      */
-    setHighlighted: function (isHighlighted) {
+    setHighlighted: function setHighlighted(isHighlighted) {
         // autoimaticaly highlight and unhighlight the node being dragged over
         if (isHighlighted) {
-            this.getBoxOnHover().attr(__WEBPACK_IMPORTED_MODULE_0__pedigreeEditorAttributes__["a" /* PedigreeEditorAttributes */].boxOnHover);
+            this.getBoxOnHover().attr(_pedigreeEditorAttributes.PedigreeEditorAttributes.boxOnHover);
             this.getBoxOnHover().attr("fill", "green");
         } else {
-            this.getBoxOnHover().attr(__WEBPACK_IMPORTED_MODULE_0__pedigreeEditorAttributes__["a" /* PedigreeEditorAttributes */].boxOnHover).attr("opacity", 0);
+            this.getBoxOnHover().attr(_pedigreeEditorAttributes.PedigreeEditorAttributes.boxOnHover).attr("opacity", 0);
         }
     },
 
@@ -39685,7 +39733,7 @@ const AbstractHoverbox = Class.create({
      * @method getHoverZoneMask
      * @return {Raphael.el} Raphael rectangle
      */
-    getHoverZoneMask: function () {
+    getHoverZoneMask: function getHoverZoneMask() {
         return this._mask;
     },
 
@@ -39696,7 +39744,7 @@ const AbstractHoverbox = Class.create({
      * @method getFrontElements
      * @return {Raphael.st} set of Raphael elements
      */
-    getFrontElements: function () {
+    getFrontElements: function getFrontElements() {
         return this._frontElements;
     },
 
@@ -39707,7 +39755,7 @@ const AbstractHoverbox = Class.create({
      * @method getBackElements
      * @return {Raphael.st} set of Raphael elements
      */
-    getBackElements: function () {
+    getBackElements: function getBackElements() {
         return this._backElements;
     },
 
@@ -39720,9 +39768,9 @@ const AbstractHoverbox = Class.create({
      * @param {Number} orbY The y coordinate of the orb
      * @return {Raphael.st} Raphael set of elements that make up the handle
      */
-    generateHandle: function (type, startX, startY, orbX, orbY, title, orbShapeGender, toHide) {
+    generateHandle: function generateHandle(type, startX, startY, orbX, orbY, title, orbShapeGender, toHide) {
         if (!orbShapeGender) orbShapeGender = "F";
-        var strokeWidth = editor.getWorkspace().getSizeNormalizedToDefaultZoom(__WEBPACK_IMPORTED_MODULE_0__pedigreeEditorAttributes__["a" /* PedigreeEditorAttributes */].handleStrokeWidth);
+        var strokeWidth = editor.getWorkspace().getSizeNormalizedToDefaultZoom(_pedigreeEditorAttributes.PedigreeEditorAttributes.handleStrokeWidth);
         var path = [["M", startX, startY], ["L", orbX, orbY]];
         var connection = editor.getPaper().path(path).attr({
             "stroke-width": strokeWidth,
@@ -39732,8 +39780,8 @@ const AbstractHoverbox = Class.create({
 
         var touchPresent = "createTouch" in document;
 
-        var orbRadius = touchPresent ? __WEBPACK_IMPORTED_MODULE_0__pedigreeEditorAttributes__["a" /* PedigreeEditorAttributes */].touchOrbRadius : __WEBPACK_IMPORTED_MODULE_0__pedigreeEditorAttributes__["a" /* PedigreeEditorAttributes */].orbRadius;
-        var orbHue = __WEBPACK_IMPORTED_MODULE_0__pedigreeEditorAttributes__["a" /* PedigreeEditorAttributes */].orbHue;
+        var orbRadius = touchPresent ? _pedigreeEditorAttributes.PedigreeEditorAttributes.touchOrbRadius : _pedigreeEditorAttributes.PedigreeEditorAttributes.orbRadius;
+        var orbHue = _pedigreeEditorAttributes.PedigreeEditorAttributes.orbHue;
 
         var normalOrbAttr = orbShapeGender != "F" ? {
             fill: "0-hsb(" + orbHue + ", 1, .75)-hsb(" + orbHue + ", .5, .25)",
@@ -39751,7 +39799,7 @@ const AbstractHoverbox = Class.create({
         var orbAttrX = orbShapeGender != "F" ? "x" : "cx";
         var orbAttrY = orbShapeGender != "F" ? "y" : "cy";
 
-        var orb = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__graphicHelpers__["e" /* generateOrb */])(editor.getPaper(), orbX, orbY, orbRadius * 1.1, orbShapeGender).attr("cursor", "pointer");
+        var orb = (0, _graphicHelpers.generateOrb)(editor.getPaper(), orbX, orbY, orbRadius * 1.1, orbShapeGender).attr("cursor", "pointer");
         orb[0].attr(normalOrbAttr);
 
         var handle = editor.getPaper().set().push(connection, orb);
@@ -39763,7 +39811,7 @@ const AbstractHoverbox = Class.create({
         var inHoverMode = false;
         var interactionStarted = false;
 
-        var onDragHandle = function () {
+        var onDragHandle = function onDragHandle() {
             if (!inHoverMode) {
                 //console.log("on drag");
                 inHoverMode = true;
@@ -39774,7 +39822,7 @@ const AbstractHoverbox = Class.create({
 
         // is true when any button other than the left mouse button is presses
         var wrongClick = false;
-        var start = function (x, y, e) {
+        var start = function start(x, y, e) {
             if (interactionStarted) return;
             interactionStarted = true;
 
@@ -39810,7 +39858,7 @@ const AbstractHoverbox = Class.create({
             // and instantly un-highlighted if the person just clicks the orb without dragging)
             setTimeout(onDragHandle, 100);
         };
-        var move = function (dx, dy) {
+        var move = function move(dx, dy) {
             if (wrongClick) return;
             if (!interactionStarted) return;
             //console.log("handle: move");
@@ -39829,7 +39877,7 @@ const AbstractHoverbox = Class.create({
             }
             //console.log("currentHover: " + editor.getView()._currentHoveredNode + ", currentDrag: " + editor.getView()._currentDraggable);
         };
-        var end = function () {
+        var end = function end() {
             inHoverMode = false;
             interactionStarted = false;
             if (wrongClick) return;
@@ -39913,7 +39961,7 @@ const AbstractHoverbox = Class.create({
      * @method isMenuToggled
      * @return {Boolean}
      */
-    isMenuToggled: function () {
+    isMenuToggled: function isMenuToggled() {
         return false;
     },
 
@@ -39922,7 +39970,7 @@ const AbstractHoverbox = Class.create({
      *
      * @method animateDrawHoverZone
      */
-    animateDrawHoverZone: function () {
+    animateDrawHoverZone: function animateDrawHoverZone() {
         this._hidden = false;
         if (editor.getView().getCurrentDraggable() !== null) return; // do not redraw when dragging
         //console.log("node: " + this.getNode().getID() + " -> show HB");
@@ -39952,7 +40000,7 @@ const AbstractHoverbox = Class.create({
      *
      * @method animateHideHoverZone
      */
-    animateHideHoverZone: function () {
+    animateHideHoverZone: function animateHideHoverZone() {
         this._hidden = true;
         if (editor.getView().getCurrentDraggable() !== null) return; // do not hide when dragging
         //console.log("node: " + this.getNode().getID() + " -> hide HB");
@@ -39971,7 +40019,7 @@ const AbstractHoverbox = Class.create({
      *
      * @method disable
      */
-    disable: function () {
+    disable: function disable() {
         //console.log("disable HB");
         this._enabled = false;
         this.getFrontElements().unhover(this.animateDrawHoverZone, this.animateHideHoverZone);
@@ -39982,7 +40030,7 @@ const AbstractHoverbox = Class.create({
      *
      * @method enable
      */
-    enable: function () {
+    enable: function enable() {
         this._enabled = true;
         //console.log("enable HB");
         //this.getFrontElements().forEach(function(el) { console.log("."); });
@@ -39994,7 +40042,7 @@ const AbstractHoverbox = Class.create({
      *
      * @method remove
      */
-    remove: function () {
+    remove: function remove() {
         this.disable();
         this.removeButtons();
         this.removeHandles();
@@ -40007,7 +40055,7 @@ const AbstractHoverbox = Class.create({
      *
      * @method onWidgetHide
      */
-    onWidgetHide: function () {
+    onWidgetHide: function onWidgetHide() {
         this._isMenuToggled = false;
         // prevent menu from closing and opening right away upon a click on the menu button while menu is open
         this._justClosedMenu = true;
@@ -40019,19 +40067,24 @@ const AbstractHoverbox = Class.create({
         if (this._hidden) this.animateHideHoverZone();else this.animateDrawHoverZone();
     },
 
-    onWidgetShow: function () {
+    onWidgetShow: function onWidgetShow() {
         this._isMenuToggled = true;
     }
 });
-/* harmony export (immutable) */ __webpack_exports__["a"] = AbstractHoverbox;
-
 
 /***/ }),
 /* 66 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__abstractNodeVisuals__ = __webpack_require__(45);
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+exports.ChildlessBehavior = exports.AbstractNode = undefined;
+
+var _abstractNodeVisuals = __webpack_require__(45);
 
 /**
  * AbstractNode is the general abstract class for nodes on the Pedigree graph. An AbstractNode contains information
@@ -40044,9 +40097,9 @@ const AbstractHoverbox = Class.create({
  * @param {Number} [id] The id of the node
  */
 
-const AbstractNode = Class.create({
+var AbstractNode = exports.AbstractNode = Class.create({
 
-    initialize: function (x, y, id) {
+    initialize: function initialize(x, y, id) {
         //console.log("abstract node");
         this._id = id;
         this._comments = "";
@@ -40061,7 +40114,7 @@ const AbstractNode = Class.create({
      * @method getID
      * @return {Number} the id of the node
      */
-    getID: function () {
+    getID: function getID() {
         return this._id;
     },
 
@@ -40071,7 +40124,7 @@ const AbstractNode = Class.create({
      *
      * @method setID
      */
-    setID: function (id) {
+    setID: function setID(id) {
         if (id == this._id) return;
         //console.log("Updating ID " + this._id + " to " + id);
         this._id = id;
@@ -40087,9 +40140,9 @@ const AbstractNode = Class.create({
      * @return {AbstractNodeVisuals}
      * @private
      */
-    _generateGraphics: function (x, y) {
+    _generateGraphics: function _generateGraphics(x, y) {
         // console.log("abstract node - generate graphics");
-        return new __WEBPACK_IMPORTED_MODULE_0__abstractNodeVisuals__["a" /* AbstractNodeVisuals */](this, x, y);
+        return new _abstractNodeVisuals.AbstractNodeVisuals(this, x, y);
     },
 
     /**
@@ -40098,7 +40151,7 @@ const AbstractNode = Class.create({
      * @method getGraphics
      * @return {AbstractNodeVisuals}
      */
-    getGraphics: function () {
+    getGraphics: function getGraphics() {
         return this._graphics;
     },
 
@@ -40108,7 +40161,7 @@ const AbstractNode = Class.create({
      * @method getX
      * @return {Number} the x coordinate
      */
-    getX: function () {
+    getX: function getX() {
         return this.getGraphics().getX();
     },
 
@@ -40118,7 +40171,7 @@ const AbstractNode = Class.create({
      * @method getY
      * @return {Number} the y coordinate
      */
-    getY: function () {
+    getY: function getY() {
         return this.getGraphics().getY();
     },
 
@@ -40131,7 +40184,7 @@ const AbstractNode = Class.create({
      * @param {Boolean} [animate] Set to true if you want to animate the transition
      * @param {Function} [callback] The function called at the end of the animation
      */
-    setPos: function (x, y, animate, callback) {
+    setPos: function setPos(x, y, animate, callback) {
         this.getGraphics().setPos(x, y, animate, callback);
     },
 
@@ -40141,7 +40194,7 @@ const AbstractNode = Class.create({
      * @method getType
      * @return {String} The type (eg. "Partnership", "Person", etc)
      */
-    getType: function () {
+    getType: function getType() {
         return this._type;
     },
 
@@ -40151,7 +40204,7 @@ const AbstractNode = Class.create({
      * @method remove
      * @param [skipConfirmation=false] {Boolean} if true, no confirmation box will pop up
      */
-    remove: function () {
+    remove: function remove() {
         this.getGraphics().remove();
     },
 
@@ -40161,7 +40214,7 @@ const AbstractNode = Class.create({
      * @method getComments
      * @return {String}
      */
-    getComments: function () {
+    getComments: function getComments() {
         return this._comments;
     },
 
@@ -40171,7 +40224,7 @@ const AbstractNode = Class.create({
      * @method setComments
      * @param comment
      */
-    setComments: function (comment) {
+    setComments: function setComments(comment) {
         this._comments = comment;
     },
 
@@ -40183,7 +40236,7 @@ const AbstractNode = Class.create({
      * @return {Object} in the form
      *
      */
-    getProperties: function () {
+    getProperties: function getProperties() {
         var info = {};
         if (this.getComments() != "") info["comments"] = this.getComments();
         return info;
@@ -40196,7 +40249,7 @@ const AbstractNode = Class.create({
      * @param properties Object
      * @return {Boolean} True if properties were successfully assigned (i.e. no conflicts/invalid values)
      */
-    assignProperties: function (properties) {
+    assignProperties: function assignProperties(properties) {
         if (properties.hasOwnProperty("comments") && this.getComments() != properties.comments) {
             this.setComments(properties.comments);
         }
@@ -40208,25 +40261,23 @@ const AbstractNode = Class.create({
      *
      * @method onWidgetHide
      */
-    onWidgetHide: function () {
+    onWidgetHide: function onWidgetHide() {
         this.getGraphics().getHoverBox() && this.getGraphics().getHoverBox().onWidgetHide();
     },
 
-    onWidgetShow: function () {
+    onWidgetShow: function onWidgetShow() {
         this.getGraphics().getHoverBox() && this.getGraphics().getHoverBox().onWidgetShow();
     }
 });
-/* harmony export (immutable) */ __webpack_exports__["b"] = AbstractNode;
 
-
-const ChildlessBehavior = {
+var ChildlessBehavior = exports.ChildlessBehavior = {
     /**
      * Returns the childless status of this node
      *
      * @method getChildlessStatus
      * @return {Null|String} null, childless or infertile
      */
-    getChildlessStatus: function () {
+    getChildlessStatus: function getChildlessStatus() {
         return this._childlessStatus;
     },
 
@@ -40236,7 +40287,7 @@ const ChildlessBehavior = {
      * @method isValidChildlessStatus
      * @return {Boolean}
      */
-    isValidChildlessStatus: function (status) {
+    isValidChildlessStatus: function isValidChildlessStatus(status) {
         return status == "infertile" || status == "childless";
     },
 
@@ -40246,7 +40297,7 @@ const ChildlessBehavior = {
      * @method getChildlessReason
      * @return {String}
      */
-    getChildlessReason: function () {
+    getChildlessReason: function getChildlessReason() {
         return this._childlessReason;
     },
 
@@ -40256,21 +40307,26 @@ const ChildlessBehavior = {
      * @method setChildlessReason
      * @param {String} reason Explanation for the condition (eg. "By Choice", "Vasectomy" etc)
      */
-    setChildlessReason: function (reason) {
+    setChildlessReason: function setChildlessReason(reason) {
         if (this.getChildlessStatus() == null) reason = "";
         this._childlessReason = reason;
         this.getGraphics().updateChildlessStatusLabel();
     }
 };
-/* harmony export (immutable) */ __webpack_exports__["a"] = ChildlessBehavior;
-
 
 /***/ }),
 /* 67 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__dragdrop__ = __webpack_require__(159);
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+exports.Legend = undefined;
+
+var _dragdrop = __webpack_require__(158);
 
 /**
  * Base class for various "legend" widgets
@@ -40279,9 +40335,9 @@ const ChildlessBehavior = {
  * @constructor
  */
 
-const Legend = Class.create({
+var Legend = exports.Legend = Class.create({
 
-    initialize: function (title, allowDrop) {
+    initialize: function initialize(title, allowDrop) {
         this._affectedNodes = {}; // for each object: the list of affected person nodes
 
         this._objectColors = {}; // for each object: the corresponding object color
@@ -40310,7 +40366,7 @@ const Legend = Class.create({
         });
 
         if (allowDrop) {
-            __WEBPACK_IMPORTED_MODULE_0__dragdrop__["a" /* Droppables */].add(editor.getWorkspace().canvas, { accept: "drop-" + this._getPrefix(), onDrop: this._onDropWrapper.bind(this) });
+            _dragdrop.Droppables.add(editor.getWorkspace().canvas, { accept: "drop-" + this._getPrefix(), onDrop: this._onDropWrapper.bind(this) });
         }
     },
 
@@ -40322,7 +40378,7 @@ const Legend = Class.create({
      * @param {String|Number} id ID of the object
      * @return {String} some identifier which should be a valid HTML id value (e.g. no spaces)
      */
-    _getPrefix: function (id) {
+    _getPrefix: function _getPrefix(id) {
         // To be overwritten in derived classes
         throw "prefix not defined";
     },
@@ -40334,7 +40390,7 @@ const Legend = Class.create({
      * @param {String|Number} id ID of the object
      * @return {String} CSS color value for the object, displayed on affected nodes in the pedigree and in the legend
      */
-    getObjectColor: function (id) {
+    getObjectColor: function getObjectColor(id) {
         console.info(this._objectColors);
         if (!this._objectColors.hasOwnProperty(id)) return "#ff0000";
         return this._objectColors[id];
@@ -40347,7 +40403,7 @@ const Legend = Class.create({
      * @param {String|Number} id ID of the object
      * @private
      */
-    _hasAffectedNodes: function (id) {
+    _hasAffectedNodes: function _hasAffectedNodes(id) {
         return this._affectedNodes.hasOwnProperty(id);
     },
 
@@ -40359,7 +40415,7 @@ const Legend = Class.create({
      * @param {String} Name The description of the object to be displayed
      * @param {Number} nodeID ID of the Person who has this object associated with it
      */
-    addCase: function (id, name, nodeID) {
+    addCase: function addCase(id, name, nodeID) {
         if (Object.keys(this._affectedNodes).length == 0) {
             this._legendBox.show();
         }
@@ -40380,7 +40436,7 @@ const Legend = Class.create({
      * @param {String|Number} id ID of the object
      * @param {Number} nodeID ID of the Person who has/is affected by this object
      */
-    removeCase: function (id, nodeID) {
+    removeCase: function removeCase(id, nodeID) {
         if (this._hasAffectedNodes(id)) {
             this._affectedNodes[id] = this._affectedNodes[id].without(nodeID);
             if (this._affectedNodes[id].length == 0) {
@@ -40397,7 +40453,7 @@ const Legend = Class.create({
         }
     },
 
-    _getListElementForObjectWithID: function (id) {
+    _getListElementForObjectWithID: function _getListElementForObjectWithID(id) {
         return $(this._getPrefix() + "-" + id);
     },
 
@@ -40408,7 +40464,7 @@ const Legend = Class.create({
      * @param {String|Number} id ID of the object
      * @private
      */
-    _updateCaseNumbersForObject: function (id) {
+    _updateCaseNumbersForObject: function _updateCaseNumbersForObject(id) {
         var label = this._legendBox.down("li#" + this._getPrefix() + "-" + id + " .disorder-cases");
         if (label) {
             var cases = this._affectedNodes.hasOwnProperty(id) ? this._affectedNodes[id].length : 0;
@@ -40424,7 +40480,7 @@ const Legend = Class.create({
      * @param {String} name The human-readable object name or description
      * @return {HTMLLIElement} List element to be insert in the legend
      */
-    _generateElement: function (id, name) {
+    _generateElement: function _generateElement(id, name) {
         var color = this.getObjectColor(id);
         var item = new Element("li", { "class": "disorder " + "drop-" + this._getPrefix(), "id": this._getPrefix() + "-" + id }).update(new Element("span", { "class": "disorder-name" }).update(name));
         var bubble = new Element("span", { "class": "disorder-color" });
@@ -40460,9 +40516,9 @@ const Legend = Class.create({
                 node && node.getGraphics().unHighlight();
             });
         });
-        new __WEBPACK_IMPORTED_MODULE_0__dragdrop__["b" /* Draggable */](item, {
+        new _dragdrop.Draggable(item, {
             revert: true,
-            reverteffect: function (segment) {
+            reverteffect: function reverteffect(segment) {
                 // Reset the in-line style.
                 segment.setStyle({
                     height: "",
@@ -40488,7 +40544,7 @@ const Legend = Class.create({
      * @param {Event} [event]
      * @private
      */
-    _onDropWrapper: function (label, target, event) {
+    _onDropWrapper: function _onDropWrapper(label, target, event) {
         if (editor.isReadOnlyMode()) {
             return;
         }
@@ -40509,111 +40565,113 @@ const Legend = Class.create({
      * @param {Person} Person node
      * @param {String|Number} id ID of the object
      */
-    _onDropObject: function (node, objectID) {
+    _onDropObject: function _onDropObject(node, objectID) {
         throw "drop functionality is not defined";
     }
 });
-/* harmony export (immutable) */ __webpack_exports__["a"] = Legend;
-
 
 /***/ }),
 /* 68 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__abstractHoverbox__ = __webpack_require__(65);
 
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+exports.ReadOnlyHoverbox = undefined;
+
+var _abstractHoverbox = __webpack_require__(65);
 
 /**
  * A stub hoverbox used when generating read-only pedigrees
  */
-const ReadOnlyHoverbox = Class.create(__WEBPACK_IMPORTED_MODULE_0__abstractHoverbox__["a" /* AbstractHoverbox */], {
+var ReadOnlyHoverbox = exports.ReadOnlyHoverbox = Class.create(_abstractHoverbox.AbstractHoverbox, {
 
-    initialize: function ($super, node, x, y, shapes) {
+    initialize: function initialize($super, node, x, y, shapes) {
         this._node = node;
         this._nodeX = x;
         this._nodeY = y;
         this._shapes = shapes;
     },
 
-    getWidth: function () {
+    getWidth: function getWidth() {
         return 0;
     },
 
-    getHeight: function () {
+    getHeight: function getHeight() {
         return 0;
     },
 
-    getNode: function () {
+    getNode: function getNode() {
         return this._node;
     },
 
-    generateButtons: function () {},
+    generateButtons: function generateButtons() {},
 
-    removeButtons: function () {},
+    removeButtons: function removeButtons() {},
 
-    hideButtons: function () {},
+    hideButtons: function hideButtons() {},
 
-    showButtons: function () {},
+    showButtons: function showButtons() {},
 
-    getCurrentButtons: function () {
+    getCurrentButtons: function getCurrentButtons() {
         return this._currentButtons;
     },
 
-    removeHandles: function () {},
+    removeHandles: function removeHandles() {},
 
-    hideHandles: function () {},
+    hideHandles: function hideHandles() {},
 
-    showHandles: function () {},
+    showHandles: function showHandles() {},
 
-    generateHandles: function () {},
+    generateHandles: function generateHandles() {},
 
-    regenerateHandles: function () {},
+    regenerateHandles: function regenerateHandles() {},
 
-    getBoxOnHover: function () {
+    getBoxOnHover: function getBoxOnHover() {
         return null;
     },
 
-    isHovered: function () {
+    isHovered: function isHovered() {
         return false;
     },
 
-    setHovered: function (isHovered) {},
+    setHovered: function setHovered(isHovered) {},
 
-    setHighlighted: function (isHighlighted) {},
+    setHighlighted: function setHighlighted(isHighlighted) {},
 
-    getHoverZoneMask: function () {
+    getHoverZoneMask: function getHoverZoneMask() {
         return null;
     },
 
-    getFrontElements: function () {
+    getFrontElements: function getFrontElements() {
         return this._shapes;
     },
 
-    getBackElements: function () {
+    getBackElements: function getBackElements() {
         return this._shapes;
     },
 
-    isMenuToggled: function () {
+    isMenuToggled: function isMenuToggled() {
         return false;
     },
 
-    animateDrawHoverZone: function () {},
+    animateDrawHoverZone: function animateDrawHoverZone() {},
 
-    animateHideHoverZone: function () {},
+    animateHideHoverZone: function animateHideHoverZone() {},
 
-    disable: function () {},
+    disable: function disable() {},
 
-    enable: function () {},
+    enable: function enable() {},
 
-    remove: function () {},
+    remove: function remove() {},
 
-    onWidgetHide: function () {},
+    onWidgetHide: function onWidgetHide() {},
 
-    onWidgetShow: function () {}
+    onWidgetShow: function onWidgetShow() {}
 });
-/* harmony export (immutable) */ __webpack_exports__["a"] = ReadOnlyHoverbox;
-
 
 /***/ }),
 /* 69 */
@@ -40787,7 +40845,7 @@ module.exports = _curry2(function ap(applicative, fn) {
 
 var _curry2 = __webpack_require__(0);
 var _dispatchable = __webpack_require__(3);
-var _makeFlat = __webpack_require__(123);
+var _makeFlat = __webpack_require__(122);
 var _xchain = __webpack_require__(262);
 var map = __webpack_require__(11);
 
@@ -40826,7 +40884,7 @@ module.exports = _curry2(_dispatchable(['chain'], _xchain, function chain(fn, mo
 /* 73 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var pipe = __webpack_require__(140);
+var pipe = __webpack_require__(139);
 var reverse = __webpack_require__(63);
 
 
@@ -40915,8 +40973,8 @@ module.exports = _curry2(function concat(a, b) {
 
 var _curry2 = __webpack_require__(0);
 var _dispatchable = __webpack_require__(3);
-var _filter = __webpack_require__(117);
-var _isObject = __webpack_require__(122);
+var _filter = __webpack_require__(116);
+var _isObject = __webpack_require__(121);
 var _reduce = __webpack_require__(14);
 var _xfilter = __webpack_require__(267);
 var keys = __webpack_require__(21);
@@ -41146,7 +41204,7 @@ module.exports = _curry1(function type(val) {
 /***/ (function(module, exports, __webpack_require__) {
 
 var identity = __webpack_require__(76);
-var uniqBy = __webpack_require__(148);
+var uniqBy = __webpack_require__(147);
 
 
 /**
@@ -41217,13 +41275,19 @@ module.exports = _curry2(function uniqWith(pred, list) {
 
 /***/ }),
 /* 86 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__pedigreeEditorAttributes__ = __webpack_require__(12);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__abstractNodeVisuals__ = __webpack_require__(45);
 
 
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+exports.AbstractPersonVisuals = undefined;
+
+var _pedigreeEditorAttributes = __webpack_require__(12);
+
+var _abstractNodeVisuals = __webpack_require__(45);
 
 /**
  * An abstract superclass for the a graphic engine used by nodes on the Pedigree graph. Can display
@@ -41237,13 +41301,13 @@ module.exports = _curry2(function uniqWith(pred, list) {
  * @param {Number} y the y coordinate on the canvas
  */
 
-const AbstractPersonVisuals = Class.create(__WEBPACK_IMPORTED_MODULE_1__abstractNodeVisuals__["a" /* AbstractNodeVisuals */], {
+var AbstractPersonVisuals = exports.AbstractPersonVisuals = Class.create(_abstractNodeVisuals.AbstractNodeVisuals, {
 
-    initialize: function ($super, node, x, y) {
+    initialize: function initialize($super, node, x, y) {
         $super(node, x, y);
 
-        this._radius = __WEBPACK_IMPORTED_MODULE_0__pedigreeEditorAttributes__["a" /* PedigreeEditorAttributes */].radius;
-        this._width = __WEBPACK_IMPORTED_MODULE_0__pedigreeEditorAttributes__["a" /* PedigreeEditorAttributes */].radius * 4;
+        this._radius = _pedigreeEditorAttributes.PedigreeEditorAttributes.radius;
+        this._width = _pedigreeEditorAttributes.PedigreeEditorAttributes.radius * 4;
 
         this._highlightBox = null;
         this._adoptedShape = null;
@@ -41260,27 +41324,27 @@ const AbstractPersonVisuals = Class.create(__WEBPACK_IMPORTED_MODULE_1__abstract
         this._hoverBox = this.generateHoverbox(x, y);
     },
 
-    updateIDLabel: function () {
+    updateIDLabel: function updateIDLabel() {
         if (!editor.DEBUG_MODE) return;
 
         var x = this.getX();
         var y = this.getY();
         this._idLabel && this._idLabel.remove();
-        this._idLabel = editor.getPaper().text(x, y, this.getNode().getID()).attr(__WEBPACK_IMPORTED_MODULE_0__pedigreeEditorAttributes__["a" /* PedigreeEditorAttributes */].dragMeLabel).toFront();
+        this._idLabel = editor.getPaper().text(x, y, this.getNode().getID()).attr(_pedigreeEditorAttributes.PedigreeEditorAttributes.dragMeLabel).toFront();
         this._idLabel.node.setAttribute("class", "no-mouse-interaction");
     },
 
-    updateNumberLabel: function () {
+    updateNumberLabel: function updateNumberLabel() {
         this._numberLabel && this._numberLabel.remove();
         if (this.getNode().getPedNumber() != "") {
             var x = this.getX();
             var y = this.getY();
-            this._numberLabel = editor.getPaper().text(x, y, this.getNode().getPedNumber()).attr(__WEBPACK_IMPORTED_MODULE_0__pedigreeEditorAttributes__["a" /* PedigreeEditorAttributes */].pedNumberLabel).toFront();
+            this._numberLabel = editor.getPaper().text(x, y, this.getNode().getPedNumber()).attr(_pedigreeEditorAttributes.PedigreeEditorAttributes.pedNumberLabel).toFront();
             this._numberLabel.node.setAttribute("class", "no-mouse-interaction");
         }
     },
 
-    generateHoverbox: function (x, y) {
+    generateHoverbox: function generateHoverbox(x, y) {
         return null;
     },
 
@@ -41289,7 +41353,7 @@ const AbstractPersonVisuals = Class.create(__WEBPACK_IMPORTED_MODULE_1__abstract
      *
      * @method onSetID
      */
-    onSetID: function ($super, id) {
+    onSetID: function onSetID($super, id) {
         $super(id);
         this.updateIDLabel();
     },
@@ -41303,7 +41367,7 @@ const AbstractPersonVisuals = Class.create(__WEBPACK_IMPORTED_MODULE_1__abstract
      * @param {Boolean} animate Set to true if you want to animate the transition
      * @param {Function} callback The function called at the end of the animation
      */
-    setPos: function ($super, x, y, animate, callback) {
+    setPos: function setPos($super, x, y, animate, callback) {
 
         this.getHoverBox().removeHandles();
         this.getHoverBox().removeButtons();
@@ -41343,7 +41407,7 @@ const AbstractPersonVisuals = Class.create(__WEBPACK_IMPORTED_MODULE_1__abstract
      *
      * @method grow
      */
-    grow: function ($super) {
+    grow: function grow($super) {
         $super();
         if (this._callback) throw "Assertion failed: grow() during animation";
         if (this.glow) return;
@@ -41356,7 +41420,7 @@ const AbstractPersonVisuals = Class.create(__WEBPACK_IMPORTED_MODULE_1__abstract
      *
      * @method shrink
      */
-    shrink: function ($super) {
+    shrink: function shrink($super) {
         this.glow && this.glow.remove();
         delete this.glow;
         if (this.marked) this.marked.show();
@@ -41368,7 +41432,7 @@ const AbstractPersonVisuals = Class.create(__WEBPACK_IMPORTED_MODULE_1__abstract
      *
      * @method grow
      */
-    markPermanently: function () {
+    markPermanently: function markPermanently() {
         //console.log("marking " + this.getNode().getID());
         if (this._callback && !this._toMark) {
             // trying to mark during animation - need ot wait until animation finishes to mark @ the final location
@@ -41384,7 +41448,7 @@ const AbstractPersonVisuals = Class.create(__WEBPACK_IMPORTED_MODULE_1__abstract
      *
      * @method shrink
      */
-    unmark: function () {
+    unmark: function unmark() {
         this.marked && this.marked.remove();
         delete this.marked;
     },
@@ -41394,7 +41458,7 @@ const AbstractPersonVisuals = Class.create(__WEBPACK_IMPORTED_MODULE_1__abstract
      *
      * @method containsXY
      */
-    containsXY: function (x, y) {
+    containsXY: function containsXY(x, y) {
         if (Math.abs(x - this.getX()) <= this._radius && Math.abs(y - this.getY()) <= this._radius) return true;
         return false;
     },
@@ -41405,8 +41469,8 @@ const AbstractPersonVisuals = Class.create(__WEBPACK_IMPORTED_MODULE_1__abstract
      * @method getY
      * @return {Number} The y coordinate
      */
-    getBottomY: function () {
-        return this._absoluteY + this._radius + __WEBPACK_IMPORTED_MODULE_0__pedigreeEditorAttributes__["a" /* PedigreeEditorAttributes */].childlessLength;
+    getBottomY: function getBottomY() {
+        return this._absoluteY + this._radius + _pedigreeEditorAttributes.PedigreeEditorAttributes.childlessLength;
     },
 
     /**
@@ -41414,9 +41478,9 @@ const AbstractPersonVisuals = Class.create(__WEBPACK_IMPORTED_MODULE_1__abstract
      *
      * @method drawAdoptedShape
      */
-    drawAdoptedShape: function () {
+    drawAdoptedShape: function drawAdoptedShape() {
         this._adoptedShape && this._adoptedShape.remove();
-        var r = __WEBPACK_IMPORTED_MODULE_0__pedigreeEditorAttributes__["a" /* PedigreeEditorAttributes */].radius,
+        var r = _pedigreeEditorAttributes.PedigreeEditorAttributes.radius,
             x1 = this.getX() - 0.8 * r,
             x2 = this.getX() + 0.8 * r,
             y = this.getY() - 1.3 * r + 1,
@@ -41430,7 +41494,7 @@ const AbstractPersonVisuals = Class.create(__WEBPACK_IMPORTED_MODULE_1__abstract
      *
      * @method removeAdoptedShape
      */
-    removeAdoptedShape: function () {
+    removeAdoptedShape: function removeAdoptedShape() {
         this._adoptedShape && this._adoptedShape.remove();
     },
 
@@ -41440,7 +41504,7 @@ const AbstractPersonVisuals = Class.create(__WEBPACK_IMPORTED_MODULE_1__abstract
      * @method getAdoptedShape
      * @return {Raphael.el} Raphael Element
      */
-    getAdoptedShape: function () {
+    getAdoptedShape: function getAdoptedShape() {
         return this._adoptedShape;
     },
 
@@ -41449,7 +41513,7 @@ const AbstractPersonVisuals = Class.create(__WEBPACK_IMPORTED_MODULE_1__abstract
      *
      * @method getShapes
      */
-    getShapes: function ($super) {
+    getShapes: function getShapes($super) {
         var shapes = $super().push(this.getGenderGraphics());
         this.getAdoptedShape() && shapes.push(this.getAdoptedShape());
         return shapes;
@@ -41461,7 +41525,7 @@ const AbstractPersonVisuals = Class.create(__WEBPACK_IMPORTED_MODULE_1__abstract
      * @method getAllGraphics
      * @return {Raphael.st}
      */
-    getAllGraphics: function ($super) {
+    getAllGraphics: function getAllGraphics($super) {
         return editor.getPaper().set(this.getHighlightBox(), this._idLabel, this._numberLabel).concat($super());
     },
 
@@ -41471,7 +41535,7 @@ const AbstractPersonVisuals = Class.create(__WEBPACK_IMPORTED_MODULE_1__abstract
      * @method getGenderGraphics
      * @return {Raphael.st|Raphael.el} Raphael set or Raphael element
      */
-    getGenderGraphics: function () {
+    getGenderGraphics: function getGenderGraphics() {
         return this._genderGraphics;
     },
 
@@ -41481,7 +41545,7 @@ const AbstractPersonVisuals = Class.create(__WEBPACK_IMPORTED_MODULE_1__abstract
      * @method getGenderShape
      * @return {Raphael.st|Raphael.el}
      */
-    getGenderShape: function () {
+    getGenderShape: function getGenderShape() {
         return this._genderShape;
     },
 
@@ -41490,12 +41554,12 @@ const AbstractPersonVisuals = Class.create(__WEBPACK_IMPORTED_MODULE_1__abstract
      *
      * @method setGenderGraphics
      */
-    setGenderGraphics: function () {
+    setGenderGraphics: function setGenderGraphics() {
         this.unmark();
         this._genderGraphics && this._genderGraphics.remove();
 
-        this._shapeRadius = this.getNode().getGender() == "U" ? __WEBPACK_IMPORTED_MODULE_0__pedigreeEditorAttributes__["a" /* PedigreeEditorAttributes */].radius * 1.1 / Math.sqrt(2) : __WEBPACK_IMPORTED_MODULE_0__pedigreeEditorAttributes__["a" /* PedigreeEditorAttributes */].radius;
-        if (this.getNode().isPersonGroup()) this._shapeRadius *= __WEBPACK_IMPORTED_MODULE_0__pedigreeEditorAttributes__["a" /* PedigreeEditorAttributes */].groupNodesScale;
+        this._shapeRadius = this.getNode().getGender() == "U" ? _pedigreeEditorAttributes.PedigreeEditorAttributes.radius * 1.1 / Math.sqrt(2) : _pedigreeEditorAttributes.PedigreeEditorAttributes.radius;
+        if (this.getNode().isPersonGroup()) this._shapeRadius *= _pedigreeEditorAttributes.PedigreeEditorAttributes.groupNodesScale;
 
         var shape;
         var x = this.getX(),
@@ -41513,14 +41577,14 @@ const AbstractPersonVisuals = Class.create(__WEBPACK_IMPORTED_MODULE_1__abstract
         }
 
         if (this.getNode().getGender() == "U") {
-            shape.attr(__WEBPACK_IMPORTED_MODULE_0__pedigreeEditorAttributes__["a" /* PedigreeEditorAttributes */].nodeShapeDiag);
+            shape.attr(_pedigreeEditorAttributes.PedigreeEditorAttributes.nodeShapeDiag);
             shape.attr({ transform: "...R45" });
         } else {
-            let attrs;
+            var attrs = void 0;
             if (this.getNode().isInferred()) {
                 attrs = { fill: 'white', stroke: '#ccc' };
             } else {
-                attrs = __WEBPACK_IMPORTED_MODULE_0__pedigreeEditorAttributes__["a" /* PedigreeEditorAttributes */].nodeShape;
+                attrs = _pedigreeEditorAttributes.PedigreeEditorAttributes.nodeShape;
             }
             shape.attr(attrs);
         }
@@ -41542,11 +41606,11 @@ const AbstractPersonVisuals = Class.create(__WEBPACK_IMPORTED_MODULE_1__abstract
      *
      * @method setGenderGraphics
      */
-    setHighlightBox: function () {
+    setHighlightBox: function setHighlightBox() {
         this._highlightBox && this._highlightBox.remove();
 
-        var radius = __WEBPACK_IMPORTED_MODULE_0__pedigreeEditorAttributes__["a" /* PedigreeEditorAttributes */].personHoverBoxRadius;
-        this._highlightBox = editor.getPaper().rect(this.getX() - radius, this.getY() - radius, radius * 2, radius * 2, 5).attr(__WEBPACK_IMPORTED_MODULE_0__pedigreeEditorAttributes__["a" /* PedigreeEditorAttributes */].boxOnHover);
+        var radius = _pedigreeEditorAttributes.PedigreeEditorAttributes.personHoverBoxRadius;
+        this._highlightBox = editor.getPaper().rect(this.getX() - radius, this.getY() - radius, radius * 2, radius * 2, 5).attr(_pedigreeEditorAttributes.PedigreeEditorAttributes.boxOnHover);
         this._highlightBox.attr({ fill: "black", opacity: 0, "fill-opacity": 0 });
         this._highlightBox.insertBefore(this.getGenderGraphics().flatten());
     },
@@ -41557,7 +41621,7 @@ const AbstractPersonVisuals = Class.create(__WEBPACK_IMPORTED_MODULE_1__abstract
      * @method getHighlightBox
      * @return {Raphael.rect} Raphael rectangle element
      */
-    getHighlightBox: function () {
+    getHighlightBox: function getHighlightBox() {
         return this._highlightBox;
     },
 
@@ -41566,7 +41630,7 @@ const AbstractPersonVisuals = Class.create(__WEBPACK_IMPORTED_MODULE_1__abstract
      *
      * @method highlight
      */
-    highlight: function () {
+    highlight: function highlight() {
         this.getHighlightBox() && this.getHighlightBox().attr({ "opacity": .5, "fill-opacity": .5 });
     },
 
@@ -41575,24 +41639,29 @@ const AbstractPersonVisuals = Class.create(__WEBPACK_IMPORTED_MODULE_1__abstract
      *
      * @method unHighlight
      */
-    unHighlight: function () {
+    unHighlight: function unHighlight() {
         this.getHighlightBox().attr({ "opacity": 0, "fill-opacity": 0 });
     },
 
-    remove: function ($super) {
+    remove: function remove($super) {
         this.marked && this.marked.remove();
         $super();
     }
 });
-/* harmony export (immutable) */ __webpack_exports__["a"] = AbstractPersonVisuals;
-
 
 /***/ }),
 /* 87 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__helpers__ = __webpack_require__(5);
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+exports.Disorder = undefined;
+
+var _helpers = __webpack_require__(5);
 
 /*
  * Disorder is a class for storing genetic disorder info and loading it from the
@@ -41602,11 +41671,11 @@ const AbstractPersonVisuals = Class.create(__WEBPACK_IMPORTED_MODULE_1__abstract
  * @param name a string representing the name of the disorder e.g. "Down Syndrome"
  */
 
-const Disorder = Class.create({
+var Disorder = exports.Disorder = Class.create({
 
-    initialize: function (disorderID, name, callWhenReady) {
+    initialize: function initialize(disorderID, name, callWhenReady) {
         // user-defined disorders
-        if (name == null && !__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__helpers__["i" /* isInt */])(disorderID)) {
+        if (name == null && !(0, _helpers.isInt)(disorderID)) {
             name = Disorder.desanitizeID(disorderID);
         }
 
@@ -41619,18 +41688,18 @@ const Disorder = Class.create({
     /*
      * Returns the disorderID of the disorder
      */
-    getDisorderID: function () {
+    getDisorderID: function getDisorderID() {
         return this._disorderID;
     },
 
     /*
      * Returns the name of the disorder
      */
-    getName: function () {
+    getName: function getName() {
         return this._name;
     },
 
-    load: function (callWhenReady) {
+    load: function load(callWhenReady) {
         var baseOMIMServiceURL = Disorder.getOMIMServiceURL();
         var queryURL = baseOMIMServiceURL + "&q=id:" + this._disorderID;
         //console.log("queryURL: " + queryURL);
@@ -41642,7 +41711,7 @@ const Disorder = Class.create({
         // });
     },
 
-    onDataReady: function (response) {
+    onDataReady: function onDataReady(response) {
         try {
             var parsed = JSON.parse(response.responseText);
             //console.log(stringifyObject(parsed));
@@ -41654,15 +41723,13 @@ const Disorder = Class.create({
         }
     }
 });
-/* harmony export (immutable) */ __webpack_exports__["a"] = Disorder;
-
 
 /*
  * IDs are used as part of HTML IDs in the Legend box, which breaks when IDs contain some non-alphanumeric symbols.
  * For that purpose these symbols in IDs are converted in memory (but not in the stored pedigree) to some underscores.
  */
 Disorder.sanitizeID = function (disorderID) {
-    if (__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__helpers__["i" /* isInt */])(disorderID)) return disorderID;
+    if ((0, _helpers.isInt)(disorderID)) return disorderID;
     var temp = disorderID.replace(/[\(\[]/g, "_L_");
     temp = temp.replace(/[\)\]]/g, "_J_");
     return temp.replace(/[^a-zA-Z0-9,;_\-*]/g, "__");
@@ -41680,9 +41747,14 @@ Disorder.getOMIMServiceURL = function () {
 
 /***/ }),
 /* 88 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
 /*
  * HPOTerm is a class for storing phenotype information and loading it from the
  * the HPO database. These phenotypes can be attributed to an individual in the Pedigree.
@@ -41691,9 +41763,9 @@ Disorder.getOMIMServiceURL = function () {
  * @param name a string representing the name of the term e.g. "Abnormality of the eye"
  */
 
-const HPOTerm = Class.create({
+var HPOTerm = exports.HPOTerm = Class.create({
 
-    initialize: function (hpoID, name, callWhenReady) {
+    initialize: function initialize(hpoID, name, callWhenReady) {
         // user-defined terms
         if (name == null && !HPOTerm.isValidID(HPOTerm.desanitizeID(hpoID))) {
             name = HPOTerm.desanitizeID(hpoID);
@@ -41708,18 +41780,18 @@ const HPOTerm = Class.create({
     /*
      * Returns the hpoID of the phenotype
      */
-    getID: function () {
+    getID: function getID() {
         return this._hpoID;
     },
 
     /*
      * Returns the name of the term
      */
-    getName: function () {
+    getName: function getName() {
         return this._name;
     },
 
-    load: function (callWhenReady) {
+    load: function load(callWhenReady) {
         var baseServiceURL = HPOTerm.getServiceURL();
         var queryURL = baseServiceURL + "&q=id%3A" + HPOTerm.desanitizeID(this._hpoID).replace(":", "%5C%3A");
         //console.log("QueryURL: " + queryURL);
@@ -41731,7 +41803,7 @@ const HPOTerm = Class.create({
         // });
     },
 
-    onDataReady: function (response) {
+    onDataReady: function onDataReady(response) {
         try {
             var parsed = JSON.parse(response.responseText);
             //console.log(stringifyObject(parsed));
@@ -41743,8 +41815,6 @@ const HPOTerm = Class.create({
         }
     }
 });
-/* harmony export (immutable) */ __webpack_exports__["a"] = HPOTerm;
-
 
 /*
  * IDs are used as part of HTML IDs in the Legend box, which breaks when IDs contain some non-alphanumeric symbols.
@@ -41775,19 +41845,27 @@ HPOTerm.getServiceURL = function () {
 
 /***/ }),
 /* 89 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__abstractPerson__ = __webpack_require__(155);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__personVisuals__ = __webpack_require__(91);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__disorder__ = __webpack_require__(87);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__hpoTerm__ = __webpack_require__(88);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__abstractNode__ = __webpack_require__(66);
 
 
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+exports.Person = undefined;
 
+var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
 
+var _abstractPerson = __webpack_require__(154);
 
+var _personVisuals = __webpack_require__(91);
+
+var _disorder = __webpack_require__(87);
+
+var _hpoTerm = __webpack_require__(88);
+
+var _abstractNode = __webpack_require__(66);
 
 /**
  * Person is a class representing any AbstractPerson that has sufficient information to be
@@ -41805,9 +41883,9 @@ HPOTerm.getServiceURL = function () {
  * @param {Boolean} isProband True if this person is the proband
  */
 
-const Person = Class.create(__WEBPACK_IMPORTED_MODULE_0__abstractPerson__["a" /* AbstractPerson */], {
+var Person = exports.Person = Class.create(_abstractPerson.AbstractPerson, {
 
-    initialize: function ($super, x, y, id, properties) {
+    initialize: function initialize($super, x, y, id, properties) {
         //var timer = new Timer();
         !this._type && (this._type = "Person");
         this._setDefault();
@@ -41825,7 +41903,7 @@ const Person = Class.create(__WEBPACK_IMPORTED_MODULE_0__abstractPerson__["a" /*
         //timer.printSinceLast("=== new person runtime: ");
     },
 
-    _setDefault: function () {
+    _setDefault: function _setDefault() {
         this._firstName = "";
         this._lastName = "";
         this._lastNameAtBirth = "";
@@ -41863,9 +41941,9 @@ const Person = Class.create(__WEBPACK_IMPORTED_MODULE_0__abstractPerson__["a" /*
      * @return {PersonVisuals}
      * @private
      */
-    _generateGraphics: function (x, y) {
+    _generateGraphics: function _generateGraphics(x, y) {
         // console.log("person - generate graphics");
-        return new __WEBPACK_IMPORTED_MODULE_1__personVisuals__["a" /* PersonVisuals */](this, x, y);
+        return new _personVisuals.PersonVisuals(this, x, y);
     },
 
     /**
@@ -41874,7 +41952,7 @@ const Person = Class.create(__WEBPACK_IMPORTED_MODULE_0__abstractPerson__["a" /*
      * @method isProband
      * @return {Boolean}
      */
-    isProband: function () {
+    isProband: function isProband() {
         return this._isProband;
     },
 
@@ -41884,7 +41962,7 @@ const Person = Class.create(__WEBPACK_IMPORTED_MODULE_0__abstractPerson__["a" /*
      * @method isInferred
      * @return {Boolean}
      */
-    isInferred: function () {
+    isInferred: function isInferred() {
         return this._inferred;
     },
 
@@ -41894,7 +41972,7 @@ const Person = Class.create(__WEBPACK_IMPORTED_MODULE_0__abstractPerson__["a" /*
      * @method getFirstName
      * @return {String}
      */
-    getFirstName: function () {
+    getFirstName: function getFirstName() {
         return this._firstName;
     },
 
@@ -41904,7 +41982,7 @@ const Person = Class.create(__WEBPACK_IMPORTED_MODULE_0__abstractPerson__["a" /*
      * @method setFirstName
      * @param firstName
      */
-    setFirstName: function (firstName) {
+    setFirstName: function setFirstName(firstName) {
         firstName && (firstName = firstName.charAt(0).toUpperCase() + firstName.slice(1));
         this._firstName = firstName;
         this.getGraphics().updateNameLabel();
@@ -41916,7 +41994,7 @@ const Person = Class.create(__WEBPACK_IMPORTED_MODULE_0__abstractPerson__["a" /*
      * @method getLastName
      * @return {String}
      */
-    getLastName: function () {
+    getLastName: function getLastName() {
         return this._lastName;
     },
 
@@ -41926,7 +42004,7 @@ const Person = Class.create(__WEBPACK_IMPORTED_MODULE_0__abstractPerson__["a" /*
      * @method setLastName
      * @param lastName
      */
-    setLastName: function (lastName) {
+    setLastName: function setLastName(lastName) {
         lastName && (lastName = lastName.charAt(0).toUpperCase() + lastName.slice(1));
         this._lastName = lastName;
         this.getGraphics().updateNameLabel();
@@ -41939,7 +42017,7 @@ const Person = Class.create(__WEBPACK_IMPORTED_MODULE_0__abstractPerson__["a" /*
      * @method getExternalID
      * @return {String}
      */
-    getExternalID: function () {
+    getExternalID: function getExternalID() {
         return this._externalID;
     },
 
@@ -41949,7 +42027,7 @@ const Person = Class.create(__WEBPACK_IMPORTED_MODULE_0__abstractPerson__["a" /*
      * @method getExternalID
      * @return {String}
      */
-    getExternalIDHref: function () {
+    getExternalIDHref: function getExternalIDHref() {
         return this._externalIDHref;
     },
 
@@ -41959,11 +42037,11 @@ const Person = Class.create(__WEBPACK_IMPORTED_MODULE_0__abstractPerson__["a" /*
      * @method getLostContact
      * @return {Boolean}
      */
-    getFocused: function () {
+    getFocused: function getFocused() {
         return this._focused;
     },
 
-    isFocused: function () {
+    isFocused: function isFocused() {
         return this.getFocused();
     },
 
@@ -41972,7 +42050,7 @@ const Person = Class.create(__WEBPACK_IMPORTED_MODULE_0__abstractPerson__["a" /*
      *
      * @method setFocused
      */
-    setFocused: function (focused) {
+    setFocused: function setFocused(focused) {
         if (focused == this._focused) return;
         this._focused = focused;
     },
@@ -41983,7 +42061,7 @@ const Person = Class.create(__WEBPACK_IMPORTED_MODULE_0__abstractPerson__["a" /*
      *
      * @method setPedNumber
      */
-    setPedNumber: function (pedNumberString) {
+    setPedNumber: function setPedNumber(pedNumberString) {
         this._pedNumber = pedNumberString;
         this.getGraphics().updateNumberLabel();
     },
@@ -41994,7 +42072,7 @@ const Person = Class.create(__WEBPACK_IMPORTED_MODULE_0__abstractPerson__["a" /*
      * @method getPedNumber
      * @return {String}
      */
-    getPedNumber: function () {
+    getPedNumber: function getPedNumber() {
         return this._pedNumber;
     },
 
@@ -42004,7 +42082,7 @@ const Person = Class.create(__WEBPACK_IMPORTED_MODULE_0__abstractPerson__["a" /*
      * @method setExternalID
      * @param externalID
      */
-    setExternalID: function (externalID) {
+    setExternalID: function setExternalID(externalID) {
         this._externalID = externalID;
         this.getGraphics().updateExternalIDLabel();
     },
@@ -42015,7 +42093,7 @@ const Person = Class.create(__WEBPACK_IMPORTED_MODULE_0__abstractPerson__["a" /*
      * @method setExternalID
      * @param externalID
      */
-    setExternalIDHref: function (externalIDHref) {
+    setExternalIDHref: function setExternalIDHref(externalIDHref) {
         this._externalIDHref = externalIDHref;
         this.getGraphics().updateExternalIDLabel();
     },
@@ -42026,7 +42104,7 @@ const Person = Class.create(__WEBPACK_IMPORTED_MODULE_0__abstractPerson__["a" /*
      * @method getLastNameAtBirth
      * @return {String}
      */
-    getLastNameAtBirth: function () {
+    getLastNameAtBirth: function getLastNameAtBirth() {
         return this._lastNameAtBirth;
     },
 
@@ -42036,7 +42114,7 @@ const Person = Class.create(__WEBPACK_IMPORTED_MODULE_0__abstractPerson__["a" /*
      * @method setLastNameAtBirth
      * @param lastNameAtBirth
      */
-    setLastNameAtBirth: function (lastNameAtBirth) {
+    setLastNameAtBirth: function setLastNameAtBirth(lastNameAtBirth) {
         lastNameAtBirth && (lastNameAtBirth = lastNameAtBirth.charAt(0).toUpperCase() + lastNameAtBirth.slice(1));
         this._lastNameAtBirth = lastNameAtBirth;
         this.getGraphics().updateNameLabel();
@@ -42049,7 +42127,7 @@ const Person = Class.create(__WEBPACK_IMPORTED_MODULE_0__abstractPerson__["a" /*
      * @method setComments
      * @param comment
      */
-    setComments: function ($super, comment) {
+    setComments: function setComments($super, comment) {
         if (comment != this.getComments()) {
             $super(comment);
             this.getGraphics().updateCommentsLabel();
@@ -42061,7 +42139,7 @@ const Person = Class.create(__WEBPACK_IMPORTED_MODULE_0__abstractPerson__["a" /*
      *
      * @method setMonozygotic
      */
-    setMonozygotic: function (monozygotic) {
+    setMonozygotic: function setMonozygotic(monozygotic) {
         if (monozygotic == this._monozygotic) return;
         this._monozygotic = monozygotic;
     },
@@ -42072,7 +42150,7 @@ const Person = Class.create(__WEBPACK_IMPORTED_MODULE_0__abstractPerson__["a" /*
      * @method getEvaluated
      * @return {Boolean}
      */
-    getEvaluated: function () {
+    getEvaluated: function getEvaluated() {
         return this._evaluated;
     },
 
@@ -42081,7 +42159,7 @@ const Person = Class.create(__WEBPACK_IMPORTED_MODULE_0__abstractPerson__["a" /*
      *
      * @method setEvaluated
      */
-    setEvaluated: function (evaluationStatus) {
+    setEvaluated: function setEvaluated(evaluationStatus) {
         if (evaluationStatus == this._evaluated) return;
         this._evaluated = evaluationStatus;
         this.getGraphics().updateEvaluationLabel();
@@ -42094,7 +42172,7 @@ const Person = Class.create(__WEBPACK_IMPORTED_MODULE_0__abstractPerson__["a" /*
      * @method getLostContact
      * @return {Boolean}
      */
-    getLostContact: function () {
+    getLostContact: function getLostContact() {
         return this._lostContact;
     },
 
@@ -42103,7 +42181,7 @@ const Person = Class.create(__WEBPACK_IMPORTED_MODULE_0__abstractPerson__["a" /*
      *
      * @method setLostContact
      */
-    setLostContact: function (lostContact) {
+    setLostContact: function setLostContact(lostContact) {
         if (lostContact == this._lostContact) return;
         this._lostContact = lostContact;
     },
@@ -42115,7 +42193,7 @@ const Person = Class.create(__WEBPACK_IMPORTED_MODULE_0__abstractPerson__["a" /*
      * @method getMonozygotic
      * @return {Boolean}
      */
-    getMonozygotic: function () {
+    getMonozygotic: function getMonozygotic() {
         return this._monozygotic;
     },
 
@@ -42125,7 +42203,7 @@ const Person = Class.create(__WEBPACK_IMPORTED_MODULE_0__abstractPerson__["a" /*
      *
      * @method setTwinGroup
      */
-    setTwinGroup: function (groupId) {
+    setTwinGroup: function setTwinGroup(groupId) {
         this._twinGroup = groupId;
     },
 
@@ -42135,7 +42213,7 @@ const Person = Class.create(__WEBPACK_IMPORTED_MODULE_0__abstractPerson__["a" /*
      * @method getLifeStatus
      * @return {String} "alive", "deceased", "stillborn", "unborn", "aborted" or "miscarriage"
      */
-    getLifeStatus: function () {
+    getLifeStatus: function getLifeStatus() {
         return this._lifeStatus;
     },
 
@@ -42145,7 +42223,7 @@ const Person = Class.create(__WEBPACK_IMPORTED_MODULE_0__abstractPerson__["a" /*
      * @method isFetus
      * @return {Boolean}
      */
-    isFetus: function () {
+    isFetus: function isFetus() {
         return this.getLifeStatus() != "alive" && this.getLifeStatus() != "deceased";
     },
 
@@ -42157,7 +42235,7 @@ const Person = Class.create(__WEBPACK_IMPORTED_MODULE_0__abstractPerson__["a" /*
      * @returns {boolean}
      * @private
      */
-    _isValidLifeStatus: function (status) {
+    _isValidLifeStatus: function _isValidLifeStatus(status) {
         return status == "unborn" || status == "stillborn" || status == "aborted" || status == "miscarriage" || status == "alive" || status == "deceased";
     },
 
@@ -42167,7 +42245,7 @@ const Person = Class.create(__WEBPACK_IMPORTED_MODULE_0__abstractPerson__["a" /*
      * @method setLifeStatus
      * @param {String} newStatus "alive", "deceased", "stillborn", "unborn", "aborted" or "miscarriage"
      */
-    setLifeStatus: function (newStatus) {
+    setLifeStatus: function setLifeStatus(newStatus) {
         if (this._isValidLifeStatus(newStatus)) {
             var oldStatus = this._lifeStatus;
 
@@ -42194,7 +42272,7 @@ const Person = Class.create(__WEBPACK_IMPORTED_MODULE_0__abstractPerson__["a" /*
      * @method getConceptionDate
      * @return {Date}
      */
-    getConceptionDate: function () {
+    getConceptionDate: function getConceptionDate() {
         return this._conceptionDate;
     },
 
@@ -42204,7 +42282,7 @@ const Person = Class.create(__WEBPACK_IMPORTED_MODULE_0__abstractPerson__["a" /*
      * @method setConceptionDate
      * @param {Date} newDate Date of conception
      */
-    setConceptionDate: function (newDate) {
+    setConceptionDate: function setConceptionDate(newDate) {
         this._conceptionDate = newDate ? new Date(newDate) : "";
         this.getGraphics().updateAgeLabel();
     },
@@ -42215,7 +42293,7 @@ const Person = Class.create(__WEBPACK_IMPORTED_MODULE_0__abstractPerson__["a" /*
      * @method getGestationAge
      * @return {Number}
      */
-    getGestationAge: function () {
+    getGestationAge: function getGestationAge() {
         if (this.getLifeStatus() == "unborn" && this.getConceptionDate()) {
             var oneWeek = 1000 * 60 * 60 * 24 * 7,
                 lastDay = new Date();
@@ -42233,7 +42311,7 @@ const Person = Class.create(__WEBPACK_IMPORTED_MODULE_0__abstractPerson__["a" /*
      * @method setGestationAge
      * @param {Number} numWeeks Greater than or equal to 0
      */
-    setGestationAge: function (numWeeks) {
+    setGestationAge: function setGestationAge(numWeeks) {
         try {
             numWeeks = parseInt(numWeeks);
         } catch (err) {
@@ -42258,7 +42336,7 @@ const Person = Class.create(__WEBPACK_IMPORTED_MODULE_0__abstractPerson__["a" /*
      * @method getBirthDate
      * @return {Date}
      */
-    getBirthDate: function () {
+    getBirthDate: function getBirthDate() {
         return this._birthDate;
     },
 
@@ -42268,7 +42346,7 @@ const Person = Class.create(__WEBPACK_IMPORTED_MODULE_0__abstractPerson__["a" /*
      * @method setBirthDate
      * @param {Date} newDate Must be earlier date than deathDate and a later than conception date
      */
-    setBirthDate: function (newDate) {
+    setBirthDate: function setBirthDate(newDate) {
         newDate = newDate ? new Date(newDate) : "";
         if (!newDate || !this.getDeathDate() || newDate.getTime() < this.getDeathDate().getTime()) {
             this._birthDate = newDate;
@@ -42282,7 +42360,7 @@ const Person = Class.create(__WEBPACK_IMPORTED_MODULE_0__abstractPerson__["a" /*
      * @method getDeathDate
      * @return {Date}
      */
-    getDeathDate: function () {
+    getDeathDate: function getDeathDate() {
         return this._deathDate;
     },
 
@@ -42293,7 +42371,7 @@ const Person = Class.create(__WEBPACK_IMPORTED_MODULE_0__abstractPerson__["a" /*
      * @method setDeathDate
      * @param {Date} deathDate Must be a later date than birthDate
      */
-    setDeathDate: function (deathDate) {
+    setDeathDate: function setDeathDate(deathDate) {
         deathDate = deathDate ? new Date(deathDate) : "";
         // only set death date if it happens ot be after the birth date, or there is no birth or death date
         if (!deathDate || !this.getBirthDate() || deathDate.getTime() > this.getBirthDate().getTime()) {
@@ -42304,7 +42382,7 @@ const Person = Class.create(__WEBPACK_IMPORTED_MODULE_0__abstractPerson__["a" /*
         return this.getDeathDate();
     },
 
-    _isValidCarrierStatus: function (status) {
+    _isValidCarrierStatus: function _isValidCarrierStatus(status) {
         return status == "" || status == "carrier" || status == "affected" || status == "presymptomatic";
     },
 
@@ -42314,7 +42392,7 @@ const Person = Class.create(__WEBPACK_IMPORTED_MODULE_0__abstractPerson__["a" /*
      * @method setCarrier
      * @param status One of {'', 'carrier', 'affected', 'presymptomatic'}
      */
-    setCarrierStatus: function (status) {
+    setCarrierStatus: function setCarrierStatus(status) {
         var numDisorders = this.getDisorders().length;
 
         if (status === undefined || status === null) {
@@ -42354,7 +42432,7 @@ const Person = Class.create(__WEBPACK_IMPORTED_MODULE_0__abstractPerson__["a" /*
      * @method getCarrier
      * @return {String} Dissorder carrier status
      */
-    getCarrierStatus: function () {
+    getCarrierStatus: function getCarrierStatus() {
         return this._carrierStatus;
     },
 
@@ -42364,7 +42442,7 @@ const Person = Class.create(__WEBPACK_IMPORTED_MODULE_0__abstractPerson__["a" /*
      * @method getAllNodeColors
      * @return {Array of Strings}
      */
-    getAllNodeColors: function () {
+    getAllNodeColors: function getAllNodeColors() {
         var i;
         var result = [];
         for (i = 0; i < this.getDisorders().length; i++) {
@@ -42382,7 +42460,7 @@ const Person = Class.create(__WEBPACK_IMPORTED_MODULE_0__abstractPerson__["a" /*
      * @method getDisorders
      * @return {Array} List of disorder IDs.
      */
-    getDisorders: function () {
+    getDisorders: function getDisorders() {
         //console.log("Get disorders: " + stringifyObject(this._disorders)); 
         return this._disorders;
     },
@@ -42393,10 +42471,10 @@ const Person = Class.create(__WEBPACK_IMPORTED_MODULE_0__abstractPerson__["a" /*
      * @method getDisordersForExport
      * @return {Array} List of human-readable versions of disorder IDs
      */
-    getDisordersForExport: function () {
+    getDisordersForExport: function getDisordersForExport() {
         var exportDisorders = this._disorders.slice(0);
         for (var i = 0; i < exportDisorders.length; i++) {
-            exportDisorders[i] = __WEBPACK_IMPORTED_MODULE_2__disorder__["a" /* Disorder */].desanitizeID(exportDisorders[i]);
+            exportDisorders[i] = _disorder.Disorder.desanitizeID(exportDisorders[i]);
         }
         return exportDisorders;
     },
@@ -42407,8 +42485,8 @@ const Person = Class.create(__WEBPACK_IMPORTED_MODULE_0__abstractPerson__["a" /*
      * @method addDisorder
      * @param {Disorder} disorder Disorder object or a free-text name string
      */
-    addDisorder: function (disorder) {
-        if (typeof disorder != "object") {
+    addDisorder: function addDisorder(disorder) {
+        if ((typeof disorder === "undefined" ? "undefined" : _typeof(disorder)) != "object") {
             disorder = editor.getDisorderLegend().getDisorder(disorder);
         }
         if (!this.hasDisorder(disorder.getDisorderID())) {
@@ -42431,7 +42509,7 @@ const Person = Class.create(__WEBPACK_IMPORTED_MODULE_0__abstractPerson__["a" /*
      * @method removeDisorder
      * @param {Number} disorderID id of the disorder to be removed 
      */
-    removeDisorder: function (disorderID) {
+    removeDisorder: function removeDisorder(disorderID) {
         if (this.hasDisorder(disorderID)) {
             editor.getDisorderLegend().removeCase(disorderID, this.getID());
             this._disorders = this.getDisorders().without(disorderID);
@@ -42448,7 +42526,7 @@ const Person = Class.create(__WEBPACK_IMPORTED_MODULE_0__abstractPerson__["a" /*
      * @method setDisorders
      * @param {Array} disorders List of Disorder objects
      */
-    setDisorders: function (disorders) {
+    setDisorders: function setDisorders(disorders) {
         var i;
         //console.log("Set disorders: " + stringifyObject(disorders));
         for (i = this.getDisorders().length - 1; i >= 0; i--) {
@@ -42467,7 +42545,7 @@ const Person = Class.create(__WEBPACK_IMPORTED_MODULE_0__abstractPerson__["a" /*
      * @method getHPO
      * @return {Array} List of HPO IDs.
      */
-    getHPO: function () {
+    getHPO: function getHPO() {
         return this._hpo;
     },
 
@@ -42477,10 +42555,10 @@ const Person = Class.create(__WEBPACK_IMPORTED_MODULE_0__abstractPerson__["a" /*
      * @method getHPOForExport
      * @return {Array} List of human-readable versions of HPO IDs
      */
-    getHPOForExport: function () {
+    getHPOForExport: function getHPOForExport() {
         var exportHPOs = this._hpo.slice(0);
         for (var i = 0; i < exportHPOs.length; i++) {
-            exportHPOs[i] = __WEBPACK_IMPORTED_MODULE_3__hpoTerm__["a" /* HPOTerm */].desanitizeID(exportHPOs[i]);
+            exportHPOs[i] = _hpoTerm.HPOTerm.desanitizeID(exportHPOs[i]);
         }
         return exportHPOs;
     },
@@ -42491,8 +42569,8 @@ const Person = Class.create(__WEBPACK_IMPORTED_MODULE_0__abstractPerson__["a" /*
      * @method addHPO
      * @param {HPOTerm} hpo HPOTerm object or a free-text name string
      */
-    addHPO: function (hpo) {
-        if (typeof hpo != "object") {
+    addHPO: function addHPO(hpo) {
+        if ((typeof hpo === "undefined" ? "undefined" : _typeof(hpo)) != "object") {
             hpo = editor.getHPOLegend().getTerm(hpo);
         }
         if (!this.hasHPO(hpo.getID())) {
@@ -42509,7 +42587,7 @@ const Person = Class.create(__WEBPACK_IMPORTED_MODULE_0__abstractPerson__["a" /*
      * @method removeHPO
      * @param {Number} hpoID id of the term to be removed
      */
-    removeHPO: function (hpoID) {
+    removeHPO: function removeHPO(hpoID) {
         if (this.hasHPO(hpoID)) {
             editor.getHPOLegend().removeCase(hpoID, this.getID());
             this._hpo = this.getHPO().without(hpoID);
@@ -42524,7 +42602,7 @@ const Person = Class.create(__WEBPACK_IMPORTED_MODULE_0__abstractPerson__["a" /*
      * @method setHPO
      * @param {Array} hpos List of HPOTerm objects
      */
-    setHPO: function (hpos) {
+    setHPO: function setHPO(hpos) {
         var i;
         for (i = this.getHPO().length - 1; i >= 0; i--) {
             this.removeHPO(this.getHPO()[i]);
@@ -42538,7 +42616,7 @@ const Person = Class.create(__WEBPACK_IMPORTED_MODULE_0__abstractPerson__["a" /*
      * @method hasHPO
      * @param {Number} id Term ID, taken from the HPO database
      */
-    hasHPO: function (id) {
+    hasHPO: function hasHPO(id) {
         return this.getHPO().indexOf(id) != -1;
     },
 
@@ -42548,7 +42626,7 @@ const Person = Class.create(__WEBPACK_IMPORTED_MODULE_0__abstractPerson__["a" /*
      * @method setEthnicities
      * @param {Array} ethnicities List of ethnicity names (as strings)
      */
-    setEthnicities: function (ethnicities) {
+    setEthnicities: function setEthnicities(ethnicities) {
         this._ethnicities = ethnicities;
     },
 
@@ -42558,7 +42636,7 @@ const Person = Class.create(__WEBPACK_IMPORTED_MODULE_0__abstractPerson__["a" /*
      * @method getEthnicities
      * @return {Array} List of ethnicity names.
      */
-    getEthnicities: function () {
+    getEthnicities: function getEthnicities() {
         return this._ethnicities;
     },
 
@@ -42567,7 +42645,7 @@ const Person = Class.create(__WEBPACK_IMPORTED_MODULE_0__abstractPerson__["a" /*
      *
      * @method addGenes
      */
-    addGene: function (gene) {
+    addGene: function addGene(gene) {
         if (this.getGenes().indexOf(gene) == -1) {
             editor.getGeneLegend().addCase(gene, gene, this.getID());
             this.getGenes().push(gene);
@@ -42579,7 +42657,7 @@ const Person = Class.create(__WEBPACK_IMPORTED_MODULE_0__abstractPerson__["a" /*
      *
      * @method removeGene
      */
-    removeGene: function (gene) {
+    removeGene: function removeGene(gene) {
         if (this.getGenes().indexOf(gene) !== -1) {
             editor.getGeneLegend().removeCase(gene, this.getID());
             this._candidateGenes = this.getGenes().without(gene);
@@ -42592,7 +42670,7 @@ const Person = Class.create(__WEBPACK_IMPORTED_MODULE_0__abstractPerson__["a" /*
      * @method setGenes
      * @param {Array} genes List of gene names (as strings)
      */
-    setGenes: function (genes) {
+    setGenes: function setGenes(genes) {
         var i;
         for (i = this.getGenes().length - 1; i >= 0; i--) {
             this.removeGene(this.getGenes()[i]);
@@ -42609,7 +42687,7 @@ const Person = Class.create(__WEBPACK_IMPORTED_MODULE_0__abstractPerson__["a" /*
      * @method getGenes
      * @return {Array} List of gene names.
      */
-    getGenes: function () {
+    getGenes: function getGenes() {
         return this._candidateGenes;
     },
 
@@ -42619,7 +42697,7 @@ const Person = Class.create(__WEBPACK_IMPORTED_MODULE_0__abstractPerson__["a" /*
      * @method remove
      * @param [skipConfirmation=false] {Boolean} if true, no confirmation box will pop up
      */
-    remove: function ($super) {
+    remove: function remove($super) {
         this.setDisorders([]); // remove disorders form the legend
         this.setHPO([]);
         this.setGenes([]);
@@ -42633,7 +42711,7 @@ const Person = Class.create(__WEBPACK_IMPORTED_MODULE_0__abstractPerson__["a" /*
      * @param {Number} id Disorder ID, taken from the OMIM database
      * @return {Disorder}
      */
-    hasDisorder: function (id) {
+    hasDisorder: function hasDisorder(id) {
         return this.getDisorders().indexOf(id) != -1;
     },
 
@@ -42646,7 +42724,7 @@ const Person = Class.create(__WEBPACK_IMPORTED_MODULE_0__abstractPerson__["a" /*
      * @param {Boolean} ignoreOthers If True, changing the status will not modify partnerships's statuses or
      * detach any children
      */
-    setChildlessStatus: function (status) {
+    setChildlessStatus: function setChildlessStatus(status) {
         if (!this.isValidChildlessStatus(status)) status = null;
         if (status != this.getChildlessStatus()) {
             this._childlessStatus = status;
@@ -42663,15 +42741,15 @@ const Person = Class.create(__WEBPACK_IMPORTED_MODULE_0__abstractPerson__["a" /*
      * @method getSummary
      * @return {Object} Summary object for the menu
      */
-    getSummary: function () {
+    getSummary: function getSummary() {
         var onceAlive = editor.getGraph().hasRelationships(this.getID());
         var inactiveStates = onceAlive ? ["unborn", "aborted", "miscarriage", "stillborn"] : false;
 
         var inactiveGenders = false;
         var genderSet = editor.getGraph().getPossibleGenders(this.getID());
-        for (var gender in genderSet) if (genderSet.hasOwnProperty(gender)) if (!genderSet[gender]) inactiveGenders = [gender];
-
-        var childlessInactive = this.isFetus(); // TODO: can a person which already has children become childless?
+        for (var gender in genderSet) {
+            if (genderSet.hasOwnProperty(gender)) if (!genderSet[gender]) inactiveGenders = [gender];
+        }var childlessInactive = this.isFetus(); // TODO: can a person which already has children become childless?
         // maybe: use editor.getGraph().hasNonPlaceholderNonAdoptedChildren() ?
         var disorders = [];
         this.getDisorders().forEach(function (disorder) {
@@ -42752,7 +42830,7 @@ const Person = Class.create(__WEBPACK_IMPORTED_MODULE_0__abstractPerson__["a" /*
        property: value
      }
      */
-    getProperties: function ($super) {
+    getProperties: function getProperties($super) {
         // note: properties equivalent to default are not set
         var info = $super();
         if (this.getFirstName() != "") info["fName"] = this.getFirstName();
@@ -42790,7 +42868,7 @@ const Person = Class.create(__WEBPACK_IMPORTED_MODULE_0__abstractPerson__["a" /*
      * @param properties Object
      * @return {Boolean} True if info was successfully assigned
      */
-    assignProperties: function ($super, info) {
+    assignProperties: function assignProperties($super, info) {
         this._setDefault();
 
         if ($super(info)) {
@@ -42871,21 +42949,25 @@ const Person = Class.create(__WEBPACK_IMPORTED_MODULE_0__abstractPerson__["a" /*
         return false;
     }
 });
-/* harmony export (immutable) */ __webpack_exports__["a"] = Person;
-
 
 //ATTACHES CHILDLESS BEHAVIOR METHODS TO THIS CLASS
-Person.addMethods(__WEBPACK_IMPORTED_MODULE_4__abstractNode__["a" /* ChildlessBehavior */]);
+Person.addMethods(_abstractNode.ChildlessBehavior);
 
 /***/ }),
 /* 90 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__abstractHoverbox__ = __webpack_require__(65);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__pedigreeEditorAttributes__ = __webpack_require__(12);
 
 
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+exports.PersonHoverbox = undefined;
+
+var _abstractHoverbox = __webpack_require__(65);
+
+var _pedigreeEditorAttributes = __webpack_require__(12);
 
 /**
  * PersonHoverbox is a class for all the UI elements and graphics surrounding a Person node and
@@ -42901,10 +42983,10 @@ Person.addMethods(__WEBPACK_IMPORTED_MODULE_4__abstractNode__["a" /* ChildlessBe
  * @param {Raphael.st} nodeShapes All shapes associated with the person node
  */
 
-const PersonHoverbox = Class.create(__WEBPACK_IMPORTED_MODULE_0__abstractHoverbox__["a" /* AbstractHoverbox */], {
+var PersonHoverbox = exports.PersonHoverbox = Class.create(_abstractHoverbox.AbstractHoverbox, {
 
-    initialize: function ($super, personNode, centerX, centerY, nodeShapes) {
-        var radius = __WEBPACK_IMPORTED_MODULE_1__pedigreeEditorAttributes__["a" /* PedigreeEditorAttributes */].personHoverBoxRadius;
+    initialize: function initialize($super, personNode, centerX, centerY, nodeShapes) {
+        var radius = _pedigreeEditorAttributes.PedigreeEditorAttributes.personHoverBoxRadius;
         $super(personNode, -radius, -radius, radius * 2, radius * 2, centerX, centerY, nodeShapes);
     },
 
@@ -42914,7 +42996,7 @@ const PersonHoverbox = Class.create(__WEBPACK_IMPORTED_MODULE_0__abstractHoverbo
      * @method generateHandles
      * @return {Raphael.st} A set of handles
      */
-    generateHandles: function ($super) {
+    generateHandles: function generateHandles($super) {
         if (this._currentHandles !== null) return;
         $super();
 
@@ -42927,37 +43009,37 @@ const PersonHoverbox = Class.create(__WEBPACK_IMPORTED_MODULE_0__abstractHoverbo
 
         editor.getPaper().setStart();
 
-        if (__WEBPACK_IMPORTED_MODULE_1__pedigreeEditorAttributes__["a" /* PedigreeEditorAttributes */].newHandles) {
-            var strokeWidth = editor.getWorkspace().getSizeNormalizedToDefaultZoom(__WEBPACK_IMPORTED_MODULE_1__pedigreeEditorAttributes__["a" /* PedigreeEditorAttributes */].handleStrokeWidth);
+        if (_pedigreeEditorAttributes.PedigreeEditorAttributes.newHandles) {
+            var strokeWidth = editor.getWorkspace().getSizeNormalizedToDefaultZoom(_pedigreeEditorAttributes.PedigreeEditorAttributes.handleStrokeWidth);
 
             var partnerGender = "U";
             if (node.getGender() == "F") partnerGender = "M";
             if (node.getGender() == "M") partnerGender = "F";
 
             // static part (2 lines: going above the node + going to the left)
-            var splitLocationY = y - __WEBPACK_IMPORTED_MODULE_1__pedigreeEditorAttributes__["a" /* PedigreeEditorAttributes */].personHandleBreakY - 4;
-            var path = [["M", x, y], ["L", x, splitLocationY], ["L", x - __WEBPACK_IMPORTED_MODULE_1__pedigreeEditorAttributes__["a" /* PedigreeEditorAttributes */].personSiblingHandleLengthX, splitLocationY]];
+            var splitLocationY = y - _pedigreeEditorAttributes.PedigreeEditorAttributes.personHandleBreakY - 4;
+            var path = [["M", x, y], ["L", x, splitLocationY], ["L", x - _pedigreeEditorAttributes.PedigreeEditorAttributes.personSiblingHandleLengthX, splitLocationY]];
             editor.getPaper().path(path).attr({ "stroke-width": strokeWidth, stroke: "gray" }).insertBefore(nodeShapes);
 
             // sibling handle
-            this.generateHandle("sibling", x - __WEBPACK_IMPORTED_MODULE_1__pedigreeEditorAttributes__["a" /* PedigreeEditorAttributes */].personSiblingHandleLengthX + strokeWidth / 3, splitLocationY, x - __WEBPACK_IMPORTED_MODULE_1__pedigreeEditorAttributes__["a" /* PedigreeEditorAttributes */].personSiblingHandleLengthX + strokeWidth / 2, splitLocationY + __WEBPACK_IMPORTED_MODULE_1__pedigreeEditorAttributes__["a" /* PedigreeEditorAttributes */].personSiblingHandleLengthY, "Click to create a sibling or drag to an existing parentless person (valid choices will be highlighted in green)", "U");
+            this.generateHandle("sibling", x - _pedigreeEditorAttributes.PedigreeEditorAttributes.personSiblingHandleLengthX + strokeWidth / 3, splitLocationY, x - _pedigreeEditorAttributes.PedigreeEditorAttributes.personSiblingHandleLengthX + strokeWidth / 2, splitLocationY + _pedigreeEditorAttributes.PedigreeEditorAttributes.personSiblingHandleLengthY, "Click to create a sibling or drag to an existing parentless person (valid choices will be highlighted in green)", "U");
 
             if (editor.getGraph().getParentRelationship(node.getID()) === null) {
                 // hint for the parent handle
                 var topHandleHint = undefined;
-                if (__WEBPACK_IMPORTED_MODULE_1__pedigreeEditorAttributes__["a" /* PedigreeEditorAttributes */].enableHandleHintImages) {
-                    var hintSize = __WEBPACK_IMPORTED_MODULE_1__pedigreeEditorAttributes__["a" /* PedigreeEditorAttributes */].radius / 2;
-                    path = [["M", x - hintSize, y - __WEBPACK_IMPORTED_MODULE_1__pedigreeEditorAttributes__["a" /* PedigreeEditorAttributes */].personHandleLength], ["L", x + hintSize, y - __WEBPACK_IMPORTED_MODULE_1__pedigreeEditorAttributes__["a" /* PedigreeEditorAttributes */].personHandleLength]];
+                if (_pedigreeEditorAttributes.PedigreeEditorAttributes.enableHandleHintImages) {
+                    var hintSize = _pedigreeEditorAttributes.PedigreeEditorAttributes.radius / 2;
+                    path = [["M", x - hintSize, y - _pedigreeEditorAttributes.PedigreeEditorAttributes.personHandleLength], ["L", x + hintSize, y - _pedigreeEditorAttributes.PedigreeEditorAttributes.personHandleLength]];
                     var line1 = editor.getPaper().path(path).attr({ "stroke-width": strokeWidth / 3, stroke: "#555555" }).toBack();
-                    var father = editor.getPaper().rect(x - hintSize - 11, y - __WEBPACK_IMPORTED_MODULE_1__pedigreeEditorAttributes__["a" /* PedigreeEditorAttributes */].personHandleLength - 5.5, 11, 11).attr({ fill: "#CCCCCC" }).toBack();
-                    var mother = editor.getPaper().circle(x + hintSize + 6, y - __WEBPACK_IMPORTED_MODULE_1__pedigreeEditorAttributes__["a" /* PedigreeEditorAttributes */].personHandleLength, 6).attr({ fill: "#CCCCCC" }).toBack();
+                    var father = editor.getPaper().rect(x - hintSize - 11, y - _pedigreeEditorAttributes.PedigreeEditorAttributes.personHandleLength - 5.5, 11, 11).attr({ fill: "#CCCCCC" }).toBack();
+                    var mother = editor.getPaper().circle(x + hintSize + 6, y - _pedigreeEditorAttributes.PedigreeEditorAttributes.personHandleLength, 6).attr({ fill: "#CCCCCC" }).toBack();
                     topHandleHint = editor.getPaper().set().push(line1, father, mother);
                 }
                 // parent handle
-                this.generateHandle("parent", x, splitLocationY, x, y - __WEBPACK_IMPORTED_MODULE_1__pedigreeEditorAttributes__["a" /* PedigreeEditorAttributes */].personHandleLength, "Click to create new nodes for the parents or drag to an existing person or partnership (valid choices will be highlighted in green). Dragging to a person will create a new relationship.", "F", topHandleHint);
+                this.generateHandle("parent", x, splitLocationY, x, y - _pedigreeEditorAttributes.PedigreeEditorAttributes.personHandleLength, "Click to create new nodes for the parents or drag to an existing person or partnership (valid choices will be highlighted in green). Dragging to a person will create a new relationship.", "F", topHandleHint);
             } else {
-                if (__WEBPACK_IMPORTED_MODULE_1__pedigreeEditorAttributes__["a" /* PedigreeEditorAttributes */].enableHandleHintImages) {
-                    path = [["M", x, splitLocationY], ["L", x, y - __WEBPACK_IMPORTED_MODULE_1__pedigreeEditorAttributes__["a" /* PedigreeEditorAttributes */].personHoverBoxRadius + 4]];
+                if (_pedigreeEditorAttributes.PedigreeEditorAttributes.enableHandleHintImages) {
+                    path = [["M", x, splitLocationY], ["L", x, y - _pedigreeEditorAttributes.PedigreeEditorAttributes.personHoverBoxRadius + 4]];
                     editor.getPaper().path(path).attr({ "stroke-width": strokeWidth, stroke: "gray" }).insertBefore(nodeShapes);
                 }
             }
@@ -42967,25 +43049,25 @@ const PersonHoverbox = Class.create(__WEBPACK_IMPORTED_MODULE_0__abstractHoverbo
                 if (node.getChildlessStatus() === null) {
                     // children handle
                     //static part (going right below the node)            
-                    path = [["M", x, y], ["L", x, y + __WEBPACK_IMPORTED_MODULE_1__pedigreeEditorAttributes__["a" /* PedigreeEditorAttributes */].personHandleBreakX]];
+                    path = [["M", x, y], ["L", x, y + _pedigreeEditorAttributes.PedigreeEditorAttributes.personHandleBreakX]];
                     editor.getPaper().path(path).attr({ "stroke-width": strokeWidth, stroke: "gray" }).insertBefore(nodeShapes);
-                    this.generateHandle("child", x, y + __WEBPACK_IMPORTED_MODULE_1__pedigreeEditorAttributes__["a" /* PedigreeEditorAttributes */].personHandleBreakX - 2, x, y + __WEBPACK_IMPORTED_MODULE_1__pedigreeEditorAttributes__["a" /* PedigreeEditorAttributes */].personHandleLength, "Click to create a new child node or drag to an existing parentless person (valid choices will be highlighted in green)", "U");
+                    this.generateHandle("child", x, y + _pedigreeEditorAttributes.PedigreeEditorAttributes.personHandleBreakX - 2, x, y + _pedigreeEditorAttributes.PedigreeEditorAttributes.personHandleLength, "Click to create a new child node or drag to an existing parentless person (valid choices will be highlighted in green)", "U");
                 }
 
                 // partner handle
                 var vertPosForPartnerHandles = y;
                 //static part (going right form the node)            
-                path = [["M", x, vertPosForPartnerHandles], ["L", x + __WEBPACK_IMPORTED_MODULE_1__pedigreeEditorAttributes__["a" /* PedigreeEditorAttributes */].personHandleBreakX, vertPosForPartnerHandles]];
+                path = [["M", x, vertPosForPartnerHandles], ["L", x + _pedigreeEditorAttributes.PedigreeEditorAttributes.personHandleBreakX, vertPosForPartnerHandles]];
                 editor.getPaper().path(path).attr({ "stroke-width": strokeWidth, stroke: "gray" }).insertBefore(nodeShapes);
-                this.generateHandle("partnerR", x + __WEBPACK_IMPORTED_MODULE_1__pedigreeEditorAttributes__["a" /* PedigreeEditorAttributes */].personHandleBreakX - 2, vertPosForPartnerHandles, x + __WEBPACK_IMPORTED_MODULE_1__pedigreeEditorAttributes__["a" /* PedigreeEditorAttributes */].personHandleLength, vertPosForPartnerHandles, "Click to create a new partner node or drag to an existing node (valid choices will be highlighted in green)", partnerGender);
+                this.generateHandle("partnerR", x + _pedigreeEditorAttributes.PedigreeEditorAttributes.personHandleBreakX - 2, vertPosForPartnerHandles, x + _pedigreeEditorAttributes.PedigreeEditorAttributes.personHandleLength, vertPosForPartnerHandles, "Click to create a new partner node or drag to an existing node (valid choices will be highlighted in green)", partnerGender);
             }
         } else {
-            if (editor.getGraph().getParentRelationship(node.getID()) === null) this.generateHandle("parent", x, y, x, y - __WEBPACK_IMPORTED_MODULE_1__pedigreeEditorAttributes__["a" /* PedigreeEditorAttributes */].personHandleLength, "Click to create new nodes for the parents or drag to an existing person or partnership (valid choices will be highlighted in green)");
+            if (editor.getGraph().getParentRelationship(node.getID()) === null) this.generateHandle("parent", x, y, x, y - _pedigreeEditorAttributes.PedigreeEditorAttributes.personHandleLength, "Click to create new nodes for the parents or drag to an existing person or partnership (valid choices will be highlighted in green)");
 
             if (!node.isFetus()) {
-                if (node.getChildlessStatus() === null) this.generateHandle("child", x, y, x, y + __WEBPACK_IMPORTED_MODULE_1__pedigreeEditorAttributes__["a" /* PedigreeEditorAttributes */].personHandleLength, "Click to create a new child node or drag to an existing parentless node (valid choices will be highlighted in green)");
-                this.generateHandle("partnerR", x, y, x + __WEBPACK_IMPORTED_MODULE_1__pedigreeEditorAttributes__["a" /* PedigreeEditorAttributes */].personHandleLength, y, "Click to create a new partner node or drag to an existing node (valid choices will be highlighted in green)");
-                this.generateHandle("partnerL", x, y, x - __WEBPACK_IMPORTED_MODULE_1__pedigreeEditorAttributes__["a" /* PedigreeEditorAttributes */].personHandleLength, y, "Click to create a new partner node or drag to an existing node (valid choices will be highlighted in green)");
+                if (node.getChildlessStatus() === null) this.generateHandle("child", x, y, x, y + _pedigreeEditorAttributes.PedigreeEditorAttributes.personHandleLength, "Click to create a new child node or drag to an existing parentless node (valid choices will be highlighted in green)");
+                this.generateHandle("partnerR", x, y, x + _pedigreeEditorAttributes.PedigreeEditorAttributes.personHandleLength, y, "Click to create a new partner node or drag to an existing node (valid choices will be highlighted in green)");
+                this.generateHandle("partnerL", x, y, x - _pedigreeEditorAttributes.PedigreeEditorAttributes.personHandleLength, y, "Click to create a new partner node or drag to an existing node (valid choices will be highlighted in green)");
             }
         }
 
@@ -42999,7 +43081,7 @@ const PersonHoverbox = Class.create(__WEBPACK_IMPORTED_MODULE_0__abstractHoverbo
      *
      * @method generateButtons
      */
-    generateButtons: function ($super) {
+    generateButtons: function generateButtons($super) {
         if (this._currentButtons !== null) return;
         $super();
 
@@ -43015,18 +43097,18 @@ const PersonHoverbox = Class.create(__WEBPACK_IMPORTED_MODULE_0__abstractHoverbo
      * @method generateMenuBtn
      * @return {Raphael.st} The generated button
      */
-    generateMenuBtn: function () {
+    generateMenuBtn: function generateMenuBtn() {
         var me = this;
-        var action = function () {
+        var action = function action() {
             me.toggleMenu(!me.isMenuToggled());
         };
         var genderShapedButton = this.getNode().getGraphics().getGenderShape().clone();
-        genderShapedButton.attr(__WEBPACK_IMPORTED_MODULE_1__pedigreeEditorAttributes__["a" /* PedigreeEditorAttributes */].nodeShapeMenuOff);
+        genderShapedButton.attr(_pedigreeEditorAttributes.PedigreeEditorAttributes.nodeShapeMenuOff);
         genderShapedButton.click(action);
         genderShapedButton.hover(function () {
-            genderShapedButton.attr(__WEBPACK_IMPORTED_MODULE_1__pedigreeEditorAttributes__["a" /* PedigreeEditorAttributes */].nodeShapeMenuOn);
+            genderShapedButton.attr(_pedigreeEditorAttributes.PedigreeEditorAttributes.nodeShapeMenuOn);
         }, function () {
-            genderShapedButton.attr(__WEBPACK_IMPORTED_MODULE_1__pedigreeEditorAttributes__["a" /* PedigreeEditorAttributes */].nodeShapeMenuOff);
+            genderShapedButton.attr(_pedigreeEditorAttributes.PedigreeEditorAttributes.nodeShapeMenuOff);
         });
         genderShapedButton.attr("cursor", "pointer");
         this._currentButtons.push(genderShapedButton);
@@ -43041,7 +43123,7 @@ const PersonHoverbox = Class.create(__WEBPACK_IMPORTED_MODULE_0__abstractHoverbo
      * @method isMenuToggled
      * @return {Boolean}
      */
-    isMenuToggled: function () {
+    isMenuToggled: function isMenuToggled() {
         return this._isMenuToggled;
     },
 
@@ -43050,7 +43132,7 @@ const PersonHoverbox = Class.create(__WEBPACK_IMPORTED_MODULE_0__abstractHoverbo
      *
      * @method toggleMenu
      */
-    toggleMenu: function (isMenuToggled) {
+    toggleMenu: function toggleMenu(isMenuToggled) {
         if (this._justClosedMenu) return;
         //console.log("toggle menu: current = " + this._isMenuToggled);
         this._isMenuToggled = isMenuToggled;
@@ -43069,7 +43151,7 @@ const PersonHoverbox = Class.create(__WEBPACK_IMPORTED_MODULE_0__abstractHoverbo
      *
      * @method animateHideHoverZone
      */
-    animateHideHoverZone: function ($super) {
+    animateHideHoverZone: function animateHideHoverZone($super) {
         this._hidden = true;
         if (!this.isMenuToggled()) {
             var parentPartnershipNode = editor.getGraph().getParentRelationship(this.getNode().getID());
@@ -43084,7 +43166,7 @@ const PersonHoverbox = Class.create(__WEBPACK_IMPORTED_MODULE_0__abstractHoverbo
      *
      * @method animateDrawHoverZone
      */
-    animateDrawHoverZone: function ($super) {
+    animateDrawHoverZone: function animateDrawHoverZone($super) {
         this._hidden = false;
         if (!this.isMenuToggled()) {
             var parentPartnershipNode = editor.getGraph().getParentRelationship(this.getNode().getID());
@@ -43100,7 +43182,7 @@ const PersonHoverbox = Class.create(__WEBPACK_IMPORTED_MODULE_0__abstractHoverbo
      * @param {String} handleType "child", "partner" or "parent"
      * @param {Boolean} isDrag True if this handle is being dragged
      */
-    handleAction: function (handleType, isDrag, curHoveredId) {
+    handleAction: function handleAction(handleType, isDrag, curHoveredId) {
         console.log("handleType: " + handleType + ", isDrag: " + isDrag + ", curHovered: " + curHoveredId);
 
         if (isDrag && curHoveredId !== null) {
@@ -43128,11 +43210,11 @@ const PersonHoverbox = Class.create(__WEBPACK_IMPORTED_MODULE_0__abstractHoverbo
                 event = { "personID": this.getNode().getID(), "preferLeft": preferLeft };
                 document.fire("pedigree:person:newpartnerandchild", event);
             } else if (handleType == "child") {
-                var position = editor.getWorkspace().canvasToDiv(this.getNodeX(), this.getNodeY() + __WEBPACK_IMPORTED_MODULE_1__pedigreeEditorAttributes__["a" /* PedigreeEditorAttributes */].personHandleLength + 15);
+                var position = editor.getWorkspace().canvasToDiv(this.getNodeX(), this.getNodeY() + _pedigreeEditorAttributes.PedigreeEditorAttributes.personHandleLength + 15);
                 editor.getNodetypeSelectionBubble().show(this.getNode(), position.x, position.y);
                 // if user selects anything the bubble will fire an even on its own
             } else if (handleType == "sibling") {
-                position = editor.getWorkspace().canvasToDiv(this.getNodeX() - __WEBPACK_IMPORTED_MODULE_1__pedigreeEditorAttributes__["a" /* PedigreeEditorAttributes */].personSiblingHandleLengthX, this.getNodeY() - __WEBPACK_IMPORTED_MODULE_1__pedigreeEditorAttributes__["a" /* PedigreeEditorAttributes */].personHandleBreakY + __WEBPACK_IMPORTED_MODULE_1__pedigreeEditorAttributes__["a" /* PedigreeEditorAttributes */].personSiblingHandleLengthY + 15);
+                position = editor.getWorkspace().canvasToDiv(this.getNodeX() - _pedigreeEditorAttributes.PedigreeEditorAttributes.personSiblingHandleLengthX, this.getNodeY() - _pedigreeEditorAttributes.PedigreeEditorAttributes.personHandleBreakY + _pedigreeEditorAttributes.PedigreeEditorAttributes.personSiblingHandleLengthY + 15);
                 editor.getSiblingSelectionBubble().show(this.getNode(), position.x, position.y);
             } else if (handleType == "parent") {
                 this.removeHandles();
@@ -43144,28 +43226,32 @@ const PersonHoverbox = Class.create(__WEBPACK_IMPORTED_MODULE_0__abstractHoverbo
         this.animateHideHoverZone();
     }
 });
-/* harmony export (immutable) */ __webpack_exports__["a"] = PersonHoverbox;
-
 
 /***/ }),
 /* 91 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/* WEBPACK VAR INJECTION */(function(Raphael) {/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__abstractPersonVisuals__ = __webpack_require__(86);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__readonlyHoverbox__ = __webpack_require__(68);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__personHoverbox__ = __webpack_require__(90);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__pedigreeEditorAttributes__ = __webpack_require__(12);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__graphicHelpers__ = __webpack_require__(47);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__ageCalc__ = __webpack_require__(156);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__abstractNodeVisuals__ = __webpack_require__(45);
+/* WEBPACK VAR INJECTION */(function(Raphael) {
 
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+exports.PersonVisuals = undefined;
 
+var _abstractPersonVisuals = __webpack_require__(86);
 
+var _readonlyHoverbox = __webpack_require__(68);
 
+var _personHoverbox = __webpack_require__(90);
 
+var _pedigreeEditorAttributes = __webpack_require__(12);
 
+var _graphicHelpers = __webpack_require__(47);
 
+var _ageCalc = __webpack_require__(155);
+
+var _abstractNodeVisuals = __webpack_require__(45);
 
 /**
  * Class for organizing graphics for Person nodes.
@@ -43178,9 +43264,9 @@ const PersonHoverbox = Class.create(__WEBPACK_IMPORTED_MODULE_0__abstractHoverbo
  * @param {Number} y The y coordinate on the canvas
  */
 
-const PersonVisuals = Class.create(__WEBPACK_IMPORTED_MODULE_0__abstractPersonVisuals__["a" /* AbstractPersonVisuals */], {
+var PersonVisuals = exports.PersonVisuals = Class.create(_abstractPersonVisuals.AbstractPersonVisuals, {
 
-    initialize: function ($super, node, x, y) {
+    initialize: function initialize($super, node, x, y) {
         //var timer = new Timer();
         //console.log("person visuals");
         $super(node, x, y);
@@ -43201,11 +43287,11 @@ const PersonVisuals = Class.create(__WEBPACK_IMPORTED_MODULE_0__abstractPersonVi
         //timer.printSinceLast("Person visuals time");
     },
 
-    generateHoverbox: function (x, y) {
+    generateHoverbox: function generateHoverbox(x, y) {
         if (editor.isReadOnlyMode()) {
-            return new __WEBPACK_IMPORTED_MODULE_1__readonlyHoverbox__["a" /* ReadOnlyHoverbox */](this.getNode(), x, y, this.getGenderGraphics());
+            return new _readonlyHoverbox.ReadOnlyHoverbox(this.getNode(), x, y, this.getGenderGraphics());
         } else {
-            return new __WEBPACK_IMPORTED_MODULE_2__personHoverbox__["a" /* PersonHoverbox */](this.getNode(), x, y, this.getGenderGraphics());
+            return new _personHoverbox.PersonHoverbox(this.getNode(), x, y, this.getGenderGraphics());
         }
     },
 
@@ -43215,13 +43301,13 @@ const PersonVisuals = Class.create(__WEBPACK_IMPORTED_MODULE_0__abstractPersonVi
      *
      * @method setGenderGraphics
      */
-    setGenderGraphics: function ($super) {
+    setGenderGraphics: function setGenderGraphics($super) {
         console.log("set gender graphics");
         if (this.getNode().getLifeStatus() == "aborted" || this.getNode().getLifeStatus() == "miscarriage") {
             this._genderGraphics && this._genderGraphics.remove();
 
-            var radius = __WEBPACK_IMPORTED_MODULE_3__pedigreeEditorAttributes__["a" /* PedigreeEditorAttributes */].radius;
-            if (this.getNode().isPersonGroup()) radius *= __WEBPACK_IMPORTED_MODULE_3__pedigreeEditorAttributes__["a" /* PedigreeEditorAttributes */].groupNodesScale;
+            var radius = _pedigreeEditorAttributes.PedigreeEditorAttributes.radius;
+            if (this.getNode().isPersonGroup()) radius *= _pedigreeEditorAttributes.PedigreeEditorAttributes.groupNodesScale;
             this._shapeRadius = radius;
 
             var side = radius * Math.sqrt(3.5),
@@ -43229,7 +43315,7 @@ const PersonVisuals = Class.create(__WEBPACK_IMPORTED_MODULE_0__abstractPersonVi
                 x = this.getX() - height,
                 y = this.getY();
             var shape = editor.getPaper().path(["M", x, y, "l", height, -height, "l", height, height, "z"]);
-            shape.attr(__WEBPACK_IMPORTED_MODULE_3__pedigreeEditorAttributes__["a" /* PedigreeEditorAttributes */].nodeShape);
+            shape.attr(_pedigreeEditorAttributes.PedigreeEditorAttributes.nodeShape);
             this._genderShape = shape;
             shape = editor.getPaper().set(shape.glow({ width: 5, fill: true, opacity: 0.1 }).transform(["t", 3, 3, "..."]), shape);
 
@@ -43244,7 +43330,7 @@ const PersonVisuals = Class.create(__WEBPACK_IMPORTED_MODULE_0__abstractPersonVi
                 x = this.getX();
                 y = this.getY() + radius / 1.4;
                 var text = this.getNode().getGender() == "M" ? "Male" : "Female";
-                var genderLabel = editor.getPaper().text(x, y, text).attr(__WEBPACK_IMPORTED_MODULE_3__pedigreeEditorAttributes__["a" /* PedigreeEditorAttributes */].label);
+                var genderLabel = editor.getPaper().text(x, y, text).attr(_pedigreeEditorAttributes.PedigreeEditorAttributes.label);
                 this._genderGraphics = editor.getPaper().set(shape, genderLabel);
             }
         } else {
@@ -43268,7 +43354,7 @@ const PersonVisuals = Class.create(__WEBPACK_IMPORTED_MODULE_0__abstractPersonVi
         this.updateEvaluationLabel();
     },
 
-    generateProbandArrow: function () {
+    generateProbandArrow: function generateProbandArrow() {
         var icon = editor.getPaper().path(editor.getView().__probandArrowPath).attr({ fill: "#595959", stroke: "none", opacity: 1 });
         var x = this.getX() - this._shapeRadius - 26;
         var y = this.getY() + this._shapeRadius - 12;
@@ -43286,7 +43372,7 @@ const PersonVisuals = Class.create(__WEBPACK_IMPORTED_MODULE_0__abstractPersonVi
      * @method getBackElements
      * @return {Raphael.st}
      */
-    getBackElements: function () {
+    getBackElements: function getBackElements() {
         return this.getHoverBox().getBackElements().concat(editor.getPaper().set(this.getChildlessStatusLabel(), this.getChildlessShape()));
     },
 
@@ -43296,7 +43382,7 @@ const PersonVisuals = Class.create(__WEBPACK_IMPORTED_MODULE_0__abstractPersonVi
      * @method getFrontElements
      * @return {Raphael.st}
      */
-    getFrontElements: function () {
+    getFrontElements: function getFrontElements() {
         return this.getHoverBox().getFrontElements();
     },
 
@@ -43305,17 +43391,17 @@ const PersonVisuals = Class.create(__WEBPACK_IMPORTED_MODULE_0__abstractPersonVi
      *
      * @method updateExternalIDLabel
      */
-    updateExternalIDLabel: function () {
+    updateExternalIDLabel: function updateExternalIDLabel() {
         this._externalIDLabel && this._externalIDLabel.remove();
 
         if (this.getNode().getExternalID()) {
             var text = "[ " + this.getNode().getExternalID() + " ]";
             var href = this.getNode().getExternalIDHref();
-            let attrs = __WEBPACK_IMPORTED_MODULE_3__pedigreeEditorAttributes__["a" /* PedigreeEditorAttributes */].externalIDLabels;
+            var attrs = _pedigreeEditorAttributes.PedigreeEditorAttributes.externalIDLabels;
             if (href) {
                 attrs.href = href;
             }
-            this._externalIDLabel = editor.getPaper().text(this.getX(), this.getY() + __WEBPACK_IMPORTED_MODULE_3__pedigreeEditorAttributes__["a" /* PedigreeEditorAttributes */].radius, text).attr(attrs);
+            this._externalIDLabel = editor.getPaper().text(this.getX(), this.getY() + _pedigreeEditorAttributes.PedigreeEditorAttributes.radius, text).attr(attrs);
         } else {
             this._externalIDLabel = null;
         }
@@ -43328,7 +43414,7 @@ const PersonVisuals = Class.create(__WEBPACK_IMPORTED_MODULE_0__abstractPersonVi
      * @method getExternalIDLabel
      * @return {Raphael.el}
      */
-    getExternalIDLabel: function () {
+    getExternalIDLabel: function getExternalIDLabel() {
         return this._externalIDLabel;
     },
 
@@ -43337,7 +43423,7 @@ const PersonVisuals = Class.create(__WEBPACK_IMPORTED_MODULE_0__abstractPersonVi
      *
      * @method updateNameLabel
      */
-    updateNameLabel: function () {
+    updateNameLabel: function updateNameLabel() {
         this._nameLabel && this._nameLabel.remove();
         var text = "";
         this.getNode().getFirstName() && (text = this.getNode().getFirstName());
@@ -43349,7 +43435,7 @@ const PersonVisuals = Class.create(__WEBPACK_IMPORTED_MODULE_0__abstractPersonVi
 
         this._nameLabel && this._nameLabel.remove();
         if (text.strip() != "") {
-            this._nameLabel = editor.getPaper().text(this.getX(), this.getY() + __WEBPACK_IMPORTED_MODULE_3__pedigreeEditorAttributes__["a" /* PedigreeEditorAttributes */].radius, text).attr(__WEBPACK_IMPORTED_MODULE_3__pedigreeEditorAttributes__["a" /* PedigreeEditorAttributes */].nameLabels);
+            this._nameLabel = editor.getPaper().text(this.getX(), this.getY() + _pedigreeEditorAttributes.PedigreeEditorAttributes.radius, text).attr(_pedigreeEditorAttributes.PedigreeEditorAttributes.nameLabels);
         } else {
             this._nameLabel = null;
         }
@@ -43362,7 +43448,7 @@ const PersonVisuals = Class.create(__WEBPACK_IMPORTED_MODULE_0__abstractPersonVi
      * @method getNameLabel
      * @return {Raphael.el}
      */
-    getNameLabel: function () {
+    getNameLabel: function getNameLabel() {
         return this._nameLabel;
     },
 
@@ -43372,7 +43458,7 @@ const PersonVisuals = Class.create(__WEBPACK_IMPORTED_MODULE_0__abstractPersonVi
      * @method getDisorderShapes
      * @return {Raphael.st} Set of disorder shapes
      */
-    getDisorderShapes: function () {
+    getDisorderShapes: function getDisorderShapes() {
         return this._disorderShapes;
     },
 
@@ -43381,12 +43467,12 @@ const PersonVisuals = Class.create(__WEBPACK_IMPORTED_MODULE_0__abstractPersonVi
      *
      * @method updateDisorderShapes
      */
-    updateDisorderShapes: function () {
+    updateDisorderShapes: function updateDisorderShapes() {
         this._disorderShapes && this._disorderShapes.remove();
         var colors = this.getNode().getAllNodeColors();
         if (colors.length == 0) return;
 
-        var gradient = function (color, angle) {
+        var gradient = function gradient(color, angle) {
             var hsb = Raphael.rgb2hsb(color),
                 darker = Raphael.hsb2rgb(hsb["h"], hsb["s"], hsb["b"] - .1)["hex"];
             return angle + "-" + darker + ":0-" + color + ":100";
@@ -43395,8 +43481,8 @@ const PersonVisuals = Class.create(__WEBPACK_IMPORTED_MODULE_0__abstractPersonVi
         var delta, color, radius;
 
         if (this.getNode().getLifeStatus() == "aborted" || this.getNode().getLifeStatus() == "miscarriage") {
-            radius = __WEBPACK_IMPORTED_MODULE_3__pedigreeEditorAttributes__["a" /* PedigreeEditorAttributes */].radius;
-            if (this.getNode().isPersonGroup()) radius *= __WEBPACK_IMPORTED_MODULE_3__pedigreeEditorAttributes__["a" /* PedigreeEditorAttributes */].groupNodesScale;
+            radius = _pedigreeEditorAttributes.PedigreeEditorAttributes.radius;
+            if (this.getNode().isPersonGroup()) radius *= _pedigreeEditorAttributes.PedigreeEditorAttributes.groupNodesScale;
 
             var side = radius * Math.sqrt(3.5),
                 height = side / Math.sqrt(2),
@@ -43430,7 +43516,7 @@ const PersonVisuals = Class.create(__WEBPACK_IMPORTED_MODULE_0__abstractPersonVi
 
             for (var i = 0; i < colors.length; i++) {
                 //color = gradient(colors[i], (i * disorderAngle)+delta);
-                disorderShapes.push(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_4__graphicHelpers__["c" /* sector */])(editor.getPaper(), this.getX(), this.getY(), radius, this.getNode().getGender(), i * disorderAngle, (i + 1) * disorderAngle, colors[i]));
+                disorderShapes.push((0, _graphicHelpers.sector)(editor.getPaper(), this.getX(), this.getY(), radius, this.getNode().getGender(), i * disorderAngle, (i + 1) * disorderAngle, colors[i]));
             }
 
             disorderShapes.length < 2 ? disorderShapes.attr("stroke", "none") : disorderShapes.attr({ stroke: "#595959", "stroke-width": .03 });
@@ -43447,16 +43533,16 @@ const PersonVisuals = Class.create(__WEBPACK_IMPORTED_MODULE_0__abstractPersonVi
      *
      * @method drawDeadShape
      */
-    drawDeadShape: function () {
+    drawDeadShape: function drawDeadShape() {
         var strokeWidth = editor.getWorkspace().getSizeNormalizedToDefaultZoom(2.5);
         var x, y;
         if (this.getNode().getLifeStatus() == "aborted") {
-            var side = __WEBPACK_IMPORTED_MODULE_3__pedigreeEditorAttributes__["a" /* PedigreeEditorAttributes */].radius * Math.sqrt(3.5);
+            var side = _pedigreeEditorAttributes.PedigreeEditorAttributes.radius * Math.sqrt(3.5);
             var height = side / Math.sqrt(2);
-            if (this.getNode().isPersonGroup()) height *= __WEBPACK_IMPORTED_MODULE_3__pedigreeEditorAttributes__["a" /* PedigreeEditorAttributes */].groupNodesScale;
+            if (this.getNode().isPersonGroup()) height *= _pedigreeEditorAttributes.PedigreeEditorAttributes.groupNodesScale;
 
             x = this.getX() - height / 1.5;
-            if (this.getNode().isPersonGroup()) x -= __WEBPACK_IMPORTED_MODULE_3__pedigreeEditorAttributes__["a" /* PedigreeEditorAttributes */].radius / 4;
+            if (this.getNode().isPersonGroup()) x -= _pedigreeEditorAttributes.PedigreeEditorAttributes.radius / 4;
 
             y = this.getY() + height / 3;
             this._deadShape = editor.getPaper().path(["M", x, y, "l", height + height / 3, -(height + height / 3), "z"]);
@@ -43464,11 +43550,11 @@ const PersonVisuals = Class.create(__WEBPACK_IMPORTED_MODULE_0__abstractPersonVi
         } else {
             x = this.getX();
             y = this.getY();
-            var coeff = 10.0 / 8.0 * (this.getNode().isPersonGroup() ? __WEBPACK_IMPORTED_MODULE_3__pedigreeEditorAttributes__["a" /* PedigreeEditorAttributes */].groupNodesScale : 1.0);
-            var x1 = x - coeff * __WEBPACK_IMPORTED_MODULE_3__pedigreeEditorAttributes__["a" /* PedigreeEditorAttributes */].radius,
-                y1 = y + coeff * __WEBPACK_IMPORTED_MODULE_3__pedigreeEditorAttributes__["a" /* PedigreeEditorAttributes */].radius,
-                x2 = x + coeff * __WEBPACK_IMPORTED_MODULE_3__pedigreeEditorAttributes__["a" /* PedigreeEditorAttributes */].radius,
-                y2 = y - coeff * __WEBPACK_IMPORTED_MODULE_3__pedigreeEditorAttributes__["a" /* PedigreeEditorAttributes */].radius;
+            var coeff = 10.0 / 8.0 * (this.getNode().isPersonGroup() ? _pedigreeEditorAttributes.PedigreeEditorAttributes.groupNodesScale : 1.0);
+            var x1 = x - coeff * _pedigreeEditorAttributes.PedigreeEditorAttributes.radius,
+                y1 = y + coeff * _pedigreeEditorAttributes.PedigreeEditorAttributes.radius,
+                x2 = x + coeff * _pedigreeEditorAttributes.PedigreeEditorAttributes.radius,
+                y2 = y - coeff * _pedigreeEditorAttributes.PedigreeEditorAttributes.radius;
             this._deadShape = editor.getPaper().path(["M", x1, y1, "L", x2, y2]).attr("stroke-width", strokeWidth);
         }
         if (!editor.isUnsupportedBrowser()) {
@@ -43483,7 +43569,7 @@ const PersonVisuals = Class.create(__WEBPACK_IMPORTED_MODULE_0__abstractPersonVi
      * @method getDeadShape
      * @return {Raphael.st}
      */
-    getDeadShape: function () {
+    getDeadShape: function getDeadShape() {
         return this._deadShape;
     },
 
@@ -43493,7 +43579,7 @@ const PersonVisuals = Class.create(__WEBPACK_IMPORTED_MODULE_0__abstractPersonVi
      * @method getAgeLabel
      * @return {Raphael.el}
      */
-    getAgeLabel: function () {
+    getAgeLabel: function getAgeLabel() {
         return this._ageLabel;
     },
 
@@ -43502,7 +43588,7 @@ const PersonVisuals = Class.create(__WEBPACK_IMPORTED_MODULE_0__abstractPersonVi
      *
      * @method updateAgeLabel
      */
-    updateAgeLabel: function () {
+    updateAgeLabel: function updateAgeLabel() {
         var text,
             age,
             person = this.getNode();
@@ -43511,7 +43597,7 @@ const PersonVisuals = Class.create(__WEBPACK_IMPORTED_MODULE_0__abstractPersonVi
             text = date ? date + " weeks" : null;
         } else if (person.getLifeStatus() == "alive") {
             if (person.getBirthDate()) {
-                age = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_5__ageCalc__["a" /* getAge */])(person.getBirthDate(), null);
+                age = (0, _ageCalc.getAge)(person.getBirthDate(), null);
                 if (age.indexOf("day") != -1) {
                     text = age; // 5 days
                 } else if (age.indexOf(" y") == -1) {
@@ -43522,7 +43608,7 @@ const PersonVisuals = Class.create(__WEBPACK_IMPORTED_MODULE_0__abstractPersonVi
             }
         } else {
             if (person.getDeathDate() && person.getBirthDate()) {
-                age = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_5__ageCalc__["a" /* getAge */])(person.getBirthDate(), person.getDeathDate());
+                age = (0, _ageCalc.getAge)(person.getBirthDate(), person.getDeathDate());
                 if (age.indexOf("day") != -1 || age.indexOf("wk") != -1 || age.indexOf("mo") != -1) {
                     text = "d. " + person.getDeathDate().getFullYear() + " (" + age + ")";
                 } else {
@@ -43535,7 +43621,7 @@ const PersonVisuals = Class.create(__WEBPACK_IMPORTED_MODULE_0__abstractPersonVi
             }
         }
         this.getAgeLabel() && this.getAgeLabel().remove();
-        this._ageLabel = text ? editor.getPaper().text(this.getX(), this.getY(), text).attr(__WEBPACK_IMPORTED_MODULE_3__pedigreeEditorAttributes__["a" /* PedigreeEditorAttributes */].label) : null;
+        this._ageLabel = text ? editor.getPaper().text(this.getX(), this.getY(), text).attr(_pedigreeEditorAttributes.PedigreeEditorAttributes.label) : null;
         this.drawLabels();
     },
 
@@ -43545,7 +43631,7 @@ const PersonVisuals = Class.create(__WEBPACK_IMPORTED_MODULE_0__abstractPersonVi
      * @method getUnbornShape
      * @return {Raphael.el}
      */
-    getUnbornShape: function () {
+    getUnbornShape: function getUnbornShape() {
         return this._unbornShape;
     },
 
@@ -43554,10 +43640,10 @@ const PersonVisuals = Class.create(__WEBPACK_IMPORTED_MODULE_0__abstractPersonVi
      *
      * @method drawUnbornShape
      */
-    drawUnbornShape: function () {
+    drawUnbornShape: function drawUnbornShape() {
         this._unbornShape && this._unbornShape.remove();
         if (this.getNode().getLifeStatus() == "unborn") {
-            this._unbornShape = editor.getPaper().text(this.getX(), this.getY(), "P").attr(__WEBPACK_IMPORTED_MODULE_3__pedigreeEditorAttributes__["a" /* PedigreeEditorAttributes */].unbornShape);
+            this._unbornShape = editor.getPaper().text(this.getX(), this.getY(), "P").attr(_pedigreeEditorAttributes.PedigreeEditorAttributes.unbornShape);
             if (!editor.isUnsupportedBrowser()) this._unbornShape.insertBefore(this.getHoverBox().getFrontElements());
         } else {
             this._unbornShape = null;
@@ -43569,7 +43655,7 @@ const PersonVisuals = Class.create(__WEBPACK_IMPORTED_MODULE_0__abstractPersonVi
      *
      * @method updateEvaluationLabel
      */
-    updateEvaluationLabel: function () {
+    updateEvaluationLabel: function updateEvaluationLabel() {
         var x, y;
         this._evalLabel && this._evalLabel.remove();
         if (this.getNode().getEvaluated()) {
@@ -43583,7 +43669,7 @@ const PersonVisuals = Class.create(__WEBPACK_IMPORTED_MODULE_0__abstractPersonVi
                 x = this.getX() + this._shapeRadius * mult - 5;
                 y = this.getY() + this._shapeRadius * mult;
             }
-            this._evalLabel = editor.getPaper().text(x, y, "*").attr(__WEBPACK_IMPORTED_MODULE_3__pedigreeEditorAttributes__["a" /* PedigreeEditorAttributes */].evaluationShape).toBack();
+            this._evalLabel = editor.getPaper().text(x, y, "*").attr(_pedigreeEditorAttributes.PedigreeEditorAttributes.evaluationShape).toBack();
         } else {
             this._evalLabel = null;
         }
@@ -43595,7 +43681,7 @@ const PersonVisuals = Class.create(__WEBPACK_IMPORTED_MODULE_0__abstractPersonVi
      * @method getEvaluationGraphics
      * @return {Raphael.el}
      */
-    getEvaluationGraphics: function () {
+    getEvaluationGraphics: function getEvaluationGraphics() {
         return this._evalLabel;
     },
 
@@ -43605,7 +43691,7 @@ const PersonVisuals = Class.create(__WEBPACK_IMPORTED_MODULE_0__abstractPersonVi
      *
      * @method updateCarrierGraphic
      */
-    updateCarrierGraphic: function () {
+    updateCarrierGraphic: function updateCarrierGraphic() {
         var x, y;
         this._carrierGraphic && this._carrierGraphic.remove();
         var status = this.getNode().getCarrierStatus();
@@ -43619,20 +43705,20 @@ const PersonVisuals = Class.create(__WEBPACK_IMPORTED_MODULE_0__abstractPersonVi
                     x = this.getX();
                     y = this.getY();
                 }
-                this._carrierGraphic = editor.getPaper().circle(x, y, __WEBPACK_IMPORTED_MODULE_3__pedigreeEditorAttributes__["a" /* PedigreeEditorAttributes */].carrierDotRadius).attr(__WEBPACK_IMPORTED_MODULE_3__pedigreeEditorAttributes__["a" /* PedigreeEditorAttributes */].carrierShape);
+                this._carrierGraphic = editor.getPaper().circle(x, y, _pedigreeEditorAttributes.PedigreeEditorAttributes.carrierDotRadius).attr(_pedigreeEditorAttributes.PedigreeEditorAttributes.carrierShape);
             } else if (status == "presymptomatic") {
                 if (this.getNode().getLifeStatus() == "aborted" || this.getNode().getLifeStatus() == "miscarriage") {
                     this._carrierGraphic = null;
                     return;
                 }
                 editor.getPaper().setStart();
-                var startX = this.getX() - __WEBPACK_IMPORTED_MODULE_3__pedigreeEditorAttributes__["a" /* PedigreeEditorAttributes */].presymptomaticShapeWidth / 2;
+                var startX = this.getX() - _pedigreeEditorAttributes.PedigreeEditorAttributes.presymptomaticShapeWidth / 2;
                 var startY = this.getY() - this._radius;
-                editor.getPaper().rect(startX, startY, __WEBPACK_IMPORTED_MODULE_3__pedigreeEditorAttributes__["a" /* PedigreeEditorAttributes */].presymptomaticShapeWidth, this._radius * 2).attr(__WEBPACK_IMPORTED_MODULE_3__pedigreeEditorAttributes__["a" /* PedigreeEditorAttributes */].presymptomaticShape);
+                editor.getPaper().rect(startX, startY, _pedigreeEditorAttributes.PedigreeEditorAttributes.presymptomaticShapeWidth, this._radius * 2).attr(_pedigreeEditorAttributes.PedigreeEditorAttributes.presymptomaticShape);
                 if (this.getNode().getGender() == "U") {
-                    editor.getPaper().path("M " + startX + " " + startY + "L " + this.getX() + " " + (this.getY() - this._radius * 1.1) + "L " + (startX + __WEBPACK_IMPORTED_MODULE_3__pedigreeEditorAttributes__["a" /* PedigreeEditorAttributes */].presymptomaticShapeWidth) + " " + startY + "Z").attr(__WEBPACK_IMPORTED_MODULE_3__pedigreeEditorAttributes__["a" /* PedigreeEditorAttributes */].presymptomaticShape);
+                    editor.getPaper().path("M " + startX + " " + startY + "L " + this.getX() + " " + (this.getY() - this._radius * 1.1) + "L " + (startX + _pedigreeEditorAttributes.PedigreeEditorAttributes.presymptomaticShapeWidth) + " " + startY + "Z").attr(_pedigreeEditorAttributes.PedigreeEditorAttributes.presymptomaticShape);
                     var endY = this.getY() + this._radius;
-                    editor.getPaper().path("M " + startX + " " + endY + "L " + this.getX() + " " + (this.getY() + this._radius * 1.1) + "L " + (startX + __WEBPACK_IMPORTED_MODULE_3__pedigreeEditorAttributes__["a" /* PedigreeEditorAttributes */].presymptomaticShapeWidth) + " " + endY + "Z").attr(__WEBPACK_IMPORTED_MODULE_3__pedigreeEditorAttributes__["a" /* PedigreeEditorAttributes */].presymptomaticShape);
+                    editor.getPaper().path("M " + startX + " " + endY + "L " + this.getX() + " " + (this.getY() + this._radius * 1.1) + "L " + (startX + _pedigreeEditorAttributes.PedigreeEditorAttributes.presymptomaticShapeWidth) + " " + endY + "Z").attr(_pedigreeEditorAttributes.PedigreeEditorAttributes.presymptomaticShape);
                 }
                 this._carrierGraphic = editor.getPaper().setFinish();
             }
@@ -43648,7 +43734,7 @@ const PersonVisuals = Class.create(__WEBPACK_IMPORTED_MODULE_0__abstractPersonVi
      * @method getCarrierGraphics
      * @return {Raphael.el}
      */
-    getCarrierGraphics: function () {
+    getCarrierGraphics: function getCarrierGraphics() {
         return this._carrierGraphic;
     },
 
@@ -43658,7 +43744,7 @@ const PersonVisuals = Class.create(__WEBPACK_IMPORTED_MODULE_0__abstractPersonVi
      * @method getSBLabel
      * @return {Raphael.el}
      */
-    getSBLabel: function () {
+    getSBLabel: function getSBLabel() {
         return this._stillBirthLabel;
     },
 
@@ -43667,10 +43753,10 @@ const PersonVisuals = Class.create(__WEBPACK_IMPORTED_MODULE_0__abstractPersonVi
      *
      * @method updateSBLabel
      */
-    updateSBLabel: function () {
+    updateSBLabel: function updateSBLabel() {
         this.getSBLabel() && this.getSBLabel().remove();
         if (this.getNode().getLifeStatus() == "stillborn") {
-            this._stillBirthLabel = editor.getPaper().text(this.getX(), this.getY(), "SB").attr(__WEBPACK_IMPORTED_MODULE_3__pedigreeEditorAttributes__["a" /* PedigreeEditorAttributes */].label);
+            this._stillBirthLabel = editor.getPaper().text(this.getX(), this.getY(), "SB").attr(_pedigreeEditorAttributes.PedigreeEditorAttributes.label);
         } else {
             this._stillBirthLabel = null;
         }
@@ -43683,7 +43769,7 @@ const PersonVisuals = Class.create(__WEBPACK_IMPORTED_MODULE_0__abstractPersonVi
      * @method getCommentsLabel
      * @return {Raphael.el}
      */
-    getCommentsLabel: function () {
+    getCommentsLabel: function getCommentsLabel() {
         return this._commentsLabel;
     },
 
@@ -43692,11 +43778,11 @@ const PersonVisuals = Class.create(__WEBPACK_IMPORTED_MODULE_0__abstractPersonVi
      *
      * @method updateCommentsLabel
      */
-    updateCommentsLabel: function () {
+    updateCommentsLabel: function updateCommentsLabel() {
         this.getCommentsLabel() && this.getCommentsLabel().remove();
         if (this.getNode().getComments() != "") {
             var text = this.getNode().getComments(); //.replace(/\n/g, '<br />');
-            this._commentsLabel = editor.getPaper().text(this.getX(), this.getY(), text).attr(__WEBPACK_IMPORTED_MODULE_3__pedigreeEditorAttributes__["a" /* PedigreeEditorAttributes */].commentLabel);
+            this._commentsLabel = editor.getPaper().text(this.getX(), this.getY(), text).attr(_pedigreeEditorAttributes.PedigreeEditorAttributes.commentLabel);
             this._commentsLabel.alignTop = true;
         } else {
             this._commentsLabel = null;
@@ -43712,7 +43798,7 @@ const PersonVisuals = Class.create(__WEBPACK_IMPORTED_MODULE_0__abstractPersonVi
      *
      * @method updateLifeStatusShapes
      */
-    updateLifeStatusShapes: function (oldStatus) {
+    updateLifeStatusShapes: function updateLifeStatusShapes(oldStatus) {
         var status = this.getNode().getLifeStatus();
 
         this.getDeadShape() && this.getDeadShape().remove();
@@ -43741,7 +43827,7 @@ const PersonVisuals = Class.create(__WEBPACK_IMPORTED_MODULE_0__abstractPersonVi
      *
      * @method setSelected
      */
-    setSelected: function ($super, isSelected) {
+    setSelected: function setSelected($super, isSelected) {
         $super(isSelected);
         if (isSelected) {
             this.shiftLabels();
@@ -43755,7 +43841,7 @@ const PersonVisuals = Class.create(__WEBPACK_IMPORTED_MODULE_0__abstractPersonVi
      *
      * @method shiftLabels
      */
-    shiftLabels: function () {
+    shiftLabels: function shiftLabels() {
         var shift = this._labelSelectionOffset();
         var labels = this.getLabels();
         for (var i = 0; i < labels.length; i++) {
@@ -43768,7 +43854,7 @@ const PersonVisuals = Class.create(__WEBPACK_IMPORTED_MODULE_0__abstractPersonVi
      *
      * @method unshiftLabels
      */
-    unshiftLabels: function () {
+    unshiftLabels: function unshiftLabels() {
         var labels = this.getLabels();
         var firstLable = this._childlessStatusLabel ? 1 : 0;
         for (var i = 0; i < labels.length; i++) {
@@ -43782,7 +43868,7 @@ const PersonVisuals = Class.create(__WEBPACK_IMPORTED_MODULE_0__abstractPersonVi
      * @method getLabels
      * @return {Raphael.st}
      */
-    getLabels: function () {
+    getLabels: function getLabels() {
         var labels = editor.getPaper().set();
         this.getSBLabel() && labels.push(this.getSBLabel());
         this.getNameLabel() && labels.push(this.getNameLabel());
@@ -43797,17 +43883,17 @@ const PersonVisuals = Class.create(__WEBPACK_IMPORTED_MODULE_0__abstractPersonVi
      *
      * @method drawLabels
      */
-    drawLabels: function () {
+    drawLabels: function drawLabels() {
         var labels = this.getLabels();
         var selectionOffset = this._labelSelectionOffset();
-        var childlessOffset = this.getChildlessStatusLabel() ? __WEBPACK_IMPORTED_MODULE_3__pedigreeEditorAttributes__["a" /* PedigreeEditorAttributes */].label["font-size"] : 0;
-        childlessOffset += this.getNode().getChildlessStatus() !== null ? __WEBPACK_IMPORTED_MODULE_3__pedigreeEditorAttributes__["a" /* PedigreeEditorAttributes */].infertileMarkerHeight + 2 : 0;
+        var childlessOffset = this.getChildlessStatusLabel() ? _pedigreeEditorAttributes.PedigreeEditorAttributes.label["font-size"] : 0;
+        childlessOffset += this.getNode().getChildlessStatus() !== null ? _pedigreeEditorAttributes.PedigreeEditorAttributes.infertileMarkerHeight + 2 : 0;
 
-        var lowerBound = __WEBPACK_IMPORTED_MODULE_3__pedigreeEditorAttributes__["a" /* PedigreeEditorAttributes */].radius * (this.getNode().isPersonGroup() ? __WEBPACK_IMPORTED_MODULE_3__pedigreeEditorAttributes__["a" /* PedigreeEditorAttributes */].groupNodesScale : 1.0);
+        var lowerBound = _pedigreeEditorAttributes.PedigreeEditorAttributes.radius * (this.getNode().isPersonGroup() ? _pedigreeEditorAttributes.PedigreeEditorAttributes.groupNodesScale : 1.0);
 
         var startY = this.getY() + lowerBound * 1.8 + selectionOffset + childlessOffset;
         for (var i = 0; i < labels.length; i++) {
-            var offset = labels[i].alignTop ? __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_4__graphicHelpers__["d" /* getElementHalfHeight */])(labels[i]) - 7 : 0;
+            var offset = labels[i].alignTop ? (0, _graphicHelpers.getElementHalfHeight)(labels[i]) - 7 : 0;
             labels[i].attr("y", startY + offset);
             labels[i].oy = labels[i].attr("y") - selectionOffset;
             startY = labels[i].getBBox().y2 + 11;
@@ -43815,10 +43901,10 @@ const PersonVisuals = Class.create(__WEBPACK_IMPORTED_MODULE_0__abstractPersonVi
         if (!editor.isUnsupportedBrowser()) labels.flatten().insertBefore(this.getHoverBox().getFrontElements().flatten());
     },
 
-    _labelSelectionOffset: function () {
-        var selectionOffset = this.isSelected() ? __WEBPACK_IMPORTED_MODULE_3__pedigreeEditorAttributes__["a" /* PedigreeEditorAttributes */].radius / 1.4 : 0;
+    _labelSelectionOffset: function _labelSelectionOffset() {
+        var selectionOffset = this.isSelected() ? _pedigreeEditorAttributes.PedigreeEditorAttributes.radius / 1.4 : 0;
 
-        if (this.isSelected() && this.getNode().isPersonGroup()) selectionOffset += __WEBPACK_IMPORTED_MODULE_3__pedigreeEditorAttributes__["a" /* PedigreeEditorAttributes */].radius * (1 - __WEBPACK_IMPORTED_MODULE_3__pedigreeEditorAttributes__["a" /* PedigreeEditorAttributes */].groupNodesScale) + 5;
+        if (this.isSelected() && this.getNode().isPersonGroup()) selectionOffset += _pedigreeEditorAttributes.PedigreeEditorAttributes.radius * (1 - _pedigreeEditorAttributes.PedigreeEditorAttributes.groupNodesScale) + 5;
 
         if (this.getChildlessStatusLabel()) selectionOffset = selectionOffset / 2;
         return selectionOffset;
@@ -43830,7 +43916,7 @@ const PersonVisuals = Class.create(__WEBPACK_IMPORTED_MODULE_0__abstractPersonVi
      * @method getShapes
      * @return {Raphael.st}
      */
-    getShapes: function ($super) {
+    getShapes: function getShapes($super) {
         var lifeStatusShapes = editor.getPaper().set();
         this.getUnbornShape() && lifeStatusShapes.push(this.getUnbornShape());
         this.getChildlessShape() && lifeStatusShapes.push(this.getChildlessShape());
@@ -43845,7 +43931,7 @@ const PersonVisuals = Class.create(__WEBPACK_IMPORTED_MODULE_0__abstractPersonVi
      * @method getAllGraphics
      * @return {Raphael.st}
      */
-    getAllGraphics: function ($super) {
+    getAllGraphics: function getAllGraphics($super) {
         //console.log("Node " + this.getNode().getID() + " getAllGraphics");
         return $super().push(this.getHoverBox().getBackElements(), this.getLabels(), this.getCarrierGraphics(), this.getEvaluationGraphics(), this.getHoverBox().getFrontElements());
     },
@@ -43860,12 +43946,12 @@ const PersonVisuals = Class.create(__WEBPACK_IMPORTED_MODULE_0__abstractPersonVi
      * @param {Boolean} animate set to true if you want to animate the transition
      * @param {Function} callback a function that will be called at the end of the animation
      */
-    setPos: function ($super, x, y, animate, callback) {
+    setPos: function setPos($super, x, y, animate, callback) {
         var funct = callback;
         if (animate) {
             var me = this;
             this.getHoverBox().disable();
-            funct = function () {
+            funct = function funct() {
                 me.getHoverBox().enable();
                 callback && callback();
             };
@@ -43873,214 +43959,28 @@ const PersonVisuals = Class.create(__WEBPACK_IMPORTED_MODULE_0__abstractPersonVi
         $super(x, y, animate, funct);
     }
 });
-/* harmony export (immutable) */ __webpack_exports__["a"] = PersonVisuals;
-
 
 //ATTACHES CHILDLESS BEHAVIOR METHODS
-PersonVisuals.addMethods(__WEBPACK_IMPORTED_MODULE_6__abstractNodeVisuals__["b" /* ChildlessBehaviorVisuals */]);
-/* WEBPACK VAR INJECTION */}.call(__webpack_exports__, __webpack_require__(27)))
+PersonVisuals.addMethods(_abstractNodeVisuals.ChildlessBehaviorVisuals);
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(27)))
 
 /***/ }),
 /* 92 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/* WEBPACK VAR INJECTION */(function(jquery) {/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__helpers__ = __webpack_require__(5);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__templateSelector__ = __webpack_require__(176);
 
 
-/**
- * SaveLoadEngine is responsible for automatic and manual save and load operations.
- *
- * @class SaveLoadEngine
- * @constructor
- */
-
-const ProbandDataLoader = Class.create({
-    initialize: function () {
-        this.probandData = undefined;
-    },
-    load: function (callWhenReady) {
-        // new Ajax.Request("public/xwiki/PhenoTips.PatientClass/0.xml", {
-        //     method: "GET",
-        //     onSuccess: this.onProbandDataReady.bind(this),
-        //     onComplete: callWhenReady ? callWhenReady : {}
-        // });
-    },
-
-    onProbandDataReady: function (response) {
-        var responseXML = response.responseXML; //documentElement.
-        this.probandData = {};
-        this.probandData.firstName = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__helpers__["a" /* unescapeRestData */])(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__helpers__["b" /* getSubSelectorTextFromXML */])(responseXML, "property", "name", "first_name", "value"));
-        this.probandData.lastName = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__helpers__["a" /* unescapeRestData */])(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__helpers__["b" /* getSubSelectorTextFromXML */])(responseXML, "property", "name", "last_name", "value"));
-        this.probandData.gender = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__helpers__["a" /* unescapeRestData */])(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__helpers__["b" /* getSubSelectorTextFromXML */])(responseXML, "property", "name", "gender", "value"));
-        if (this.probandData.gender === undefined || this.probandData.gender == "") this.probandData.gender = "U";
-        console.log("Proband data: " + __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__helpers__["c" /* stringifyObject */])(this.probandData));
-    }
+Object.defineProperty(exports, "__esModule", {
+    value: true
 });
-/* harmony export (immutable) */ __webpack_exports__["a"] = ProbandDataLoader;
+exports.XCoord = XCoord;
+exports.XCoordScore = XCoordScore;
+exports.VerticalLevels = VerticalLevels;
 
+var _helpers = __webpack_require__(5);
 
-const SaveLoadEngine = Class.create({
-
-    initialize: function () {
-        this._saveInProgress = false;
-    },
-
-    /**
-     * Saves the state of the graph
-     *
-     * @return Serialization data for the entire graph
-     */
-    serialize: function () {
-        return editor.getGraph().toJSON();
-    },
-
-    createGraphFromSerializedData: function (JSONString, noUndo, centerAround0) {
-        console.log("---- load: parsing data ----");
-        console.log(JSONString);
-        document.fire("pedigree:load:start");
-
-        try {
-            var changeSet = editor.getGraph().fromJSON(JSONString);
-        } catch (err) {
-            console.log("ERROR loading the graph: " + err);
-            console.warn("Error loading the graph");
-            document.fire("pedigree:graph:clear");
-            document.fire("pedigree:load:finish");
-            return;
-        }
-
-        if (!noUndo) {
-            var probandData = editor.getProbandDataFromPhenotips();
-            if (probandData) {
-                var genderOk = editor.getGraph().setProbandData(probandData.firstName, probandData.lastName, probandData.gender);
-                if (!genderOk) console.warn("Proband gender defined in Phenotips is incompatible with this pedigree. Setting proband gender to 'Unknown'");
-            }
-
-            JSONString = editor.getGraph().toJSON();
-        }
-
-        if (editor.getView().applyChanges(changeSet, false)) {
-            editor.getWorkspace().adjustSizeToScreen();
-        }
-
-        if (centerAround0) editor.getWorkspace().centerAroundNode(0);
-
-        if (!noUndo) editor.getActionStack().addState(null, null, JSONString);
-
-        document.fire("pedigree:load:finish");
-    },
-
-    createGraphFromImportData: function (importString, importType, importOptions, noUndo, centerAround0) {
-        let JSONString;
-        console.log("---- import: parsing data ----");
-        document.fire("pedigree:load:start");
-
-        try {
-            var changeSet = editor.getGraph().fromImport(importString, importType, importOptions);
-            if (changeSet == null) throw "unable to create a pedigree from imported data";
-        } catch (err) {
-            jquery("#family_table", window.parent.document).removeClass("hidden");
-            jquery("#panogram_error", window.parent.document).text(err);
-            jquery("iframe#panogram", window.parent.document).addClass("hidden");
-            console.warn("Error importing pedigree: " + err);
-            console.warn(err.stack);
-            document.fire("pedigree:load:finish");
-            return;
-        }
-
-        if (!noUndo) {
-            var probandData = editor.getProbandDataFromPhenotips();
-            if (probandData) {
-                var genderOk = editor.getGraph().setProbandData(probandData.firstName, probandData.lastName, probandData.gender);
-                if (!genderOk) console.warn("Proband gender defined in Phenotips is incompatible with this pedigree. Setting proband gender to 'Unknown'");
-            }
-            JSONString = editor.getGraph().toJSON();
-        }
-
-        if (editor.getView().applyChanges(changeSet, false)) {
-            editor.getWorkspace().adjustSizeToScreen();
-        }
-
-        if (centerAround0) editor.getWorkspace().centerAroundNode(0);
-
-        if (!noUndo) editor.getActionStack().addState(null, null, JSONString);
-
-        document.fire("pedigree:load:finish");
-    },
-
-    save: function () {
-        if (this._saveInProgress) return; // Don't send parallel save requests
-
-        var me = this;
-
-        var jsonData = this.serialize();
-
-        console.log("[SAVE] data: " + __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__helpers__["c" /* stringifyObject */])(jsonData));
-
-        var image = $("canvas");
-        var background = image.getElementsByClassName("panning-background")[0];
-        var backgroundPosition = background.nextSibling;
-        var backgroundParent = background.parentNode;
-        backgroundParent.removeChild(background);
-        var bbox = image.down().getBBox();
-        // new Ajax.Request("public/xwiki/PhenoTips.PedigreeClass/0.xml", {
-        //     method: "POST",
-        //     onCreate: function() {
-        //         me._saveInProgress = true;
-        //     },
-        //     onComplete: function() {
-        //         me._saveInProgress = false;
-        //     },
-        //     onSuccess: function() { console.log("saved"); },
-        //     parameters: {"property#data": jsonData, "property#image": image.innerHTML.replace(/xmlns:xlink=".*?"/, "").replace(/width=".*?"/, "").replace(/height=".*?"/, "").replace(/viewBox=".*?"/, "viewBox=\"" + bbox.x + " " + bbox.y + " " + bbox.width + " " + bbox.height + "\" width=\"" + bbox.width + "\" height=\"" + bbox.height + "\" xmlns:xlink=\"http://www.w3.org/1999/xlink\"")}
-        // });
-        backgroundParent.insertBefore(background, backgroundPosition);
-    },
-
-    load: function () {
-        console.log("initiating load process");
-
-        // new Ajax.Request("public/xwiki/PhenoTips.PedigreeClass/0.xml", {
-        //     method: "GET",
-        //     onCreate: function() {
-        //         document.fire("pedigree:load:start");
-        //     },
-        //     onSuccess: function (response) {
-        //         //console.log("Data from LOAD: " + stringifyObject(response));
-        //         //console.log("[Data from LOAD]");
-        //         var rawdata  = getSubSelectorTextFromXML(response.responseXML, "property", "name", "data", "value");
-        //         var jsonData = unescapeRestData(rawdata);
-        //         if (jsonData.trim()) {
-        //             console.log("[LOAD] recived JSON: " + stringifyObject(jsonData));
-        // 
-        //             jsonData = editor.getVersionUpdater().updateToCurrentVersion(jsonData);
-        // 
-        //             this.createGraphFromSerializedData(jsonData);
-        //         } else {
-        //             new TemplateSelector(true);
-        //         }
-        //     }.bind(this)
-        // });
-    }
-});
-/* harmony export (immutable) */ __webpack_exports__["b"] = SaveLoadEngine;
-
-/* WEBPACK VAR INJECTION */}.call(__webpack_exports__, __webpack_require__(44)))
-
-/***/ }),
-/* 93 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__helpers__ = __webpack_require__(5);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__baseGraph__ = __webpack_require__(46);
-/* harmony export (immutable) */ __webpack_exports__["b"] = XCoord;
-/* harmony export (immutable) */ __webpack_exports__["c"] = XCoordScore;
-/* harmony export (immutable) */ __webpack_exports__["a"] = VerticalLevels;
-
-
+var _baseGraph = __webpack_require__(46);
 
 /*
  * xinit: coordinates of _center_ of every vertex, or null
@@ -44088,9 +43988,9 @@ const SaveLoadEngine = Class.create({
 function XCoord(xinit, graph) {
     // local copies just for convenience & performance
     this.halfWidth = [];
-    for (var i = 0; i < graph.GG.vWidth.length; i++) this.halfWidth[i] = Math.floor(graph.GG.vWidth[i] / 2);
-
-    this.graph = graph;
+    for (var i = 0; i < graph.GG.vWidth.length; i++) {
+        this.halfWidth[i] = Math.floor(graph.GG.vWidth[i] / 2);
+    }this.graph = graph;
 
     if (xinit) this.xcoord = xinit; // coordinates of _center_ of every vertex
     else this.xcoord = this.init_xcoord();
@@ -44098,28 +43998,28 @@ function XCoord(xinit, graph) {
 
 XCoord.prototype = {
 
-    relationshipOrChhub: function (v) {
-        if (this.graph.GG.type[v] == __WEBPACK_IMPORTED_MODULE_1__baseGraph__["b" /* TYPE */].RELATIONSHIP || this.graph.GG.type[v] == __WEBPACK_IMPORTED_MODULE_1__baseGraph__["b" /* TYPE */].CHILDHUB) return true;
+    relationshipOrChhub: function relationshipOrChhub(v) {
+        if (this.graph.GG.type[v] == _baseGraph.TYPE.RELATIONSHIP || this.graph.GG.type[v] == _baseGraph.TYPE.CHILDHUB) return true;
         return false;
     },
 
-    getSeparation: function (v1, v2) {
+    getSeparation: function getSeparation(v1, v2) {
         if (this.relationshipOrChhub(v1) && this.relationshipOrChhub(v2)) return this.graph.horizontalTwinSeparationDist;
 
         if (this.relationshipOrChhub(v1) || this.relationshipOrChhub(v2)) return this.graph.horizontalRelSeparationDist;
 
-        if (this.graph.GG.type[v1] == __WEBPACK_IMPORTED_MODULE_1__baseGraph__["b" /* TYPE */].VIRTUALEDGE || this.graph.GG.type[v2] == __WEBPACK_IMPORTED_MODULE_1__baseGraph__["b" /* TYPE */].VIRTUALEDGE) {
+        if (this.graph.GG.type[v1] == _baseGraph.TYPE.VIRTUALEDGE || this.graph.GG.type[v2] == _baseGraph.TYPE.VIRTUALEDGE) {
             if (this.graph.GG.hasEdge(v1, v2) || this.graph.GG.hasEdge(v2, v1)) return this.graph.horizontalRelSeparationDist;
             return this.graph.horizontalTwinSeparationDist;
         }
 
         // separation between twins: a bit less than between other people
-        if ((this.graph.GG.type[v1] == __WEBPACK_IMPORTED_MODULE_1__baseGraph__["b" /* TYPE */].PERSON || this.graph.GG.type[v2] == __WEBPACK_IMPORTED_MODULE_1__baseGraph__["b" /* TYPE */].PERSON) && this.graph.GG.getTwinGroupId(v1) == this.graph.GG.getTwinGroupId(v2) && this.graph.GG.getTwinGroupId(v1) != null) return this.graph.horizontalTwinSeparationDist;
+        if ((this.graph.GG.type[v1] == _baseGraph.TYPE.PERSON || this.graph.GG.type[v2] == _baseGraph.TYPE.PERSON) && this.graph.GG.getTwinGroupId(v1) == this.graph.GG.getTwinGroupId(v2) && this.graph.GG.getTwinGroupId(v1) != null) return this.graph.horizontalTwinSeparationDist;
 
         return this.graph.horizontalPersonSeparationDist;
     },
 
-    init_xcoord: function () {
+    init_xcoord: function init_xcoord() {
         var xinit = [];
         // For each rank, the left-most node is assigned coordinate 0 (actually, since xinit[v] is
         // the coordinate of the center, not 0 but halfWidth[node]). The coordinate of the next
@@ -44140,7 +44040,7 @@ XCoord.prototype = {
         return xinit;
     },
 
-    getLeftMostNoDisturbPosition: function (v) {
+    getLeftMostNoDisturbPosition: function getLeftMostNoDisturbPosition(v) {
         var leftNeighbour = this.graph.order.getLeftNeighbour(v, this.graph.ranks[v]);
         if (leftNeighbour !== null) {
             var leftBoundary = this.getRightEdge(leftNeighbour) + this.getSeparation(v, leftNeighbour) + this.halfWidth[v];
@@ -44150,16 +44050,16 @@ XCoord.prototype = {
         return -Infinity;
     },
 
-    getSlackOnTheLeft: function (v) {
+    getSlackOnTheLeft: function getSlackOnTheLeft(v) {
         return this.xcoord[v] - this.getLeftMostNoDisturbPosition(v);
     },
 
-    getRightMostNoDisturbPosition: function (v, alsoMoveRelationship) {
+    getRightMostNoDisturbPosition: function getRightMostNoDisturbPosition(v, alsoMoveRelationship) {
         var rightNeighbour = this.graph.order.getRightNeighbour(v, this.graph.ranks[v]);
         if (rightNeighbour !== null) {
             var rightBoundary = this.getLeftEdge(rightNeighbour) - this.getSeparation(v, rightNeighbour) - this.halfWidth[v];
 
-            if (alsoMoveRelationship && this.graph.GG.type[rightNeighbour] == __WEBPACK_IMPORTED_MODULE_1__baseGraph__["b" /* TYPE */].RELATIONSHIP) {
+            if (alsoMoveRelationship && this.graph.GG.type[rightNeighbour] == _baseGraph.TYPE.RELATIONSHIP) {
                 var rightMost = this.getRightMostNoDisturbPosition(rightNeighbour);
                 var slack = rightMost - this.xcoord[rightNeighbour];
                 rightBoundary += slack;
@@ -44169,19 +44069,19 @@ XCoord.prototype = {
         return Infinity;
     },
 
-    getSlackOnTheRight: function (v) {
+    getSlackOnTheRight: function getSlackOnTheRight(v) {
         return this.getRightMostNoDisturbPosition(v, false) - this.xcoord[v];
     },
 
-    getLeftEdge: function (v) {
+    getLeftEdge: function getLeftEdge(v) {
         return this.xcoord[v] - this.halfWidth[v];
     },
 
-    getRightEdge: function (v) {
+    getRightEdge: function getRightEdge(v) {
         return this.xcoord[v] + this.halfWidth[v];
     },
 
-    shiftLeftOneVertex: function (v, amount) {
+    shiftLeftOneVertex: function shiftLeftOneVertex(v, amount) {
         // attempts to move vertex v to the left by ``amount``, but stops
         // as soon as it get as close as allowed to it's left neighbour
 
@@ -44194,7 +44094,7 @@ XCoord.prototype = {
         return actualShift;
     },
 
-    shiftRightOneVertex: function (v, amount) {
+    shiftRightOneVertex: function shiftRightOneVertex(v, amount) {
         // attempts to move vertex v to the right by ``amount``, but stops
         // as soon as it get as close as allowed to it's right neighbour
 
@@ -44207,7 +44107,7 @@ XCoord.prototype = {
         return actualShift;
     },
 
-    shiftRightAndShiftOtherIfNecessary: function (v, amount) {
+    shiftRightAndShiftOtherIfNecessary: function shiftRightAndShiftOtherIfNecessary(v, amount) {
         // shifts a vertext to the right by the given ``amount``, and shifts
         // all right neighbours, the minimal amount to accomodate this shift
         this.xcoord[v] += amount;
@@ -44231,7 +44131,7 @@ XCoord.prototype = {
         return amount;
     },
 
-    moveNodeAsCloseToXAsPossible: function (v, targetX) {
+    moveNodeAsCloseToXAsPossible: function moveNodeAsCloseToXAsPossible(v, targetX) {
         var x = this.xcoord[v];
         if (x > targetX) {
             var leftMostOK = this.getLeftMostNoDisturbPosition(v);
@@ -44247,21 +44147,23 @@ XCoord.prototype = {
         return false;
     },
 
-    normalize: function () {
-        var leftMostElement = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__helpers__["p" /* indexOfLastMinElementInArray */])(this.xcoord);
+    normalize: function normalize() {
+        var leftMostElement = (0, _helpers.indexOfLastMinElementInArray)(this.xcoord);
         var moveAmount = this.xcoord[leftMostElement] - this.halfWidth[leftMostElement];
 
-        for (var i = 0; i < this.xcoord.length; i++) this.xcoord[i] -= moveAmount;
+        for (var i = 0; i < this.xcoord.length; i++) {
+            this.xcoord[i] -= moveAmount;
+        }
     },
 
-    copy: function () {
+    copy: function copy() {
         // returns an instance with deep copy of this.xcoord
         var newX = new XCoord(this.xcoord.slice(0), this.graph, this.halfWidth);
 
         return newX;
     },
 
-    findVertexSetSlacks: function (set) {
+    findVertexSetSlacks: function findVertexSetSlacks(set) {
         // returns the minimum slack (on the left and right) of the set of vertices, assuming all of them are moved at once
         //
         // e.g. separately for left/right, for each vertex in the set if the vertex to the given side of it is not in the set
@@ -44297,11 +44199,11 @@ function XCoordScore(maxRealVertexId) {
 
 XCoordScore.prototype = {
 
-    add: function (amount) {
+    add: function add(amount) {
         this.score += amount;
     },
 
-    addEdge: function (v, u, length) {
+    addEdge: function addEdge(v, u, length) {
         if (u > this.maxRealVertexId) {
             if (length == 0 && v > this.maxRealVertexId) this.numStraightLong++;
 
@@ -44312,10 +44214,12 @@ XCoordScore.prototype = {
             this.inEdgeMaxLen[u] = length;
         }
 
-        for (var i = 0; i < u; i++) if (this.inEdgeMaxLen[i] === undefined) this.inEdgeMaxLen[i] = 0;
+        for (var i = 0; i < u; i++) {
+            if (this.inEdgeMaxLen[i] === undefined) this.inEdgeMaxLen[i] = 0;
+        }
     },
 
-    isBettertThan: function (otherScore) {
+    isBettertThan: function isBettertThan(otherScore) {
         if (this.score == otherScore.score) {
             if (this.numStraightLong == otherScore.numStraightLong) {
                 // if score is the same the arrangements with smaller sum of
@@ -44353,7 +44257,7 @@ function VerticalLevels() {
 }
 
 VerticalLevels.prototype = {
-    copy: function () {
+    copy: function copy() {
         var result = new VerticalLevels();
 
         result.rankVerticalLevels = this.rankVerticalLevels.slice(0);
@@ -44364,7 +44268,7 @@ VerticalLevels.prototype = {
 };
 
 /***/ }),
-/* 94 */
+/* 93 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var Prototype, Class, Template, Enumerable, $A, $w, $H,Hash, $R, ObjectRange, Try, PeriodicalExecuter;
@@ -44404,7 +44308,7 @@ module.exports = {
 };
 
 /***/ }),
-/* 95 */
+/* 94 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports = {
@@ -44413,23 +44317,23 @@ module.exports = {
   __: __webpack_require__(187),
   add: __webpack_require__(49),
   addIndex: __webpack_require__(188),
-  adjust: __webpack_require__(96),
+  adjust: __webpack_require__(95),
   all: __webpack_require__(189),
   allPass: __webpack_require__(190),
   always: __webpack_require__(33),
-  and: __webpack_require__(97),
-  any: __webpack_require__(98),
+  and: __webpack_require__(96),
+  any: __webpack_require__(97),
   anyPass: __webpack_require__(191),
   ap: __webpack_require__(71),
   aperture: __webpack_require__(192),
   append: __webpack_require__(193),
-  apply: __webpack_require__(99),
+  apply: __webpack_require__(98),
   applySpec: __webpack_require__(194),
   ascend: __webpack_require__(195),
   assoc: __webpack_require__(50),
-  assocPath: __webpack_require__(100),
+  assocPath: __webpack_require__(99),
   binary: __webpack_require__(196),
-  bind: __webpack_require__(101),
+  bind: __webpack_require__(100),
   both: __webpack_require__(197),
   call: __webpack_require__(198),
   chain: __webpack_require__(72),
@@ -44438,33 +44342,33 @@ module.exports = {
   comparator: __webpack_require__(201),
   complement: __webpack_require__(202),
   compose: __webpack_require__(73),
-  composeK: __webpack_require__(102),
+  composeK: __webpack_require__(101),
   composeP: __webpack_require__(203),
   concat: __webpack_require__(74),
   cond: __webpack_require__(204),
   construct: __webpack_require__(205),
-  constructN: __webpack_require__(103),
+  constructN: __webpack_require__(102),
   contains: __webpack_require__(206),
-  converge: __webpack_require__(104),
+  converge: __webpack_require__(103),
   countBy: __webpack_require__(207),
   curry: __webpack_require__(51),
   curryN: __webpack_require__(7),
   dec: __webpack_require__(208),
   descend: __webpack_require__(209),
-  defaultTo: __webpack_require__(105),
-  difference: __webpack_require__(106),
-  differenceWith: __webpack_require__(107),
-  dissoc: __webpack_require__(108),
+  defaultTo: __webpack_require__(104),
+  difference: __webpack_require__(105),
+  differenceWith: __webpack_require__(106),
+  dissoc: __webpack_require__(107),
   dissocPath: __webpack_require__(210),
   divide: __webpack_require__(211),
-  drop: __webpack_require__(109),
+  drop: __webpack_require__(108),
   dropLast: __webpack_require__(212),
   dropLastWhile: __webpack_require__(213),
   dropRepeats: __webpack_require__(214),
-  dropRepeatsWith: __webpack_require__(110),
+  dropRepeatsWith: __webpack_require__(109),
   dropWhile: __webpack_require__(215),
   either: __webpack_require__(216),
-  empty: __webpack_require__(111),
+  empty: __webpack_require__(110),
   eqBy: __webpack_require__(217),
   eqProps: __webpack_require__(218),
   equals: __webpack_require__(19),
@@ -44486,7 +44390,7 @@ module.exports = {
   has: __webpack_require__(232),
   hasIn: __webpack_require__(233),
   head: __webpack_require__(234),
-  identical: __webpack_require__(112),
+  identical: __webpack_require__(111),
   identity: __webpack_require__(76),
   ifElse: __webpack_require__(235),
   inc: __webpack_require__(236),
@@ -44502,23 +44406,23 @@ module.exports = {
   invert: __webpack_require__(280),
   invertObj: __webpack_require__(281),
   invoker: __webpack_require__(38),
-  is: __webpack_require__(127),
+  is: __webpack_require__(126),
   isArrayLike: __webpack_require__(39),
   isEmpty: __webpack_require__(282),
   isNil: __webpack_require__(283),
   join: __webpack_require__(284),
-  juxt: __webpack_require__(128),
+  juxt: __webpack_require__(127),
   keys: __webpack_require__(21),
   keysIn: __webpack_require__(285),
-  last: __webpack_require__(129),
+  last: __webpack_require__(128),
   lastIndexOf: __webpack_require__(286),
-  length: __webpack_require__(130),
+  length: __webpack_require__(129),
   lens: __webpack_require__(58),
   lensIndex: __webpack_require__(287),
   lensPath: __webpack_require__(288),
   lensProp: __webpack_require__(289),
   lift: __webpack_require__(59),
-  liftN: __webpack_require__(131),
+  liftN: __webpack_require__(130),
   lt: __webpack_require__(290),
   lte: __webpack_require__(291),
   map: __webpack_require__(11),
@@ -44529,29 +44433,29 @@ module.exports = {
   mathMod: __webpack_require__(296),
   max: __webpack_require__(34),
   maxBy: __webpack_require__(297),
-  mean: __webpack_require__(132),
+  mean: __webpack_require__(131),
   median: __webpack_require__(298),
   memoize: __webpack_require__(299),
   merge: __webpack_require__(300),
   mergeAll: __webpack_require__(301),
   mergeWith: __webpack_require__(302),
-  mergeWithKey: __webpack_require__(133),
+  mergeWithKey: __webpack_require__(132),
   min: __webpack_require__(303),
   minBy: __webpack_require__(304),
   modulo: __webpack_require__(305),
-  multiply: __webpack_require__(134),
+  multiply: __webpack_require__(133),
   nAry: __webpack_require__(60),
   negate: __webpack_require__(306),
   none: __webpack_require__(307),
-  not: __webpack_require__(135),
+  not: __webpack_require__(134),
   nth: __webpack_require__(40),
   nthArg: __webpack_require__(308),
-  objOf: __webpack_require__(136),
+  objOf: __webpack_require__(135),
   of: __webpack_require__(309),
   omit: __webpack_require__(310),
   once: __webpack_require__(311),
-  or: __webpack_require__(137),
-  over: __webpack_require__(138),
+  or: __webpack_require__(136),
+  over: __webpack_require__(137),
   pair: __webpack_require__(312),
   partial: __webpack_require__(313),
   partialRight: __webpack_require__(314),
@@ -44561,13 +44465,13 @@ module.exports = {
   pathOr: __webpack_require__(317),
   pathSatisfies: __webpack_require__(318),
   pick: __webpack_require__(319),
-  pickAll: __webpack_require__(139),
+  pickAll: __webpack_require__(138),
   pickBy: __webpack_require__(320),
-  pipe: __webpack_require__(140),
+  pipe: __webpack_require__(139),
   pipeK: __webpack_require__(321),
-  pipeP: __webpack_require__(141),
+  pipeP: __webpack_require__(140),
   pluck: __webpack_require__(42),
-  prepend: __webpack_require__(142),
+  prepend: __webpack_require__(141),
   product: __webpack_require__(322),
   project: __webpack_require__(323),
   prop: __webpack_require__(81),
@@ -44579,7 +44483,7 @@ module.exports = {
   range: __webpack_require__(329),
   reduce: __webpack_require__(22),
   reduceBy: __webpack_require__(61),
-  reduceRight: __webpack_require__(143),
+  reduceRight: __webpack_require__(142),
   reduceWhile: __webpack_require__(330),
   reduced: __webpack_require__(331),
   reject: __webpack_require__(62),
@@ -44588,7 +44492,7 @@ module.exports = {
   replace: __webpack_require__(334),
   reverse: __webpack_require__(63),
   scan: __webpack_require__(335),
-  sequence: __webpack_require__(144),
+  sequence: __webpack_require__(143),
   set: __webpack_require__(336),
   slice: __webpack_require__(31),
   sort: __webpack_require__(337),
@@ -44599,17 +44503,17 @@ module.exports = {
   splitEvery: __webpack_require__(342),
   splitWhen: __webpack_require__(343),
   subtract: __webpack_require__(344),
-  sum: __webpack_require__(145),
+  sum: __webpack_require__(144),
   symmetricDifference: __webpack_require__(345),
   symmetricDifferenceWith: __webpack_require__(346),
   tail: __webpack_require__(82),
-  take: __webpack_require__(146),
+  take: __webpack_require__(145),
   takeLast: __webpack_require__(347),
   takeLastWhile: __webpack_require__(348),
   takeWhile: __webpack_require__(349),
   tap: __webpack_require__(350),
   test: __webpack_require__(351),
-  times: __webpack_require__(147),
+  times: __webpack_require__(146),
   toLower: __webpack_require__(352),
   toPairs: __webpack_require__(353),
   toPairsIn: __webpack_require__(354),
@@ -44628,18 +44532,18 @@ module.exports = {
   union: __webpack_require__(365),
   unionWith: __webpack_require__(366),
   uniq: __webpack_require__(84),
-  uniqBy: __webpack_require__(148),
+  uniqBy: __webpack_require__(147),
   uniqWith: __webpack_require__(85),
   unless: __webpack_require__(367),
   unnest: __webpack_require__(368),
   until: __webpack_require__(369),
-  update: __webpack_require__(149),
-  useWith: __webpack_require__(150),
-  values: __webpack_require__(151),
+  update: __webpack_require__(148),
+  useWith: __webpack_require__(149),
+  values: __webpack_require__(150),
   valuesIn: __webpack_require__(370),
   view: __webpack_require__(371),
   when: __webpack_require__(372),
-  where: __webpack_require__(152),
+  where: __webpack_require__(151),
   whereEq: __webpack_require__(373),
   without: __webpack_require__(374),
   xprod: __webpack_require__(375),
@@ -44650,7 +44554,7 @@ module.exports = {
 
 
 /***/ }),
-/* 96 */
+/* 95 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var _concat = __webpack_require__(16);
@@ -44695,7 +44599,7 @@ module.exports = _curry3(function adjust(fn, idx, list) {
 
 
 /***/ }),
-/* 97 */
+/* 96 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var _curry2 = __webpack_require__(0);
@@ -44726,12 +44630,12 @@ module.exports = _curry2(function and(a, b) {
 
 
 /***/ }),
-/* 98 */
+/* 97 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var _curry2 = __webpack_require__(0);
 var _dispatchable = __webpack_require__(3);
-var _xany = __webpack_require__(124);
+var _xany = __webpack_require__(123);
 
 
 /**
@@ -44772,7 +44676,7 @@ module.exports = _curry2(_dispatchable(['any'], _xany, function any(fn, list) {
 
 
 /***/ }),
-/* 99 */
+/* 98 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var _curry2 = __webpack_require__(0);
@@ -44804,13 +44708,13 @@ module.exports = _curry2(function apply(fn, args) {
 
 
 /***/ }),
-/* 100 */
+/* 99 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var _curry3 = __webpack_require__(2);
 var _has = __webpack_require__(9);
 var _isArray = __webpack_require__(25);
-var _isInteger = __webpack_require__(120);
+var _isInteger = __webpack_require__(119);
 var assoc = __webpack_require__(50);
 
 
@@ -44858,7 +44762,7 @@ module.exports = _curry3(function assocPath(path, val, obj) {
 
 
 /***/ }),
-/* 101 */
+/* 100 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var _arity = __webpack_require__(20);
@@ -44895,7 +44799,7 @@ module.exports = _curry2(function bind(fn, thisObj) {
 
 
 /***/ }),
-/* 102 */
+/* 101 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var chain = __webpack_require__(72);
@@ -44944,7 +44848,7 @@ module.exports = function composeK() {
 
 
 /***/ }),
-/* 103 */
+/* 102 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var _curry2 = __webpack_require__(0);
@@ -45012,7 +44916,7 @@ module.exports = _curry2(function constructN(n, Fn) {
 
 
 /***/ }),
-/* 104 */
+/* 103 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var _curry2 = __webpack_require__(0);
@@ -45062,7 +44966,7 @@ module.exports = _curry2(function converge(after, fns) {
 
 
 /***/ }),
-/* 105 */
+/* 104 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var _curry2 = __webpack_require__(0);
@@ -45096,7 +45000,7 @@ module.exports = _curry2(function defaultTo(d, v) {
 
 
 /***/ }),
-/* 106 */
+/* 105 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var _contains = __webpack_require__(30);
@@ -45138,7 +45042,7 @@ module.exports = _curry2(function difference(first, second) {
 
 
 /***/ }),
-/* 107 */
+/* 106 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var _containsWith = __webpack_require__(78);
@@ -45183,7 +45087,7 @@ module.exports = _curry3(function differenceWith(pred, first, second) {
 
 
 /***/ }),
-/* 108 */
+/* 107 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var _curry2 = __webpack_require__(0);
@@ -45216,7 +45120,7 @@ module.exports = _curry2(function dissoc(prop, obj) {
 
 
 /***/ }),
-/* 109 */
+/* 108 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var _curry2 = __webpack_require__(0);
@@ -45255,13 +45159,13 @@ module.exports = _curry2(_dispatchable(['drop'], _xdrop, function drop(n, xs) {
 
 
 /***/ }),
-/* 110 */
+/* 109 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var _curry2 = __webpack_require__(0);
 var _dispatchable = __webpack_require__(3);
-var _xdropRepeatsWith = __webpack_require__(125);
-var last = __webpack_require__(129);
+var _xdropRepeatsWith = __webpack_require__(124);
+var last = __webpack_require__(128);
 
 
 /**
@@ -45304,13 +45208,13 @@ module.exports = _curry2(_dispatchable([], _xdropRepeatsWith, function dropRepea
 
 
 /***/ }),
-/* 111 */
+/* 110 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var _curry1 = __webpack_require__(1);
-var _isArguments = __webpack_require__(119);
+var _isArguments = __webpack_require__(118);
 var _isArray = __webpack_require__(25);
-var _isObject = __webpack_require__(122);
+var _isObject = __webpack_require__(121);
 var _isString = __webpack_require__(56);
 
 
@@ -45357,7 +45261,7 @@ module.exports = _curry1(function empty(x) {
 
 
 /***/ }),
-/* 112 */
+/* 111 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var _curry2 = __webpack_require__(0);
@@ -45399,10 +45303,10 @@ module.exports = _curry2(function identical(a, b) {
 
 
 /***/ }),
-/* 113 */
+/* 112 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var _cloneRegExp = __webpack_require__(114);
+var _cloneRegExp = __webpack_require__(113);
 var type = __webpack_require__(83);
 
 
@@ -45445,7 +45349,7 @@ module.exports = function _clone(value, refFrom, refTo, deep) {
 
 
 /***/ }),
-/* 114 */
+/* 113 */
 /***/ (function(module, exports) {
 
 module.exports = function _cloneRegExp(pattern) {
@@ -45458,7 +45362,7 @@ module.exports = function _cloneRegExp(pattern) {
 
 
 /***/ }),
-/* 115 */
+/* 114 */
 /***/ (function(module, exports) {
 
 module.exports = function _complement(f) {
@@ -45469,7 +45373,7 @@ module.exports = function _complement(f) {
 
 
 /***/ }),
-/* 116 */
+/* 115 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var _arity = __webpack_require__(20);
@@ -45486,7 +45390,7 @@ module.exports = function _createPartialApplicator(concat) {
 
 
 /***/ }),
-/* 117 */
+/* 116 */
 /***/ (function(module, exports) {
 
 module.exports = function _filter(fn, list) {
@@ -45505,7 +45409,7 @@ module.exports = function _filter(fn, list) {
 
 
 /***/ }),
-/* 118 */
+/* 117 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var equals = __webpack_require__(19);
@@ -45568,7 +45472,7 @@ module.exports = function _indexOf(list, a, idx) {
 
 
 /***/ }),
-/* 119 */
+/* 118 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var _has = __webpack_require__(9);
@@ -45583,7 +45487,7 @@ module.exports = (function() {
 
 
 /***/ }),
-/* 120 */
+/* 119 */
 /***/ (function(module, exports) {
 
 /**
@@ -45600,7 +45504,7 @@ module.exports = Number.isInteger || function _isInteger(n) {
 
 
 /***/ }),
-/* 121 */
+/* 120 */
 /***/ (function(module, exports) {
 
 module.exports = function _isNumber(x) {
@@ -45609,7 +45513,7 @@ module.exports = function _isNumber(x) {
 
 
 /***/ }),
-/* 122 */
+/* 121 */
 /***/ (function(module, exports) {
 
 module.exports = function _isObject(x) {
@@ -45618,7 +45522,7 @@ module.exports = function _isObject(x) {
 
 
 /***/ }),
-/* 123 */
+/* 122 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var isArrayLike = __webpack_require__(39);
@@ -45657,7 +45561,7 @@ module.exports = function _makeFlat(recursive) {
 
 
 /***/ }),
-/* 124 */
+/* 123 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var _curry2 = __webpack_require__(0);
@@ -45691,7 +45595,7 @@ module.exports = (function() {
 
 
 /***/ }),
-/* 125 */
+/* 124 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var _curry2 = __webpack_require__(0);
@@ -45724,7 +45628,7 @@ module.exports = (function() {
 
 
 /***/ }),
-/* 126 */
+/* 125 */
 /***/ (function(module, exports) {
 
 module.exports = (function() {
@@ -45744,7 +45648,7 @@ module.exports = (function() {
 
 
 /***/ }),
-/* 127 */
+/* 126 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var _curry2 = __webpack_require__(0);
@@ -45779,11 +45683,11 @@ module.exports = _curry2(function is(Ctor, val) {
 
 
 /***/ }),
-/* 128 */
+/* 127 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var _curry1 = __webpack_require__(1);
-var converge = __webpack_require__(104);
+var converge = __webpack_require__(103);
 
 
 /**
@@ -45809,7 +45713,7 @@ module.exports = _curry1(function juxt(fns) {
 
 
 /***/ }),
-/* 129 */
+/* 128 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var nth = __webpack_require__(40);
@@ -45839,11 +45743,11 @@ module.exports = nth(-1);
 
 
 /***/ }),
-/* 130 */
+/* 129 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var _curry1 = __webpack_require__(1);
-var _isNumber = __webpack_require__(121);
+var _isNumber = __webpack_require__(120);
 
 
 /**
@@ -45867,7 +45771,7 @@ module.exports = _curry1(function length(list) {
 
 
 /***/ }),
-/* 131 */
+/* 130 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var _curry2 = __webpack_require__(0);
@@ -45903,11 +45807,11 @@ module.exports = _curry2(function liftN(arity, fn) {
 
 
 /***/ }),
-/* 132 */
+/* 131 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var _curry1 = __webpack_require__(1);
-var sum = __webpack_require__(145);
+var sum = __webpack_require__(144);
 
 
 /**
@@ -45931,7 +45835,7 @@ module.exports = _curry1(function mean(list) {
 
 
 /***/ }),
-/* 133 */
+/* 132 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var _curry3 = __webpack_require__(2);
@@ -45986,7 +45890,7 @@ module.exports = _curry3(function mergeWithKey(fn, l, r) {
 
 
 /***/ }),
-/* 134 */
+/* 133 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var _curry2 = __webpack_require__(0);
@@ -46016,7 +45920,7 @@ module.exports = _curry2(function multiply(a, b) { return a * b; });
 
 
 /***/ }),
-/* 135 */
+/* 134 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var _curry1 = __webpack_require__(1);
@@ -46047,7 +45951,7 @@ module.exports = _curry1(function not(a) {
 
 
 /***/ }),
-/* 136 */
+/* 135 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var _curry2 = __webpack_require__(0);
@@ -46081,7 +45985,7 @@ module.exports = _curry2(function objOf(key, val) {
 
 
 /***/ }),
-/* 137 */
+/* 136 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var _curry2 = __webpack_require__(0);
@@ -46113,7 +46017,7 @@ module.exports = _curry2(function or(a, b) {
 
 
 /***/ }),
-/* 138 */
+/* 137 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var _curry3 = __webpack_require__(2);
@@ -46158,7 +46062,7 @@ module.exports = (function() {
 
 
 /***/ }),
-/* 139 */
+/* 138 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var _curry2 = __webpack_require__(0);
@@ -46196,7 +46100,7 @@ module.exports = _curry2(function pickAll(names, obj) {
 
 
 /***/ }),
-/* 140 */
+/* 139 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var _arity = __webpack_require__(20);
@@ -46238,7 +46142,7 @@ module.exports = function pipe() {
 
 
 /***/ }),
-/* 141 */
+/* 140 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var _arity = __webpack_require__(20);
@@ -46275,7 +46179,7 @@ module.exports = function pipeP() {
 
 
 /***/ }),
-/* 142 */
+/* 141 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var _concat = __webpack_require__(16);
@@ -46305,7 +46209,7 @@ module.exports = _curry2(function prepend(el, list) {
 
 
 /***/ }),
-/* 143 */
+/* 142 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var _curry3 = __webpack_require__(2);
@@ -46364,14 +46268,14 @@ module.exports = _curry3(function reduceRight(fn, acc, list) {
 
 
 /***/ }),
-/* 144 */
+/* 143 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var _curry2 = __webpack_require__(0);
 var ap = __webpack_require__(71);
 var map = __webpack_require__(11);
-var prepend = __webpack_require__(142);
-var reduceRight = __webpack_require__(143);
+var prepend = __webpack_require__(141);
+var reduceRight = __webpack_require__(142);
 
 
 /**
@@ -46408,7 +46312,7 @@ module.exports = _curry2(function sequence(of, traversable) {
 
 
 /***/ }),
-/* 145 */
+/* 144 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var add = __webpack_require__(49);
@@ -46434,7 +46338,7 @@ module.exports = reduce(add, 0);
 
 
 /***/ }),
-/* 146 */
+/* 145 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var _curry2 = __webpack_require__(0);
@@ -46492,7 +46396,7 @@ module.exports = _curry2(_dispatchable(['take'], _xtake, function take(n, xs) {
 
 
 /***/ }),
-/* 147 */
+/* 146 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var _curry2 = __webpack_require__(0);
@@ -46538,7 +46442,7 @@ module.exports = _curry2(function times(fn, n) {
 
 
 /***/ }),
-/* 148 */
+/* 147 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var _Set = __webpack_require__(242);
@@ -46582,11 +46486,11 @@ module.exports = _curry2(function uniqBy(fn, list) {
 
 
 /***/ }),
-/* 149 */
+/* 148 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var _curry3 = __webpack_require__(2);
-var adjust = __webpack_require__(96);
+var adjust = __webpack_require__(95);
 var always = __webpack_require__(33);
 
 
@@ -46618,7 +46522,7 @@ module.exports = _curry3(function update(idx, x, list) {
 
 
 /***/ }),
-/* 150 */
+/* 149 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var _curry2 = __webpack_require__(0);
@@ -46668,7 +46572,7 @@ module.exports = _curry2(function useWith(fn, transformers) {
 
 
 /***/ }),
-/* 151 */
+/* 150 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var _curry1 = __webpack_require__(1);
@@ -46705,7 +46609,7 @@ module.exports = _curry1(function values(obj) {
 
 
 /***/ }),
-/* 152 */
+/* 151 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var _curry2 = __webpack_require__(0);
@@ -46757,54 +46661,63 @@ module.exports = _curry2(function where(spec, testObj) {
 
 
 /***/ }),
-/* 153 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
+/* 152 */
+/***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_ramda__ = __webpack_require__(95);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_ramda___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_ramda__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__pedigreeEditorAttributes__ = __webpack_require__(12);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__dynamicGraph__ = __webpack_require__(160);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__viewerWorkspace__ = __webpack_require__(180);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__view__ = __webpack_require__(178);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__disorderLegend__ = __webpack_require__(158);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__hpoLegend__ = __webpack_require__(164);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__geneLegend__ = __webpack_require__(162);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__viewerSaveLoadEngine__ = __webpack_require__(179);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__controller__ = __webpack_require__(157);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__undoRedo__ = __webpack_require__(177);
 
 
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+exports.ViewerPedigree = undefined;
 
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
+var _ramda = __webpack_require__(94);
 
+var _pedigreeEditorAttributes = __webpack_require__(12);
 
+var _dynamicGraph = __webpack_require__(159);
 
+var _viewerWorkspace = __webpack_require__(180);
 
+var _view = __webpack_require__(178);
 
+var _disorderLegend = __webpack_require__(157);
 
+var _hpoLegend = __webpack_require__(163);
 
+var _geneLegend = __webpack_require__(161);
 
-const isTruthy = val => {
-    const truthy = ['1', 'y', 'yes', 'ye', 't', 'tr', 'true'];
-    if (val && __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0_ramda__["contains"])(val.toString().trim().toLowerCase(), truthy)) {
+var _viewerSaveLoadEngine = __webpack_require__(179);
+
+var _controller = __webpack_require__(156);
+
+var _undoRedo = __webpack_require__(177);
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+var isTruthy = function isTruthy(val) {
+    var truthy = ['1', 'y', 'yes', 'ye', 't', 'tr', 'true'];
+    if (val && (0, _ramda.contains)(val.toString().trim().toLowerCase(), truthy)) {
         return true;
     }
     return false;
 };
 
-const cleanBooleanField = val => {
+var cleanBooleanField = function cleanBooleanField(val) {
     if (val && isTruthy(val)) return true;
     return false;
 };
 
-const cleanGender = val => {
-    const maleLike = ['m', 'male'];
-    const femaleLike = ['f', 'female'];
-    if (val && __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0_ramda__["contains"])(val.toString().trim().toLowerCase(), maleLike)) {
+var cleanGender = function cleanGender(val) {
+    var maleLike = ['m', 'male'];
+    var femaleLike = ['f', 'female'];
+    if (val && (0, _ramda.contains)(val.toString().trim().toLowerCase(), maleLike)) {
         return "M";
     }
-    if (val && __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0_ramda__["contains"])(val.toString().trim().toLowerCase(), femaleLike)) {
+    if (val && (0, _ramda.contains)(val.toString().trim().toLowerCase(), femaleLike)) {
         return "F";
     }
     return "U";
@@ -46813,21 +46726,20 @@ const cleanGender = val => {
 /*
     HAHAHAHAHAHAHAHAHAHAHAHAHAHAHAHAHAHAHAHAHAHAHAHAHAHAHAHAHAHAHAHAHA
  */
-const cleanData = data => {
-    return JSON.parse(data).map(datum => {
-        const {
-            hpoTerms,
-            mother,
-            father,
-            proband,
-            focused,
-            externalIDHref,
-            sex,
-            externalId,
-            disorders,
-            gender,
-            id
-        } = datum;
+var cleanData = function cleanData(data) {
+    return JSON.parse(data).map(function (datum) {
+        var hpoTerms = datum.hpoTerms,
+            mother = datum.mother,
+            father = datum.father,
+            proband = datum.proband,
+            focused = datum.focused,
+            externalIDHref = datum.externalIDHref,
+            sex = datum.sex,
+            externalId = datum.externalId,
+            disorders = datum.disorders,
+            gender = datum.gender,
+            id = datum.id;
+
         return {
             proband: cleanBooleanField(proband),
             focused: cleanBooleanField(focused),
@@ -46844,29 +46756,33 @@ const cleanData = data => {
     });
 };
 
-class ViewerPedigree {
-    constructor(args) {
+var ViewerPedigree = exports.ViewerPedigree = function () {
+    function ViewerPedigree(args) {
+        _classCallCheck(this, ViewerPedigree);
+
         var me = this;
         //this.DEBUG_MODE = true;
         window.editor = this;
 
-        const data = cleanData(args.data); // hahahaha
+        var data = cleanData(args.data); // hahahaha
 
         // initialize main data structure which holds the graph structure
-        this._graphModel = __WEBPACK_IMPORTED_MODULE_2__dynamicGraph__["a" /* DynamicPositionedGraph */].makeEmpty(ViewerPedigree.attributes.layoutRelativePersonWidth, ViewerPedigree.attributes.layoutRelativeOtherWidth);
+        this._graphModel = _dynamicGraph.DynamicPositionedGraph.makeEmpty(ViewerPedigree.attributes.layoutRelativePersonWidth, ViewerPedigree.attributes.layoutRelativeOtherWidth);
 
         //initialize the elements of the app
-        this._workspace = new __WEBPACK_IMPORTED_MODULE_3__viewerWorkspace__["a" /* ViewerWorkspace */]();
-        this._disorderLegend = new __WEBPACK_IMPORTED_MODULE_5__disorderLegend__["a" /* DisorderLegend */]();
-        this._geneLegend = new __WEBPACK_IMPORTED_MODULE_7__geneLegend__["a" /* GeneLegend */]();
-        this._hpoLegend = new __WEBPACK_IMPORTED_MODULE_6__hpoLegend__["a" /* HPOLegend */]();
+        this._workspace = new _viewerWorkspace.ViewerWorkspace();
+        this._disorderLegend = new _disorderLegend.DisorderLegend();
+        this._geneLegend = new _geneLegend.GeneLegend();
+        this._hpoLegend = new _hpoLegend.HPOLegend();
 
-        this._view = new __WEBPACK_IMPORTED_MODULE_4__view__["a" /* View */]();
+        this._view = new _view.View();
 
-        this._controller = new __WEBPACK_IMPORTED_MODULE_9__controller__["a" /* Controller */]();
-        this._actionStack = new __WEBPACK_IMPORTED_MODULE_10__undoRedo__["a" /* ActionStack */]();
-        this._saveLoadEngine = new __WEBPACK_IMPORTED_MODULE_8__viewerSaveLoadEngine__["a" /* ViewerSaveLoadEngine */](args.pedigreeDataUrl);
-        const probandData = data.filter(node => isTruthy(node.proband))[0] || false;
+        this._controller = new _controller.Controller();
+        this._actionStack = new _undoRedo.ActionStack();
+        this._saveLoadEngine = new _viewerSaveLoadEngine.ViewerSaveLoadEngine(args.pedigreeDataUrl);
+        var probandData = data.filter(function (node) {
+            return isTruthy(node.proband);
+        })[0] || false;
         if (probandData) {
             this._probandData = probandData;
         }
@@ -46879,641 +46795,730 @@ class ViewerPedigree {
      * @param {Number} nodeID The id of the desired node
      * @return {AbstractNode} the node whose id is nodeID
      */
-    getNode(nodeID) {
-        return this.getView().getNode(nodeID);
-    }
 
-    /**
-     * @method getView
-     * @return {View} (responsible for managing graphical representations of nodes and interactive elements)
-     */
-    getView() {
-        return this._view;
-    }
 
-    /**
-     * @method getVersionUpdater
-     * @return {VersionUpdater}
-     */
-    getVersionUpdater() {
-        return this._versionUpdater;
-    }
+    _createClass(ViewerPedigree, [{
+        key: 'getNode',
+        value: function getNode(nodeID) {
+            return this.getView().getNode(nodeID);
+        }
 
-    /**
-     * @method getGraph
-     * @return {DynamicPositionedGraph} (data model: responsible for managing nodes and their positions)
-     */
-    getGraph() {
-        return this._graphModel;
-    }
+        /**
+         * @method getView
+         * @return {View} (responsible for managing graphical representations of nodes and interactive elements)
+         */
 
-    /**
-     * @method getController
-     * @return {Controller} (responsible for managing user input and corresponding data changes)
-     */
-    getController() {
-        return this._controller;
-    }
+    }, {
+        key: 'getView',
+        value: function getView() {
+            return this._view;
+        }
 
-    /**
-     * @method getActionStack
-     * @return {ActionStack} (responsible for undoing and redoing actions)
-     */
-    getActionStack() {
-        return this._actionStack;
-    }
+        /**
+         * @method getVersionUpdater
+         * @return {VersionUpdater}
+         */
 
-    /**
-     * @method getOkCancelDialogue
-     * @return {OkCancelDialogue} (responsible for displaying ok/cancel prompts)
-     */
-    getOkCancelDialogue() {
-        return this._okCancelDialogue;
-    }
+    }, {
+        key: 'getVersionUpdater',
+        value: function getVersionUpdater() {
+            return this._versionUpdater;
+        }
 
-    /**
-     * @method getNodetypeSelectionBubble
-     * @return {NodetypeSelectionBubble} (floating window with initialization options for new nodes)
-     */
-    getNodetypeSelectionBubble() {
-        return this._nodetypeSelectionBubble;
-    }
+        /**
+         * @method getGraph
+         * @return {DynamicPositionedGraph} (data model: responsible for managing nodes and their positions)
+         */
 
-    /**
-     * @method getSiblingSelectionBubble
-     * @return {NodetypeSelectionBubble} (floating window with initialization options for new sibling nodes)
-     */
-    getSiblingSelectionBubble() {
-        return this._siblingSelectionBubble;
-    }
+    }, {
+        key: 'getGraph',
+        value: function getGraph() {
+            return this._graphModel;
+        }
 
-    /**
-     * @method getWorkspace
-     * @return {Workspace}
-     */
-    getWorkspace() {
-        return this._workspace;
-    }
+        /**
+         * @method getController
+         * @return {Controller} (responsible for managing user input and corresponding data changes)
+         */
 
-    /**
-     * @method getDisorderLegend
-     * @return {Legend} Responsible for managing and displaying the disorder legend
-     */
-    getDisorderLegend() {
-        return this._disorderLegend;
-    }
+    }, {
+        key: 'getController',
+        value: function getController() {
+            return this._controller;
+        }
 
-    /**
-     * @method getHPOLegend
-     * @return {Legend} Responsible for managing and displaying the phenotype/HPO legend
-     */
-    getHPOLegend() {
-        return this._hpoLegend;
-    }
+        /**
+         * @method getActionStack
+         * @return {ActionStack} (responsible for undoing and redoing actions)
+         */
 
-    /**
-     * @method getGeneLegend
-     * @return {Legend} Responsible for managing and displaying the candidate genes legend
-     */
-    getGeneLegend() {
-        return this._geneLegend;
-    }
+    }, {
+        key: 'getActionStack',
+        value: function getActionStack() {
+            return this._actionStack;
+        }
 
-    /**
-     * @method getPaper
-     * @return {Workspace.paper} Raphael paper element
-     */
-    getPaper() {
-        return this.getWorkspace().getPaper();
-    }
+        /**
+         * @method getOkCancelDialogue
+         * @return {OkCancelDialogue} (responsible for displaying ok/cancel prompts)
+         */
 
-    /**
-     * @method isReadOnlyMode
-     * @return {Boolean} True iff pedigree drawn should be read only with no handles
-     *                   (read-only mode is used for IE8 as well as for template display and
-     *                   print and export versions).
-     */
-    isReadOnlyMode() {
-        return true;
-    }
+    }, {
+        key: 'getOkCancelDialogue',
+        value: function getOkCancelDialogue() {
+            return this._okCancelDialogue;
+        }
 
-    isUnsupportedBrowser() {
-        // http://voormedia.com/blog/2012/10/displaying-and-detecting-support-for-svg-images
-        if (!document.implementation.hasFeature("http://www.w3.org/TR/SVG11/feature#BasicStructure", "1.1")) {
-            // implies unpredictable behavior when using handles & interactive elements,
-            // and most likely extremely slow on any CPU
+        /**
+         * @method getNodetypeSelectionBubble
+         * @return {NodetypeSelectionBubble} (floating window with initialization options for new nodes)
+         */
+
+    }, {
+        key: 'getNodetypeSelectionBubble',
+        value: function getNodetypeSelectionBubble() {
+            return this._nodetypeSelectionBubble;
+        }
+
+        /**
+         * @method getSiblingSelectionBubble
+         * @return {NodetypeSelectionBubble} (floating window with initialization options for new sibling nodes)
+         */
+
+    }, {
+        key: 'getSiblingSelectionBubble',
+        value: function getSiblingSelectionBubble() {
+            return this._siblingSelectionBubble;
+        }
+
+        /**
+         * @method getWorkspace
+         * @return {Workspace}
+         */
+
+    }, {
+        key: 'getWorkspace',
+        value: function getWorkspace() {
+            return this._workspace;
+        }
+
+        /**
+         * @method getDisorderLegend
+         * @return {Legend} Responsible for managing and displaying the disorder legend
+         */
+
+    }, {
+        key: 'getDisorderLegend',
+        value: function getDisorderLegend() {
+            return this._disorderLegend;
+        }
+
+        /**
+         * @method getHPOLegend
+         * @return {Legend} Responsible for managing and displaying the phenotype/HPO legend
+         */
+
+    }, {
+        key: 'getHPOLegend',
+        value: function getHPOLegend() {
+            return this._hpoLegend;
+        }
+
+        /**
+         * @method getGeneLegend
+         * @return {Legend} Responsible for managing and displaying the candidate genes legend
+         */
+
+    }, {
+        key: 'getGeneLegend',
+        value: function getGeneLegend() {
+            return this._geneLegend;
+        }
+
+        /**
+         * @method getPaper
+         * @return {Workspace.paper} Raphael paper element
+         */
+
+    }, {
+        key: 'getPaper',
+        value: function getPaper() {
+            return this.getWorkspace().getPaper();
+        }
+
+        /**
+         * @method isReadOnlyMode
+         * @return {Boolean} True iff pedigree drawn should be read only with no handles
+         *                   (read-only mode is used for IE8 as well as for template display and
+         *                   print and export versions).
+         */
+
+    }, {
+        key: 'isReadOnlyMode',
+        value: function isReadOnlyMode() {
             return true;
         }
-        // http://kangax.github.io/es5-compat-table/
-        if (!window.JSON) {
-            // no built-in JSON parser - can't proceed in any way; note that this also implies
-            // no support for some other functions such as parsing XML.
-            //
-            // TODO: include free third-party JSON parser and replace XML with JSON when loading data;
-            //       (e.g. https://github.com/douglascrockford/JSON-js)
-            //
-            //       => at that point all browsers which suport SVG but are treated as unsupported
-            //          should theoreticaly start working (FF 3.0, Safari 3 & Opera 9/10 - need to test).
-            //          IE7 does not support SVG and JSON and is completely out of the running;
-            console.warn("Your browser is not supported and is unable to load and display any pedigrees.\n\n" + "Suported browsers include Internet Explorer version 9 and higher, Safari version 4 and higher, " + "Firefox version 3.6 and higher, Opera version 10.5 and higher, any version of Chrome and most " + "other modern browsers (including mobile). IE8 is able to display pedigrees in read-only mode.");
-            window.stop && window.stop();
-            return true;
+    }, {
+        key: 'isUnsupportedBrowser',
+        value: function isUnsupportedBrowser() {
+            // http://voormedia.com/blog/2012/10/displaying-and-detecting-support-for-svg-images
+            if (!document.implementation.hasFeature("http://www.w3.org/TR/SVG11/feature#BasicStructure", "1.1")) {
+                // implies unpredictable behavior when using handles & interactive elements,
+                // and most likely extremely slow on any CPU
+                return true;
+            }
+            // http://kangax.github.io/es5-compat-table/
+            if (!window.JSON) {
+                // no built-in JSON parser - can't proceed in any way; note that this also implies
+                // no support for some other functions such as parsing XML.
+                //
+                // TODO: include free third-party JSON parser and replace XML with JSON when loading data;
+                //       (e.g. https://github.com/douglascrockford/JSON-js)
+                //
+                //       => at that point all browsers which suport SVG but are treated as unsupported
+                //          should theoreticaly start working (FF 3.0, Safari 3 & Opera 9/10 - need to test).
+                //          IE7 does not support SVG and JSON and is completely out of the running;
+                console.warn("Your browser is not supported and is unable to load and display any pedigrees.\n\n" + "Suported browsers include Internet Explorer version 9 and higher, Safari version 4 and higher, " + "Firefox version 3.6 and higher, Opera version 10.5 and higher, any version of Chrome and most " + "other modern browsers (including mobile). IE8 is able to display pedigrees in read-only mode.");
+                window.stop && window.stop();
+                return true;
+            }
+            return false;
         }
-        return false;
-    }
 
-    /**
-     * @method getSaveLoadEngine
-     * @return {SaveLoadEngine} Engine responsible for saving and loading operations
-     */
-    getSaveLoadEngine() {
-        return this._saveLoadEngine;
-    }
+        /**
+         * @method getSaveLoadEngine
+         * @return {SaveLoadEngine} Engine responsible for saving and loading operations
+         */
 
-    /**
-     * @method getProbandDataFromPhenotips
-     * @return {firstName: "...", lastName: "..."}
-     */
-    getProbandDataFromPhenotips() {
-        return this._probandData;
-    }
+    }, {
+        key: 'getSaveLoadEngine',
+        value: function getSaveLoadEngine() {
+            return this._saveLoadEngine;
+        }
 
-    /**
-     * @method getTemplateSelector
-     * @return {TemplateSelector}
-     */
-    getTemplateSelector() {
-        return this._templateSelector;
-    }
+        /**
+         * @method getProbandDataFromPhenotips
+         * @return {firstName: "...", lastName: "..."}
+         */
 
-    /**
-     * @method getImportSelector
-     * @return {ImportSelector}
-     */
-    getImportSelector() {
-        return this._importSelector;
-    }
+    }, {
+        key: 'getProbandDataFromPhenotips',
+        value: function getProbandDataFromPhenotips() {
+            return this._probandData;
+        }
 
-    /**
-     * @method getExportSelector
-     * @return {ExportSelector}
-     */
-    getExportSelector() {
-        return this._exportSelector;
-    }
+        /**
+         * @method getTemplateSelector
+         * @return {TemplateSelector}
+         */
 
-    /**
-     * Returns true if any of the node menus are visible
-     * (since some UI interactions should be disabled while menu is active - e.g. mouse wheel zoom)
-     *
-     * @method isAnyMenuVisible
-     */
-    isAnyMenuVisible() {
-        return false;
-    }
+    }, {
+        key: 'getTemplateSelector',
+        value: function getTemplateSelector() {
+            return this._templateSelector;
+        }
 
-    /**
-     * Creates the context menu for Person nodes
-     *
-     * @method generateNodeMenu
-     * @return {NodeMenu}
-     */
-    generateNodeMenu() {
-        if (this.isReadOnlyMode()) return null;
-        var _this = this;
-        return new NodeMenu([{
-            'name': 'identifier',
-            'label': '',
-            'type': 'hidden',
-            'tab': 'Personal'
-        }, {
-            'name': 'gender',
-            'label': 'Gender',
-            'type': 'radio',
-            'tab': 'Personal',
-            'columns': 3,
-            'values': [{
-                'actual': 'M',
-                'displayed': 'Male'
-            }, {
-                'actual': 'F',
-                'displayed': 'Female'
-            }, {
-                'actual': 'U',
-                'displayed': 'Unknown'
-            }],
-            'default': 'U',
-            'function': 'setGender'
-        }, {
-            'name': 'first_name',
-            'label': 'First name',
-            'type': 'text',
-            'tab': 'Personal',
-            'function': 'setFirstName'
-        }, {
-            'name': 'last_name',
-            'label': 'Last name',
-            'type': 'text',
-            'tab': 'Personal',
-            'function': 'setLastName'
-        }, {
-            'name': 'last_name_birth',
-            'label': 'Last name at birth',
-            'type': 'text',
-            'tab': 'Personal',
-            'function': 'setLastNameAtBirth'
-        }, {
-            'name': 'external_id',
-            'label': 'External ID',
-            'type': 'text',
-            'tab': 'Personal',
-            'function': 'setExternalID'
-        }, {
-            'name': 'ethnicity',
-            'label': 'Ethnicities',
-            'type': 'ethnicity-picker',
-            'tab': 'Personal',
-            'function': 'setEthnicities'
-        }, {
-            'name': 'carrier',
-            'label': 'Carrier status',
-            'type': 'radio',
-            'tab': 'Clinical',
-            'values': [{
-                'actual': '',
-                'displayed': 'Not affected'
-            }, {
-                'actual': 'carrier',
-                'displayed': 'Carrier'
-            },
-            //{ 'actual' : 'obligate', 'displayed' : 'Obligate carrier' },
-            {
-                'actual': 'affected',
-                'displayed': 'Affected'
-            }, {
-                'actual': 'presymptomatic',
-                'displayed': 'Pre-symptomatic'
-            }],
-            'default': '',
-            'function': 'setCarrierStatus'
-        }, {
-            'name': 'evaluated',
-            'label': 'Documented evaluation',
-            'type': 'checkbox',
-            'tab': 'Clinical',
-            'function': 'setEvaluated'
-        }, {
-            'name': 'disorders',
-            'label': 'Known disorders of this individual',
-            'type': 'disease-picker',
-            'tab': 'Clinical',
-            'function': 'setDisorders'
-        }, {
-            'name': 'hpo_positive',
-            'label': 'Clinical symptoms: observed phenotypes',
-            'type': 'hpo-picker',
-            'tab': 'Clinical',
-            'function': 'setHPO'
-        }, {
-            'name': 'candidate_genes',
-            'label': 'Genotype information: candidate genes',
-            'type': 'gene-picker',
-            'tab': 'Clinical',
-            'function': 'setGenes'
-        }, {
-            'name': 'date_of_birth',
-            'label': 'Date of birth',
-            'type': 'date-picker',
-            'tab': 'Personal',
-            'format': 'dd/MM/yyyy',
-            'function': 'setBirthDate'
-        }, {
-            'name': 'date_of_death',
-            'label': 'Date of death',
-            'type': 'date-picker',
-            'tab': 'Personal',
-            'format': 'dd/MM/yyyy',
-            'function': 'setDeathDate'
-        }, {
-            'name': 'gestation_age',
-            'label': 'Gestation age',
-            'type': 'select',
-            'tab': 'Personal',
-            'range': {
-                'start': 0,
-                'end': 50,
-                'item': ['week', 'weeks']
-            },
-            'nullValue': true,
-            'function': 'setGestationAge'
-        }, {
-            'name': 'state',
-            'label': 'Individual is',
-            'type': 'radio',
-            'tab': 'Personal',
-            'columns': 3,
-            'values': [{
-                'actual': 'alive',
-                'displayed': 'Alive'
-            }, {
-                'actual': 'stillborn',
-                'displayed': 'Stillborn'
-            }, {
-                'actual': 'deceased',
-                'displayed': 'Deceased'
-            }, {
-                'actual': 'miscarriage',
-                'displayed': 'Miscarriage'
-            }, {
-                'actual': 'unborn',
-                'displayed': 'Unborn'
-            }, {
-                'actual': 'aborted',
-                'displayed': 'Aborted'
-            }],
-            'default': 'alive',
-            'function': 'setLifeStatus'
-        }, {
-            'label': 'Heredity options',
-            'name': 'childlessSelect',
-            'values': [{
-                'actual': 'none',
-                displayed: 'None'
-            }, {
-                'actual': 'childless',
-                displayed: 'Childless'
-            }, {
-                'actual': 'infertile',
-                displayed: 'Infertile'
-            }],
-            'type': 'select',
-            'tab': 'Personal',
-            'function': 'setChildlessStatus'
-        }, {
-            'name': 'childlessText',
-            'type': 'text',
-            'dependency': 'childlessSelect != none',
-            'tip': 'Reason',
-            'tab': 'Personal',
-            'function': 'setChildlessReason'
-        }, {
-            'name': 'adopted',
-            'label': 'Adopted in',
-            'type': 'checkbox',
-            'tab': 'Personal',
-            'function': 'setAdopted'
-        }, {
-            'name': 'monozygotic',
-            'label': 'Monozygotic twin',
-            'type': 'checkbox',
-            'tab': 'Personal',
-            'function': 'setMonozygotic'
-        }, {
-            'name': 'nocontact',
-            'label': 'Not in contact with proband',
-            'type': 'checkbox',
-            'tab': 'Personal',
-            'function': 'setLostContact'
-        }, {
-            'name': 'placeholder',
-            'label': 'Placeholder node',
-            'type': 'checkbox',
-            'tab': 'Personal',
-            'function': 'makePlaceholder'
-        }, {
-            'name': 'comments',
-            'label': 'Comments',
-            'type': 'textarea',
-            'tab': 'Clinical',
-            'rows': 2,
-            'function': 'setComments'
-        }], ["Personal", "Clinical"]);
-    }
+        /**
+         * @method getImportSelector
+         * @return {ImportSelector}
+         */
 
-    /**
-     * @method getNodeMenu
-     * @return {NodeMenu} Context menu for nodes
-     */
-    getNodeMenu() {
-        return this._nodeMenu;
-    }
+    }, {
+        key: 'getImportSelector',
+        value: function getImportSelector() {
+            return this._importSelector;
+        }
 
-    /**
-     * Creates the context menu for PersonGroup nodes
-     *
-     * @method generateNodeGroupMenu
-     * @return {NodeMenu}
-     */
-    generateNodeGroupMenu() {
-        if (this.isReadOnlyMode()) return null;
-        var _this = this;
-        return new NodeMenu([{
-            'name': 'identifier',
-            'label': '',
-            'type': 'hidden'
-        }, {
-            'name': 'gender',
-            'label': 'Gender',
-            'type': 'radio',
-            'columns': 3,
-            'values': [{
-                'actual': 'M',
-                'displayed': 'Male'
-            }, {
-                'actual': 'F',
-                'displayed': 'Female'
-            }, {
-                'actual': 'U',
-                'displayed': 'Unknown'
-            }],
-            'default': 'U',
-            'function': 'setGender'
-        }, {
-            'name': 'numInGroup',
-            'label': 'Number of persons in this group',
-            'type': 'select',
-            'values': [{
-                'actual': 1,
-                displayed: 'N'
-            }, {
-                'actual': 2,
-                displayed: '2'
-            }, {
-                'actual': 3,
-                displayed: '3'
-            }, {
-                'actual': 4,
-                displayed: '4'
-            }, {
-                'actual': 5,
-                displayed: '5'
-            }, {
-                'actual': 6,
-                displayed: '6'
-            }, {
-                'actual': 7,
-                displayed: '7'
-            }, {
-                'actual': 8,
-                displayed: '8'
-            }, {
-                'actual': 9,
-                displayed: '9'
-            }],
-            'function': 'setNumPersons'
-        }, {
-            'name': 'external_ids',
-            'label': 'External ID(s)',
-            'type': 'text',
-            'function': 'setExternalID'
-        }, {
-            'name': 'ethnicity',
-            'label': 'Ethnicities<br>(common to all individuals in the group)',
-            'type': 'ethnicity-picker',
-            'function': 'setEthnicities'
-        }, {
-            'name': 'disorders',
-            'label': 'Known disorders<br>(common to all individuals in the group)',
-            'type': 'disease-picker',
-            'function': 'setDisorders'
-        }, {
-            'name': 'comments',
-            'label': 'Comments',
-            'type': 'textarea',
-            'rows': 2,
-            'function': 'setComments'
-        }, {
-            'name': 'state',
-            'label': 'All individuals in the group are',
-            'type': 'radio',
-            'values': [{
-                'actual': 'alive',
-                'displayed': 'Alive'
-            }, {
-                'actual': 'aborted',
-                'displayed': 'Aborted'
-            }, {
-                'actual': 'deceased',
-                'displayed': 'Deceased'
-            }, {
-                'actual': 'miscarriage',
-                'displayed': 'Miscarriage'
-            }],
-            'default': 'alive',
-            'function': 'setLifeStatus'
-        }, {
-            'name': 'evaluatedGrp',
-            'label': 'Documented evaluation',
-            'type': 'checkbox',
-            'function': 'setEvaluated'
-        }, {
-            'name': 'adopted',
-            'label': 'Adopted in',
-            'type': 'checkbox',
-            'function': 'setAdopted'
-        }], []);
-    }
+        /**
+         * @method getExportSelector
+         * @return {ExportSelector}
+         */
 
-    /**
-     * @method getNodeGroupMenu
-     * @return {NodeMenu} Context menu for nodes
-     */
-    getNodeGroupMenu() {
-        return this._nodeGroupMenu;
-    }
+    }, {
+        key: 'getExportSelector',
+        value: function getExportSelector() {
+            return this._exportSelector;
+        }
 
-    /**
-     * Creates the context menu for Partnership nodes
-     *
-     * @method generatePartnershipMenu
-     * @return {NodeMenu}
-     */
-    generatePartnershipMenu() {
-        if (this.isReadOnlyMode()) return null;
-        var _this = this;
-        return new NodeMenu([{
-            'label': 'Heredity options',
-            'name': 'childlessSelect',
-            'values': [{
-                'actual': 'none',
-                displayed: 'None'
-            }, {
-                'actual': 'childless',
-                displayed: 'Childless'
-            }, {
-                'actual': 'infertile',
-                displayed: 'Infertile'
-            }],
-            'type': 'select',
-            'function': 'setChildlessStatus'
-        }, {
-            'name': 'childlessText',
-            'type': 'text',
-            'dependency': 'childlessSelect != none',
-            'tip': 'Reason',
-            'function': 'setChildlessReason'
-        }, {
-            'name': 'consangr',
-            'label': 'Consanguinity of this relationship',
-            'type': 'radio',
-            'values': [{
-                'actual': 'A',
-                'displayed': 'Automatic'
-            }, {
-                'actual': 'Y',
-                'displayed': 'Yes'
-            }, {
-                'actual': 'N',
-                'displayed': 'No'
-            }],
-            'default': 'A',
-            'function': 'setConsanguinity'
-        }, {
-            'name': 'broken',
-            'label': 'Separated',
-            'type': 'checkbox',
-            'function': 'setBrokenStatus'
-        }], [], "relationship-menu");
-    }
+        /**
+         * Returns true if any of the node menus are visible
+         * (since some UI interactions should be disabled while menu is active - e.g. mouse wheel zoom)
+         *
+         * @method isAnyMenuVisible
+         */
 
-    /**
-     * @method getPartnershipMenu
-     * @return {NodeMenu} The context menu for Partnership nodes
-     */
-    getPartnershipMenu() {
-        return this._partnershipMenu;
-    }
+    }, {
+        key: 'isAnyMenuVisible',
+        value: function isAnyMenuVisible() {
+            return false;
+        }
 
-    /**
-     * @method convertGraphCoordToCanvasCoord
-     * @return [x,y] coordinates on the canvas
-     */
-    convertGraphCoordToCanvasCoord(x, y) {
-        var scale = __WEBPACK_IMPORTED_MODULE_1__pedigreeEditorAttributes__["a" /* PedigreeEditorAttributes */].layoutScale;
-        return {
-            x: x * scale.xscale + 100,
-            y: y * scale.yscale
-        };
-    }
+        /**
+         * Creates the context menu for Person nodes
+         *
+         * @method generateNodeMenu
+         * @return {NodeMenu}
+         */
 
-}
-/* harmony export (immutable) */ __webpack_exports__["a"] = ViewerPedigree;
+    }, {
+        key: 'generateNodeMenu',
+        value: function generateNodeMenu() {
+            if (this.isReadOnlyMode()) return null;
+            var _this = this;
+            return new NodeMenu([{
+                'name': 'identifier',
+                'label': '',
+                'type': 'hidden',
+                'tab': 'Personal'
+            }, {
+                'name': 'gender',
+                'label': 'Gender',
+                'type': 'radio',
+                'tab': 'Personal',
+                'columns': 3,
+                'values': [{
+                    'actual': 'M',
+                    'displayed': 'Male'
+                }, {
+                    'actual': 'F',
+                    'displayed': 'Female'
+                }, {
+                    'actual': 'U',
+                    'displayed': 'Unknown'
+                }],
+                'default': 'U',
+                'function': 'setGender'
+            }, {
+                'name': 'first_name',
+                'label': 'First name',
+                'type': 'text',
+                'tab': 'Personal',
+                'function': 'setFirstName'
+            }, {
+                'name': 'last_name',
+                'label': 'Last name',
+                'type': 'text',
+                'tab': 'Personal',
+                'function': 'setLastName'
+            }, {
+                'name': 'last_name_birth',
+                'label': 'Last name at birth',
+                'type': 'text',
+                'tab': 'Personal',
+                'function': 'setLastNameAtBirth'
+            }, {
+                'name': 'external_id',
+                'label': 'External ID',
+                'type': 'text',
+                'tab': 'Personal',
+                'function': 'setExternalID'
+            }, {
+                'name': 'ethnicity',
+                'label': 'Ethnicities',
+                'type': 'ethnicity-picker',
+                'tab': 'Personal',
+                'function': 'setEthnicities'
+            }, {
+                'name': 'carrier',
+                'label': 'Carrier status',
+                'type': 'radio',
+                'tab': 'Clinical',
+                'values': [{
+                    'actual': '',
+                    'displayed': 'Not affected'
+                }, {
+                    'actual': 'carrier',
+                    'displayed': 'Carrier'
+                },
+                //{ 'actual' : 'obligate', 'displayed' : 'Obligate carrier' },
+                {
+                    'actual': 'affected',
+                    'displayed': 'Affected'
+                }, {
+                    'actual': 'presymptomatic',
+                    'displayed': 'Pre-symptomatic'
+                }],
+                'default': '',
+                'function': 'setCarrierStatus'
+            }, {
+                'name': 'evaluated',
+                'label': 'Documented evaluation',
+                'type': 'checkbox',
+                'tab': 'Clinical',
+                'function': 'setEvaluated'
+            }, {
+                'name': 'disorders',
+                'label': 'Known disorders of this individual',
+                'type': 'disease-picker',
+                'tab': 'Clinical',
+                'function': 'setDisorders'
+            }, {
+                'name': 'hpo_positive',
+                'label': 'Clinical symptoms: observed phenotypes',
+                'type': 'hpo-picker',
+                'tab': 'Clinical',
+                'function': 'setHPO'
+            }, {
+                'name': 'candidate_genes',
+                'label': 'Genotype information: candidate genes',
+                'type': 'gene-picker',
+                'tab': 'Clinical',
+                'function': 'setGenes'
+            }, {
+                'name': 'date_of_birth',
+                'label': 'Date of birth',
+                'type': 'date-picker',
+                'tab': 'Personal',
+                'format': 'dd/MM/yyyy',
+                'function': 'setBirthDate'
+            }, {
+                'name': 'date_of_death',
+                'label': 'Date of death',
+                'type': 'date-picker',
+                'tab': 'Personal',
+                'format': 'dd/MM/yyyy',
+                'function': 'setDeathDate'
+            }, {
+                'name': 'gestation_age',
+                'label': 'Gestation age',
+                'type': 'select',
+                'tab': 'Personal',
+                'range': {
+                    'start': 0,
+                    'end': 50,
+                    'item': ['week', 'weeks']
+                },
+                'nullValue': true,
+                'function': 'setGestationAge'
+            }, {
+                'name': 'state',
+                'label': 'Individual is',
+                'type': 'radio',
+                'tab': 'Personal',
+                'columns': 3,
+                'values': [{
+                    'actual': 'alive',
+                    'displayed': 'Alive'
+                }, {
+                    'actual': 'stillborn',
+                    'displayed': 'Stillborn'
+                }, {
+                    'actual': 'deceased',
+                    'displayed': 'Deceased'
+                }, {
+                    'actual': 'miscarriage',
+                    'displayed': 'Miscarriage'
+                }, {
+                    'actual': 'unborn',
+                    'displayed': 'Unborn'
+                }, {
+                    'actual': 'aborted',
+                    'displayed': 'Aborted'
+                }],
+                'default': 'alive',
+                'function': 'setLifeStatus'
+            }, {
+                'label': 'Heredity options',
+                'name': 'childlessSelect',
+                'values': [{
+                    'actual': 'none',
+                    displayed: 'None'
+                }, {
+                    'actual': 'childless',
+                    displayed: 'Childless'
+                }, {
+                    'actual': 'infertile',
+                    displayed: 'Infertile'
+                }],
+                'type': 'select',
+                'tab': 'Personal',
+                'function': 'setChildlessStatus'
+            }, {
+                'name': 'childlessText',
+                'type': 'text',
+                'dependency': 'childlessSelect != none',
+                'tip': 'Reason',
+                'tab': 'Personal',
+                'function': 'setChildlessReason'
+            }, {
+                'name': 'adopted',
+                'label': 'Adopted in',
+                'type': 'checkbox',
+                'tab': 'Personal',
+                'function': 'setAdopted'
+            }, {
+                'name': 'monozygotic',
+                'label': 'Monozygotic twin',
+                'type': 'checkbox',
+                'tab': 'Personal',
+                'function': 'setMonozygotic'
+            }, {
+                'name': 'nocontact',
+                'label': 'Not in contact with proband',
+                'type': 'checkbox',
+                'tab': 'Personal',
+                'function': 'setLostContact'
+            }, {
+                'name': 'placeholder',
+                'label': 'Placeholder node',
+                'type': 'checkbox',
+                'tab': 'Personal',
+                'function': 'makePlaceholder'
+            }, {
+                'name': 'comments',
+                'label': 'Comments',
+                'type': 'textarea',
+                'tab': 'Clinical',
+                'rows': 2,
+                'function': 'setComments'
+            }], ["Personal", "Clinical"]);
+        }
+
+        /**
+         * @method getNodeMenu
+         * @return {NodeMenu} Context menu for nodes
+         */
+
+    }, {
+        key: 'getNodeMenu',
+        value: function getNodeMenu() {
+            return this._nodeMenu;
+        }
+
+        /**
+         * Creates the context menu for PersonGroup nodes
+         *
+         * @method generateNodeGroupMenu
+         * @return {NodeMenu}
+         */
+
+    }, {
+        key: 'generateNodeGroupMenu',
+        value: function generateNodeGroupMenu() {
+            if (this.isReadOnlyMode()) return null;
+            var _this = this;
+            return new NodeMenu([{
+                'name': 'identifier',
+                'label': '',
+                'type': 'hidden'
+            }, {
+                'name': 'gender',
+                'label': 'Gender',
+                'type': 'radio',
+                'columns': 3,
+                'values': [{
+                    'actual': 'M',
+                    'displayed': 'Male'
+                }, {
+                    'actual': 'F',
+                    'displayed': 'Female'
+                }, {
+                    'actual': 'U',
+                    'displayed': 'Unknown'
+                }],
+                'default': 'U',
+                'function': 'setGender'
+            }, {
+                'name': 'numInGroup',
+                'label': 'Number of persons in this group',
+                'type': 'select',
+                'values': [{
+                    'actual': 1,
+                    displayed: 'N'
+                }, {
+                    'actual': 2,
+                    displayed: '2'
+                }, {
+                    'actual': 3,
+                    displayed: '3'
+                }, {
+                    'actual': 4,
+                    displayed: '4'
+                }, {
+                    'actual': 5,
+                    displayed: '5'
+                }, {
+                    'actual': 6,
+                    displayed: '6'
+                }, {
+                    'actual': 7,
+                    displayed: '7'
+                }, {
+                    'actual': 8,
+                    displayed: '8'
+                }, {
+                    'actual': 9,
+                    displayed: '9'
+                }],
+                'function': 'setNumPersons'
+            }, {
+                'name': 'external_ids',
+                'label': 'External ID(s)',
+                'type': 'text',
+                'function': 'setExternalID'
+            }, {
+                'name': 'ethnicity',
+                'label': 'Ethnicities<br>(common to all individuals in the group)',
+                'type': 'ethnicity-picker',
+                'function': 'setEthnicities'
+            }, {
+                'name': 'disorders',
+                'label': 'Known disorders<br>(common to all individuals in the group)',
+                'type': 'disease-picker',
+                'function': 'setDisorders'
+            }, {
+                'name': 'comments',
+                'label': 'Comments',
+                'type': 'textarea',
+                'rows': 2,
+                'function': 'setComments'
+            }, {
+                'name': 'state',
+                'label': 'All individuals in the group are',
+                'type': 'radio',
+                'values': [{
+                    'actual': 'alive',
+                    'displayed': 'Alive'
+                }, {
+                    'actual': 'aborted',
+                    'displayed': 'Aborted'
+                }, {
+                    'actual': 'deceased',
+                    'displayed': 'Deceased'
+                }, {
+                    'actual': 'miscarriage',
+                    'displayed': 'Miscarriage'
+                }],
+                'default': 'alive',
+                'function': 'setLifeStatus'
+            }, {
+                'name': 'evaluatedGrp',
+                'label': 'Documented evaluation',
+                'type': 'checkbox',
+                'function': 'setEvaluated'
+            }, {
+                'name': 'adopted',
+                'label': 'Adopted in',
+                'type': 'checkbox',
+                'function': 'setAdopted'
+            }], []);
+        }
+
+        /**
+         * @method getNodeGroupMenu
+         * @return {NodeMenu} Context menu for nodes
+         */
+
+    }, {
+        key: 'getNodeGroupMenu',
+        value: function getNodeGroupMenu() {
+            return this._nodeGroupMenu;
+        }
+
+        /**
+         * Creates the context menu for Partnership nodes
+         *
+         * @method generatePartnershipMenu
+         * @return {NodeMenu}
+         */
+
+    }, {
+        key: 'generatePartnershipMenu',
+        value: function generatePartnershipMenu() {
+            if (this.isReadOnlyMode()) return null;
+            var _this = this;
+            return new NodeMenu([{
+                'label': 'Heredity options',
+                'name': 'childlessSelect',
+                'values': [{
+                    'actual': 'none',
+                    displayed: 'None'
+                }, {
+                    'actual': 'childless',
+                    displayed: 'Childless'
+                }, {
+                    'actual': 'infertile',
+                    displayed: 'Infertile'
+                }],
+                'type': 'select',
+                'function': 'setChildlessStatus'
+            }, {
+                'name': 'childlessText',
+                'type': 'text',
+                'dependency': 'childlessSelect != none',
+                'tip': 'Reason',
+                'function': 'setChildlessReason'
+            }, {
+                'name': 'consangr',
+                'label': 'Consanguinity of this relationship',
+                'type': 'radio',
+                'values': [{
+                    'actual': 'A',
+                    'displayed': 'Automatic'
+                }, {
+                    'actual': 'Y',
+                    'displayed': 'Yes'
+                }, {
+                    'actual': 'N',
+                    'displayed': 'No'
+                }],
+                'default': 'A',
+                'function': 'setConsanguinity'
+            }, {
+                'name': 'broken',
+                'label': 'Separated',
+                'type': 'checkbox',
+                'function': 'setBrokenStatus'
+            }], [], "relationship-menu");
+        }
+
+        /**
+         * @method getPartnershipMenu
+         * @return {NodeMenu} The context menu for Partnership nodes
+         */
+
+    }, {
+        key: 'getPartnershipMenu',
+        value: function getPartnershipMenu() {
+            return this._partnershipMenu;
+        }
+
+        /**
+         * @method convertGraphCoordToCanvasCoord
+         * @return [x,y] coordinates on the canvas
+         */
+
+    }, {
+        key: 'convertGraphCoordToCanvasCoord',
+        value: function convertGraphCoordToCanvasCoord(x, y) {
+            var scale = _pedigreeEditorAttributes.PedigreeEditorAttributes.layoutScale;
+            return {
+                x: x * scale.xscale + 100,
+                y: y * scale.yscale
+            };
+        }
+    }]);
+
+    return ViewerPedigree;
+}();
+
 ;
 
 var editor; // ????
 
 //attributes for graphical elements in the editor
-ViewerPedigree.attributes = __WEBPACK_IMPORTED_MODULE_1__pedigreeEditorAttributes__["a" /* PedigreeEditorAttributes */];
+ViewerPedigree.attributes = _pedigreeEditorAttributes.PedigreeEditorAttributes;
 
 /***/ }),
-/* 154 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
+/* 153 */
+/***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_prototype__ = __webpack_require__(94);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_prototype___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_prototype__);
 
+
+var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
+
+var _prototype = __webpack_require__(93);
 
 String.prototype.parseColor = function () {
     var b;
@@ -47539,12 +47544,12 @@ String.prototype.parseColor = function () {
     return a.length == 7 ? a : arguments[0] || this;
 };
 Element.collectTextNodes = function (a) {
-    return __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0_prototype__["$A"])($(a).childNodes).collect(function (b) {
+    return (0, _prototype.$A)($(a).childNodes).collect(function (b) {
         return b.nodeType == 3 ? b.nodeValue : b.hasChildNodes() ? Element.collectTextNodes(b) : "";
     }).flatten().join("");
 };
 Element.collectTextNodesIgnoreClass = function (a, b) {
-    return __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0_prototype__["$A"])($(a).childNodes).collect(function (c) {
+    return (0, _prototype.$A)($(a).childNodes).collect(function (c) {
         return c.nodeType == 3 ? c.nodeValue : c.hasChildNodes() && !Element.hasClassName(c, b) ? Element.collectTextNodesIgnoreClass(c, b) : "";
     }).flatten().join("");
 };
@@ -47553,7 +47558,7 @@ Element.setContentZoom = function (a, b) {
     a.setStyle({
         fontSize: b / 100 + "em"
     });
-    if (__WEBPACK_IMPORTED_MODULE_0_prototype__["Prototype"].Browser.WebKit) {
+    if (_prototype.Prototype.Browser.WebKit) {
         window.scrollBy(0, 0);
     }
     return a;
@@ -47575,30 +47580,30 @@ var Effect = {
         message: "The specified DOM element does not exist, but is required for this effect to operate"
     },
     Transitions: {
-        linear: __WEBPACK_IMPORTED_MODULE_0_prototype__["Prototype"].K,
-        sinoidal: function (a) {
+        linear: _prototype.Prototype.K,
+        sinoidal: function sinoidal(a) {
             return -Math.cos(a * Math.PI) / 2 + 0.5;
         },
-        reverse: function (a) {
+        reverse: function reverse(a) {
             return 1 - a;
         },
-        flicker: function (a) {
+        flicker: function flicker(a) {
             a = -Math.cos(a * Math.PI) / 4 + 0.75 + Math.random() / 4;
             return a > 1 ? 1 : a;
         },
-        wobble: function (a) {
+        wobble: function wobble(a) {
             return -Math.cos(a * Math.PI * (9 * a)) / 2 + 0.5;
         },
-        pulse: function (b, a) {
+        pulse: function pulse(b, a) {
             return -Math.cos(b * ((a || 5) - 0.5) * 2 * Math.PI) / 2 + 0.5;
         },
-        spring: function (a) {
+        spring: function spring(a) {
             return 1 - Math.cos(a * 4.5 * Math.PI) * Math.exp(-a * 6);
         },
-        none: function (a) {
+        none: function none(a) {
             return 0;
         },
-        full: function (a) {
+        full: function full(a) {
             return 1;
         }
     },
@@ -47611,13 +47616,13 @@ var Effect = {
         delay: 0,
         queue: "parallel"
     },
-    tagifyText: function (a) {
+    tagifyText: function tagifyText(a) {
         var b = "position:relative";
-        if (__WEBPACK_IMPORTED_MODULE_0_prototype__["Prototype"].Browser.IE) {
+        if (_prototype.Prototype.Browser.IE) {
             b += ";zoom:1";
         }
         a = $(a);
-        __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0_prototype__["$A"])(a.childNodes).each(function (c) {
+        (0, _prototype.$A)(a.childNodes).each(function (c) {
             if (c.nodeType == 3) {
                 c.nodeValue.toArray().each(function (d) {
                     a.insertBefore(new Element("span", {
@@ -47628,9 +47633,9 @@ var Effect = {
             }
         });
     },
-    multiple: function (b, c) {
+    multiple: function multiple(b, c) {
         var e;
-        if ((typeof b == "object" || Object.isFunction(b)) && b.length) {
+        if (((typeof b === "undefined" ? "undefined" : _typeof(b)) == "object" || Object.isFunction(b)) && b.length) {
             e = b;
         } else {
             e = $(b).childNodes;
@@ -47640,7 +47645,7 @@ var Effect = {
             delay: 0
         }, arguments[2] || {});
         var d = a.delay;
-        __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0_prototype__["$A"])(e).each(function (g, f) {
+        (0, _prototype.$A)(e).each(function (g, f) {
             new c(g, Object.extend(a, {
                 delay: f * a.speed + d
             }));
@@ -47651,7 +47656,7 @@ var Effect = {
         blind: ["BlindDown", "BlindUp"],
         appear: ["Appear", "Fade"]
     },
-    toggle: function (b, c, a) {
+    toggle: function toggle(b, c, a) {
         b = $(b);
         c = (c || "appear").toLowerCase();
         return Effect[Effect.PAIRS[c][b.visible() ? 1 : 0]](b, Object.extend({
@@ -47664,15 +47669,15 @@ var Effect = {
     }
 };
 Effect.DefaultOptions.transition = Effect.Transitions.sinoidal;
-Effect.ScopedQueue = __WEBPACK_IMPORTED_MODULE_0_prototype__["Class"].create(__WEBPACK_IMPORTED_MODULE_0_prototype__["Enumerable"], {
-    initialize: function () {
+Effect.ScopedQueue = _prototype.Class.create(_prototype.Enumerable, {
+    initialize: function initialize() {
         this.effects = [];
         this.interval = null;
     },
-    _each: function (a) {
+    _each: function _each(a) {
         this.effects._each(a);
     },
-    add: function (b) {
+    add: function add(b) {
         var c = new Date().getTime();
         var a = Object.isString(b.options.queue) ? b.options.queue : b.options.queue.position;
         switch (a) {
@@ -47700,7 +47705,7 @@ Effect.ScopedQueue = __WEBPACK_IMPORTED_MODULE_0_prototype__["Class"].create(__W
             this.interval = setInterval(this.loop.bind(this), 15);
         }
     },
-    remove: function (a) {
+    remove: function remove(a) {
         this.effects = this.effects.reject(function (b) {
             return b == a;
         });
@@ -47709,7 +47714,7 @@ Effect.ScopedQueue = __WEBPACK_IMPORTED_MODULE_0_prototype__["Class"].create(__W
             this.interval = null;
         }
     },
-    loop: function () {
+    loop: function loop() {
         var c = new Date().getTime();
         for (var b = 0, a = this.effects.length; b < a; b++) {
             this.effects[b] && this.effects[b].loop(c);
@@ -47717,8 +47722,8 @@ Effect.ScopedQueue = __WEBPACK_IMPORTED_MODULE_0_prototype__["Class"].create(__W
     }
 });
 Effect.Queues = {
-    instances: __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0_prototype__["$H"])(),
-    get: function (a) {
+    instances: (0, _prototype.$H)(),
+    get: function get(a) {
         if (!Object.isString(a)) {
             return a;
         }
@@ -47726,9 +47731,9 @@ Effect.Queues = {
     }
 };
 Effect.Queue = Effect.Queues.get("global");
-Effect.Base = __WEBPACK_IMPORTED_MODULE_0_prototype__["Class"].create({
+Effect.Base = _prototype.Class.create({
     position: null,
-    start: function (a) {
+    start: function start(a) {
         if (a && a.transition === false) {
             a.transition = Effect.Transitions.linear;
         }
@@ -47774,7 +47779,7 @@ Effect.Base = __WEBPACK_IMPORTED_MODULE_0_prototype__["Class"].create({
             Effect.Queues.get(Object.isString(this.options.queue) ? "global" : this.options.queue.scope).add(this);
         }
     },
-    loop: function (c) {
+    loop: function loop(c) {
         if (c >= this.startOn) {
             if (c >= this.finishOn) {
                 this.render(1);
@@ -47794,13 +47799,13 @@ Effect.Base = __WEBPACK_IMPORTED_MODULE_0_prototype__["Class"].create({
             }
         }
     },
-    cancel: function () {
+    cancel: function cancel() {
         if (!this.options.sync) {
             Effect.Queues.get(Object.isString(this.options.queue) ? "global" : this.options.queue.scope).remove(this);
         }
         this.state = "finished";
     },
-    event: function (a) {
+    event: function event(a) {
         if (this.options[a + "Internal"]) {
             this.options[a + "Internal"](this);
         }
@@ -47808,25 +47813,25 @@ Effect.Base = __WEBPACK_IMPORTED_MODULE_0_prototype__["Class"].create({
             this.options[a](this);
         }
     },
-    inspect: function () {
-        var a = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0_prototype__["$H"])();
+    inspect: function inspect() {
+        var a = (0, _prototype.$H)();
         for (var property in this) {
             if (!Object.isFunction(this[property])) {
                 a.set(property, this[property]);
             }
         }
-        return "#<Effect:" + a.inspect() + ",options:" + __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0_prototype__["$H"])(this.options).inspect() + ">";
+        return "#<Effect:" + a.inspect() + ",options:" + (0, _prototype.$H)(this.options).inspect() + ">";
     }
 });
-Effect.Parallel = __WEBPACK_IMPORTED_MODULE_0_prototype__["Class"].create(Effect.Base, {
-    initialize: function (a) {
+Effect.Parallel = _prototype.Class.create(Effect.Base, {
+    initialize: function initialize(a) {
         this.effects = a || [];
         this.start(arguments[1]);
     },
-    update: function (a) {
+    update: function update(a) {
         this.effects.invoke("render", a);
     },
-    finish: function (a) {
+    finish: function finish(a) {
         this.effects.each(function (b) {
             b.render(1);
             b.cancel();
@@ -47838,10 +47843,10 @@ Effect.Parallel = __WEBPACK_IMPORTED_MODULE_0_prototype__["Class"].create(Effect
         });
     }
 });
-Effect.Tween = __WEBPACK_IMPORTED_MODULE_0_prototype__["Class"].create(Effect.Base, {
-    initialize: function (c, f, e) {
+Effect.Tween = _prototype.Class.create(Effect.Base, {
+    initialize: function initialize(c, f, e) {
         c = Object.isString(c) ? $(c) : c;
-        var b = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0_prototype__["$A"])(arguments),
+        var b = (0, _prototype.$A)(arguments),
             d = b.last(),
             a = b.length == 5 ? b[3] : null;
         this.method = Object.isFunction(d) ? d.bind(c) : Object.isFunction(c[d]) ? c[d].bind(c) : function (g) {
@@ -47852,25 +47857,25 @@ Effect.Tween = __WEBPACK_IMPORTED_MODULE_0_prototype__["Class"].create(Effect.Ba
             to: e
         }, a || {}));
     },
-    update: function (a) {
+    update: function update(a) {
         this.method(a);
     }
 });
-Effect.Event = __WEBPACK_IMPORTED_MODULE_0_prototype__["Class"].create(Effect.Base, {
-    initialize: function () {
+Effect.Event = _prototype.Class.create(Effect.Base, {
+    initialize: function initialize() {
         this.start(Object.extend({
             duration: 0
         }, arguments[0] || {}));
     },
-    update: __WEBPACK_IMPORTED_MODULE_0_prototype__["Prototype"].emptyFunction
+    update: _prototype.Prototype.emptyFunction
 });
-Effect.Opacity = __WEBPACK_IMPORTED_MODULE_0_prototype__["Class"].create(Effect.Base, {
-    initialize: function (b) {
+Effect.Opacity = _prototype.Class.create(Effect.Base, {
+    initialize: function initialize(b) {
         this.element = $(b);
         if (!this.element) {
             throw Effect._elementDoesNotExistError;
         }
-        if (__WEBPACK_IMPORTED_MODULE_0_prototype__["Prototype"].Browser.IE && !this.element.currentStyle.hasLayout) {
+        if (_prototype.Prototype.Browser.IE && !this.element.currentStyle.hasLayout) {
             this.element.setStyle({
                 zoom: 1
             });
@@ -47883,12 +47888,12 @@ Effect.Opacity = __WEBPACK_IMPORTED_MODULE_0_prototype__["Class"].create(Effect.
         a.to = parseFloat(a.to);
         this.start(a);
     },
-    update: function (a) {
+    update: function update(a) {
         this.element.setOpacity(a);
     }
 });
-Effect.Move = __WEBPACK_IMPORTED_MODULE_0_prototype__["Class"].create(Effect.Base, {
-    initialize: function (b) {
+Effect.Move = _prototype.Class.create(Effect.Base, {
+    initialize: function initialize(b) {
         this.element = $(b);
         if (!this.element) {
             throw Effect._elementDoesNotExistError;
@@ -47900,7 +47905,7 @@ Effect.Move = __WEBPACK_IMPORTED_MODULE_0_prototype__["Class"].create(Effect.Bas
         }, arguments[1] || {});
         this.start(a);
     },
-    setup: function () {
+    setup: function setup() {
         this.element.makePositioned();
         this.originalLeft = parseFloat(this.element.getStyle("left") || "0");
         this.originalTop = parseFloat(this.element.getStyle("top") || "0");
@@ -47909,7 +47914,7 @@ Effect.Move = __WEBPACK_IMPORTED_MODULE_0_prototype__["Class"].create(Effect.Bas
             this.options.y = this.options.y - this.originalTop;
         }
     },
-    update: function (a) {
+    update: function update(a) {
         this.element.setStyle({
             left: (this.options.x * a + this.originalLeft).round() + "px",
             top: (this.options.y * a + this.originalTop).round() + "px"
@@ -47922,8 +47927,8 @@ Effect.MoveBy = function (b, a, c) {
         y: a
     }, arguments[3] || {}));
 };
-Effect.Scale = __WEBPACK_IMPORTED_MODULE_0_prototype__["Class"].create(Effect.Base, {
-    initialize: function (b, c) {
+Effect.Scale = _prototype.Class.create(Effect.Base, {
+    initialize: function initialize(b, c) {
         this.element = $(b);
         if (!this.element) {
             throw Effect._elementDoesNotExistError;
@@ -47939,7 +47944,7 @@ Effect.Scale = __WEBPACK_IMPORTED_MODULE_0_prototype__["Class"].create(Effect.Ba
         }, arguments[2] || {});
         this.start(a);
     },
-    setup: function () {
+    setup: function setup() {
         this.restoreAfterFinish = this.options.restoreAfterFinish || false;
         this.elementPositioning = this.element.getStyle("position");
         this.originalStyle = {};
@@ -47967,7 +47972,7 @@ Effect.Scale = __WEBPACK_IMPORTED_MODULE_0_prototype__["Class"].create(Effect.Ba
             this.dims = [this.options.scaleMode.originalHeight, this.options.scaleMode.originalWidth];
         }
     },
-    update: function (a) {
+    update: function update(a) {
         var b = this.options.scaleFrom / 100 + this.factor * a;
         if (this.options.scaleContent && this.fontSize) {
             this.element.setStyle({
@@ -47976,12 +47981,12 @@ Effect.Scale = __WEBPACK_IMPORTED_MODULE_0_prototype__["Class"].create(Effect.Ba
         }
         this.setDimensions(this.dims[0] * b, this.dims[1] * b);
     },
-    finish: function (a) {
+    finish: function finish(a) {
         if (this.restoreAfterFinish) {
             this.element.setStyle(this.originalStyle);
         }
     },
-    setDimensions: function (a, e) {
+    setDimensions: function setDimensions(a, e) {
         var f = {};
         if (this.options.scaleX) {
             f.width = e.round() + "px";
@@ -48011,8 +48016,8 @@ Effect.Scale = __WEBPACK_IMPORTED_MODULE_0_prototype__["Class"].create(Effect.Ba
         this.element.setStyle(f);
     }
 });
-Effect.Highlight = __WEBPACK_IMPORTED_MODULE_0_prototype__["Class"].create(Effect.Base, {
-    initialize: function (b) {
+Effect.Highlight = _prototype.Class.create(Effect.Base, {
+    initialize: function initialize(b) {
         this.element = $(b);
         if (!this.element) {
             throw Effect._elementDoesNotExistError;
@@ -48022,7 +48027,7 @@ Effect.Highlight = __WEBPACK_IMPORTED_MODULE_0_prototype__["Class"].create(Effec
         }, arguments[1] || {});
         this.start(a);
     },
-    setup: function () {
+    setup: function setup() {
         if (this.element.getStyle("display") == "none") {
             this.cancel();
             return;
@@ -48040,21 +48045,21 @@ Effect.Highlight = __WEBPACK_IMPORTED_MODULE_0_prototype__["Class"].create(Effec
         if (!this.options.restorecolor) {
             this.options.restorecolor = this.element.getStyle("background-color");
         }
-        this._base = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0_prototype__["$R"])(0, 2).map(function (a) {
+        this._base = (0, _prototype.$R)(0, 2).map(function (a) {
             return parseInt(this.options.startcolor.slice(a * 2 + 1, a * 2 + 3), 16);
         }.bind(this));
-        this._delta = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0_prototype__["$R"])(0, 2).map(function (a) {
+        this._delta = (0, _prototype.$R)(0, 2).map(function (a) {
             return parseInt(this.options.endcolor.slice(a * 2 + 1, a * 2 + 3), 16) - this._base[a];
         }.bind(this));
     },
-    update: function (a) {
+    update: function update(a) {
         this.element.setStyle({
-            backgroundColor: __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0_prototype__["$R"])(0, 2).inject("#", function (b, c, d) {
+            backgroundColor: (0, _prototype.$R)(0, 2).inject("#", function (b, c, d) {
                 return b + (this._base[d] + this._delta[d] * a).round().toColorPart();
             }.bind(this))
         });
     },
-    finish: function () {
+    finish: function finish() {
         this.element.setStyle(Object.extend(this.oldStyle, {
             backgroundColor: this.options.restorecolor
         }));
@@ -48077,7 +48082,7 @@ Effect.Fade = function (c) {
     var b = Object.extend({
         from: c.getOpacity() || 1,
         to: 0,
-        afterFinishInternal: function (d) {
+        afterFinishInternal: function afterFinishInternal(d) {
             if (d.options.to != 0) {
                 return;
             }
@@ -48093,10 +48098,10 @@ Effect.Appear = function (b) {
     var a = Object.extend({
         from: b.getStyle("display") == "none" ? 0 : b.getOpacity() || 0,
         to: 1,
-        afterFinishInternal: function (c) {
+        afterFinishInternal: function afterFinishInternal(c) {
             c.element.forceRerendering();
         },
-        beforeSetup: function (c) {
+        beforeSetup: function beforeSetup(c) {
             c.element.setOpacity(c.options.from).show();
         }
     }, arguments[1] || {});
@@ -48122,10 +48127,10 @@ Effect.Puff = function (b) {
         to: 0
     })], Object.extend({
         duration: 1,
-        beforeSetupInternal: function (c) {
+        beforeSetupInternal: function beforeSetupInternal(c) {
             Position.absolutize(c.effects[0].element);
         },
-        afterFinishInternal: function (c) {
+        afterFinishInternal: function afterFinishInternal(c) {
             c.effects[0].element.hide().setStyle(a);
         }
     }, arguments[1] || {}));
@@ -48137,7 +48142,7 @@ Effect.BlindUp = function (a) {
         scaleContent: false,
         scaleX: false,
         restoreAfterFinish: true,
-        afterFinishInternal: function (b) {
+        afterFinishInternal: function afterFinishInternal(b) {
             b.element.hide().undoClipping();
         }
     }, arguments[1] || {}));
@@ -48154,12 +48159,12 @@ Effect.BlindDown = function (b) {
             originalWidth: a.width
         },
         restoreAfterFinish: true,
-        afterSetup: function (c) {
+        afterSetup: function afterSetup(c) {
             c.element.makeClipping().setStyle({
                 height: "0px"
             }).show();
         },
-        afterFinishInternal: function (c) {
+        afterFinishInternal: function afterFinishInternal(c) {
             c.element.undoClipping();
         }
     }, arguments[1] || {}));
@@ -48171,17 +48176,17 @@ Effect.SwitchOff = function (b) {
         duration: 0.4,
         from: 0,
         transition: Effect.Transitions.flicker,
-        afterFinishInternal: function (c) {
+        afterFinishInternal: function afterFinishInternal(c) {
             new Effect.Scale(c.element, 1, {
                 duration: 0.3,
                 scaleFromCenter: true,
                 scaleX: false,
                 scaleContent: false,
                 restoreAfterFinish: true,
-                beforeSetup: function (d) {
+                beforeSetup: function beforeSetup(d) {
                     d.element.makePositioned().makeClipping();
                 },
-                afterFinishInternal: function (d) {
+                afterFinishInternal: function afterFinishInternal(d) {
                     d.element.hide().undoClipping().undoPositioned().setStyle({
                         opacity: a
                     });
@@ -48206,10 +48211,10 @@ Effect.DropOut = function (b) {
         to: 0
     })], Object.extend({
         duration: 0.5,
-        beforeSetup: function (c) {
+        beforeSetup: function beforeSetup(c) {
             c.effects[0].element.makePositioned();
         },
-        afterFinishInternal: function (c) {
+        afterFinishInternal: function afterFinishInternal(c) {
             c.effects[0].element.hide().undoPositioned().setStyle(a);
         }
     }, arguments[1] || {}));
@@ -48230,32 +48235,32 @@ Effect.Shake = function (d) {
         x: e,
         y: 0,
         duration: c,
-        afterFinishInternal: function (f) {
+        afterFinishInternal: function afterFinishInternal(f) {
             new Effect.Move(f.element, {
                 x: -e * 2,
                 y: 0,
                 duration: c * 2,
-                afterFinishInternal: function (g) {
+                afterFinishInternal: function afterFinishInternal(g) {
                     new Effect.Move(g.element, {
                         x: e * 2,
                         y: 0,
                         duration: c * 2,
-                        afterFinishInternal: function (h) {
+                        afterFinishInternal: function afterFinishInternal(h) {
                             new Effect.Move(h.element, {
                                 x: -e * 2,
                                 y: 0,
                                 duration: c * 2,
-                                afterFinishInternal: function (i) {
+                                afterFinishInternal: function afterFinishInternal(i) {
                                     new Effect.Move(i.element, {
                                         x: e * 2,
                                         y: 0,
                                         duration: c * 2,
-                                        afterFinishInternal: function (j) {
+                                        afterFinishInternal: function afterFinishInternal(j) {
                                             new Effect.Move(j.element, {
                                                 x: -e,
                                                 y: 0,
                                                 duration: c,
-                                                afterFinishInternal: function (k) {
+                                                afterFinishInternal: function afterFinishInternal(k) {
                                                     k.element.undoPositioned().setStyle(a);
                                                 }
                                             });
@@ -48283,7 +48288,7 @@ Effect.SlideDown = function (c) {
             originalWidth: b.width
         },
         restoreAfterFinish: true,
-        afterSetup: function (d) {
+        afterSetup: function afterSetup(d) {
             d.element.makePositioned();
             d.element.down().makePositioned();
             if (window.opera) {
@@ -48295,12 +48300,12 @@ Effect.SlideDown = function (c) {
                 height: "0px"
             }).show();
         },
-        afterUpdateInternal: function (d) {
+        afterUpdateInternal: function afterUpdateInternal(d) {
             d.element.down().setStyle({
                 bottom: d.dims[0] - d.element.clientHeight + "px"
             });
         },
-        afterFinishInternal: function (d) {
+        afterFinishInternal: function afterFinishInternal(d) {
             d.element.undoClipping().undoPositioned();
             d.element.down().undoPositioned().setStyle({
                 bottom: a
@@ -48322,7 +48327,7 @@ Effect.SlideUp = function (c) {
             originalWidth: b.width
         },
         restoreAfterFinish: true,
-        afterSetup: function (d) {
+        afterSetup: function afterSetup(d) {
             d.element.makePositioned();
             d.element.down().makePositioned();
             if (window.opera) {
@@ -48332,12 +48337,12 @@ Effect.SlideUp = function (c) {
             }
             d.element.makeClipping().show();
         },
-        afterUpdateInternal: function (d) {
+        afterUpdateInternal: function afterUpdateInternal(d) {
             d.element.down().setStyle({
                 bottom: d.dims[0] - d.element.clientHeight + "px"
             });
         },
-        afterFinishInternal: function (d) {
+        afterFinishInternal: function afterFinishInternal(d) {
             d.element.hide().undoClipping().undoPositioned();
             d.element.down().undoPositioned().setStyle({
                 bottom: a
@@ -48348,10 +48353,10 @@ Effect.SlideUp = function (c) {
 Effect.Squish = function (a) {
     return new Effect.Scale(a, window.opera ? 1 : 0, {
         restoreAfterFinish: true,
-        beforeSetup: function (b) {
+        beforeSetup: function beforeSetup(b) {
             b.element.makeClipping();
         },
-        afterFinishInternal: function (b) {
+        afterFinishInternal: function afterFinishInternal(b) {
             b.element.hide().undoClipping();
         }
     });
@@ -48405,10 +48410,10 @@ Effect.Grow = function (c) {
         x: h,
         y: f,
         duration: 0.01,
-        beforeSetup: function (i) {
+        beforeSetup: function beforeSetup(i) {
             i.element.hide().makeClipping().makePositioned();
         },
-        afterFinishInternal: function (i) {
+        afterFinishInternal: function afterFinishInternal(i) {
             new Effect.Parallel([new Effect.Opacity(i.element, {
                 sync: true,
                 to: 1,
@@ -48429,12 +48434,12 @@ Effect.Grow = function (c) {
                 transition: b.scaleTransition,
                 restoreAfterFinish: true
             })], Object.extend({
-                beforeSetup: function (j) {
+                beforeSetup: function beforeSetup(j) {
                     j.effects[0].element.setStyle({
                         height: "0px"
                     }).show();
                 },
-                afterFinishInternal: function (j) {
+                afterFinishInternal: function afterFinishInternal(j) {
                     j.effects[0].element.undoClipping().undoPositioned().setStyle(a);
                 }
             }, b));
@@ -48494,10 +48499,10 @@ Effect.Shrink = function (c) {
         sync: true,
         transition: b.moveTransition
     })], Object.extend({
-        beforeStartInternal: function (g) {
+        beforeStartInternal: function beforeStartInternal(g) {
             g.effects[0].element.makePositioned().makeClipping();
         },
-        afterFinishInternal: function (g) {
+        afterFinishInternal: function afterFinishInternal(g) {
             g.effects[0].element.hide().undoClipping().undoPositioned().setStyle(a);
         }
     }, b));
@@ -48507,13 +48512,13 @@ Effect.Pulsate = function (c) {
     var b = arguments[1] || {},
         a = c.getInlineOpacity(),
         e = b.transition || Effect.Transitions.linear,
-        d = function (f) {
+        d = function d(f) {
         return 1 - e(-Math.cos(f * (b.pulses || 5) * 2 * Math.PI) / 2 + 0.5);
     };
     return new Effect.Opacity(c, Object.extend(Object.extend({
         duration: 2,
         from: 0,
-        afterFinishInternal: function (f) {
+        afterFinishInternal: function afterFinishInternal(f) {
             f.element.setStyle({
                 opacity: a
             });
@@ -48534,19 +48539,19 @@ Effect.Fold = function (b) {
     return new Effect.Scale(b, 5, Object.extend({
         scaleContent: false,
         scaleX: false,
-        afterFinishInternal: function (c) {
+        afterFinishInternal: function afterFinishInternal(c) {
             new Effect.Scale(b, 1, {
                 scaleContent: false,
                 scaleY: false,
-                afterFinishInternal: function (d) {
+                afterFinishInternal: function afterFinishInternal(d) {
                     d.element.hide().undoClipping().setStyle(a);
                 }
             });
         }
     }, arguments[1] || {}));
 };
-Effect.Morph = __WEBPACK_IMPORTED_MODULE_0_prototype__["Class"].create(Effect.Base, {
-    initialize: function (c) {
+Effect.Morph = _prototype.Class.create(Effect.Base, {
+    initialize: function initialize(c) {
         this.element = $(c);
         if (!this.element) {
             throw Effect._elementDoesNotExistError;
@@ -48555,13 +48560,13 @@ Effect.Morph = __WEBPACK_IMPORTED_MODULE_0_prototype__["Class"].create(Effect.Ba
             style: {}
         }, arguments[1] || {});
         if (!Object.isString(a.style)) {
-            this.style = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0_prototype__["$H"])(a.style);
+            this.style = (0, _prototype.$H)(a.style);
         } else {
             if (a.style.include(":")) {
                 this.style = a.style.parseStyle();
             } else {
                 this.element.addClassName(a.style);
-                this.style = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0_prototype__["$H"])(this.element.getStyles());
+                this.style = (0, _prototype.$H)(this.element.getStyles());
                 this.element.removeClassName(a.style);
                 var b = this.element.getStyles();
                 this.style = this.style.reject(function (d) {
@@ -48577,13 +48582,13 @@ Effect.Morph = __WEBPACK_IMPORTED_MODULE_0_prototype__["Class"].create(Effect.Ba
         }
         this.start(a);
     },
-    setup: function () {
+    setup: function setup() {
         function a(b) {
             if (!b || ["rgba(0, 0, 0, 0)", "transparent"].include(b)) {
                 b = "#ffffff";
             }
             b = b.parseColor();
-            return __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0_prototype__["$R"])(0, 2).map(function (c) {
+            return (0, _prototype.$R)(0, 2).map(function (c) {
                 return parseInt(b.slice(c * 2 + 1, c * 2 + 3), 16);
             });
         }
@@ -48597,7 +48602,7 @@ Effect.Morph = __WEBPACK_IMPORTED_MODULE_0_prototype__["Class"].create(Effect.Ba
             } else {
                 if (f == "opacity") {
                     e = parseFloat(e);
-                    if (__WEBPACK_IMPORTED_MODULE_0_prototype__["Prototype"].Browser.IE && !this.element.currentStyle.hasLayout) {
+                    if (_prototype.Prototype.Browser.IE && !this.element.currentStyle.hasLayout) {
                         this.element.setStyle({
                             zoom: 1
                         });
@@ -48621,7 +48626,7 @@ Effect.Morph = __WEBPACK_IMPORTED_MODULE_0_prototype__["Class"].create(Effect.Ba
             return b.originalValue == b.targetValue || b.unit != "color" && (isNaN(b.originalValue) || isNaN(b.targetValue));
         });
     },
-    update: function (a) {
+    update: function update(a) {
         var d = {},
             b,
             c = this.transforms.length;
@@ -48631,17 +48636,17 @@ Effect.Morph = __WEBPACK_IMPORTED_MODULE_0_prototype__["Class"].create(Effect.Ba
         this.element.setStyle(d, true);
     }
 });
-Effect.Transform = __WEBPACK_IMPORTED_MODULE_0_prototype__["Class"].create({
-    initialize: function (a) {
+Effect.Transform = _prototype.Class.create({
+    initialize: function initialize(a) {
         this.tracks = [];
         this.options = arguments[1] || {};
         this.addTracks(a);
     },
-    addTracks: function (a) {
+    addTracks: function addTracks(a) {
         a.each(function (b) {
-            b = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0_prototype__["$H"])(b);
+            b = (0, _prototype.$H)(b);
             var c = b.values().first();
-            this.tracks.push(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0_prototype__["$H"])({
+            this.tracks.push((0, _prototype.$H)({
                 ids: b.keys().first(),
                 effect: Effect.Morph,
                 options: {
@@ -48651,7 +48656,7 @@ Effect.Transform = __WEBPACK_IMPORTED_MODULE_0_prototype__["Class"].create({
         }.bind(this));
         return this;
     },
-    play: function () {
+    play: function play() {
         return new Effect.Parallel(this.tracks.map(function (a) {
             var d = a.get("ids"),
                 c = a.get("effect"),
@@ -48670,8 +48675,8 @@ Element.CSS_LENGTH = /^(([\+\-]?[0-9\.]+)(em|ex|px|in|cm|mm|pt|pc|\%))|0$/;
 String.__parseStyleElement = document.createElement("div");
 String.prototype.parseStyle = function () {
     var b,
-        a = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0_prototype__["$H"])();
-    if (__WEBPACK_IMPORTED_MODULE_0_prototype__["Prototype"].Browser.WebKit) {
+        a = (0, _prototype.$H)();
+    if (_prototype.Prototype.Browser.WebKit) {
         b = new Element("div", {
             style: this
         }).style;
@@ -48684,7 +48689,7 @@ String.prototype.parseStyle = function () {
             a.set(c, b[c]);
         }
     });
-    if (__WEBPACK_IMPORTED_MODULE_0_prototype__["Prototype"].Browser.IE && this.include("opacity")) {
+    if (_prototype.Prototype.Browser.IE && this.include("opacity")) {
         a.set("opacity", this.match(/opacity:\s*((?:0|1)?(?:\.\d*)?)/)[1]);
     }
     return a;
@@ -48713,21 +48718,21 @@ if (document.defaultView && document.defaultView.getComputedStyle) {
     };
 }
 Effect.Methods = {
-    morph: function (a, b) {
+    morph: function morph(a, b) {
         a = $(a);
         new Effect.Morph(a, Object.extend({
             style: b
         }, arguments[2] || {}));
         return a;
     },
-    visualEffect: function (c, e, b) {
+    visualEffect: function visualEffect(c, e, b) {
         c = $(c);
         var d = e.dasherize().camelize(),
             a = d.charAt(0).toUpperCase() + d.substring(1);
         new Effect[a](c, b);
         return c;
     },
-    highlight: function (b, a) {
+    highlight: function highlight(b, a) {
         b = $(b);
         new Effect.Highlight(b, a);
         return b;
@@ -48746,17 +48751,22 @@ Effect.Methods = {
 Element.addMethods(Effect.Methods);
 
 /***/ }),
-/* 155 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
+/* 154 */
+/***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__abstractPersonVisuals__ = __webpack_require__(86);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__abstractNode__ = __webpack_require__(66);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_ramda__ = __webpack_require__(95);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_ramda___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_ramda__);
 
 
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+exports.AbstractPerson = undefined;
 
+var _abstractPersonVisuals = __webpack_require__(86);
+
+var _abstractNode = __webpack_require__(66);
+
+var _ramda = __webpack_require__(94);
 
 /**
  * A general superclass for Person nodes on the Pedigree graph. Contains information about related nodes
@@ -48771,9 +48781,9 @@ Element.addMethods(Effect.Methods);
  * @param {Number} [id] The id of the node
  */
 
-const AbstractPerson = Class.create(__WEBPACK_IMPORTED_MODULE_1__abstractNode__["b" /* AbstractNode */], {
+var AbstractPerson = exports.AbstractPerson = Class.create(_abstractNode.AbstractNode, {
 
-    initialize: function ($super, x, y, gender, id) {
+    initialize: function initialize($super, x, y, gender, id) {
         //console.log("abstract person");            
         this._gender = this.parseGender(gender);
         this._isAdopted = false;
@@ -48791,8 +48801,8 @@ const AbstractPerson = Class.create(__WEBPACK_IMPORTED_MODULE_1__abstractNode__[
      * @return {AbstractPersonVisuals}
      * @private
      */
-    _generateGraphics: function (x, y) {
-        return new __WEBPACK_IMPORTED_MODULE_0__abstractPersonVisuals__["a" /* AbstractPersonVisuals */](this, x, y);
+    _generateGraphics: function _generateGraphics(x, y) {
+        return new _abstractPersonVisuals.AbstractPersonVisuals(this, x, y);
     },
 
     /**
@@ -48803,7 +48813,7 @@ const AbstractPerson = Class.create(__WEBPACK_IMPORTED_MODULE_1__abstractNode__[
      * @param {String} gender The string to be parsed
      * @return {String} the gender in the standard form ("M", "F", or "U")
      */
-    parseGender: function (gender) {
+    parseGender: function parseGender(gender) {
         return gender.toUpperCase() == "M" || gender.toUpperCase() == "F" ? gender.toUpperCase() : "U";
     },
 
@@ -48813,14 +48823,14 @@ const AbstractPerson = Class.create(__WEBPACK_IMPORTED_MODULE_1__abstractNode__[
      * @method getGender
      * @return {String}
      */
-    getGender: function () {
+    getGender: function getGender() {
         return this._gender;
     },
 
     /**
      * @method isPersonGroup
      */
-    isPersonGroup: function () {
+    isPersonGroup: function isPersonGroup() {
         return this._type == "PersonGroup";
     },
 
@@ -48830,7 +48840,7 @@ const AbstractPerson = Class.create(__WEBPACK_IMPORTED_MODULE_1__abstractNode__[
      * @method setGender
      * @param {String} gender Should be "U", "F", or "M" depending on the gender
      */
-    setGender: function (gender) {
+    setGender: function setGender(gender) {
         gender = this.parseGender(gender);
         if (this._gender != gender) {
             this._gender = gender;
@@ -48846,7 +48856,7 @@ const AbstractPerson = Class.create(__WEBPACK_IMPORTED_MODULE_1__abstractNode__[
      * @method setAdopted
      * @param {Boolean} isAdopted Set to true if you want to mark the Person adopted
      */
-    setAdopted: function (isAdopted) {
+    setAdopted: function setAdopted(isAdopted) {
         this._isAdopted = isAdopted;
         //TODO: implement adopted and social parents
         if (isAdopted) this.getGraphics().drawAdoptedShape();else this.getGraphics().removeAdoptedShape();
@@ -48858,12 +48868,12 @@ const AbstractPerson = Class.create(__WEBPACK_IMPORTED_MODULE_1__abstractNode__[
      * @method isAdopted
      * @return {Boolean}
      */
-    isAdopted: function () {
+    isAdopted: function isAdopted() {
         return this._isAdopted;
     },
 
     // TODO: for automated setMethod -> getMethod used for undo/redo 
-    getAdopted: function () {
+    getAdopted: function getAdopted() {
         //console.log("GET ADOPTED: " + this.isAdopted()); 
         return this.isAdopted();
     },
@@ -48879,7 +48889,7 @@ const AbstractPerson = Class.create(__WEBPACK_IMPORTED_MODULE_1__abstractNode__[
        sex: "gender of the node"
      }
      */
-    getProperties: function ($super) {
+    getProperties: function getProperties($super) {
         var info = $super();
         info["gender"] = this.getGender();
         info["focused"] = this.getFocused();
@@ -48894,26 +48904,29 @@ const AbstractPerson = Class.create(__WEBPACK_IMPORTED_MODULE_1__abstractNode__[
      * @param properties Object
      * @return {Boolean} True if info was successfully assigned
      */
-    assignProperties: function ($super, properties) {
+    assignProperties: function assignProperties($super, properties) {
         if (!$super(properties)) return false;
-        if (__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2_ramda__["isNil"])(properties.gender) && __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2_ramda__["isNil"])(properties.focused) && __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2_ramda__["isNil"])(properties.isProband)) return false;
-        if (!__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2_ramda__["isNil"])(properties.gender) && this.getGender() != this.parseGender(properties.gender)) this.setGender(properties.gender);
-        if (!__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2_ramda__["isNil"])(properties.gender) && this.getFocused() !== properties.focused) this.setFocused(properties.focused);
-        if (!__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2_ramda__["isNil"])(properties.isProband) && this.isProband() !== properties.isProband) {
+        if ((0, _ramda.isNil)(properties.gender) && (0, _ramda.isNil)(properties.focused) && (0, _ramda.isNil)(properties.isProband)) return false;
+        if (!(0, _ramda.isNil)(properties.gender) && this.getGender() != this.parseGender(properties.gender)) this.setGender(properties.gender);
+        if (!(0, _ramda.isNil)(properties.gender) && this.getFocused() !== properties.focused) this.setFocused(properties.focused);
+        if (!(0, _ramda.isNil)(properties.isProband) && this.isProband() !== properties.isProband) {
             this._isProband = properties.isProband;
         }
         return true;
     }
 });
-/* harmony export (immutable) */ __webpack_exports__["a"] = AbstractPerson;
-
 
 /***/ }),
-/* 156 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
+/* 155 */
+/***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/* harmony export (immutable) */ __webpack_exports__["a"] = getAge;
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+exports.getAge = getAge;
 /**
  * Returns the age of a person with the given birth and death dates
  * @param {Date} birthDate
@@ -48975,14 +48988,20 @@ function getAge(birthDate, deathDate) {
 }
 
 /***/ }),
-/* 157 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
+/* 156 */
+/***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__pedigreeEditorAttributes__ = __webpack_require__(12);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__helpers__ = __webpack_require__(5);
 
 
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+exports.Controller = undefined;
+
+var _pedigreeEditorAttributes = __webpack_require__(12);
+
+var _helpers = __webpack_require__(5);
 
 /**
  * ...
@@ -48993,8 +49012,8 @@ function getAge(birthDate, deathDate) {
 
 // TODO: undo/redo in all handlers
 
-const Controller = Class.create({
-    initialize: function () {
+var Controller = exports.Controller = Class.create({
+    initialize: function initialize() {
         document.observe("pedigree:autolayout", this.handleAutoLayout);
         document.observe("pedigree:graph:clear", this.handleClearGraph);
         document.observe("pedigree:undo", this.handleUndo);
@@ -49012,21 +49031,21 @@ const Controller = Class.create({
         document.observe("pedigree:partnership:newchild", this.handleRelationshipNewChild);
     },
 
-    handleUndo: function (event) {
-        console.log("event: " + event.eventName + ", memo: " + __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__helpers__["c" /* stringifyObject */])(event.memo));
+    handleUndo: function handleUndo(event) {
+        console.log("event: " + event.eventName + ", memo: " + (0, _helpers.stringifyObject)(event.memo));
         editor.getActionStack().undo();
     },
 
-    handleRedo: function (event) {
-        console.log("event: " + event.eventName + ", memo: " + __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__helpers__["c" /* stringifyObject */])(event.memo));
+    handleRedo: function handleRedo(event) {
+        console.log("event: " + event.eventName + ", memo: " + (0, _helpers.stringifyObject)(event.memo));
         editor.getActionStack().redo();
     },
 
-    handleRenumber: function (event) {
+    handleRenumber: function handleRenumber(event) {
         // Assigns user-visible node labels for all person nodes, based on generation and order
         // ("I-1","I-2","I-3", "II-1", "II-2", etc.)
 
-        console.log("event: " + event.eventName + ", memo: " + __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__helpers__["c" /* stringifyObject */])(event.memo));
+        console.log("event: " + event.eventName + ", memo: " + (0, _helpers.stringifyObject)(event.memo));
 
         var check = event.memo.hasOwnProperty("check");
         var clear = false;
@@ -49046,7 +49065,7 @@ const Controller = Class.create({
                         } else {
                             var generation = editor.getGraph().getGeneration(nodeID);
                             var order = editor.getGraph().getOrderWithinGeneration(nodeID);
-                            pedNumber = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__helpers__["e" /* romanize */])(generation) + "-" + order;
+                            pedNumber = (0, _helpers.romanize)(generation) + "-" + order;
 
                             if (check) {
                                 if (pedNumber != currentPedNumber) {
@@ -49084,9 +49103,9 @@ const Controller = Class.create({
         }
     },
 
-    handleAutoLayout: function (event) {
+    handleAutoLayout: function handleAutoLayout(event) {
         try {
-            console.log("event: " + event.eventName + ", memo: " + __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__helpers__["c" /* stringifyObject */])(event.memo));
+            console.log("event: " + event.eventName + ", memo: " + (0, _helpers.stringifyObject)(event.memo));
             var changeSet = editor.getGraph().redrawAll();
             editor.getView().applyChanges(changeSet, true);
 
@@ -49097,8 +49116,8 @@ const Controller = Class.create({
         }
     },
 
-    handleClearGraph: function (event) {
-        console.log("event: " + event.eventName + ", memo: " + __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__helpers__["c" /* stringifyObject */])(event.memo));
+    handleClearGraph: function handleClearGraph(event) {
+        console.log("event: " + event.eventName + ", memo: " + (0, _helpers.stringifyObject)(event.memo));
         var changeSet = editor.getGraph().clearAll();
         editor.getView().applyChanges(changeSet, true);
 
@@ -49107,14 +49126,14 @@ const Controller = Class.create({
         if (!event.memo.noUndoRedo) editor.getActionStack().addState(event);
     },
 
-    handleRemove: function (event) {
-        console.log("event: " + event.eventName + ", memo: " + __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__helpers__["c" /* stringifyObject */])(event.memo));
+    handleRemove: function handleRemove(event) {
+        console.log("event: " + event.eventName + ", memo: " + (0, _helpers.stringifyObject)(event.memo));
         var nodeID = event.memo.nodeID;
 
         // get the list of affected nodes
         var disconnectedList = editor.getGraph().getDisconnectedSetIfNodeRemoved(nodeID);
 
-        var removeSelected = function () {
+        var removeSelected = function removeSelected() {
             try {
                 var changeSet = editor.getGraph().removeNodes(disconnectedList);
 
@@ -49144,7 +49163,7 @@ const Controller = Class.create({
             editor.getView().getNode(nextHighlight).getGraphics().markPermanently();
         }
 
-        var unhighlightSelected = function () {
+        var unhighlightSelected = function unhighlightSelected() {
             for (var i = 0; i < disconnectedList.length; i++) {
                 var nextHighlight = disconnectedList[i];
                 editor.getView().getNode(nextHighlight).getGraphics().unmark();
@@ -49155,11 +49174,11 @@ const Controller = Class.create({
         editor.getOkCancelDialogue().show("All highlighted nodes will be removed. Do you want to proceed?", "Delete nodes?", removeSelected, unhighlightSelected);
     },
 
-    handleSetProperty: function (event) {
+    handleSetProperty: function handleSetProperty(event) {
         //console.log("event: " + event.eventName + ", memo: " + stringifyObject(event.memo));
         var nodeID = event.memo.nodeID;
         var properties = event.memo.properties;
-        var undoEvent = { "eventName": event.eventName, "memo": { "nodeID": nodeID, "properties": __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__helpers__["f" /* cloneObject */])(event.memo.properties) } };
+        var undoEvent = { "eventName": event.eventName, "memo": { "nodeID": nodeID, "properties": (0, _helpers.cloneObject)(event.memo.properties) } };
 
         var node = editor.getView().getNode(nodeID);
         var changed = false;
@@ -49235,7 +49254,7 @@ const Controller = Class.create({
                 changedValue = true;
 
                 if (propertySetFunction == "setLastName") {
-                    if (__WEBPACK_IMPORTED_MODULE_0__pedigreeEditorAttributes__["a" /* PedigreeEditorAttributes */].propagateLastName) {
+                    if (_pedigreeEditorAttributes.PedigreeEditorAttributes.propagateLastName) {
                         if (node.getGender(nodeID) == "M") {
                             if (propValue != "") {
                                 // propagate last name as "last name at birth" to all descendants (by the male line)
@@ -49293,7 +49312,7 @@ const Controller = Class.create({
                         var twinNode = editor.getView().getNode(twin);
                         twinNode[propertySetFunction](propValue);
                         var twinProperties = twinNode.getProperties();
-                        console.log("Setting twin properties: " + __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__helpers__["c" /* stringifyObject */])(twinProperties));
+                        console.log("Setting twin properties: " + (0, _helpers.stringifyObject)(twinProperties));
                         editor.getGraph().setProperties(twin, twinProperties);
                     }
                 }
@@ -49328,9 +49347,9 @@ const Controller = Class.create({
         if (!event.memo.noUndoRedo && changedValue) editor.getActionStack().addState(event, undoEvent);
     },
 
-    handleModification: function (event) {
+    handleModification: function handleModification(event) {
         try {
-            console.log("event: " + event.eventName + ", memo: " + __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__helpers__["c" /* stringifyObject */])(event.memo));
+            console.log("event: " + event.eventName + ", memo: " + (0, _helpers.stringifyObject)(event.memo));
             var nodeID = event.memo.nodeID;
             var modifications = event.memo.modifications;
 
@@ -49338,32 +49357,32 @@ const Controller = Class.create({
 
             //var allProperties = node.getProperties();
 
-            for (var modificationType in modifications) if (modifications.hasOwnProperty(modificationType)) {
-                var modValue = modifications[modificationType];
+            for (var modificationType in modifications) {
+                if (modifications.hasOwnProperty(modificationType)) {
+                    var modValue = modifications[modificationType];
 
-                if (modificationType == "addTwin") {
-                    var numNewTwins = modValue - 1; // current node is one of the twins, so need to create one less
-                    for (var i = 0; i < numNewTwins; i++) {
-                        var twinProperty = { "gender": node.getGender() };
-                        var changeSet = editor.getGraph().addTwin(nodeID, twinProperty);
-                        editor.getView().applyChanges(changeSet, true);
+                    if (modificationType == "addTwin") {
+                        var numNewTwins = modValue - 1; // current node is one of the twins, so need to create one less
+                        for (var i = 0; i < numNewTwins; i++) {
+                            var twinProperty = { "gender": node.getGender() };
+                            var changeSet = editor.getGraph().addTwin(nodeID, twinProperty);
+                            editor.getView().applyChanges(changeSet, true);
+                        }
+                        node.assignProperties(editor.getGraph().getProperties(nodeID));
                     }
-                    node.assignProperties(editor.getGraph().getProperties(nodeID));
-                }
 
-                if (modificationType == "makePlaceholder") {
-                    // TODO
+                    if (modificationType == "makePlaceholder") {
+                        // TODO
+                    }
                 }
-            }
-
-            if (!event.memo.noUndoRedo) editor.getActionStack().addState(event);
+            }if (!event.memo.noUndoRedo) editor.getActionStack().addState(event);
         } catch (err) {
             console.log("err: " + err);
         }
     },
 
-    handlePersonDragToNewParent: function (event) {
-        console.log("event: " + event.eventName + ", memo: " + __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__helpers__["c" /* stringifyObject */])(event.memo));
+    handlePersonDragToNewParent: function handlePersonDragToNewParent(event) {
+        console.log("event: " + event.eventName + ", memo: " + (0, _helpers.stringifyObject)(event.memo));
 
         var personID = event.memo.personID;
         var parentID = event.memo.parentID;
@@ -49385,8 +49404,8 @@ const Controller = Class.create({
         }
     },
 
-    handlePersonNewParents: function (event) {
-        console.log("event: " + event.eventName + ", memo: " + __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__helpers__["c" /* stringifyObject */])(event.memo));
+    handlePersonNewParents: function handlePersonNewParents(event) {
+        console.log("event: " + event.eventName + ", memo: " + (0, _helpers.stringifyObject)(event.memo));
 
         var personID = event.memo.personID;
         if (!editor.getGraph().isPerson(personID)) return;
@@ -49399,12 +49418,12 @@ const Controller = Class.create({
         return changeSet["new"][0]; // new relationship
     },
 
-    handlePersonNewSibling: function (event) {
-        console.log("event: " + event.eventName + ", memo: " + __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__helpers__["c" /* stringifyObject */])(event.memo));
+    handlePersonNewSibling: function handlePersonNewSibling(event) {
+        console.log("event: " + event.eventName + ", memo: " + (0, _helpers.stringifyObject)(event.memo));
 
         // { "personID": id, "childParams": data.params.parameters, "preferLeft": false };
         var personID = event.memo.personID;
-        var childParams = event.memo.childParams ? __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__helpers__["f" /* cloneObject */])(event.memo.childParams) : {};
+        var childParams = event.memo.childParams ? (0, _helpers.cloneObject)(event.memo.childParams) : {};
         var numTwins = event.memo.twins ? event.memo.twins : 1;
         var numPersons = event.memo.groupSize ? event.memo.groupSize : 0;
 
@@ -49428,8 +49447,8 @@ const Controller = Class.create({
         if (!event.memo.noUndoRedo) editor.getActionStack().addState(event);
     },
 
-    handlePersonDragToNewSibling: function (event) {
-        console.log("event: " + event.eventName + ", memo: " + __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__helpers__["c" /* stringifyObject */])(event.memo));
+    handlePersonDragToNewSibling: function handlePersonDragToNewSibling(event) {
+        console.log("event: " + event.eventName + ", memo: " + (0, _helpers.stringifyObject)(event.memo));
 
         var sibling1 = event.memo.sibling1ID;
         var sibling2 = event.memo.sibling2ID;
@@ -49453,16 +49472,16 @@ const Controller = Class.create({
         if (!event.memo.noUndoRedo) editor.getActionStack().addState(event);
     },
 
-    handlePersonNewPartnerAndChild: function (event) {
-        var timer = new __WEBPACK_IMPORTED_MODULE_1__helpers__["g" /* Timer */]();
+    handlePersonNewPartnerAndChild: function handlePersonNewPartnerAndChild(event) {
+        var timer = new _helpers.Timer();
 
         try {
-            console.log("event: " + event.eventName + ", memo: " + __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__helpers__["c" /* stringifyObject */])(event.memo));
+            console.log("event: " + event.eventName + ", memo: " + (0, _helpers.stringifyObject)(event.memo));
 
             var personID = event.memo.personID;
             if (!editor.getGraph().isPerson(personID)) return;
             var preferLeft = event.memo.preferLeft;
-            var childParams = event.memo.childParams ? __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__helpers__["f" /* cloneObject */])(event.memo.childParams) : {};
+            var childParams = event.memo.childParams ? (0, _helpers.cloneObject)(event.memo.childParams) : {};
             var numTwins = event.memo.twins ? event.memo.twins : 1;
             var numPersons = event.memo.groupSize ? event.memo.groupSize : 0;
 
@@ -49485,8 +49504,8 @@ const Controller = Class.create({
         timer.printSinceLast("=== Total new partner+child runtime: ");
     },
 
-    handlePersonDragToNewPartner: function (event) {
-        console.log("event: " + event.eventName + ", memo: " + __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__helpers__["c" /* stringifyObject */])(event.memo));
+    handlePersonDragToNewPartner: function handlePersonDragToNewPartner(event) {
+        console.log("event: " + event.eventName + ", memo: " + (0, _helpers.stringifyObject)(event.memo));
 
         var personID = event.memo.personID;
         var partnerID = event.memo.partnerID;
@@ -49520,15 +49539,15 @@ const Controller = Class.create({
         if (!event.memo.noUndoRedo) editor.getActionStack().addState(event);
     },
 
-    handleRelationshipNewChild: function (event) {
-        console.log("event: " + event.eventName + ", memo: " + __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__helpers__["c" /* stringifyObject */])(event.memo));
+    handleRelationshipNewChild: function handleRelationshipNewChild(event) {
+        console.log("event: " + event.eventName + ", memo: " + (0, _helpers.stringifyObject)(event.memo));
 
         var partnershipID = event.memo.partnershipID;
         if (!editor.getGraph().isRelationship(partnershipID)) return;
 
         var numTwins = event.memo.twins ? event.memo.twins : 1;
 
-        var childParams = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__helpers__["f" /* cloneObject */])(event.memo.childParams);
+        var childParams = (0, _helpers.cloneObject)(event.memo.childParams);
         if (editor.getGraph().isChildless(partnershipID)) {
             childParams["isAdopted"] = true;
         }
@@ -49544,8 +49563,6 @@ const Controller = Class.create({
         if (!event.memo.noUndoRedo) editor.getActionStack().addState(event);
     }
 });
-/* harmony export (immutable) */ __webpack_exports__["a"] = Controller;
-
 
 Controller._validatePropertyValue = function (nodeID, propertySetFunction, propValue) {
     if (propertySetFunction == "setGender") {
@@ -49575,16 +49592,22 @@ Controller._propagateLastNameAtBirth = function (parentID, parentLastName, chang
 };
 
 /***/ }),
-/* 158 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
+/* 157 */
+/***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/* WEBPACK VAR INJECTION */(function(Raphael) {/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__legend__ = __webpack_require__(67);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__helpers__ = __webpack_require__(5);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__disorder__ = __webpack_require__(87);
+/* WEBPACK VAR INJECTION */(function(Raphael) {
 
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+exports.DisorderLegend = undefined;
 
+var _legend = __webpack_require__(67);
 
+var _helpers = __webpack_require__(5);
+
+var _disorder = __webpack_require__(87);
 
 /**
  * Class responsible for keeping track of disorders and their properties, and for
@@ -49594,9 +49617,9 @@ Controller._propagateLastNameAtBirth = function (parentID, parentLastName, chang
  * @class DisorderLegend
  * @constructor
  */
-const DisorderLegend = Class.create(__WEBPACK_IMPORTED_MODULE_0__legend__["a" /* Legend */], {
+var DisorderLegend = exports.DisorderLegend = Class.create(_legend.Legend, {
 
-    initialize: function ($super) {
+    initialize: function initialize($super) {
         $super("Disorders", true);
 
         this._disorderCache = {};
@@ -49604,7 +49627,7 @@ const DisorderLegend = Class.create(__WEBPACK_IMPORTED_MODULE_0__legend__["a" /*
         this._specialDisordersRegexps = [new RegExp("^1BrCa", "i"), new RegExp("^2BrCa", "i"), new RegExp("^OvCa", "i"), new RegExp("^ProCa", "i"), new RegExp("^PanCa", "i")];
     },
 
-    _getPrefix: function (id) {
+    _getPrefix: function _getPrefix(id) {
         return "disorder";
     },
 
@@ -49615,15 +49638,15 @@ const DisorderLegend = Class.create(__WEBPACK_IMPORTED_MODULE_0__legend__["a" /*
      * @method getDisorder
      * @return {Object}
      */
-    getDisorder: function (disorderID) {
-        if (!__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__helpers__["i" /* isInt */])(disorderID)) {
-            disorderID = __WEBPACK_IMPORTED_MODULE_2__disorder__["a" /* Disorder */].sanitizeID(disorderID);
+    getDisorder: function getDisorder(disorderID) {
+        if (!(0, _helpers.isInt)(disorderID)) {
+            disorderID = _disorder.Disorder.sanitizeID(disorderID);
         }
         if (!this._disorderCache.hasOwnProperty(disorderID)) {
-            var whenNameIsLoaded = function () {
+            var whenNameIsLoaded = function whenNameIsLoaded() {
                 this._updateDisorderName(disorderID);
             };
-            this._disorderCache[disorderID] = new __WEBPACK_IMPORTED_MODULE_2__disorder__["a" /* Disorder */](disorderID, null, whenNameIsLoaded.bind(this));
+            this._disorderCache[disorderID] = new _disorder.Disorder(disorderID, null, whenNameIsLoaded.bind(this));
         }
         return this._disorderCache[disorderID];
     },
@@ -49637,8 +49660,8 @@ const DisorderLegend = Class.create(__WEBPACK_IMPORTED_MODULE_0__legend__["a" /*
      * @param {String} disorderName The name of the disorder
      * @param {Number} nodeID ID of the Person who has this disorder
      */
-    addCase: function ($super, disorderID, disorderName, nodeID) {
-        if (!this._disorderCache.hasOwnProperty(disorderID)) this._disorderCache[disorderID] = new __WEBPACK_IMPORTED_MODULE_2__disorder__["a" /* Disorder */](disorderID, disorderName);
+    addCase: function addCase($super, disorderID, disorderName, nodeID) {
+        if (!this._disorderCache.hasOwnProperty(disorderID)) this._disorderCache[disorderID] = new _disorder.Disorder(disorderID, disorderName);
 
         $super(disorderID, disorderName, nodeID);
     },
@@ -49650,7 +49673,7 @@ const DisorderLegend = Class.create(__WEBPACK_IMPORTED_MODULE_0__legend__["a" /*
      * @param {Number} disorderID The identifier of the disorder to update
      * @private
      */
-    _updateDisorderName: function (disorderID) {
+    _updateDisorderName: function _updateDisorderName(disorderID) {
         //console.log("updating disorder display for " + disorderID + ", name = " + this.getDisorder(disorderID).getName());
         var name = this._legendBox.down("li#" + this._getPrefix() + "-" + disorderID + " .disorder-name");
         name.update(this.getDisorder(disorderID).getName());
@@ -49664,7 +49687,7 @@ const DisorderLegend = Class.create(__WEBPACK_IMPORTED_MODULE_0__legend__["a" /*
      * @param {String} name The human-readable disorder name
      * @return {HTMLLIElement} List element to be insert in the legend
      */
-    _generateElement: function ($super, disorderID, name) {
+    _generateElement: function _generateElement($super, disorderID, name) {
         if (!this._objectColors.hasOwnProperty(disorderID)) {
             var color = this._generateColor(disorderID);
             this._objectColors[disorderID] = color;
@@ -49681,7 +49704,7 @@ const DisorderLegend = Class.create(__WEBPACK_IMPORTED_MODULE_0__legend__["a" /*
      * @param {Person} Person node
      * @param {String|Number} id ID of the disorder being dropped
      */
-    _onDropObject: function (node, disorderID) {
+    _onDropObject: function _onDropObject(node, disorderID) {
         var currentDisorders = node.getDisorders().slice(0);
         if (currentDisorders.indexOf(disorderID) == -1) {
             // only if the node does not have this disorder yet
@@ -49703,7 +49726,7 @@ const DisorderLegend = Class.create(__WEBPACK_IMPORTED_MODULE_0__legend__["a" /*
      * @method generateColor
      * @return {String} CSS color
      */
-    _generateColor: function (disorderID) {
+    _generateColor: function _generateColor(disorderID) {
         if (this._objectColors.hasOwnProperty(disorderID)) {
             return this._objectColors[disorderID];
         }
@@ -49748,26 +49771,29 @@ const DisorderLegend = Class.create(__WEBPACK_IMPORTED_MODULE_0__legend__["a" /*
         }
     }
 });
-/* harmony export (immutable) */ __webpack_exports__["a"] = DisorderLegend;
-
-/* WEBPACK VAR INJECTION */}.call(__webpack_exports__, __webpack_require__(27)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(27)))
 
 /***/ }),
-/* 159 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
+/* 158 */
+/***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/* WEBPACK VAR INJECTION */(function($A, __webpack_provided_window_dot_Effect) {if (Object.isUndefined(__webpack_provided_window_dot_Effect)) {
+/* WEBPACK VAR INJECTION */(function(__webpack_provided_window_dot_Effect, $A) {
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+if (Object.isUndefined(__webpack_provided_window_dot_Effect)) {
     throw "dragdrop.js requires including script.aculo.us' effects.js library";
 }
-const Droppables = {
+var Droppables = exports.Droppables = {
     drops: [],
-    remove: function (a) {
+    remove: function remove(a) {
         this.drops = this.drops.reject(function (b) {
             return b.element == $(a);
         });
     },
-    add: function (b) {
+    add: function add(b) {
         b = $(b);
         var a = Object.extend({
             greedy: true,
@@ -49792,7 +49818,7 @@ const Droppables = {
         a.element = b;
         this.drops.push(a);
     },
-    findDeepestChild: function (a) {
+    findDeepestChild: function findDeepestChild(a) {
         var deepest = a[0];
         for (var i = 1; i < a.length; ++i) {
             if (Element.isParent(a[i].element, deepest.element)) {
@@ -49801,7 +49827,7 @@ const Droppables = {
         }
         return deepest;
     },
-    isContained: function (b, a) {
+    isContained: function isContained(b, a) {
         var c;
         if (a.tree) {
             c = b.treeNode;
@@ -49812,24 +49838,24 @@ const Droppables = {
             return c == d;
         });
     },
-    isAffected: function (a, c, b) {
+    isAffected: function isAffected(a, c, b) {
         return b.element != c && (!b._containers || this.isContained(c, b)) && (!b.accept || Element.classNames(c).detect(function (d) {
             return b.accept.include(d);
         })) && Position.within(b.element, a[0], a[1]);
     },
-    deactivate: function (a) {
+    deactivate: function deactivate(a) {
         if (a.hoverclass) {
             Element.removeClassName(a.element, a.hoverclass);
         }
         this.last_active = null;
     },
-    activate: function (a) {
+    activate: function activate(a) {
         if (a.hoverclass) {
             Element.addClassName(a.element, a.hoverclass);
         }
         this.last_active = a;
     },
-    show: function (a, c) {
+    show: function show(a, c) {
         if (!this.drops.length) {
             return;
         }
@@ -49856,7 +49882,7 @@ const Droppables = {
             }
         }
     },
-    fire: function (b, a) {
+    fire: function fire(b, a) {
         if (!this.last_active) {
             return;
         }
@@ -49868,18 +49894,16 @@ const Droppables = {
             }
         }
     },
-    reset: function () {
+    reset: function reset() {
         if (this.last_active) {
             this.deactivate(this.last_active);
         }
     }
 };
-/* harmony export (immutable) */ __webpack_exports__["a"] = Droppables;
-
-const Draggables = {
+var Draggables = exports.Draggables = {
     drags: [],
     observers: [],
-    register: function (a) {
+    register: function register(a) {
         if (this.drags.length == 0) {
             this.eventMouseUp = this.endDrag.bindAsEventListener(this);
             this.eventMouseMove = this.updateDrag.bindAsEventListener(this);
@@ -49890,7 +49914,7 @@ const Draggables = {
         }
         this.drags.push(a);
     },
-    unregister: function (a) {
+    unregister: function unregister(a) {
         this.drags = this.drags.reject(function (b) {
             return b == a;
         });
@@ -49900,7 +49924,7 @@ const Draggables = {
             Event.stopObserving(document, "keypress", this.eventKeypress);
         }
     },
-    activate: function (a) {
+    activate: function activate(a) {
         if (a.options.delay) {
             this._timeout = setTimeout(function () {
                 Draggables._timeout = null;
@@ -49912,10 +49936,10 @@ const Draggables = {
             this.activeDraggable = a;
         }
     },
-    deactivate: function () {
+    deactivate: function deactivate() {
         this.activeDraggable = null;
     },
-    updateDrag: function (a) {
+    updateDrag: function updateDrag(a) {
         if (!this.activeDraggable) {
             return;
         }
@@ -49926,7 +49950,7 @@ const Draggables = {
         this._lastPointer = b;
         this.activeDraggable.updateDrag(a, b);
     },
-    endDrag: function (a) {
+    endDrag: function endDrag(a) {
         if (this._timeout) {
             clearTimeout(this._timeout);
             this._timeout = null;
@@ -49938,22 +49962,22 @@ const Draggables = {
         this.activeDraggable.endDrag(a);
         this.activeDraggable = null;
     },
-    keyPress: function (a) {
+    keyPress: function keyPress(a) {
         if (this.activeDraggable) {
             this.activeDraggable.keyPress(a);
         }
     },
-    addObserver: function (a) {
+    addObserver: function addObserver(a) {
         this.observers.push(a);
         this._cacheObserverCallbacks();
     },
-    removeObserver: function (a) {
+    removeObserver: function removeObserver(a) {
         this.observers = this.observers.reject(function (b) {
             return b.element == a;
         });
         this._cacheObserverCallbacks();
     },
-    notify: function (b, a, c) {
+    notify: function notify(b, a, c) {
         if (this[b + "Count"] > 0) {
             this.observers.each(function (d) {
                 if (d[b]) {
@@ -49965,7 +49989,7 @@ const Draggables = {
             a.options[b](a, c);
         }
     },
-    _cacheObserverCallbacks: function () {
+    _cacheObserverCallbacks: function _cacheObserverCallbacks() {
         ["onStart", "onEnd", "onDrag"].each(function (a) {
             Draggables[a + "Count"] = Draggables.observers.select(function (b) {
                 return b[a];
@@ -49973,13 +49997,11 @@ const Draggables = {
         });
     }
 };
-/* unused harmony export Draggables */
-
-const Draggable = Class.create({
-    initialize: function (b) {
+var Draggable = exports.Draggable = Class.create({
+    initialize: function initialize(b) {
         var c = {
             handle: false,
-            reverteffect: function (f, e, d) {
+            reverteffect: function reverteffect(f, e, d) {
                 var g = Math.sqrt(Math.abs(e ^ 2) + Math.abs(d ^ 2)) * 0.02;
                 new Effect.Move(f, {
                     x: -d,
@@ -49991,7 +50013,7 @@ const Draggable = Class.create({
                     }
                 });
             },
-            endeffect: function (e) {
+            endeffect: function endeffect(e) {
                 var d = Object.isNumber(e._opacity) ? e._opacity : 1;
                 new Effect.Opacity(e, {
                     duration: 0.2,
@@ -50001,7 +50023,7 @@ const Draggable = Class.create({
                         scope: "_draggable",
                         position: "end"
                     },
-                    afterFinish: function () {
+                    afterFinish: function afterFinish() {
                         Draggable._dragging[e] = false;
                     }
                 });
@@ -50017,7 +50039,7 @@ const Draggable = Class.create({
         };
         if (!arguments[1] || Object.isUndefined(arguments[1].endeffect)) {
             Object.extend(c, {
-                starteffect: function (d) {
+                starteffect: function starteffect(d) {
                     d._opacity = Element.getOpacity(d);
                     Draggable._dragging[d] = true;
                     new Effect.Opacity(d, {
@@ -50050,14 +50072,14 @@ const Draggable = Class.create({
         Event.observe(this.handle, "mousedown", this.eventMouseDown);
         Draggables.register(this);
     },
-    destroy: function () {
+    destroy: function destroy() {
         Event.stopObserving(this.handle, "mousedown", this.eventMouseDown);
         Draggables.unregister(this);
     },
-    currentDelta: function () {
+    currentDelta: function currentDelta() {
         return [parseInt(Element.getStyle(this.element, "left") || "0"), parseInt(Element.getStyle(this.element, "top") || "0")];
     },
-    initDrag: function (a) {
+    initDrag: function initDrag(a) {
         if (!Object.isUndefined(Draggable._dragging[this.element]) && Draggable._dragging[this.element]) {
             return;
         }
@@ -50075,7 +50097,7 @@ const Draggable = Class.create({
             Event.stop(a);
         }
     },
-    startDrag: function (b) {
+    startDrag: function startDrag(b) {
         this.dragging = true;
         if (!this.delta) {
             this.delta = this.currentDelta();
@@ -50107,7 +50129,7 @@ const Draggable = Class.create({
             this.options.starteffect(this.element);
         }
     },
-    updateDrag: function (event, pointer) {
+    updateDrag: function updateDrag(event, pointer) {
         if (!this.dragging) {
             this.startDrag(event);
         }
@@ -50124,7 +50146,12 @@ const Draggable = Class.create({
             this.stopScrolling();
             var p;
             if (this.options.scroll == window) {
-                const { left, width, top, height } = this._getWindowScroll(this.options.scroll);
+                var _getWindowScroll = this._getWindowScroll(this.options.scroll),
+                    left = _getWindowScroll.left,
+                    width = _getWindowScroll.width,
+                    top = _getWindowScroll.top,
+                    height = _getWindowScroll.height;
+
                 p = [left, top, left + width, top + height];
             } else {
                 p = Position.page(this.options.scroll).toArray();
@@ -50153,7 +50180,7 @@ const Draggable = Class.create({
         // }
         Event.stop(event);
     },
-    finishDrag: function (b, f) {
+    finishDrag: function finishDrag(b, f) {
         this.dragging = false;
         if (this.options.quiet) {
             Position.prepare();
@@ -50200,14 +50227,14 @@ const Draggable = Class.create({
         Draggables.deactivate(this);
         Droppables.reset();
     },
-    keyPress: function (a) {
+    keyPress: function keyPress(a) {
         if (a.keyCode != Event.KEY_ESC) {
             return;
         }
         this.finishDrag(a, false);
         Event.stop(a);
     },
-    endDrag: function (a) {
+    endDrag: function endDrag(a) {
         if (!this.dragging) {
             return;
         }
@@ -50215,7 +50242,7 @@ const Draggable = Class.create({
         this.finishDrag(a, true);
         Event.stop(a);
     },
-    draw: function (a) {
+    draw: function draw(a) {
         var g = this.element.cumulativeOffset();
         if (this.options.ghosting) {
             var c = Position.realOffset(this.element);
@@ -50258,14 +50285,14 @@ const Draggable = Class.create({
             b.visibility = "";
         }
     },
-    stopScrolling: function () {
+    stopScrolling: function stopScrolling() {
         if (this.scrollInterval) {
             clearInterval(this.scrollInterval);
             this.scrollInterval = null;
             Draggables._lastScrollPointer = null;
         }
     },
-    startScrolling: function (a) {
+    startScrolling: function startScrolling(a) {
         if (!(a[0] || a[1])) {
             return;
         }
@@ -50273,12 +50300,15 @@ const Draggable = Class.create({
         this.lastScrolled = new Date();
         this.scrollInterval = setInterval(this.scroll.bind(this), 10);
     },
-    scroll: function () {
+    scroll: function scroll() {
         var current = new Date();
         var delta = current - this.lastScrolled;
         this.lastScrolled = current;
         if (this.options.scroll == window) {
-            const { left, top } = this._getWindowScroll(this.options.scroll);
+            var _getWindowScroll2 = this._getWindowScroll(this.options.scroll),
+                left = _getWindowScroll2.left,
+                top = _getWindowScroll2.top;
+
             if (this.scrollSpeed[0] || this.scrollSpeed[1]) {
                 var d = delta / 1000;
                 this.options.scroll.scrollTo(left + d * this.scrollSpeed[0], top + d * this.scrollSpeed[1]);
@@ -50306,9 +50336,12 @@ const Draggable = Class.create({
             this.options.change(this);
         }
     },
-    _getWindowScroll: function (w) {
+    _getWindowScroll: function _getWindowScroll(w) {
         var T, L, W, H;
-        const { documentElement, body } = w.document;
+        var _w$document = w.document,
+            documentElement = _w$document.documentElement,
+            body = _w$document.body;
+
         if (w.document.documentElement && documentElement.scrollTop) {
             T = documentElement.scrollTop;
             L = documentElement.scrollLeft;
@@ -50338,33 +50371,29 @@ const Draggable = Class.create({
         };
     }
 });
-/* harmony export (immutable) */ __webpack_exports__["b"] = Draggable;
-
 Draggable._dragging = {};
 
-const SortableObserver = Class.create({
-    initialize: function (b, a) {
+var SortableObserver = exports.SortableObserver = Class.create({
+    initialize: function initialize(b, a) {
         this.element = $(b);
         this.observer = a;
         this.lastValue = Sortable.serialize(this.element);
     },
-    onStart: function () {
+    onStart: function onStart() {
         this.lastValue = Sortable.serialize(this.element);
     },
-    onEnd: function () {
+    onEnd: function onEnd() {
         Sortable.unmark();
         if (this.lastValue != Sortable.serialize(this.element)) {
             this.observer(this.element);
         }
     }
 });
-/* unused harmony export SortableObserver */
 
-
-const Sortable = {
+var Sortable = exports.Sortable = {
     SERIALIZE_RULE: /^[^_\-](?:[A-Za-z0-9\-\_]*)[_](.*)$/,
     sortables: {},
-    _findRootElement: function (a) {
+    _findRootElement: function _findRootElement(a) {
         while (a.tagName.toUpperCase() != "BODY") {
             if (a.id && Sortable.sortables[a.id]) {
                 return a;
@@ -50372,14 +50401,14 @@ const Sortable = {
             a = a.parentNode;
         }
     },
-    options: function (a) {
+    options: function options(a) {
         a = Sortable._findRootElement($(a));
         if (!a) {
             return;
         }
         return Sortable.sortables[a.id];
     },
-    destroy: function (a) {
+    destroy: function destroy(a) {
         a = $(a);
         var b = Sortable.sortables[a.id];
         if (b) {
@@ -50391,7 +50420,7 @@ const Sortable = {
             delete Sortable.sortables[b.element.id];
         }
     },
-    create: function (c) {
+    create: function create(c) {
         c = $(c);
         var b = Object.extend({
             element: c,
@@ -50414,8 +50443,8 @@ const Sortable = {
             format: this.SERIALIZE_RULE,
             elements: false,
             handles: false,
-            onChange: () => {}, // Prototype.emptyFunction,
-            onUpdate: () => {} }, arguments[1] || {});
+            onChange: function onChange() {}, // Prototype.emptyFunction,
+            onUpdate: function onUpdate() {} }, arguments[1] || {});
         this.destroy(c);
         var a = {
             revert: true,
@@ -50487,13 +50516,13 @@ const Sortable = {
         this.sortables[c.identify()] = b;
         Draggables.addObserver(new SortableObserver(c, b.onUpdate));
     },
-    findElements: function (b, a) {
+    findElements: function findElements(b, a) {
         return Element.findChildren(b, a.only, a.tree ? true : false, a.tag);
     },
-    findTreeElements: function (b, a) {
+    findTreeElements: function findTreeElements(b, a) {
         return Element.findChildren(b, a.only, a.tree ? true : false, a.treeTag);
     },
-    onHover: function (e, d, a) {
+    onHover: function onHover(e, d, a) {
         if (Element.isParent(d, e)) {
             return;
         }
@@ -50526,7 +50555,7 @@ const Sortable = {
             }
         }
     },
-    onEmptyHover: function (e, g, h) {
+    onEmptyHover: function onEmptyHover(e, g, h) {
         var j = e.parentNode;
         var a = Sortable.options(g);
         if (!Element.isParent(g, e)) {
@@ -50557,12 +50586,12 @@ const Sortable = {
             a.onChange(e);
         }
     },
-    unmark: function () {
+    unmark: function unmark() {
         if (Sortable._marker) {
             Sortable._marker.hide();
         }
     },
-    mark: function (b, a) {
+    mark: function mark(b, a) {
         var d = Sortable.options(b.parentNode);
         if (d && !d.ghosting) {
             return;
@@ -50591,7 +50620,7 @@ const Sortable = {
         }
         Sortable._marker.show();
     },
-    _tree: function (e, b, f) {
+    _tree: function _tree(e, b, f) {
         var d = Sortable.findElements(e, b) || [];
         for (var c = 0; c < d.length; ++c) {
             var a = d[c].id.match(b.format);
@@ -50613,7 +50642,7 @@ const Sortable = {
         }
         return f;
     },
-    tree: function (d) {
+    tree: function tree(d) {
         d = $(d);
         var c = this.options(d);
         var b = Object.extend({
@@ -50632,7 +50661,7 @@ const Sortable = {
         };
         return Sortable._tree(d, b, a);
     },
-    _constructIndex: function (b) {
+    _constructIndex: function _constructIndex(b) {
         var a = "";
         do {
             if (b.id) {
@@ -50641,14 +50670,14 @@ const Sortable = {
         } while ((b = b.parent) != null);
         return a;
     },
-    sequence: function (b) {
+    sequence: function sequence(b) {
         b = $(b);
         var a = Object.extend(this.options(b), arguments[1] || {});
         return $(this.findElements(b, a) || []).map(function (c) {
             return c.id.match(a.format) ? c.id.match(a.format)[1] : "";
         });
     },
-    setSequence: function (b, c) {
+    setSequence: function setSequence(b, c) {
         b = $(b);
         var a = Object.extend(this.options(b), arguments[2] || {});
         var d = {};
@@ -50666,7 +50695,7 @@ const Sortable = {
             }
         });
     },
-    serialize: function (c) {
+    serialize: function serialize(c) {
         c = $(c);
         var b = Object.extend(Sortable.options(c), arguments[1] || {});
         var a = encodeURIComponent(arguments[1] && arguments[1].name ? arguments[1].name : c.id);
@@ -50681,8 +50710,6 @@ const Sortable = {
         }
     }
 };
-/* unused harmony export Sortable */
-
 Element.isParent = function (b, a) {
     if (!b.parentNode || b == a) {
         return false;
@@ -50719,33 +50746,38 @@ Element.findChildren = function (d, b, a, c) {
 Element.offsetSize = function (a, b) {
     return a["offset" + (b == "vertical" || b == "height" ? "Height" : "Width")];
 };
-/* WEBPACK VAR INJECTION */}.call(__webpack_exports__, __webpack_require__(28), __webpack_require__(154)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(153), __webpack_require__(28)))
 
 /***/ }),
-/* 160 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
+/* 159 */
+/***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__baseGraph__ = __webpack_require__(46);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__positionedGraph__ = __webpack_require__(174);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__heuristics__ = __webpack_require__(163);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__import__ = __webpack_require__(165);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__helpers__ = __webpack_require__(5);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__queues__ = __webpack_require__(48);
-/* harmony export (immutable) */ __webpack_exports__["a"] = DynamicPositionedGraph;
 
 
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+exports.DynamicPositionedGraph = DynamicPositionedGraph;
 
+var _baseGraph = __webpack_require__(46);
 
+var _positionedGraph = __webpack_require__(173);
 
+var _heuristics = __webpack_require__(162);
 
+var _import = __webpack_require__(164);
+
+var _helpers = __webpack_require__(5);
+
+var _queues = __webpack_require__(48);
 
 // DynamicPositionedGraph adds support for online modifications and provides a convenient API for UI implementations
 
 function DynamicPositionedGraph(drawGraph) {
     this.DG = drawGraph;
 
-    this._heuristics = new __WEBPACK_IMPORTED_MODULE_2__heuristics__["a" /* Heuristics */](drawGraph); // heuristics & helper methods separated into a separate class
+    this._heuristics = new _heuristics.Heuristics(drawGraph); // heuristics & helper methods separated into a separate class
 
     this._heuristics.improvePositioning();
 
@@ -50753,52 +50785,52 @@ function DynamicPositionedGraph(drawGraph) {
 }
 
 DynamicPositionedGraph.makeEmpty = function (layoutRelativePersonWidth, layoutRelativeOtherWidth) {
-    var baseG = new __WEBPACK_IMPORTED_MODULE_0__baseGraph__["a" /* BaseGraph */](layoutRelativePersonWidth, layoutRelativeOtherWidth);
-    var positionedG = new __WEBPACK_IMPORTED_MODULE_1__positionedGraph__["a" /* PositionedGraph */](baseG);
+    var baseG = new _baseGraph.BaseGraph(layoutRelativePersonWidth, layoutRelativeOtherWidth);
+    var positionedG = new _positionedGraph.PositionedGraph(baseG);
     return new DynamicPositionedGraph(positionedG);
 };
 
 DynamicPositionedGraph.prototype = {
 
-    isValidID: function (id) {
+    isValidID: function isValidID(id) {
         if (id < 0 || id > this.DG.GG.getMaxRealVertexId()) return false;
         if (!this.DG.GG.isPerson(id) && !this.DG.GG.isRelationship(id)) return false;
         return true;
     },
 
-    getMaxNodeId: function () {
+    getMaxNodeId: function getMaxNodeId() {
         return this.DG.GG.getMaxRealVertexId();
     },
 
-    isPersonGroup: function (id) {
+    isPersonGroup: function isPersonGroup(id) {
         return this.getProperties(id).hasOwnProperty("numPersons");
     },
 
-    isPerson: function (id) {
+    isPerson: function isPerson(id) {
         return this.DG.GG.isPerson(id);
     },
 
-    isRelationship: function (id) {
+    isRelationship: function isRelationship(id) {
         return this.DG.GG.isRelationship(id);
     },
 
-    isPlaceholder: function (id) {
+    isPlaceholder: function isPlaceholder(id) {
         if (!this.isPerson(id)) return false;
         // TODO
         return false;
     },
 
-    isAdopted: function (id) {
+    isAdopted: function isAdopted(id) {
         if (!this.isPerson(id)) throw "Assertion failed: isAdopted() is applied to a non-person";
         return this.DG.GG.isAdopted(id);
     },
 
-    getGeneration: function (id) {
+    getGeneration: function getGeneration(id) {
         var minRank = Math.min.apply(null, this.DG.ranks);
         return (this.DG.ranks[id] - minRank) / 2 + 1;
     },
 
-    getOrderWithinGeneration: function (id) {
+    getOrderWithinGeneration: function getOrderWithinGeneration(id) {
         if (!this.isPerson(id)) throw "Assertion failed: getOrderWithinGeneration() is applied to a non-person";
 
         var order = 0;
@@ -50812,44 +50844,44 @@ DynamicPositionedGraph.prototype = {
     },
 
     // returns null if person has no twins
-    getTwinGroupId: function (id) {
+    getTwinGroupId: function getTwinGroupId(id) {
         return this.DG.GG.getTwinGroupId(id);
     },
 
     // returns and array of twins, sorted by order left to right. Always contains at least "id" itself
-    getAllTwinsSortedByOrder: function (id) {
+    getAllTwinsSortedByOrder: function getAllTwinsSortedByOrder(id) {
         var twins = this.DG.GG.getAllTwinsOf(id);
         var vOrder = this.DG.order.vOrder;
-        var byOrder = function (a, b) {
+        var byOrder = function byOrder(a, b) {
             return vOrder[a] - vOrder[b];
         };
         twins.sort(byOrder);
         return twins;
     },
 
-    isChildless: function (id) {
+    isChildless: function isChildless(id) {
         if (!this.getProperties(id).hasOwnProperty("childlessStatus")) return false;
         var res = this.getProperties(id)["childlessStatus"] !== null;
         //console.log("childless status of " + id + " : " + res);
         return res;
     },
 
-    isConsangrRelationship: function (id) {
+    isConsangrRelationship: function isConsangrRelationship(id) {
         if (!this.isRelationship(id)) throw "Assertion failed: isConsangrRelationship() is applied to a non-relationship";
 
         return this.DG.consangr.hasOwnProperty(id);
     },
 
-    getProperties: function (id) {
+    getProperties: function getProperties(id) {
         return this.DG.GG.properties[id];
     },
 
-    setProperties: function (id, newSetOfProperties) {
+    setProperties: function setProperties(id, newSetOfProperties) {
         this.DG.GG.properties[id] = newSetOfProperties;
     },
 
     // returns false if this gender is incompatible with this pedigree; true otherwise
-    setProbandData: function (firstName, lastName, gender) {
+    setProbandData: function setProbandData(firstName, lastName, gender) {
         this.DG.GG.properties[0].fName = firstName;
         this.DG.GG.properties[0].lName = lastName;
 
@@ -50862,7 +50894,7 @@ DynamicPositionedGraph.prototype = {
         return gender == setGender;
     },
 
-    getPosition: function (v) {
+    getPosition: function getPosition(v) {
         // returns coordinates of node v
         var x = this.DG.positions[v];
         console.warn(x);
@@ -50901,7 +50933,7 @@ DynamicPositionedGraph.prototype = {
         return { "x": x, "y": y };
     },
 
-    getRelationshipChildhubPosition: function (v) {
+    getRelationshipChildhubPosition: function getRelationshipChildhubPosition(v) {
         if (!this.isRelationship(v)) throw "Assertion failed: getRelationshipChildhubPosition() is applied to a non-relationship";
 
         var childhubId = this.DG.GG.getRelationshipChildhub(v);
@@ -50909,7 +50941,7 @@ DynamicPositionedGraph.prototype = {
         return this.getPosition(childhubId);
     },
 
-    getRelationshipLineInfo: function (relationship, person) {
+    getRelationshipLineInfo: function getRelationshipLineInfo(relationship, person) {
         if (!this.isRelationship(relationship)) throw "Assertion failed: getRelationshipToPersonLinePosition() is applied to a non-relationship";
         if (!this.isPerson(person)) throw "Assertion failed: getRelationshipToPersonLinePosition() is applied to a non-person";
 
@@ -50932,7 +50964,7 @@ DynamicPositionedGraph.prototype = {
     },
 
     // returns all the children sorted by their order in the graph (left to right)
-    getRelationshipChildrenSortedByOrder: function (v) {
+    getRelationshipChildrenSortedByOrder: function getRelationshipChildrenSortedByOrder(v) {
         if (!this.isRelationship(v)) throw "Assertion failed: getRelationshipChildren() is applied to a non-relationship";
 
         var childhubId = this.DG.GG.getRelationshipChildhub(v);
@@ -50940,7 +50972,7 @@ DynamicPositionedGraph.prototype = {
         var children = this.DG.GG.getOutEdges(childhubId);
 
         var vOrder = this.DG.order.vOrder;
-        var byOrder = function (a, b) {
+        var byOrder = function byOrder(a, b) {
             return vOrder[a] - vOrder[b];
         };
         children.sort(byOrder);
@@ -50948,7 +50980,7 @@ DynamicPositionedGraph.prototype = {
         return children;
     },
 
-    getAllChildren: function (v) {
+    getAllChildren: function getAllChildren(v) {
         if (!this.isPerson(v) && !this.isRelationship(v)) throw "Assertion failed: getAllChildren() is applied to a non-person non-relationship node";
 
         var rels = this.isRelationship(v) ? [v] : this.DG.GG.getAllRelationships(v);
@@ -50963,15 +50995,15 @@ DynamicPositionedGraph.prototype = {
         return allChildren;
     },
 
-    isChildOfProband: function (v) {
+    isChildOfProband: function isChildOfProband(v) {
         var parents = this.DG.GG.getParents(v);
-        if (__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_4__helpers__["h" /* arrayContains */])(parents, 0)) return true;
+        if ((0, _helpers.arrayContains)(parents, 0)) return true;
         return false;
     },
 
-    isPartnershipRelatedToProband: function (v) {
+    isPartnershipRelatedToProband: function isPartnershipRelatedToProband(v) {
         var parents = this.DG.GG.getParents(v);
-        if (__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_4__helpers__["h" /* arrayContains */])(parents, 0)) return true;
+        if ((0, _helpers.arrayContains)(parents, 0)) return true;
         if (v == this.DG.GG.getProducingRelationship(0)) {
             return true;
         }
@@ -50979,22 +51011,22 @@ DynamicPositionedGraph.prototype = {
     },
 
     // returns true iff node v is either a sibling, a child or a parent of proband node
-    isRelatedToProband: function (v) {
+    isRelatedToProband: function isRelatedToProband(v) {
         var probandRelatedRels = this.getAllRelatedRelationships(0);
         for (var i = 0; i < probandRelatedRels.length; i++) {
             var rel = probandRelatedRels[i];
 
             var parents = this.DG.GG.getParents(rel);
-            if (__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_4__helpers__["h" /* arrayContains */])(parents, v)) return true;
+            if ((0, _helpers.arrayContains)(parents, v)) return true;
 
             var children = this.getAllChildren(rel);
-            if (__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_4__helpers__["h" /* arrayContains */])(children, v)) return true;
+            if ((0, _helpers.arrayContains)(children, v)) return true;
         }
         return false;
     },
 
     // returns all relationships of node v and its parent relationship, if any
-    getAllRelatedRelationships: function (v) {
+    getAllRelatedRelationships: function getAllRelatedRelationships(v) {
         var allRels = this.DG.GG.getAllRelationships(v);
         var parentRel = this.DG.GG.getProducingRelationship(v);
         if (parentRel != null) {
@@ -51003,7 +51035,7 @@ DynamicPositionedGraph.prototype = {
         return allRels;
     },
 
-    hasNonPlaceholderNonAdoptedChildren: function (v) {
+    hasNonPlaceholderNonAdoptedChildren: function hasNonPlaceholderNonAdoptedChildren(v) {
         if (this.isRelationship(v)) {
             var children = this.getRelationshipChildrenSortedByOrder(v);
 
@@ -51023,13 +51055,13 @@ DynamicPositionedGraph.prototype = {
         return false;
     },
 
-    getParentRelationship: function (v) {
+    getParentRelationship: function getParentRelationship(v) {
         if (!this.isPerson(v)) throw "Assertion failed: getParentRelationship() is applied to a non-person";
 
         return this.DG.GG.getProducingRelationship(v);
     },
 
-    hasToBeAdopted: function (v) {
+    hasToBeAdopted: function hasToBeAdopted(v) {
         if (!this.isPerson(v)) throw "Assertion failed: hasToBeAdopted() is applied to a non-person";
 
         var parentRel = this.getParentRelationship(v);
@@ -51037,13 +51069,13 @@ DynamicPositionedGraph.prototype = {
         return false;
     },
 
-    hasRelationships: function (v) {
+    hasRelationships: function hasRelationships(v) {
         if (!this.isPerson(v)) throw "Assertion failed: hasRelationships() is applied to a non-person";
 
         return this.DG.GG.v[v].length > 0; // if it had relationships it must have been alive at some point
     },
 
-    getPossibleGenders: function (v) {
+    getPossibleGenders: function getPossibleGenders(v) {
         var possible = { "M": true, "F": true, "U": true };
         // any if no partners or all partners are of unknown genders; opposite of the partner gender otherwise
         var partners = this.DG.GG.getAllPartners(v);
@@ -51061,7 +51093,7 @@ DynamicPositionedGraph.prototype = {
         return possible;
     },
 
-    getPossibleChildrenOf: function (v) {
+    getPossibleChildrenOf: function getPossibleChildrenOf(v) {
         // all person nodes which are not ancestors of v and which do not already have parents
         var result = [];
         for (var i = 0; i <= this.DG.GG.getMaxRealVertexId(); i++) {
@@ -51073,7 +51105,7 @@ DynamicPositionedGraph.prototype = {
         return result;
     },
 
-    getPossibleSiblingsOf: function (v) {
+    getPossibleSiblingsOf: function getPossibleSiblingsOf(v) {
         // all person nodes which are not ancestors and not descendants
         // if v has parents only nodes without parents are returned
         var hasParents = this.getParentRelationship(v) !== null;
@@ -51088,7 +51120,7 @@ DynamicPositionedGraph.prototype = {
         return result;
     },
 
-    getPossibleParentsOf: function (v) {
+    getPossibleParentsOf: function getPossibleParentsOf(v) {
         // all person nodes which are not descendants of source node
         var result = [];
         //console.log("Ancestors: " + stringifyObject(this.DG.ancestors));
@@ -51101,7 +51133,7 @@ DynamicPositionedGraph.prototype = {
         return result;
     },
 
-    getPossiblePartnersOf: function (v) {
+    getPossiblePartnersOf: function getPossiblePartnersOf(v) {
         // returns all person nodes of the other gender or unknown gender (who are not already partners)
         var oppositeGender = this.DG.GG.getOppositeGender(v);
         var validGendersSet = oppositeGender == "U" ? ["M", "F", "U"] : [oppositeGender, "U"];
@@ -51110,24 +51142,24 @@ DynamicPositionedGraph.prototype = {
 
         var partners = this.DG.GG.getAllPartners(v);
         partners.push(v);
-        for (var i = 0; i < partners.length; i++) __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_4__helpers__["j" /* removeFirstOccurrenceByValue */])(result, partners[i]);
-
-        return result;
+        for (var i = 0; i < partners.length; i++) {
+            (0, _helpers.removeFirstOccurrenceByValue)(result, partners[i]);
+        }return result;
     },
 
-    getOppositeGender: function (v) {
+    getOppositeGender: function getOppositeGender(v) {
         if (!this.isPerson(v)) throw "Assertion failed: getOppositeGender() is applied to a non-person";
 
         return this.DG.GG.getOppositeGender(v);
     },
 
-    getGender: function (v) {
+    getGender: function getGender(v) {
         if (!this.isPerson(v)) throw "Assertion failed: getGender() is applied to a non-person";
 
         return this.DG.GG.getGender(v);
     },
 
-    getDisconnectedSetIfNodeRemoved: function (v) {
+    getDisconnectedSetIfNodeRemoved: function getDisconnectedSetIfNodeRemoved(v) {
         var removedList = {};
         removedList[v] = true;
 
@@ -51158,7 +51190,7 @@ DynamicPositionedGraph.prototype = {
         // go through all the edges in the tree starting from proband and disregarding any edges going to or from v
         var connected = {};
 
-        var queue = new __WEBPACK_IMPORTED_MODULE_5__queues__["a" /* Queue */]();
+        var queue = new _queues.Queue();
         queue.push(0);
 
         while (queue.size() > 0) {
@@ -51176,7 +51208,7 @@ DynamicPositionedGraph.prototype = {
                 if (!removedList.hasOwnProperty(inEdges[i])) queue.push(inEdges[i]);
             }
         }
-        console.log("Connected nodes: " + __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_4__helpers__["c" /* stringifyObject */])(connected));
+        console.log("Connected nodes: " + (0, _helpers.stringifyObject)(connected));
 
         var affected = [];
         for (var i = 0; i < this.DG.GG.getNumVertices(); i++) {
@@ -51185,11 +51217,11 @@ DynamicPositionedGraph.prototype = {
             }
         }
 
-        console.log("Affected nodes: " + __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_4__helpers__["c" /* stringifyObject */])(affected));
+        console.log("Affected nodes: " + (0, _helpers.stringifyObject)(affected));
         return affected;
     },
 
-    _debugPrintAll: function (headerMessage) {
+    _debugPrintAll: function _debugPrintAll(headerMessage) {
         console.log("========== " + headerMessage + " ==========");
         //console.log("== GG:");
         //console.log(stringifyObject(this.DG.GG));
@@ -51203,7 +51235,7 @@ DynamicPositionedGraph.prototype = {
         //console.log(stringifyObject(this.DG.rankY));
     },
 
-    updateAncestors: function () // sometimes have to do this after the "adopted" property change
+    updateAncestors: function updateAncestors() // sometimes have to do this after the "adopted" property change
     {
         var ancestors = this.DG.findAllAncestors();
         this.DG.ancestors = ancestors.ancestors;
@@ -51219,9 +51251,9 @@ DynamicPositionedGraph.prototype = {
         return { "moved": movedNodes };
     },
 
-    addNewChild: function (childhubId, properties, numTwins) {
+    addNewChild: function addNewChild(childhubId, properties, numTwins) {
         this._debugPrintAll("before");
-        var timer = new __WEBPACK_IMPORTED_MODULE_4__helpers__["g" /* Timer */]();
+        var timer = new _helpers.Timer();
 
         if (!this.DG.GG.isChildhub(childhubId)) {
             if (this.DG.GG.isRelationship(childhubId)) childhubId = this.DG.GG.getRelationshipChildhub(childhubId);else throw "Assertion failed: adding children to a non-childhub node";
@@ -51242,7 +51274,7 @@ DynamicPositionedGraph.prototype = {
         var insertOrder = this._findBestInsertPosition(insertRank, childhubId);
 
         // insert the vertex into the base graph and update ranks, orders & positions
-        var newNodeId = this._insertVertex(__WEBPACK_IMPORTED_MODULE_0__baseGraph__["b" /* TYPE */].PERSON, properties, 1.0, childhubId, null, insertRank, insertOrder);
+        var newNodeId = this._insertVertex(_baseGraph.TYPE.PERSON, properties, 1.0, childhubId, null, insertRank, insertOrder);
 
         var newNodes = [newNodeId];
         for (var i = 0; i < numTwins - 1; i++) {
@@ -51265,14 +51297,14 @@ DynamicPositionedGraph.prototype = {
 
         var movedNodes = this._findMovedNodes(numNodesBefore, positionsBefore, ranksBefore, vertLevelsBefore, rankYBefore);
         var relationshipId = this.DG.GG.getInEdges(childhubId)[0];
-        if (!__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_4__helpers__["h" /* arrayContains */])(movedNodes, relationshipId)) movedNodes.push(relationshipId);
+        if (!(0, _helpers.arrayContains)(movedNodes, relationshipId)) movedNodes.push(relationshipId);
         var animateNodes = this.DG.GG.getInEdges(relationshipId); // animate parents if they move. if not, nothing will be done with them
         return { "new": newNodes, "moved": movedNodes, "animate": animateNodes };
     },
 
-    addNewParents: function (personId) {
+    addNewParents: function addNewParents(personId) {
         this._debugPrintAll("before");
-        var timer = new __WEBPACK_IMPORTED_MODULE_4__helpers__["g" /* Timer */]();
+        var timer = new _helpers.Timer();
 
         if (!this.DG.GG.isPerson(personId)) throw "Assertion failed: adding parents to a non-person node";
 
@@ -51293,7 +51325,7 @@ DynamicPositionedGraph.prototype = {
         var insertChildhubOrder = this._findBestInsertPosition(insertChildhubRank, personId);
 
         // insert the vertex into the base graph and update ranks, orders & positions
-        var newChildhubId = this._insertVertex(__WEBPACK_IMPORTED_MODULE_0__baseGraph__["b" /* TYPE */].CHILDHUB, {}, 1.0, null, personId, insertChildhubRank, insertChildhubOrder);
+        var newChildhubId = this._insertVertex(_baseGraph.TYPE.CHILDHUB, {}, 1.0, null, personId, insertChildhubRank, insertChildhubOrder);
 
         var insertParentsRank = this.DG.ranks[newChildhubId] - 1; // note: rank may have changed since last insertion
         //       (iff childhub was insertion above all at rank 0 - which becomes rank1)
@@ -51301,13 +51333,13 @@ DynamicPositionedGraph.prototype = {
         // find the best order to use for this new vertex: scan all orders on the rank, check number of crossed edges
         var insertParentOrder = this._findBestInsertPosition(insertParentsRank, newChildhubId);
 
-        var newRelationshipId = this._insertVertex(__WEBPACK_IMPORTED_MODULE_0__baseGraph__["b" /* TYPE */].RELATIONSHIP, {}, 1.0, null, newChildhubId, insertParentsRank, insertParentOrder);
+        var newRelationshipId = this._insertVertex(_baseGraph.TYPE.RELATIONSHIP, {}, 1.0, null, newChildhubId, insertParentsRank, insertParentOrder);
 
         insertParentsRank = this.DG.ranks[newRelationshipId]; // note: rank may have changed since last insertion again
         //       (iff relationship was insertion above all at rank 0 - which becomes rank1)
 
-        var newParent1Id = this._insertVertex(__WEBPACK_IMPORTED_MODULE_0__baseGraph__["b" /* TYPE */].PERSON, { "gender": "F" }, 1.0, null, newRelationshipId, insertParentsRank, insertParentOrder + 1);
-        var newParent2Id = this._insertVertex(__WEBPACK_IMPORTED_MODULE_0__baseGraph__["b" /* TYPE */].PERSON, { "gender": "M" }, 1.0, null, newRelationshipId, insertParentsRank, insertParentOrder);
+        var newParent1Id = this._insertVertex(_baseGraph.TYPE.PERSON, { "gender": "F" }, 1.0, null, newRelationshipId, insertParentsRank, insertParentOrder + 1);
+        var newParent2Id = this._insertVertex(_baseGraph.TYPE.PERSON, { "gender": "M" }, 1.0, null, newRelationshipId, insertParentsRank, insertParentOrder);
 
         // validate: by now the graph should satisfy all assumptions
         this.DG.GG.validate();
@@ -51330,9 +51362,9 @@ DynamicPositionedGraph.prototype = {
         return { "new": newNodes, "moved": movedNodes, "highlight": [personId], "animate": animateNodes };
     },
 
-    addNewRelationship: function (personId, childProperties, preferLeft, numTwins) {
+    addNewRelationship: function addNewRelationship(personId, childProperties, preferLeft, numTwins) {
         this._debugPrintAll("before");
-        var timer = new __WEBPACK_IMPORTED_MODULE_4__helpers__["g" /* Timer */]();
+        var timer = new _helpers.Timer();
 
         if (!this.DG.GG.isPerson(personId)) throw "Assertion failed: adding relationship to a non-person node";
 
@@ -51360,23 +51392,23 @@ DynamicPositionedGraph.prototype = {
         var insertOrder = this._findBestInsertPosition(insertRank, personId, preferLeft);
 
         console.log("vOrder: " + personOrder + ", inserting @ " + insertOrder);
-        console.log("Orders before: " + __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_4__helpers__["c" /* stringifyObject */])(this.DG.order.order[this.DG.ranks[personId]]));
+        console.log("Orders before: " + (0, _helpers.stringifyObject)(this.DG.order.order[this.DG.ranks[personId]]));
 
-        var newRelationshipId = this._insertVertex(__WEBPACK_IMPORTED_MODULE_0__baseGraph__["b" /* TYPE */].RELATIONSHIP, {}, 1.0, personId, null, insertRank, insertOrder);
+        var newRelationshipId = this._insertVertex(_baseGraph.TYPE.RELATIONSHIP, {}, 1.0, personId, null, insertRank, insertOrder);
 
-        console.log("Orders after: " + __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_4__helpers__["c" /* stringifyObject */])(this.DG.order.order[this.DG.ranks[personId]]));
+        console.log("Orders after: " + (0, _helpers.stringifyObject)(this.DG.order.order[this.DG.ranks[personId]]));
 
         var insertPersonOrder = insertOrder > personOrder ? insertOrder + 1 : insertOrder;
 
-        var newPersonId = this._insertVertex(__WEBPACK_IMPORTED_MODULE_0__baseGraph__["b" /* TYPE */].PERSON, partnerProperties, 1.0, null, newRelationshipId, insertRank, insertPersonOrder);
+        var newPersonId = this._insertVertex(_baseGraph.TYPE.PERSON, partnerProperties, 1.0, null, newRelationshipId, insertRank, insertPersonOrder);
 
         var insertChildhubRank = insertRank + 1;
         var insertChildhubOrder = this._findBestInsertPosition(insertChildhubRank, newRelationshipId);
-        var newChildhubId = this._insertVertex(__WEBPACK_IMPORTED_MODULE_0__baseGraph__["b" /* TYPE */].CHILDHUB, {}, 1.0, newRelationshipId, null, insertChildhubRank, insertChildhubOrder);
+        var newChildhubId = this._insertVertex(_baseGraph.TYPE.CHILDHUB, {}, 1.0, newRelationshipId, null, insertChildhubRank, insertChildhubOrder);
 
         var insertChildRank = insertChildhubRank + 1;
         var insertChildOrder = this._findBestInsertPosition(insertChildRank, newChildhubId);
-        var newChildId = this._insertVertex(__WEBPACK_IMPORTED_MODULE_0__baseGraph__["b" /* TYPE */].PERSON, childProperties, 1.0, newChildhubId, null, insertChildRank, insertChildOrder);
+        var newChildId = this._insertVertex(_baseGraph.TYPE.PERSON, childProperties, 1.0, newChildhubId, null, insertChildRank, insertChildOrder);
 
         var newNodes = [newRelationshipId, newPersonId, newChildId];
         for (var i = 0; i < numTwins - 1; i++) {
@@ -51384,7 +51416,7 @@ DynamicPositionedGraph.prototype = {
             newNodes.push(changeSet["new"][0]);
         }
 
-        console.log("Orders after all: " + __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_4__helpers__["c" /* stringifyObject */])(this.DG.order.order[this.DG.ranks[personId]]));
+        console.log("Orders after all: " + (0, _helpers.stringifyObject)(this.DG.order.order[this.DG.ranks[personId]]));
 
         // validate: by now the graph should satisfy all assumptions
         this.DG.GG.validate();
@@ -51405,7 +51437,7 @@ DynamicPositionedGraph.prototype = {
         return { "new": newNodes, "moved": movedNodes, "highlight": [personId] };
     },
 
-    assignParent: function (parentId, childId) {
+    assignParent: function assignParent(parentId, childId) {
         if (this.isRelationship(parentId)) {
             var childHubId = this.DG.GG.getRelationshipChildhub(parentId);
             var rankChildHub = this.DG.ranks[childHubId];
@@ -51450,10 +51482,10 @@ DynamicPositionedGraph.prototype = {
                 var ranksBefore = this.DG.ranks.slice(0);
                 // need a complete redraw, since this violates the core layout rule. In this case insert orders do not matter
                 var insertChildhubRank = rankChild - 1;
-                var newChildhubId = this._insertVertex(__WEBPACK_IMPORTED_MODULE_0__baseGraph__["b" /* TYPE */].CHILDHUB, {}, 1.0, null, childId, insertChildhubRank, 0);
+                var newChildhubId = this._insertVertex(_baseGraph.TYPE.CHILDHUB, {}, 1.0, null, childId, insertChildhubRank, 0);
                 var insertParentsRank = this.DG.ranks[newChildhubId] - 1; // note: rank may have changed since last insertion
-                var newRelationshipId = this._insertVertex(__WEBPACK_IMPORTED_MODULE_0__baseGraph__["b" /* TYPE */].RELATIONSHIP, {}, 1.0, null, newChildhubId, insertParentsRank, 0);
-                var newParentId = this._insertVertex(__WEBPACK_IMPORTED_MODULE_0__baseGraph__["b" /* TYPE */].PERSON, partnerProperties, 1.0, null, newRelationshipId, insertParentsRank, 0);
+                var newRelationshipId = this._insertVertex(_baseGraph.TYPE.RELATIONSHIP, {}, 1.0, null, newChildhubId, insertParentsRank, 0);
+                var newParentId = this._insertVertex(_baseGraph.TYPE.PERSON, partnerProperties, 1.0, null, newRelationshipId, insertParentsRank, 0);
                 this.DG.GG.addEdge(parentId, newRelationshipId, 1);
                 var animateList = [childId, parentId];
                 var newList = [newRelationshipId, newParentId];
@@ -51467,7 +51499,7 @@ DynamicPositionedGraph.prototype = {
             // depending on other parent rank either draw a multi-rank relationship edge or regular relationship edge
 
             this._debugPrintAll("before");
-            var timer = new __WEBPACK_IMPORTED_MODULE_4__helpers__["g" /* Timer */]();
+            var timer = new _helpers.Timer();
 
             var positionsBefore = this.DG.positions.slice(0);
             var ranksBefore = this.DG.ranks.slice(0);
@@ -51488,14 +51520,14 @@ DynamicPositionedGraph.prototype = {
 
                 // add same-rank relationship edge
                 var insertRelatOrder = this._findBestInsertPosition(rankParent, parentId, preferLeft);
-                var newRelationshipId = this._insertVertex(__WEBPACK_IMPORTED_MODULE_0__baseGraph__["b" /* TYPE */].RELATIONSHIP, {}, 1.0, parentId, null, rankParent, insertRelatOrder);
+                var newRelationshipId = this._insertVertex(_baseGraph.TYPE.RELATIONSHIP, {}, 1.0, parentId, null, rankParent, insertRelatOrder);
 
                 var newParentOrder = this.DG.order.vOrder[parentId] > this.DG.order.vOrder[newRelationshipId] ? insertRelatOrder : insertRelatOrder + 1;
-                var newParentId = this._insertVertex(__WEBPACK_IMPORTED_MODULE_0__baseGraph__["b" /* TYPE */].PERSON, partnerProperties, 1.0, null, newRelationshipId, rankParent, newParentOrder);
+                var newParentId = this._insertVertex(_baseGraph.TYPE.PERSON, partnerProperties, 1.0, null, newRelationshipId, rankParent, newParentOrder);
 
                 var insertChildhubRank = rankChild - 1;
                 var insertChildhubOrder = this._findBestInsertPosition(insertChildhubRank, newRelationshipId);
-                var newChildhubId = this._insertVertex(__WEBPACK_IMPORTED_MODULE_0__baseGraph__["b" /* TYPE */].CHILDHUB, {}, 1.0, newRelationshipId, null, insertChildhubRank, insertChildhubOrder);
+                var newChildhubId = this._insertVertex(_baseGraph.TYPE.CHILDHUB, {}, 1.0, newRelationshipId, null, insertChildhubRank, insertChildhubOrder);
 
                 this.DG.GG.addEdge(newChildhubId, childId, 1);
             } else {
@@ -51508,15 +51540,15 @@ DynamicPositionedGraph.prototype = {
 
                 var insertChildhubRank = rankChild - 1;
                 var insertChildhubOrder = this._findBestInsertPosition(insertChildhubRank, childId);
-                var newChildhubId = this._insertVertex(__WEBPACK_IMPORTED_MODULE_0__baseGraph__["b" /* TYPE */].CHILDHUB, {}, 1.0, null, childId, insertChildhubRank, insertChildhubOrder);
+                var newChildhubId = this._insertVertex(_baseGraph.TYPE.CHILDHUB, {}, 1.0, null, childId, insertChildhubRank, insertChildhubOrder);
 
                 var insertParentsRank = rankChild - 2;
 
                 var insertRelatOrder = this._findBestInsertPosition(insertParentsRank, newChildhubId);
-                var newRelationshipId = this._insertVertex(__WEBPACK_IMPORTED_MODULE_0__baseGraph__["b" /* TYPE */].RELATIONSHIP, {}, 1.0, null, newChildhubId, insertParentsRank, insertRelatOrder);
+                var newRelationshipId = this._insertVertex(_baseGraph.TYPE.RELATIONSHIP, {}, 1.0, null, newChildhubId, insertParentsRank, insertRelatOrder);
 
                 var newParentOrder = this.DG.positions[parentId] > this.DG.positions[newRelationshipId] ? insertRelatOrder : insertRelatOrder + 1;
-                var newParentId = this._insertVertex(__WEBPACK_IMPORTED_MODULE_0__baseGraph__["b" /* TYPE */].PERSON, partnerProperties, 1.0, null, newRelationshipId, insertParentsRank, newParentOrder);
+                var newParentId = this._insertVertex(_baseGraph.TYPE.PERSON, partnerProperties, 1.0, null, newRelationshipId, insertParentsRank, newParentOrder);
 
                 this._addMultiRankEdge(parentId, newRelationshipId);
             }
@@ -51541,7 +51573,7 @@ DynamicPositionedGraph.prototype = {
         }
     },
 
-    assignPartner: function (person1, person2, childProperties) {
+    assignPartner: function assignPartner(person1, person2, childProperties) {
         var positionsBefore = this.DG.positions.slice(0);
         var ranksBefore = this.DG.ranks.slice(0);
         var vertLevelsBefore = this.DG.vertLevel.copy();
@@ -51568,15 +51600,15 @@ DynamicPositionedGraph.prototype = {
 
         var preferLeft = x_person2 < x_person1;
         var insertRelatOrder = rankP1 == rankP2 ? this._findBestRelationshipPosition(person1, false, person2) : this._findBestRelationshipPosition(person1, preferLeft);
-        var newRelationshipId = this._insertVertex(__WEBPACK_IMPORTED_MODULE_0__baseGraph__["b" /* TYPE */].RELATIONSHIP, {}, weight, person1, null, rankP1, insertRelatOrder);
+        var newRelationshipId = this._insertVertex(_baseGraph.TYPE.RELATIONSHIP, {}, weight, person1, null, rankP1, insertRelatOrder);
 
         var insertChildhubRank = this.DG.ranks[newRelationshipId] + 1;
         var insertChildhubOrder = this._findBestInsertPosition(insertChildhubRank, newRelationshipId);
-        var newChildhubId = this._insertVertex(__WEBPACK_IMPORTED_MODULE_0__baseGraph__["b" /* TYPE */].CHILDHUB, {}, 1.0, newRelationshipId, null, insertChildhubRank, insertChildhubOrder);
+        var newChildhubId = this._insertVertex(_baseGraph.TYPE.CHILDHUB, {}, 1.0, newRelationshipId, null, insertChildhubRank, insertChildhubOrder);
 
         var insertChildRank = insertChildhubRank + 1;
         var insertChildOrder = this._findBestInsertPosition(insertChildRank, newChildhubId);
-        var newChildId = this._insertVertex(__WEBPACK_IMPORTED_MODULE_0__baseGraph__["b" /* TYPE */].PERSON, childProperties, 1.0, newChildhubId, null, insertChildRank, insertChildOrder);
+        var newChildId = this._insertVertex(_baseGraph.TYPE.PERSON, childProperties, 1.0, newChildhubId, null, insertChildRank, insertChildOrder);
 
         if (rankP1 == rankP2) {
             this.DG.GG.addEdge(person2, newRelationshipId, weight);
@@ -51601,7 +51633,7 @@ DynamicPositionedGraph.prototype = {
         return { "new": newNodes, "moved": movedNodes, "highlight": [person1, person2, newChildId] };
     },
 
-    addTwin: function (personId, properties) {
+    addTwin: function addTwin(personId, properties) {
         var positionsBefore = this.DG.positions.slice(0);
         var ranksBefore = this.DG.ranks.slice(0);
         var vertLevelsBefore = this.DG.vertLevel.copy();
@@ -51625,7 +51657,7 @@ DynamicPositionedGraph.prototype = {
 
         // insert the vertex into the base graph and update ranks, orders & positions
         var childhubId = this.DG.GG.getInEdges(personId)[0];
-        var newNodeId = this._insertVertex(__WEBPACK_IMPORTED_MODULE_0__baseGraph__["b" /* TYPE */].PERSON, properties, 1.0, childhubId, null, insertRank, insertOrder);
+        var newNodeId = this._insertVertex(_baseGraph.TYPE.PERSON, properties, 1.0, childhubId, null, insertRank, insertOrder);
 
         // validate: by now the graph should satisfy all assumptions
         this.DG.GG.validate();
@@ -51634,14 +51666,14 @@ DynamicPositionedGraph.prototype = {
         this._heuristics.improvePositioning(ranksBefore, rankYBefore);
 
         var movedNodes = this._findMovedNodes(numNodesBefore, positionsBefore, ranksBefore, vertLevelsBefore, rankYBefore);
-        if (!__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_4__helpers__["h" /* arrayContains */])(movedNodes, parentRel)) movedNodes.push(parentRel);
+        if (!(0, _helpers.arrayContains)(movedNodes, parentRel)) movedNodes.push(parentRel);
         var animateNodes = this.DG.GG.getInEdges(parentRel).slice(0); // animate parents if they move. if not, nothing will be done with them
         animateNodes.push(personId);
         var newNodes = [newNodeId];
         return { "new": newNodes, "moved": movedNodes, "animate": animateNodes };
     },
 
-    removeNodes: function (nodeList) {
+    removeNodes: function removeNodes(nodeList) {
         this._debugPrintAll("before");
 
         //var positionsBefore  = this.DG.positions.slice(0);
@@ -51665,9 +51697,11 @@ DynamicPositionedGraph.prototype = {
                 // also add its long multi-rank edges
                 var pathToParents = this.getPathToParents(nodeList[i]);
                 for (var p = 0; p < pathToParents.length; p++) {
-                    for (var j = 0; j < pathToParents[p].length; j++) if (this.DG.GG.isVirtual(pathToParents[p][j])) {
-                        console.log("adding " + pathToParents[p][j] + " to removal list (virtual of " + nodeList[i] + ")");
-                        nodeList.push(pathToParents[p][j]);
+                    for (var j = 0; j < pathToParents[p].length; j++) {
+                        if (this.DG.GG.isVirtual(pathToParents[p][j])) {
+                            console.log("adding " + pathToParents[p][j] + " to removal list (virtual of " + nodeList[i] + ")");
+                            nodeList.push(pathToParents[p][j]);
+                        }
                     }
                 }
             }
@@ -51714,9 +51748,9 @@ DynamicPositionedGraph.prototype = {
         this.updateAncestors();
 
         // TODO: for now: redraw all relationships
-        for (i = 0; i <= this.getMaxNodeId(); i++) if (this.isRelationship(i)) moved.push(i);
-
-        // note: _findMovedNodes() does not work when IDs have changed. TODO
+        for (i = 0; i <= this.getMaxNodeId(); i++) {
+            if (this.isRelationship(i)) moved.push(i);
+        } // note: _findMovedNodes() does not work when IDs have changed. TODO
         //var movedNodes = this._findMovedNodes( numNodesBefore, positionsBefore, ranksBefore, vertLevelsBefore, rankYBefore );
         //for (var i = 0; i < moved.length; i++)
         //    if (!arrayContains(movedNodes, moved[i]))
@@ -51726,7 +51760,7 @@ DynamicPositionedGraph.prototype = {
         return { "removed": removed, "removedInternally": nodeList, "moved": moved };
     },
 
-    improvePosition: function () {
+    improvePosition: function improvePosition() {
         //this.DG.positions = this.DG.position(this.DG.horizontalPersonSeparationDist, this.DG.horizontalRelSeparationDist);
         //var movedNodes = this._getAllNodes();
         //return {"moved": movedNodes};
@@ -51744,7 +51778,7 @@ DynamicPositionedGraph.prototype = {
         return { "moved": movedNodes };
     },
 
-    clearAll: function () {
+    clearAll: function clearAll() {
         var removedNodes = this._getAllNodes(1); // all nodes from 1 and up
 
         var emptyGraph = this.DG.GG.getNumVertices() == 0;
@@ -51754,7 +51788,7 @@ DynamicPositionedGraph.prototype = {
         // it is easier to create abrand new graph transferirng node 0 propertie sthna to remove on-by-one
         // each time updating ranks, orders, etc
 
-        var baseGraph = __WEBPACK_IMPORTED_MODULE_3__import__["a" /* PedigreeImport */].initFromPhenotipsInternal(this._onlyProbandGraph);
+        var baseGraph = _import.PedigreeImport.initFromPhenotipsInternal(this._onlyProbandGraph);
 
         this._recreateUsingBaseGraph(baseGraph);
 
@@ -51765,7 +51799,7 @@ DynamicPositionedGraph.prototype = {
         return { "removed": removedNodes, "moved": [0], "makevisible": [0] };
     },
 
-    redrawAll: function (animateList, newList, ranksBefore) {
+    redrawAll: function redrawAll(animateList, newList, ranksBefore) {
         ranksBefore = ranksBefore ? ranksBefore : this.DG.ranks.slice(0); // sometimes we want to use ranksbefore as they were before some stuff was added to the graph before a redraw
 
         this._debugPrintAll("before");
@@ -51773,7 +51807,7 @@ DynamicPositionedGraph.prototype = {
         var baseGraph = this.DG.GG.makeGWithCollapsedMultiRankEdges();
 
         // collect current node ranks so that the new layout can be made more similar to the current one
-        var oldRanks = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_4__helpers__["k" /* clone2DArray */])(this.DG.order.order);
+        var oldRanks = (0, _helpers.clone2DArray)(this.DG.order.order);
         for (var i = oldRanks.length - 1; i >= 0; i--) {
             oldRanks[i] = oldRanks[i].filter(this.DG.GG.isPerson.bind(this.DG.GG));
             if (oldRanks[i].length == 0) oldRanks.splice(i, 1);
@@ -51802,7 +51836,9 @@ DynamicPositionedGraph.prototype = {
 
         if (!newList) newList = [];else {
             // nodes which are force-marked as new can't be in the "moved" list
-            for (i = 0; i < newList.length; i++) __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_4__helpers__["j" /* removeFirstOccurrenceByValue */])(movedNodes, newList[i]);
+            for (i = 0; i < newList.length; i++) {
+                (0, _helpers.removeFirstOccurrenceByValue)(movedNodes, newList[i]);
+            }
         }
 
         this._debugPrintAll("after");
@@ -51811,7 +51847,7 @@ DynamicPositionedGraph.prototype = {
     },
 
     // remove empty-values optional properties, e.g. "fName: ''" or "disorders: []"
-    stripUnusedProperties: function () {
+    stripUnusedProperties: function stripUnusedProperties() {
         for (var i = 0; i <= this.DG.GG.getMaxRealVertexId(); i++) {
             if (this.isPerson(i)) {
                 this.deleteEmptyProperty(i, "fName");
@@ -51824,7 +51860,7 @@ DynamicPositionedGraph.prototype = {
         }
     },
 
-    deleteEmptyProperty: function (nodeID, propName) {
+    deleteEmptyProperty: function deleteEmptyProperty(nodeID, propName) {
         if (this.DG.GG.properties[nodeID].hasOwnProperty(propName)) {
             if (Object.prototype.toString.call(this.DG.GG.properties[nodeID][propName]) === "[object Array]" && this.DG.GG.properties[nodeID][propName].length == 0) {
                 delete this.DG.GG.properties[nodeID][propName];
@@ -51834,7 +51870,7 @@ DynamicPositionedGraph.prototype = {
         }
     },
 
-    toJSON: function () {
+    toJSON: function toJSON() {
         this.stripUnusedProperties();
 
         //var timer = new Timer();
@@ -51855,14 +51891,14 @@ DynamicPositionedGraph.prototype = {
         return JSON.stringify(output);
     },
 
-    fromJSON: function (serializedAsJSON) {
+    fromJSON: function fromJSON(serializedAsJSON) {
         var removedNodes = this._getAllNodes();
 
         var serializedData = JSON.parse(serializedAsJSON);
 
         //console.log("Got serialization object: " + stringifyObject(serializedData));
 
-        this.DG.GG = __WEBPACK_IMPORTED_MODULE_3__import__["a" /* PedigreeImport */].initFromPhenotipsInternal(serializedData["GG"]);
+        this.DG.GG = _import.PedigreeImport.initFromPhenotipsInternal(serializedData["GG"]);
 
         this.DG.ranks = serializedData["ranks"];
 
@@ -51881,22 +51917,22 @@ DynamicPositionedGraph.prototype = {
         return { "new": newNodes, "removed": removedNodes };
     },
 
-    fromImport: function (importString, importType, importOptions) {
+    fromImport: function fromImport(importString, importType, importOptions) {
         var removedNodes = this._getAllNodes();
 
         //this._debugPrintAll("before");
         var baseGraph;
         if (importType == "ped") {
-            baseGraph = __WEBPACK_IMPORTED_MODULE_3__import__["a" /* PedigreeImport */].initFromPED(importString, importOptions.acceptUnknownPhenotypes, importOptions.markEvaluated, importOptions.externalIdMark);
+            baseGraph = _import.PedigreeImport.initFromPED(importString, importOptions.acceptUnknownPhenotypes, importOptions.markEvaluated, importOptions.externalIdMark);
             if (!this._recreateUsingBaseGraph(baseGraph)) return null; // no changes
         } else if (importType == "BOADICEA") {
-            baseGraph = __WEBPACK_IMPORTED_MODULE_3__import__["a" /* PedigreeImport */].initFromBOADICEA(importString, importOptions.externalIdMark);
+            baseGraph = _import.PedigreeImport.initFromBOADICEA(importString, importOptions.externalIdMark);
             if (!this._recreateUsingBaseGraph(baseGraph)) return null; // no changes
         } else if (importType == "gedcom") {
-            baseGraph = __WEBPACK_IMPORTED_MODULE_3__import__["a" /* PedigreeImport */].initFromGEDCOM(importString, importOptions.markEvaluated, importOptions.externalIdMark);
+            baseGraph = _import.PedigreeImport.initFromGEDCOM(importString, importOptions.markEvaluated, importOptions.externalIdMark);
             if (!this._recreateUsingBaseGraph(baseGraph)) return null; // no changes
         } else if (importType == "simpleJSON") {
-            baseGraph = __WEBPACK_IMPORTED_MODULE_3__import__["a" /* PedigreeImport */].initFromSimpleJSON(importString);
+            baseGraph = _import.PedigreeImport.initFromSimpleJSON(importString);
             if (!this._recreateUsingBaseGraph(baseGraph)) return null; // no changes
         } else if (importType == "phenotipsJSON") {}
 
@@ -51910,7 +51946,7 @@ DynamicPositionedGraph.prototype = {
         return { "new": newNodes, "removed": removedNodes };
     },
 
-    getPathToParents: function (v) {
+    getPathToParents: function getPathToParents(v) {
         // returns an array with two elements: path to parent1 (excluding v) and path to parent2 (excluding v):
         // [ [virtual_node_11, ..., virtual_node_1n, parent1], [virtual_node_21, ..., virtual_node_2n, parent21] ]
         return this.DG.GG.getPathToParents(v);
@@ -51920,16 +51956,16 @@ DynamicPositionedGraph.prototype = {
 
     // suggestedRanks: when provided, attempt to use the suggested rank for all nodes,
     //                 in order to keep the new layout as close as possible to the previous layout
-    _recreateUsingBaseGraph: function (baseGraph, suggestedRanks) {
+    _recreateUsingBaseGraph: function _recreateUsingBaseGraph(baseGraph, suggestedRanks) {
         try {
-            var newDG = new __WEBPACK_IMPORTED_MODULE_1__positionedGraph__["a" /* PositionedGraph */](baseGraph, this.DG.horizontalPersonSeparationDist, this.DG.horizontalRelSeparationDist, this.DG.maxInitOrderingBuckets, this.DG.maxOrderingIterations, this.DG.maxXcoordIterations, false, suggestedRanks);
+            var newDG = new _positionedGraph.PositionedGraph(baseGraph, this.DG.horizontalPersonSeparationDist, this.DG.horizontalRelSeparationDist, this.DG.maxInitOrderingBuckets, this.DG.maxOrderingIterations, this.DG.maxXcoordIterations, false, suggestedRanks);
         } catch (e) {
             console.error(e);
             return false;
         }
 
         this.DG = newDG;
-        this._heuristics = new __WEBPACK_IMPORTED_MODULE_2__heuristics__["a" /* Heuristics */](this.DG);
+        this._heuristics = new _heuristics.Heuristics(this.DG);
 
         //this._debugPrintAll("before improvement");
         this._heuristics.improvePositioning();
@@ -51938,7 +51974,7 @@ DynamicPositionedGraph.prototype = {
         return true;
     },
 
-    _insertVertex: function (type, properties, edgeWeights, inedge, outedge, insertRank, insertOrder) {
+    _insertVertex: function _insertVertex(type, properties, edgeWeights, inedge, outedge, insertRank, insertOrder) {
         // all nodes are connected to some other node, so either inedge or outedge should be given
         if (inedge === null && outedge === null) throw "Assertion failed: each node should be connected to at least one other node";
         if (inedge !== null && outedge !== null) throw "Assertion failed: not clear which edge crossing to optimize, can only insert one edge";
@@ -51952,8 +51988,9 @@ DynamicPositionedGraph.prototype = {
         // no relationships or relationships without any people attached
 
         if (insertRank == 0) {
-            for (var i = 0; i < this.DG.ranks.length; i++) this.DG.ranks[i]++;
-            this.DG.maxRank++;
+            for (var i = 0; i < this.DG.ranks.length; i++) {
+                this.DG.ranks[i]++;
+            }this.DG.maxRank++;
 
             this.DG.order.insertRank(1);
 
@@ -51976,8 +52013,8 @@ DynamicPositionedGraph.prototype = {
         return newNodeId;
     },
 
-    _updateauxiliaryStructures: function (ranksBefore, rankYBefore) {
-        var timer = new __WEBPACK_IMPORTED_MODULE_4__helpers__["g" /* Timer */]();
+    _updateauxiliaryStructures: function _updateauxiliaryStructures(ranksBefore, rankYBefore) {
+        var timer = new _helpers.Timer();
 
         // update vertical levels
         this.DG.vertLevel = this.DG.positionVertically();
@@ -51989,17 +52026,17 @@ DynamicPositionedGraph.prototype = {
         timer.printSinceLast("=== Vertical spacing + ancestors runtime: ");
     },
 
-    _getAllNodes: function (minID, maxID) {
+    _getAllNodes: function _getAllNodes(minID, maxID) {
         var nodes = [];
         minID = minID ? minID : 0;
         maxID = maxID ? Math.min(maxID, this.DG.GG.getMaxRealVertexId()) : this.DG.GG.getMaxRealVertexId();
         for (var i = minID; i <= maxID; i++) {
-            if (this.DG.GG.type[i] == __WEBPACK_IMPORTED_MODULE_0__baseGraph__["b" /* TYPE */].PERSON || this.DG.GG.type[i] == __WEBPACK_IMPORTED_MODULE_0__baseGraph__["b" /* TYPE */].RELATIONSHIP) nodes.push(i);
+            if (this.DG.GG.type[i] == _baseGraph.TYPE.PERSON || this.DG.GG.type[i] == _baseGraph.TYPE.RELATIONSHIP) nodes.push(i);
         }
         return nodes;
     },
 
-    _findMovedNodes: function (maxOldID, positionsBefore, ranksBefore, vertLevelsBefore, rankYBefore, consangrBefore) {
+    _findMovedNodes: function _findMovedNodes(maxOldID, positionsBefore, ranksBefore, vertLevelsBefore, rankYBefore, consangrBefore) {
         //console.log("Before: " + stringifyObject(vertLevelsBefore));
         //console.log("After:  " + stringifyObject(this.DG.vertLevel));
         //console.log("Before: " + stringifyObject(positionsBefore));
@@ -52011,17 +52048,19 @@ DynamicPositionedGraph.prototype = {
         var oldMin = Math.min.apply(Math, positionsBefore);
         var newMin = Math.min.apply(Math, this.DG.positions);
         if (newMin > oldMin) {
-            var oldMinNodeID = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_4__helpers__["l" /* arrayIndexOf */])(positionsBefore, oldMin);
+            var oldMinNodeID = (0, _helpers.arrayIndexOf)(positionsBefore, oldMin);
             var newMinValue = this.DG.positions[oldMinNodeID];
             var shiftAmount = newMinValue - oldMin;
 
-            for (var i = 0; i < this.DG.positions.length; i++) this.DG.positions[i] -= shiftAmount;
+            for (var i = 0; i < this.DG.positions.length; i++) {
+                this.DG.positions[i] -= shiftAmount;
+            }
         }
 
         var result = {};
         for (i = 0; i <= maxOldID; i++) {
             // this node was moved
-            if (this.DG.GG.type[i] == __WEBPACK_IMPORTED_MODULE_0__baseGraph__["b" /* TYPE */].RELATIONSHIP || this.DG.GG.type[i] == __WEBPACK_IMPORTED_MODULE_0__baseGraph__["b" /* TYPE */].PERSON) {
+            if (this.DG.GG.type[i] == _baseGraph.TYPE.RELATIONSHIP || this.DG.GG.type[i] == _baseGraph.TYPE.PERSON) {
                 var rank = this.DG.ranks[i];
                 //if (rank != ranksBefore[i]) {
                 //    this._addNodeAndAssociatedRelationships(i, result, maxOldID);
@@ -52036,7 +52075,7 @@ DynamicPositionedGraph.prototype = {
                     continue;
                 }
                 // or it is a relationship with a long edge - redraw just in case since long edges may have complicated curves around other nodes
-                if (this.DG.GG.type[i] == __WEBPACK_IMPORTED_MODULE_0__baseGraph__["b" /* TYPE */].RELATIONSHIP) {
+                if (this.DG.GG.type[i] == _baseGraph.TYPE.RELATIONSHIP) {
                     if (consangrBefore && !consangrBefore.hasOwnProperty(i) && this.DG.consangr.hasOwnProperty(i)) {
                         result[i] = true;
                         continue;
@@ -52075,9 +52114,9 @@ DynamicPositionedGraph.prototype = {
         return resultArray;
     },
 
-    _addNodeAndAssociatedRelationships: function (node, addToSet, maxOldID) {
+    _addNodeAndAssociatedRelationships: function _addNodeAndAssociatedRelationships(node, addToSet, maxOldID) {
         addToSet[node] = true;
-        if (this.DG.GG.type[node] != __WEBPACK_IMPORTED_MODULE_0__baseGraph__["b" /* TYPE */].PERSON) return;
+        if (this.DG.GG.type[node] != _baseGraph.TYPE.PERSON) return;
 
         var inEdges = this.DG.GG.getInEdges(node);
         if (inEdges.length > 0) {
@@ -52094,7 +52133,7 @@ DynamicPositionedGraph.prototype = {
 
     //=============================================================
 
-    _addMultiRankEdge: function (personId, relationshipId, _weight) {
+    _addMultiRankEdge: function _addMultiRankEdge(personId, relationshipId, _weight) {
         var weight = _weight ? _weight : 1.0;
 
         var rankPerson = this.DG.ranks[personId];
@@ -52111,7 +52150,7 @@ DynamicPositionedGraph.prototype = {
         var x_relationship = this.DG.positions[relationshipId];
 
         var prevPieceOrder = x_person < x_relationship ? order_rel + 1 : order_rel;
-        var prevPieceId = this._insertVertex(__WEBPACK_IMPORTED_MODULE_0__baseGraph__["b" /* TYPE */].VIRTUALEDGE, {}, weight, null, relationshipId, rankRelationship, prevPieceOrder);
+        var prevPieceId = this._insertVertex(_baseGraph.TYPE.VIRTUALEDGE, {}, weight, null, relationshipId, rankRelationship, prevPieceOrder);
 
         // TODO: an algorithm which optimizes the entire edge placement globally (not one piece at a time)
 
@@ -52120,14 +52159,14 @@ DynamicPositionedGraph.prototype = {
 
             var prevNodeX = this.DG.positions[prevPieceId];
             var orderToMakeEdgeStraight = this.DG.order.order[rankNext].length;
-            for (var o = 0; o < this.DG.order.order[rankNext].length; o++) if (this.DG.positions[this.DG.order.order[rankNext][o]] >= prevNodeX) {
-                orderToMakeEdgeStraight = o;
-                break;
-            }
+            for (var o = 0; o < this.DG.order.order[rankNext].length; o++) {
+                if (this.DG.positions[this.DG.order.order[rankNext][o]] >= prevNodeX) {
+                    orderToMakeEdgeStraight = o;
+                    break;
+                }
+            }console.log("adding piece @ rank: " + rankNext + " @ order " + orderToMakeEdgeStraight);
 
-            console.log("adding piece @ rank: " + rankNext + " @ order " + orderToMakeEdgeStraight);
-
-            prevPieceId = this._insertVertex(__WEBPACK_IMPORTED_MODULE_0__baseGraph__["b" /* TYPE */].VIRTUALEDGE, {}, weight, null, prevPieceId, rankNext, orderToMakeEdgeStraight);
+            prevPieceId = this._insertVertex(_baseGraph.TYPE.VIRTUALEDGE, {}, weight, null, prevPieceId, rankNext, orderToMakeEdgeStraight);
         }
 
         //connect last piece with personId
@@ -52136,7 +52175,7 @@ DynamicPositionedGraph.prototype = {
 
     //=============================================================
 
-    _findBestInsertPosition: function (rank, edgeToV, preferLeft, _fromOrder, _toOrder) {
+    _findBestInsertPosition: function _findBestInsertPosition(rank, edgeToV, preferLeft, _fromOrder, _toOrder) {
         // note: does not assert that the graph satisfies all the assumptions in BaseGraph.validate()
 
         if (rank == 0 || rank > this.DG.maxRank) return 0;
@@ -52153,7 +52192,7 @@ DynamicPositionedGraph.prototype = {
         var bestDistance = Infinity;
 
         var crossingChildhubEdgesPenalty = false;
-        if (this.DG.GG.type[edgeToV] == __WEBPACK_IMPORTED_MODULE_0__baseGraph__["b" /* TYPE */].CHILDHUB) crossingChildhubEdgesPenalty = true;
+        if (this.DG.GG.type[edgeToV] == _baseGraph.TYPE.CHILDHUB) crossingChildhubEdgesPenalty = true;
 
         var desiredOrder = 0;
 
@@ -52169,7 +52208,7 @@ DynamicPositionedGraph.prototype = {
         }
 
         // when inserting children below childhubs: next to other children
-        if (this.DG.GG.type[edgeToV] == __WEBPACK_IMPORTED_MODULE_0__baseGraph__["b" /* TYPE */].CHILDHUB && rank > edgeToRank && this.DG.GG.getOutEdges(edgeToV).length > 0) desiredOrder = this._findRightmostChildPosition(edgeToV) + 1;
+        if (this.DG.GG.type[edgeToV] == _baseGraph.TYPE.CHILDHUB && rank > edgeToRank && this.DG.GG.getOutEdges(edgeToV).length > 0) desiredOrder = this._findRightmostChildPosition(edgeToV) + 1;
 
         var fromOrder = _fromOrder ? Math.max(_fromOrder, 0) : 0;
         var toOrder = _toOrder ? Math.min(_toOrder, this.DG.order.order[rank].length) : this.DG.order.order[rank].length;
@@ -52179,10 +52218,12 @@ DynamicPositionedGraph.prototype = {
             if (o > 0 && o < this.DG.order.order[rank].length) {
                 // skip virtual edges which may appear between twins
                 var leftNodePos = o - 1;
-                while (leftNodePos > 0 && this.DG.GG.isVirtual(this.DG.order.order[rank][leftNodePos])) leftNodePos--;
-                var rightNodePos = o;
-                while (rightNodePos < this.DG.order.order[rank].length - 1 && this.DG.GG.isVirtual(this.DG.order.order[rank][rightNodePos])) rightNodePos--;
-                var nodeToTheLeft = this.DG.order.order[rank][leftNodePos];
+                while (leftNodePos > 0 && this.DG.GG.isVirtual(this.DG.order.order[rank][leftNodePos])) {
+                    leftNodePos--;
+                }var rightNodePos = o;
+                while (rightNodePos < this.DG.order.order[rank].length - 1 && this.DG.GG.isVirtual(this.DG.order.order[rank][rightNodePos])) {
+                    rightNodePos--;
+                }var nodeToTheLeft = this.DG.order.order[rank][leftNodePos];
                 var nodeToTheRight = this.DG.order.order[rank][rightNodePos];
 
                 if (this.isPerson(nodeToTheLeft) && this.isPerson(nodeToTheRight)) {
@@ -52213,12 +52254,12 @@ DynamicPositionedGraph.prototype = {
         return bestInsertOrder;
     },
 
-    _findRightmostChildPosition: function (vertex) {
+    _findRightmostChildPosition: function _findRightmostChildPosition(vertex) {
         var childrenInfo = this._heuristics.analizeChildren(vertex);
         return childrenInfo.rightMostChildOrder;
     },
 
-    _edgeCrossingsByFutureEdge: function (newVRank, newVOrder, existingURank, existingUOrder, crossingChildhubEdgesPenalty, existingU) {
+    _edgeCrossingsByFutureEdge: function _edgeCrossingsByFutureEdge(newVRank, newVOrder, existingURank, existingUOrder, crossingChildhubEdgesPenalty, existingU) {
         // Note: newVOrder is expected to be a number between two existing orders, or higher than all, or lower than all
 
         // counts how many existing edges a new edge from given rank&order to given rank&order would cross
@@ -52336,7 +52377,7 @@ DynamicPositionedGraph.prototype = {
         return crossings;
     },
 
-    _findBestRelationshipPosition: function (v, preferLeft, u) {
+    _findBestRelationshipPosition: function _findBestRelationshipPosition(v, preferLeft, u) {
         // Handles two different cases:
         // 1) both partners are given ("v" and "u"). Then need to insert between v and u
         // 2) only one partner is given ("v"). Then given the choice prefer the left side if "preferleft" is true
@@ -52386,7 +52427,9 @@ DynamicPositionedGraph.prototype = {
 
                     var from = parentOrder > relOrder ? relOrder + 1 : parentOrder + 1;
                     var to = parentOrder > relOrder ? parentOrder : relOrder;
-                    for (var j = from; j <= to; j++) penaltySameRank[j] = Infinity;
+                    for (var j = from; j <= to; j++) {
+                        penaltySameRank[j] = Infinity;
+                    }
                 }
             }
         }
@@ -52403,22 +52446,27 @@ DynamicPositionedGraph.prototype = {
             if (allTwins.length > 1) {
                 var leftMostTwinOrder = this.DG.order.vOrder[allTwins[0]];
                 var rightMostTwinOrder = this.DG.order.vOrder[allTwins[allTwins.length - 1]];
-                for (j = leftMostTwinOrder + 1; j <= rightMostTwinOrder; j++) penaltySameRank[j] = Infinity;
-                o = rightMostTwinOrder; // skip thorugh all other twins in this group
+                for (j = leftMostTwinOrder + 1; j <= rightMostTwinOrder; j++) {
+                    penaltySameRank[j] = Infinity;
+                }o = rightMostTwinOrder; // skip thorugh all other twins in this group
             }
 
             // penalty for crossing peron-to-parent line
             if (this.DG.GG.getProducingRelationship(node) != null) {
                 if (o < vOrder) {
-                    for (j = 0; j <= o; j++) penaltySameRank[j]++;
+                    for (j = 0; j <= o; j++) {
+                        penaltySameRank[j]++;
+                    }
                 } else {
-                    for (j = o + 1; j <= orderR.length; j++) penaltySameRank[j]++;
+                    for (j = o + 1; j <= orderR.length; j++) {
+                        penaltySameRank[j]++;
+                    }
                 }
             }
         }
 
-        console.log("Insertion same rank penalties: " + __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_4__helpers__["c" /* stringifyObject */])(penaltySameRank));
-        console.log("Insertion below penalties:     " + __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_4__helpers__["c" /* stringifyObject */])(penaltyBelow));
+        console.log("Insertion same rank penalties: " + (0, _helpers.stringifyObject)(penaltySameRank));
+        console.log("Insertion below penalties:     " + (0, _helpers.stringifyObject)(penaltyBelow));
 
         if (u === undefined) {
             if (preferLeft && vOrder == 0) return 0;
@@ -52499,7 +52547,7 @@ DynamicPositionedGraph.prototype = {
 
     //=============================================================
 
-    _getAllPersonsOfGenders: function (validGendersSet) {
+    _getAllPersonsOfGenders: function _getAllPersonsOfGenders(validGendersSet) {
         // all person nodes whose gender matches one of genders in the validGendersSet array
 
         // validate input genders
@@ -52515,7 +52563,7 @@ DynamicPositionedGraph.prototype = {
             if (this.isPersonGroup(i)) continue;
             var gender = this.getProperties(i)["gender"].toLowerCase();
             //console.log("trying: " + i + ", gender: " + gender + ", validSet: " + stringifyObject(validGendersSet));
-            if (__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_4__helpers__["h" /* arrayContains */])(validGendersSet, gender)) result.push(i);
+            if ((0, _helpers.arrayContains)(validGendersSet, gender)) result.push(i);
         }
 
         return result;
@@ -52523,14 +52571,19 @@ DynamicPositionedGraph.prototype = {
 };
 
 /***/ }),
-/* 161 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
+/* 160 */
+/***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__helpers__ = __webpack_require__(5);
-/* harmony export (immutable) */ __webpack_exports__["a"] = VerticalPosIntOptimizer;
-/* unused harmony export Complonents */
 
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+exports.VerticalPosIntOptimizer = VerticalPosIntOptimizer;
+exports.Complonents = Complonents;
+
+var _helpers = __webpack_require__(5);
 
 // TODO: test performance improvement: this.pairScoreFunc() is called for all possible combinations of (i,j,level_i,level_j)
 //                                     during computeCrosses(). Store the values and avoid calling the function again?
@@ -52559,11 +52612,11 @@ VerticalPosIntOptimizer.prototype = {
     // computes penalty ofr the number of levels used.
     // value: (0 <= numberOfLevelsPenalty < 1) => this affects the total penalty less than a single extra crossing,
     // i.e. we want to use as few levels as possible, but it is beter to use an extra level than to have more crossings
-    numberOfLevelsPenalty: function (maxLevelUsed, minRequired, numEdges) {
+    numberOfLevelsPenalty: function numberOfLevelsPenalty(maxLevelUsed, minRequired, numEdges) {
         return (maxLevelUsed - minRequired) / (numEdges + 1); // 1 level => (penalty == 0), above 1 level => (0 < penalty < 1)
     },
 
-    componentScoreFunc: function (levels, componentID) {
+    componentScoreFunc: function componentScoreFunc(levels, componentID) {
         //console.log("scoring: " + stringifyObject(levels));
 
         var penalty = 0;
@@ -52598,7 +52651,7 @@ VerticalPosIntOptimizer.prototype = {
         return penalty;
     },
 
-    computeComponents: function () {
+    computeComponents: function computeComponents() {
         // find all connected components, for now - using plain (and likely non-optimal) O(n^2) algo
         // (as a side effect can compute minimum posible penalty score)
 
@@ -52716,7 +52769,7 @@ VerticalPosIntOptimizer.prototype = {
         return { "crosses": crosses, "components": components };
     },
 
-    computeVerticalPositions: function (maxFullSearchSize, maxSteps, seed) {
+    computeVerticalPositions: function computeVerticalPositions(maxFullSearchSize, maxSteps, seed) {
         // maxFullSearchSize - max number of edges in a cluster which can be searched fully via brute force; max time = C1 * maxFullSearchSize! per cluster
         // maxSteps          - max number of steps for a heuristic; max time = C2 * maxSteps per cluster
         //                     (where C2 > C1, and both include computing the penalty for a given arrangmenet, which is ~O(clusterSize^2)
@@ -52747,7 +52800,7 @@ VerticalPosIntOptimizer.prototype = {
     },
 
     //----------------------------------------------------------------------------------
-    exhaustiveSearch: function (componentID, bestSoFar) {
+    exhaustiveSearch: function exhaustiveSearch(componentID, bestSoFar) {
 
         var initScore = this.componentScoreFunc(bestSoFar, componentID);
 
@@ -52761,7 +52814,7 @@ VerticalPosIntOptimizer.prototype = {
         return result.values;
     },
 
-    recursiveExhaustiveSearch: function (componentID, valuesSoFar, level, bestSoFar) {
+    recursiveExhaustiveSearch: function recursiveExhaustiveSearch(componentID, valuesSoFar, level, bestSoFar) {
 
         var component = this.components.getComponentEdges(componentID);
 
@@ -52810,7 +52863,7 @@ VerticalPosIntOptimizer.prototype = {
 
 
     //--[ simulatedAnnelling() related ]------------------------------------------------
-    makeBasicValidAssignment: function (initLevels, componentID) {
+    makeBasicValidAssignment: function makeBasicValidAssignment(initLevels, componentID) {
         var component = this.components.getComponentEdges(componentID);
         var value = 1;
 
@@ -52828,7 +52881,7 @@ VerticalPosIntOptimizer.prototype = {
         return newAssignemnt;
     },
 
-    computeNeighbour: function (currentState, componentID, step) {
+    computeNeighbour: function computeNeighbour(currentState, componentID, step) {
         // general idea: assign some other "level" to one of the edges (where "some" and "one of" can be picked randomly/depending on the `step`).
         //               If that level is forbidden due to a crossing with some other edges assign the first OK level in the direction of change
         //               + normalize after the change (e.g. remove unused levels + shift to make smallest used levle to be level #1)
@@ -52892,11 +52945,11 @@ VerticalPosIntOptimizer.prototype = {
         return newState;
     },
 
-    normalize: function (levels, component) {
+    normalize: function normalize(levels, component) {
         //console.log("pre-normalized levels: " + stringifyObject(levels));
 
         // 1. if there are gaps (e.g. 1,2,4,5) decrement all levels above each gap to fill the gap
-        var usedLevels = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__helpers__["q" /* filterUnique */])(levels).sort();
+        var usedLevels = (0, _helpers.filterUnique)(levels).sort();
         for (var i = usedLevels.length - 1; i > 0; i--) {
             if (usedLevels[i] != usedLevels[i - 1] + 1) {
                 // there may be only one gap so no need to implement a more robust algorithm
@@ -52948,7 +53001,7 @@ VerticalPosIntOptimizer.prototype = {
         //console.log("post normalization: " + stringifyObject(levels));
     },
 
-    localOptimization: function (levels, currentScore, componentID, untilFirstImprovement) {
+    localOptimization: function localOptimization(levels, currentScore, componentID, untilFirstImprovement) {
         /*
          * TODO: after improvements made to the main algorithm this heuristic may not be necessary,
          *       but leaving it here for now as a placeholder
@@ -52972,14 +53025,14 @@ VerticalPosIntOptimizer.prototype = {
         return currentScore;
     },
 
-    random: function () {
+    random: function random() {
         // very crude but ok for the purpose of this algorithm in the context of vertical edge allocation
         // http://jsfiddle.net/bhrLT/3/
         var x = Math.sin(this.seed++) * 16;
         return x - Math.floor(x);
     },
 
-    doSwitchDuringAnneling: function (oldScore, newScore, stepsSinceReset) {
+    doSwitchDuringAnneling: function doSwitchDuringAnneling(oldScore, newScore, stepsSinceReset) {
         if (newScore <= oldScore) return true;
 
         var probability = Math.exp(-(newScore - oldScore) * Math.log((stepsSinceReset + 1) * 5));
@@ -52991,7 +53044,7 @@ VerticalPosIntOptimizer.prototype = {
         return false;
     },
 
-    simulatedAnnellingOptimizer: function (componentID, bestSoFar, maxSteps) {
+    simulatedAnnellingOptimizer: function simulatedAnnellingOptimizer(componentID, bestSoFar, maxSteps) {
 
         //console.log("[asearch] Starting simulatedAnnellingOptimizer");
 
@@ -53033,7 +53086,7 @@ VerticalPosIntOptimizer.prototype = {
                 currentState = bestState.slice(0);
                 currentScore = this.localOptimization(currentState, bestScore, componentID, true); // restart from a slightly optimized last best point
                 bestStep = step;
-                console.log("[asearch] reset to: " + __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__helpers__["c" /* stringifyObject */])(currentState) + ", score: " + currentScore + " (@ step = " + (maxSteps - step + 1) + ")");
+                console.log("[asearch] reset to: " + (0, _helpers.stringifyObject)(currentState) + ", score: " + currentScore + " (@ step = " + (maxSteps - step + 1) + ")");
             }
 
             var neighbourState = this.computeNeighbour(currentState, componentID, step);
@@ -53045,7 +53098,7 @@ VerticalPosIntOptimizer.prototype = {
             }
 
             if (currentScore < bestScore) {
-                console.log("[asearch] New best: " + __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__helpers__["c" /* stringifyObject */])(currentState) + ", score: " + currentScore + " (@ step = " + (maxSteps - step + 1) + ")");
+                console.log("[asearch] New best: " + (0, _helpers.stringifyObject)(currentState) + ", score: " + currentScore + " (@ step = " + (maxSteps - step + 1) + ")");
                 bestState = currentState.slice(0);
                 bestScore = currentScore;
                 bestStep = step;
@@ -53057,7 +53110,7 @@ VerticalPosIntOptimizer.prototype = {
         //bestState = [1, 2, 3, 5, 6, 7, 4, 6, 7, 4];
         //bestScore = this.componentScoreFunc( bestState, componentID );
         bestScore = this.localOptimization(bestState, bestScore, componentID);
-        console.log("[asearch] Final optimized best: " + __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__helpers__["c" /* stringifyObject */])(bestState) + ", score: " + bestScore);
+        console.log("[asearch] Final optimized best: " + (0, _helpers.stringifyObject)(bestState) + ", score: " + bestScore);
 
         return bestState;
     }
@@ -53074,32 +53127,32 @@ function Complonents() {
 }
 
 Complonents.prototype = {
-    getNumComponents: function () {
+    getNumComponents: function getNumComponents() {
         return this.components.length;
     },
 
-    getComponentEdges: function (componentID) {
+    getComponentEdges: function getComponentEdges(componentID) {
         return this.components[componentID];
     },
 
     // returns component ID of the edge
-    getEdgeComponent: function (edge) {
+    getEdgeComponent: function getEdgeComponent(edge) {
         return this.edgeComponents[edge];
     },
 
-    addToNewComponent: function (edge) {
+    addToNewComponent: function addToNewComponent(edge) {
         this.edgeComponents[edge] = this.components.length;
         this.components.push([edge]); // new component has just one edge
         this.minPossiblePenalty.push(0); // new component has 0 min penalty
     },
 
-    addToExistingComponent: function (edge, componentID) {
+    addToExistingComponent: function addToExistingComponent(edge, componentID) {
         this.components[componentID].push(edge);
         this.edgeComponents[edge] = componentID;
     },
 
     // NOTE: may reassign some unrelated component IDs
-    mergeComponents: function (component1, component2) {
+    mergeComponents: function mergeComponents(component1, component2) {
         if (component1 == component2) return;
         var minID = Math.min(component1, component2);
         var maxID = Math.max(component1, component2);
@@ -53118,25 +53171,31 @@ Complonents.prototype = {
         this.minPossiblePenalty.splice(maxID, 1);
     },
 
-    addRequiredPenaltyToComponent: function (componentID, penalty) {
+    addRequiredPenaltyToComponent: function addRequiredPenaltyToComponent(componentID, penalty) {
         this.minPossiblePenalty[componentID] += penalty;
     },
 
     // for performance reasons we want to stop as soon as we hit the best possible assignment;
     // while it is hard to compute the actual optimal score, we can estimate it from below,
     // such that if this low estimate is achieved we are guaranteed we have the best assignment
-    getMinPossiblePenalty: function (componentID) {
+    getMinPossiblePenalty: function getMinPossiblePenalty(componentID) {
         return this.minPossiblePenalty[componentID];
     }
 };
 
 /***/ }),
-/* 162 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
+/* 161 */
+/***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/* WEBPACK VAR INJECTION */(function(Raphael) {/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__legend__ = __webpack_require__(67);
+/* WEBPACK VAR INJECTION */(function(Raphael) {
 
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+exports.GeneLegend = undefined;
+
+var _legend = __webpack_require__(67);
 
 /**
  * Class responsible for keeping track of candidate genes.
@@ -53145,13 +53204,13 @@ Complonents.prototype = {
  * @class GeneLegend
  * @constructor
  */
-const GeneLegend = Class.create(__WEBPACK_IMPORTED_MODULE_0__legend__["a" /* Legend */], {
+var GeneLegend = exports.GeneLegend = Class.create(_legend.Legend, {
 
-    initialize: function ($super) {
+    initialize: function initialize($super) {
         $super("Candidate Genes", true);
     },
 
-    _getPrefix: function (id) {
+    _getPrefix: function _getPrefix(id) {
         return "gene";
     },
 
@@ -53163,7 +53222,7 @@ const GeneLegend = Class.create(__WEBPACK_IMPORTED_MODULE_0__legend__["a" /* Leg
      * @param {String} name The human-readable gene description
      * @return {HTMLLIElement} List element to be insert in the legend
      */
-    _generateElement: function ($super, geneID, name) {
+    _generateElement: function _generateElement($super, geneID, name) {
         if (!this._objectColors.hasOwnProperty(geneID)) {
             var color = this._generateColor(geneID);
             this._objectColors[geneID] = color;
@@ -53180,7 +53239,7 @@ const GeneLegend = Class.create(__WEBPACK_IMPORTED_MODULE_0__legend__["a" /* Leg
      * @param {Person} Person node
      * @param {String|Number} id ID of the gene being dropped
      */
-    _onDropObject: function (node, geneID) {
+    _onDropObject: function _onDropObject(node, geneID) {
         if (node.isPersonGroup()) {
             return;
         }
@@ -53205,7 +53264,7 @@ const GeneLegend = Class.create(__WEBPACK_IMPORTED_MODULE_0__legend__["a" /* Leg
      * @method generateColor
      * @return {String} CSS color
      */
-    _generateColor: function (geneID) {
+    _generateColor: function _generateColor(geneID) {
         if (this._objectColors.hasOwnProperty(geneID)) {
             return this._objectColors[geneID];
         }
@@ -53228,24 +53287,27 @@ const GeneLegend = Class.create(__WEBPACK_IMPORTED_MODULE_0__legend__["a" /* Leg
         }
     }
 });
-/* harmony export (immutable) */ __webpack_exports__["a"] = GeneLegend;
-
-/* WEBPACK VAR INJECTION */}.call(__webpack_exports__, __webpack_require__(27)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(27)))
 
 /***/ }),
-/* 163 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
+/* 162 */
+/***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__helpers__ = __webpack_require__(5);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__xcoordclass__ = __webpack_require__(93);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__baseGraph__ = __webpack_require__(46);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__queues__ = __webpack_require__(48);
-/* harmony export (immutable) */ __webpack_exports__["a"] = Heuristics;
 
 
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+exports.Heuristics = Heuristics;
 
+var _helpers = __webpack_require__(5);
 
+var _xcoordclass = __webpack_require__(92);
+
+var _baseGraph = __webpack_require__(46);
+
+var _queues = __webpack_require__(48);
 
 function Heuristics(drawGraph) {
     this.DG = drawGraph;
@@ -53253,7 +53315,7 @@ function Heuristics(drawGraph) {
 
 Heuristics.prototype = {
 
-    swapPartnerToBringToSideIfPossible: function (personId) {
+    swapPartnerToBringToSideIfPossible: function swapPartnerToBringToSideIfPossible(personId) {
         // attempts to swap this person with it's existing partner if the swap makes the not-yet-parnered
         // side of the person on the side which favours child insertion (e.g. the side where the child closest
         // to the side has no parners)
@@ -53303,14 +53365,14 @@ Heuristics.prototype = {
         }
     },
 
-    swapTwinsToBringToSideIfPossible: function (personId) {
+    swapTwinsToBringToSideIfPossible: function swapTwinsToBringToSideIfPossible(personId) {
         var twinGroupId = this.DG.GG.getTwinGroupId(personId);
         if (twinGroupId === null) return;
 
         //TODO
     },
 
-    analizeChildren: function (childhubId) {
+    analizeChildren: function analizeChildren(childhubId) {
         if (this.DG.GG.isRelationship(childhubId)) childhubId = this.DG.GG.getOutEdges(childhubId)[0];
 
         if (!this.DG.GG.isChildhub(childhubId)) throw "Assertion failed: applying analizeChildren() not to a childhub";
@@ -53366,7 +53428,7 @@ Heuristics.prototype = {
             "orderedChildren": orderedChildren };
     },
 
-    hasParnerBetweenOrders: function (personId, minOrder, maxOrder) {
+    hasParnerBetweenOrders: function hasParnerBetweenOrders(personId, minOrder, maxOrder) {
         var rank = this.DG.ranks[personId];
         var order = this.DG.order.vOrder[personId];
 
@@ -53384,7 +53446,7 @@ Heuristics.prototype = {
         return false;
     },
 
-    swapPartners: function (partner1, partner2, relationshipId) {
+    swapPartners: function swapPartners(partner1, partner2, relationshipId) {
         var rank = this.DG.ranks[partner1];
         if (this.DG.ranks[partner2] != rank || this.DG.ranks[relationshipId] != rank) throw "Assertion failed: swapping nodes of different ranks";
 
@@ -53414,7 +53476,7 @@ Heuristics.prototype = {
         this.DG.positions[relationshipId] -= widthDecrease;
     },
 
-    moveSiblingPlusPartnerToOrder: function (personId, partnerId, partnershipId, newOrder) {
+    moveSiblingPlusPartnerToOrder: function moveSiblingPlusPartnerToOrder(personId, partnerId, partnershipId, newOrder) {
         // transforms this
         //   [partnerSibling1 @ newOrder] ... [partnerSiblingN] [person]--[*]--[partner]
         // into
@@ -53458,7 +53520,7 @@ Heuristics.prototype = {
         }
     },
 
-    swapBeforeParentsToBringToSideIfPossible: function (personId) {
+    swapBeforeParentsToBringToSideIfPossible: function swapBeforeParentsToBringToSideIfPossible(personId) {
         // used to swap this node AND its only partner to bring the two to the side to clear
         // space above for new parents of this node
 
@@ -53512,7 +53574,7 @@ Heuristics.prototype = {
         var order1 = this.DG.order.vOrder[partnerParents[1]];
         var leftParent = order0 > order1 ? partnerParents[1] : partnerParents[0];
         var rightParent = order0 > order1 ? partnerParents[0] : partnerParents[1];
-        console.log("parents: " + __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__helpers__["c" /* stringifyObject */])(partnerParents));
+        console.log("parents: " + (0, _helpers.stringifyObject)(partnerParents));
         var numLeftPartners = this.DG.GG.getOutEdges(leftParent).length;
         var numRightPartners = this.DG.GG.getOutEdges(rightParent).length;
         console.log("num left: " + numLeftPartners + ", numRight: " + numRightPartners);
@@ -53566,8 +53628,8 @@ Heuristics.prototype = {
         }
     },
 
-    improvePositioning: function (ranksBefore, rankYBefore) {
-        var timer = new __WEBPACK_IMPORTED_MODULE_0__helpers__["g" /* Timer */]();
+    improvePositioning: function improvePositioning(ranksBefore, rankYBefore) {
+        var timer = new _helpers.Timer();
 
         //console.log("pre-fix orders: " + stringifyObject(this.DG.order.order[2]));
         //var xcoord = new XCoord(this.DG.positions, this.DG);
@@ -53618,7 +53680,7 @@ Heuristics.prototype = {
 
             // sort all by their xcoordinate if to the left of parent, and in reverse order if to the right of parent
             var _this = this;
-            var byXcoord = function (v1, v2) {
+            var byXcoord = function byXcoord(v1, v2) {
                 var rel1 = _this.DG.GG.downTheChainUntilNonVirtual(v1);
                 var rel2 = _this.DG.GG.downTheChainUntilNonVirtual(v2);
                 var position1 = _this.DG.positions[rel1];
@@ -53629,7 +53691,7 @@ Heuristics.prototype = {
             };
             multiRankEdges.sort(byXcoord);
 
-            console.log("multi-rank edges: " + __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__helpers__["c" /* stringifyObject */])(multiRankEdges));
+            console.log("multi-rank edges: " + (0, _helpers.stringifyObject)(multiRankEdges));
 
             for (var p = 0; p < multiRankEdges.length; p++) {
 
@@ -53641,7 +53703,7 @@ Heuristics.prototype = {
                 // from newNodeId to firstOnPath
                 var weight = this.DG.GG.removeEdge(parent, firstOnPath);
 
-                var newNodeId = this.DG.GG.insertVertex(__WEBPACK_IMPORTED_MODULE_2__baseGraph__["b" /* TYPE */].VIRTUALEDGE, {}, weight, [parent], [firstOnPath]);
+                var newNodeId = this.DG.GG.insertVertex(_baseGraph.TYPE.VIRTUALEDGE, {}, weight, [parent], [firstOnPath]);
 
                 this.DG.ranks.splice(newNodeId, 0, rank);
 
@@ -53659,17 +53721,17 @@ Heuristics.prototype = {
 
                 var newOrder = insertToTheRight ? parentOrder + 1 : parentOrder;
                 if (insertToTheRight) {
-                    while (newOrder < this.DG.order.order[rank].length && this.DG.positions[firstOnPath] > this.DG.positions[this.DG.order.order[rank][newOrder]]) newOrder++;
-
-                    // fix common imperfection when this edge will cross a node-relationship edge. Testcase 4e covers this case.
+                    while (newOrder < this.DG.order.order[rank].length && this.DG.positions[firstOnPath] > this.DG.positions[this.DG.order.order[rank][newOrder]]) {
+                        newOrder++;
+                    } // fix common imperfection when this edge will cross a node-relationship edge. Testcase 4e covers this case.
                     var toTheLeft = this.DG.order.order[rank][newOrder - 1];
                     var toTheRight = this.DG.order.order[rank][newOrder];
                     if (this.DG.GG.isRelationship(toTheLeft) && this.DG.GG.isPerson(toTheRight) && this.DG.GG.hasEdge(toTheRight, toTheLeft) && this.DG.GG.getOutEdges(toTheRight).length == 1) newOrder++;
                     if (this.DG.GG.isRelationship(toTheRight) && this.DG.GG.isPerson(toTheLeft) && this.DG.GG.hasEdge(toTheLeft, toTheRight) && this.DG.GG.getOutEdges(toTheLeft).length == 1) newOrder--;
                 } else {
-                    while (newOrder > 0 && this.DG.positions[firstOnPath] < this.DG.positions[this.DG.order.order[rank][newOrder - 1]]) newOrder--;
-
-                    // fix common imprefetion when this edge will cross a node-relationship edge
+                    while (newOrder > 0 && this.DG.positions[firstOnPath] < this.DG.positions[this.DG.order.order[rank][newOrder - 1]]) {
+                        newOrder--;
+                    } // fix common imprefetion when this edge will cross a node-relationship edge
                     var toTheLeft = this.DG.order.order[rank][newOrder - 1];
                     var toTheRight = this.DG.order.order[rank][newOrder];
                     if (this.DG.GG.isRelationship(toTheRight) && this.DG.GG.isPerson(toTheLeft) && this.DG.GG.hasEdge(toTheLeft, toTheRight) && this.DG.GG.getOutEdges(toTheLeft).length == 1) newOrder--;
@@ -53699,7 +53761,7 @@ Heuristics.prototype = {
         //return;
 
         // 2) fix some common layout imperfections
-        var xcoord = new __WEBPACK_IMPORTED_MODULE_1__xcoordclass__["b" /* XCoord */](this.DG.positions, this.DG);
+        var xcoord = new _xcoordclass.XCoord(this.DG.positions, this.DG);
         //this.DG.displayGraph(xcoord.xcoord, "after-long-edge-improvement");
 
         for (var v = 0; v <= this.DG.GG.getMaxRealVertexId(); v++) {
@@ -53746,7 +53808,7 @@ Heuristics.prototype = {
 
         //this.DG.displayGraph(xcoord.xcoord, "after-compact1");
 
-        var orderedRelationships = this.DG.order.getLeftToRightTopToBottomOrdering(__WEBPACK_IMPORTED_MODULE_2__baseGraph__["b" /* TYPE */].RELATIONSHIP, this.DG.GG);
+        var orderedRelationships = this.DG.order.getLeftToRightTopToBottomOrdering(_baseGraph.TYPE.RELATIONSHIP, this.DG.GG);
         //console.log("Ordered rels: " + stringifyObject(orderedRelationships));
 
         var iter = 0;
@@ -53808,8 +53870,9 @@ Heuristics.prototype = {
                                 var leftSlack = xcoord.getSlackOnTheLeft(leftMost);
                                 var haveSlack = Math.min(Math.abs(needToShift), leftSlack);
                                 if (haveSlack > 0) {
-                                    for (var i = 0; i < childInfo.orderedChildren.length; i++) xcoord.xcoord[childInfo.orderedChildren[i]] -= haveSlack;
-                                    improved = true;
+                                    for (var i = 0; i < childInfo.orderedChildren.length; i++) {
+                                        xcoord.xcoord[childInfo.orderedChildren[i]] -= haveSlack;
+                                    }improved = true;
                                     needToShift += haveSlack;
                                 }
                             } else {
@@ -53818,8 +53881,9 @@ Heuristics.prototype = {
                                 var rightSlack = xcoord.getSlackOnTheRight(rightMost);
                                 var haveSlack = Math.min(needToShift, rightSlack);
                                 if (haveSlack > 0) {
-                                    for (var i = 0; i < childInfo.orderedChildren.length; i++) xcoord.xcoord[childInfo.orderedChildren[i]] += haveSlack;
-                                    improved = true;
+                                    for (var i = 0; i < childInfo.orderedChildren.length; i++) {
+                                        xcoord.xcoord[childInfo.orderedChildren[i]] += haveSlack;
+                                    }improved = true;
                                     needToShift -= haveSlack;
                                 }
                             }
@@ -53850,12 +53914,12 @@ Heuristics.prototype = {
                 var noUpSet = {};
                 noUpSet[v] = true;
                 // findAffectedSet: function(v_list, dontmove_set, noUp_set, noDown_set, forbidden_set, shiftSize, xcoord, stopAtVirtual, minimizeMovement, stopAtPersons, stopAtRels)
-                var affectedInfoParentShift = this._findAffectedSet(shiftList, {}, noUpSet, __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__helpers__["r" /* toObjectWithTrue */])(shiftList), __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__helpers__["r" /* toObjectWithTrue */])(childInfo.orderedChildren), misalignment, xcoord, true, false, 7, 3);
+                var affectedInfoParentShift = this._findAffectedSet(shiftList, {}, noUpSet, (0, _helpers.toObjectWithTrue)(shiftList), (0, _helpers.toObjectWithTrue)(childInfo.orderedChildren), misalignment, xcoord, true, false, 7, 3);
                 //console.log("["+id+"] affectedInfoParentShift: " + stringifyObject(affectedInfoParentShift));
 
                 var shiftList = childInfo.orderedChildren;
                 var forbiddenList = [v, childhub];
-                var affectedInfoChildShift = this._findAffectedSet(shiftList, {}, __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__helpers__["r" /* toObjectWithTrue */])(childInfo.orderedChildren), {}, __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__helpers__["r" /* toObjectWithTrue */])(forbiddenList), -misalignment, xcoord, true, false, 7, 3);
+                var affectedInfoChildShift = this._findAffectedSet(shiftList, {}, (0, _helpers.toObjectWithTrue)(childInfo.orderedChildren), {}, (0, _helpers.toObjectWithTrue)(forbiddenList), -misalignment, xcoord, true, false, 7, 3);
 
                 var parentShiftAcceptable = this._isShiftSizeAcceptable(affectedInfoParentShift, false, 7, 3);
                 var childShiftAcceptable = this._isShiftSizeAcceptable(affectedInfoChildShift, false, 7, 3);
@@ -53869,11 +53933,15 @@ Heuristics.prototype = {
                     if (parentShiftAcceptable && (!childShiftAcceptable || this._isShiftBetter(affectedInfoParentShift, affectedInfoChildShift))) {
                         var nodes = affectedInfoParentShift.nodes;
                         //console.log("["+id+"] Shifting parents by [" + misalignment + "]: " + stringifyObject(nodes));
-                        for (var i = 0; i < nodes.length; i++) xcoord.xcoord[nodes[i]] += misalignment;
+                        for (var i = 0; i < nodes.length; i++) {
+                            xcoord.xcoord[nodes[i]] += misalignment;
+                        }
                     } else {
                         var nodes = affectedInfoChildShift.nodes;
                         //console.log("["+id+"] Shifting children by [" + misalignment + "]: " + stringifyObject(nodes));
-                        for (var i = 0; i < nodes.length; i++) xcoord.xcoord[nodes[i]] -= misalignment;
+                        for (var i = 0; i < nodes.length; i++) {
+                            xcoord.xcoord[nodes[i]] -= misalignment;
+                        }
                     }
 
                     //xcoord.normalize();  // DEBUG
@@ -53897,14 +53965,14 @@ Heuristics.prototype = {
                 if (this.DG.order.vOrder[rightParent] == this.DG.order.vOrder[v] + 1 && !this.DG.GG.isVirtual(rightParent)) shiftList.push(rightParent);
                 var noUpSet = {};
                 noUpSet[v] = true;
-                var affectedInfoParentShift = this._findAffectedSet(shiftList, {}, noUpSet, __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__helpers__["r" /* toObjectWithTrue */])(shiftList), __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__helpers__["r" /* toObjectWithTrue */])(childInfo.orderedChildren), smallShift, xcoord, true, false, 3, 2);
+                var affectedInfoParentShift = this._findAffectedSet(shiftList, {}, noUpSet, (0, _helpers.toObjectWithTrue)(shiftList), (0, _helpers.toObjectWithTrue)(childInfo.orderedChildren), smallShift, xcoord, true, false, 3, 2);
 
                 if (this._isShiftSizeAcceptable(affectedInfoParentShift, false, 3, 2)) {
                     var nodes = affectedInfoParentShift.nodes;
                     //console.log("["+id+"] Small-shifting parents by [" + smallShift + "]: " + stringifyObject(nodes));
-                    for (var i = 0; i < nodes.length; i++) xcoord.xcoord[nodes[i]] += smallShift;
-
-                    //xcoord.normalize();  // DEBUG
+                    for (var i = 0; i < nodes.length; i++) {
+                        xcoord.xcoord[nodes[i]] += smallShift;
+                    } //xcoord.normalize();  // DEBUG
                     //this.DG.displayGraph(xcoord.xcoord, "shift-"+id);
                     continue;
                 }
@@ -53961,8 +54029,9 @@ Heuristics.prototype = {
                 if (this._isShiftSizeAcceptable(affectedInfo, false, 5, 3) && affectedInfo.minAffectedRank > this.DG.ranks[v]) {
                     var nodes = affectedInfo.nodes;
                     //console.log("Middle-positioning relationship by [" + shiftSize + "]: " + stringifyObject(nodes));
-                    for (var i = 0; i < nodes.length; i++) xcoord.xcoord[nodes[i]] += shiftSize;
-                    improved = true;
+                    for (var i = 0; i < nodes.length; i++) {
+                        xcoord.xcoord[nodes[i]] += shiftSize;
+                    }improved = true;
                 }
             }
         }
@@ -53979,7 +54048,7 @@ Heuristics.prototype = {
         timer.printSinceLast("=== Vertical spacing runtime: ");
     },
 
-    _compactGraph: function (xcoord, maxComponentSize) {
+    _compactGraph: function _compactGraph(xcoord, maxComponentSize) {
         // tries to shorten edges that can be shortened (thus compacting the graph)
         //
         // for each node checks if it has "slack" on the left and right, and iff slack > 0 computes
@@ -54017,7 +54086,7 @@ Heuristics.prototype = {
                     // connected by all other edges into each other)
 
                     var DG = this.DG;
-                    var excludeEdgesSpanningOrder = function (from, to) {
+                    var excludeEdgesSpanningOrder = function excludeEdgesSpanningOrder(from, to) {
                         // filter to exclude all edges spanning the gap between v and its right neighbour
                         if (DG.ranks[from] == rank && DG.ranks[to] == rank) {
                             var orderFrom = DG.order.vOrder[from];
@@ -54052,7 +54121,7 @@ Heuristics.prototype = {
                     : -xcoord.findVertexSetSlacks(component.component).leftSlack;
 
                     if (slack == 0) continue;
-                    console.log("Moving: " + __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__helpers__["c" /* stringifyObject */])(component.component) + " by " + slack);
+                    console.log("Moving: " + (0, _helpers.stringifyObject)(component.component) + " by " + slack);
 
                     improved = true;
 
@@ -54085,18 +54154,18 @@ Heuristics.prototype = {
                         // either move childhub and nodes connected to it towards the children, or children
                         // and nodes connected to it towards the childhub
 
-                        var noChildEdges = function (from, to) {
+                        var noChildEdges = function noChildEdges(from, to) {
                             if (from == v) return false;
                             return true;
                         };
-                        var stopSet = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__helpers__["r" /* toObjectWithTrue */])(this.DG.GG.getOutEdges(v));
+                        var stopSet = (0, _helpers.toObjectWithTrue)(this.DG.GG.getOutEdges(v));
                         var component = this.DG.findConnectedComponent(v, noChildEdges, stopSet, Infinity);
                         if (component.stopSetReached) continue; // can't shorten here: nodes are firmly connected via other edges
 
                         var slack = shiftChhub > 0 ? Math.min(shiftChhub, xcoord.findVertexSetSlacks(component.component).rightSlack) // slack on the right side of component
                         : Math.max(shiftChhub, -xcoord.findVertexSetSlacks(component.component).leftSlack);
                         if (slack == 0) continue;
-                        console.log("Moving chhub: " + __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__helpers__["c" /* stringifyObject */])(component.component) + " by " + slack);
+                        console.log("Moving chhub: " + (0, _helpers.stringifyObject)(component.component) + " by " + slack);
 
                         improved = true;
 
@@ -54111,7 +54180,7 @@ Heuristics.prototype = {
         }
     },
 
-    _findAffectedSet: function (v_list, dontmove_set, noUp_set, noDown_set, forbidden_set, shiftSize, xcoord, stopAtVirtual, minimizeMovement, stopAtPersons, stopAtRels, stopAtRank) {
+    _findAffectedSet: function _findAffectedSet(v_list, dontmove_set, noUp_set, noDown_set, forbidden_set, shiftSize, xcoord, stopAtVirtual, minimizeMovement, stopAtPersons, stopAtRels, stopAtRank) {
         // Given a list of nodes (v_list) and how much we want to move them (same amount for all the nodes, shiftSize)
         // figure out how many nodes would have to be moved to accomodate the desired movement.
         //
@@ -54133,9 +54202,9 @@ Heuristics.prototype = {
         // minimizeMovement: minimal propagation is used, and all nodes on the same rank opposite to the
         //                   moveme nt direction are added to the dontmove_set
 
-        var nodes = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__helpers__["r" /* toObjectWithTrue */])(v_list);
+        var nodes = (0, _helpers.toObjectWithTrue)(v_list);
 
-        var initialNodes = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__helpers__["r" /* toObjectWithTrue */])(v_list);
+        var initialNodes = (0, _helpers.toObjectWithTrue)(v_list);
 
         // for each ignored node: add all nodes on the same rank which are to the left (if shifting right)
         // or to the right of (if shifting left) the node
@@ -54169,7 +54238,7 @@ Heuristics.prototype = {
         var minRank = Infinity;
         var forbiddenMoved = false;
 
-        var toMove = new __WEBPACK_IMPORTED_MODULE_3__queues__["a" /* Queue */]();
+        var toMove = new _queues.Queue();
         toMove.setTo(v_list);
 
         while (toMove.size() > 0) {
@@ -54345,7 +54414,7 @@ Heuristics.prototype = {
             "minAffectedRank": minRank, "forbiddenMoved": forbiddenMoved };
     },
 
-    _computeDesiredChildhubLocation: function (childInfo, xcoord, nodesThatShift, shiftSize) {
+    _computeDesiredChildhubLocation: function _computeDesiredChildhubLocation(childInfo, xcoord, nodesThatShift, shiftSize) {
         var leftMost = childInfo.leftMostChildId;
         var rightMost = childInfo.rightMostChildId;
 
@@ -54375,12 +54444,12 @@ Heuristics.prototype = {
     },
 
     //=============================================================
-    optimizeLongEdgePlacement: function () {
+    optimizeLongEdgePlacement: function optimizeLongEdgePlacement() {
         // 1) decrease the number of crossed edges
         // TODO
 
         // 2) straighten long edges
-        var xcoord = new __WEBPACK_IMPORTED_MODULE_1__xcoordclass__["b" /* XCoord */](this.DG.positions, this.DG);
+        var xcoord = new _xcoordclass.XCoord(this.DG.positions, this.DG);
         //this.DG.displayGraph(xcoord.xcoord, "pre-long-improve");
 
         var longEdges = this.DG.find_long_edges();
@@ -54396,7 +54465,7 @@ Heuristics.prototype = {
 
     // Straigthen edges more agressively that DG.try_straighten_long_edges(), willing to move
     // some nodes to make long edges look better (as when they don't, it looks more ugly than a regular non-straight edge)
-    straighten_long_edges: function (longEdges, xcoord) {
+    straighten_long_edges: function straighten_long_edges(longEdges, xcoord) {
         var stillNotStraight = [];
 
         for (var e = 0; e < longEdges.length; e++) {
@@ -54418,11 +54487,11 @@ Heuristics.prototype = {
                         var tail = chain.slice(i);
 
                         var shiftHeadSize = nextCenter - headCenter;
-                        var dontmove = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__helpers__["r" /* toObjectWithTrue */])(tail);
+                        var dontmove = (0, _helpers.toObjectWithTrue)(tail);
                         var affectedInfoHeadShift = this._findAffectedSet(head, dontmove, {}, {}, {}, shiftHeadSize, xcoord, true, true, 5, 3);
 
                         var shiftTailSize = headCenter - nextCenter;
-                        var dontmove = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__helpers__["r" /* toObjectWithTrue */])(head);
+                        var dontmove = (0, _helpers.toObjectWithTrue)(head);
                         var affectedInfoTailShift = this._findAffectedSet(tail, dontmove, {}, {}, {}, shiftTailSize, xcoord, true, true, 5, 3);
 
                         if (!this._isShiftSizeAcceptable(affectedInfoHeadShift, false, 5, 3) && !this._isShiftSizeAcceptable(affectedInfoTailShift, false, 5, 3)) {
@@ -54436,11 +54505,15 @@ Heuristics.prototype = {
                         if (this._isShiftBetter(affectedInfoTailShift, affectedInfoHeadShift)) {
                             // use tail shift
                             var nodes = affectedInfoTailShift.nodes;
-                            for (var i = 0; i < nodes.length; i++) xcoord.xcoord[nodes[i]] += shiftTailSize;
+                            for (var i = 0; i < nodes.length; i++) {
+                                xcoord.xcoord[nodes[i]] += shiftTailSize;
+                            }
                         } else {
                             // use head shift
                             var nodes = affectedInfoHeadShift.nodes;
-                            for (var i = 0; i < nodes.length; i++) xcoord.xcoord[nodes[i]] += shiftHeadSize;
+                            for (var i = 0; i < nodes.length; i++) {
+                                xcoord.xcoord[nodes[i]] += shiftHeadSize;
+                            }
                         }
                         break;
                     }
@@ -54451,7 +54524,7 @@ Heuristics.prototype = {
         return stillNotStraight;
     },
 
-    _isShiftSizeAcceptable: function (shiftInfo, allowShiftVirtual, maxPersonNodes, maxRelNodes) {
+    _isShiftSizeAcceptable: function _isShiftSizeAcceptable(shiftInfo, allowShiftVirtual, maxPersonNodes, maxRelNodes) {
         if (shiftInfo.forbiddenMoved) return false;
         if (!allowShiftVirtual && shiftInfo.numVirtual > 0) return false;
         if (shiftInfo.numPersons > maxPersonNodes) return false;
@@ -54459,7 +54532,7 @@ Heuristics.prototype = {
         return true;
     },
 
-    _isShiftBetter: function (shiftInfo1, shiftInfo2) {
+    _isShiftBetter: function _isShiftBetter(shiftInfo1, shiftInfo2) {
         // the one shifting less virtual nodes is better
         if (shiftInfo2.numVirtual > shiftInfo1.numVirtual) return true;
         if (shiftInfo2.numVirtual < shiftInfo1.numVirtual) return false;
@@ -54474,7 +54547,7 @@ Heuristics.prototype = {
     },
     //=============================================================
 
-    moveToCorrectPositionAndMoveOtherNodesAsNecessary: function (newNodeId, nodeToKeepEdgeStraightTo) {
+    moveToCorrectPositionAndMoveOtherNodesAsNecessary: function moveToCorrectPositionAndMoveOtherNodesAsNecessary(newNodeId, nodeToKeepEdgeStraightTo) {
         // Algorithm:
         //
         // Initially pick the new position for "newNodeId," which keeps the edge to node-"nodeToKeepEdgeStraightTo"
@@ -54505,7 +54578,7 @@ Heuristics.prototype = {
 
         var originalDisturbRank = this.DG.ranks[newNodeId];
 
-        var xcoord = new __WEBPACK_IMPORTED_MODULE_1__xcoordclass__["b" /* XCoord */](this.DG.positions, this.DG);
+        var xcoord = new _xcoordclass.XCoord(this.DG.positions, this.DG);
 
         //console.log("Orders at insertion rank: " + stringifyObject(this.DG.order.order[this.DG.ranks[newNodeId]]));
         //console.log("Positions of nodes: " + stringifyObject(xcoord.xcoord));
@@ -54541,7 +54614,7 @@ Heuristics.prototype = {
         // move amounts. In theory there should be no circular dependencies (e.g. moving A requires moving B
         // which requires moving A again), but in case there is a mistake there is a check which terminates
         // the process after some time.
-        var disturbedNodes = new __WEBPACK_IMPORTED_MODULE_3__queues__["a" /* Queue */]();
+        var disturbedNodes = new _queues.Queue();
         disturbedNodes.push([newNodeId, shiftAmount]);
 
         var iterOuter = 0;
@@ -54607,7 +54680,7 @@ Heuristics.prototype = {
                     //console.log("addRNK: " + rightDisturbed + " (toMove: " + toMove + " -> " + xcoord.xcoord[rightDisturbed] + ")");
                 }
 
-                if (v == newNodeId && type != __WEBPACK_IMPORTED_MODULE_2__baseGraph__["b" /* TYPE */].VIRTUALEDGE) continue;
+                if (v == newNodeId && type != _baseGraph.TYPE.VIRTUALEDGE) continue;
 
                 //if (type == TYPE.VIRTUALEDGE && rank > 2) continue; // TODO: DEBUG: remove - needed for testing of edge-straightening algo
 
@@ -54617,15 +54690,15 @@ Heuristics.prototype = {
                 // go though out- and in- edges and propagate the movement
                 //---------
                 var skipInEdges = false;
-                if ((type == __WEBPACK_IMPORTED_MODULE_2__baseGraph__["b" /* TYPE */].PERSON || type == __WEBPACK_IMPORTED_MODULE_2__baseGraph__["b" /* TYPE */].VIRTUALEDGE) && v == newNodeId) {
+                if ((type == _baseGraph.TYPE.PERSON || type == _baseGraph.TYPE.VIRTUALEDGE) && v == newNodeId) {
                     skipInEdges = true;
                 }
-                if (type == __WEBPACK_IMPORTED_MODULE_2__baseGraph__["b" /* TYPE */].VIRTUALEDGE) {
+                if (type == _baseGraph.TYPE.VIRTUALEDGE) {
                     var inEdgeV = inEdges[0];
                     if (this.DG.ranks[inEdgeV] == vrank) skipInEdges = true;
                 }
                 // if we need to strech something -> stretch relationship edges to the right of
-                if (type == __WEBPACK_IMPORTED_MODULE_2__baseGraph__["b" /* TYPE */].RELATIONSHIP) {
+                if (type == _baseGraph.TYPE.RELATIONSHIP) {
                     skipInEdges = true;
                     // except the case when inedge comes from a vertex to the left with no other in- or out-edges (a node connected only to this reltionship)
                     if (inEdges.length == 2) {
@@ -54655,7 +54728,7 @@ Heuristics.prototype = {
                         if (doNotTouch.hasOwnProperty(u)) continue;
                         if (totalMove.hasOwnProperty(u) && totalMove[u] >= totalMove[v]) continue;
 
-                        if (type == __WEBPACK_IMPORTED_MODULE_2__baseGraph__["b" /* TYPE */].PERSON && typeU == __WEBPACK_IMPORTED_MODULE_2__baseGraph__["b" /* TYPE */].CHILDHUB) {
+                        if (type == _baseGraph.TYPE.PERSON && typeU == _baseGraph.TYPE.CHILDHUB) {
                             if (childrenMoved.hasOwnProperty(u)) {
                                 childrenMoved[u]++;
                             } else {
@@ -54665,7 +54738,7 @@ Heuristics.prototype = {
                             continue;
                         }
 
-                        if (typeU == __WEBPACK_IMPORTED_MODULE_2__baseGraph__["b" /* TYPE */].VIRTUALEDGE && xcoord.xcoord[u] == xcoord.xcoord[v]) continue;
+                        if (typeU == _baseGraph.TYPE.VIRTUALEDGE && xcoord.xcoord[u] == xcoord.xcoord[v]) continue;
 
                         var shiftU = totalMove.hasOwnProperty(u) ? Math.min(shiftAmount, Math.max(totalMove[v] - totalMove[u], 0)) : shiftAmount;
 
@@ -54678,7 +54751,7 @@ Heuristics.prototype = {
                 //---------
 
                 //---------
-                if (type == __WEBPACK_IMPORTED_MODULE_2__baseGraph__["b" /* TYPE */].CHILDHUB) {
+                if (type == _baseGraph.TYPE.CHILDHUB) {
                     var rightMostChildPos = 0;
                     for (var i = 0; i < outEdges.length; i++) {
                         var u = outEdges[i];
@@ -54698,7 +54771,7 @@ Heuristics.prototype = {
 
                     if (this.DG.ranks[u] == vrank) continue; // vertices on the same rank will only be shifted if pushed on the right by left neighbours
 
-                    if (type == __WEBPACK_IMPORTED_MODULE_2__baseGraph__["b" /* TYPE */].RELATIONSHIP || type == __WEBPACK_IMPORTED_MODULE_2__baseGraph__["b" /* TYPE */].VIRTUALEDGE) {
+                    if (type == _baseGraph.TYPE.RELATIONSHIP || type == _baseGraph.TYPE.VIRTUALEDGE) {
                         var diff = xcoord.xcoord[v] - xcoord.xcoord[u];
                         if (diff <= 0) continue;
                         if (diff < shiftU) shiftU = diff;
@@ -54746,13 +54819,20 @@ Heuristics.prototype = {
 };
 
 /***/ }),
-/* 164 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
+/* 163 */
+/***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__legend__ = __webpack_require__(67);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__hpoTerm__ = __webpack_require__(88);
 
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+exports.HPOLegend = undefined;
+
+var _legend = __webpack_require__(67);
+
+var _hpoTerm = __webpack_require__(88);
 
 /**
  * Class responsible for keeping track of HPO terms and their properties, and for
@@ -54762,15 +54842,15 @@ Heuristics.prototype = {
  * @class HPOLegend
  * @constructor
  */
-const HPOLegend = Class.create(__WEBPACK_IMPORTED_MODULE_0__legend__["a" /* Legend */], {
+var HPOLegend = exports.HPOLegend = Class.create(_legend.Legend, {
 
-    initialize: function ($super) {
+    initialize: function initialize($super) {
         $super("Phenotypes in family", true);
 
         this._termCache = {};
     },
 
-    _getPrefix: function (id) {
+    _getPrefix: function _getPrefix(id) {
         return "phenotype";
     },
 
@@ -54781,13 +54861,13 @@ const HPOLegend = Class.create(__WEBPACK_IMPORTED_MODULE_0__legend__["a" /* Lege
      * @method getTerm
      * @return {Object}
      */
-    getTerm: function (hpoID) {
-        hpoID = __WEBPACK_IMPORTED_MODULE_1__hpoTerm__["a" /* HPOTerm */].sanitizeID(hpoID);
+    getTerm: function getTerm(hpoID) {
+        hpoID = _hpoTerm.HPOTerm.sanitizeID(hpoID);
         if (!this._termCache.hasOwnProperty(hpoID)) {
-            var whenNameIsLoaded = function () {
+            var whenNameIsLoaded = function whenNameIsLoaded() {
                 this._updateTermName(hpoID);
             };
-            this._termCache[hpoID] = new __WEBPACK_IMPORTED_MODULE_1__hpoTerm__["a" /* HPOTerm */](hpoID, null, whenNameIsLoaded.bind(this));
+            this._termCache[hpoID] = new _hpoTerm.HPOTerm(hpoID, null, whenNameIsLoaded.bind(this));
         }
         return this._termCache[hpoID];
     },
@@ -54799,7 +54879,7 @@ const HPOLegend = Class.create(__WEBPACK_IMPORTED_MODULE_0__legend__["a" /* Lege
      * @param {String|Number} id ID of the object
      * @return {String} CSS color value for that disorder
      */
-    getObjectColor: function (id) {
+    getObjectColor: function getObjectColor(id) {
         return "#CCCCCC";
     },
 
@@ -54811,8 +54891,8 @@ const HPOLegend = Class.create(__WEBPACK_IMPORTED_MODULE_0__legend__["a" /* Lege
      * @param {String} name The description of the phenotype
      * @param {Number} nodeID ID of the Person who has this phenotype
      */
-    addCase: function ($super, id, name, nodeID) {
-        if (!this._termCache.hasOwnProperty(id)) this._termCache[id] = new __WEBPACK_IMPORTED_MODULE_1__hpoTerm__["a" /* HPOTerm */](id, name);
+    addCase: function addCase($super, id, name, nodeID) {
+        if (!this._termCache.hasOwnProperty(id)) this._termCache[id] = new _hpoTerm.HPOTerm(id, name);
 
         $super(id, name, nodeID);
     },
@@ -54824,7 +54904,7 @@ const HPOLegend = Class.create(__WEBPACK_IMPORTED_MODULE_0__legend__["a" /* Lege
      * @param {Number} id The identifier of the phenotype to update
      * @private
      */
-    _updateTermName: function (id) {
+    _updateTermName: function _updateTermName(id) {
         //console.log("updating phenotype display for " + id + ", name = " + this.getTerm(id).getName());
         var name = this._legendBox.down("li#" + this._getPrefix() + "-" + id + " .disorder-name");
         name.update(this.getTerm(id).getName());
@@ -54837,7 +54917,7 @@ const HPOLegend = Class.create(__WEBPACK_IMPORTED_MODULE_0__legend__["a" /* Lege
      * @param {Person} Person node
      * @param {String|Number} id ID of the phenotype being dropped
      */
-    _onDropObject: function (node, hpoID) {
+    _onDropObject: function _onDropObject(node, hpoID) {
         if (node.isPersonGroup()) {
             return;
         }
@@ -54853,19 +54933,26 @@ const HPOLegend = Class.create(__WEBPACK_IMPORTED_MODULE_0__legend__["a" /* Lege
         }
     }
 });
-/* harmony export (immutable) */ __webpack_exports__["a"] = HPOLegend;
-
 
 /***/ }),
-/* 165 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
+/* 164 */
+/***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__baseGraph__ = __webpack_require__(46);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__helpers__ = __webpack_require__(5);
-/* harmony export (immutable) */ __webpack_exports__["a"] = PedigreeImport;
 
 
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+exports.RelationshipTracker = undefined;
+
+var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
+
+exports.PedigreeImport = PedigreeImport;
+
+var _baseGraph = __webpack_require__(46);
+
+var _helpers = __webpack_require__(5);
 
 function PedigreeImport() {}
 
@@ -54884,7 +54971,7 @@ PedigreeImport.autodetectFormat = function(input) {
 PedigreeImport.initFromPhenotipsInternal = function (inputG) {
     // note: serialize() produces the correct input for this function
 
-    var newG = new __WEBPACK_IMPORTED_MODULE_0__baseGraph__["a" /* BaseGraph */]();
+    var newG = new _baseGraph.BaseGraph();
 
     var nameToId = {};
 
@@ -54895,21 +54982,21 @@ PedigreeImport.initFromPhenotipsInternal = function (inputG) {
 
         if (!inputG[v].hasOwnProperty("name") && !inputG[v].hasOwnProperty("id")) throw "Invalid inpiut: a node without id and without name";
 
-        var type = __WEBPACK_IMPORTED_MODULE_0__baseGraph__["b" /* TYPE */].PERSON;
+        var type = _baseGraph.TYPE.PERSON;
         if (inputG[v].hasOwnProperty("relationship") || inputG[v].hasOwnProperty("rel")) {
-            type = __WEBPACK_IMPORTED_MODULE_0__baseGraph__["b" /* TYPE */].RELATIONSHIP;
+            type = _baseGraph.TYPE.RELATIONSHIP;
             // normally users wont specify childhubs explicitly - but save via JSON does
             if (inputG[v].hasOwnProperty("hub") || inputG[v].hasOwnProperty("haschhub")) relationshipHasExplicitChHub[v] = true;
         } else if (inputG[v].hasOwnProperty("chhub")) {
-            type = __WEBPACK_IMPORTED_MODULE_0__baseGraph__["b" /* TYPE */].CHILDHUB;
+            type = _baseGraph.TYPE.CHILDHUB;
         } else if (inputG[v].hasOwnProperty("virtual") || inputG[v].hasOwnProperty("virt")) {
-            type = __WEBPACK_IMPORTED_MODULE_0__baseGraph__["b" /* TYPE */].VIRTUALEDGE;
+            type = _baseGraph.TYPE.VIRTUALEDGE;
         }
 
         var properties = {};
         if (inputG[v].hasOwnProperty("properties") || inputG[v].hasOwnProperty("prop")) properties = inputG[v].hasOwnProperty("properties") ? inputG[v]["properties"] : inputG[v]["prop"];
 
-        if (type == __WEBPACK_IMPORTED_MODULE_0__baseGraph__["b" /* TYPE */].PERSON) {
+        if (type == _baseGraph.TYPE.PERSON) {
             if (properties.hasOwnProperty("sex") && !properties.hasOwnProperty("gender")) {
                 properties["gender"] = properties["sex"];
             }
@@ -54922,22 +55009,22 @@ PedigreeImport.initFromPhenotipsInternal = function (inputG) {
             }
         }
 
-        var width = inputG[v].hasOwnProperty("width") ? inputG[v].width : type == __WEBPACK_IMPORTED_MODULE_0__baseGraph__["b" /* TYPE */].PERSON ? newG.defaultPersonNodeWidth : newG.defaultNonPersonNodeWidth;
+        var width = inputG[v].hasOwnProperty("width") ? inputG[v].width : type == _baseGraph.TYPE.PERSON ? newG.defaultPersonNodeWidth : newG.defaultNonPersonNodeWidth;
 
         var newID = newG._addVertex(null, type, properties, width); // "null" since id is not known yet
 
         if (inputG[v].hasOwnProperty("name")) {
             // note: this means using user input (not produced by this.serialize)
             if (nameToId[inputG[v].name]) throw "Invalid user input: multiple nodes with the same name";
-            if (type == __WEBPACK_IMPORTED_MODULE_0__baseGraph__["b" /* TYPE */].PERSON) newG.properties[newID]["fName"] = inputG[v].name;
+            if (type == _baseGraph.TYPE.PERSON) newG.properties[newID]["fName"] = inputG[v].name;
             nameToId[inputG[v].name] = newID;
         }
 
         // when entered by user manually allow users to skip childhub nodes (and create them automatically)
         // (but when saving/restoring from a JSON need to save/restore childhub nodes as they
         //  may have some properties assigned by the user which we need to save/restore)
-        if (type == __WEBPACK_IMPORTED_MODULE_0__baseGraph__["b" /* TYPE */].RELATIONSHIP && !relationshipHasExplicitChHub.hasOwnProperty(v)) {
-            var chHubId = newG._addVertex(null, __WEBPACK_IMPORTED_MODULE_0__baseGraph__["b" /* TYPE */].CHILDHUB, null, width);
+        if (type == _baseGraph.TYPE.RELATIONSHIP && !relationshipHasExplicitChHub.hasOwnProperty(v)) {
+            var chHubId = newG._addVertex(null, _baseGraph.TYPE.CHILDHUB, null, width);
             nameToId["_chhub_" + newID] = chHubId;
         }
     }
@@ -54951,7 +55038,7 @@ PedigreeImport.initFromPhenotipsInternal = function (inputG) {
 
         var substitutedID = false;
 
-        if (newG.type[vID] == __WEBPACK_IMPORTED_MODULE_0__baseGraph__["b" /* TYPE */].RELATIONSHIP && !relationshipHasExplicitChHub.hasOwnProperty(vID)) {
+        if (newG.type[vID] == _baseGraph.TYPE.RELATIONSHIP && !relationshipHasExplicitChHub.hasOwnProperty(vID)) {
             // replace edges from rel node by edges from childhub node
             var childhubID = nameToId["_chhub_" + vID];
             vID = childhubID;
@@ -55032,7 +55119,7 @@ PedigreeImport.initFromPED = function (inputText, acceptOtherPhenotypes, markEva
 
     var familyPrefix = "";
 
-    var newG = new __WEBPACK_IMPORTED_MODULE_0__baseGraph__["a" /* BaseGraph */]();
+    var newG = new _baseGraph.BaseGraph();
 
     var nameToId = {};
 
@@ -55080,7 +55167,7 @@ PedigreeImport.initFromPED = function (inputText, acceptOtherPhenotypes, markEva
             useID = 0;
         }
 
-        var pedigreeID = newG._addVertex(useID, __WEBPACK_IMPORTED_MODULE_0__baseGraph__["b" /* TYPE */].PERSON, properties, newG.defaultPersonNodeWidth);
+        var pedigreeID = newG._addVertex(useID, _baseGraph.TYPE.PERSON, properties, newG.defaultPersonNodeWidth);
 
         nameToId[pedID] = pedigreeID;
 
@@ -55109,10 +55196,12 @@ PedigreeImport.initFromPED = function (inputText, acceptOtherPhenotypes, markEva
     if (!disorderNames) {
         disorderNames = {};
         if (extendedPhenotypesFound) {
-            for (var phenotype in phenotypeValues) if (phenotypeValues.hasOwnProperty(phenotype)) {
-                if (phenotype != "-9" && phenotype != "0" && phenotype != "1") {
-                    disorderNames[phenotype] = "affected (phenotype " + phenotype + ")";
-                    affectedValues[phenotype] = true;
+            for (var phenotype in phenotypeValues) {
+                if (phenotypeValues.hasOwnProperty(phenotype)) {
+                    if (phenotype != "-9" && phenotype != "0" && phenotype != "1") {
+                        disorderNames[phenotype] = "affected (phenotype " + phenotype + ")";
+                        affectedValues[phenotype] = true;
+                    }
                 }
             }
         }
@@ -55155,13 +55244,13 @@ PedigreeImport.initFromPED = function (inputText, acceptOtherPhenotypes, markEva
         // .PED supports specifying only mohter of father. Pedigree editor requires both (for now).
         // So create a virtual parent in case one of the parents is missing
         if (fatherID == 0) {
-            fatherID = newG._addVertex(null, __WEBPACK_IMPORTED_MODULE_0__baseGraph__["b" /* TYPE */].PERSON, { "gender": "M", "comments": "unknown" }, newG.defaultPersonNodeWidth);
+            fatherID = newG._addVertex(null, _baseGraph.TYPE.PERSON, { "gender": "M", "comments": "unknown" }, newG.defaultPersonNodeWidth);
         } else {
             fatherID = nameToId[fatherID];
             if (newG.properties[fatherID].gender == "F") throw "Unable to import pedigree: a person declared as female [id: " + fatherID + "] is also declared as being a father for [id: " + thisPersonName + "]";
         }
         if (motherID == 0) {
-            motherID = newG._addVertex(null, __WEBPACK_IMPORTED_MODULE_0__baseGraph__["b" /* TYPE */].PERSON, { "gender": "F", "comments": "unknown" }, newG.defaultPersonNodeWidth);
+            motherID = newG._addVertex(null, _baseGraph.TYPE.PERSON, { "gender": "F", "comments": "unknown" }, newG.defaultPersonNodeWidth);
         } else {
             motherID = nameToId[motherID];
             if (newG.properties[motherID].gender == "M") throw "Unable to import pedigree: a person declared as male [id: " + motherID + "] is also declared as being a mother for [id: " + thisPersonName + "]";
@@ -55231,7 +55320,7 @@ PedigreeImport.initFromBOADICEA = function (inputText, saveIDAsExternalID) {
 
     var familyPrefix = "";
 
-    var newG = new __WEBPACK_IMPORTED_MODULE_0__baseGraph__["a" /* BaseGraph */]();
+    var newG = new _baseGraph.BaseGraph();
 
     var nameToId = {};
 
@@ -55267,7 +55356,7 @@ PedigreeImport.initFromBOADICEA = function (inputText, saveIDAsExternalID) {
             gender = "F";
         }
         var name = parts[1];
-        if (__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__helpers__["i" /* isInt */])(name)) {
+        if ((0, _helpers.isInt)(name)) {
             name = "";
         }
         var properties = { "gender": gender, "fName": name };
@@ -55329,7 +55418,7 @@ PedigreeImport.initFromBOADICEA = function (inputText, saveIDAsExternalID) {
             useID = 0;
         }
 
-        var pedigreeID = newG._addVertex(useID, __WEBPACK_IMPORTED_MODULE_0__baseGraph__["b" /* TYPE */].PERSON, properties, newG.defaultPersonNodeWidth);
+        var pedigreeID = newG._addVertex(useID, _baseGraph.TYPE.PERSON, properties, newG.defaultPersonNodeWidth);
 
         nameToId[extID] = pedigreeID;
     }
@@ -55359,7 +55448,7 @@ PedigreeImport.initFromBOADICEA = function (inputText, saveIDAsExternalID) {
         // .PED supports specifying only mother or father. Pedigree editor requires both (for now).
         // So create a virtual parent in case one of the parents is missing
         if (fatherID == 0) {
-            fatherID = newG._addVertex(null, __WEBPACK_IMPORTED_MODULE_0__baseGraph__["b" /* TYPE */].PERSON, { "gender": "M", "comments": "unknown" }, newG.defaultPersonNodeWidth);
+            fatherID = newG._addVertex(null, _baseGraph.TYPE.PERSON, { "gender": "M", "comments": "unknown" }, newG.defaultPersonNodeWidth);
         } else {
             fatherID = nameToId[fatherID];
             if (newG.properties[fatherID].gender == "F") {
@@ -55367,7 +55456,7 @@ PedigreeImport.initFromBOADICEA = function (inputText, saveIDAsExternalID) {
             }
         }
         if (motherID == 0) {
-            motherID = newG._addVertex(null, __WEBPACK_IMPORTED_MODULE_0__baseGraph__["b" /* TYPE */].PERSON, { "gender": "F", "comments": "unknown" }, newG.defaultPersonNodeWidth);
+            motherID = newG._addVertex(null, _baseGraph.TYPE.PERSON, { "gender": "F", "comments": "unknown" }, newG.defaultPersonNodeWidth);
         } else {
             motherID = nameToId[motherID];
             if (newG.properties[motherID].gender == "M") {
@@ -55471,14 +55560,14 @@ PedigreeImport.initFromSimpleJSON = function (inputText) {
         throw "Unable to import pedigree: input is not a valid JSON string " + err;
     }
 
-    if (typeof inputArray != "object" || Object.prototype.toString.call(inputArray) !== "[object Array]") {
+    if ((typeof inputArray === "undefined" ? "undefined" : _typeof(inputArray)) != "object" || Object.prototype.toString.call(inputArray) !== "[object Array]") {
         throw "Unable to import pedigree: JSON does not represent an array of objects";
     }
     if (inputArray.length == 0) {
         throw "Unable to import pedigree: input is empty";
     }
 
-    var newG = new __WEBPACK_IMPORTED_MODULE_0__baseGraph__["a" /* BaseGraph */]();
+    var newG = new _baseGraph.BaseGraph();
 
     var nameToID = {};
     var externalIDToID = {};
@@ -55489,7 +55578,7 @@ PedigreeImport.initFromSimpleJSON = function (inputText) {
     for (var i = 0; i < inputArray.length; i++) {
         var nextPerson = inputArray[i];
 
-        if (typeof nextPerson != "object") {
+        if ((typeof nextPerson === "undefined" ? "undefined" : _typeof(nextPerson)) != "object") {
             throw "Unable to import pedigree: JSON does not represent an array of objects";
         }
 
@@ -55497,7 +55586,7 @@ PedigreeImport.initFromSimpleJSON = function (inputText) {
             throw "Unable to import pedigree: a node with no ID or name is found";
         }
 
-        var pedigreeID = newG._addVertex(null, __WEBPACK_IMPORTED_MODULE_0__baseGraph__["b" /* TYPE */].PERSON, {}, newG.defaultPersonNodeWidth);
+        var pedigreeID = newG._addVertex(null, _baseGraph.TYPE.PERSON, {}, newG.defaultPersonNodeWidth);
 
         var properties = {};
         properties["gender"] = "U"; // each person should have some gender set 
@@ -55555,7 +55644,7 @@ PedigreeImport.initFromSimpleJSON = function (inputText) {
         newG.properties[pedigreeID] = properties;
     }
 
-    var getPersonID = function (person) {
+    var getPersonID = function getPersonID(person) {
         if (person.hasOwnProperty("id")) return externalIDToID[person.id];
 
         if (person.hasOwnProperty("firstName")) return nameToID[person.firstName];
@@ -55563,7 +55652,7 @@ PedigreeImport.initFromSimpleJSON = function (inputText) {
         if (person.hasOwnProperty("name")) return nameToID[person.name];
     };
 
-    var findReferencedPerson = function (reference, refType) {
+    var findReferencedPerson = function findReferencedPerson(reference, refType) {
         if (ambiguousReferences.hasOwnProperty(reference)) throw "Unable to import pedigree: ambiguous reference to [" + reference + "]";
 
         if (externalIDToID.hasOwnProperty(reference)) return externalIDToID[reference];
@@ -55590,13 +55679,13 @@ PedigreeImport.initFromSimpleJSON = function (inputText) {
 
         // create a virtual parent in case one of the parents is missing
         if (fatherLink == null) {
-            var fatherID = newG._addVertex(null, __WEBPACK_IMPORTED_MODULE_0__baseGraph__["b" /* TYPE */].PERSON, { "gender": "M", "comments": "unknown", inferred: true }, newG.defaultPersonNodeWidth);
+            var fatherID = newG._addVertex(null, _baseGraph.TYPE.PERSON, { "gender": "M", "comments": "unknown", inferred: true }, newG.defaultPersonNodeWidth);
         } else {
             var fatherID = findReferencedPerson(fatherLink, "father");
             if (newG.properties[fatherID].gender == "F") throw "Unable to import pedigree: a person declared as female is also declared as being a father";
         }
         if (motherLink == null) {
-            var motherID = newG._addVertex(null, __WEBPACK_IMPORTED_MODULE_0__baseGraph__["b" /* TYPE */].PERSON, { "gender": "F", "comments": "unknown", inferred: true }, newG.defaultPersonNodeWidth);
+            var motherID = newG._addVertex(null, _baseGraph.TYPE.PERSON, { "gender": "F", "comments": "unknown", inferred: true }, newG.defaultPersonNodeWidth);
         } else {
             var motherID = findReferencedPerson(motherLink, "mother");
             if (newG.properties[motherID].gender == "M") throw "Unable to import pedigree: a person declared as male is also declared as being a mother";
@@ -55646,7 +55735,7 @@ PedigreeImport.initFromGEDCOM = function (inputText, markEvaluated, saveIDAsExte
     var inputLines = inputText.match(/[^\r\n]+/g);
     if (inputLines.length == 0) throw "Unable to import: no data";
 
-    var convertToObject = function (inputLines) {
+    var convertToObject = function convertToObject(inputLines) {
         /* converts GEDCOM text into an object, where 0-level items are stored as "header", "individuals" and "families"
          * properties, and all items below are arrays of objects, e.g. an array of objects representing each individual.
          * 
@@ -55770,7 +55859,7 @@ PedigreeImport.initFromGEDCOM = function (inputText, markEvaluated, saveIDAsExte
         throw "Unable to create a pedigree from GEDCOM: no individuals are defined in the import data";
     }
 
-    var newG = new __WEBPACK_IMPORTED_MODULE_0__baseGraph__["a" /* BaseGraph */]();
+    var newG = new _baseGraph.BaseGraph();
 
     var externalIDToID = {};
 
@@ -55778,7 +55867,7 @@ PedigreeImport.initFromGEDCOM = function (inputText, markEvaluated, saveIDAsExte
     for (var i = 0; i < gedcom.individuals.length; i++) {
         var nextPerson = gedcom.individuals[i];
 
-        var pedigreeID = newG._addVertex(null, __WEBPACK_IMPORTED_MODULE_0__baseGraph__["b" /* TYPE */].PERSON, {}, newG.defaultPersonNodeWidth);
+        var pedigreeID = newG._addVertex(null, _baseGraph.TYPE.PERSON, {}, newG.defaultPersonNodeWidth);
 
         externalIDToID[nextPerson.id] = pedigreeID;
 
@@ -55787,12 +55876,12 @@ PedigreeImport.initFromGEDCOM = function (inputText, markEvaluated, saveIDAsExte
 
         properties["gender"] = "U"; // each person should have some gender set 
 
-        var getFirstValue = function (obj) {
+        var getFirstValue = function getFirstValue(obj) {
             //if (Object.prototype.toString.call(obj) === '[object Array]')
             return obj[0].value;
         };
 
-        var parseDate = function (gedcomDate) {
+        var parseDate = function parseDate(gedcomDate) {
             gedcomDate = gedcomDate[0].value;
 
             // treat possible date modifiers
@@ -55930,13 +56019,13 @@ PedigreeImport.initFromGEDCOM = function (inputText, markEvaluated, saveIDAsExte
 
         // create a virtual parent in case one of the parents is missing       
         if (fatherLink == null) {
-            var fatherID = newG._addVertex(null, __WEBPACK_IMPORTED_MODULE_0__baseGraph__["b" /* TYPE */].PERSON, { "gender": "M", "comments": "unknown" }, newG.defaultPersonNodeWidth);
+            var fatherID = newG._addVertex(null, _baseGraph.TYPE.PERSON, { "gender": "M", "comments": "unknown" }, newG.defaultPersonNodeWidth);
         } else {
             var fatherID = externalIDToID[fatherLink];
             if (newG.properties[fatherID].gender == "F") throw "Unable to import pedigree: a person declared as female is also declared as being a father (" + fatherLink + ")";
         }
         if (motherLink == null) {
-            var motherID = newG._addVertex(null, __WEBPACK_IMPORTED_MODULE_0__baseGraph__["b" /* TYPE */].PERSON, { "gender": "F", "comments": "unknown" }, newG.defaultPersonNodeWidth);
+            var motherID = newG._addVertex(null, _baseGraph.TYPE.PERSON, { "gender": "F", "comments": "unknown" }, newG.defaultPersonNodeWidth);
         } else {
             var motherID = externalIDToID[motherLink];
             if (newG.properties[motherID].gender == "M") throw "Unable to import pedigree: a person declared as male is also declared as being a mother (" + motherLink + ")";
@@ -55952,7 +56041,7 @@ PedigreeImport.initFromGEDCOM = function (inputText, markEvaluated, saveIDAsExte
 
         if (children == null) {
             // create a virtual child
-            var childID = newG._addVertex(null, __WEBPACK_IMPORTED_MODULE_0__baseGraph__["b" /* TYPE */].PERSON, { "gender": "U", "comments": "unknown" }, newG.defaultPersonNodeWidth);
+            var childID = newG._addVertex(null, _baseGraph.TYPE.PERSON, { "gender": "U", "comments": "unknown" }, newG.defaultPersonNodeWidth);
             noChildFamilies.push(nextFamily.id);
             externalIDToID[childID] = childID;
             children = [{ "value": childID }];
@@ -56029,7 +56118,7 @@ PedigreeImport.convertProperty = function (externalPropertyName, value) {
 /*
  * Helper class which keeps track of relationships already seen in pedigree being imported
  */
-const RelationshipTracker = function (newG, defaultEdgeWeight) {
+var RelationshipTracker = exports.RelationshipTracker = function RelationshipTracker(newG, defaultEdgeWeight) {
     this.newG = newG;
 
     this.defaultEdgeWeight = defaultEdgeWeight;
@@ -56037,14 +56126,12 @@ const RelationshipTracker = function (newG, defaultEdgeWeight) {
     this.relationships = {};
     this.relChildHubs = {};
 };
-/* unused harmony export RelationshipTracker */
-
 
 RelationshipTracker.prototype = {
 
     // if there is a relationship between motherID and fatherID the corresponding childhub is returned
     // if there is no relationship, a new one is created together with the chldhub
-    createOrGetChildhub: function (motherID, fatherID) {
+    createOrGetChildhub: function createOrGetChildhub(motherID, fatherID) {
         // both motherID and fatherID are now given. Check if there is a relationship between the two of them
         if (this.relationships.hasOwnProperty(motherID) && this.relationships[motherID].hasOwnProperty(fatherID)) {
             var relID = this.relationships[motherID][fatherID];
@@ -56053,8 +56140,8 @@ RelationshipTracker.prototype = {
             if (this.relationships[motherID] === undefined) this.relationships[motherID] = {};
             if (this.relationships[fatherID] === undefined) this.relationships[fatherID] = {};
 
-            var relID = this.newG._addVertex(null, __WEBPACK_IMPORTED_MODULE_0__baseGraph__["b" /* TYPE */].RELATIONSHIP, {}, this.newG.defaultNonPersonNodeWidth);
-            var chhubID = this.newG._addVertex(null, __WEBPACK_IMPORTED_MODULE_0__baseGraph__["b" /* TYPE */].CHILDHUB, {}, this.newG.defaultNonPersonNodeWidth);
+            var relID = this.newG._addVertex(null, _baseGraph.TYPE.RELATIONSHIP, {}, this.newG.defaultNonPersonNodeWidth);
+            var chhubID = this.newG._addVertex(null, _baseGraph.TYPE.CHILDHUB, {}, this.newG.defaultNonPersonNodeWidth);
 
             this.newG.addEdge(relID, chhubID, this.defaultEdgeWeight);
             this.newG.addEdge(motherID, relID, this.defaultEdgeWeight);
@@ -56070,37 +56157,43 @@ RelationshipTracker.prototype = {
 };
 
 /***/ }),
-/* 166 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
+/* 165 */
+/***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
 /**
  * LineSet is used to track existing lines in the graph and simplify line-crossing-line tracking
  *
  * @class LineSet
  * @constructor
  */
-const LineSet = Class.create({
-    initialize: function () {
+var LineSet = exports.LineSet = Class.create({
+    initialize: function initialize() {
         this._lineCrossings = {}; // { owner: {set of owners of lines crossing its lines} }
         this._lines = []; // array of sets {owner, x1, y1, x2, y2}
     },
 
-    replaceIDs: function (changedIdsSet) {
+    replaceIDs: function replaceIDs(changedIdsSet) {
         var newLineCrossings = {};
-        for (var oldOwnerID in this._lineCrossings) if (this._lineCrossings.hasOwnProperty(oldOwnerID)) {
-            var crosses = this._lineCrossings[oldOwnerID];
-            var newCrosses = {};
+        for (var oldOwnerID in this._lineCrossings) {
+            if (this._lineCrossings.hasOwnProperty(oldOwnerID)) {
+                var crosses = this._lineCrossings[oldOwnerID];
+                var newCrosses = {};
 
-            for (var oldID in crosses) if (crosses.hasOwnProperty(oldID)) {
-                var newID = changedIdsSet.hasOwnProperty(oldID) ? changedIdsSet[oldID] : oldID;
-                newCrosses[newID] = true;
+                for (var oldID in crosses) {
+                    if (crosses.hasOwnProperty(oldID)) {
+                        var newID = changedIdsSet.hasOwnProperty(oldID) ? changedIdsSet[oldID] : oldID;
+                        newCrosses[newID] = true;
+                    }
+                }var newOwnerID = changedIdsSet.hasOwnProperty(oldOwnerID) ? changedIdsSet[oldOwnerID] : oldOwnerID;
+                newLineCrossings[newOwnerID] = newCrosses;
             }
-
-            var newOwnerID = changedIdsSet.hasOwnProperty(oldOwnerID) ? changedIdsSet[oldOwnerID] : oldOwnerID;
-            newLineCrossings[newOwnerID] = newCrosses;
-        }
-        this._lineCrossings = newLineCrossings;
+        }this._lineCrossings = newLineCrossings;
 
         for (var i = 0; i < this._lines.length; i++) {
             var oldID = this._lines[i].owner;
@@ -56109,7 +56202,7 @@ const LineSet = Class.create({
         }
     },
 
-    addLine: function (owner, x1, y1, x2, y2) {
+    addLine: function addLine(owner, x1, y1, x2, y2) {
         // returns: list of crossings [ {x,y} ... {x, y} ]
 
         // TODO: improve performance by ordering by y or x coordinate -> not critical for now
@@ -56137,7 +56230,7 @@ const LineSet = Class.create({
         return bendPoints;
     },
 
-    removeAllLinesByOwner: function (owner) {
+    removeAllLinesByOwner: function removeAllLinesByOwner(owner) {
         //console.log("removing all lines by " + owner);
 
         if (!this._lineCrossings.hasOwnProperty(owner)) return {};
@@ -56150,18 +56243,18 @@ const LineSet = Class.create({
         var affectedOwners = this._lineCrossings[owner];
         delete this._lineCrossings[owner];
 
-        for (var ownerID in this._lineCrossings) if (this._lineCrossings.hasOwnProperty(ownerID)) {
-            var crosses = this._lineCrossings[ownerID];
-            if (crosses.hasOwnProperty(owner)) {
-                delete crosses[owner];
+        for (var ownerID in this._lineCrossings) {
+            if (this._lineCrossings.hasOwnProperty(ownerID)) {
+                var crosses = this._lineCrossings[ownerID];
+                if (crosses.hasOwnProperty(owner)) {
+                    delete crosses[owner];
+                }
             }
-        }
-
-        //console.log("Removing " + owner + ", affected: " + stringifyObject(affectedOwners));
+        } //console.log("Removing " + owner + ", affected: " + stringifyObject(affectedOwners));
         return affectedOwners;
     },
 
-    removeAllLinesAffectedByOwnerMovement: function (owner) {
+    removeAllLinesAffectedByOwnerMovement: function removeAllLinesAffectedByOwnerMovement(owner) {
         var returnNewAffected = [];
 
         var processed = {};
@@ -56190,7 +56283,7 @@ const LineSet = Class.create({
         return returnNewAffected;
     },
 
-    _getLineCrossing: function (line1, line2) {
+    _getLineCrossing: function _getLineCrossing(line1, line2) {
         // Return the coordinates of a point of intersection of the given two line segments.
         // Return null if the line segments are parallel 9even if they cross) or do not intersect
         // (note: ignores intersection at segment ends)
@@ -56233,17 +56326,20 @@ const LineSet = Class.create({
         return { "x": px, "y": py };
     }
 });
-/* harmony export (immutable) */ __webpack_exports__["a"] = LineSet;
-
 
 /***/ }),
-/* 167 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
+/* 166 */
+/***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__helpers__ = __webpack_require__(5);
-/* harmony export (immutable) */ __webpack_exports__["a"] = Ordering;
 
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+exports.Ordering = Ordering;
+
+var _helpers = __webpack_require__(5);
 
 function Ordering(order, vOrder) {
     this.order = order; // 1D array of 1D arrays - for each rank list of vertices in order
@@ -56254,11 +56350,11 @@ function Ordering(order, vOrder) {
 
 Ordering.prototype = {
 
-    serialize: function () {
+    serialize: function serialize() {
         return this.order;
     },
 
-    deserialize: function (data) {
+    deserialize: function deserialize(data) {
         this.order = data;
         this.vOrder = [];
         //console.log("Order deserialization: [" + stringifyObject(this.order) + "]");
@@ -56272,13 +56368,15 @@ Ordering.prototype = {
         }
     },
 
-    insert: function (rank, insertOrder, vertex) {
+    insert: function insert(rank, insertOrder, vertex) {
         this.order[rank].splice(insertOrder, 0, vertex);
         this.vOrder[vertex] = insertOrder;
-        for (var next = insertOrder + 1; next < this.order[rank].length; ++next) this.vOrder[this.order[rank][next]]++;
+        for (var next = insertOrder + 1; next < this.order[rank].length; ++next) {
+            this.vOrder[this.order[rank][next]]++;
+        }
     },
 
-    exchange: function (rank, index1, index2) {
+    exchange: function exchange(rank, index1, index2) {
         // exchanges vertices at two given indices within the same given rank
 
         var v1 = this.order[rank][index1];
@@ -56291,14 +56389,14 @@ Ordering.prototype = {
         this.vOrder[v2] = index1;
     },
 
-    canMove: function (rank, index, amount) {
+    canMove: function canMove(rank, index, amount) {
         var newIndex = index + amount;
         if (newIndex < 0) return false;
         if (newIndex > this.order[rank].length - 1) return false;
         return true;
     },
 
-    move: function (rank, index, amount) {
+    move: function move(rank, index, amount) {
         // changes vertex order within the same rank. Moves "amount" positions to the right or to the left
         if (amount == 0) return true;
 
@@ -56330,12 +56428,12 @@ Ordering.prototype = {
         return true;
     },
 
-    copy: function () {
+    copy: function copy() {
         // returns a deep copy
-        return new Ordering(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__helpers__["k" /* clone2DArray */])(this.order), this.vOrder.slice());
+        return new Ordering((0, _helpers.clone2DArray)(this.order), this.vOrder.slice());
     },
 
-    moveVertexToRankAndOrder: function (oldRank, oldOrder, newRank, newOrder) {
+    moveVertexToRankAndOrder: function moveVertexToRankAndOrder(oldRank, oldOrder, newRank, newOrder) {
         // changes vertex rank and order. Insertion happens right before the node currently occupying the newOrder position on rank newRank
         var v = this.order[oldRank][oldOrder];
 
@@ -56354,24 +56452,24 @@ Ordering.prototype = {
         }
     },
 
-    moveVertexToOrder: function (rank, oldOrder, newOrder) {
+    moveVertexToOrder: function moveVertexToOrder(rank, oldOrder, newOrder) {
         // changes vertex order within the same rank. Insertion happens right before the node currently occupying the newOrder position
         // (i.e. changing order form 3 to 4 does nothing, as before position 4 is still position 3)
         var shiftAmount = newOrder <= oldOrder ? newOrder - oldOrder : newOrder - oldOrder - 1;
         this.move(rank, oldOrder, shiftAmount);
     },
 
-    removeUnplugged: function () {
+    removeUnplugged: function removeUnplugged() {
         var result = this.order[0].slice(0); //copy of original unplugged IDs
 
         for (var u = 0; u < this.order[0].length; ++u) {
             var unplugged = this.order[0][u];
 
-            for (var i = 0; i < this.order.length; ++i) for (var j = 0; j < this.order[i].length; ++j) {
-                if (this.order[i][j] > unplugged) this.order[i][j]--;
-            }
-
-            this.vOrder.splice(unplugged, 1);
+            for (var i = 0; i < this.order.length; ++i) {
+                for (var j = 0; j < this.order[i].length; ++j) {
+                    if (this.order[i][j] > unplugged) this.order[i][j]--;
+                }
+            }this.vOrder.splice(unplugged, 1);
         }
 
         this.order[0] = [];
@@ -56379,13 +56477,13 @@ Ordering.prototype = {
         return result;
     },
 
-    remove: function (v, rank) {
+    remove: function remove(v, rank) {
         var order = this.vOrder[v];
         this.moveVertexToRankAndOrder(rank, order, 0, 0);
         this.removeUnplugged();
     },
 
-    insertAndShiftAllIdsAboveVByOne: function (v, rank, newOrder) {
+    insertAndShiftAllIdsAboveVByOne: function insertAndShiftAllIdsAboveVByOne(v, rank, newOrder) {
         // used when when a new vertex is inserted into the graph, which increases all IDs above v by one
         // so need to modify the data for all existing vertices first, and then insert the new vertex
 
@@ -56393,30 +56491,30 @@ Ordering.prototype = {
             this.vOrder[i] = this.vOrder[i - 1];
         }
 
-        for (var i = 0; i < this.order.length; ++i) for (var j = 0; j < this.order[i].length; ++j) {
-            if (this.order[i][j] >= v) this.order[i][j]++;
-        }
-
-        this.insert(rank, newOrder, v);
+        for (var i = 0; i < this.order.length; ++i) {
+            for (var j = 0; j < this.order[i].length; ++j) {
+                if (this.order[i][j] >= v) this.order[i][j]++;
+            }
+        }this.insert(rank, newOrder, v);
     },
 
-    insertRank: function (insertBeforeRank) {
+    insertRank: function insertRank(insertBeforeRank) {
         this.order.splice(insertBeforeRank, 0, []);
     },
 
-    getRightNeighbour: function (v, rank) {
+    getRightNeighbour: function getRightNeighbour(v, rank) {
         var order = this.vOrder[v];
         if (order < this.order[rank].length - 1) return this.order[rank][order + 1];
         return null;
     },
 
-    getLeftNeighbour: function (v, rank) {
+    getLeftNeighbour: function getLeftNeighbour(v, rank) {
         var order = this.vOrder[v];
         if (order > 0) return this.order[rank][order - 1];
         return null;
     },
 
-    sortByOrder: function (v_list) {
+    sortByOrder: function sortByOrder(v_list) {
         var vorders = this.vOrder;
         var result = v_list.slice(0);
         result.sort(function (x, y) {
@@ -56426,7 +56524,7 @@ Ordering.prototype = {
     },
 
     // returns all vertices ordered from left-to-right and from top-to-bottom
-    getLeftToRightTopToBottomOrdering: function (onlyType, GG) {
+    getLeftToRightTopToBottomOrdering: function getLeftToRightTopToBottomOrdering(onlyType, GG) {
         var result = [];
         for (var i = 1; i < this.order.length; ++i) {
             for (var j = 0; j < this.order[i].length; ++j) {
@@ -56439,14 +56537,20 @@ Ordering.prototype = {
 };
 
 /***/ }),
-/* 168 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
+/* 167 */
+/***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__partnershipVisuals__ = __webpack_require__(170);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__abstractNode__ = __webpack_require__(66);
 
 
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+exports.Partnership = undefined;
+
+var _partnershipVisuals = __webpack_require__(169);
+
+var _abstractNode = __webpack_require__(66);
 
 /**
  * Partnership is a class that represents the relationship between two AbstractNodes
@@ -56462,9 +56566,9 @@ Ordering.prototype = {
  * @id the unique ID number of this node
  */
 
-const Partnership = Class.create(__WEBPACK_IMPORTED_MODULE_1__abstractNode__["b" /* AbstractNode */], {
+var Partnership = exports.Partnership = Class.create(_abstractNode.AbstractNode, {
 
-    initialize: function ($super, x, y, id, properties) {
+    initialize: function initialize($super, x, y, id, properties) {
         //console.log("partnership");
         this._childlessStatus = null;
         this._childlessReason = "";
@@ -56493,8 +56597,8 @@ const Partnership = Class.create(__WEBPACK_IMPORTED_MODULE_1__abstractNode__["b"
      * @return {PartnershipVisuals}
      * @private
      */
-    _generateGraphics: function (x, y) {
-        return new __WEBPACK_IMPORTED_MODULE_0__partnershipVisuals__["a" /* PartnershipVisuals */](this, x, y);
+    _generateGraphics: function _generateGraphics(x, y) {
+        return new _partnershipVisuals.PartnershipVisuals(this, x, y);
     },
 
     /**
@@ -56504,7 +56608,7 @@ const Partnership = Class.create(__WEBPACK_IMPORTED_MODULE_1__abstractNode__["b"
      * @method setChildlessStatus
      * @param {String} status Can be "childless", "infertile" or null
      */
-    setChildlessStatus: function (status) {
+    setChildlessStatus: function setChildlessStatus(status) {
         if (!this.isValidChildlessStatus(status)) status = null;
 
         if (status != this.getChildlessStatus()) {
@@ -56523,7 +56627,7 @@ const Partnership = Class.create(__WEBPACK_IMPORTED_MODULE_1__abstractNode__["b"
      *
      * @method setConsanguinity
      */
-    setConsanguinity: function (value) {
+    setConsanguinity: function setConsanguinity(value) {
         if (value != "A" && value != "N" && value != "Y") value = "A";
         if (this._consangrMode != value) {
             this._consangrMode = value;
@@ -56536,7 +56640,7 @@ const Partnership = Class.create(__WEBPACK_IMPORTED_MODULE_1__abstractNode__["b"
      *
      * @method getConsanguinity
      */
-    getConsanguinity: function () {
+    getConsanguinity: function getConsanguinity() {
         return this._consangrMode;
     },
 
@@ -56545,7 +56649,7 @@ const Partnership = Class.create(__WEBPACK_IMPORTED_MODULE_1__abstractNode__["b"
      *
      * @method getBrokenStatus
      */
-    setBrokenStatus: function (value) {
+    setBrokenStatus: function setBrokenStatus(value) {
         if (value === undefined) value = false;
         if (this._broken != value) {
             this._broken = value;
@@ -56557,7 +56661,7 @@ const Partnership = Class.create(__WEBPACK_IMPORTED_MODULE_1__abstractNode__["b"
      *
      * @method getBrokenStatus
      */
-    getBrokenStatus: function () {
+    getBrokenStatus: function getBrokenStatus() {
         return this._broken;
     },
 
@@ -56567,7 +56671,7 @@ const Partnership = Class.create(__WEBPACK_IMPORTED_MODULE_1__abstractNode__["b"
      * @method getSummary
      * @return {Object}
      */
-    getSummary: function () {
+    getSummary: function getSummary() {
         var childlessInactive = editor.getGraph().hasNonPlaceholderNonAdoptedChildren(this.getID());
         return {
             identifier: { value: this.getID() },
@@ -56586,7 +56690,7 @@ const Partnership = Class.create(__WEBPACK_IMPORTED_MODULE_1__abstractNode__["b"
      * @return {Object} in the form
      *
      */
-    getProperties: function ($super) {
+    getProperties: function getProperties($super) {
         var info = $super();
         if (this.getChildlessStatus() != null) {
             info["childlessStatus"] = this.getChildlessStatus();
@@ -56608,7 +56712,7 @@ const Partnership = Class.create(__WEBPACK_IMPORTED_MODULE_1__abstractNode__["b"
      * @param properties Object
      * @return {Boolean} True if info was successfully assigned
      */
-    assignProperties: function ($super, info) {
+    assignProperties: function assignProperties($super, info) {
         if ($super(info)) {
             if (info.childlessStatus && info.childlessStatus != this.getChildlessStatus()) {
                 this.setChildlessStatus(info.childlessStatus);
@@ -56627,21 +56731,25 @@ const Partnership = Class.create(__WEBPACK_IMPORTED_MODULE_1__abstractNode__["b"
         return false;
     }
 });
-/* harmony export (immutable) */ __webpack_exports__["a"] = Partnership;
-
 
 //ATTACH CHILDLESS BEHAVIOR METHODS TO PARTNERSHIP OBJECTS
-Partnership.addMethods(__WEBPACK_IMPORTED_MODULE_1__abstractNode__["a" /* ChildlessBehavior */]);
+Partnership.addMethods(_abstractNode.ChildlessBehavior);
 
 /***/ }),
-/* 169 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
+/* 168 */
+/***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__abstractHoverbox__ = __webpack_require__(65);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__pedigreeEditorAttributes__ = __webpack_require__(12);
 
 
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+exports.PartnershipHoverbox = undefined;
+
+var _abstractHoverbox = __webpack_require__(65);
+
+var _pedigreeEditorAttributes = __webpack_require__(12);
 
 /**
  * PartnershipHoverbox is a class for all the UI elements and graphics surrounding a Partnership node and
@@ -56657,10 +56765,10 @@ Partnership.addMethods(__WEBPACK_IMPORTED_MODULE_1__abstractNode__["a" /* Childl
  * @param {Raphael.st} shapes Raphaël set containing the graphical elements that make up the node
  */
 
-const PartnershipHoverbox = Class.create(__WEBPACK_IMPORTED_MODULE_0__abstractHoverbox__["a" /* AbstractHoverbox */], {
+var PartnershipHoverbox = exports.PartnershipHoverbox = Class.create(_abstractHoverbox.AbstractHoverbox, {
 
-    initialize: function ($super, partnership, junctionX, junctionY, nodeShapes) {
-        var radius = __WEBPACK_IMPORTED_MODULE_1__pedigreeEditorAttributes__["a" /* PedigreeEditorAttributes */].radius;
+    initialize: function initialize($super, partnership, junctionX, junctionY, nodeShapes) {
+        var radius = _pedigreeEditorAttributes.PedigreeEditorAttributes.radius;
         $super(partnership, -radius * 0.65, -radius * 0.8, radius * 1.3, radius * 2.3, junctionX, junctionY, nodeShapes);
         this._isMenuToggled = false;
     },
@@ -56671,7 +56779,7 @@ const PartnershipHoverbox = Class.create(__WEBPACK_IMPORTED_MODULE_0__abstractHo
      * @method generateHandles
      * @return {Raphael.st} A set of handles
      */
-    generateHandles: function ($super) {
+    generateHandles: function generateHandles($super) {
         if (this._currentHandles !== null) return;
         $super();
 
@@ -56679,13 +56787,13 @@ const PartnershipHoverbox = Class.create(__WEBPACK_IMPORTED_MODULE_0__abstractHo
 
         var x = this.getNodeX();
         var y = this.getNodeY();
-        var strokeWidth = editor.getWorkspace().getSizeNormalizedToDefaultZoom(__WEBPACK_IMPORTED_MODULE_1__pedigreeEditorAttributes__["a" /* PedigreeEditorAttributes */].handleStrokeWidth);
+        var strokeWidth = editor.getWorkspace().getSizeNormalizedToDefaultZoom(_pedigreeEditorAttributes.PedigreeEditorAttributes.handleStrokeWidth);
 
         editor.getPaper().setStart();
         //static part (going right below the node)            
-        var path = [["M", x, y], ["L", x, y + __WEBPACK_IMPORTED_MODULE_1__pedigreeEditorAttributes__["a" /* PedigreeEditorAttributes */].partnershipHandleBreakY]];
+        var path = [["M", x, y], ["L", x, y + _pedigreeEditorAttributes.PedigreeEditorAttributes.partnershipHandleBreakY]];
         editor.getPaper().path(path).attr({ "stroke-width": strokeWidth, stroke: "gray" }).insertBefore(this.getNode().getGraphics().getJunctionShape());
-        this.generateHandle("child", x, y + __WEBPACK_IMPORTED_MODULE_1__pedigreeEditorAttributes__["a" /* PedigreeEditorAttributes */].partnershipHandleBreakY, x, y + __WEBPACK_IMPORTED_MODULE_1__pedigreeEditorAttributes__["a" /* PedigreeEditorAttributes */].partnershipHandleLength);
+        this.generateHandle("child", x, y + _pedigreeEditorAttributes.PedigreeEditorAttributes.partnershipHandleBreakY, x, y + _pedigreeEditorAttributes.PedigreeEditorAttributes.partnershipHandleLength);
 
         this._currentHandles.push(editor.getPaper().setFinish());
     },
@@ -56695,7 +56803,7 @@ const PartnershipHoverbox = Class.create(__WEBPACK_IMPORTED_MODULE_0__abstractHo
      *
      * @method generateButtons
      */
-    generateButtons: function ($super) {
+    generateButtons: function generateButtons($super) {
         if (this._currentButtons !== null) return;
         $super();
         this.generateDeleteBtn();
@@ -56708,18 +56816,18 @@ const PartnershipHoverbox = Class.create(__WEBPACK_IMPORTED_MODULE_0__abstractHo
      * @method generateMenuBtn
      * @return {Raphael.st} The generated button
      */
-    generateMenuBtn: function () {
+    generateMenuBtn: function generateMenuBtn() {
         var me = this;
-        var action = function () {
+        var action = function action() {
             me.toggleMenu(!me.isMenuToggled());
         };
         var junctionShapedButton = this.getNode().getGraphics().getJunctionShape().clone();
-        junctionShapedButton.attr(__WEBPACK_IMPORTED_MODULE_1__pedigreeEditorAttributes__["a" /* PedigreeEditorAttributes */].nodeShapeMenuOffPartner);
+        junctionShapedButton.attr(_pedigreeEditorAttributes.PedigreeEditorAttributes.nodeShapeMenuOffPartner);
         junctionShapedButton.click(action);
         junctionShapedButton.hover(function () {
-            junctionShapedButton.attr(__WEBPACK_IMPORTED_MODULE_1__pedigreeEditorAttributes__["a" /* PedigreeEditorAttributes */].nodeShapeMenuOnPartner);
+            junctionShapedButton.attr(_pedigreeEditorAttributes.PedigreeEditorAttributes.nodeShapeMenuOnPartner);
         }, function () {
-            junctionShapedButton.attr(__WEBPACK_IMPORTED_MODULE_1__pedigreeEditorAttributes__["a" /* PedigreeEditorAttributes */].nodeShapeMenuOffPartner);
+            junctionShapedButton.attr(_pedigreeEditorAttributes.PedigreeEditorAttributes.nodeShapeMenuOffPartner);
         });
         junctionShapedButton.attr("cursor", "pointer");
         this._currentButtons.push(junctionShapedButton);
@@ -56734,7 +56842,7 @@ const PartnershipHoverbox = Class.create(__WEBPACK_IMPORTED_MODULE_0__abstractHo
      * @method isMenuToggled
      * @return {Boolean}
      */
-    isMenuToggled: function () {
+    isMenuToggled: function isMenuToggled() {
         return this._isMenuToggled;
     },
 
@@ -56744,7 +56852,7 @@ const PartnershipHoverbox = Class.create(__WEBPACK_IMPORTED_MODULE_0__abstractHo
      * @method toggleMenu
      * @param {Boolean} isMenuToggled Set to True to make the menu visible
      */
-    toggleMenu: function (isMenuToggled) {
+    toggleMenu: function toggleMenu(isMenuToggled) {
         if (this._justClosedMenu) return;
         this._isMenuToggled = isMenuToggled;
         if (isMenuToggled) {
@@ -56761,7 +56869,7 @@ const PartnershipHoverbox = Class.create(__WEBPACK_IMPORTED_MODULE_0__abstractHo
      *
      * @method animateHideHoverZone
      */
-    animateHideHoverZone: function ($super) {
+    animateHideHoverZone: function animateHideHoverZone($super) {
         this._hidden = true;
         if (!this.isMenuToggled()) {
             $super();
@@ -56773,7 +56881,7 @@ const PartnershipHoverbox = Class.create(__WEBPACK_IMPORTED_MODULE_0__abstractHo
      *
      * @method animateDrawHoverZone
      */
-    animateDrawHoverZone: function ($super) {
+    animateDrawHoverZone: function animateDrawHoverZone($super) {
         this._hidden = false;
         if (!this.isMenuToggled()) {
             $super();
@@ -56787,14 +56895,14 @@ const PartnershipHoverbox = Class.create(__WEBPACK_IMPORTED_MODULE_0__abstractHo
      * @param {String} handleType Can be either "child", "partner" or "parent"
      * @param {Boolean} isDrag Set to True if the handle is being dragged at the time of the action
      */
-    handleAction: function (handleType, isDrag, curHoveredId) {
+    handleAction: function handleAction(handleType, isDrag, curHoveredId) {
         if (isDrag && curHoveredId) {
             if (handleType == "child") {
                 var event = { "personID": curHoveredId, "parentID": this.getNode().getID() };
                 document.fire("pedigree:person:drag:newparent", event);
             }
         } else if (!isDrag && handleType == "child") {
-            var position = editor.getWorkspace().canvasToDiv(this.getNodeX(), this.getNodeY() + __WEBPACK_IMPORTED_MODULE_1__pedigreeEditorAttributes__["a" /* PedigreeEditorAttributes */].partnershipHandleLength + 15);
+            var position = editor.getWorkspace().canvasToDiv(this.getNodeX(), this.getNodeY() + _pedigreeEditorAttributes.PedigreeEditorAttributes.partnershipHandleLength + 15);
             var canBeChildless = !editor.getGraph().hasNonPlaceholderNonAdoptedChildren(this.getNode().getID());
             if (canBeChildless) editor.getNodetypeSelectionBubble().show(this.getNode(), position.x, position.y);else editor.getSiblingSelectionBubble().show(this.getNode(), position.x, position.y);
             // if user selects anything the bubble will fire an even on its own
@@ -56802,24 +56910,28 @@ const PartnershipHoverbox = Class.create(__WEBPACK_IMPORTED_MODULE_0__abstractHo
         this.animateHideHoverZone();
     }
 });
-/* harmony export (immutable) */ __webpack_exports__["a"] = PartnershipHoverbox;
-
 
 /***/ }),
-/* 170 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
+/* 169 */
+/***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/* WEBPACK VAR INJECTION */(function(Raphael) {/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__abstractNodeVisuals__ = __webpack_require__(45);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__pedigreeEditorAttributes__ = __webpack_require__(12);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__readonlyHoverbox__ = __webpack_require__(68);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__partnershipHoverbox__ = __webpack_require__(169);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__graphicHelpers__ = __webpack_require__(47);
+/* WEBPACK VAR INJECTION */(function(Raphael) {
 
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+exports.PartnershipVisuals = undefined;
 
+var _abstractNodeVisuals = __webpack_require__(45);
 
+var _pedigreeEditorAttributes = __webpack_require__(12);
 
+var _readonlyHoverbox = __webpack_require__(68);
 
+var _partnershipHoverbox = __webpack_require__(168);
+
+var _graphicHelpers = __webpack_require__(47);
 
 /**
  * Class for visualizing partnerships and organizing the graphical elements.
@@ -56831,19 +56943,19 @@ const PartnershipHoverbox = Class.create(__WEBPACK_IMPORTED_MODULE_0__abstractHo
  * @param {Number} x The x coordinate on the canvas
  * @param {Number} y The y coordinate on the canvas
  */
-const PartnershipVisuals = Class.create(__WEBPACK_IMPORTED_MODULE_0__abstractNodeVisuals__["a" /* AbstractNodeVisuals */], {
+var PartnershipVisuals = exports.PartnershipVisuals = Class.create(_abstractNodeVisuals.AbstractNodeVisuals, {
 
-    initialize: function ($super, partnership, x, y) {
+    initialize: function initialize($super, partnership, x, y) {
         //console.log("partnership visuals");
         $super(partnership, x, y);
         this._childlessShape = null;
         this._childlessStatusLabel = null;
-        this._junctionShape = editor.getPaper().circle(x, y, __WEBPACK_IMPORTED_MODULE_1__pedigreeEditorAttributes__["a" /* PedigreeEditorAttributes */].partnershipRadius).attr(__WEBPACK_IMPORTED_MODULE_1__pedigreeEditorAttributes__["a" /* PedigreeEditorAttributes */].partnershipNode);
+        this._junctionShape = editor.getPaper().circle(x, y, _pedigreeEditorAttributes.PedigreeEditorAttributes.partnershipRadius).attr(_pedigreeEditorAttributes.PedigreeEditorAttributes.partnershipNode);
 
         if (editor.isReadOnlyMode()) {
-            this._hoverBox = new __WEBPACK_IMPORTED_MODULE_2__readonlyHoverbox__["a" /* ReadOnlyHoverbox */](partnership, x, y, this.getShapes());
+            this._hoverBox = new _readonlyHoverbox.ReadOnlyHoverbox(partnership, x, y, this.getShapes());
         } else {
-            this._hoverBox = new __WEBPACK_IMPORTED_MODULE_3__partnershipHoverbox__["a" /* PartnershipHoverbox */](partnership, x, y, this.getShapes());
+            this._hoverBox = new _partnershipHoverbox.PartnershipHoverbox(partnership, x, y, this.getShapes());
         }
         this.updateIDLabel();
 
@@ -56855,11 +56967,11 @@ const PartnershipVisuals = Class.create(__WEBPACK_IMPORTED_MODULE_0__abstractNod
         //console.log("partnership visuals end");
     },
 
-    updateIDLabel: function () {
+    updateIDLabel: function updateIDLabel() {
         var x = this.getX();
         var y = this.getY();
         this._idLabel && this._idLabel.remove();
-        this._idLabel = editor.getPaper().text(x, y - 20, editor.DEBUG_MODE ? this.getNode().getID() : "").attr(__WEBPACK_IMPORTED_MODULE_1__pedigreeEditorAttributes__["a" /* PedigreeEditorAttributes */].dragMeLabel).insertAfter(this._junctionShape.flatten());
+        this._idLabel = editor.getPaper().text(x, y - 20, editor.DEBUG_MODE ? this.getNode().getID() : "").attr(_pedigreeEditorAttributes.PedigreeEditorAttributes.dragMeLabel).insertAfter(this._junctionShape.flatten());
     },
 
     /**
@@ -56867,7 +56979,7 @@ const PartnershipVisuals = Class.create(__WEBPACK_IMPORTED_MODULE_0__abstractNod
      *
      * @method onSetID
      */
-    onSetID: function ($super, id) {
+    onSetID: function onSetID($super, id) {
         $super(id);
         this.updateIDLabel();
     },
@@ -56877,7 +56989,7 @@ const PartnershipVisuals = Class.create(__WEBPACK_IMPORTED_MODULE_0__abstractNod
      *
      * @method grow
      */
-    grow: function () {
+    grow: function grow() {
         if (this.area) return;
         this.area = this.getJunctionShape().clone().flatten().insertBefore(this.getJunctionShape().flatten());
         this.area.attr({ "fill": "green", stroke: "none" });
@@ -56890,7 +57002,7 @@ const PartnershipVisuals = Class.create(__WEBPACK_IMPORTED_MODULE_0__abstractNod
      *
      * @method shrink
      */
-    shrink: function () {
+    shrink: function shrink() {
         this.area && this.area.remove();
         delete this.area;
     },
@@ -56900,7 +57012,7 @@ const PartnershipVisuals = Class.create(__WEBPACK_IMPORTED_MODULE_0__abstractNod
      *
      * @method grow
      */
-    markPregnancy: function () {
+    markPregnancy: function markPregnancy() {
         // TODO: maybe mark pregnancy bubble?
         if (this.mark) return;
         this.mark = this.getJunctionShape().glow({ width: 10, fill: true, opacity: 0.3, color: "blue" }).insertBefore(this.getJunctionShape().flatten());
@@ -56911,16 +57023,16 @@ const PartnershipVisuals = Class.create(__WEBPACK_IMPORTED_MODULE_0__abstractNod
      *
      * @method unmark
      */
-    unmarkPregnancy: function () {
+    unmarkPregnancy: function unmarkPregnancy() {
         this.mark && this.mark.remove();
         delete this.mark;
     },
 
-    markPermanently: function () {
+    markPermanently: function markPermanently() {
         if (this.mark2) return;
         this.mark2 = this.getJunctionShape().glow({ width: 18, fill: true, opacity: 0.4, color: "#ee8d00" }).insertBefore(this.getJunctionShape().flatten());
     },
-    unmark: function () {
+    unmark: function unmark() {
         this.mark2 && this.mark2.remove();
         delete this.mark2;
     },
@@ -56931,7 +57043,7 @@ const PartnershipVisuals = Class.create(__WEBPACK_IMPORTED_MODULE_0__abstractNod
      * @method getJunctionShape
      * @return {Raphael.st}
      */
-    getJunctionShape: function () {
+    getJunctionShape: function getJunctionShape() {
         return this._junctionShape;
     },
 
@@ -56941,8 +57053,8 @@ const PartnershipVisuals = Class.create(__WEBPACK_IMPORTED_MODULE_0__abstractNod
      * @method getY
      * @return {Number} The y coordinate
      */
-    getBottomY: function () {
-        return this._absoluteY + __WEBPACK_IMPORTED_MODULE_1__pedigreeEditorAttributes__["a" /* PedigreeEditorAttributes */].partnershipRadius + __WEBPACK_IMPORTED_MODULE_1__pedigreeEditorAttributes__["a" /* PedigreeEditorAttributes */].childlessLength;
+    getBottomY: function getBottomY() {
+        return this._absoluteY + _pedigreeEditorAttributes.PedigreeEditorAttributes.partnershipRadius + _pedigreeEditorAttributes.PedigreeEditorAttributes.childlessLength;
     },
 
     /**
@@ -56950,7 +57062,7 @@ const PartnershipVisuals = Class.create(__WEBPACK_IMPORTED_MODULE_0__abstractNod
      *
      * @method updatePartnerConnections
      */
-    updatePartnerConnections: function () {
+    updatePartnerConnections: function updatePartnerConnections() {
         this._partnerConnections && this._partnerConnections.remove();
 
         editor.getPaper().setStart();
@@ -56964,13 +57076,13 @@ const PartnershipVisuals = Class.create(__WEBPACK_IMPORTED_MODULE_0__abstractNod
         if (nodeConsangrPreference == "N") consangr = false;
         if (nodeConsangrPreference == "Y") consangr = true;
 
-        var lineAttr = consangr ? __WEBPACK_IMPORTED_MODULE_1__pedigreeEditorAttributes__["a" /* PedigreeEditorAttributes */].consangrPartnershipLines : __WEBPACK_IMPORTED_MODULE_1__pedigreeEditorAttributes__["a" /* PedigreeEditorAttributes */].partnershipLines;
+        var lineAttr = consangr ? _pedigreeEditorAttributes.PedigreeEditorAttributes.consangrPartnershipLines : _pedigreeEditorAttributes.PedigreeEditorAttributes.partnershipLines;
 
         var partnerPaths = positionedGraph.getPathToParents(id); // partnerPaths = [ [virtual_node_11, ..., virtual_node_1n, parent1], [virtual_node_21, ..., virtual_node_2n, parent21] ]
 
         // TODO: a better curve algo for the entire curve at once?
         var smoothCorners = true;
-        var cornerRadius = __WEBPACK_IMPORTED_MODULE_1__pedigreeEditorAttributes__["a" /* PedigreeEditorAttributes */].curvedLinesCornerRadius;
+        var cornerRadius = _pedigreeEditorAttributes.PedigreeEditorAttributes.curvedLinesCornerRadius;
 
         for (var p = 0; p < partnerPaths.length; p++) {
             var path = partnerPaths[p];
@@ -56984,7 +57096,7 @@ const PartnershipVisuals = Class.create(__WEBPACK_IMPORTED_MODULE_0__abstractNod
             var finalPosition = editor.convertGraphCoordToCanvasCoord(nodePos.x, nodePos.y);
             var finalYTo = editor.convertGraphCoordToCanvasCoord(0, finalSegmentInfo.attachY).y;
             var yTop = editor.convertGraphCoordToCanvasCoord(0, finalSegmentInfo.verticalY).y;
-            var lastBend = finalYTo == yTop && yTop < this.getY() && finalSegmentInfo.attachmentPort == 1 ? Infinity : finalSegmentInfo.numAttachPorts > 1 ? __WEBPACK_IMPORTED_MODULE_1__pedigreeEditorAttributes__["a" /* PedigreeEditorAttributes */].radius * (1.8 + finalSegmentInfo.numAttachPorts * 0.1 - finalSegmentInfo.attachmentPort * 0.35) : __WEBPACK_IMPORTED_MODULE_1__pedigreeEditorAttributes__["a" /* PedigreeEditorAttributes */].radius * 1.6;
+            var lastBend = finalYTo == yTop && yTop < this.getY() && finalSegmentInfo.attachmentPort == 1 ? Infinity : finalSegmentInfo.numAttachPorts > 1 ? _pedigreeEditorAttributes.PedigreeEditorAttributes.radius * (1.8 + finalSegmentInfo.numAttachPorts * 0.1 - finalSegmentInfo.attachmentPort * 0.35) : _pedigreeEditorAttributes.PedigreeEditorAttributes.radius * 1.6;
             //console.log("Rel: " + id + ", Y: " + this.getY() + ", Attach/FinalY: " +finalYTo + ", yTOP: " + yTop + ", lastbend: " + lastBend + ", finalPos: " + stringifyObject(finalPosition));
 
             var goesLeft = false; // indicates if the current step fo the path is right-to-left or left-to-right            
@@ -57051,22 +57163,22 @@ const PartnershipVisuals = Class.create(__WEBPACK_IMPORTED_MODULE_0__abstractNod
                     if (newVertical && !vertical) {
                         // was horizontal, now vertical - draw the smooth corner Horiz->Vert (curve bends down)
                         if (xTo < xFrom) {
-                            __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_4__graphicHelpers__["a" /* drawCornerCurve */])(xFrom, yFrom, xFrom - cornerRadius, yFrom - cornerRadius, true, lineAttr, consangr, +2.5, -2.5, -2.5, +2.5);
+                            (0, _graphicHelpers.drawCornerCurve)(xFrom, yFrom, xFrom - cornerRadius, yFrom - cornerRadius, true, lineAttr, consangr, +2.5, -2.5, -2.5, +2.5);
                             xFrom -= cornerRadius;
                             yFrom -= cornerRadius;
                         } else {
-                            __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_4__graphicHelpers__["a" /* drawCornerCurve */])(xFrom, yFrom, xFrom + cornerRadius, yFrom - cornerRadius, true, lineAttr, consangr, +2.5, 2.5, -2.5, -2.5);
+                            (0, _graphicHelpers.drawCornerCurve)(xFrom, yFrom, xFrom + cornerRadius, yFrom - cornerRadius, true, lineAttr, consangr, +2.5, 2.5, -2.5, -2.5);
                             xFrom += cornerRadius;
                             yFrom -= cornerRadius;
                         }
                     } else if (!newVertical && vertical) {
                         // was vertical, now vertical - draw the smooth corner Vert->Horiz (curve bends up)
                         if (xTo < xFrom) {
-                            __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_4__graphicHelpers__["a" /* drawCornerCurve */])(xFrom, yFrom, xFrom - cornerRadius, yFrom - cornerRadius, false, lineAttr, consangr, -2.5, 2.5, 2.5, -2.5);
+                            (0, _graphicHelpers.drawCornerCurve)(xFrom, yFrom, xFrom - cornerRadius, yFrom - cornerRadius, false, lineAttr, consangr, -2.5, 2.5, 2.5, -2.5);
                             xFrom -= cornerRadius;
                             yFrom -= cornerRadius;
                         } else {
-                            __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_4__graphicHelpers__["a" /* drawCornerCurve */])(xFrom, yFrom, xFrom + cornerRadius, yFrom - cornerRadius, false, lineAttr, consangr, 2.5, 2.5, -2.5, -2.5);
+                            (0, _graphicHelpers.drawCornerCurve)(xFrom, yFrom, xFrom + cornerRadius, yFrom - cornerRadius, false, lineAttr, consangr, 2.5, 2.5, -2.5, -2.5);
                             xFrom += cornerRadius;
                             yFrom -= cornerRadius;
                         }
@@ -57098,8 +57210,8 @@ const PartnershipVisuals = Class.create(__WEBPACK_IMPORTED_MODULE_0__abstractNod
             var lostContact = !editor.getView().getNode(person).isProband() && editor.getView().getNode(person).getLostContact() && editor.getGraph().isPartnershipRelatedToProband(id);
             if (lostContact) {
                 var xCross = goesLeft ? this.getX() - 20 : this.getX() + 20;
-                var lineSize = __WEBPACK_IMPORTED_MODULE_1__pedigreeEditorAttributes__["a" /* PedigreeEditorAttributes */].notInContactLineSize;
-                editor.getPaper().path("M " + xCross + " " + (this.getY() - lineSize) + " L " + xCross + " " + (this.getY() + lineSize)).attr(__WEBPACK_IMPORTED_MODULE_1__pedigreeEditorAttributes__["a" /* PedigreeEditorAttributes */].noContactLines).toBack();
+                var lineSize = _pedigreeEditorAttributes.PedigreeEditorAttributes.notInContactLineSize;
+                editor.getPaper().path("M " + xCross + " " + (this.getY() - lineSize) + " L " + xCross + " " + (this.getY() + lineSize)).attr(_pedigreeEditorAttributes.PedigreeEditorAttributes.noContactLines).toBack();
             }
         }
 
@@ -57116,10 +57228,10 @@ const PartnershipVisuals = Class.create(__WEBPACK_IMPORTED_MODULE_0__abstractNod
      *
      * @method updateChildhubConnection
      */
-    updateChildhubConnection: function () {
+    updateChildhubConnection: function updateChildhubConnection() {
         this._childhubConnection && this._childhubConnection.remove();
 
-        var twinCommonVerticalPieceLength = __WEBPACK_IMPORTED_MODULE_1__pedigreeEditorAttributes__["a" /* PedigreeEditorAttributes */].twinCommonVerticalLength;
+        var twinCommonVerticalPieceLength = _pedigreeEditorAttributes.PedigreeEditorAttributes.twinCommonVerticalLength;
 
         var positionedGraph = editor.getGraph();
 
@@ -57158,16 +57270,16 @@ const PartnershipVisuals = Class.create(__WEBPACK_IMPORTED_MODULE_0__abstractNod
                 var positionY = editor.getView().getNode(allTwins[0]).getY();
                 currentTwinGroupCenterX = (positionL + positionR) / 2;
                 if (allTwins.length == 3) currentTwinGroupCenterX = editor.getView().getNode(allTwins[1]).getX();
-                editor.getView().drawLineWithCrossings(id, currentTwinGroupCenterX, childlineY, currentTwinGroupCenterX, childlineY + twinCommonVerticalPieceLength, __WEBPACK_IMPORTED_MODULE_1__pedigreeEditorAttributes__["a" /* PedigreeEditorAttributes */].partnershipLines);
+                editor.getView().drawLineWithCrossings(id, currentTwinGroupCenterX, childlineY, currentTwinGroupCenterX, childlineY + twinCommonVerticalPieceLength, _pedigreeEditorAttributes.PedigreeEditorAttributes.partnershipLines);
 
                 currentIsMonozygothic = editor.getView().getNode(allTwins[0]).getMonozygotic();
 
                 // draw the monozygothinc line, if necessary
                 if (currentIsMonozygothic) {
-                    var twinlineY = childlineY + __WEBPACK_IMPORTED_MODULE_1__pedigreeEditorAttributes__["a" /* PedigreeEditorAttributes */].twinMonozygothicLineShiftY;
-                    var xIntercept1 = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_4__graphicHelpers__["f" /* findXInterceptGivenLineAndY */])(twinlineY, currentTwinGroupCenterX, childlineY + twinCommonVerticalPieceLength, positionL, positionY);
-                    var xIntercept2 = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_4__graphicHelpers__["f" /* findXInterceptGivenLineAndY */])(twinlineY, currentTwinGroupCenterX, childlineY + twinCommonVerticalPieceLength, positionR, positionY);
-                    editor.getView().drawLineWithCrossings(id, xIntercept1, twinlineY, xIntercept2, twinlineY, __WEBPACK_IMPORTED_MODULE_1__pedigreeEditorAttributes__["a" /* PedigreeEditorAttributes */].partnershipLines);
+                    var twinlineY = childlineY + _pedigreeEditorAttributes.PedigreeEditorAttributes.twinMonozygothicLineShiftY;
+                    var xIntercept1 = (0, _graphicHelpers.findXInterceptGivenLineAndY)(twinlineY, currentTwinGroupCenterX, childlineY + twinCommonVerticalPieceLength, positionL, positionY);
+                    var xIntercept2 = (0, _graphicHelpers.findXInterceptGivenLineAndY)(twinlineY, currentTwinGroupCenterX, childlineY + twinCommonVerticalPieceLength, positionR, positionY);
+                    editor.getView().drawLineWithCrossings(id, xIntercept1, twinlineY, xIntercept2, twinlineY, _pedigreeEditorAttributes.PedigreeEditorAttributes.partnershipLines);
                 }
             } else if (twinGroupId == null) {
                 numPregnancies++;
@@ -57186,26 +57298,26 @@ const PartnershipVisuals = Class.create(__WEBPACK_IMPORTED_MODULE_0__abstractNod
             // draw regular child line - for all nodes which are not monozygothic twins and for the
             // rightmost and leftmost monozygothic twin
             if (!currentIsMonozygothic || childX == positionL || childX == positionR) {
-                editor.getView().drawLineWithCrossings(id, topLineX, topLineY, childX, childY, __WEBPACK_IMPORTED_MODULE_1__pedigreeEditorAttributes__["a" /* PedigreeEditorAttributes */].partnershipLines);
+                editor.getView().drawLineWithCrossings(id, topLineX, topLineY, childX, childY, _pedigreeEditorAttributes.PedigreeEditorAttributes.partnershipLines);
             } else {
-                var xIntercept = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_4__graphicHelpers__["f" /* findXInterceptGivenLineAndY */])(twinlineY, currentTwinGroupCenterX, childlineY + twinCommonVerticalPieceLength, childX, childY);
-                editor.getView().drawLineWithCrossings(id, xIntercept, twinlineY, childX, childY, __WEBPACK_IMPORTED_MODULE_1__pedigreeEditorAttributes__["a" /* PedigreeEditorAttributes */].partnershipLines);
+                var xIntercept = (0, _graphicHelpers.findXInterceptGivenLineAndY)(twinlineY, currentTwinGroupCenterX, childlineY + twinCommonVerticalPieceLength, childX, childY);
+                editor.getView().drawLineWithCrossings(id, xIntercept, twinlineY, childX, childY, _pedigreeEditorAttributes.PedigreeEditorAttributes.partnershipLines);
             }
 
             var lostContact = editor.getGraph().isChildOfProband(child) && editor.getView().getNode(child).getLostContact();
             if (lostContact) {
                 if (twinGroupId == null) {
-                    var lineSize = __WEBPACK_IMPORTED_MODULE_1__pedigreeEditorAttributes__["a" /* PedigreeEditorAttributes */].notInContactLineSize;
-                    editor.getPaper().path("M " + (topLineX - lineSize) + " " + (topLineY + 20) + " L " + (topLineX + lineSize) + " " + (topLineY + 20)).attr(__WEBPACK_IMPORTED_MODULE_1__pedigreeEditorAttributes__["a" /* PedigreeEditorAttributes */].noContactLines).toBack();
+                    var lineSize = _pedigreeEditorAttributes.PedigreeEditorAttributes.notInContactLineSize;
+                    editor.getPaper().path("M " + (topLineX - lineSize) + " " + (topLineY + 20) + " L " + (topLineX + lineSize) + " " + (topLineY + 20)).attr(_pedigreeEditorAttributes.PedigreeEditorAttributes.noContactLines).toBack();
                 } else {}
             }
         }
 
-        editor.getView().drawLineWithCrossings(id, leftmostX, childlineY, rightmostX, childlineY, __WEBPACK_IMPORTED_MODULE_1__pedigreeEditorAttributes__["a" /* PedigreeEditorAttributes */].partnershipLines);
-        editor.getView().drawLineWithCrossings(id, this.getX(), this.getY(), this.getX(), childlineY, __WEBPACK_IMPORTED_MODULE_1__pedigreeEditorAttributes__["a" /* PedigreeEditorAttributes */].partnershipLines);
+        editor.getView().drawLineWithCrossings(id, leftmostX, childlineY, rightmostX, childlineY, _pedigreeEditorAttributes.PedigreeEditorAttributes.partnershipLines);
+        editor.getView().drawLineWithCrossings(id, this.getX(), this.getY(), this.getX(), childlineY, _pedigreeEditorAttributes.PedigreeEditorAttributes.partnershipLines);
 
         //draw small non-functional childhub junction orb
-        if (numPregnancies > 1) editor.getPaper().circle(this.getX(), childlineY, __WEBPACK_IMPORTED_MODULE_1__pedigreeEditorAttributes__["a" /* PedigreeEditorAttributes */].partnershipRadius / 2).attr({ fill: "#666666", stroke: "#888888", "stroke-width": 1, "opacity": 1 });
+        if (numPregnancies > 1) editor.getPaper().circle(this.getX(), childlineY, _pedigreeEditorAttributes.PedigreeEditorAttributes.partnershipRadius / 2).attr({ fill: "#666666", stroke: "#888888", "stroke-width": 1, "opacity": 1 });
 
         this._childhubConnection = editor.getPaper().setFinish();
     },
@@ -57219,7 +57331,7 @@ const PartnershipVisuals = Class.create(__WEBPACK_IMPORTED_MODULE_0__abstractNod
      * @param {Boolean} animate Set to True to animate the transition
      * @param {Function} callback Executed at the end of the animation
      */
-    setPos: function ($super, x, y, animate, callback) {
+    setPos: function setPos($super, x, y, animate, callback) {
 
         this.getHoverBox().removeHandles();
         this.getHoverBox().removeButtons();
@@ -57244,7 +57356,7 @@ const PartnershipVisuals = Class.create(__WEBPACK_IMPORTED_MODULE_0__abstractNod
      *
      * @method remove
      */
-    remove: function () {
+    remove: function remove() {
         this.getJunctionShape().remove();
         this.getHoverBox().remove();
         this._idLabel && this._idLabel.remove();
@@ -57264,7 +57376,7 @@ const PartnershipVisuals = Class.create(__WEBPACK_IMPORTED_MODULE_0__abstractNod
      * @method getShapes
      * @return {Raphael.st}
      */
-    getShapes: function ($super) {
+    getShapes: function getShapes($super) {
         return $super().push(this.getJunctionShape());
     },
 
@@ -57275,7 +57387,7 @@ const PartnershipVisuals = Class.create(__WEBPACK_IMPORTED_MODULE_0__abstractNod
      * @method getAllGraphics
      * @return {Raphael.st}
      */
-    getAllGraphics: function ($super) {
+    getAllGraphics: function getAllGraphics($super) {
         return editor.getPaper().set(this.getHoverBox().getBackElements(), this._idLabel, this._childlessShape).concat($super()).push(this.getHoverBox().getFrontElements());
     },
 
@@ -57284,26 +57396,30 @@ const PartnershipVisuals = Class.create(__WEBPACK_IMPORTED_MODULE_0__abstractNod
      *
      * @method drawLabels
      */
-    drawLabels: function () {
+    drawLabels: function drawLabels() {
         // if need to add some - see PersonVisuals.drawLabels()
     }
 });
-/* harmony export (immutable) */ __webpack_exports__["a"] = PartnershipVisuals;
-
 
 //ATTACH CHILDLESS BEHAVIOR METHODS TO PARTNERSHIP
-PartnershipVisuals.addMethods(__WEBPACK_IMPORTED_MODULE_0__abstractNodeVisuals__["b" /* ChildlessBehaviorVisuals */]);
-/* WEBPACK VAR INJECTION */}.call(__webpack_exports__, __webpack_require__(27)))
+PartnershipVisuals.addMethods(_abstractNodeVisuals.ChildlessBehaviorVisuals);
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(27)))
 
 /***/ }),
-/* 171 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
+/* 170 */
+/***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__person__ = __webpack_require__(89);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__personGroupVisuals__ = __webpack_require__(173);
 
 
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+exports.PersonGroup = undefined;
+
+var _person = __webpack_require__(89);
+
+var _personGroupVisuals = __webpack_require__(172);
 
 /**
  * PersonGroup is node that represents a grouping of an unknown number of nodes ("n"). This type of
@@ -57318,9 +57434,9 @@ PartnershipVisuals.addMethods(__WEBPACK_IMPORTED_MODULE_0__abstractNodeVisuals__
  * @param {String} gender Either 'M', 'F' or 'U' depending on the gender
  * @param {Number} id Unique ID number
  */
-const PersonGroup = Class.create(__WEBPACK_IMPORTED_MODULE_0__person__["a" /* Person */], {
+var PersonGroup = exports.PersonGroup = Class.create(_person.Person, {
 
-    initialize: function ($super, x, y, id, properties) {
+    initialize: function initialize($super, x, y, id, properties) {
         this._numPersons = 1;
         this._comment = "";
         this._type = "PersonGroup";
@@ -57337,8 +57453,8 @@ const PersonGroup = Class.create(__WEBPACK_IMPORTED_MODULE_0__person__["a" /* Pe
      * @param {Number} y The y coordinate of hte PersonGroup Node
      * @return {PersonGroupVisuals}
      */
-    _generateGraphics: function (x, y) {
-        return new __WEBPACK_IMPORTED_MODULE_1__personGroupVisuals__["a" /* PersonGroupVisuals */](this, x, y);
+    _generateGraphics: function _generateGraphics(x, y) {
+        return new _personGroupVisuals.PersonGroupVisuals(this, x, y);
     },
 
     /**
@@ -57346,7 +57462,7 @@ const PersonGroup = Class.create(__WEBPACK_IMPORTED_MODULE_0__person__["a" /* Pe
      *
      * @method isProband
      */
-    isProband: function () {
+    isProband: function isProband() {
         return false;
     },
 
@@ -57356,7 +57472,7 @@ const PersonGroup = Class.create(__WEBPACK_IMPORTED_MODULE_0__person__["a" /* Pe
      * @method setNumPersons
      * @param {Number} numPersons The number of people in this grouping
      */
-    setNumPersons: function (numPersons) {
+    setNumPersons: function setNumPersons(numPersons) {
         this._numPersons = numPersons;
         this.getGraphics().setNumPersons(numPersons);
     },
@@ -57367,7 +57483,7 @@ const PersonGroup = Class.create(__WEBPACK_IMPORTED_MODULE_0__person__["a" /* Pe
      * @method getNumPersons
      * @return {Number}
      */
-    getNumPersons: function () {
+    getNumPersons: function getNumPersons() {
         return this._numPersons;
     },
 
@@ -57377,7 +57493,7 @@ const PersonGroup = Class.create(__WEBPACK_IMPORTED_MODULE_0__person__["a" /* Pe
      * @method setLifeStatus
      * @param {String} newStatus "alive", "deceased", "stillborn", "unborn", "aborted" or "miscarriage"
      */
-    setLifeStatus: function ($super, newStatus) {
+    setLifeStatus: function setLifeStatus($super, newStatus) {
         $super(newStatus);
         this.getGraphics().setNumPersons(this._numPersons); // force-redraw of the "N" symbol on top of the new shape
     },
@@ -57393,7 +57509,7 @@ const PersonGroup = Class.create(__WEBPACK_IMPORTED_MODULE_0__person__["a" /* Pe
        property: value
      }
      */
-    getProperties: function ($super) {
+    getProperties: function getProperties($super) {
         var info = $super();
         info["numPersons"] = this.getNumPersons();
         return info;
@@ -57406,7 +57522,7 @@ const PersonGroup = Class.create(__WEBPACK_IMPORTED_MODULE_0__person__["a" /* Pe
      * @param properties Object
      * @return {Boolean} True if info was successfully assigned
      */
-    assignProperties: function ($super, info) {
+    assignProperties: function assignProperties($super, info) {
         if ($super(info) && info.numPersons) {
             if (this.getNumPersons() != info.numPersons) {
                 this.setNumPersons(info.numPersons);
@@ -57422,7 +57538,7 @@ const PersonGroup = Class.create(__WEBPACK_IMPORTED_MODULE_0__person__["a" /* Pe
      * @method getSummary
      * @return {Object} Summary object for the menu
      */
-    getSummary: function () {
+    getSummary: function getSummary() {
         var disorders = [];
         this.getDisorders().forEach(function (disorder) {
             var disorderName = editor.getDisorderLegend().getDisorder(disorder).getName();
@@ -57446,18 +57562,22 @@ const PersonGroup = Class.create(__WEBPACK_IMPORTED_MODULE_0__person__["a" /* Pe
         };
     }
 });
-/* harmony export (immutable) */ __webpack_exports__["a"] = PersonGroup;
-
 
 /***/ }),
-/* 172 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
+/* 171 */
+/***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__personHoverbox__ = __webpack_require__(90);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__pedigreeEditorAttributes__ = __webpack_require__(12);
 
 
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+exports.PersonGroupHoverbox = undefined;
+
+var _personHoverbox = __webpack_require__(90);
+
+var _pedigreeEditorAttributes = __webpack_require__(12);
 
 /**
  * PersonGroupHoverbox is a class for all the UI elements and graphics surrounding a PersonGroup node and
@@ -57472,9 +57592,9 @@ const PersonGroup = Class.create(__WEBPACK_IMPORTED_MODULE_0__person__["a" /* Pe
  * @param {Raphael.st} nodeShapes Raphaël set containing the graphical elements that make up the node
  */
 
-const PersonGroupHoverbox = Class.create(__WEBPACK_IMPORTED_MODULE_0__personHoverbox__["a" /* PersonHoverbox */], {
-    initialize: function ($super, personNode, centerX, centerY, nodeShapes) {
-        var radius = __WEBPACK_IMPORTED_MODULE_1__pedigreeEditorAttributes__["a" /* PedigreeEditorAttributes */].radius * 2;
+var PersonGroupHoverbox = exports.PersonGroupHoverbox = Class.create(_personHoverbox.PersonHoverbox, {
+    initialize: function initialize($super, personNode, centerX, centerY, nodeShapes) {
+        var radius = _pedigreeEditorAttributes.PedigreeEditorAttributes.radius * 2;
         $super(personNode, centerX, centerY, nodeShapes);
     },
 
@@ -57484,10 +57604,10 @@ const PersonGroupHoverbox = Class.create(__WEBPACK_IMPORTED_MODULE_0__personHove
     * @method generateHandles
     * @return {Raphael.st} A set of handles
     */
-    generateHandles: function ($super) {
+    generateHandles: function generateHandles($super) {
         if (this._currentHandles !== null) return;
 
-        if (__WEBPACK_IMPORTED_MODULE_1__pedigreeEditorAttributes__["a" /* PedigreeEditorAttributes */].newHandles) {}
+        if (_pedigreeEditorAttributes.PedigreeEditorAttributes.newHandles) {}
         // TODO: singling handle for person groups?
 
         // else: no handles
@@ -57498,7 +57618,7 @@ const PersonGroupHoverbox = Class.create(__WEBPACK_IMPORTED_MODULE_0__personHove
      *
      * @method generateButtons
      */
-    generateButtons: function ($super) {
+    generateButtons: function generateButtons($super) {
         if (this._currentButtons !== null) return;
         $super();
 
@@ -57513,7 +57633,7 @@ const PersonGroupHoverbox = Class.create(__WEBPACK_IMPORTED_MODULE_0__personHove
      * @method isMenuToggled
      * @return {Boolean}
      */
-    isMenuToggled: function () {
+    isMenuToggled: function isMenuToggled() {
         return this._isMenuToggled;
     },
 
@@ -57522,7 +57642,7 @@ const PersonGroupHoverbox = Class.create(__WEBPACK_IMPORTED_MODULE_0__personHove
      *
      * @method toggleMenu
      */
-    toggleMenu: function (isMenuToggled) {
+    toggleMenu: function toggleMenu(isMenuToggled) {
         if (this._justClosedMenu) return;
         this._isMenuToggled = isMenuToggled;
         if (isMenuToggled) {
@@ -57540,7 +57660,7 @@ const PersonGroupHoverbox = Class.create(__WEBPACK_IMPORTED_MODULE_0__personHove
      *
      * @method animateHideHoverZone
      */
-    animateHideHoverZone: function ($super) {
+    animateHideHoverZone: function animateHideHoverZone($super) {
         this._hidden = true;
         if (!this.isMenuToggled()) {
             var parentPartnershipNode = editor.getGraph().getParentRelationship(this.getNode().getID());
@@ -57555,7 +57675,7 @@ const PersonGroupHoverbox = Class.create(__WEBPACK_IMPORTED_MODULE_0__personHove
      *
      * @method animateDrawHoverZone
      */
-    animateDrawHoverZone: function ($super) {
+    animateDrawHoverZone: function animateDrawHoverZone($super) {
         this._hidden = false;
         if (!this.isMenuToggled()) {
             var parentPartnershipNode = editor.getGraph().getParentRelationship(this.getNode().getID());
@@ -57564,22 +57684,26 @@ const PersonGroupHoverbox = Class.create(__WEBPACK_IMPORTED_MODULE_0__personHove
         }
     }
 });
-/* harmony export (immutable) */ __webpack_exports__["a"] = PersonGroupHoverbox;
-
 
 /***/ }),
-/* 173 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
+/* 172 */
+/***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__personVisuals__ = __webpack_require__(91);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__readonlyHoverbox__ = __webpack_require__(68);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__personGroupHoverbox__ = __webpack_require__(172);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__pedigreeEditorAttributes__ = __webpack_require__(12);
 
 
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+exports.PersonGroupVisuals = undefined;
 
+var _personVisuals = __webpack_require__(91);
 
+var _readonlyHoverbox = __webpack_require__(68);
+
+var _personGroupHoverbox = __webpack_require__(171);
+
+var _pedigreeEditorAttributes = __webpack_require__(12);
 
 /**
  * Class for organizing graphics for PersonGroup nodes.
@@ -57592,18 +57716,18 @@ const PersonGroupHoverbox = Class.create(__WEBPACK_IMPORTED_MODULE_0__personHove
  * @param {Number} y The y coordinate on the canvas
  */
 
-const PersonGroupVisuals = Class.create(__WEBPACK_IMPORTED_MODULE_0__personVisuals__["a" /* PersonVisuals */], {
+var PersonGroupVisuals = exports.PersonGroupVisuals = Class.create(_personVisuals.PersonVisuals, {
 
-    initialize: function ($super, node, x, y) {
+    initialize: function initialize($super, node, x, y) {
         $super(node, x, y);
         this.setNumPersons(node.getNumPersons());
     },
 
-    generateHoverbox: function (x, y) {
+    generateHoverbox: function generateHoverbox(x, y) {
         if (editor.isReadOnlyMode()) {
-            return new __WEBPACK_IMPORTED_MODULE_1__readonlyHoverbox__["a" /* ReadOnlyHoverbox */](this.getNode(), x, y, this.getGenderGraphics());
+            return new _readonlyHoverbox.ReadOnlyHoverbox(this.getNode(), x, y, this.getGenderGraphics());
         } else {
-            return new __WEBPACK_IMPORTED_MODULE_2__personGroupHoverbox__["a" /* PersonGroupHoverbox */](this.getNode(), x, y, this.getGenderGraphics());
+            return new _personGroupHoverbox.PersonGroupHoverbox(this.getNode(), x, y, this.getGenderGraphics());
         }
     },
 
@@ -57614,7 +57738,7 @@ const PersonGroupVisuals = Class.create(__WEBPACK_IMPORTED_MODULE_0__personVisua
      * @param [$super]
      * @return {Raphael.st} Raphael set containing graphics elements
      */
-    getAllGraphics: function ($super) {
+    getAllGraphics: function getAllGraphics($super) {
         return $super().push(this._label);
     },
 
@@ -57624,34 +57748,37 @@ const PersonGroupVisuals = Class.create(__WEBPACK_IMPORTED_MODULE_0__personVisua
      * @method setNumPersons
      * @param {Number} numPersons The number of people in this group
      */
-    setNumPersons: function (numPersons) {
+    setNumPersons: function setNumPersons(numPersons) {
         this._label && this._label.remove();
         var text = numPersons && numPersons > 1 ? String(numPersons) : "n";
         var y = this.getNode().getLifeStatus() == "aborted" || this.getNode().getLifeStatus() == "miscarriage" ? this.getY() - 12 : this.getY();
         var x = this.getNode().getLifeStatus() == "aborted" ? this.getX() + 8 : this.getX();
-        this._label = editor.getPaper().text(x, y, text).attr(__WEBPACK_IMPORTED_MODULE_3__pedigreeEditorAttributes__["a" /* PedigreeEditorAttributes */].descendantGroupLabel);
+        this._label = editor.getPaper().text(x, y, text).attr(_pedigreeEditorAttributes.PedigreeEditorAttributes.descendantGroupLabel);
         this._label.node.setAttribute("class", "no-mouse-interaction");
     }
 });
-/* harmony export (immutable) */ __webpack_exports__["a"] = PersonGroupVisuals;
-
 
 /***/ }),
-/* 174 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
+/* 173 */
+/***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__helpers__ = __webpack_require__(5);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__ordering__ = __webpack_require__(167);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__xcoordclass__ = __webpack_require__(93);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__queues__ = __webpack_require__(48);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__edgeOptimization__ = __webpack_require__(161);
-/* harmony export (immutable) */ __webpack_exports__["a"] = PositionedGraph;
 
 
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+exports.PositionedGraph = PositionedGraph;
 
+var _helpers = __webpack_require__(5);
 
+var _ordering = __webpack_require__(166);
 
+var _xcoordclass = __webpack_require__(92);
+
+var _queues = __webpack_require__(48);
+
+var _edgeOptimization = __webpack_require__(160);
 
 // PositionedGraph represents the pedigree tree projected to a 2D surface,
 //                 i.e. both the underlying graph and node & edge X and Y coordinates
@@ -57699,7 +57826,7 @@ PositionedGraph.prototype = {
     yExtraPerHorizontalLine: 4,
     yAttachPortHeight: 1.5,
 
-    initialize: function (baseG, horizontalPersonSeparationDist, horizontalRelSeparationDist, maxInitOrderingBuckets, maxOrderingIterations, maxXcoordIterations, performVerticalPositioning, suggestedRanks) {
+    initialize: function initialize(baseG, horizontalPersonSeparationDist, horizontalRelSeparationDist, maxInitOrderingBuckets, maxOrderingIterations, maxXcoordIterations, performVerticalPositioning, suggestedRanks) {
         if (horizontalPersonSeparationDist) this.horizontalPersonSeparationDist = horizontalPersonSeparationDist;
         if (horizontalRelSeparationDist) this.horizontalRelSeparationDist = horizontalRelSeparationDist;
         if (maxInitOrderingBuckets) this.maxInitOrderingBuckets = maxInitOrderingBuckets;
@@ -57708,7 +57835,7 @@ PositionedGraph.prototype = {
 
         if (this.maxInitOrderingBuckets > 8) throw "Too many ordering buckets: number of permutations (" + this.maxInitOrderingBuckets.toString() + "!) is too big";
 
-        var timer = new __WEBPACK_IMPORTED_MODULE_0__helpers__["g" /* Timer */]();
+        var timer = new _helpers.Timer();
 
         // 1)
         this.ranks = this.rank(baseG, suggestedRanks);
@@ -57770,7 +57897,7 @@ PositionedGraph.prototype = {
     },
 
     //=[rank]============================================================================
-    rank: function (baseG, suggestedRanks) {
+    rank: function rank(baseG, suggestedRanks) {
         // use the suggested ranks, if available.
         // Note: even if present, using suggested ranks may fail if inconsistencies are found
         //       e.g. if a user drew a new "child" edge from a node to a node with a higher or equal rank
@@ -57793,7 +57920,7 @@ PositionedGraph.prototype = {
     },
 
     // init ranks by computing a spanning tree over the directed graph, starting from the nodes with no parents
-    init_rank: function (baseG, suggestedRanks) {
+    init_rank: function init_rank(baseG, suggestedRanks) {
         //   Algorithm: nodes are placed in the queue when they have no unscanned in-edges.
         //   As nodes are taken off the queue, they are assigned the least rank
         //   that satisfies their in-edges, and their out-edges are marked as scanned.
@@ -57813,7 +57940,7 @@ PositionedGraph.prototype = {
             numRankedParents.push(0);
         }
 
-        var queue = new __WEBPACK_IMPORTED_MODULE_3__queues__["a" /* Queue */](); // holds non-ranked nodes which have all their parents already ranked
+        var queue = new _queues.Queue(); // holds non-ranked nodes which have all their parents already ranked
 
         if (suggestedRanks) {
             for (var i = 0; i < suggestedRanks.length; i++) {
@@ -57882,7 +58009,7 @@ PositionedGraph.prototype = {
         return ranks;
     },
 
-    lower_ranks: function (baseG, ranks) {
+    lower_ranks: function lower_ranks(baseG, ranks) {
         if (ranks.length <= 1) return; // no nodes or only 1 node
 
         // re-ranks all nodes as far down the tree as possible (e.g. people with no
@@ -57900,7 +58027,7 @@ PositionedGraph.prototype = {
         // 4. once any two components are merged need to redo the entire process because the new
         //    resuting component may have other minimum in/out multi-rnak edges
 
-        console.log("Re-ranking ranks before: " + __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__helpers__["c" /* stringifyObject */])(ranks));
+        console.log("Re-ranking ranks before: " + (0, _helpers.stringifyObject)(ranks));
 
         while (true) {
             var nodeColor = []; // for each node which component it belongs to
@@ -57923,7 +58050,7 @@ PositionedGraph.prototype = {
 
                     var potentialLongEdges = {};
 
-                    var queue = new __WEBPACK_IMPORTED_MODULE_3__queues__["a" /* Queue */]();
+                    var queue = new _queues.Queue();
                     queue.push(v);
 
                     while (queue.size() > 0) {
@@ -58006,14 +58133,14 @@ PositionedGraph.prototype = {
             //console.log("Re-ranking ranks update: " + stringifyObject(ranks));
         }
 
-        console.log("Ranks after re-ranking: " + __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__helpers__["c" /* stringifyObject */])(ranks));
+        console.log("Ranks after re-ranking: " + (0, _helpers.stringifyObject)(ranks));
     },
     //============================================================================[rank]=
 
 
     //=[ordering]========================================================================
-    ordering: function (maxInitOrderingBuckets, maxOrderingIterations, disconnectedTwins) {
-        if (this.GG.v.length == 0) return new __WEBPACK_IMPORTED_MODULE_1__ordering__["a" /* Ordering */]([], []); // empty graph
+    ordering: function ordering(maxInitOrderingBuckets, maxOrderingIterations, disconnectedTwins) {
+        if (this.GG.v.length == 0) return new _ordering.Ordering([], []); // empty graph
 
         var best = undefined;
         var bestCrossings = Infinity;
@@ -58037,7 +58164,7 @@ PositionedGraph.prototype = {
 
         var useStack = false;
 
-        var timer = new __WEBPACK_IMPORTED_MODULE_0__helpers__["g" /* Timer */]();
+        var timer = new _helpers.Timer();
 
         //permutationsRoots = [[27, 0, 5, 4, 8, 9, 1, 28]];
         //useStack = true;
@@ -58090,7 +58217,7 @@ PositionedGraph.prototype = {
         timer.printSinceLast("Initial ordering: ");
         var bestEdgeLengthScore = this.edge_length_score(best);
 
-        console.log("Initial ordering: " + __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__helpers__["c" /* stringifyObject */])(best.order));
+        console.log("Initial ordering: " + (0, _helpers.stringifyObject)(best.order));
         console.log("Initial ordering:  numCrossings= " + bestCrossings + ",  edhgeLengthScore= " + bestEdgeLengthScore);
 
         //this.reconnectRootlessPartners(best, rootlessPartners);
@@ -58153,13 +58280,13 @@ PositionedGraph.prototype = {
         timer.printSinceLast("Ordering long edges: ");
 
         console.log("Ordering stats:  initOrderIter= " + initOrderIterTotal + ",  reOrderingIter= " + i + ",  noChangeIterations= " + noChangeIterations);
-        console.log("Final ordering: " + __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__helpers__["c" /* stringifyObject */])(best.order));
+        console.log("Final ordering: " + (0, _helpers.stringifyObject)(best.order));
         console.log("Final ordering:  numCrossings= " + newBestCrossings);
 
         return best;
     },
 
-    findAllRootlessPartners: function (leafAndRootlessInfo) {
+    findAllRootlessPartners: function findAllRootlessPartners(leafAndRootlessInfo) {
         // finds all people without parents which are only connected to one non-rootless node.
         // we know it should be placed right next to that partner in any optimal ordering
 
@@ -58186,7 +58313,7 @@ PositionedGraph.prototype = {
         return rootlessPartners;
     },
 
-    disconnectRootlessPartners: function (rootlessPartners) {
+    disconnectRootlessPartners: function disconnectRootlessPartners(rootlessPartners) {
         for (var p in rootlessPartners) {
             if (rootlessPartners.hasOwnProperty(p)) {
                 var rootless = rootlessPartners[p];
@@ -58196,13 +58323,13 @@ PositionedGraph.prototype = {
                     var relNode = outEdges[0];
 
                     // remove edge v->relNode from the graph. Only remove the in-edge, as outedge will never be scanned
-                    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__helpers__["j" /* removeFirstOccurrenceByValue */])(this.GG.inedges[relNode], v); // was [p,v], becomes [p]
+                    (0, _helpers.removeFirstOccurrenceByValue)(this.GG.inedges[relNode], v); // was [p,v], becomes [p]
                 }
             }
         }
     },
 
-    reconnectRootlessPartners: function (order, rootlessPartners) {
+    reconnectRootlessPartners: function reconnectRootlessPartners(order, rootlessPartners) {
         //console.log("Order before reconnect rootless: " + stringifyObject(order));
 
         for (var p in rootlessPartners) {
@@ -58254,7 +58381,7 @@ PositionedGraph.prototype = {
         //console.log("Order after reconnect rootless: " + stringifyObject(order));
     },
 
-    findLeafSiblings: function (leafAndRootlessInfo) {
+    findLeafSiblings: function findLeafSiblings(leafAndRootlessInfo) {
         // finds all siblings of non-leaf people which are leaves
 
         var leafSiblings = {};
@@ -58287,7 +58414,7 @@ PositionedGraph.prototype = {
         return leafSiblings;
     },
 
-    disconnectLeafSiblings: function (leafSiblings) {
+    disconnectLeafSiblings: function disconnectLeafSiblings(leafSiblings) {
         for (var p in leafSiblings) {
             if (leafSiblings.hasOwnProperty(p)) {
                 var leaves = leafSiblings[p];
@@ -58297,13 +58424,13 @@ PositionedGraph.prototype = {
                     // remove edge p->l from the graph
                     // (don't bother about the weight, and ignore in-edge as it wil never be scanned before re-connection)
 
-                    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__helpers__["j" /* removeFirstOccurrenceByValue */])(this.GG.v[p], l);
+                    (0, _helpers.removeFirstOccurrenceByValue)(this.GG.v[p], l);
                 }
             }
         }
     },
 
-    reconnectLeafSiblings: function (order, leafSiblings) {
+    reconnectLeafSiblings: function reconnectLeafSiblings(order, leafSiblings) {
         //console.log("Order before reconnect leaves: " + stringifyObject(order));
 
         for (var p in leafSiblings) {
@@ -58351,7 +58478,7 @@ PositionedGraph.prototype = {
         //console.log("Order after reconnect leaves: " + stringifyObject(order));
     },
 
-    disconnectTwins: function () {
+    disconnectTwins: function disconnectTwins() {
         var disconnectedTwins = {};
 
         var handled = {};
@@ -58375,7 +58502,7 @@ PositionedGraph.prototype = {
                 // 4) add twin to the backup list of twins of v
 
                 // 1
-                __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__helpers__["j" /* removeFirstOccurrenceByValue */])(this.GG.v[childhub], twin);
+                (0, _helpers.removeFirstOccurrenceByValue)(this.GG.v[childhub], twin);
                 // 2 + 3
                 var outEdges = this.GG.getOutEdges(twin);
                 for (var j = 0; j < outEdges.length; j++) {
@@ -58398,7 +58525,7 @@ PositionedGraph.prototype = {
         return disconnectedTwins;
     },
 
-    reconnectTwins: function (disconnectedTwins) {
+    reconnectTwins: function reconnectTwins(disconnectedTwins) {
         for (var v in disconnectedTwins) {
             if (disconnectedTwins.hasOwnProperty(v)) {
 
@@ -58410,7 +58537,7 @@ PositionedGraph.prototype = {
 
                 // sort twins by number of reationships, so that twins with no relationships are inserted last
                 var GG = this.GG;
-                var byNumberOfRelationships = function (a, b) {
+                var byNumberOfRelationships = function byNumberOfRelationships(a, b) {
                     var an = GG.getOutEdges(a).length;
                     var bn = GG.getOutEdges(b).length;
                     return bn - an;
@@ -58429,8 +58556,8 @@ PositionedGraph.prototype = {
                     var outEdges = this.GG.getOutEdges(twin);
                     for (var j = 0; j < outEdges.length; j++) {
                         var rel = outEdges[j];
-                        __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__helpers__["j" /* removeFirstOccurrenceByValue */])(this.GG.inedges[rel], v);
-                        __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__helpers__["j" /* removeFirstOccurrenceByValue */])(this.GG.v[v], rel);
+                        (0, _helpers.removeFirstOccurrenceByValue)(this.GG.inedges[rel], v);
+                        (0, _helpers.removeFirstOccurrenceByValue)(this.GG.v[v], rel);
 
                         // need to keep in mind the spcial case of two twins in a relationship; if
                         // there is no relationship => weight[v][rel] == weight[twin][rel]
@@ -58487,7 +58614,7 @@ PositionedGraph.prototype = {
         }
     },
 
-    computePossibleParentlessNodePermutations: function (maxInitOrderingBuckets, leafAndRootlessInfo, rootlessPartners) {
+    computePossibleParentlessNodePermutations: function computePossibleParentlessNodePermutations(maxInitOrderingBuckets, leafAndRootlessInfo, rootlessPartners) {
         // 1) split all parentless nodes into at most maxInitOrderingBuckets groups/buckets
         // 2) compute all possible permutations of these groups discarding mirror copies (e.g. [1,2,3] and [3,2,1])
         // 3) return the list of permutations, with the default ordering first in the list
@@ -58507,7 +58634,9 @@ PositionedGraph.prototype = {
         for (var p in rootlessPartners) {
             if (rootlessPartners.hasOwnProperty(p)) {
                 var rootless = rootlessPartners[p];
-                for (var i = 0; i < rootless.length; i++) handled[rootless[i]] = true; // those nodes will be automatically added at correct ordering later
+                for (var i = 0; i < rootless.length; i++) {
+                    handled[rootless[i]] = true;
+                } // those nodes will be automatically added at correct ordering later
             }
         }
 
@@ -58545,9 +58674,9 @@ PositionedGraph.prototype = {
         var permutations = [];
 
         // Now compute all possible permutations of the buckets
-        __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__helpers__["n" /* permute2DArrayInFirstDimension */])(permutations, buckets, 0);
+        (0, _helpers.permute2DArrayInFirstDimension)(permutations, buckets, 0);
 
-        __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__helpers__["o" /* printObject */])(buckets);
+        (0, _helpers.printObject)(buckets);
         //printObject(permutations);
         //permutations = [ leafAndRootlessInfo.parentlessNodes ];  //DEBUG: no permutations
         //permutations = [[5,4,0,1,2,9]];
@@ -58557,7 +58686,7 @@ PositionedGraph.prototype = {
         return permutations;
     },
 
-    computePossibleLeafNodePermutations: function (maxInitOrderingBuckets, leafAndRootlessInfo, leafSiblings, disconnectedTwins) {
+    computePossibleLeafNodePermutations: function computePossibleLeafNodePermutations(maxInitOrderingBuckets, leafAndRootlessInfo, leafSiblings, disconnectedTwins) {
         // see computePossibleParentlessNodePermutations
 
         var buckets = [];
@@ -58569,13 +58698,17 @@ PositionedGraph.prototype = {
         for (var p in leafSiblings) {
             if (leafSiblings.hasOwnProperty(p)) {
                 var leaves = leafSiblings[p];
-                for (var i = 0; i < leaves.length; i++) handled[leaves[i]] = true; // these nodes (leaves) will be automatically added at correct ordering later
+                for (var i = 0; i < leaves.length; i++) {
+                    handled[leaves[i]] = true;
+                } // these nodes (leaves) will be automatically added at correct ordering later
             }
         }
         for (var p in disconnectedTwins) {
             if (disconnectedTwins.hasOwnProperty(p)) {
                 var twins = disconnectedTwins[p];
-                for (var i = 0; i < twins.length; i++) handled[twins[i]] = true; // these nodes (twis) will be automatically added at correct ordering later
+                for (var i = 0; i < twins.length; i++) {
+                    handled[twins[i]] = true;
+                } // these nodes (twis) will be automatically added at correct ordering later
             }
         }
 
@@ -58616,23 +58749,23 @@ PositionedGraph.prototype = {
         var permutations = [];
 
         // Now compute all possible permutations of the buckets
-        __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__helpers__["n" /* permute2DArrayInFirstDimension */])(permutations, buckets, 0);
+        (0, _helpers.permute2DArrayInFirstDimension)(permutations, buckets, 0);
 
-        __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__helpers__["o" /* printObject */])(buckets);
+        (0, _helpers.printObject)(buckets);
         console.log("Found " + permutations.length + " permutations of leaf nodes");
 
         return permutations;
     },
 
-    mergeBucketsUntilNoMoreThanGivenLeft: function (buckets, maxInitOrderingBuckets, useInEdges) {
-        console.log("original buckets: " + __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__helpers__["c" /* stringifyObject */])(buckets));
+    mergeBucketsUntilNoMoreThanGivenLeft: function mergeBucketsUntilNoMoreThanGivenLeft(buckets, maxInitOrderingBuckets, useInEdges) {
+        console.log("original buckets: " + (0, _helpers.stringifyObject)(buckets));
 
-        while (buckets.length > maxInitOrderingBuckets && this.mergeMostRelatedBuckets(buckets, useInEdges));
+        while (buckets.length > maxInitOrderingBuckets && this.mergeMostRelatedBuckets(buckets, useInEdges)) {}
 
-        console.log("merged buckets: " + __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__helpers__["c" /* stringifyObject */])(buckets));
+        console.log("merged buckets: " + (0, _helpers.stringifyObject)(buckets));
     },
 
-    mergeMostRelatedBuckets: function (buckets, useInEdges) {
+    mergeMostRelatedBuckets: function mergeMostRelatedBuckets(buckets, useInEdges) {
         // 1. find two most related buckets
         // 2. merge the buckets
 
@@ -58644,20 +58777,20 @@ PositionedGraph.prototype = {
 
         //var timer = new Timer();
 
-        for (var i = 0; i < buckets.length - 1; i++) for (var j = i + 1; j < buckets.length; j++) {
-            var dist = this.findDistanceBetweenBuckets(buckets[i], buckets[j], useInEdges);
+        for (var i = 0; i < buckets.length - 1; i++) {
+            for (var j = i + 1; j < buckets.length; j++) {
+                var dist = this.findDistanceBetweenBuckets(buckets[i], buckets[j], useInEdges);
 
-            //console.log("distance between buckets " + i + " and " + j + " is " + dist);
+                //console.log("distance between buckets " + i + " and " + j + " is " + dist);
 
-            // pick most closely related buckets for merging. Break ties by bucket size (prefer smaller resulting buckets)
-            if (dist < minDistance || dist == minDistance && buckets[i].length + buckets[j].length < buckets[bucket1].length + buckets[bucket2].length) {
-                minDistance = dist;
-                bucket1 = i;
-                bucket2 = j;
+                // pick most closely related buckets for merging. Break ties by bucket size (prefer smaller resulting buckets)
+                if (dist < minDistance || dist == minDistance && buckets[i].length + buckets[j].length < buckets[bucket1].length + buckets[bucket2].length) {
+                    minDistance = dist;
+                    bucket1 = i;
+                    bucket2 = j;
+                }
             }
-        }
-
-        //timer.printSinceLast("Compute distance between buckets: ");
+        } //timer.printSinceLast("Compute distance between buckets: ");
 
         if (minDistance == Infinity) {
             throw "Assumption failed: unrelated buckets";
@@ -58675,17 +58808,18 @@ PositionedGraph.prototype = {
         return true; // was able to merge some buckets
     },
 
-    findDistanceBetweenBuckets: function (bucket1nodes, bucket2nodes, useInEdges) {
+    findDistanceBetweenBuckets: function findDistanceBetweenBuckets(bucket1nodes, bucket2nodes, useInEdges) {
         // only looks for common relatives in one direction: using inEdges iff useInEdges and outEdges otherwise
         var distance = [];
 
-        for (var i = 0; i < bucket1nodes.length; i++) distance[bucket1nodes[i]] = 1;
-        for (var i = 0; i < bucket2nodes.length; i++) distance[bucket2nodes[i]] = -1;
-
-        var queue1 = new __WEBPACK_IMPORTED_MODULE_3__queues__["a" /* Queue */]();
+        for (var i = 0; i < bucket1nodes.length; i++) {
+            distance[bucket1nodes[i]] = 1;
+        }for (var i = 0; i < bucket2nodes.length; i++) {
+            distance[bucket2nodes[i]] = -1;
+        }var queue1 = new _queues.Queue();
         queue1.setTo(bucket1nodes);
 
-        var queue2 = new __WEBPACK_IMPORTED_MODULE_3__queues__["a" /* Queue */]();
+        var queue2 = new _queues.Queue();
         queue2.setTo(bucket2nodes);
 
         var iter = 0; // safeguard against infinite loop
@@ -58694,7 +58828,7 @@ PositionedGraph.prototype = {
 
             if (queue1.size() == 0 && queue2.size() == 0) return Infinity; // buckets are not related/not mergeable
 
-            var nextQueue1 = new __WEBPACK_IMPORTED_MODULE_3__queues__["a" /* Queue */]();
+            var nextQueue1 = new _queues.Queue();
             while (queue1.size() > 0) {
                 var nextNode = queue1.pop();
 
@@ -58711,7 +58845,7 @@ PositionedGraph.prototype = {
             }
             queue1 = nextQueue1;
 
-            var nextQueue2 = new __WEBPACK_IMPORTED_MODULE_3__queues__["a" /* Queue */]();
+            var nextQueue2 = new _queues.Queue();
             while (queue2.size() > 0) {
                 var nextNode = queue2.pop();
 
@@ -58732,7 +58866,7 @@ PositionedGraph.prototype = {
         throw "Assertion failed: possible loop detected";
     },
 
-    init_order_top_to_bottom: function (parentlessNodes, useStack) {
+    init_order_top_to_bottom: function init_order_top_to_bottom(parentlessNodes, useStack) {
         // initially orders the nodes in each rank by a depth-first or breadth-first
         // searches starting with vertices of minimum rank. Vertices are assigned positions
         // in their ranks in left-to-right order as the search progresses.
@@ -58740,12 +58874,12 @@ PositionedGraph.prototype = {
         var order = []; // array of arrays - for each rank list of vertices in order
         var vOrder = []; // array - for each v vOrder[v] = order within rank
 
-        for (var r = 0; r <= this.maxRank; r++) order[r] = [];
-
-        for (var i = 0; i < this.GG.getNumVertices(); i++) vOrder[i] = undefined;
-
-        // Use BFS -----------------------------
-        var queue = useStack ? new __WEBPACK_IMPORTED_MODULE_3__queues__["b" /* Stack */]() : new __WEBPACK_IMPORTED_MODULE_3__queues__["a" /* Queue */]();
+        for (var r = 0; r <= this.maxRank; r++) {
+            order[r] = [];
+        }for (var i = 0; i < this.GG.getNumVertices(); i++) {
+            vOrder[i] = undefined;
+        } // Use BFS -----------------------------
+        var queue = useStack ? new _queues.Stack() : new _queues.Queue();
         queue.setTo(parentlessNodes);
 
         //console.log("Use stacK: " + useStack + ", parentless: " + stringifyObject(parentlessNodes));
@@ -58768,17 +58902,19 @@ PositionedGraph.prototype = {
             //alreadyOrderedSortFunc = function(a,b){return b-a};
             //outEdges.sort(alreadyOrderedSortFunc);
 
-            for (var u = 0; u < outEdges.length; u++) queue.push(outEdges[u]);
+            for (var u = 0; u < outEdges.length; u++) {
+                queue.push(outEdges[u]);
+            }
         }
         //--------------------------------------
 
         //var o = new Ordering(order, vOrder);
         //printObject(o);
         //return o;
-        return new __WEBPACK_IMPORTED_MODULE_1__ordering__["a" /* Ordering */](order, vOrder);
+        return new _ordering.Ordering(order, vOrder);
     },
 
-    init_order_bottom_to_top: function (leafNodes, useStack) {
+    init_order_bottom_to_top: function init_order_bottom_to_top(leafNodes, useStack) {
         // initially orders the nodes in each rank using depth-first or breadth-first
         // searches starting with he leaf vertices. Vertices are assigned positions in
         // their ranks in left-to-right order as the search progresses.
@@ -58786,11 +58922,11 @@ PositionedGraph.prototype = {
         var order = []; // array of arrays - for each rank list of vertices in order
         var vOrder = []; // array - for each v vOrder[v] = order within rank
 
-        for (var r = 0; r <= this.maxRank; r++) order[r] = [];
-
-        for (var i = 0; i < this.GG.getNumVertices(); i++) vOrder[i] = undefined;
-
-        var queue = useStack ? new __WEBPACK_IMPORTED_MODULE_3__queues__["b" /* Stack */]() : new __WEBPACK_IMPORTED_MODULE_3__queues__["a" /* Queue */]();
+        for (var r = 0; r <= this.maxRank; r++) {
+            order[r] = [];
+        }for (var i = 0; i < this.GG.getNumVertices(); i++) {
+            vOrder[i] = undefined;
+        }var queue = useStack ? new _queues.Stack() : new _queues.Queue();
         queue.setTo(leafNodes);
 
         while (queue.size() > 0) {
@@ -58808,13 +58944,15 @@ PositionedGraph.prototype = {
             // add all children to the queue
             var inEdges = this.GG.getInEdges(next);
 
-            for (var u = 0; u < inEdges.length; u++) queue.push(inEdges[u]);
+            for (var u = 0; u < inEdges.length; u++) {
+                queue.push(inEdges[u]);
+            }
         }
 
-        return new __WEBPACK_IMPORTED_MODULE_1__ordering__["a" /* Ordering */](order, vOrder);
+        return new _ordering.Ordering(order, vOrder);
     },
 
-    edge_length_score: function (order, onlyRank) {
+    edge_length_score: function edge_length_score(order, onlyRank) {
         // Returns the penalty score that penalizes:
         //   higher priority: people in a relationship being far from each other
         //                    (higher penalty for greater distance)
@@ -58891,7 +59029,7 @@ PositionedGraph.prototype = {
         return totalEdgeLengthInPositions * 100000 + totalEdgeLengthInChildren * 1000 + totalPenaltyForFatherOnRight * 5 + totalPenaltyForChildAgeOrder;
     },
 
-    edge_crossing: function (order, onlyRank, dontUseApproximationForRelationshipEdges) {
+    edge_crossing: function edge_crossing(order, onlyRank, dontUseApproximationForRelationshipEdges) {
         // Counts edge crossings in the graph accoring to given node ordering.
         //
         // Iff onlyRank is defined, only counts edge crossings affected by re-ordering of
@@ -58960,7 +59098,7 @@ PositionedGraph.prototype = {
         return numCrossings;
     },
 
-    _edge_crossing_crossingsByOneEdge: function (order, v, targetV) {
+    _edge_crossing_crossingsByOneEdge: function _edge_crossing_crossingsByOneEdge(order, v, targetV) {
         // Crossing occurs if either
         // 1) there is an edge going from rank[v]-ranked vertex with a smaller order
         //     than v to a rank[targetV]-ranked vertex with a larger order than targetV
@@ -59015,7 +59153,7 @@ PositionedGraph.prototype = {
         return crossings;
     },
 
-    numNodesWithParentsInBetween: function (order, rank, order1, order2) {
+    numNodesWithParentsInBetween: function numNodesWithParentsInBetween(order, rank, order1, order2) {
         // TODO: while this function correctly computes what its name suggests, it is
         //       actually used to compute number of crossings for same-rank edges. And for that
         //       need not only to sompute nodes with parents, but correctly compute crossings of
@@ -59061,7 +59199,7 @@ PositionedGraph.prototype = {
     },
 
     //-[wmedian]-------------------------------------------------------------------------
-    wmedian: function (order, iter) {
+    wmedian: function wmedian(order, iter) {
         // The weighted median heuristic: depending on the parity of the current iteration number,
         // the ranks are traversed from top to bottom or from bottom to top.
 
@@ -59098,7 +59236,7 @@ PositionedGraph.prototype = {
         return changed;
     },
 
-    median_value: function (order, v, adj_rank) {
+    median_value: function median_value(order, v, adj_rank) {
         var P = this.adj_position(order, v, adj_rank);
 
         if (P.length == 0) return -1.0;
@@ -59115,7 +59253,7 @@ PositionedGraph.prototype = {
         return (P[m - 1] * right + P[m] * left) / (left + right);
     },
 
-    adj_position: function (order, v, adj_rank) {
+    adj_position: function adj_position(order, v, adj_rank) {
         // returns an ordered array of the present positions of the nodes
         // adjacent to v in the given adjacent rank.
         var result = [];
@@ -59133,9 +59271,9 @@ PositionedGraph.prototype = {
         return result;
     },
 
-    sort_orders: function (order, rank, weightToUseForThisRank) {
+    sort_orders: function sort_orders(order, rank, weightToUseForThisRank) {
 
-        var sortfunc = function (a, b) {
+        var sortfunc = function sortfunc(a, b) {
             return weightToUseForThisRank[a] - weightToUseForThisRank[b];
         };
 
@@ -59158,7 +59296,7 @@ PositionedGraph.prototype = {
     },
     //-------------------------------------------------------------------------[wmedian]-
 
-    isChhubsOrderOK: function (rank, order) {
+    isChhubsOrderOK: function isChhubsOrderOK(rank, order) {
         for (var i = 0; i < order.order[rank].length - 1; i++) {
             var v = order.order[rank][i];
             if (!this.GG.isChildhub(v)) continue;
@@ -59178,9 +59316,9 @@ PositionedGraph.prototype = {
         return true;
     },
 
-    placeChhubsInCorrectOrder: function (rank, order) {
+    placeChhubsInCorrectOrder: function placeChhubsInCorrectOrder(rank, order) {
         var GG = this.GG;
-        var byRelOrder = function (a, b) {
+        var byRelOrder = function byRelOrder(a, b) {
             var above1 = GG.getInEdges(a)[0];
             var above2 = GG.getInEdges(b)[0];
             if (above1 == above2) {
@@ -59191,10 +59329,12 @@ PositionedGraph.prototype = {
         };
         order.order[rank].sort(byRelOrder);
 
-        for (var i = 0; i < order.order[rank].length; i++) order.vOrder[order.order[rank][i]] = i;
+        for (var i = 0; i < order.order[rank].length; i++) {
+            order.vOrder[order.order[rank][i]] = i;
+        }
     },
 
-    transpose: function (order, doMinorImprovements, stopIfMoreThanCrossings) {
+    transpose: function transpose(order, doMinorImprovements, stopIfMoreThanCrossings) {
         // for each rank: goes over all vertices in the rank and tries to switch orders of two
         //                adjacent vertices. If numCrossings is improved keeps the new order.
         //                repeats for each rank, and if there was an improvementg tries again.
@@ -59272,16 +59412,16 @@ PositionedGraph.prototype = {
         //if (doMinorImprovements) printObject(order);
     },
 
-    transposeLongEdges: function (order, numCrossings, postReRanking) {
+    transposeLongEdges: function transposeLongEdges(order, numCrossings, postReRanking) {
         if (numCrossings == 0) return numCrossings;
 
         var maxRealId = this.GG.getMaxRealVertexId();
         var numVert = this.GG.getNumVertices();
 
         var checked = [];
-        for (var v = maxRealId + 1; v < numVert; v++) checked[v] = false;
-
         for (var v = maxRealId + 1; v < numVert; v++) {
+            checked[v] = false;
+        }for (var v = maxRealId + 1; v < numVert; v++) {
 
             if (checked[v] || this.ranks[v] == 0) continue;
 
@@ -59290,9 +59430,9 @@ PositionedGraph.prototype = {
 
             // start from head node - the first virtual node
             var head = v;
-            while (this.GG.isVirtual(this.GG.getInEdges(head)[0])) head = this.GG.getInEdges(head)[0];
-
-            var chain = [];
+            while (this.GG.isVirtual(this.GG.getInEdges(head)[0])) {
+                head = this.GG.getInEdges(head)[0];
+            }var chain = [];
             var next = head;
 
             // go towards the tail through out-edges
@@ -59306,7 +59446,7 @@ PositionedGraph.prototype = {
             var bestScore = numCrossings;
             var bestOrder = undefined;
 
-            console.log("Optimizing long edge placement: chain " + __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__helpers__["c" /* stringifyObject */])(chain));
+            console.log("Optimizing long edge placement: chain " + (0, _helpers.stringifyObject)(chain));
 
             // try to find best placement: brute force, try to reposition up to 3 pieces at a time simultaneously
             // checking all possible positions for the pieces in question up to 4 positions to the left or right
@@ -59373,7 +59513,7 @@ PositionedGraph.prototype = {
     //========================================================================[ordering]=
 
     //=====================================================================[re-ordering]=
-    reRankRelationships: function () {
+    reRankRelationships: function reRankRelationships() {
         // re-rank all relationship nodes to be on the same level as the lower ranked
         // parent. Attempt to place the re-ranked node next to one of the parents;
         // having ordering info helps to pick the parent & the location.
@@ -59455,7 +59595,7 @@ PositionedGraph.prototype = {
                 var order1 = this.order.vOrder[parents[0]];
                 var order2 = this.order.vOrder[parents[1]];
 
-                if (order2 == order1 + 1) throw "Assertion failed: all relationship with parents next to each other are already handled (for parents: " + __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__helpers__["c" /* stringifyObject */])(parents) + ")";
+                if (order2 == order1 + 1) throw "Assertion failed: all relationship with parents next to each other are already handled (for parents: " + (0, _helpers.stringifyObject)(parents) + ")";
 
                 var insertOrder = order1 + 1; // set some default in case all other heuroistics fail
 
@@ -59546,11 +59686,11 @@ PositionedGraph.prototype = {
         var edgeCrossings = this.edge_crossing(this.order, false, true);
         this.transposeLongEdges(this.order, edgeCrossings, true);
 
-        console.log("Final re-ordering: " + __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__helpers__["c" /* stringifyObject */])(this.order.order));
-        console.log("Final ranks: " + __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__helpers__["c" /* stringifyObject */])(this.ranks));
+        console.log("Final re-ordering: " + (0, _helpers.stringifyObject)(this.order.order));
+        console.log("Final ranks: " + (0, _helpers.stringifyObject)(this.ranks));
     },
 
-    moveVertexToRankAndOrder: function (v, newRank, newOrder) {
+    moveVertexToRankAndOrder: function moveVertexToRankAndOrder(v, newRank, newOrder) {
         var oldRank = this.ranks[v];
         var oldOrder = this.order.vOrder[v];
 
@@ -59558,7 +59698,7 @@ PositionedGraph.prototype = {
         this.ranks[v] = newRank;
     },
 
-    swapChildrenIfAllAToTheLeftOfB: function (leftRel, rightRel) {
+    swapChildrenIfAllAToTheLeftOfB: function swapChildrenIfAllAToTheLeftOfB(leftRel, rightRel) {
         // we assume that during re-ordering relationship `leftRel` which used ot be to the left or relationship `rightRel`
         // is now to the right of `rightRel`. This may have introduced some unnecessary crossed edges. Fix those by swapping
         // the order of relationship children as well, if it clearly wont break other things, e.g.
@@ -59576,7 +59716,7 @@ PositionedGraph.prototype = {
         var allChildren = childrenL.concat(childrenR);
 
         var order = this.order;
-        var byOrder = function (a, b) {
+        var byOrder = function byOrder(a, b) {
             return order.vOrder[a] - order.vOrder[b];
         };
         allChildren.sort(byOrder);
@@ -59631,7 +59771,7 @@ PositionedGraph.prototype = {
         }
     },
 
-    removeRelationshipRanks: function () {
+    removeRelationshipRanks: function removeRelationshipRanks() {
         // removes ranks previously occupied by relationship nodes (which is every 3rd rank)
         // (these ranks have either no nodes at all or only virtual nodes
         // from multi-rank edges passing through)
@@ -59664,7 +59804,7 @@ PositionedGraph.prototype = {
         var unplugged = this.order.removeUnplugged().sort(function (a, b) {
             return a - b;
         });
-        console.log("Removing unnecessary long edge pieces: " + __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__helpers__["c" /* stringifyObject */])(unplugged));
+        console.log("Removing unnecessary long edge pieces: " + (0, _helpers.stringifyObject)(unplugged));
         for (var i = 0; i < unplugged.length; i++) {
             var removedID = unplugged[i] - i; // "-i" because after each splice array size decreases by one and item N is going to be at location N-1, then N-2, etc
             this.ranks.splice(removedID, 1);
@@ -59672,7 +59812,7 @@ PositionedGraph.prototype = {
         }
     },
 
-    improveOrdering: function () {
+    improveOrdering: function improveOrdering() {
         // 1) fix re-ranking mistakes:
         //
         //    A) in a case like the one below "partner1" can be placed right next to "relationship1"
@@ -59732,7 +59872,7 @@ PositionedGraph.prototype = {
 
     //=====================================================================[re-ordering]=
 
-    findConnectedComponent: function (v, edgeIncludedFunc, stopSet, maxSize) {
+    findConnectedComponent: function findConnectedComponent(v, edgeIncludedFunc, stopSet, maxSize) {
         // computes connected component which includes vertex v (or all vertice sin array v)
         // and all vertices reachable from v not using edges which do not pass the `edgeIncludedFunc()` test
         //
@@ -59748,7 +59888,7 @@ PositionedGraph.prototype = {
             v = [v];
         }
 
-        var q = new __WEBPACK_IMPORTED_MODULE_3__queues__["a" /* Queue */]();
+        var q = new _queues.Queue();
         for (var i = 0; i < v.length; i++) {
             q.push(v[i]);
             component[v[i]] = true;
@@ -59785,7 +59925,7 @@ PositionedGraph.prototype = {
     },
 
     //=[ancestors]=======================================================================
-    findAllAncestors: function () {
+    findAllAncestors: function findAllAncestors() {
         var ancestors = {};
         var consangr = {};
 
@@ -59852,7 +59992,7 @@ PositionedGraph.prototype = {
     //=======================================================================[ancestors]=
 
     //=[vertical separation for horizontal edges]========================================
-    positionVertically: function () {
+    positionVertically: function positionVertically() {
         /*// debug: very useful debug case, which is very hard to reproduce without fiddling with
           //        a normally-processed MS_004 graph. TODO: remove
           if (this.positions.length > 60) {
@@ -59864,7 +60004,7 @@ PositionedGraph.prototype = {
           this.order.vOrder[50] = 0;
         }*/
 
-        var verticalLevels = new __WEBPACK_IMPORTED_MODULE_2__xcoordclass__["a" /* VerticalLevels */]();
+        var verticalLevels = new _xcoordclass.VerticalLevels();
 
         // for all ranks:
         //
@@ -59888,7 +60028,9 @@ PositionedGraph.prototype = {
                 break;
             }*/
 
-        for (var r = 1; r <= this.maxRank; r += 1) verticalLevels.rankVerticalLevels[r] = 1; // number of "vertical levels" (i.e. parallel horizontal edges) between rank r and r+1. Start with 1 for all ranks
+        for (var r = 1; r <= this.maxRank; r += 1) {
+            verticalLevels.rankVerticalLevels[r] = 1;
+        } // number of "vertical levels" (i.e. parallel horizontal edges) between rank r and r+1. Start with 1 for all ranks
 
         if (this.GG.v.length <= 1) return verticalLevels;
 
@@ -59943,7 +60085,7 @@ PositionedGraph.prototype = {
 
             // compose the "crossing score" function which, given edgeInfo + which horizontal line is higher,
             // can tell the number of crossings between two childhub-to-children sets of edges
-            var pairScoreFunc = function (edge1, edge2, edge1level, edge2level) {
+            var pairScoreFunc = function pairScoreFunc(edge1, edge2, edge1level, edge2level) {
                 //
                 // general form of a displayed edges is like:
                 //                                                             relationship_a    relationship_b
@@ -59983,7 +60125,7 @@ PositionedGraph.prototype = {
                 return intersections;
             };
 
-            var optimizer = new __WEBPACK_IMPORTED_MODULE_4__edgeOptimization__["a" /* VerticalPosIntOptimizer */](pairScoreFunc, initLevels);
+            var optimizer = new _edgeOptimization.VerticalPosIntOptimizer(pairScoreFunc, initLevels);
 
             // - full exhaustive search when up to 5 edges cross other edges on this rank
             // - heuristic with up to 600 steps is used otherwise
@@ -60125,7 +60267,7 @@ PositionedGraph.prototype = {
 
                 // compose the "crossing score" function which, given edgeInfo + which horizontal line is higher,
                 // can tell the number of crossings between two node-to-relationship edges
-                var pairScoreFunc = function (edge1, edge2, edge1level, edge2level, levels) {
+                var pairScoreFunc = function pairScoreFunc(edge1, edge2, edge1level, edge2level, levels) {
                     //
                     // general form of a displayed edges is one of:
                     // (where the solid line is part of the edge and the dotted part is treated as a separate edge related to the other partner or some other node)
@@ -60207,7 +60349,7 @@ PositionedGraph.prototype = {
 
                 //console.log("[rank " + r + "] Init vertical relatioship levels: " +  stringifyObject(initLevels));
 
-                var optimizer = new __WEBPACK_IMPORTED_MODULE_4__edgeOptimization__["a" /* VerticalPosIntOptimizer */](pairScoreFunc, initLevels, initLevels); // init level == min level
+                var optimizer = new _edgeOptimization.VerticalPosIntOptimizer(pairScoreFunc, initLevels, initLevels); // init level == min level
 
                 var relEdgeLevels = optimizer.computeVerticalPositions(5, 500);
 
@@ -60256,7 +60398,7 @@ PositionedGraph.prototype = {
         return verticalLevels;
     },
 
-    _findLeftAndRightPartners: function (v, useOrdering) {
+    _findLeftAndRightPartners: function _findLeftAndRightPartners(v, useOrdering) {
         var ordering = useOrdering ? useOrdering.vOrder : this.order.vOrder; // useOrdering is passed when thi sis called from the initial ordering procedure
 
         var rank = this.ranks[v];
@@ -60272,7 +60414,7 @@ PositionedGraph.prototype = {
             if (ordering[rel] < orderV) leftEdges.push(rel);else rightEdges.push(rel);
         }
 
-        var byDistToV = function (a, b) {
+        var byDistToV = function byDistToV(a, b) {
             var dist1 = Math.abs(ordering[a] - orderV);
             var dist2 = Math.abs(ordering[b] - orderV);
             return dist1 - dist2;
@@ -60285,7 +60427,7 @@ PositionedGraph.prototype = {
     },
 
     // finds the bes tposition to insert a new twin of v which has the given set of relationships
-    findBestTwinInsertPosition: function (v, insertedTwinRelationships, useOrdering) {
+    findBestTwinInsertPosition: function findBestTwinInsertPosition(v, insertedTwinRelationships, useOrdering) {
         // useOrdering is passed when this is called from the initial ordering procedure
         var allTwins = this.GG.getAllTwinsOf(v);
 
@@ -60293,7 +60435,7 @@ PositionedGraph.prototype = {
         var rankOrder = useOrdering ? useOrdering.order[rank] : this.order.order[rank];
         var vOrder = useOrdering ? useOrdering.vOrder : this.order.vOrder;
 
-        var byOrder = function (a, b) {
+        var byOrder = function byOrder(a, b) {
             return vOrder[a] - vOrder[b];
         };
         allTwins.sort(byOrder);
@@ -60303,9 +60445,9 @@ PositionedGraph.prototype = {
         // plus all edges from left of position going right of position
         // plus number of crossings due to edges to nodes in "insertedTwinRelationships" crossing other twins
         var numEdgesAcross = [];
-        for (var i = 0; i <= allTwins.length; i++) numEdgesAcross[i] = 0;
-
-        //console.log("edges across: " + stringifyObject(numEdgesAcross));
+        for (var i = 0; i <= allTwins.length; i++) {
+            numEdgesAcross[i] = 0;
+        } //console.log("edges across: " + stringifyObject(numEdgesAcross));
 
         // for each position compute number of edge crossings due to new twin edges
         var leftMostTwinOrder = vOrder[allTwins[0]];
@@ -60313,9 +60455,13 @@ PositionedGraph.prototype = {
             var rel = insertedTwinRelationships[i];
             var relOrder = vOrder[rel];
 
-            if (relOrder < leftMostTwinOrder) for (var j = 1; j <= allTwins.length; j++) // if we insert the twin at any position other then leftmost new edges will cross all twins to the left
-            numEdgesAcross[j] += j;else for (var j = 0; j < allTwins.length; j++) // if we insert the twin at any position other then rightmost new edges will cross all twins to the right
-            numEdgesAcross[j] += allTwins.length - j;
+            if (relOrder < leftMostTwinOrder) for (var j = 1; j <= allTwins.length; j++) {
+                // if we insert the twin at any position other then leftmost new edges will cross all twins to the left
+                numEdgesAcross[j] += j;
+            } else for (var j = 0; j < allTwins.length; j++) {
+                // if we insert the twin at any position other then rightmost new edges will cross all twins to the right
+                numEdgesAcross[j] += allTwins.length - j;
+            }
         }
 
         //console.log("after self edges - edges across: " + stringifyObject(numEdgesAcross));
@@ -60327,10 +60473,11 @@ PositionedGraph.prototype = {
             var numRightOf = partnerInfo.rightPartners.length;
 
             // TODO: can improve a bit when two of the twins are in a relationship and there are other twins
-            for (var j = 0; j <= i; j++) numEdgesAcross[j] += numLeftOf;
-            for (var j = i + 1; j <= allTwins.length; j++) numEdgesAcross[j] += numRightOf;
-
-            //console.log("after twin " + allTwins[i] + " (leftOf: " + numLeftOf + ", rightOf: " + numRightOf + ") -> edges across: " + stringifyObject(numEdgesAcross));
+            for (var j = 0; j <= i; j++) {
+                numEdgesAcross[j] += numLeftOf;
+            }for (var j = i + 1; j <= allTwins.length; j++) {
+                numEdgesAcross[j] += numRightOf;
+            } //console.log("after twin " + allTwins[i] + " (leftOf: " + numLeftOf + ", rightOf: " + numRightOf + ") -> edges across: " + stringifyObject(numEdgesAcross));
         }
 
         //console.log("twin penalties: " + stringifyObject(numEdgesAcross));
@@ -60350,7 +60497,7 @@ PositionedGraph.prototype = {
         return order;
     },
 
-    computeRankY: function (oldRanks, oldRankY) {
+    computeRankY: function computeRankY(oldRanks, oldRankY) {
         var rankY = [0, 0]; // rank 0 is virtual, rank 1 starts at relative 0
 
         for (var r = 2; r <= this.maxRank; r++) {
@@ -60377,11 +60524,11 @@ PositionedGraph.prototype = {
         return rankY;
     },
 
-    computeNodeY: function (rank, level) {
+    computeNodeY: function computeNodeY(rank, level) {
         return this.rankY[rank] + (level - 1) * this.yExtraPerHorizontalLine;
     },
 
-    computeRelLineY: function (rank, attachLevel, verticalLevel) {
+    computeRelLineY: function computeRelLineY(rank, attachLevel, verticalLevel) {
         var attachY = this.rankY[rank] - attachLevel * this.yAttachPortHeight;
 
         var relLineY = this.rankY[rank];
@@ -60402,11 +60549,11 @@ PositionedGraph.prototype = {
 
     //=[position]========================================================================
 
-    displayGraph: function (xcoord, message) {
+    displayGraph: function displayGraph(xcoord, message) {
         TIME_DRAWING_DEBUG = 0;
         if (!DISPLAY_POSITIONING_DEBUG) return;
 
-        var debugTimer = new __WEBPACK_IMPORTED_MODULE_0__helpers__["g" /* Timer */]();
+        var debugTimer = new _helpers.Timer();
 
         var renderPackage = { convertedG: this.GG,
             ranks: this.ranks,
@@ -60419,10 +60566,10 @@ PositionedGraph.prototype = {
         TIME_DRAWING_DEBUG = debugTimer.report();
     },
 
-    position: function () {
+    position: function position() {
         var longEdges = this.find_long_edges(); // pre-find long edges for performance reasons
 
-        var xcoord = new __WEBPACK_IMPORTED_MODULE_2__xcoordclass__["b" /* XCoord */](null, this);
+        var xcoord = new _xcoordclass.XCoord(null, this);
         //printObject(xcoord.xcoord);
 
         //this.displayGraph(xcoord.xcoord, 'init');
@@ -60432,7 +60579,7 @@ PositionedGraph.prototype = {
         xcoord.normalize();
 
         //this.displayGraph(xcoord.xcoord, 'firstAdj');
-        __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__helpers__["o" /* printObject */])(xcoord.xcoord);
+        (0, _helpers.printObject)(xcoord.xcoord);
 
         var xbest = xcoord.copy();
         var bestScore = this.xcoord_score(xbest);
@@ -60453,12 +60600,12 @@ PositionedGraph.prototype = {
         }
 
         //this.displayGraph(xbest.xcoord, 'final');
-        __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__helpers__["o" /* printObject */])(xbest.xcoord);
+        (0, _helpers.printObject)(xbest.xcoord);
 
         return xbest.xcoord;
     },
 
-    xcoord_score: function (xcoord, considerOnlyRank, considerEdgesFromAbove, considerEdgesToBelow, fromOrderOnRank) {
+    xcoord_score: function xcoord_score(xcoord, considerOnlyRank, considerEdgesFromAbove, considerEdgesToBelow, fromOrderOnRank) {
         // Returns xcoord score, the less the better.
         //
         //  Score equal to the     Σ     (  Ω(e) * ω(e) * X[w] − X[v]  )
@@ -60473,7 +60620,7 @@ PositionedGraph.prototype = {
         //   - for relationship-to-child nodes, it just produces a visually more pleasing arrangement
         //   - Ω(e) is computed by the edge_importance_to_straighten() function
 
-        var score = new __WEBPACK_IMPORTED_MODULE_2__xcoordclass__["c" /* XCoordScore */](this.GG.getMaxRealVertexId());
+        var score = new _xcoordclass.XCoordScore(this.GG.getMaxRealVertexId());
 
         var rankFrom = 1;
         var rankTo = this.maxRank;
@@ -60540,7 +60687,7 @@ PositionedGraph.prototype = {
         return score;
     },
 
-    edge_importance_to_straighten: function (fromV, toV) {
+    edge_importance_to_straighten: function edge_importance_to_straighten(fromV, toV) {
         if (this.GG.isRelationship(toV)) return 1.0;
 
         if (!this.GG.isVirtual(fromV) && this.GG.isVirtual(toV)) return 1.5;
@@ -60554,7 +60701,7 @@ PositionedGraph.prototype = {
         return 2.0;
     },
 
-    try_shift_right: function (xcoord, scoreQualityOfNodesBelow, scoreQualityOfNodesAbove) {
+    try_shift_right: function try_shift_right(xcoord, scoreQualityOfNodesBelow, scoreQualityOfNodesAbove) {
         // goes over all ranks (top to bottom or bottom to top, depending on iteration)
         // and tries to shift vertices right one at a time. If a shift is good leaves it,
         // if not keeps going further.
@@ -60650,7 +60797,7 @@ PositionedGraph.prototype = {
         }
     },
 
-    compute_median: function (v, xcoord, considerAbove, considerBelow) {
+    compute_median: function compute_median(v, xcoord, considerAbove, considerBelow) {
         var positionsAbove = [];
         var positionsBelow = [];
 
@@ -60678,7 +60825,7 @@ PositionedGraph.prototype = {
             }
         }
 
-        var numericSortFunc = function (a, b) {
+        var numericSortFunc = function numericSortFunc(a, b) {
             return a - b;
         };
 
@@ -60706,7 +60853,7 @@ PositionedGraph.prototype = {
         return Math.ceil(median);
     },
 
-    try_straighten_long_edges: function (longEdges, xcoord) {
+    try_straighten_long_edges: function try_straighten_long_edges(longEdges, xcoord) {
         // try to straigten long edges without moving any other vertices
         var improved = false;
 
@@ -60776,16 +60923,16 @@ PositionedGraph.prototype = {
     },
     //========================================================================[position]=
 
-    find_long_edges: function () {
+    find_long_edges: function find_long_edges() {
         var longEdges = [];
 
         var maxRealId = this.GG.getMaxRealVertexId();
         var numVert = this.GG.getNumVertices();
 
         var checked = [];
-        for (var v = maxRealId + 1; v < numVert; v++) checked[v] = false;
-
         for (var v = maxRealId + 1; v < numVert; v++) {
+            checked[v] = false;
+        }for (var v = maxRealId + 1; v < numVert; v++) {
 
             if (checked[v] || this.ranks[v] == 0) continue;
 
@@ -60794,9 +60941,9 @@ PositionedGraph.prototype = {
 
             // start from head node - the first virtual node
             var head = v;
-            while (this.GG.isVirtual(this.GG.getInEdges(head)[0])) head = this.GG.getInEdges(head)[0];
-
-            var chain = [];
+            while (this.GG.isVirtual(this.GG.getInEdges(head)[0])) {
+                head = this.GG.getInEdges(head)[0];
+            }var chain = [];
             var next = head;
 
             // go towards the tail through out-edges
@@ -60806,7 +60953,7 @@ PositionedGraph.prototype = {
                 next = this.GG.getOutEdges(next)[0];
             } while (this.GG.isVirtual(next));
 
-            console.log("Found long edge " + __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__helpers__["c" /* stringifyObject */])(chain));
+            console.log("Found long edge " + (0, _helpers.stringifyObject)(chain));
             longEdges.push(chain);
         }
         return longEdges;
@@ -60828,7 +60975,7 @@ function make_dynamic_positioned_graph(inputG, debugOutput) {
 
     var xcoordIterations = 4; // default: 8
 
-    var timer = new __WEBPACK_IMPORTED_MODULE_0__helpers__["g" /* Timer */]();
+    var timer = new _helpers.Timer();
 
     if (debugOutput) DISPLAY_POSITIONING_DEBUG = true;else DISPLAY_POSITIONING_DEBUG = false;
     var drawGraph = new PositionedGraph(inputG, horizontalPersonSeparationDist, horizontalRelSeparationDist, orderingInitBuckets, orderingIterations, xcoordIterations); // display debug
@@ -60839,20 +60986,215 @@ function make_dynamic_positioned_graph(inputG, debugOutput) {
 }
 
 /***/ }),
-/* 175 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
+/* 174 */
+/***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_prototype__ = __webpack_require__(94);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_prototype___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_prototype__);
+/* WEBPACK VAR INJECTION */(function(jquery) {
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+exports.SaveLoadEngine = exports.ProbandDataLoader = undefined;
+
+var _helpers = __webpack_require__(5);
+
+var _templateSelector = __webpack_require__(176);
+
+/**
+ * SaveLoadEngine is responsible for automatic and manual save and load operations.
+ *
+ * @class SaveLoadEngine
+ * @constructor
+ */
+
+var ProbandDataLoader = exports.ProbandDataLoader = Class.create({
+    initialize: function initialize() {
+        this.probandData = undefined;
+    },
+    load: function load(callWhenReady) {
+        // new Ajax.Request("public/xwiki/PhenoTips.PatientClass/0.xml", {
+        //     method: "GET",
+        //     onSuccess: this.onProbandDataReady.bind(this),
+        //     onComplete: callWhenReady ? callWhenReady : {}
+        // });
+    },
+
+    onProbandDataReady: function onProbandDataReady(response) {
+        var responseXML = response.responseXML; //documentElement.
+        this.probandData = {};
+        this.probandData.firstName = (0, _helpers.unescapeRestData)((0, _helpers.getSubSelectorTextFromXML)(responseXML, "property", "name", "first_name", "value"));
+        this.probandData.lastName = (0, _helpers.unescapeRestData)((0, _helpers.getSubSelectorTextFromXML)(responseXML, "property", "name", "last_name", "value"));
+        this.probandData.gender = (0, _helpers.unescapeRestData)((0, _helpers.getSubSelectorTextFromXML)(responseXML, "property", "name", "gender", "value"));
+        if (this.probandData.gender === undefined || this.probandData.gender == "") this.probandData.gender = "U";
+        console.log("Proband data: " + (0, _helpers.stringifyObject)(this.probandData));
+    }
+});
+
+var SaveLoadEngine = exports.SaveLoadEngine = Class.create({
+
+    initialize: function initialize() {
+        this._saveInProgress = false;
+    },
+
+    /**
+     * Saves the state of the graph
+     *
+     * @return Serialization data for the entire graph
+     */
+    serialize: function serialize() {
+        return editor.getGraph().toJSON();
+    },
+
+    createGraphFromSerializedData: function createGraphFromSerializedData(JSONString, noUndo, centerAround0) {
+        console.log("---- load: parsing data ----");
+        console.log(JSONString);
+        document.fire("pedigree:load:start");
+
+        try {
+            var changeSet = editor.getGraph().fromJSON(JSONString);
+        } catch (err) {
+            console.log("ERROR loading the graph: " + err);
+            console.warn("Error loading the graph");
+            document.fire("pedigree:graph:clear");
+            document.fire("pedigree:load:finish");
+            return;
+        }
+
+        if (!noUndo) {
+            var probandData = editor.getProbandDataFromPhenotips();
+            if (probandData) {
+                var genderOk = editor.getGraph().setProbandData(probandData.firstName, probandData.lastName, probandData.gender);
+                if (!genderOk) console.warn("Proband gender defined in Phenotips is incompatible with this pedigree. Setting proband gender to 'Unknown'");
+            }
+
+            JSONString = editor.getGraph().toJSON();
+        }
+
+        if (editor.getView().applyChanges(changeSet, false)) {
+            editor.getWorkspace().adjustSizeToScreen();
+        }
+
+        if (centerAround0) editor.getWorkspace().centerAroundNode(0);
+
+        if (!noUndo) editor.getActionStack().addState(null, null, JSONString);
+
+        document.fire("pedigree:load:finish");
+    },
+
+    createGraphFromImportData: function createGraphFromImportData(importString, importType, importOptions, noUndo, centerAround0) {
+        var JSONString = void 0;
+        console.log("---- import: parsing data ----");
+        document.fire("pedigree:load:start");
+
+        try {
+            var changeSet = editor.getGraph().fromImport(importString, importType, importOptions);
+            if (changeSet == null) throw "unable to create a pedigree from imported data";
+        } catch (err) {
+            jquery("#family_table", window.parent.document).removeClass("hidden");
+            jquery("#panogram_error", window.parent.document).text(err);
+            jquery("iframe#panogram", window.parent.document).addClass("hidden");
+            console.warn("Error importing pedigree: " + err);
+            console.warn(err.stack);
+            document.fire("pedigree:load:finish");
+            return;
+        }
+
+        if (!noUndo) {
+            var probandData = editor.getProbandDataFromPhenotips();
+            if (probandData) {
+                var genderOk = editor.getGraph().setProbandData(probandData.firstName, probandData.lastName, probandData.gender);
+                if (!genderOk) console.warn("Proband gender defined in Phenotips is incompatible with this pedigree. Setting proband gender to 'Unknown'");
+            }
+            JSONString = editor.getGraph().toJSON();
+        }
+
+        if (editor.getView().applyChanges(changeSet, false)) {
+            editor.getWorkspace().adjustSizeToScreen();
+        }
+
+        if (centerAround0) editor.getWorkspace().centerAroundNode(0);
+
+        if (!noUndo) editor.getActionStack().addState(null, null, JSONString);
+
+        document.fire("pedigree:load:finish");
+    },
+
+    save: function save() {
+        if (this._saveInProgress) return; // Don't send parallel save requests
+
+        var me = this;
+
+        var jsonData = this.serialize();
+
+        console.log("[SAVE] data: " + (0, _helpers.stringifyObject)(jsonData));
+
+        var image = $("canvas");
+        var background = image.getElementsByClassName("panning-background")[0];
+        var backgroundPosition = background.nextSibling;
+        var backgroundParent = background.parentNode;
+        backgroundParent.removeChild(background);
+        var bbox = image.down().getBBox();
+        // new Ajax.Request("public/xwiki/PhenoTips.PedigreeClass/0.xml", {
+        //     method: "POST",
+        //     onCreate: function() {
+        //         me._saveInProgress = true;
+        //     },
+        //     onComplete: function() {
+        //         me._saveInProgress = false;
+        //     },
+        //     onSuccess: function() { console.log("saved"); },
+        //     parameters: {"property#data": jsonData, "property#image": image.innerHTML.replace(/xmlns:xlink=".*?"/, "").replace(/width=".*?"/, "").replace(/height=".*?"/, "").replace(/viewBox=".*?"/, "viewBox=\"" + bbox.x + " " + bbox.y + " " + bbox.width + " " + bbox.height + "\" width=\"" + bbox.width + "\" height=\"" + bbox.height + "\" xmlns:xlink=\"http://www.w3.org/1999/xlink\"")}
+        // });
+        backgroundParent.insertBefore(background, backgroundPosition);
+    },
+
+    load: function load() {
+        console.log("initiating load process");
+
+        // new Ajax.Request("public/xwiki/PhenoTips.PedigreeClass/0.xml", {
+        //     method: "GET",
+        //     onCreate: function() {
+        //         document.fire("pedigree:load:start");
+        //     },
+        //     onSuccess: function (response) {
+        //         //console.log("Data from LOAD: " + stringifyObject(response));
+        //         //console.log("[Data from LOAD]");
+        //         var rawdata  = getSubSelectorTextFromXML(response.responseXML, "property", "name", "data", "value");
+        //         var jsonData = unescapeRestData(rawdata);
+        //         if (jsonData.trim()) {
+        //             console.log("[LOAD] recived JSON: " + stringifyObject(jsonData));
+        // 
+        //             jsonData = editor.getVersionUpdater().updateToCurrentVersion(jsonData);
+        // 
+        //             this.createGraphFromSerializedData(jsonData);
+        //         } else {
+        //             new TemplateSelector(true);
+        //         }
+        //     }.bind(this)
+        // });
+    }
+});
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(44)))
+
+/***/ }),
+/* 175 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
 
 
-const Control = {};
-/* harmony export (immutable) */ __webpack_exports__["a"] = Control;
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+exports.Control = undefined;
 
+var _prototype = __webpack_require__(93);
+
+var Control = exports.Control = {};
 
 Control.Slider = Class.create({
-    initialize: function (d, a, b) {
+    initialize: function initialize(d, a, b) {
         var c = this;
         if (Object.isArray(d)) {
             this.handles = d.collect(function (f) {
@@ -60866,7 +61208,7 @@ Control.Slider = Class.create({
         this.axis = this.options.axis || "horizontal";
         this.increment = this.options.increment || 1;
         this.step = parseInt(this.options.step || "1");
-        this.range = this.options.range || __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0_prototype__["$R"])(0, 1);
+        this.range = this.options.range || (0, _prototype.$R)(0, 1);
         this.value = 0;
         this.values = this.handles.map(function () {
             return 0;
@@ -60907,7 +61249,7 @@ Control.Slider = Class.create({
         document.observe("mousemove", this.eventMouseMove);
         this.initialized = true;
     },
-    dispose: function () {
+    dispose: function dispose() {
         var a = this;
         Event.stopObserving(this.track, "mousedown", this.eventMouseDown);
         Event.stopObserving(document, "mouseup", this.eventMouseUp);
@@ -60916,13 +61258,13 @@ Control.Slider = Class.create({
             Event.stopObserving(b, "mousedown", a.eventMouseDown);
         });
     },
-    setDisabled: function () {
+    setDisabled: function setDisabled() {
         this.disabled = true;
     },
-    setEnabled: function () {
+    setEnabled: function setEnabled() {
         this.disabled = false;
     },
-    getNearestValue: function (a) {
+    getNearestValue: function getNearestValue(a) {
         if (this.allowedValues) {
             if (a >= this.allowedValues.max()) {
                 return this.allowedValues.max();
@@ -60949,7 +61291,7 @@ Control.Slider = Class.create({
         }
         return a;
     },
-    setValue: function (b, a) {
+    setValue: function setValue(b, a) {
         if (!this.active) {
             this.activeHandleIdx = a || 0;
             this.activeHandle = this.handles[this.activeHandleIdx];
@@ -60973,44 +61315,44 @@ Control.Slider = Class.create({
             this.updateFinished();
         }
     },
-    setValueBy: function (b, a) {
+    setValueBy: function setValueBy(b, a) {
         this.setValue(this.values[a || this.activeHandleIdx || 0] + b, a || this.activeHandleIdx || 0);
     },
-    translateToPx: function (a) {
+    translateToPx: function translateToPx(a) {
         return Math.round((this.trackLength - this.handleLength) / (this.range.end - this.range.start) * (a - this.range.start)) + "px";
     },
-    translateToValue: function (a) {
+    translateToValue: function translateToValue(a) {
         return a / (this.trackLength - this.handleLength) * (this.range.end - this.range.start) + this.range.start;
     },
-    getRange: function (b) {
+    getRange: function getRange(b) {
         var a = this.values;
         b = b || 0;
-        return __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0_prototype__["$R"])(a[b], a[b + 1]);
+        return (0, _prototype.$R)(a[b], a[b + 1]);
     },
-    minimumOffset: function () {
+    minimumOffset: function minimumOffset() {
         return this.isVertical() ? this.alignY : this.alignX;
     },
-    maximumOffset: function () {
+    maximumOffset: function maximumOffset() {
         return this.isVertical() ? (this.track.offsetHeight != 0 ? this.track.offsetHeight : this.track.style.height.replace(/px$/, "")) - this.alignY : (this.track.offsetWidth != 0 ? this.track.offsetWidth : this.track.style.width.replace(/px$/, "")) - this.alignX;
     },
-    isVertical: function () {
+    isVertical: function isVertical() {
         return this.axis == "vertical";
     },
-    drawSpans: function () {
+    drawSpans: function drawSpans() {
         var a = this;
         if (this.spans) {
-            __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0_prototype__["$R"])(0, this.spans.length - 1).each(function (b) {
+            (0, _prototype.$R)(0, this.spans.length - 1).each(function (b) {
                 a.setSpan(a.spans[b], a.getRange(b));
             });
         }
         if (this.options.startSpan) {
-            this.setSpan(this.options.startSpan, __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0_prototype__["$R"])(0, this.values.length > 1 ? this.getRange(0).min() : this.value));
+            this.setSpan(this.options.startSpan, (0, _prototype.$R)(0, this.values.length > 1 ? this.getRange(0).min() : this.value));
         }
         if (this.options.endSpan) {
-            this.setSpan(this.options.endSpan, __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0_prototype__["$R"])(this.values.length > 1 ? this.getRange(this.spans.length - 1).max() : this.value, this.maximum));
+            this.setSpan(this.options.endSpan, (0, _prototype.$R)(this.values.length > 1 ? this.getRange(this.spans.length - 1).max() : this.value, this.maximum));
         }
     },
-    setSpan: function (b, a) {
+    setSpan: function setSpan(b, a) {
         if (this.isVertical()) {
             b.style.top = this.translateToPx(a.start);
             b.style.height = this.translateToPx(a.end - a.start + this.range.start);
@@ -61019,13 +61361,13 @@ Control.Slider = Class.create({
             b.style.width = this.translateToPx(a.end - a.start + this.range.start);
         }
     },
-    updateStyles: function () {
+    updateStyles: function updateStyles() {
         this.handles.each(function (a) {
             Element.removeClassName(a, "selected");
         });
         Element.addClassName(this.activeHandle, "selected");
     },
-    startDrag: function (c) {
+    startDrag: function startDrag(c) {
         if (Event.isLeftClick(c)) {
             if (!this.disabled) {
                 this.active = true;
@@ -61056,7 +61398,7 @@ Control.Slider = Class.create({
             Event.stop(c);
         }
     },
-    update: function (a) {
+    update: function update(a) {
         if (this.active) {
             if (!this.dragging) {
                 this.dragging = true;
@@ -61068,7 +61410,7 @@ Control.Slider = Class.create({
             Event.stop(a);
         }
     },
-    draw: function (b) {
+    draw: function draw(b) {
         var c = [Event.pointerX(b), Event.pointerY(b)];
         var a = this.track.cumulativeOffset();
         c[0] -= this.offsetX + a[0];
@@ -61079,7 +61421,7 @@ Control.Slider = Class.create({
             this.options.onSlide(this.values.length > 1 ? this.values : this.value, this);
         }
     },
-    endDrag: function (a) {
+    endDrag: function endDrag(a) {
         if (this.active && this.dragging) {
             this.finishDrag(a, true);
             Event.stop(a);
@@ -61087,12 +61429,12 @@ Control.Slider = Class.create({
         this.active = false;
         this.dragging = false;
     },
-    finishDrag: function (a, b) {
+    finishDrag: function finishDrag(a, b) {
         this.active = false;
         this.dragging = false;
         this.updateFinished();
     },
-    updateFinished: function () {
+    updateFinished: function updateFinished() {
         if (this.initialized && this.options.onChange) {
             this.options.onChange(this.values.length > 1 ? this.values : this.value, this);
         }
@@ -61102,11 +61444,17 @@ Control.Slider = Class.create({
 
 /***/ }),
 /* 176 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__helpers__ = __webpack_require__(5);
 
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+exports.TemplateSelector = undefined;
+
+var _helpers = __webpack_require__(5);
 
 /**
  * The UI Element for browsing and selecting pre-defined Pedigree templates
@@ -61116,9 +61464,9 @@ Control.Slider = Class.create({
  * @param {Boolean} isStartupTemplateSelector Set to True if no pedigree has been loaded yet
  */
 
-const TemplateSelector = Class.create({
+var TemplateSelector = exports.TemplateSelector = Class.create({
 
-    initialize: function (isStartupTemplateSelector) {
+    initialize: function initialize(isStartupTemplateSelector) {
         this._isStartupTemplateSelector = isStartupTemplateSelector;
         this.mainDiv = new Element("div", { "class": "template-picture-container" });
         this.mainDiv.update("Loading list of templates...");
@@ -61137,7 +61485,7 @@ const TemplateSelector = Class.create({
      * @method isStartupTemplateSelector
      * @return {Boolean}
      */
-    isStartupTemplateSelector: function () {
+    isStartupTemplateSelector: function isStartupTemplateSelector() {
         return this._isStartupTemplateSelector;
     },
 
@@ -61147,14 +61495,14 @@ const TemplateSelector = Class.create({
      * @param response
      * @private
      */
-    _onTemplateListAvailable: function (response) {
+    _onTemplateListAvailable: function _onTemplateListAvailable(response) {
         this.mainDiv.update();
         var objects = response.responseXML.documentElement.getElementsByTagName("objectSummary");
         for (var i = 0; i < objects.length; ++i) {
             var pictureBox = new Element("div", { "class": "picture-box" });
             pictureBox.update("Loading...");
             this.mainDiv.insert(pictureBox);
-            var href = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__helpers__["d" /* getSelectorFromXML */])(objects[i], "link", "rel", "http://www.xwiki.org/rel/properties").getAttribute("href").substring(1);
+            var href = (0, _helpers.getSelectorFromXML)(objects[i], "link", "rel", "http://www.xwiki.org/rel/properties").getAttribute("href").substring(1);
             // new Ajax.Request(href, {
             //     method: "GET",
             //     onSuccess: this._onTemplateAvailable.bind(this, pictureBox)
@@ -61169,18 +61517,18 @@ const TemplateSelector = Class.create({
      * @param response
      * @private
      */
-    _onTemplateAvailable: function (pictureBox, response) {
-        pictureBox.innerHTML = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__helpers__["b" /* getSubSelectorTextFromXML */])(response.responseXML, "property", "name", "image", "value").replace(/&amp;/, "&");
-        pictureBox.pedigreeData = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__helpers__["b" /* getSubSelectorTextFromXML */])(response.responseXML, "property", "name", "data", "value");
+    _onTemplateAvailable: function _onTemplateAvailable(pictureBox, response) {
+        pictureBox.innerHTML = (0, _helpers.getSubSelectorTextFromXML)(response.responseXML, "property", "name", "image", "value").replace(/&amp;/, "&");
+        pictureBox.pedigreeData = (0, _helpers.getSubSelectorTextFromXML)(response.responseXML, "property", "name", "data", "value");
         pictureBox.type = "internal";
-        pictureBox.description = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__helpers__["b" /* getSubSelectorTextFromXML */])(response.responseXML, "property", "name", "description", "value");
+        pictureBox.description = (0, _helpers.getSubSelectorTextFromXML)(response.responseXML, "property", "name", "description", "value");
         pictureBox.title = pictureBox.description;
 
         //console.log("[Data from Template] - " + stringifyObject(pictureBox.pedigreeData));
 
         // TODO: render images with JavaScript instead
         if (window.SVGSVGElement && document.implementation.hasFeature("http://www.w3.org/TR/SVG11/feature#Image", "1.1")) {
-            pictureBox.update(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__helpers__["b" /* getSubSelectorTextFromXML */])(response.responseXML, "property", "name", "image", "value"));
+            pictureBox.update((0, _helpers.getSubSelectorTextFromXML)(response.responseXML, "property", "name", "image", "value"));
         } else {
             pictureBox.innerHTML = "<table bgcolor='#FFFAFA'><tr><td><br>&nbsp;" + pictureBox.description + "&nbsp;<br><br></td></tr></table>";
         }
@@ -61194,7 +61542,7 @@ const TemplateSelector = Class.create({
      * @param pictureBox
      * @private
      */
-    _onTemplateSelected: function (event, pictureBox) {
+    _onTemplateSelected: function _onTemplateSelected(event, pictureBox) {
         //console.log("observe onTemplateSelected");
         this.dialog.close();
         if (pictureBox.type == "internal") {
@@ -61209,7 +61557,7 @@ const TemplateSelector = Class.create({
      *
      * @method show
      */
-    show: function () {
+    show: function show() {
         this.dialog.show();
     },
 
@@ -61218,20 +61566,24 @@ const TemplateSelector = Class.create({
      *
      * @method hide
      */
-    hide: function () {
+    hide: function hide() {
         this.dialog.closeDialog();
     }
 });
-/* unused harmony export TemplateSelector */
-
 
 /***/ }),
 /* 177 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__helpers__ = __webpack_require__(5);
 
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+exports.ActionStack = undefined;
+
+var _helpers = __webpack_require__(5);
 
 /**
  * ActionStack is responsible for keeping track of user actions and providing an undo/redo functionality
@@ -61239,8 +61591,8 @@ const TemplateSelector = Class.create({
  * @class ActionStack
  * @constructor
  */
-const ActionStack = Class.create({
-    initialize: function () {
+var ActionStack = exports.ActionStack = Class.create({
+    initialize: function initialize() {
         this._currentState = 0;
         this._stack = [];
         this._MAXUNDOSIZE = 100;
@@ -61251,7 +61603,7 @@ const ActionStack = Class.create({
      *
      * @method redo
      */
-    redo: function () {
+    redo: function redo() {
         var nextState = this._getNextState();
         //console.log("Next state: " + stringifyObject(nextState));
         if (!nextState) return;
@@ -61273,7 +61625,7 @@ const ActionStack = Class.create({
      *
      * @method undo
      */
-    undo: function () {
+    undo: function undo() {
         var prevState = this._getPreviousState();
         if (!prevState) return;
 
@@ -61307,7 +61659,7 @@ const ActionStack = Class.create({
      *
      * @method addState
      */
-    addState: function (eventToGetToThisState, eventToUndo, serializedState) {
+    addState: function addState(eventToGetToThisState, eventToUndo, serializedState) {
         //this._debug_print_states();
 
         // 1. remove all states after current state (i.e. all "redo" states) -
@@ -61357,7 +61709,7 @@ const ActionStack = Class.create({
      * @method _size
      * @return {Number}
      */
-    _combinableEvents: function (event1, event2) {
+    _combinableEvents: function _combinableEvents(event1, event2) {
         if (!event1.memo.hasOwnProperty("nodeID") || !event2.memo.hasOwnProperty("nodeID") || event1.memo.nodeID != event2.memo.nodeID) return false;
         if (event1.memo.properties.hasOwnProperty("setFirstName") && event2.memo.properties.hasOwnProperty("setFirstName")) return true;
         if (event1.memo.properties.hasOwnProperty("setLastName") && event2.memo.properties.hasOwnProperty("setLastName")) return true;
@@ -61373,7 +61725,7 @@ const ActionStack = Class.create({
      * @method _size
      * @return {Number}
      */
-    _size: function () {
+    _size: function _size() {
         return this._stack.length;
     },
 
@@ -61382,7 +61734,7 @@ const ActionStack = Class.create({
      *
      * @method _addNewest
      */
-    _addNewest: function (state) {
+    _addNewest: function _addNewest(state) {
         this._stack.push(state);
         this._currentState++;
     },
@@ -61392,7 +61744,7 @@ const ActionStack = Class.create({
      *
      * @method _removeOldest
      */
-    _removeOldest: function () {
+    _removeOldest: function _removeOldest() {
         this._stack.splice(0, 1);
         this._currentState--;
     },
@@ -61403,7 +61755,7 @@ const ActionStack = Class.create({
      * @method _getCurrentState
      * @return {null|Object}
      */
-    _getCurrentState: function () {
+    _getCurrentState: function _getCurrentState() {
         return this._size() == 0 || this._currentState == 0 ? null : this._stack[this._currentState - 1];
     },
 
@@ -61413,7 +61765,7 @@ const ActionStack = Class.create({
      * @method _getNextState
      * @return {null|Object}
      */
-    _getNextState: function () {
+    _getNextState: function _getNextState() {
         return this._size() <= 1 || this._currentState >= this._size() ? null : this._stack[this._currentState];
     },
 
@@ -61423,23 +61775,21 @@ const ActionStack = Class.create({
      * @method _getPreviousState
      * @return {null|Object}
      */
-    _getPreviousState: function () {
+    _getPreviousState: function _getPreviousState() {
         return this._size() == 1 || this._currentState <= 1 ? null : this._stack[this._currentState - 2];
     },
 
-    _debug_print_states: function () {
+    _debug_print_states: function _debug_print_states() {
         console.log("------------");
         for (var i = 0; i < this._stack.length; i++) {
-            console.log("[" + i + "] EventToState: " + __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__helpers__["c" /* stringifyObject */])(this._stack[i].eventToGetToThisState) + "\n" + "    EventUndo: " + __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__helpers__["c" /* stringifyObject */])(this._stack[i].eventToUndo) + "\n" + "    EventSerial: " + __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__helpers__["c" /* stringifyObject */])(this._stack[i].serializedState));
+            console.log("[" + i + "] EventToState: " + (0, _helpers.stringifyObject)(this._stack[i].eventToGetToThisState) + "\n" + "    EventUndo: " + (0, _helpers.stringifyObject)(this._stack[i].eventToUndo) + "\n" + "    EventSerial: " + (0, _helpers.stringifyObject)(this._stack[i].serializedState));
         }
         console.log("------------");
     }
 });
-/* harmony export (immutable) */ __webpack_exports__["a"] = ActionStack;
-
 
 var State = Class.create({
-    initialize: function (serializedState, eventToGetToThisState, eventToUndo) {
+    initialize: function initialize(serializedState, eventToGetToThisState, eventToUndo) {
         this.serializedState = serializedState;
         this.eventToGetToThisState = eventToGetToThisState;
         this.eventToUndo = eventToUndo;
@@ -61448,22 +61798,29 @@ var State = Class.create({
 
 /***/ }),
 /* 178 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/* WEBPACK VAR INJECTION */(function(Raphael) {/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__lineSet__ = __webpack_require__(166);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__helpers__ = __webpack_require__(5);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__pedigreeEditorAttributes__ = __webpack_require__(12);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__graphicHelpers__ = __webpack_require__(47);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__partnership__ = __webpack_require__(168);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__person__ = __webpack_require__(89);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__personGroup__ = __webpack_require__(171);
+/* WEBPACK VAR INJECTION */(function(Raphael) {
 
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+exports.View = undefined;
 
+var _lineSet = __webpack_require__(165);
 
+var _helpers = __webpack_require__(5);
 
+var _pedigreeEditorAttributes = __webpack_require__(12);
 
+var _graphicHelpers = __webpack_require__(47);
 
+var _partnership = __webpack_require__(167);
+
+var _person = __webpack_require__(89);
+
+var _personGroup = __webpack_require__(170);
 
 /**
  * View is responsible for graphical representation of th epedigree as well as user interaction
@@ -61472,9 +61829,9 @@ var State = Class.create({
  * @constructor
  */
 
-const View = Class.create({
+var View = exports.View = Class.create({
 
-    initialize: function () {
+    initialize: function initialize() {
         console.log("--- view init ---");
 
         this.preGenerateGraphics();
@@ -61488,7 +61845,7 @@ const View = Class.create({
         this._currentHoveredNode = null;
         this._currentDraggable = null;
 
-        this._lineSet = new __WEBPACK_IMPORTED_MODULE_0__lineSet__["a" /* LineSet */](); // used to track intersecting lines
+        this._lineSet = new _lineSet.LineSet(); // used to track intersecting lines
     },
 
     /**
@@ -61497,7 +61854,7 @@ const View = Class.create({
      *
      * @method preGenerateGraphics
      */
-    preGenerateGraphics: function () {
+    preGenerateGraphics: function preGenerateGraphics() {
         //
         // computing scaled icons:
         //   var iconScale = 0.6;
@@ -61535,7 +61892,7 @@ const View = Class.create({
         {nodeID} : {AbstractNode}
      }
      */
-    getNodeMap: function () {
+    getNodeMap: function getNodeMap() {
         return this._nodeMap;
     },
 
@@ -61547,7 +61904,7 @@ const View = Class.create({
      * @return {AbstractNode}
      *
      */
-    getNode: function (nodeId) {
+    getNode: function getNode(nodeId) {
         if (!this._nodeMap.hasOwnProperty(nodeId)) {
             console.log("ERROR: requesting non-existent node " + nodeId);
             throw "ERROR";
@@ -61556,10 +61913,11 @@ const View = Class.create({
         return this._nodeMap[nodeId];
     },
 
-    getMaxNodeID: function () {
+    getMaxNodeID: function getMaxNodeID() {
         var max = 0;
-        for (var node in this._nodeMap) if (this._nodeMap.hasOwnProperty(node)) if (parseInt(node) > max) max = node;
-        return max;
+        for (var node in this._nodeMap) {
+            if (this._nodeMap.hasOwnProperty(node)) if (parseInt(node) > max) max = node;
+        }return max;
     },
 
     /**
@@ -61568,7 +61926,7 @@ const View = Class.create({
      * @method getPersonNodeNear
      * @return {Object} or null
      */
-    getPersonNodeNear: function (x, y) {
+    getPersonNodeNear: function getPersonNodeNear(x, y) {
         for (var nodeID in this._nodeMap) {
             if (this._nodeMap.hasOwnProperty(nodeID)) {
                 var node = this.getNode(nodeID);
@@ -61584,7 +61942,7 @@ const View = Class.create({
      * @method getCurrentHoveredNode
      * @return {AbstractNode}
      */
-    getCurrentHoveredNode: function () {
+    getCurrentHoveredNode: function getCurrentHoveredNode() {
         return this._currentHoveredNode;
     },
 
@@ -61594,7 +61952,7 @@ const View = Class.create({
      * @method getCurrentDraggable
      * @return Either a handle from a hoverbox, or a PlaceHolder
      */
-    getCurrentDraggable: function () {
+    getCurrentDraggable: function getCurrentDraggable() {
         return this._currentDraggable;
     },
 
@@ -61604,7 +61962,7 @@ const View = Class.create({
      * @method setCurrentDraggable
      * @param draggable A handle or a PlaceHolder
      */
-    setCurrentDraggable: function (draggable) {
+    setCurrentDraggable: function setCurrentDraggable(draggable) {
         this._currentDraggable = draggable;
     },
 
@@ -61614,7 +61972,7 @@ const View = Class.create({
      * @method removeFromNodeMap
      * @param {nodeId} id of the node to be removed
      */
-    removeFromNodeMap: function (nodeID) {
+    removeFromNodeMap: function removeFromNodeMap(nodeID) {
         delete this.getNodeMap()[nodeID];
     },
 
@@ -61625,12 +61983,12 @@ const View = Class.create({
      *
      * @method drawCurvedLineWithCrossings
      */
-    drawCurvedLineWithCrossings: function (id, xFrom, yFrom, yTop, xTo, yTo, lastBend, attr, twoLines, secondLineBelow) {
+    drawCurvedLineWithCrossings: function drawCurvedLineWithCrossings(id, xFrom, yFrom, yTop, xTo, yTo, lastBend, attr, twoLines, secondLineBelow) {
         //console.log("yFrom: " + yFrom + ", yTo: " + yTo + ", yTop: " + yTop);
 
         if (yFrom == yTop && yFrom == yTo) return this.drawLineWithCrossings(id, xFrom, yFrom, xTo, yTo, attr, twoLines, secondLineBelow);
 
-        var cornerRadius = __WEBPACK_IMPORTED_MODULE_2__pedigreeEditorAttributes__["a" /* PedigreeEditorAttributes */].curvedLinesCornerRadius * 0.8;
+        var cornerRadius = _pedigreeEditorAttributes.PedigreeEditorAttributes.curvedLinesCornerRadius * 0.8;
         var goesRight = xFrom > xTo;
         if (isFinite(lastBend)) {
             var xFinalBend = goesRight ? xTo + lastBend : xTo - lastBend;
@@ -61651,12 +62009,12 @@ const View = Class.create({
             this.drawLineWithCrossings(id, xFrom, yFrom, xFromAndBit, yFrom, attr, twoLines, !goesRight, true);
 
             if (Math.abs(yFrom - yTop) >= cornerRadius * 2) {
-                if (goesRight) __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_3__graphicHelpers__["a" /* drawCornerCurve */])(xFromAndBit, yFrom, xFromAfterCorner, yFrom - cornerRadius, true, attr, twoLines, -2.5, 2.5, 2.5, -2.5);else __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_3__graphicHelpers__["a" /* drawCornerCurve */])(xFromAndBit, yFrom, xFromAfterCorner, yFrom - cornerRadius, true, attr, twoLines, 2.5, 2.5, -2.5, -2.5);
+                if (goesRight) (0, _graphicHelpers.drawCornerCurve)(xFromAndBit, yFrom, xFromAfterCorner, yFrom - cornerRadius, true, attr, twoLines, -2.5, 2.5, 2.5, -2.5);else (0, _graphicHelpers.drawCornerCurve)(xFromAndBit, yFrom, xFromAfterCorner, yFrom - cornerRadius, true, attr, twoLines, 2.5, 2.5, -2.5, -2.5);
                 this.drawLineWithCrossings(id, xFromAfterCorner, yFrom - cornerRadius, xFromAfterCorner, yTop + cornerRadius, attr, twoLines, goesRight);
-                if (goesRight) __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_3__graphicHelpers__["a" /* drawCornerCurve */])(xFromAfterCorner, yTop + cornerRadius, xFromAfter2Corners, yTop, false, attr, twoLines, -2.5, 2.5, 2.5, -2.5);else __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_3__graphicHelpers__["a" /* drawCornerCurve */])(xFromAfterCorner, yTop + cornerRadius, xFromAfter2Corners, yTop, false, attr, twoLines, 2.5, 2.5, -2.5, -2.5);
+                if (goesRight) (0, _graphicHelpers.drawCornerCurve)(xFromAfterCorner, yTop + cornerRadius, xFromAfter2Corners, yTop, false, attr, twoLines, -2.5, 2.5, 2.5, -2.5);else (0, _graphicHelpers.drawCornerCurve)(xFromAfterCorner, yTop + cornerRadius, xFromAfter2Corners, yTop, false, attr, twoLines, 2.5, 2.5, -2.5, -2.5);
             } else {
                 // draw one continuous curve
-                if (goesRight) __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_3__graphicHelpers__["b" /* drawLevelChangeCurve */])(xFromAndBit, yFrom, xFromAfter2Corners, yTop, attr, twoLines, -2.5, 2.5, 2.5, -2.5);else __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_3__graphicHelpers__["b" /* drawLevelChangeCurve */])(xFromAndBit, yFrom, xFromAfter2Corners, yTop, attr, twoLines, 2.5, 2.5, -2.5, -2.5);
+                if (goesRight) (0, _graphicHelpers.drawLevelChangeCurve)(xFromAndBit, yFrom, xFromAfter2Corners, yTop, attr, twoLines, -2.5, 2.5, 2.5, -2.5);else (0, _graphicHelpers.drawLevelChangeCurve)(xFromAndBit, yFrom, xFromAfter2Corners, yTop, attr, twoLines, 2.5, 2.5, -2.5, -2.5);
             }
             this.drawLineWithCrossings(id, xFromAfter2Corners, yTop, xBeforeFinalBend, yTop, attr, twoLines, !goesRight, true);
         }
@@ -61665,12 +62023,12 @@ const View = Class.create({
             // curve down to yTo level
             if (Math.abs(yTo - yTop) >= cornerRadius * 2) {
                 // draw corner
-                if (goesRight) __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_3__graphicHelpers__["a" /* drawCornerCurve */])(xBeforeFinalBend, yTop, xFinalBendVert, yTop + cornerRadius, true, attr, twoLines, 2.5, 2.5, -2.5, -2.5);else __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_3__graphicHelpers__["a" /* drawCornerCurve */])(xBeforeFinalBend, yTop, xFinalBendVert, yTop + cornerRadius, true, attr, twoLines, 2.5, -2.5, -2.5, 2.5);
+                if (goesRight) (0, _graphicHelpers.drawCornerCurve)(xBeforeFinalBend, yTop, xFinalBendVert, yTop + cornerRadius, true, attr, twoLines, 2.5, 2.5, -2.5, -2.5);else (0, _graphicHelpers.drawCornerCurve)(xBeforeFinalBend, yTop, xFinalBendVert, yTop + cornerRadius, true, attr, twoLines, 2.5, -2.5, -2.5, 2.5);
                 this.drawLineWithCrossings(id, xFinalBendVert, yTop + cornerRadius, xFinalBendVert, yTo - cornerRadius, attr, twoLines, !goesRight);
-                if (goesRight) __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_3__graphicHelpers__["a" /* drawCornerCurve */])(xFinalBendVert, yTo - cornerRadius, xFinalBend, yTo, false, attr, twoLines, 2.5, 2.5, -2.5, -2.5);else __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_3__graphicHelpers__["a" /* drawCornerCurve */])(xFinalBendVert, yTo - cornerRadius, xFinalBend, yTo, false, attr, twoLines, 2.5, -2.5, -2.5, 2.5);
+                if (goesRight) (0, _graphicHelpers.drawCornerCurve)(xFinalBendVert, yTo - cornerRadius, xFinalBend, yTo, false, attr, twoLines, 2.5, 2.5, -2.5, -2.5);else (0, _graphicHelpers.drawCornerCurve)(xFinalBendVert, yTo - cornerRadius, xFinalBend, yTo, false, attr, twoLines, 2.5, -2.5, -2.5, 2.5);
             } else {
                 // draw one continuous curve
-                if (goesRight) __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_3__graphicHelpers__["b" /* drawLevelChangeCurve */])(xBeforeFinalBend, yTop, xFinalBend, yTo, attr, twoLines, 2.5, 2.5, -2.5, -2.5);else __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_3__graphicHelpers__["b" /* drawLevelChangeCurve */])(xBeforeFinalBend, yTop, xFinalBend, yTo, attr, twoLines, 2.5, -2.5, -2.5, 2.5);
+                if (goesRight) (0, _graphicHelpers.drawLevelChangeCurve)(xBeforeFinalBend, yTop, xFinalBend, yTo, attr, twoLines, 2.5, 2.5, -2.5, -2.5);else (0, _graphicHelpers.drawLevelChangeCurve)(xBeforeFinalBend, yTop, xFinalBend, yTo, attr, twoLines, 2.5, -2.5, -2.5, 2.5);
             }
             this.drawLineWithCrossings(id, xFinalBend, yTo, xTo, yTo, attr, twoLines, !goesRight);
         }
@@ -61682,7 +62040,7 @@ const View = Class.create({
      *
      * @method drawLineWithCrossings
      */
-    drawLineWithCrossings: function (owner, x1, y1, x2, y2, attr, twoLines, secondLineBelow, bothEndsGoDown) {
+    drawLineWithCrossings: function drawLineWithCrossings(owner, x1, y1, x2, y2, attr, twoLines, secondLineBelow, bothEndsGoDown) {
 
         // make sure line goes from the left to the right (and if vertical from the top to the bottom):
         // this simplifies drawing the line piece by piece from intersection to intersection
@@ -61701,7 +62059,7 @@ const View = Class.create({
         var intersections = this._lineSet.addLine(owner, x1, y1, x2, y2);
 
         // sort intersections by distance form the start
-        var compareDistanceToStart = function (p1, p2) {
+        var compareDistanceToStart = function compareDistanceToStart(p1, p2) {
             var dist1 = (x1 - p1.x) * (x1 - p1.x) + (y1 - p1.y) * (y1 - p1.y);
             var dist2 = (x1 - p2.x) * (x1 - p2.x) + (y1 - p2.y) * (y1 - p2.y);
             return dist1 - dist2;
@@ -61736,7 +62094,7 @@ const View = Class.create({
             for (var i = 0; i < intersections.length; i++) {
                 var intersectPoint = intersections[i];
 
-                var distance = function (p1, p2) {
+                var distance = function distance(p1, p2) {
                     return (p1.x - p2.x) * (p1.x - p2.x) + (p1.y - p2.y) * (p1.y - p2.y);
                 };
 
@@ -61779,7 +62137,7 @@ const View = Class.create({
      * @param {Number} [id] The id of the node
      * @return {Person}
      */
-    addNode: function (id) {
+    addNode: function addNode(id) {
         //console.log("add node");
         var positionedGraph = editor.getGraph();
 
@@ -61793,13 +62151,13 @@ const View = Class.create({
 
         if (positionedGraph.isRelationship(id)) {
             console.log("-> add partnership");
-            node = new __WEBPACK_IMPORTED_MODULE_4__partnership__["a" /* Partnership */](position.x, position.y, id, properties);
+            node = new _partnership.Partnership(position.x, position.y, id, properties);
         } else if (positionedGraph.isPersonGroup(id)) {
             console.log("-> add person group");
-            node = new __WEBPACK_IMPORTED_MODULE_6__personGroup__["a" /* PersonGroup */](position.x, position.y, id, properties);
+            node = new _personGroup.PersonGroup(position.x, position.y, id, properties);
         } else if (positionedGraph.isPerson(id)) {
             console.log("-> add person");
-            node = new __WEBPACK_IMPORTED_MODULE_5__person__["a" /* Person */](position.x, position.y, id, properties);
+            node = new _person.Person(position.x, position.y, id, properties);
         } else {
             throw "addNode(): unsupported node type";
         }
@@ -61809,14 +62167,14 @@ const View = Class.create({
         return node;
     },
 
-    moveNode: function (id, animate) {
+    moveNode: function moveNode(id, animate) {
         var positionedGraph = editor.getGraph();
         var graphPos = positionedGraph.getPosition(id);
         var position = editor.convertGraphCoordToCanvasCoord(graphPos.x, graphPos.y);
         this.getNode(id).setPos(position.x, position.y, animate);
     },
 
-    changeNodeIds: function (changedIdsSet) {
+    changeNodeIds: function changeNodeIds(changedIdsSet) {
         var newNodeMap = {};
 
         // change all IDs at once so that have both new and old references at the same time
@@ -61843,7 +62201,7 @@ const View = Class.create({
      *                   relationship with sourceNode will be highlighted
      * dragged on top of them.
      */
-    enterHoverMode: function (sourceNode, hoverType) {
+    enterHoverMode: function enterHoverMode(sourceNode, hoverType) {
 
         //var timer = new Timer();
 
@@ -61877,7 +62235,7 @@ const View = Class.create({
      *
      * @method exitHoverMode
      */
-    exitHoverMode: function () {
+    exitHoverMode: function exitHoverMode() {
         this._currentHoveredNode = null;
 
         this.hoverModeZones.remove();
@@ -61892,7 +62250,7 @@ const View = Class.create({
         this._currentGrownNodes = [];
     },
 
-    unmarkAll: function () {
+    unmarkAll: function unmarkAll() {
         for (var i = 0; i < this._currentMarkedNew.length; i++) {
             var node = this.getNode(this._currentMarkedNew[i]);
             node.getGraphics().unmark();
@@ -61900,7 +62258,7 @@ const View = Class.create({
         this._currentMarkedNew = [];
     },
 
-    getValidDragTargets: function (sourceNodeID, hoverType) {
+    getValidDragTargets: function getValidDragTargets(sourceNodeID, hoverType) {
         var result = [];
         switch (hoverType) {
             case "sibling":
@@ -61929,12 +62287,12 @@ const View = Class.create({
         return result;
     },
 
-    applyChanges: function (changeSet, markNew) {
+    applyChanges: function applyChanges(changeSet, markNew) {
         // applies change set of the form {"new": {list of nodes}, "moved": {list of nodes} }
-        console.log("Change set: " + __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__helpers__["c" /* stringifyObject */])(changeSet));
+        console.log("Change set: " + (0, _helpers.stringifyObject)(changeSet));
 
-        var timer = new __WEBPACK_IMPORTED_MODULE_1__helpers__["g" /* Timer */]();
-        var timer2 = new __WEBPACK_IMPORTED_MODULE_1__helpers__["g" /* Timer */]();
+        var timer = new _helpers.Timer();
+        var timer2 = new _helpers.Timer();
 
         try {
 
@@ -61965,10 +62323,12 @@ const View = Class.create({
 
                     var affected = this._lineSet.removeAllLinesAffectedByOwnerMovement(nextRemoved);
 
-                    for (var j = 0; j < affected.length; j++) if (!__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__helpers__["h" /* arrayContains */])(changeSet.removed, affected[j])) {
-                        // ignore nodes which are removed anyway
-                        //console.log("adding due to line removal: " + affected[j]);
-                        affectedByLineRemoval[affected[j]] = true;
+                    for (var j = 0; j < affected.length; j++) {
+                        if (!(0, _helpers.arrayContains)(changeSet.removed, affected[j])) {
+                            // ignore nodes which are removed anyway
+                            //console.log("adding due to line removal: " + affected[j]);
+                            affectedByLineRemoval[affected[j]] = true;
+                        }
                     }
                 }
 
@@ -61990,11 +62350,13 @@ const View = Class.create({
                 //console.log("Affected by line removal: " + stringifyObject(affectedByLineRemoval));
                 //console.log("LineSet: " + stringifyObject(this._lineSet));
 
-                for (var node in affectedByLineRemoval) if (affectedByLineRemoval.hasOwnProperty(node)) {
-                    var newID = changedIDs.hasOwnProperty(node) ? changedIDs[node] : node;
-                    if (!__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__helpers__["h" /* arrayContains */])(changeSet.moved, newID)) {
-                        //console.log("moved due to line removal: oldID="+node + ", newID=" + newID);
-                        changeSet.moved.push(newID);
+                for (var node in affectedByLineRemoval) {
+                    if (affectedByLineRemoval.hasOwnProperty(node)) {
+                        var newID = changedIDs.hasOwnProperty(node) ? changedIDs[node] : node;
+                        if (!(0, _helpers.arrayContains)(changeSet.moved, newID)) {
+                            //console.log("moved due to line removal: oldID="+node + ", newID=" + newID);
+                            changeSet.moved.push(newID);
+                        }
                     }
                 }
             }
@@ -62025,7 +62387,7 @@ const View = Class.create({
                         var affected = this._lineSet.removeAllLinesAffectedByOwnerMovement(nextMoved);
                         for (var j = 0; j < affected.length; j++) {
                             var node = affected[j];
-                            if (!__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__helpers__["h" /* arrayContains */])(changeSet.moved, node)) changeSet.moved.push(node);
+                            if (!(0, _helpers.arrayContains)(changeSet.moved, node)) changeSet.moved.push(node);
                         }
                     }
                 }
@@ -62036,7 +62398,7 @@ const View = Class.create({
                     if (editor.getGraph().isRelationship(nextMoved)) movedRelationships.push(nextMoved);else movedPersons.push(nextMoved);
                 }
             }
-            console.log("moved: " + __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__helpers__["c" /* stringifyObject */])(changeSet.moved));
+            console.log("moved: " + (0, _helpers.stringifyObject)(changeSet.moved));
             if (changeSet.hasOwnProperty("new")) {
                 for (var i = 0; i < changeSet["new"].length; i++) {
                     var nextNew = changeSet["new"][i];
@@ -62046,9 +62408,9 @@ const View = Class.create({
 
             timer.printSinceLast("=== Bookkeeping/sorting runtime: ");
 
-            for (var i = 0; i < movedPersons.length; i++) this.moveNode(movedPersons[i], animate.hasOwnProperty(movedPersons[i]));
-
-            timer.printSinceLast("=== Move persons runtime: ");
+            for (var i = 0; i < movedPersons.length; i++) {
+                this.moveNode(movedPersons[i], animate.hasOwnProperty(movedPersons[i]));
+            }timer.printSinceLast("=== Move persons runtime: ");
 
             for (var i = 0; i < newPersons.length; i++) {
                 var newPerson = this.addNode(newPersons[i]);
@@ -62060,13 +62422,13 @@ const View = Class.create({
 
             timer.printSinceLast("=== New persons runtime: ");
 
-            for (var i = 0; i < movedRelationships.length; i++) this.moveNode(movedRelationships[i]);
+            for (var i = 0; i < movedRelationships.length; i++) {
+                this.moveNode(movedRelationships[i]);
+            }timer.printSinceLast("=== Move rels runtime: ");
 
-            timer.printSinceLast("=== Move rels runtime: ");
-
-            for (var i = 0; i < newRelationships.length; i++) this.addNode(newRelationships[i]);
-
-            timer.printSinceLast("=== New rels runtime: ");
+            for (var i = 0; i < newRelationships.length; i++) {
+                this.addNode(newRelationships[i]);
+            }timer.printSinceLast("=== New rels runtime: ");
 
             if (changeSet.hasOwnProperty("highlight")) {
                 for (var i = 0; i < changeSet.highlight.length; i++) {
@@ -62101,53 +62463,58 @@ const View = Class.create({
         }
     }
 });
-/* harmony export (immutable) */ __webpack_exports__["a"] = View;
-
-/* WEBPACK VAR INJECTION */}.call(__webpack_exports__, __webpack_require__(27)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(27)))
 
 /***/ }),
 /* 179 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__saveLoadEngine__ = __webpack_require__(92);
 
 
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+exports.ViewerSaveLoadEngine = exports.ViewerProbandDataLoader = undefined;
 
-const ViewerProbandDataLoader = Class.create(__WEBPACK_IMPORTED_MODULE_0__saveLoadEngine__["a" /* ProbandDataLoader */], {
-    initialize: function (probandDataUrl) {
+var _saveLoadEngine = __webpack_require__(174);
+
+var ViewerProbandDataLoader = exports.ViewerProbandDataLoader = Class.create(_saveLoadEngine.ProbandDataLoader, {
+    initialize: function initialize(probandDataUrl) {
         this._probandDataUrl = probandDataUrl;
         this.probandData = undefined;
     },
-    load: function (callWhenReady) {}
+    load: function load(callWhenReady) {}
 });
-/* unused harmony export ViewerProbandDataLoader */
 
+var ViewerSaveLoadEngine = exports.ViewerSaveLoadEngine = Class.create(_saveLoadEngine.SaveLoadEngine, {
 
-const ViewerSaveLoadEngine = Class.create(__WEBPACK_IMPORTED_MODULE_0__saveLoadEngine__["b" /* SaveLoadEngine */], {
-
-    initialize: function (pedigreeDataUrl) {
+    initialize: function initialize(pedigreeDataUrl) {
         this._pedigreeDataUrl = pedigreeDataUrl;
         this._saveInProgress = false;
     },
-    load: function () {
+    load: function load() {
         console.log("initiating load process");
     }
 });
-/* harmony export (immutable) */ __webpack_exports__["a"] = ViewerSaveLoadEngine;
-
 
 /***/ }),
 /* 180 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/* WEBPACK VAR INJECTION */(function(Raphael) {/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__workspace__ = __webpack_require__(181);
+/* WEBPACK VAR INJECTION */(function(Raphael) {
 
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+exports.ViewerWorkspace = undefined;
 
-const ViewerWorkspace = Class.create(__WEBPACK_IMPORTED_MODULE_0__workspace__["a" /* Workspace */], {
+var _workspace = __webpack_require__(181);
 
-    initialize: function () {
+var ViewerWorkspace = exports.ViewerWorkspace = Class.create(_workspace.Workspace, {
+
+    initialize: function initialize() {
         var me = this;
         this.canvas = new Element('div', { 'id': 'canvas' });
         this.workArea = new Element('div', { 'id': 'work-area' }).update(this.canvas);
@@ -62172,7 +62539,7 @@ const ViewerWorkspace = Class.create(__WEBPACK_IMPORTED_MODULE_0__workspace__["a
         this.generateViewControls();
 
         //Initialize pan by dragging
-        var start = function () {
+        var start = function start() {
             if (editor.isAnyMenuVisible()) {
                 return;
             }
@@ -62181,7 +62548,7 @@ const ViewerWorkspace = Class.create(__WEBPACK_IMPORTED_MODULE_0__workspace__["a
             //me.background.attr({cursor: 'url(https://mail.google.com/mail/images/2/closedhand.cur)'});
             me.background.attr({ cursor: 'move' });
         };
-        var move = function (dx, dy) {
+        var move = function move(dx, dy) {
             var deltax = me.viewBoxX - dx / me.zoomCoefficient;
             var deltay = me.viewBoxY - dy / me.zoomCoefficient;
 
@@ -62190,7 +62557,7 @@ const ViewerWorkspace = Class.create(__WEBPACK_IMPORTED_MODULE_0__workspace__["a
             me.background.oy = deltay;
             me.background.attr({ x: deltax, y: deltay });
         };
-        var end = function () {
+        var end = function end() {
             me.viewBoxX = me.background.ox;
             me.viewBoxY = me.background.oy;
             me.background.attr({ cursor: 'default' });
@@ -62228,17 +62595,21 @@ const ViewerWorkspace = Class.create(__WEBPACK_IMPORTED_MODULE_0__workspace__["a
         }
     }
 });
-/* harmony export (immutable) */ __webpack_exports__["a"] = ViewerWorkspace;
-
-/* WEBPACK VAR INJECTION */}.call(__webpack_exports__, __webpack_require__(27)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(27)))
 
 /***/ }),
 /* 181 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/* WEBPACK VAR INJECTION */(function(Raphael) {/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__slider__ = __webpack_require__(175);
+/* WEBPACK VAR INJECTION */(function(Raphael) {
 
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+exports.Workspace = undefined;
+
+var _slider = __webpack_require__(175);
 
 /**
  * Workspace contains the Raphael canvas, the zoom/pan controls and the menu bar
@@ -62249,9 +62620,9 @@ const ViewerWorkspace = Class.create(__WEBPACK_IMPORTED_MODULE_0__workspace__["a
  * @constructor
  */
 
-const Workspace = Class.create({
+var Workspace = exports.Workspace = Class.create({
 
-    initialize: function () {
+    initialize: function initialize() {
         var me = this;
         this.canvas = new Element('div', { 'id': 'canvas' });
         this.workArea = new Element('div', { 'id': 'work-area' }).update(this.canvas);
@@ -62273,7 +62644,7 @@ const Workspace = Class.create({
         this.generateViewControls();
 
         //Initialize pan by dragging
-        var start = function () {
+        var start = function start() {
             if (editor.isAnyMenuVisible()) {
                 return;
             }
@@ -62282,7 +62653,7 @@ const Workspace = Class.create({
             //me.background.attr({cursor: 'url(https://mail.google.com/mail/images/2/closedhand.cur)'});
             me.background.attr({ cursor: 'move' });
         };
-        var move = function (dx, dy) {
+        var move = function move(dx, dy) {
             var deltax = me.viewBoxX - dx / me.zoomCoefficient;
             var deltay = me.viewBoxY - dy / me.zoomCoefficient;
 
@@ -62291,7 +62662,7 @@ const Workspace = Class.create({
             me.background.oy = deltay;
             me.background.attr({ x: deltax, y: deltay });
         };
-        var end = function () {
+        var end = function end() {
             me.viewBoxX = me.background.ox;
             me.viewBoxY = me.background.oy;
             me.background.attr({ cursor: 'default' });
@@ -62335,7 +62706,7 @@ const Workspace = Class.create({
      * @method getPaper
      * @return {Object} Raphael Paper element
      */
-    getPaper: function () {
+    getPaper: function getPaper() {
         return this._paper;
     },
 
@@ -62345,7 +62716,7 @@ const Workspace = Class.create({
      * @method getWorkArea
      * @return {HTMLElement}
      */
-    getWorkArea: function () {
+    getWorkArea: function getWorkArea() {
         return this.workArea;
     },
 
@@ -62355,7 +62726,7 @@ const Workspace = Class.create({
      * @method getWidth
      * @return {Number}
      */
-    getWidth: function () {
+    getWidth: function getWidth() {
         return this.width;
     },
 
@@ -62365,7 +62736,7 @@ const Workspace = Class.create({
      * @method getHeight
      * @return {Number}
      */
-    getHeight: function () {
+    getHeight: function getHeight() {
         return this.height;
     },
 
@@ -62374,7 +62745,7 @@ const Workspace = Class.create({
      *
      * @method generateTopMenu
      */
-    generateTopMenu: function () {
+    generateTopMenu: function generateTopMenu() {
         var menu = new Element('div', { 'id': 'editor-menu' });
         this.getWorkArea().insert({ before: menu });
         var submenus = [];
@@ -62404,14 +62775,14 @@ const Workspace = Class.create({
                 ]
             }];
         }
-        var _createSubmenu = function (data) {
+        var _createSubmenu = function _createSubmenu(data) {
             var submenu = new Element('div', { 'class': data.name + '-actions action-group' });
             menu.insert(submenu);
             data.items.each(function (item) {
                 submenu.insert(_createMenuItem(item));
             });
         };
-        var _createMenuItem = function (data) {
+        var _createMenuItem = function _createMenuItem(data) {
             var mi = new Element('span', { 'id': 'action-' + data.key, 'class': 'menu-item ' + data.key }).insert(new Element('span', { 'class': 'fa fa-' + data.icon })).insert(' ').insert(data.label);
             if (data.callback && typeof this[data.callback] == 'function') {
                 mi.observe('click', function () {
@@ -62429,7 +62800,7 @@ const Workspace = Class.create({
      * @method zoom
      * @param {Number} zoomCoefficient The zooming ratio
      */
-    zoom: function (zoomCoefficient) {
+    zoom: function zoom(zoomCoefficient) {
         if (zoomCoefficient < 0.15) zoomCoefficient = 0.15;
         if (zoomCoefficient > 0.15 && zoomCoefficient < 0.25) zoomCoefficient = 0.25;
         zoomCoefficient = Math.round(zoomCoefficient / 0.05) / 20;
@@ -62448,7 +62819,7 @@ const Workspace = Class.create({
      *
      * @method generateViewControls
      */
-    generateViewControls: function () {
+    generateViewControls: function generateViewControls() {
         var _this = this;
         this.__controls = new Element('div', { 'class': 'view-controls' });
         // Pan controls
@@ -62493,13 +62864,13 @@ const Workspace = Class.create({
         // Here a non-linear scale is used: slider positions form [0 to 0.9] correspond to
         // zoom coefficients from 1.25x to 0.25x, and zoom positions from (0.9 to 1]
         // correspond to single deepest zoom level 0.15x
-        this.zoomSlider = new __WEBPACK_IMPORTED_MODULE_0__slider__["a" /* Control */].Slider(this.__zoom.handle, this.__zoom.track, {
+        this.zoomSlider = new _slider.Control.Slider(this.__zoom.handle, this.__zoom.track, {
             axis: 'vertical',
             minimum: 0,
             maximum: trackLength,
             increment: 1,
             alignY: 6,
-            onSlide: function (value) {
+            onSlide: function onSlide(value) {
                 // Called whenever the Slider is moved by dragging.
                 // The called function gets the slider value (or array if slider has multiple handles) as its parameter.
                 //console.log("new val: " + value + " current coeff: " + _this.zoomCoefficient );
@@ -62509,7 +62880,7 @@ const Workspace = Class.create({
                     _this.zoom(0.15);
                 }
             },
-            onChange: function (value) {
+            onChange: function onChange(value) {
                 // Called whenever the Slider has finished moving or has had its value changed via the setSlider Value function.
                 // The called function gets the slider value (or array if slider has multiple handles) as its parameter.
                 if (value <= 0.9) {
@@ -62543,14 +62914,14 @@ const Workspace = Class.create({
      *
      * Returns the pixel value to be used in stoke-width
      */
-    getSizeNormalizedToDefaultZoom: function (pixelSizeAtDefaultZoom) {
+    getSizeNormalizedToDefaultZoom: function getSizeNormalizedToDefaultZoom(pixelSizeAtDefaultZoom) {
         return pixelSizeAtDefaultZoom;
     },
 
     /**
      * Returns the current zoom level (not normalized to any value, larger numbers mean deeper zoom-in)
      */
-    getCurrentZoomLevel: function (pixelSizeAtDefaultZoom) {
+    getCurrentZoomLevel: function getCurrentZoomLevel(pixelSizeAtDefaultZoom) {
         return this.zoomCoefficient;
     },
 
@@ -62563,7 +62934,7 @@ const Workspace = Class.create({
      * @param {Number} canvasY The y coordinate relative to the Raphael canvas (ie with pan/zoom transformations)
      * @return {{x: number, y: number}} Object with coordinates
      */
-    canvasToDiv: function (canvasX, canvasY) {
+    canvasToDiv: function canvasToDiv(canvasX, canvasY) {
         return {
             x: this.zoomCoefficient * (canvasX - this.viewBoxX),
             y: this.zoomCoefficient * (canvasY - this.viewBoxY)
@@ -62579,7 +62950,7 @@ const Workspace = Class.create({
      * @param {Number} divY The y coordinate relative to the canvas
      * @return {{x: number, y: number}} Object with coordinates
      */
-    divToCanvas: function (divX, divY) {
+    divToCanvas: function divToCanvas(divX, divY) {
         return {
             x: divX / this.zoomCoefficient + this.viewBoxX,
             y: divY / this.zoomCoefficient + this.viewBoxY
@@ -62595,7 +62966,7 @@ const Workspace = Class.create({
      * @param {Number} absY The y coordinate relative to the viewport
      * @return {{x: number, y: number}} Object with coordinates
      */
-    viewportToDiv: function (absX, absY) {
+    viewportToDiv: function viewportToDiv(absX, absY) {
         return {
             x: +absX - this.canvas.cumulativeOffset().left,
             y: absY - this.canvas.cumulativeOffset().top
@@ -62609,7 +62980,7 @@ const Workspace = Class.create({
      * @param {Number} x The x coordinate relative to the Raphael canvas
      * @param {Number} y The y coordinate relative to the Raphael canvas
      */
-    panTo: function (x, y, instant) {
+    panTo: function panTo(x, y, instant) {
         var me = this,
             oX = this.viewBoxX,
             oY = this.viewBoxY,
@@ -62649,7 +63020,7 @@ const Workspace = Class.create({
      * @method panTo
      * @param {Number} deltaX The move size
      */
-    panByX: function (deltaX, instant) {
+    panByX: function panByX(deltaX, instant) {
         this.panTo(this.viewBoxX + Math.floor(deltaX / this.zoomCoefficient), this.viewBoxY, instant);
     },
 
@@ -62658,7 +63029,7 @@ const Workspace = Class.create({
      *
      * @method adjustSizeToScreen
      */
-    adjustSizeToScreen: function () {
+    adjustSizeToScreen: function adjustSizeToScreen() {
         var screenDimensions = document.viewport.getDimensions();
         this.width = screenDimensions.width;
         this.height = screenDimensions.height - this.canvas.cumulativeOffset().top - 4;
@@ -62679,7 +63050,7 @@ const Workspace = Class.create({
      * @method centerAroundNode
      * @param {Number} nodeID The id of the node
      */
-    centerAroundNode: function (nodeID, instant, xCenterShift, yCenterShift) {
+    centerAroundNode: function centerAroundNode(nodeID, instant, xCenterShift, yCenterShift) {
         var node = editor.getNode(nodeID);
         if (node) {
             var x = node.getX(),
@@ -62692,9 +63063,7 @@ const Workspace = Class.create({
         }
     }
 });
-/* harmony export (immutable) */ __webpack_exports__["a"] = Workspace;
-
-/* WEBPACK VAR INJECTION */}.call(__webpack_exports__, __webpack_require__(27)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(27)))
 
 /***/ }),
 /* 182 */
@@ -70479,13 +70848,13 @@ module.exports = _curry2(function append(el, list) {
 /***/ (function(module, exports, __webpack_require__) {
 
 var _curry1 = __webpack_require__(1);
-var apply = __webpack_require__(99);
+var apply = __webpack_require__(98);
 var curryN = __webpack_require__(7);
 var map = __webpack_require__(11);
 var max = __webpack_require__(34);
 var pluck = __webpack_require__(42);
 var reduce = __webpack_require__(22);
-var values = __webpack_require__(151);
+var values = __webpack_require__(150);
 
 
 /**
@@ -70605,7 +70974,7 @@ module.exports = _curry1(function binary(fn) {
 
 var _curry2 = __webpack_require__(0);
 var _isFunction = __webpack_require__(54);
-var and = __webpack_require__(97);
+var and = __webpack_require__(96);
 var lift = __webpack_require__(59);
 
 
@@ -70729,7 +71098,7 @@ module.exports = _curry3(function clamp(min, max, value) {
 /* 200 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var _clone = __webpack_require__(113);
+var _clone = __webpack_require__(112);
 var _curry1 = __webpack_require__(1);
 
 
@@ -70800,7 +71169,7 @@ module.exports = _curry1(function comparator(pred) {
 /***/ (function(module, exports, __webpack_require__) {
 
 var lift = __webpack_require__(59);
-var not = __webpack_require__(135);
+var not = __webpack_require__(134);
 
 
 /**
@@ -70832,7 +71201,7 @@ module.exports = lift(not);
 /* 203 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var pipeP = __webpack_require__(141);
+var pipeP = __webpack_require__(140);
 var reverse = __webpack_require__(63);
 
 
@@ -70936,7 +71305,7 @@ module.exports = _curry1(function cond(pairs) {
 /***/ (function(module, exports, __webpack_require__) {
 
 var _curry1 = __webpack_require__(1);
-var constructN = __webpack_require__(103);
+var constructN = __webpack_require__(102);
 
 
 /**
@@ -71106,7 +71475,7 @@ module.exports = _curry3(function descend(fn, a, b) {
 
 var _curry2 = __webpack_require__(0);
 var assoc = __webpack_require__(50);
-var dissoc = __webpack_require__(108);
+var dissoc = __webpack_require__(107);
 
 
 /**
@@ -71248,8 +71617,8 @@ module.exports = _curry2(_dispatchable([], _xdropLastWhile, _dropLastWhile));
 
 var _curry1 = __webpack_require__(1);
 var _dispatchable = __webpack_require__(3);
-var _xdropRepeatsWith = __webpack_require__(125);
-var dropRepeatsWith = __webpack_require__(110);
+var _xdropRepeatsWith = __webpack_require__(124);
+var dropRepeatsWith = __webpack_require__(109);
 var equals = __webpack_require__(19);
 
 
@@ -71325,7 +71694,7 @@ module.exports = _curry2(_dispatchable(['dropWhile'], _xdropWhile, function drop
 var _curry2 = __webpack_require__(0);
 var _isFunction = __webpack_require__(54);
 var lift = __webpack_require__(59);
-var or = __webpack_require__(137);
+var or = __webpack_require__(136);
 
 
 /**
@@ -71655,7 +72024,7 @@ module.exports = _curry2(_dispatchable([], _xfindLastIndex, function findLastInd
 /***/ (function(module, exports, __webpack_require__) {
 
 var _curry1 = __webpack_require__(1);
-var _makeFlat = __webpack_require__(123);
+var _makeFlat = __webpack_require__(122);
 
 
 /**
@@ -72182,7 +72551,7 @@ module.exports = reduceBy(function(acc, elem) { return elem; }, null);
 /***/ (function(module, exports, __webpack_require__) {
 
 var _curry2 = __webpack_require__(0);
-var _indexOf = __webpack_require__(118);
+var _indexOf = __webpack_require__(117);
 var _isArray = __webpack_require__(25);
 
 
@@ -72523,7 +72892,7 @@ module.exports = function _arrayFromIterator(iter) {
 /* 245 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var take = __webpack_require__(146);
+var take = __webpack_require__(145);
 
 module.exports = function dropLast(n, xs) {
   return take(n < xs.length ? xs.length - n : 0, xs);
@@ -72550,7 +72919,7 @@ module.exports = function dropLastWhile(pred, list) {
 var _arrayFromIterator = __webpack_require__(244);
 var _functionName = __webpack_require__(250);
 var _has = __webpack_require__(9);
-var identical = __webpack_require__(112);
+var identical = __webpack_require__(111);
 var keys = __webpack_require__(21);
 var type = __webpack_require__(83);
 
@@ -72817,7 +73186,7 @@ var _assign = __webpack_require__(77);
 var _identity = __webpack_require__(79);
 var _isTransformer = __webpack_require__(80);
 var isArrayLike = __webpack_require__(39);
-var objOf = __webpack_require__(136);
+var objOf = __webpack_require__(135);
 
 
 module.exports = (function() {
@@ -73447,7 +73816,7 @@ module.exports = (function() {
 
 var _contains = __webpack_require__(30);
 var _curry2 = __webpack_require__(0);
-var _filter = __webpack_require__(117);
+var _filter = __webpack_require__(116);
 var flip = __webpack_require__(52);
 var uniq = __webpack_require__(84);
 
@@ -73592,7 +73961,7 @@ module.exports = _curry2(_checkForMethod('intersperse', function intersperse(sep
 /* 279 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var _clone = __webpack_require__(113);
+var _clone = __webpack_require__(112);
 var _curry3 = __webpack_require__(2);
 var _isTransformer = __webpack_require__(80);
 var _reduce = __webpack_require__(14);
@@ -73745,7 +74114,7 @@ module.exports = _curry1(function invertObj(obj) {
 /***/ (function(module, exports, __webpack_require__) {
 
 var _curry1 = __webpack_require__(1);
-var empty = __webpack_require__(111);
+var empty = __webpack_require__(110);
 var equals = __webpack_require__(19);
 
 
@@ -73919,7 +74288,7 @@ module.exports = _curry2(function lastIndexOf(target, xs) {
 var _curry1 = __webpack_require__(1);
 var lens = __webpack_require__(58);
 var nth = __webpack_require__(40);
-var update = __webpack_require__(149);
+var update = __webpack_require__(148);
 
 
 /**
@@ -73952,7 +74321,7 @@ module.exports = _curry1(function lensIndex(n) {
 /***/ (function(module, exports, __webpack_require__) {
 
 var _curry1 = __webpack_require__(1);
-var assocPath = __webpack_require__(100);
+var assocPath = __webpack_require__(99);
 var lens = __webpack_require__(58);
 var path = __webpack_require__(41);
 
@@ -74271,7 +74640,7 @@ module.exports = _curry2(function match(rx, str) {
 /***/ (function(module, exports, __webpack_require__) {
 
 var _curry2 = __webpack_require__(0);
-var _isInteger = __webpack_require__(120);
+var _isInteger = __webpack_require__(119);
 
 
 /**
@@ -74354,7 +74723,7 @@ module.exports = _curry3(function maxBy(f, a, b) {
 /***/ (function(module, exports, __webpack_require__) {
 
 var _curry1 = __webpack_require__(1);
-var mean = __webpack_require__(132);
+var mean = __webpack_require__(131);
 
 
 /**
@@ -74505,7 +74874,7 @@ module.exports = _curry1(function mergeAll(list) {
 /***/ (function(module, exports, __webpack_require__) {
 
 var _curry3 = __webpack_require__(2);
-var mergeWithKey = __webpack_require__(133);
+var mergeWithKey = __webpack_require__(132);
 
 
 /**
@@ -74665,11 +75034,11 @@ module.exports = _curry1(function negate(n) { return -n; });
 /* 307 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var _complement = __webpack_require__(115);
+var _complement = __webpack_require__(114);
 var _curry2 = __webpack_require__(0);
 var _dispatchable = __webpack_require__(3);
-var _xany = __webpack_require__(124);
-var any = __webpack_require__(98);
+var _xany = __webpack_require__(123);
+var any = __webpack_require__(97);
 
 
 /**
@@ -74868,7 +75237,7 @@ module.exports = _curry2(function pair(fst, snd) { return [fst, snd]; });
 /***/ (function(module, exports, __webpack_require__) {
 
 var _concat = __webpack_require__(16);
-var _createPartialApplicator = __webpack_require__(116);
+var _createPartialApplicator = __webpack_require__(115);
 
 
 /**
@@ -74907,7 +75276,7 @@ module.exports = _createPartialApplicator(_concat);
 /***/ (function(module, exports, __webpack_require__) {
 
 var _concat = __webpack_require__(16);
-var _createPartialApplicator = __webpack_require__(116);
+var _createPartialApplicator = __webpack_require__(115);
 var flip = __webpack_require__(52);
 
 
@@ -74943,7 +75312,7 @@ module.exports = _createPartialApplicator(flip(_concat));
 /***/ (function(module, exports, __webpack_require__) {
 
 var filter = __webpack_require__(75);
-var juxt = __webpack_require__(128);
+var juxt = __webpack_require__(127);
 var reject = __webpack_require__(62);
 
 
@@ -75016,7 +75385,7 @@ module.exports = _curry3(function pathEq(_path, val, obj) {
 /***/ (function(module, exports, __webpack_require__) {
 
 var _curry3 = __webpack_require__(2);
-var defaultTo = __webpack_require__(105);
+var defaultTo = __webpack_require__(104);
 var path = __webpack_require__(41);
 
 
@@ -75156,7 +75525,7 @@ module.exports = _curry2(function pickBy(test, obj) {
 /* 321 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var composeK = __webpack_require__(102);
+var composeK = __webpack_require__(101);
 var reverse = __webpack_require__(63);
 
 /**
@@ -75205,7 +75574,7 @@ module.exports = function pipeK() {
 /* 322 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var multiply = __webpack_require__(134);
+var multiply = __webpack_require__(133);
 var reduce = __webpack_require__(22);
 
 
@@ -75233,8 +75602,8 @@ module.exports = reduce(multiply, 1);
 
 var _map = __webpack_require__(57);
 var identity = __webpack_require__(76);
-var pickAll = __webpack_require__(139);
-var useWith = __webpack_require__(150);
+var pickAll = __webpack_require__(138);
+var useWith = __webpack_require__(149);
 
 
 /**
@@ -75301,7 +75670,7 @@ module.exports = _curry3(function propEq(name, val, obj) {
 /***/ (function(module, exports, __webpack_require__) {
 
 var _curry3 = __webpack_require__(2);
-var is = __webpack_require__(127);
+var is = __webpack_require__(126);
 
 
 /**
@@ -75444,7 +75813,7 @@ module.exports = _curry2(function props(ps, obj) {
 /***/ (function(module, exports, __webpack_require__) {
 
 var _curry2 = __webpack_require__(0);
-var _isNumber = __webpack_require__(121);
+var _isNumber = __webpack_require__(120);
 
 
 /**
@@ -75595,7 +75964,7 @@ module.exports = _curry3(function remove(start, count, list) {
 
 var _curry2 = __webpack_require__(0);
 var always = __webpack_require__(33);
-var times = __webpack_require__(147);
+var times = __webpack_require__(146);
 
 
 /**
@@ -75703,7 +76072,7 @@ module.exports = _curry3(function scan(fn, acc, list) {
 
 var _curry3 = __webpack_require__(2);
 var always = __webpack_require__(33);
-var over = __webpack_require__(138);
+var over = __webpack_require__(137);
 
 
 /**
@@ -75900,7 +76269,7 @@ module.exports = invoker(1, 'split');
 /***/ (function(module, exports, __webpack_require__) {
 
 var _curry2 = __webpack_require__(0);
-var length = __webpack_require__(130);
+var length = __webpack_require__(129);
 var slice = __webpack_require__(31);
 
 
@@ -76046,7 +76415,7 @@ module.exports = _curry2(function subtract(a, b) {
 
 var _curry2 = __webpack_require__(0);
 var concat = __webpack_require__(74);
-var difference = __webpack_require__(106);
+var difference = __webpack_require__(105);
 
 
 /**
@@ -76078,7 +76447,7 @@ module.exports = _curry2(function symmetricDifference(list1, list2) {
 
 var _curry3 = __webpack_require__(2);
 var concat = __webpack_require__(74);
-var differenceWith = __webpack_require__(107);
+var differenceWith = __webpack_require__(106);
 
 
 /**
@@ -76113,7 +76482,7 @@ module.exports = _curry3(function symmetricDifferenceWith(pred, list1, list2) {
 /***/ (function(module, exports, __webpack_require__) {
 
 var _curry2 = __webpack_require__(0);
-var drop = __webpack_require__(109);
+var drop = __webpack_require__(108);
 
 
 /**
@@ -76261,7 +76630,7 @@ module.exports = _curry2(function tap(fn, x) {
 /* 351 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var _cloneRegExp = __webpack_require__(114);
+var _cloneRegExp = __webpack_require__(113);
 var _curry2 = __webpack_require__(0);
 var _isRegExp = __webpack_require__(251);
 var toString = __webpack_require__(43);
@@ -76421,7 +76790,7 @@ module.exports = invoker(0, 'toUpperCase');
 /***/ (function(module, exports, __webpack_require__) {
 
 var _reduce = __webpack_require__(14);
-var _xwrap = __webpack_require__(126);
+var _xwrap = __webpack_require__(125);
 var curryN = __webpack_require__(7);
 
 
@@ -76531,7 +76900,7 @@ module.exports = _curry1(function transpose(outerlist) {
 
 var _curry3 = __webpack_require__(2);
 var map = __webpack_require__(11);
-var sequence = __webpack_require__(144);
+var sequence = __webpack_require__(143);
 
 
 /**
@@ -77105,7 +77474,7 @@ module.exports = _curry3(function when(pred, whenTrueFn, x) {
 var _curry2 = __webpack_require__(0);
 var equals = __webpack_require__(19);
 var map = __webpack_require__(11);
-var where = __webpack_require__(152);
+var where = __webpack_require__(151);
 
 
 /**
@@ -77336,21 +77705,21 @@ module.exports = _curry3(function zipWith(fn, a, b) {
 
 /***/ }),
 /* 379 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/* WEBPACK VAR INJECTION */(function(jquery, jQuery) {Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__src_viewerPedigree__ = __webpack_require__(153);
+/* WEBPACK VAR INJECTION */(function(jquery, jQuery) {
+
+var _viewerPedigree = __webpack_require__(152);
+
 console.log(1);
-
-
 
 window.jQuery = jquery;
 window.jquery = jquery;
 
-const prefix = "/js/ext-lib/panogram";
-const probandDataUrl = "/public/xwiki/PhenoTips.PatientClass/0.xml";
-const pedigreeDataUrl = "/public/xwiki/PhenoTips.PedigreeClass/0.xml";
+var prefix = "/js/ext-lib/panogram";
+var probandDataUrl = "/public/xwiki/PhenoTips.PatientClass/0.xml";
+var pedigreeDataUrl = "/public/xwiki/PhenoTips.PedigreeClass/0.xml";
 
 var am = [[0, 0, 1, 0, 0, 0, 0, 0], //1
 [0, 0, 1, 0, 0, 0, 0, 0], //2
@@ -77363,15 +77732,19 @@ var am = [[0, 0, 1, 0, 0, 0, 0, 0], //1
 //         1 2 3 4 5 6 7 8
 
 
-const isFullyConected = adjMatrix => {
-    const seen = [];
-    const build = (currentNode = 1) => {
+var isFullyConected = function isFullyConected(adjMatrix) {
+    var seen = [];
+    var build = function build() {
+        var currentNode = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 1;
+
         seen.push(currentNode);
-        const nextNodes = adjMatrix[currentNode - 1].map((edge, i) => {
+        var nextNodes = adjMatrix[currentNode - 1].map(function (edge, i) {
             if (edge) return i + 1;
             return 0;
-        }).filter(node => node > 0);
-        nextNodes.forEach(node => {
+        }).filter(function (node) {
+            return node > 0;
+        });
+        nextNodes.forEach(function (node) {
             if (seen.indexOf(node) === -1) {
                 build(node);
             }
@@ -77384,31 +77757,37 @@ const isFullyConected = adjMatrix => {
     return false;
 };
 
-const render = ({ data, probandDataUrl, pedigreeDataUrl }) => {
-    jquery("doc").ready(() => {
-        new __WEBPACK_IMPORTED_MODULE_0__src_viewerPedigree__["a" /* ViewerPedigree */]({
+var render = function render(_ref) {
+    var data = _ref.data,
+        probandDataUrl = _ref.probandDataUrl,
+        pedigreeDataUrl = _ref.pedigreeDataUrl;
+
+    jquery("doc").ready(function () {
+        new _viewerPedigree.ViewerPedigree({
             type: "simpleJSON",
-            data,
-            probandDataUrl, // TODO replace loading of this with webpak module
-            pedigreeDataUrl
+            data: data,
+            probandDataUrl: probandDataUrl, // TODO replace loading of this with webpak module
+            pedigreeDataUrl: pedigreeDataUrl
         });
     });
 };
 
-const getPedigreeData = patientId => jquery.ajax({
-    url: `/patient/${patientId}/pedigree.json`,
-    method: "GET"
-});
+var getPedigreeData = function getPedigreeData(patientId) {
+    return jquery.ajax({
+        url: "/patient/" + patientId + "/pedigree.json",
+        method: "GET"
+    });
+};
 
-const getDataAndRender = patientId => {
-    getPedigreeData(patientId).then(data => {
+var getDataAndRender = function getDataAndRender(patientId) {
+    getPedigreeData(patientId).then(function (data) {
         console.log(data);
         render({
-            data,
-            probandDataUrl,
-            pedigreeDataUrl
+            data: data,
+            probandDataUrl: probandDataUrl,
+            pedigreeDataUrl: pedigreeDataUrl
         });
-    }).catch(err => {
+    }).catch(function (err) {
         if (err.status === 403) {
             jquery('body').append('<p>please <a href="http://localhost:8000">log in</a></p>');
         }
@@ -77416,32 +77795,32 @@ const getDataAndRender = patientId => {
     });
 };
 
-const createInput = () => {
-    jquery(document).ready(() => {
+var createInput = function createInput() {
+    jquery(document).ready(function () {
         jquery('body').prepend('<span>Patient ID: </span><input type="number" name="patientId" id="patientId"></input><button id="go">go</button> <a href="" id="525">525</a>, <a href="" id="9971">9971</a>, <a href="" id="4247">4247</a>');
-        jquery('#go').on('click', e => {
+        jquery('#go').on('click', function (e) {
             e.preventDefault();
-            const patientId = jquery('#patientId').val().strip();
+            var patientId = jquery('#patientId').val().strip();
             getDataAndRender(patientId);
         });
-        jquery('#9971').on('click', e => {
+        jquery('#9971').on('click', function (e) {
             e.preventDefault();
             getDataAndRender(9971);
         });
-        jquery('#525').on('click', e => {
+        jquery('#525').on('click', function (e) {
             e.preventDefault();
             getDataAndRender(525);
         });
-        jquery('#4247').on('click', e => {
+        jquery('#4247').on('click', function (e) {
             e.preventDefault();
             getDataAndRender(4247);
         });
     });
 };
 
-jquery('doc').ready(() => {
-    const patientId = jQuery('#panogram').data('patient-id');
-    const development = jQuery('#panogram').data('env') === 'dev';
+jquery('doc').ready(function () {
+    var patientId = jQuery('#panogram').data('patient-id');
+    var development = jQuery('#panogram').data('env') === 'dev';
 
     if (development) {
         createInput();
@@ -77449,7 +77828,7 @@ jquery('doc').ready(() => {
 
     getDataAndRender(patientId);
 });
-/* WEBPACK VAR INJECTION */}.call(__webpack_exports__, __webpack_require__(44), __webpack_require__(44)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(44), __webpack_require__(44)))
 
 /***/ })
 /******/ ]);

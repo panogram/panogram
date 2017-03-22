@@ -201,7 +201,7 @@ export const AbstractHoverbox = Class.create({
      * @method removeHandles
      */
     removeHandles: function() {
-        let i;
+        var i;
         if (!this._currentHandles) return;
 
         var enableState = this._enabled;

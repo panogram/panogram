@@ -29,7 +29,16 @@ module.exports = {
             {
                 test: /\.js$/,
                 exclude: /node_modules|bower_components/,
-                loader: "babel-loader"
+                use: {
+                  loader: "babel-loader",
+                  options: {
+                    presets: ['env'],
+                    plugins: [
+                      require('babel-plugin-transform-object-rest-spread'),
+                      require('babel-plugin-transform-strict-mode'),
+                    ]
+                  }
+                }
             }
         ]
     },
