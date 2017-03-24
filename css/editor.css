@@ -190,18 +190,28 @@ body {
 }
 #panogram .legend-box .legend-title {
   font-size: 1.25em;
-  margin: 0 0 0.75em;
+  margin: 0 0 0.2em;
   text-decoration: underline;
 }
 #panogram .legend-box .disorder-list {
   list-style-type: none;
   margin: 0;
   padding: 0;
-  margin-left: 1.4em;
 }
 
 #panogram .legend-box .disorder-list li.disorder {
-  padding-bottom: 0.6em;
+  padding-bottom: 0.3em;
+  margin-left: 1.4em;
+  line-height: 100%;
+}
+#panogram .legend-box .disorder-list li.disorder.drop-phenotype {
+  margin-left: 0;
+}
+
+#panogram .legend-box .disorder-list li.disorder.drop-phenotype .disorder-color {
+  display:none;
+}
+#panogram .legend-box .disorder-list li.disorder.drop-phenotype .disorder-name {
 }
 
 #panogram .disorder-color {

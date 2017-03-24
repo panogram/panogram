@@ -54877,7 +54877,7 @@ var HPOLegend = exports.HPOLegend = Class.create(_legend.Legend, {
      * @return {String} CSS color value for that disorder
      */
     getObjectColor: function getObjectColor(id) {
-        return "#CCCCCC";
+        return "#fff";
     },
 
     /**
@@ -54903,7 +54903,7 @@ var HPOLegend = exports.HPOLegend = Class.create(_legend.Legend, {
      */
     _updateTermName: function _updateTermName(id) {
         //console.log("updating phenotype display for " + id + ", name = " + this.getTerm(id).getName());
-        var name = this._legendBox.down("li#" + this._getPrefix() + "-" + id + " .disorder-name");
+        var name = this._legendBox.down("li#" + this._getPrefix() + "-" + id + " .disorder-name ");
         name.update(this.getTerm(id).getName());
     },
 
@@ -95853,7 +95853,7 @@ var testData = JSON.stringify([{
     "disorders": [],
     "externalIDHref": "/patient/12764",
     "externalId": "NR_114000358_mother",
-    "focused": 1,
+    "focused": 0,
     "gender": "F",
     "hpoTerms": [],
     "id": "5752",
@@ -95875,9 +95875,9 @@ var testData = JSON.stringify([{
     "externalId": "LP3000037-DNA_A02",
     "father": 5753,
     "mother": 5752,
-    "focused": 0,
+    "focused": 1,
     "gender": "M",
-    "hpoTerms": ["some", "hpo", "terms"],
+    "hpoTerms": ["some", "hpo", "terms wih a really really long namereally really long name really really long name", "really really long namereally really long namereally really long namereally really long name"],
     "id": "5754",
     "proband": 1,
     "sex": "M"

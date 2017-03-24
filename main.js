@@ -15,7 +15,7 @@ var testData = JSON.stringify([{
 	"disorders": [],
 	"externalIDHref": "/patient/12764",
 	"externalId": "NR_114000358_mother",
-	"focused": 1,
+	"focused": 0,
 	"gender": "F",
 	"hpoTerms": [],
 	"id": "5752",
@@ -39,12 +39,13 @@ var testData = JSON.stringify([{
 	"externalId": "LP3000037-DNA_A02",
 	"father": 5753,
 	"mother": 5752,
-	"focused": 0,
+	"focused": 1,
 	"gender": "M",
 	"hpoTerms": [
 		"some",
 		"hpo",
-		"terms"
+		"terms wih a really really long namereally really long name really really long name",
+    "really really long namereally really long namereally really long namereally really long name"
 	],
 	"id": "5754",
 	"proband": 1,
