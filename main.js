@@ -10,53 +10,11 @@ const prefix = "/js/ext-lib/panogram";
 const probandDataUrl = "/public/xwiki/PhenoTips.PatientClass/0.xml";
 const pedigreeDataUrl = "/public/xwiki/PhenoTips.PedigreeClass/0.xml";
 
-
-var testData = JSON.stringify([{
-	"disorders": [],
-	"externalIDHref": "/patient/12764",
-	"externalId": "NR_114000358_mother",
-	"focused": 0,
-	"gender": "F",
-	"hpoTerms": [],
-	"id": "5752",
-	"proband": 0,
-	"sex": "F"
-}, {
-	"disorders": [],
-	"externalIDHref": "/patient/12765",
-	"externalId": "NR_114000358_father",
-	"focused": 0,
-	"gender": "M",
-	"hpoTerms": [],
-	"id": "5753",
-	"proband": 0,
-	"sex": "M"
-}, {
-	"disorders": [
-		"Complex Parkinsonism (includes pallido-pyramidal syndromes)"
-	],
-	"externalIDHref": "/patient/12766",
-	"externalId": "LP3000037-DNA_A02",
-	"father": 5753,
-	"mother": 5752,
-	"focused": 1,
-	"gender": "M",
-	"hpoTerms": [
-		"some",
-		"hpo",
-		"terms wih a really really long namereally really long name really really long name",
-    "really really long namereally really long namereally really long namereally really long name"
-	],
-	"id": "5754",
-	"proband": 1,
-	"sex": "M"
-}]); 
-
 const render = ({ data, probandDataUrl, pedigreeDataUrl }) => {
     jquery("doc").ready(() => {
         new ViewerPedigree({
             type: "simpleJSON",
-            data: testData,
+            data,
             probandDataUrl, // TODO replace loading of this with webpak module
             pedigreeDataUrl,
         });
