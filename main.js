@@ -11,47 +11,51 @@ const probandDataUrl = "/public/xwiki/PhenoTips.PatientClass/0.xml";
 const pedigreeDataUrl = "/public/xwiki/PhenoTips.PedigreeClass/0.xml";
 
 
-var am = [[0,0,1,0,0,0,0,0],//1
-          [0,0,1,0,0,0,0,0],//2
-          [1,1,0,0,0,1,0,0],//3
-          [0,0,0,0,0,1,1,0],//4
-          [0,0,0,0,0,0,1,0],//5
-          [0,0,1,1,0,0,0,1],//6
-          [0,0,0,1,1,0,0,1],//7
-          [0,0,0,0,0,1,1,0]];//8
-//         1 2 3 4 5 6 7 8
-
-
-
-const isFullyConected = (adjMatrix) => {
-    const seen = [];
-    const build = (currentNode = 1) => {
-        seen.push(currentNode);
-        const nextNodes = adjMatrix[currentNode-1]
-        .map((edge, i) => {
-            if (edge) return i + 1;
-            return 0;
-        })
-        .filter(node => node > 0);
-        nextNodes.forEach((node) => {
-            if(seen.indexOf(node) === -1) {
-                build(node);
-            }
-        });
-    };
-    build();
-    if (seen.length === adjMatrix.length) {
-        return true;
-    }
-    return false;
-};
-
+var testData = JSON.stringify([{
+	"disorders": [],
+	"externalIDHref": "/patient/12764",
+	"externalId": "NR_114000358_mother",
+	"focused": 1,
+	"gender": "F",
+	"hpoTerms": [],
+	"id": "5752",
+	"proband": 0,
+	"sex": "F"
+}, {
+	"disorders": [],
+	"externalIDHref": "/patient/12765",
+	"externalId": "NR_114000358_father",
+	"focused": 0,
+	"gender": "M",
+	"hpoTerms": [],
+	"id": "5753",
+	"proband": 0,
+	"sex": "M"
+}, {
+	"disorders": [
+		"Complex Parkinsonism (includes pallido-pyramidal syndromes)"
+	],
+	"externalIDHref": "/patient/12766",
+	"externalId": "LP3000037-DNA_A02",
+	"father": 5753,
+	"mother": 5752,
+	"focused": 0,
+	"gender": "M",
+	"hpoTerms": [
+		"some",
+		"hpo",
+		"terms"
+	],
+	"id": "5754",
+	"proband": 1,
+	"sex": "M"
+}]); 
 
 const render = ({ data, probandDataUrl, pedigreeDataUrl }) => {
     jquery("doc").ready(() => {
         new ViewerPedigree({
             type: "simpleJSON",
-            data,
+            data: testData,
             probandDataUrl, // TODO replace loading of this with webpak module
             pedigreeDataUrl,
         });

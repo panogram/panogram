@@ -99,8 +99,8 @@ export const PersonVisuals = Class.create(AbstractPersonVisuals, {
             // this.getGenderShape().attr("stroke-width", 5.5);
         }
         if(this.getNode().isFocused()) {
-            this.getGenderShape().attr("stroke-width", 3);
-            this.getGenderShape().attr("stroke", "#003b9b");
+            this.getGenderShape().attr("stroke-width", 3.5);
+            this.getGenderShape().attr("stroke", "blue");
         }
         if(!editor.isUnsupportedBrowser() && this.getHoverBox()) {
             this._genderGraphics.flatten().insertBefore(this.getFrontElements().flatten());

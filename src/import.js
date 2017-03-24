@@ -651,6 +651,11 @@ PedigreeImport.initFromSimpleJSON = function(inputText)
         throw "Unable to import pedigree: input is empty";
     }
 
+    // move the proband to the top of the list as panogram expects this to be the case
+    var proband = inputArray.filter(node => node.proband == 1);
+    var rest = inputArray.filter(node => node.proband == 0);
+    inputArray = proband.concat(rest);
+
     var newG = new BaseGraph();
 
     var nameToID            = {};

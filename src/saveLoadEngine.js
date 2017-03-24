@@ -67,9 +67,9 @@ export const SaveLoadEngine = Class.create( {
         if (!noUndo) {
             var probandData = editor.getProbandDataFromPhenotips();
             if ( probandData ) {
-              var genderOk = editor.getGraph().setProbandData( probandData.firstName, probandData.lastName, probandData.gender );
-              if (!genderOk)
-                  console.warn("Proband gender defined in Phenotips is incompatible with this pedigree. Setting proband gender to 'Unknown'");
+                var genderOk = editor.getGraph().setProbandData( probandData.firstName, probandData.lastName, probandData.gender );
+                if (!genderOk)
+                    console.warn("Proband gender defined in Phenotips is incompatible with this pedigree. Setting proband gender to 'Unknown'");
             }
 
             JSONString = editor.getGraph().toJSON();

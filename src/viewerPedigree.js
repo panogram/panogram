@@ -31,6 +31,9 @@ import {
 import {
     ActionStack
 } from "./undoRedo";
+import {
+  NodeMenu
+} from "./nodeMenu";
 
 const isTruthy = val => {
     const truthy = ['1', 'y', 'yes', 'ye', 't', 'tr', 'true'];
@@ -38,7 +41,7 @@ const isTruthy = val => {
         return true;
     }
     return false;
-}
+};
 
 const cleanBooleanField = val => {
     if (val && isTruthy(val)) return true;
@@ -47,7 +50,7 @@ const cleanBooleanField = val => {
 
 const cleanGender = val => {
     const maleLike = ['m', 'male'];
-    const femaleLike = ['f', 'female']
+    const femaleLike = ['f', 'female'];
     if (val && contains(val.toString().trim().toLowerCase(), maleLike)) {
         return "M";
     }
@@ -88,8 +91,8 @@ const cleanData = data => {
             gender: cleanGender(gender),
             id: id,
         };
-    })
-}
+    });
+};
 
 export class ViewerPedigree {
     constructor(args) {
@@ -333,7 +336,6 @@ export class ViewerPedigree {
      */
     generateNodeMenu() {
         if (this.isReadOnlyMode()) return null;
-        var _this = this;
         return new NodeMenu([{
                 'name': 'identifier',
                 'label': '',
@@ -594,7 +596,6 @@ export class ViewerPedigree {
      */
     generateNodeGroupMenu() {
         if (this.isReadOnlyMode()) return null;
-        var _this = this;
         return new NodeMenu([{
                 'name': 'identifier',
                 'label': '',
@@ -738,7 +739,6 @@ export class ViewerPedigree {
      */
     generatePartnershipMenu() {
         if (this.isReadOnlyMode()) return null;
-        var _this = this;
         return new NodeMenu([{
                 'label': 'Heredity options',
                 'name': 'childlessSelect',
@@ -810,10 +810,7 @@ export class ViewerPedigree {
             y: y * scale.yscale
         };
     }
-
-};
-
-var editor; // ????
+}
 
 //attributes for graphical elements in the editor
 ViewerPedigree.attributes = PedigreeEditorAttributes;
