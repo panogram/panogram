@@ -14,7 +14,6 @@ export const Disorder = Class.create( {
         if (name == null && !isInt(disorderID)) {
             name = Disorder.desanitizeID(disorderID);
         }
-
         this._disorderID = Disorder.sanitizeID(disorderID);
         this._name       = name ? name : "loading...";
 
@@ -70,7 +69,7 @@ Disorder.sanitizeID = function(disorderID) {
         return disorderID;
     var temp = disorderID.replace(/[\(\[]/g, "_L_");
     temp = temp.replace(/[\)\]]/g, "_J_");
-    return temp.replace(/[^a-zA-Z0-9,;_\-*]/g, "__");
+    return temp.replace(/[^a-zA-Z0-9,_\-*]/g, "__");
 };
 
 Disorder.desanitizeID = function(disorderID) {
