@@ -1,22 +1,13 @@
-console.log(1);
-
 import { ViewerPedigree } from "./src/viewerPedigree";
 
 window.jQuery = jquery;
 window.jquery = jquery;
 
-
-const prefix = "/js/ext-lib/panogram";
-const probandDataUrl = "/public/xwiki/PhenoTips.PatientClass/0.xml";
-const pedigreeDataUrl = "/public/xwiki/PhenoTips.PedigreeClass/0.xml";
-
-const render = ({ data, probandDataUrl, pedigreeDataUrl }) => {
+const render = ({ data }) => {
     jquery("doc").ready(() => {
         new ViewerPedigree({
             type: "simpleJSON",
             data,
-            probandDataUrl, // TODO replace loading of this with webpak module
-            pedigreeDataUrl,
         });
     });
 };
@@ -32,8 +23,6 @@ const getDataAndRender = patientId => {
       console.log(data);
       render({
         data,
-        probandDataUrl,
-        pedigreeDataUrl,
       })
     })
     .catch(err => {
@@ -75,5 +64,10 @@ jquery('doc').ready(() => {
         createInput();
     }
 
-    getDataAndRender(patientId);
+    if (window.parent.PEDIGREE_DATA) {
+        render(window.parent.PEDIGREE_DATA);
+    }
+    else {
+        getDataAndRender(patientId);
+    }
 });

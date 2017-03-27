@@ -23,9 +23,6 @@ import {
     GeneLegend
 } from "./geneLegend";
 import {
-    ViewerSaveLoadEngine
-} from './viewerSaveLoadEngine';
-import {
     Controller
 } from './controller';
 import {
@@ -34,6 +31,9 @@ import {
 import {
   NodeMenu
 } from "./nodeMenu";
+import {
+  SaveLoadEngine
+} from "./saveLoadEngine";
 
 const isTruthy = val => {
     const truthy = ['1', 'y', 'yes', 'ye', 't', 'tr', 'true'];
@@ -60,9 +60,7 @@ const cleanGender = val => {
     return "U";
 };
 
-/*
-    HAHAHAHAHAHAHAHAHAHAHAHAHAHAHAHAHAHAHAHAHAHAHAHAHAHAHAHAHAHAHAHAHA
- */
+// clean the data just to be extra sure
 const cleanData = data => {
     return JSON.parse(data).map(datum => {
         const {
@@ -76,6 +74,7 @@ const cleanData = data => {
             externalId,
             disorders,
             gender,
+            candidateGenes,
             id,
         } = datum;
         return {
@@ -89,6 +88,7 @@ const cleanData = data => {
             externalId: externalId,
             disorders: disorders,
             gender: cleanGender(gender),
+            candidateGenes: candidateGenes,
             id: id,
         };
     });
@@ -118,7 +118,7 @@ export class ViewerPedigree {
 
         this._controller = new Controller();
         this._actionStack = new ActionStack();
-        this._saveLoadEngine = new ViewerSaveLoadEngine(args.pedigreeDataUrl);
+        this._saveLoadEngine = new SaveLoadEngine();
         const probandData = data.filter(node => isTruthy(node.proband))[0] || false;
         if (probandData) {
             this._probandData = probandData;

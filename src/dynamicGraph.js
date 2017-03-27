@@ -152,7 +152,6 @@ DynamicPositionedGraph.prototype = {
     {
         // returns coordinates of node v
         var x = this.DG.positions[v];
-        console.warn(x);
 
         var rank = this.DG.ranks[v];
 

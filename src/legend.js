@@ -62,7 +62,6 @@ export const Legend = Class.create( {
      * @return {String} CSS color value for the object, displayed on affected nodes in the pedigree and in the legend
      */
     getObjectColor: function(id) {
-        console.info(this._objectColors);
         if (!this._objectColors.hasOwnProperty(id))
             return "#ff0000";
         return this._objectColors[id];
