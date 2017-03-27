@@ -65,7 +65,7 @@ jquery('doc').ready(() => {
     }
 
     if (window.parent.PEDIGREE_DATA) {
-        render(window.parent.PEDIGREE_DATA);
+        render({ data: window.parent.PEDIGREE_DATA });
     }
     else {
         getDataAndRender(patientId);
