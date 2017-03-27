@@ -65,6 +65,7 @@ jquery('doc').ready(() => {
     }
 
     if (window.parent.PEDIGREE_DATA) {
+        console.info(window.parent.PEDIGREE_DATA);
         render({ data: window.parent.PEDIGREE_DATA });
     }
     else {
