@@ -11,163 +11,163 @@
 // if (!window.console) { var console = {log: function() {}}; } // WTF IS THIS?
 
 // For IE7 && IE8 again
-if(typeof String.prototype.trim !== "function") {
-    String.prototype.trim = function() {
-        return this.replace(/^\s+|\s+$/g, "");
-    };
+if(typeof String.prototype.trim !== 'function') {
+  String.prototype.trim = function() {
+    return this.replace(/^\s+|\s+$/g, '');
+  };
 }
 
 // And again (IE7 && IE8 fix)
 if (!Array.prototype.forEach)
 {
-    Array.prototype.forEach = function(fun)
+  Array.prototype.forEach = function(fun)
     {
-        var t = Object(this);
-        var len = t.length >>> 0;
-        if (typeof fun !== "function")
-            throw new TypeError();
+    var t = Object(this);
+    var len = t.length >>> 0;
+    if (typeof fun !== 'function')
+      throw new TypeError();
 
-        var thisArg = arguments.length >= 2 ? arguments[1] : void 0;
-        for (var i = 0; i < len; i++)
+    var thisArg = arguments.length >= 2 ? arguments[1] : void 0;
+    for (var i = 0; i < len; i++)
         {
-            if (i in t)
-                fun.call(thisArg, t[i], i, t);
-        }
-    };
+      if (i in t)
+        fun.call(thisArg, t[i], i, t);
+    }
+  };
 }
 
 // Fix for Safari v4 && v5
-if (typeof HTMLElement !== "undefined" && !HTMLElement.prototype.click && document.createEvent) {
-    HTMLElement.prototype.click = function() {
-        var eventObj = document.createEvent("MouseEvents");
-        eventObj.initEvent("click",true,true);
-        this.dispatchEvent(eventObj);
-    };
+if (typeof HTMLElement !== 'undefined' && !HTMLElement.prototype.click && document.createEvent) {
+  HTMLElement.prototype.click = function() {
+    var eventObj = document.createEvent('MouseEvents');
+    eventObj.initEvent('click',true,true);
+    this.dispatchEvent(eventObj);
+  };
 }
 
 // Used for: cloning a 2D array of integers (i.e. no deep copy of elements is necessary)
 // Specific implementation is pciked based on http://jsperf.com/clone-2d-array/4
 export function clone2DArray (arr2D) {
-    var new2D = [];
-    for (var i = 0; i < arr2D.length; ++i) {
-        new2D.push(arr2D[i].slice());
-    }
-    return new2D;
+  var new2D = [];
+  for (var i = 0; i < arr2D.length; ++i) {
+    new2D.push(arr2D[i].slice());
+  }
+  return new2D;
 }
 
 // Creates a shallow copy of the given object
 // Specific implementation is picked based on http://jsperf.com/cloning-an-object/4
 export function cloneObject(obj) {
-    var target = {};
-    for (var i in obj) {
-        if (obj.hasOwnProperty(i))
-            target[i] = obj[i];
-    }
-    return target;
+  var target = {};
+  for (var i in obj) {
+    if (obj.hasOwnProperty(i))
+      target[i] = obj[i];
+  }
+  return target;
 }
 
 // Equivalent to (Array.indexOf() != -1)
 export function arrayContains(array, item) {
-    if (Array.prototype.indexOf) {
-        return !(array.indexOf(item) < 0);
+  if (Array.prototype.indexOf) {
+    return !(array.indexOf(item) < 0);
+  }
+  else {
+    for (var i = 0, len = array.length; i < len; ++i) {
+      if (array[i] === item)
+        return true;
     }
-    else {
-        for (var i = 0, len = array.length; i < len; ++i) {
-            if (array[i] === item)
-                return true;
-        }
-        return false;
-    }
+    return false;
+  }
 }
 
 // Equivalent to Array.indexOf
 export function arrayIndexOf(array, item) {
-    if (Array.prototype.indexOf) {
-        return (array.indexOf(item));
+  if (Array.prototype.indexOf) {
+    return (array.indexOf(item));
+  }
+  else {
+    for (var i = 0, len = array.length; i < len; ++i) {
+      if (array[i] === item)
+        return i;
     }
-    else {
-        for (var i = 0, len = array.length; i < len; ++i) {
-            if (array[i] === item)
-                return i;
-        }
-        return -1;
-    }
+    return -1;
+  }
 }
 
 export function indexOfLastMinElementInArray(array) {
-    var min      = array[0];
-    var minIndex = 0;
+  var min      = array[0];
+  var minIndex = 0;
 
-    for (var i = 1, len = array.length; i < len; ++i) {
-        if(array[i] <= min) {
-            minIndex = i;
-            min      = array[i];
-        }
+  for (var i = 1, len = array.length; i < len; ++i) {
+    if(array[i] <= min) {
+      minIndex = i;
+      min      = array[i];
     }
-    return minIndex;
+  }
+  return minIndex;
 }
 
 // Returns an array of unique values from the given array
 // Specific implementation is picked based on http://jsperf.com/array-unique2/19
 export function filterUnique(array) {
-    var hash   = {},
-        result = [],
-        i      = array.length;
-    while (i--) {
-        if (!hash[array[i]]) {
-            hash[array[i]] = true;
-            result.push(array[i]);
-        }
+  var hash   = {},
+    result = [],
+    i      = array.length;
+  while (i--) {
+    if (!hash[array[i]]) {
+      hash[array[i]] = true;
+      result.push(array[i]);
     }
-    return result;
+  }
+  return result;
 }
 
 // Replaces the first occurence of `value` in `array` by `newValue`. Does nothing if `value` is not in `array`
 export function replaceInArray(array, value, newValue) {
-    for (var i = 0, len = array.length; i < len; ++i) {
-        if (array[i] === value) {
-            array[i] = newValue;
-            break;
-        }
+  for (var i = 0, len = array.length; i < len; ++i) {
+    if (array[i] === value) {
+      array[i] = newValue;
+      break;
     }
+  }
 }
 
 // Removes the first occurence of `value` in `array`. Does nothing if `value` is not in `array`
 export function removeFirstOccurrenceByValue(array, item) {
-    for (var i = 0, len = array.length; i < len; ++i) {
-        if (array[i] == item) {
-            array.splice(i,1);
-            break;
-        }
+  for (var i = 0, len = array.length; i < len; ++i) {
+    if (array[i] == item) {
+      array.splice(i,1);
+      break;
     }
+  }
 }
 
 // Used for: user input validation
 export function isInt(n) {
     //return +n === n && !(n % 1);
     //return !(n % 1);
-    return (!isNaN(n) && parseInt(n) == parseFloat(n));
+  return (!isNaN(n) && parseInt(n) == parseFloat(n));
 }
 
 export function toObjectWithTrue(array) {
-    var obj = {};
-    for (var i = 0; i < array.length; ++i)
-        if (array[i] !== undefined) obj[array[i]] = true;
-    return obj;
+  var obj = {};
+  for (var i = 0; i < array.length; ++i)
+    if (array[i] !== undefined) obj[array[i]] = true;
+  return obj;
 }
 
 export function romanize (num) {
-    if (!+num)
-        return false;
-    var digits = String(+num).split(""),
-        key = ["","C","CC","CCC","CD","D","DC","DCC","DCCC","CM",
-            "","X","XX","XXX","XL","L","LX","LXX","LXXX","XC",
-            "","I","II","III","IV","V","VI","VII","VIII","IX"],
-        roman = "",
-        i = 3;
-    while (i--)
-        roman = (key[+digits.pop() + (i * 10)] || "") + roman;
-    return Array(+digits.join("") + 1).join("M") + roman;
+  if (!+num)
+    return false;
+  var digits = String(+num).split(''),
+    key = ['','C','CC','CCC','CD','D','DC','DCC','DCCC','CM',
+      '','X','XX','XXX','XL','L','LX','LXX','LXXX','XC',
+      '','I','II','III','IV','V','VI','VII','VIII','IX'],
+    roman = '',
+    i = 3;
+  while (i--)
+    roman = (key[+digits.pop() + (i * 10)] || '') + roman;
+  return Array(+digits.join('') + 1).join('M') + roman;
 }
 
 /*function objectKeys(obj) {
@@ -187,29 +187,29 @@ export function romanize (num) {
 // Used during ordering for bucket order permutations
 //-------------------------------------------------------------
 export function makeFlattened2DArrayCopy (array) {
-    var flattenedcopy = [].concat.apply([], array);
-    return flattenedcopy;
+  var flattenedcopy = [].concat.apply([], array);
+  return flattenedcopy;
 }
 
 export function swap (array, i, j) {
-    var b    = array[j];
-    array[j] = array[i];
-    array[i] = b;
+  var b    = array[j];
+  array[j] = array[i];
+  array[i] = b;
 }
 
 export function permute2DArrayInFirstDimension (permutations, array, from) {
-    var len = array.length;
+  var len = array.length;
 
-    if (from == len-1) {
-        permutations.push(makeFlattened2DArrayCopy(array));
-        return;
-    }
+  if (from == len-1) {
+    permutations.push(makeFlattened2DArrayCopy(array));
+    return;
+  }
 
-    for (var j = from; j < len; j++) {
-        swap(array, from, j);
-        permute2DArrayInFirstDimension(permutations, array, from+1);
-        swap(array, from, j);
-    }
+  for (var j = from; j < len; j++) {
+    swap(array, from, j);
+    permute2DArrayInFirstDimension(permutations, array, from+1);
+    swap(array, from, j);
+  }
 }
 //-------------------------------------------------------------
 
@@ -217,132 +217,132 @@ export function permute2DArrayInFirstDimension (permutations, array, from) {
 //-------------------------------------------------------------
 // Used for profiling code
 export function Timer() {
-    this.startTime = undefined;
-    this.lastCheck = undefined;
-    this.start();
+  this.startTime = undefined;
+  this.lastCheck = undefined;
+  this.start();
 }
 
 Timer.prototype = {
 
-    start: function() {
-        this.startTime = new Date().getTime();
-        this.lastCheck = this.startTime;
-    },
+  start: function() {
+    this.startTime = new Date().getTime();
+    this.lastCheck = this.startTime;
+  },
 
-    restart: function() {
-        this.start();
-    },
+  restart: function() {
+    this.start();
+  },
 
-    report: function() {
-        var current = new Date().getTime();
-        var elapsed = current - this.lastCheck;
-        return elapsed;
-    },
+  report: function() {
+    var current = new Date().getTime();
+    var elapsed = current - this.lastCheck;
+    return elapsed;
+  },
 
-    printSinceLast: function( msg ) {
-        var current = new Date().getTime();
-        var elapsed = current - this.lastCheck;
-        this.lastCheck = current;
-        console.log( msg + elapsed + "ms" );
-    },
+  printSinceLast: function( msg ) {
+    var current = new Date().getTime();
+    var elapsed = current - this.lastCheck;
+    this.lastCheck = current;
+    console.log( msg + elapsed + 'ms' );
+  },
 };
 //-------------------------------------------------------------
 
 
 //-------------------------------------------------------------
 export function stringifyObject(obj) {
-    return _printObjectInternal(obj, 1);
+  return _printObjectInternal(obj, 1);
 }
 
 export function printObject(obj) {
-    console.log( _printObjectInternal(obj, 0) );
+  console.log( _printObjectInternal(obj, 0) );
 }
 
 function _printObjectInternal(o, level) {
-    if (level > 10) return "...[too deep, possibly a recursive object]...";
+  if (level > 10) return '...[too deep, possibly a recursive object]...';
 
-    var output = "";
+  var output = '';
 
-    if (typeof o == "object")
+  if (typeof o == 'object')
     {
 
-        if (Object.prototype.toString.call(o) === "[object Array]")
+    if (Object.prototype.toString.call(o) === '[object Array]')
         {
-            output = "[";
-            for (var i = 0; i < o.length; i++) {
-                if (i > 0) output += ", ";
-                output += _printObjectInternal(o[i], level+1);
-            }
-            output += "]";
-        }
-        else
-        {
-            output = "{";
-            var idx = 0;
-            if (level == 0) output += "\n";
-            for (var property in o) {
-                if (!o.hasOwnProperty(property)) continue;
-
-                if (level != 0 && idx != 0 )
-                    output += ", ";
-                output += property + ": " + _printObjectInternal(o[property], level+1);
-
-                if (level == 0)
-                    output += "\n";
-                idx++;
-            }
-            output += "}";
-        }
-    }
-    else if (typeof o == "string") {
-        output = "'" + o + "'";
+      output = '[';
+      for (var i = 0; i < o.length; i++) {
+        if (i > 0) output += ', ';
+        output += _printObjectInternal(o[i], level+1);
+      }
+      output += ']';
     }
     else
-        output = ""+o;
+        {
+      output = '{';
+      var idx = 0;
+      if (level == 0) output += '\n';
+      for (var property in o) {
+        if (!o.hasOwnProperty(property)) continue;
 
-    return output;
+        if (level != 0 && idx != 0 )
+          output += ', ';
+        output += property + ': ' + _printObjectInternal(o[property], level+1);
+
+        if (level == 0)
+          output += '\n';
+        idx++;
+      }
+      output += '}';
+    }
+  }
+  else if (typeof o == 'string') {
+    output = '\'' + o + '\'';
+  }
+  else
+        output = ''+o;
+
+  return output;
 }
 
 export function padString (string, width, padding, onLeft) {
-    return (width <= string.length) ? string : padString( (onLeft ? (padding + string) : (string + padding)), width, padding, onLeft);
+  return (width <= string.length) ? string : padString( (onLeft ? (padding + string) : (string + padding)), width, padding, onLeft);
 }
 
 export function unescapeRestData (data) {
     // http://stackoverflow.com/questions/4480757/how-do-i-unescape-html-entities-in-js-change-lt-to
-    var tempNode = document.createElement("div");
-    tempNode.innerHTML = data.replace(/&amp;/, "&");
-    return tempNode.innerText || tempNode.text || tempNode.textContent;
+  var tempNode = document.createElement('div');
+  tempNode.innerHTML = data.replace(/&amp;/, '&');
+  return tempNode.innerText || tempNode.text || tempNode.textContent;
 }
 
 export function getSelectorFromXML(responseXML, selectorName, attributeName, attributeValue) {
-    if (responseXML.querySelector) {
+  if (responseXML.querySelector) {
         // modern browsers
-        return responseXML.querySelector(selectorName + "[" + attributeName + "='" + attributeValue + "']");
-    } else {
+    return responseXML.querySelector(selectorName + '[' + attributeName + '=\'' + attributeValue + '\']');
+  } else {
         // IE7 && IE8 && some other older browsers
         // http://www.w3schools.com/XPath/xpath_syntax.asp
         // http://msdn.microsoft.com/en-us/library/ms757846%28v=vs.85%29.aspx
-        var query = "//" + selectorName + "[@" + attributeName + "='" + attributeValue + "']";
-        try {
-            return responseXML.selectSingleNode(query);
-        } catch (e) {
+    var query = '//' + selectorName + '[@' + attributeName + '=\'' + attributeValue + '\']';
+    try {
+      return responseXML.selectSingleNode(query);
+    } catch (e) {
             // Firefox v3.0-
-            console.warn("your browser is unsupported");
-            window.stop && window.stop();
-            throw "Unsupported browser";
-        }
+      console.warn('your browser is unsupported');
+      window.stop && window.stop();
+      throw 'Unsupported browser';
     }
+  }
 }
 
 export function getSubSelectorTextFromXML(responseXML, selectorName, attributeName, attributeValue, subselectorName) {
-    var selector = getSelectorFromXML(responseXML, selectorName, attributeName, attributeValue);
+  var selector = getSelectorFromXML(responseXML, selectorName, attributeName, attributeValue);
 
-    var value = selector.innerText || selector.text || selector.textContent;
+  var value = selector.innerText || selector.text || selector.textContent;
 
-    if (!value)     // fix IE behavior where (undefined || "" || undefined) == undefined
-        value = "";
+  if (!value)     // fix IE behavior where (undefined || "" || undefined) == undefined
+    value = '';
 
-    return value;
+  return value;
 }
 
 //-------------------------------------------------------------

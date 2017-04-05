@@ -12,101 +12,101 @@
  * @return {Raphael.el}
  */
 export function sector(canvas, xPosition, yPosition, radius, gender, startAngle, endAngle, color) {
-    var sectorPath,
-        gen = gender,
-        cx = xPosition,
-        cy = yPosition,
-        r = radius,
-        paper = canvas,
-        rad = Math.PI / 180,
-        shapeAttributes = {fill: color, "stroke-width":.0 };
+  var sectorPath,
+    gen = gender,
+    cx = xPosition,
+    cy = yPosition,
+    r = radius,
+    paper = canvas,
+    rad = Math.PI / 180,
+    shapeAttributes = {fill: color, 'stroke-width':.0 };
 
     //returns coordinates of the point on the circle (with radius = _radius) at angle alpha
-    var circleCoordinate = function(alpha) {
-        var x = cx + r * Math.cos(-alpha * rad),
-            y = cy + r * Math.sin(-alpha * rad);
-        return [x,y];
-    };
+  var circleCoordinate = function(alpha) {
+    var x = cx + r * Math.cos(-alpha * rad),
+      y = cy + r * Math.sin(-alpha * rad);
+    return [x,y];
+  };
    
-    if (gen === "F") {
-        if(endAngle-startAngle == 360)
+  if (gen === 'F') {
+    if(endAngle-startAngle == 360)
         {
-            return paper.circle(cx, cy, r).attr(shapeAttributes);
-        }
-        var x1 = circleCoordinate(startAngle)[0],
-            x2 = circleCoordinate(endAngle)[0],
-            y1 = circleCoordinate(startAngle)[1],
-            y2 = circleCoordinate(endAngle)[1];
-
-        return paper.path(["M", cx, cy, "L", x1, y1, "A", r, r, 0, +(endAngle - startAngle > 180), 0, x2, y2, "z"]).attr(shapeAttributes);
+      return paper.circle(cx, cy, r).attr(shapeAttributes);
     }
-    else if(gen === "M") {
+    var x1 = circleCoordinate(startAngle)[0],
+      x2 = circleCoordinate(endAngle)[0],
+      y1 = circleCoordinate(startAngle)[1],
+      y2 = circleCoordinate(endAngle)[1];
+
+    return paper.path(['M', cx, cy, 'L', x1, y1, 'A', r, r, 0, +(endAngle - startAngle > 180), 0, x2, y2, 'z']).attr(shapeAttributes);
+  }
+  else if(gen === 'M') {
         //returns the side of the square on which the coordinate exists. Sides are numbered 0-3 counter-clockwise,
         //starting with the right side
-        const sideAtAngle = function(angle) {
-            return (((angle + 45)/90).floor()) % 4;
-        };
+    const sideAtAngle = function(angle) {
+      return (((angle + 45)/90).floor()) % 4;
+    };
 
         //returns the tangent value of the parameter degrees
-        const tanOfDegrees = function(degrees) {
-            var radians = degrees * Math.PI/180;
-            return Math.tan(radians);
-        };
+    const tanOfDegrees = function(degrees) {
+      var radians = degrees * Math.PI/180;
+      return Math.tan(radians);
+    };
 
         //returns the coordinate of point at angle alpha on the square
-        const getCoord = function(alpha) {
-            var side = sideAtAngle(alpha);
-            var result = {};
-            var xFactor = (side % 2);
-            var yFactor = (1 - side % 2);
-            var sideFactor = side % 3 ? -1 : 1;
+    const getCoord = function(alpha) {
+      var side = sideAtAngle(alpha);
+      var result = {};
+      var xFactor = (side % 2);
+      var yFactor = (1 - side % 2);
+      var sideFactor = side % 3 ? -1 : 1;
 
-            result.angle = (alpha - side * 90 - ((side == 0 && alpha > 45) ? 360 : 0)) * (side < 2 ? -1 : 1);
+      result.angle = (alpha - side * 90 - ((side == 0 && alpha > 45) ? 360 : 0)) * (side < 2 ? -1 : 1);
             // Find the distance from the middle of the line
-            var d = r * tanOfDegrees(result.angle);
+      var d = r * tanOfDegrees(result.angle);
             // Compute the coordinates
-            result.x = cx + xFactor * d + yFactor * sideFactor * r;
-            result.y = cy + yFactor * d + xFactor * sideFactor * r;
-            return result;
-        };
+      result.x = cx + xFactor * d + yFactor * sideFactor * r;
+      result.y = cy + yFactor * d + xFactor * sideFactor * r;
+      return result;
+    };
 
         //returns the coordinate of the next corner (going counter-clockwise, and starting with side given in the
         //parameter
-        const getNextCorner = function(side) {
-            var factorA = (side % 3) ? -1: 1,
-                factorB = (side < 2) ? -1: 1,
-                result = {};
-            result.x = cx + factorA * r;
-            result.y = cy + factorB * r;
-            return result;
-        };
+    const getNextCorner = function(side) {
+      var factorA = (side % 3) ? -1: 1,
+        factorB = (side < 2) ? -1: 1,
+        result = {};
+      result.x = cx + factorA * r;
+      result.y = cy + factorB * r;
+      return result;
+    };
 
-        var startSide = sideAtAngle(startAngle),
-            endSide = sideAtAngle(endAngle);
-        if(endSide == 0 && endAngle > startAngle) {
-            endSide = (startAngle >= 315) ? 0 : 4;
-        }
-        var numSides = endSide - startSide;
+    var startSide = sideAtAngle(startAngle),
+      endSide = sideAtAngle(endAngle);
+    if(endSide == 0 && endAngle > startAngle) {
+      endSide = (startAngle >= 315) ? 0 : 4;
+    }
+    var numSides = endSide - startSide;
 
-        var startCoord = getCoord(startAngle),
-            endCoord = getCoord(endAngle),
-            sectorPathData = ["M", endCoord.x, endCoord.y, "L", cx, cy, "L", startCoord.x, startCoord.y],
-            currentSide = startSide;
+    var startCoord = getCoord(startAngle),
+      endCoord = getCoord(endAngle),
+      sectorPathData = ['M', endCoord.x, endCoord.y, 'L', cx, cy, 'L', startCoord.x, startCoord.y],
+      currentSide = startSide;
 
-        while(numSides > 0)
+    while(numSides > 0)
         {
-            sectorPathData.push("L", getNextCorner(currentSide).x + " " + getNextCorner(currentSide).y);
-            currentSide = (++currentSide) % 4;
-            numSides--;
-        }
-        sectorPathData.push("L",endCoord.x, endCoord.y, "z");
-        return paper.path(sectorPathData).attr(shapeAttributes);
+      sectorPathData.push('L', getNextCorner(currentSide).x + ' ' + getNextCorner(currentSide).y);
+      currentSide = (++currentSide) % 4;
+      numSides--;
     }
-    else {
-        var shape = sector(paper, cx, cy, r* (Math.sqrt(3)/2), "M", startAngle, endAngle, color);
-        shape.transform(["...r-45,", cx , cy]).attr(shapeAttributes);
-        return shape;
-    }
+    sectorPathData.push('L',endCoord.x, endCoord.y, 'z');
+    return paper.path(sectorPathData).attr(shapeAttributes);
+  }
+  else {
+    var shape = sector(paper, cx, cy, r* (Math.sqrt(3)/2), 'M', startAngle, endAngle, color);
+    shape.transform(['...r-45,', cx , cy]).attr(shapeAttributes);
+    return shape;
+  }
 }
 
 /**
@@ -121,28 +121,28 @@ export function sector(canvas, xPosition, yPosition, radius, gender, startAngle,
  * @return {Raphael.st}
  */
 export function generateOrb (canvas, x, y, r, gender) {
-    if (!gender || gender == "F") {
-        return canvas.set(
+  if (!gender || gender == 'F') {
+    return canvas.set(
                 canvas.ellipse(x, y, r, r),
-                canvas.ellipse(x, y, r - r / 5, r - r / 20).attr({stroke: "none", fill: "r(.5,.1)#ccc-#ccc", opacity: 0})
+                canvas.ellipse(x, y, r - r / 5, r - r / 20).attr({stroke: 'none', fill: 'r(.5,.1)#ccc-#ccc', opacity: 0})
             );        
-    }        
+  }        
     
-    if (gender == "M") {
-        var rr = r - 1;
-        return canvas.set(                                
+  if (gender == 'M') {
+    var rr = r - 1;
+    return canvas.set(                                
                 canvas.rect(x-rr, y-rr, rr*2, rr*2, 0),
-                canvas.rect(x-rr, y-rr, rr*2, rr*2, 1).attr({stroke: "none", fill: "330-#ccc-#ccc", opacity: 0})
+                canvas.rect(x-rr, y-rr, rr*2, rr*2, 1).attr({stroke: 'none', fill: '330-#ccc-#ccc', opacity: 0})
             );
-    }
+  }
     
-    if (gender == "U") {
-        rr = (r-1) * 0.9;
-        return canvas.set(                                
-                canvas.rect(x-rr, y-rr, rr*2, rr*2, 0).attr({transform: "r45"}),
-                canvas.rect(x-rr, y-rr, rr*2, rr*2, 1).attr({stroke: "none", fill: "330-#ccc-#ccc", opacity: 0}).attr({transform: "r45"})
+  if (gender == 'U') {
+    rr = (r-1) * 0.9;
+    return canvas.set(                                
+                canvas.rect(x-rr, y-rr, rr*2, rr*2, 0).attr({transform: 'r45'}),
+                canvas.rect(x-rr, y-rr, rr*2, rr*2, 1).attr({stroke: 'none', fill: '330-#ccc-#ccc', opacity: 0}).attr({transform: 'r45'})
             );        
-    }   
+  }   
 }
 
 /**
@@ -152,54 +152,54 @@ export function generateOrb (canvas, x, y, r, gender) {
  * Iff "doubleCurve" is true, cones the curve and shifts one curve by (shiftx1, shifty1) and the other by (shiftx2, shifty2)
  */
 export function drawCornerCurve (xFrom, yFrom, xTo, yTo, bendDown, attr, doubleCurve, shiftx1, shifty1, shiftx2, shifty2 ) {
-    var xDistance = xTo - xFrom;
-    var yDistance = yFrom - yTo;
+  var xDistance = xTo - xFrom;
+  var yDistance = yFrom - yTo;
     
-    var dist1x = xDistance/2;
-    var dist2x = xDistance/10;
-    var dist1y = yDistance/2;
-    var dist2y = yDistance/10;
+  var dist1x = xDistance/2;
+  var dist2x = xDistance/10;
+  var dist1y = yDistance/2;
+  var dist2y = yDistance/10;
         
-    var curve;
-    var raphaelPath;
+  var curve;
+  var raphaelPath;
     
-    if (bendDown) {
-        raphaelPath =  "M " + (xFrom)          + " " + (yFrom) +
-                          " C " + (xFrom + dist1x) + " " + (yFrom + dist2y) +
-                            " " + (xTo   + dist2x) + " " + (yTo   + dist1y) +
-                            " " + (xTo)            + " " + (yTo);
-        curve = editor.getPaper().path(raphaelPath).attr(attr).toBack();                            
-    } else {
-        raphaelPath =   "M " + (xFrom)          + " " + (yFrom) +
-                           " C " + (xFrom - dist2x) + " " + (yFrom - dist1y) +
-                             " " + (xTo   - dist1x) + " " + (yTo   - dist2y) +
-                             " " + (xTo)            + " " + (yTo);
-        curve = editor.getPaper().path(raphaelPath).attr(attr).toBack();
-    }
+  if (bendDown) {
+    raphaelPath =  'M ' + (xFrom)          + ' ' + (yFrom) +
+                          ' C ' + (xFrom + dist1x) + ' ' + (yFrom + dist2y) +
+                            ' ' + (xTo   + dist2x) + ' ' + (yTo   + dist1y) +
+                            ' ' + (xTo)            + ' ' + (yTo);
+    curve = editor.getPaper().path(raphaelPath).attr(attr).toBack();                            
+  } else {
+    raphaelPath =   'M ' + (xFrom)          + ' ' + (yFrom) +
+                           ' C ' + (xFrom - dist2x) + ' ' + (yFrom - dist1y) +
+                             ' ' + (xTo   - dist1x) + ' ' + (yTo   - dist2y) +
+                             ' ' + (xTo)            + ' ' + (yTo);
+    curve = editor.getPaper().path(raphaelPath).attr(attr).toBack();
+  }
     
-    if (doubleCurve) {
-        var curve2 = curve.clone().toBack();
-        curve .transform("t " + shiftx1  + "," + shifty1 + "...");
-        curve2.transform("t " + shiftx2 + "," + shifty2 + "..."); 
-    }
+  if (doubleCurve) {
+    var curve2 = curve.clone().toBack();
+    curve .transform('t ' + shiftx1  + ',' + shifty1 + '...');
+    curve2.transform('t ' + shiftx2 + ',' + shifty2 + '...'); 
+  }
 }
 
 export function drawLevelChangeCurve (xFrom, yFrom, xTo, yTo, attr, doubleCurve, shiftx1, shifty1, shiftx2, shifty2 )
 {
-    var xDistance = xTo - xFrom;   
-    var dist1x    = xDistance/2;
+  var xDistance = xTo - xFrom;   
+  var dist1x    = xDistance/2;
     
-    var raphaelPath = " M " + (xFrom)           + " " + yFrom;                    
-    raphaelPath    += " C " + (xFrom + dist1x)  + " " + (yFrom) +
-                        " " + (xTo   - dist1x)  + " " + (yTo) +
-                        " " + (xTo)             + " " + (yTo);
+  var raphaelPath = ' M ' + (xFrom)           + ' ' + yFrom;                    
+  raphaelPath    += ' C ' + (xFrom + dist1x)  + ' ' + (yFrom) +
+                        ' ' + (xTo   - dist1x)  + ' ' + (yTo) +
+                        ' ' + (xTo)             + ' ' + (yTo);
     
-    var curve = editor.getPaper().path(raphaelPath).attr(attr).toBack();
-    if (doubleCurve) {
-        var curve2 = curve.clone().toBack();
-        curve .transform("t " + shiftx1  + "," + shifty1 + "...");
-        curve2.transform("t " + shiftx2 + "," + shifty2 + "..."); 
-    }    
+  var curve = editor.getPaper().path(raphaelPath).attr(attr).toBack();
+  if (doubleCurve) {
+    var curve2 = curve.clone().toBack();
+    curve .transform('t ' + shiftx1  + ',' + shifty1 + '...');
+    curve2.transform('t ' + shiftx2 + ',' + shifty2 + '...'); 
+  }    
 }
 
 /**
@@ -207,15 +207,15 @@ export function drawLevelChangeCurve (xFrom, yFrom, xTo, yTo, attr, doubleCurve,
  */
 export function findXInterceptGivenLineAndY(crossY, x1, y1, x2, y2) {
     // y = ax + b   
-    if (x1 == x2) return x1;
-    var a = (y1 - y2)/(x1 - x2);
-    var b = y1 - a*x1;    
-    var interceptX = (crossY - b)/a;
-    return interceptX;
+  if (x1 == x2) return x1;
+  var a = (y1 - y2)/(x1 - x2);
+  var b = y1 - a*x1;    
+  var interceptX = (crossY - b)/a;
+  return interceptX;
 }
 
 export function getElementHalfHeight(t) {
-    return Math.floor(t.getBBox().height/2);
+  return Math.floor(t.getBBox().height/2);
 }
 
 /**
@@ -223,11 +223,11 @@ export function getElementHalfHeight(t) {
  * @return {Raphael.st}
  */
 Raphael.st.flatten = function () {
-    var flattenedSet = new Raphael.st.constructor();
-    this.forEach(function(element) {
-        flattenedSet = flattenedSet.concat(element.flatten());
-    });
-    return flattenedSet;
+  var flattenedSet = new Raphael.st.constructor();
+  this.forEach(function(element) {
+    flattenedSet = flattenedSet.concat(element.flatten());
+  });
+  return flattenedSet;
 };
 
 /**
@@ -235,7 +235,7 @@ Raphael.st.flatten = function () {
  * @return {Raphael.st}
  */
 Raphael.el.flatten = function () {
-    return this.paper.set(this);
+  return this.paper.set(this);
 };
 
 /**
@@ -244,16 +244,16 @@ Raphael.el.flatten = function () {
  * @return {Raphael.st}
  */
 Raphael.st.concat = function (set) {
-    var newSet = this.copy();
-    if(typeof(set.forEach) == "function") {
-        set.forEach(function(element) {
-            newSet.push(element);
-        });
-    }
-    else {
-        newSet.push(set);
-    }
-    return newSet;
+  var newSet = this.copy();
+  if(typeof(set.forEach) == 'function') {
+    set.forEach(function(element) {
+      newSet.push(element);
+    });
+  }
+  else {
+    newSet.push(set);
+  }
+  return newSet;
 };
 
 /**
@@ -263,13 +263,13 @@ Raphael.st.concat = function (set) {
  * @return {boolean}
  */
 Raphael.st.contains = function (target) {
-    var found = false;
-    this.forEach(function(element) {
-        if(element == target) {
-            found = true;
-        }
-    });
-    return found;
+  var found = false;
+  this.forEach(function(element) {
+    if(element == target) {
+      found = true;
+    }
+  });
+  return found;
 };
 
 /**
@@ -277,21 +277,21 @@ Raphael.st.contains = function (target) {
  * @return {Raphael.st}
  */
 Raphael.st.copy = function() {
-    var newSet = new Raphael.st.constructor();
-    this.forEach(function(element) {
-        newSet.push(element);
-    });
-    return newSet;
+  var newSet = new Raphael.st.constructor();
+  this.forEach(function(element) {
+    newSet.push(element);
+  });
+  return newSet;
 };
 
 //Animation helpers
 window.requestAnimFrame = (function(){
-    return  window.requestAnimationFrame   ||
+  return  window.requestAnimationFrame   ||
         window.webkitRequestAnimationFrame ||
         window.mozRequestAnimationFrame    ||
         window.oRequestAnimationFrame      ||
         window.msRequestAnimationFrame     ||
         function( callback ){
-            window.setTimeout(callback, 1000 / 60);
+          window.setTimeout(callback, 1000 / 60);
         };
 })();

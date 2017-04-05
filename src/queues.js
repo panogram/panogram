@@ -1,51 +1,51 @@
 export function Queue() {
-    this.data = [];
+  this.data = [];
 }
 
 Queue.prototype = {
 
-    setTo: function(list) {
-        this.data = list.slice();
-    },
+  setTo: function(list) {
+    this.data = list.slice();
+  },
 
-    push: function(v) {
-        this.data.push(v);
-    },
+  push: function(v) {
+    this.data.push(v);
+  },
 
-    pop: function(v) {
-        return this.data.shift();
-    },
+  pop: function(v) {
+    return this.data.shift();
+  },
 
-    size: function() {
-        return this.data.length;
-    },
+  size: function() {
+    return this.data.length;
+  },
 
-    clear: function() {
-        this.data = [];
-    }
+  clear: function() {
+    this.data = [];
+  }
 };
 
 
 
 export function Stack() {
-    this.data = [];
+  this.data = [];
 }
 
 Stack.prototype = {
 
-    setTo: function(list) {
-        this.data = list.slice();
-    },
+  setTo: function(list) {
+    this.data = list.slice();
+  },
 
-    push: function(v) {
-        this.data.push(v);
-    },
+  push: function(v) {
+    this.data.push(v);
+  },
 
-    pop: function(v) {
-        return this.data.pop();
-    },
+  pop: function(v) {
+    return this.data.pop();
+  },
 
-    size: function() {
-        return this.data.length;
-    }
+  size: function() {
+    return this.data.length;
+  }
 };

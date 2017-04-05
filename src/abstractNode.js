@@ -1,4 +1,4 @@
-import { AbstractNodeVisuals } from "./abstractNodeVisuals";
+import { AbstractNodeVisuals } from './abstractNodeVisuals';
 /**
  * AbstractNode is the general abstract class for nodes on the Pedigree graph. An AbstractNode contains information
  * about its position on the canvas and about relationships with other nodes on the graph.
@@ -12,14 +12,14 @@ import { AbstractNodeVisuals } from "./abstractNodeVisuals";
 
 export const AbstractNode = Class.create( {
 
-    initialize: function(x, y, id) {
+  initialize: function(x, y, id) {
         //console.log("abstract node");
-        this._id = id;
-        this._comments = "";
-        !this._type && (this._type = "AbstractNode");
-        this._graphics = this._generateGraphics(x, y);
+    this._id = id;
+    this._comments = '';
+    !this._type && (this._type = 'AbstractNode');
+    this._graphics = this._generateGraphics(x, y);
         //console.log("abstract node end");
-    },
+  },
 
     /**
      * Returns the unique ID of this node
@@ -27,9 +27,9 @@ export const AbstractNode = Class.create( {
      * @method getID
      * @return {Number} the id of the node
      */
-    getID: function() {
-        return this._id;
-    },
+  getID: function() {
+    return this._id;
+  },
 
     /**
      * Sets the ID of this node
@@ -37,12 +37,12 @@ export const AbstractNode = Class.create( {
      *
      * @method setID
      */
-    setID: function(id) {
-        if (id == this._id) return;
+  setID: function(id) {
+    if (id == this._id) return;
         //console.log("Updating ID " + this._id + " to " + id);
-        this._id = id;
-        this._graphics.onSetID(id);
-    },
+    this._id = id;
+    this._graphics.onSetID(id);
+  },
 
     /**
      * Generates an instance of AbstractNodeVisuals
@@ -53,10 +53,10 @@ export const AbstractNode = Class.create( {
      * @return {AbstractNodeVisuals}
      * @private
      */
-    _generateGraphics: function(x, y) {
+  _generateGraphics: function(x, y) {
         // console.log("abstract node - generate graphics");
-        return new AbstractNodeVisuals(this, x, y);
-    },
+    return new AbstractNodeVisuals(this, x, y);
+  },
 
     /**
      * Returns the object responsible for managing graphics
@@ -64,9 +64,9 @@ export const AbstractNode = Class.create( {
      * @method getGraphics
      * @return {AbstractNodeVisuals}
      */
-    getGraphics: function() {
-        return this._graphics;
-    },
+  getGraphics: function() {
+    return this._graphics;
+  },
 
     /**
      * Returns the X coordinate of the node on the canvas
@@ -74,9 +74,9 @@ export const AbstractNode = Class.create( {
      * @method getX
      * @return {Number} the x coordinate
      */
-    getX: function() {
-        return this.getGraphics().getX();
-    },
+  getX: function() {
+    return this.getGraphics().getX();
+  },
 
     /**
      * Returns the Y coordinate of the node on the canvas
@@ -84,9 +84,9 @@ export const AbstractNode = Class.create( {
      * @method getY
      * @return {Number} the y coordinate
      */
-    getY: function() {
-        return this.getGraphics().getY();
-    },
+  getY: function() {
+    return this.getGraphics().getY();
+  },
   
     /**
      * Changes the position of the node to (x,y)
@@ -97,9 +97,9 @@ export const AbstractNode = Class.create( {
      * @param {Boolean} [animate] Set to true if you want to animate the transition
      * @param {Function} [callback] The function called at the end of the animation
      */
-    setPos: function(x,y, animate, callback) {
-        this.getGraphics().setPos(x, y, animate, callback);
-    },
+  setPos: function(x,y, animate, callback) {
+    this.getGraphics().setPos(x, y, animate, callback);
+  },
 
     /**
      * Returns the type of this node
@@ -107,9 +107,9 @@ export const AbstractNode = Class.create( {
      * @method getType
      * @return {String} The type (eg. "Partnership", "Person", etc)
      */
-    getType: function() {
-        return this._type;
-    },
+  getType: function() {
+    return this._type;
+  },
 
     /**
      * Removes the node and its visuals.
@@ -117,9 +117,9 @@ export const AbstractNode = Class.create( {
      * @method remove
      * @param [skipConfirmation=false] {Boolean} if true, no confirmation box will pop up
      */
-    remove: function() {
-        this.getGraphics().remove();
-    },
+  remove: function() {
+    this.getGraphics().remove();
+  },
 
     /**
      * Returns any free-form comments associated with the node
@@ -127,9 +127,9 @@ export const AbstractNode = Class.create( {
      * @method getComments
      * @return {String}
      */
-    getComments: function() {
-        return this._comments;
-    },
+  getComments: function() {
+    return this._comments;
+  },
 
     /**
      * Replaces free-form comments associated with the node
@@ -137,9 +137,9 @@ export const AbstractNode = Class.create( {
      * @method setComments
      * @param comment
      */
-    setComments: function(comment) {
-        this._comments = comment;
-    },
+  setComments: function(comment) {
+    this._comments = comment;
+  },
 
     /**
      * Returns an object containing all the properties of this node
@@ -149,12 +149,12 @@ export const AbstractNode = Class.create( {
      * @return {Object} in the form
      *
      */
-    getProperties: function() {
-        var info = {};
-        if (this.getComments() != "")
-            info["comments"] = this.getComments();
-        return info;
-    },
+  getProperties: function() {
+    var info = {};
+    if (this.getComments() != '')
+      info['comments'] = this.getComments();
+    return info;
+  },
 
     /**
      * Applies the properties found in info to this node.
@@ -163,25 +163,25 @@ export const AbstractNode = Class.create( {
      * @param properties Object
      * @return {Boolean} True if properties were successfully assigned (i.e. no conflicts/invalid values)
      */
-    assignProperties: function(properties) {
-        if (properties.hasOwnProperty("comments") && this.getComments() != properties.comments) {
-            this.setComments(properties.comments);
-        }
-        return true;
-    },
+  assignProperties: function(properties) {
+    if (properties.hasOwnProperty('comments') && this.getComments() != properties.comments) {
+      this.setComments(properties.comments);
+    }
+    return true;
+  },
 
     /**
      * Applies properties that happen to this node when a widget (such as the menu) is closed.
      *
      * @method onWidgetHide
      */
-    onWidgetHide: function() {
-        this.getGraphics().getHoverBox() && this.getGraphics().getHoverBox().onWidgetHide();
-    },
+  onWidgetHide: function() {
+    this.getGraphics().getHoverBox() && this.getGraphics().getHoverBox().onWidgetHide();
+  },
 
-    onWidgetShow: function() {
-        this.getGraphics().getHoverBox() && this.getGraphics().getHoverBox().onWidgetShow();
-    }
+  onWidgetShow: function() {
+    this.getGraphics().getHoverBox() && this.getGraphics().getHoverBox().onWidgetShow();
+  }
 });
 
 
@@ -192,9 +192,9 @@ export const ChildlessBehavior = {
      * @method getChildlessStatus
      * @return {Null|String} null, childless or infertile
      */
-    getChildlessStatus: function() {
-        return this._childlessStatus;
-    },
+  getChildlessStatus: function() {
+    return this._childlessStatus;
+  },
 
     /**
      * Returns true if the status is either 'infertile' or 'childless'
@@ -202,9 +202,9 @@ export const ChildlessBehavior = {
      * @method isValidChildlessStatus
      * @return {Boolean}
      */
-    isValidChildlessStatus: function(status) {
-        return ((status == "infertile" || status == "childless"));
-    },
+  isValidChildlessStatus: function(status) {
+    return ((status == 'infertile' || status == 'childless'));
+  },
 
     /**
      * Returns the reason for this node's status of 'infertile' or 'childless'
@@ -212,9 +212,9 @@ export const ChildlessBehavior = {
      * @method getChildlessReason
      * @return {String}
      */
-    getChildlessReason: function() {
-        return this._childlessReason;
-    },
+  getChildlessReason: function() {
+    return this._childlessReason;
+  },
 
     /**
      * Changes the reason for this node's 'childless' or 'infertile' status
@@ -222,10 +222,10 @@ export const ChildlessBehavior = {
      * @method setChildlessReason
      * @param {String} reason Explanation for the condition (eg. "By Choice", "Vasectomy" etc)
      */
-    setChildlessReason: function(reason) {
-        if(this.getChildlessStatus() == null)
-            reason = "";
-        this._childlessReason = reason;
-        this.getGraphics().updateChildlessStatusLabel();
-    }
+  setChildlessReason: function(reason) {
+    if(this.getChildlessStatus() == null)
+      reason = '';
+    this._childlessReason = reason;
+    this.getGraphics().updateChildlessStatusLabel();
+  }
 };

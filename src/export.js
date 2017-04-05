@@ -23,48 +23,48 @@ PedigreeExport.prototype = {
  */
 PedigreeExport.exportAsSimpleJSON = function(pedigree, privacySetting)
 {
-    var exportObj = [];
+  var exportObj = [];
 
-    for (var i = 0; i <= pedigree.GG.getMaxRealVertexId(); i++) {
-        if (!pedigree.GG.isPerson(i)) continue;
+  for (var i = 0; i <= pedigree.GG.getMaxRealVertexId(); i++) {
+    if (!pedigree.GG.isPerson(i)) continue;
        
-        var person = {"id": i};
+    var person = {'id': i};
        
        // mother & father
-        var parents = pedigree.GG.getParents(i);
-        if (parents.length > 0) {
-            var father = parents[0];
-            var mother = parents[1];
+    var parents = pedigree.GG.getParents(i);
+    if (parents.length > 0) {
+      var father = parents[0];
+      var mother = parents[1];
            
-            if ( pedigree.GG.properties[parents[0]]["gender"] == "F" ||
-                pedigree.GG.properties[parents[1]]["gender"] == "M" ) {
-                father = parents[1];
-                mother = parents[0];
-            }
-            person["father"] = father;
-            person["mother"] = mother;
-        }
+      if ( pedigree.GG.properties[parents[0]]['gender'] == 'F' ||
+                pedigree.GG.properties[parents[1]]['gender'] == 'M' ) {
+        father = parents[1];
+        mother = parents[0];
+      }
+      person['father'] = father;
+      person['mother'] = mother;
+    }
        
        // all other properties
-        var properties = pedigree.GG.properties[i];
-        for (var property in properties) {
-            if (properties.hasOwnProperty(property)) {
-                if (privacySetting != "all") {
-                    if (property == "lName" || property == "fName" || property == "lNameAtB" ||
-                       property == "dob" || property == "bob") continue;
-                    if (privacySetting == "minimal" && property == "comments") continue;
-                }
-                var converted = PedigreeExport.convertProperty(property, properties[property]);
-                if (converted !== null) {
-                    person[converted.propertyName] = converted.value;
-                }
-            }
+    var properties = pedigree.GG.properties[i];
+    for (var property in properties) {
+      if (properties.hasOwnProperty(property)) {
+        if (privacySetting != 'all') {
+          if (property == 'lName' || property == 'fName' || property == 'lNameAtB' ||
+                       property == 'dob' || property == 'bob') continue;
+          if (privacySetting == 'minimal' && property == 'comments') continue;
         }
-
-        exportObj.push(person);
+        var converted = PedigreeExport.convertProperty(property, properties[property]);
+        if (converted !== null) {
+          person[converted.propertyName] = converted.value;
+        }
+      }
     }
 
-    return JSON.stringify(exportObj);
+    exportObj.push(person);
+  }
+
+  return JSON.stringify(exportObj);
 };
 
 //===============================================================================================
@@ -87,55 +87,55 @@ PedigreeExport.exportAsSimpleJSON = function(pedigree, privacySetting)
  */
 PedigreeExport.exportAsPED = function(pedigree, idGenerationPreference)
 {
-    var output = "";
+  var output = '';
    
-    var familyID = "";
+  var familyID = '';
 
-    var idToPedId = PedigreeExport.createNewIDs(pedigree, idGenerationPreference);
+  var idToPedId = PedigreeExport.createNewIDs(pedigree, idGenerationPreference);
    
-    for (var i = 0; i <= pedigree.GG.getMaxRealVertexId(); i++) {
-        if (!pedigree.GG.isPerson(i)) continue;
+  for (var i = 0; i <= pedigree.GG.getMaxRealVertexId(); i++) {
+    if (!pedigree.GG.isPerson(i)) continue;
        
-        output += familyID + " " + idToPedId[i] + " "; 
+    output += familyID + ' ' + idToPedId[i] + ' '; 
        
        // mother & father
-        var parents = pedigree.GG.getParents(i);
-        if (parents.length > 0) {
-            var father = parents[0];
-            var mother = parents[1];
+    var parents = pedigree.GG.getParents(i);
+    if (parents.length > 0) {
+      var father = parents[0];
+      var mother = parents[1];
            
-            if ( pedigree.GG.properties[parents[0]]["gender"] == "F" ||
-                pedigree.GG.properties[parents[1]]["gender"] == "M" ) {
-                father = parents[1];
-                mother = parents[0];
-            }
-            output += idToPedId[father] + " " + idToPedId[mother] + " ";
-        } else {
-            output += "0 0 ";
-        }
-       
-        var sex = 3;
-        if (pedigree.GG.properties[i]["gender"] == "M") {
-            sex = 1;
-        }
-        else if (pedigree.GG.properties[i]["gender"] == "F") {
-            sex = 2;
-        }
-        output += (sex + " ");
-       
-        var status = -9; //missing
-        if (pedigree.GG.properties[i].hasOwnProperty("carrierStatus")) {
-            if (pedigree.GG.properties[i]["carrierStatus"] == "affected" ||
-               pedigree.GG.properties[i]["carrierStatus"] == "carrier"  ||
-               pedigree.GG.properties[i]["carrierStatus"] == "presymptomatic")
-                status = 2;
-            else
-               status = 1;
-        }
-        output += status + "\n";
+      if ( pedigree.GG.properties[parents[0]]['gender'] == 'F' ||
+                pedigree.GG.properties[parents[1]]['gender'] == 'M' ) {
+        father = parents[1];
+        mother = parents[0];
+      }
+      output += idToPedId[father] + ' ' + idToPedId[mother] + ' ';
+    } else {
+      output += '0 0 ';
     }
+       
+    var sex = 3;
+    if (pedigree.GG.properties[i]['gender'] == 'M') {
+      sex = 1;
+    }
+    else if (pedigree.GG.properties[i]['gender'] == 'F') {
+      sex = 2;
+    }
+    output += (sex + ' ');
+       
+    var status = -9; //missing
+    if (pedigree.GG.properties[i].hasOwnProperty('carrierStatus')) {
+      if (pedigree.GG.properties[i]['carrierStatus'] == 'affected' ||
+               pedigree.GG.properties[i]['carrierStatus'] == 'carrier'  ||
+               pedigree.GG.properties[i]['carrierStatus'] == 'presymptomatic')
+        status = 2;
+      else
+               status = 1;
+    }
+    output += status + '\n';
+  }
 
-    return output;
+  return output;
 };
 
 //===============================================================================================
@@ -175,128 +175,128 @@ PedigreeExport.exportAsPED = function(pedigree, idGenerationPreference)
  */
 PedigreeExport.exportAsBOADICEA = function(pedigree, idGenerationPreference)
 {
-    var output = "BOADICEA import pedigree file format 2.0\n";
-    output    += "FamilyID\tName\tTarget\tIndivID\tFathID\tMothID\tSex\tTwin\tDead\tAge\tYob\tNot_implemented_yet_except_Ahkenazi\n";
+  var output = 'BOADICEA import pedigree file format 2.0\n';
+  output    += 'FamilyID\tName\tTarget\tIndivID\tFathID\tMothID\tSex\tTwin\tDead\tAge\tYob\tNot_implemented_yet_except_Ahkenazi\n';
 
-    var familyID = "";
+  var familyID = '';
 
-    var idToBoadId = PedigreeExport.createNewIDs(pedigree, idGenerationPreference, 7 /* max ID length */);
+  var idToBoadId = PedigreeExport.createNewIDs(pedigree, idGenerationPreference, 7 /* max ID length */);
 
-    var alertUnknownGenderFound = false; // BOADICEA does not support unknown genders
+  var alertUnknownGenderFound = false; // BOADICEA does not support unknown genders
 
-    for (var i = 0; i <= pedigree.GG.getMaxRealVertexId(); i++) {
-        if (!pedigree.GG.isPerson(i)) continue;
+  for (var i = 0; i <= pedigree.GG.getMaxRealVertexId(); i++) {
+    if (!pedigree.GG.isPerson(i)) continue;
 
-        var id = idToBoadId[i];
+    var id = idToBoadId[i];
 
-        var name = pedigree.GG.properties[i].hasOwnProperty("fName") ? pedigree.GG.properties[i]["fName"].substring(0,8) : id;
+    var name = pedigree.GG.properties[i].hasOwnProperty('fName') ? pedigree.GG.properties[i]['fName'].substring(0,8) : id;
 
-        var proband = (i == 0) ? "1" : "0";
+    var proband = (i == 0) ? '1' : '0';
 
-        output += familyID + "\t" + name + "\t" + proband + "\t" + id + "\t";
+    output += familyID + '\t' + name + '\t' + proband + '\t' + id + '\t';
 
        // mother & father
-        var parents = pedigree.GG.getParents(i);
-        if (parents.length > 0) {
-            var father = parents[0];
-            var mother = parents[1];
+    var parents = pedigree.GG.getParents(i);
+    if (parents.length > 0) {
+      var father = parents[0];
+      var mother = parents[1];
 
-            if ( pedigree.GG.properties[parents[0]]["gender"] == "F" ||
-                pedigree.GG.properties[parents[1]]["gender"] == "M" ) {
-                father = parents[1];
-                mother = parents[0];
-            }
-            output += idToBoadId[father] + "\t" + idToBoadId[mother] + "\t";
-        } else {
-            output += "0\t0\t";
-        }
-
-        var sex = "M";
-        if (pedigree.GG.properties[i]["gender"] == "F") {
-            sex = "F";
-        } else if (pedigree.GG.properties[i]["gender"] == "U") {
-            alertUnknownGenderFound = true;
-        }
-        output += sex + "\t";
-
-        if (pedigree.GG.getTwinGroupId(i) !== null) {
-            output += "1\t";
-        } else {
-            output += "0\t";
-        }
-
-        var dead = "0";
-        if (pedigree.GG.properties[i].hasOwnProperty("lifeStatus")) {
-            if (pedigree.GG.properties[i]["lifeStatus"] != "alive") {
-                var dead = "1";
-            }
-        }
-        output += dead + "\t";
-
-        var age = "0";
-        var yob = "0";
-        if (pedigree.GG.properties[i].hasOwnProperty("dob")) {
-            var date = new Date(pedigree.GG.properties[i]["dob"]);
-            yob = date.getFullYear();
-            age = new Date().getFullYear() - yob;
-        }
-        output += age + "\t" + yob + "\t";
-
-        output += "AU\tAU\tAU\tAU\tAU\t";   // unimplemented fields: age at cancer detection
-
-        output += "0\t0\t";                 // unimplemented fields: Genetic test status + mutations
-
-        var ashkenazi = "0";
-        if (pedigree.GG.properties[i].hasOwnProperty("ethnicities")) {
-            var ethnicities = pedigree.GG.properties[i]["ethnicities"];
-            for (var k = 0; k < ethnicities.length; k++) {
-                if (ethnicities[k].match(/ashkenaz/i) !== null) {
-                    ashkenazi = "1";
-                    break;
-                }
-            }
-        }
-        output += ashkenazi + "\t";
-
-        output += "0\t0\t0\t0\t0";  // unimplemented fields: receptor status, etc.
-
-        output += "\n";
+      if ( pedigree.GG.properties[parents[0]]['gender'] == 'F' ||
+                pedigree.GG.properties[parents[1]]['gender'] == 'M' ) {
+        father = parents[1];
+        mother = parents[0];
+      }
+      output += idToBoadId[father] + '\t' + idToBoadId[mother] + '\t';
+    } else {
+      output += '0\t0\t';
     }
 
-    if (alertUnknownGenderFound) {
-        console.warn("BOADICEA format does not support unknown genders. All persons of unknown gender were saved as male in the export file");
+    var sex = 'M';
+    if (pedigree.GG.properties[i]['gender'] == 'F') {
+      sex = 'F';
+    } else if (pedigree.GG.properties[i]['gender'] == 'U') {
+      alertUnknownGenderFound = true;
+    }
+    output += sex + '\t';
+
+    if (pedigree.GG.getTwinGroupId(i) !== null) {
+      output += '1\t';
+    } else {
+      output += '0\t';
     }
 
-    return output;
+    var dead = '0';
+    if (pedigree.GG.properties[i].hasOwnProperty('lifeStatus')) {
+      if (pedigree.GG.properties[i]['lifeStatus'] != 'alive') {
+        var dead = '1';
+      }
+    }
+    output += dead + '\t';
+
+    var age = '0';
+    var yob = '0';
+    if (pedigree.GG.properties[i].hasOwnProperty('dob')) {
+      var date = new Date(pedigree.GG.properties[i]['dob']);
+      yob = date.getFullYear();
+      age = new Date().getFullYear() - yob;
+    }
+    output += age + '\t' + yob + '\t';
+
+    output += 'AU\tAU\tAU\tAU\tAU\t';   // unimplemented fields: age at cancer detection
+
+    output += '0\t0\t';                 // unimplemented fields: Genetic test status + mutations
+
+    var ashkenazi = '0';
+    if (pedigree.GG.properties[i].hasOwnProperty('ethnicities')) {
+      var ethnicities = pedigree.GG.properties[i]['ethnicities'];
+      for (var k = 0; k < ethnicities.length; k++) {
+        if (ethnicities[k].match(/ashkenaz/i) !== null) {
+          ashkenazi = '1';
+          break;
+        }
+      }
+    }
+    output += ashkenazi + '\t';
+
+    output += '0\t0\t0\t0\t0';  // unimplemented fields: receptor status, etc.
+
+    output += '\n';
+  }
+
+  if (alertUnknownGenderFound) {
+    console.warn('BOADICEA format does not support unknown genders. All persons of unknown gender were saved as male in the export file');
+  }
+
+  return output;
 };
 
 // ===============================================================================================
 
 // TODO: convert internal properties to match public names and rename this to "supportedProperties"
 PedigreeExport.internalToJSONPropertyMapping = {
-    "proband":       "proband",
-    "fName":         "firstName",
-    "lName":         "lastName",
-    "lNameAtB":      "lastNameAtBirth",
-    "comments":      "comments",
-    "twinGroup":     "twinGroup",
-    "monozygotic":   "monozygotic",
-    "isAdopted":     "adoptedIn",
-    "evaluated":     "evaluated",
-    "dob":           "birthDate",
-    "dod":           "deathDate",
-    "gestationAge":  "gestationAge",
-    "lifeStatus":    "lifeStatus",
-    "disorders":     "disorders",
-    "ethnicities":   "ethnicities",
-    "carrierStatus": "carrierStatus",
-    "externalID":    "externalId",
-    "gender":        "sex",
-    "numPersons":    "numPersons",
-    "hpoTerms":      "hpoTerms",
-    "candidateGenes":"candidateGenes",
-    "lostContact":   "lostContact",
-    "nodeNumber":    "nodeNumber"
+  'proband':       'proband',
+  'fName':         'firstName',
+  'lName':         'lastName',
+  'lNameAtB':      'lastNameAtBirth',
+  'comments':      'comments',
+  'twinGroup':     'twinGroup',
+  'monozygotic':   'monozygotic',
+  'isAdopted':     'adoptedIn',
+  'evaluated':     'evaluated',
+  'dob':           'birthDate',
+  'dod':           'deathDate',
+  'gestationAge':  'gestationAge',
+  'lifeStatus':    'lifeStatus',
+  'disorders':     'disorders',
+  'ethnicities':   'ethnicities',
+  'carrierStatus': 'carrierStatus',
+  'externalID':    'externalId',
+  'gender':        'sex',
+  'numPersons':    'numPersons',
+  'hpoTerms':      'hpoTerms',
+  'candidateGenes':'candidateGenes',
+  'lostContact':   'lostContact',
+  'nodeNumber':    'nodeNumber'
 };
 
 /*
@@ -305,54 +305,54 @@ PedigreeExport.internalToJSONPropertyMapping = {
  */
 PedigreeExport.convertProperty = function(internalPropertyName, value) {
     
-    if (!PedigreeExport.internalToJSONPropertyMapping.hasOwnProperty(internalPropertyName))
-        return null;
+  if (!PedigreeExport.internalToJSONPropertyMapping.hasOwnProperty(internalPropertyName))
+    return null;
             
-    var externalPropertyName = PedigreeExport.internalToJSONPropertyMapping[internalPropertyName];
+  var externalPropertyName = PedigreeExport.internalToJSONPropertyMapping[internalPropertyName];
     
-    if (externalPropertyName == "sex") {
-        if (value == "M")
-            value = "male";
-        else if (value == "F")
-            value = "female";
-        else
-            value = "unknown";
-    }
+  if (externalPropertyName == 'sex') {
+    if (value == 'M')
+      value = 'male';
+    else if (value == 'F')
+      value = 'female';
+    else
+            value = 'unknown';
+  }
         
-    return {"propertyName": externalPropertyName, "value": value };
+  return {'propertyName': externalPropertyName, 'value': value };
 };
 
 PedigreeExport.createNewIDs = function(pedigree, idGenerationPreference, maxLength) {
-    var idToNewId = {};
-    var usedIDs   = {};
+  var idToNewId = {};
+  var usedIDs   = {};
 
-    var nextUnusedID = 1;
+  var nextUnusedID = 1;
 
-    for (var i = 0; i <= pedigree.GG.getMaxRealVertexId(); i++) {
-        if (!pedigree.GG.isPerson(i)) continue;
+  for (var i = 0; i <= pedigree.GG.getMaxRealVertexId(); i++) {
+    if (!pedigree.GG.isPerson(i)) continue;
 
-        var id = nextUnusedID++;
-        if (idGenerationPreference == "external" && pedigree.GG.properties[i].hasOwnProperty("externalID")) {
-            nextUnusedID--;
-            id = pedigree.GG.properties[i]["externalID"].replace(/\s/g, "_");
-        } else if (idGenerationPreference == "name" && pedigree.GG.properties[i].hasOwnProperty("fName")) {
-            nextUnusedID--;
-            id = pedigree.GG.properties[i]["fName"].replace(/\s/g, "_");
-        }
-        if (maxLength && id.length > maxLength) {
-            id = id.substring(0, maxLength);
-        }
-        while ( usedIDs.hasOwnProperty(id) ) {
-            if (!maxLength || id.length < maxLength) {
-                id = "_" + id;
-            } else {
-                id = nextUnusedID++;
-            }
-        }
-
-        idToNewId[i] = id;
-        usedIDs[id]  = true;
+    var id = nextUnusedID++;
+    if (idGenerationPreference == 'external' && pedigree.GG.properties[i].hasOwnProperty('externalID')) {
+      nextUnusedID--;
+      id = pedigree.GG.properties[i]['externalID'].replace(/\s/g, '_');
+    } else if (idGenerationPreference == 'name' && pedigree.GG.properties[i].hasOwnProperty('fName')) {
+      nextUnusedID--;
+      id = pedigree.GG.properties[i]['fName'].replace(/\s/g, '_');
+    }
+    if (maxLength && id.length > maxLength) {
+      id = id.substring(0, maxLength);
+    }
+    while ( usedIDs.hasOwnProperty(id) ) {
+      if (!maxLength || id.length < maxLength) {
+        id = '_' + id;
+      } else {
+        id = nextUnusedID++;
+      }
     }
 
-    return idToNewId;
+    idToNewId[i] = id;
+    usedIDs[id]  = true;
+  }
+
+  return idToNewId;
 };

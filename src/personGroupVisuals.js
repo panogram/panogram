@@ -1,7 +1,7 @@
-import { PersonVisuals } from "./personVisuals";
-import { ReadOnlyHoverbox } from "./readonlyHoverbox";
-import { PersonGroupHoverbox } from "./personGroupHoverbox";
-import { PedigreeEditorAttributes } from "./pedigreeEditorAttributes";
+import { PersonVisuals } from './personVisuals';
+import { ReadOnlyHoverbox } from './readonlyHoverbox';
+import { PersonGroupHoverbox } from './personGroupHoverbox';
+import { PedigreeEditorAttributes } from './pedigreeEditorAttributes';
 
 /**
  * Class for organizing graphics for PersonGroup nodes.
@@ -16,18 +16,18 @@ import { PedigreeEditorAttributes } from "./pedigreeEditorAttributes";
 
 export const PersonGroupVisuals = Class.create(PersonVisuals, {
 
-    initialize: function($super, node, x, y) {
-        $super(node,x,y);
-        this.setNumPersons(node.getNumPersons());
-    },
+  initialize: function($super, node, x, y) {
+    $super(node,x,y);
+    this.setNumPersons(node.getNumPersons());
+  },
 
-    generateHoverbox: function(x, y) {
-        if (editor.isReadOnlyMode()) {
-            return new ReadOnlyHoverbox(this.getNode(), x, y, this.getGenderGraphics());
-        } else {
-            return new PersonGroupHoverbox(this.getNode(), x, y, this.getGenderGraphics());
-        }
-    },
+  generateHoverbox: function(x, y) {
+    if (editor.isReadOnlyMode()) {
+      return new ReadOnlyHoverbox(this.getNode(), x, y, this.getGenderGraphics());
+    } else {
+      return new PersonGroupHoverbox(this.getNode(), x, y, this.getGenderGraphics());
+    }
+  },
 
     /**
      * Returns all the graphics associated with this PersonGroup
@@ -36,9 +36,9 @@ export const PersonGroupVisuals = Class.create(PersonVisuals, {
      * @param [$super]
      * @return {Raphael.st} Raphael set containing graphics elements
      */
-    getAllGraphics: function ($super) {
-        return $super().push(this._label);
-    },
+  getAllGraphics: function ($super) {
+    return $super().push(this._label);
+  },
 
     /**
      * Changes the label for the number of people in this group
@@ -46,12 +46,12 @@ export const PersonGroupVisuals = Class.create(PersonVisuals, {
      * @method setNumPersons
      * @param {Number} numPersons The number of people in this group
      */
-    setNumPersons: function(numPersons) {
-        this._label && this._label.remove();
-        var text = (numPersons && numPersons > 1) ? String(numPersons) : "n";
-        var y = (this.getNode().getLifeStatus() == "aborted" || this.getNode().getLifeStatus() == "miscarriage") ? this.getY() - 12 : this.getY();
-        var x = (this.getNode().getLifeStatus() == "aborted") ? this.getX() + 8  : this.getX();
-        this._label = editor.getPaper().text(x, y, text).attr(PedigreeEditorAttributes.descendantGroupLabel);
-        this._label.node.setAttribute("class", "no-mouse-interaction");
-    }
+  setNumPersons: function(numPersons) {
+    this._label && this._label.remove();
+    var text = (numPersons && numPersons > 1) ? String(numPersons) : 'n';
+    var y = (this.getNode().getLifeStatus() == 'aborted' || this.getNode().getLifeStatus() == 'miscarriage') ? this.getY() - 12 : this.getY();
+    var x = (this.getNode().getLifeStatus() == 'aborted') ? this.getX() + 8  : this.getX();
+    this._label = editor.getPaper().text(x, y, text).attr(PedigreeEditorAttributes.descendantGroupLabel);
+    this._label.node.setAttribute('class', 'no-mouse-interaction');
+  }
 });

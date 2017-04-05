@@ -1,5 +1,5 @@
-import { PartnershipVisuals } from "./partnershipVisuals";
-import { AbstractNode, ChildlessBehavior } from "./abstractNode";
+import { PartnershipVisuals } from './partnershipVisuals';
+import { AbstractNode, ChildlessBehavior } from './abstractNode';
 
 /**
  * Partnership is a class that represents the relationship between two AbstractNodes
@@ -17,25 +17,25 @@ import { AbstractNode, ChildlessBehavior } from "./abstractNode";
 
 export const Partnership = Class.create(AbstractNode, {
 
-    initialize: function($super, x, y, id, properties) {
+  initialize: function($super, x, y, id, properties) {
         //console.log("partnership");
-        this._childlessStatus = null;
-        this._childlessReason = "";
-        this._type            = "Partnership";
+    this._childlessStatus = null;
+    this._childlessReason = '';
+    this._type            = 'Partnership';
 
-        this._broken       = false;
-        this._consangrMode = "A";    //  Can be either "A" (autodetect), "Y" (always consider consangr.) or "N" (never)
+    this._broken       = false;
+    this._consangrMode = 'A';    //  Can be either "A" (autodetect), "Y" (always consider consangr.) or "N" (never)
                                     // "Autodetect": derived from the current pedigree                                    
 
         // assign some properties before drawing so that relationship lines are drawn properly
-        this.setBrokenStatus (properties["broken"]);
-        this.setConsanguinity(properties["consangr"]);
+    this.setBrokenStatus (properties['broken']);
+    this.setConsanguinity(properties['consangr']);
 
-        $super(x, y, id);
+    $super(x, y, id);
 
-        this.assignProperties(properties);       
+    this.assignProperties(properties);       
         //console.log("partnership end");       
-    },
+  },
 
     /**
      * Generates and returns an instance of PartnershipVisuals
@@ -46,9 +46,9 @@ export const Partnership = Class.create(AbstractNode, {
      * @return {PartnershipVisuals}
      * @private
      */
-    _generateGraphics: function(x, y) {
-        return new PartnershipVisuals(this, x, y);
-    },
+  _generateGraphics: function(x, y) {
+    return new PartnershipVisuals(this, x, y);
+  },
 
     /**
      * Changes the status of this partnership. Nullifies the status if the given status is not
@@ -57,65 +57,65 @@ export const Partnership = Class.create(AbstractNode, {
      * @method setChildlessStatus
      * @param {String} status Can be "childless", "infertile" or null
      */
-    setChildlessStatus: function(status) {
-        if(!this.isValidChildlessStatus(status))
-            status = null;
+  setChildlessStatus: function(status) {
+    if(!this.isValidChildlessStatus(status))
+      status = null;
         
-        if(status != this.getChildlessStatus()) {
-            this._childlessStatus = status;
-            this.setChildlessReason(null);
-            this.getGraphics().updateChildlessShapes();
-            this.getGraphics().updateChildhubConnection();
-            this.getGraphics().getHoverBox().regenerateHandles();
-        }
+    if(status != this.getChildlessStatus()) {
+      this._childlessStatus = status;
+      this.setChildlessReason(null);
+      this.getGraphics().updateChildlessShapes();
+      this.getGraphics().updateChildhubConnection();
+      this.getGraphics().getHoverBox().regenerateHandles();
+    }
                 
-        return this.getChildlessStatus();        
-    },
+    return this.getChildlessStatus();        
+  },
     
     /**
      * Sets the consanguinity setting of this relationship. Valid inputs are "A" (automatic"), "Y" (yes) and "N" (no)
      *
      * @method setConsanguinity
      */        
-    setConsanguinity: function(value) {
-        if (value != "A" && value != "N" && value != "Y")
-            value = "A";
-        if (this._consangrMode != value) {
-            this._consangrMode = value;
-        }
-        this.getGraphics() && this.getGraphics().getHoverBox().regenerateButtons();
-    },
+  setConsanguinity: function(value) {
+    if (value != 'A' && value != 'N' && value != 'Y')
+      value = 'A';
+    if (this._consangrMode != value) {
+      this._consangrMode = value;
+    }
+    this.getGraphics() && this.getGraphics().getHoverBox().regenerateButtons();
+  },
     
     /**
      * Returns the consanguinity setting of this relationship: "A" (automatic"), "Y" (yes) or "N" (no)
      *
      * @method getConsanguinity
      */    
-    getConsanguinity: function() {
-        return this._consangrMode;
-    },
+  getConsanguinity: function() {
+    return this._consangrMode;
+  },
 
     /**
      * Sets relationship as either broken or not
      *
      * @method getBrokenStatus
      */    
-    setBrokenStatus: function(value) {
-        if (value === undefined)
-            value = false;
-        if (this._broken != value) {
-            this._broken = value;            
-        }        
-    },
+  setBrokenStatus: function(value) {
+    if (value === undefined)
+      value = false;
+    if (this._broken != value) {
+      this._broken = value;            
+    }        
+  },
     
     /**
      * Returns the status of this relationship (broken or not)
      *
      * @method getBrokenStatus
      */        
-    getBrokenStatus: function() {
-        return this._broken;
-    },
+  getBrokenStatus: function() {
+    return this._broken;
+  },
     
     /**
      * Returns an object (to be accepted by the menu) with information about this Partnership
@@ -123,16 +123,16 @@ export const Partnership = Class.create(AbstractNode, {
      * @method getSummary
      * @return {Object}
      */
-    getSummary: function() {
-        var childlessInactive = editor.getGraph().hasNonPlaceholderNonAdoptedChildren(this.getID());
-        return {
-            identifier:    {value : this.getID()},
-            childlessSelect : {value : this.getChildlessStatus() ? this.getChildlessStatus() : "none", inactive: childlessInactive},
-            childlessText : {value : this.getChildlessReason() ? this.getChildlessReason() : "none", inactive: childlessInactive},            
-            consangr: {value: this._consangrMode, inactive: false},
-            broken: {value: this.getBrokenStatus(), inactive: false}
-        };
-    },
+  getSummary: function() {
+    var childlessInactive = editor.getGraph().hasNonPlaceholderNonAdoptedChildren(this.getID());
+    return {
+      identifier:    {value : this.getID()},
+      childlessSelect : {value : this.getChildlessStatus() ? this.getChildlessStatus() : 'none', inactive: childlessInactive},
+      childlessText : {value : this.getChildlessReason() ? this.getChildlessReason() : 'none', inactive: childlessInactive},            
+      consangr: {value: this._consangrMode, inactive: false},
+      broken: {value: this.getBrokenStatus(), inactive: false}
+    };
+  },
 
     /**
      * Returns an object containing all the properties of this node
@@ -142,20 +142,20 @@ export const Partnership = Class.create(AbstractNode, {
      * @return {Object} in the form
      *
      */
-    getProperties: function($super) {
-        var info = $super();
-        if (this.getChildlessStatus() != null) {
-            info["childlessStatus"] = this.getChildlessStatus();
-            info["childlessReason"] = this.getChildlessReason();
-        }
-        if (this.getConsanguinity() != "A") {
-            info["consangr"] = this.getConsanguinity();
-        }
-        if (this.getBrokenStatus()) {
-            info["broken"] = this.getBrokenStatus();
-        }
-        return info;
-    },
+  getProperties: function($super) {
+    var info = $super();
+    if (this.getChildlessStatus() != null) {
+      info['childlessStatus'] = this.getChildlessStatus();
+      info['childlessReason'] = this.getChildlessReason();
+    }
+    if (this.getConsanguinity() != 'A') {
+      info['consangr'] = this.getConsanguinity();
+    }
+    if (this.getBrokenStatus()) {
+      info['broken'] = this.getBrokenStatus();
+    }
+    return info;
+  },
 
     /**
      * Applies the properties found in info to this node.
@@ -164,24 +164,24 @@ export const Partnership = Class.create(AbstractNode, {
      * @param properties Object
      * @return {Boolean} True if info was successfully assigned
      */
-    assignProperties: function($super, info) {    
-        if($super(info)) {
-            if(info.childlessStatus && info.childlessStatus != this.getChildlessStatus()) {
-                this.setChildlessStatus(info.childlessStatus);
-            }
-            if(info.childlessReason && info.childlessReason != this.getChildlessReason()) {
-                this.setChildlessReason(info.childlessReason);
-            }
-            if (info.consangr && info.consangr != this.getConsanguinity()) {                
-                this.setConsanguinity(info.consangr);
-            }
-            if (info.broken && info.broken != this.getBrokenStatus()) {
-                this.setBrokenStatus(info.broken);
-            }
-            return true;
-        }
-        return false;
+  assignProperties: function($super, info) {    
+    if($super(info)) {
+      if(info.childlessStatus && info.childlessStatus != this.getChildlessStatus()) {
+        this.setChildlessStatus(info.childlessStatus);
+      }
+      if(info.childlessReason && info.childlessReason != this.getChildlessReason()) {
+        this.setChildlessReason(info.childlessReason);
+      }
+      if (info.consangr && info.consangr != this.getConsanguinity()) {                
+        this.setConsanguinity(info.consangr);
+      }
+      if (info.broken && info.broken != this.getBrokenStatus()) {
+        this.setBrokenStatus(info.broken);
+      }
+      return true;
     }
+    return false;
+  }
 });
 
 //ATTACH CHILDLESS BEHAVIOR METHODS TO PARTNERSHIP OBJECTS

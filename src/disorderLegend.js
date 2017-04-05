@@ -1,6 +1,6 @@
-import { Legend } from "./legend";
-import { isInt } from "./helpers";
-import { Disorder } from "./disorder";
+import { Legend } from './legend';
+import { isInt } from './helpers';
+import { Disorder } from './disorder';
 
 /**
  * Class responsible for keeping track of disorders and their properties, and for
@@ -12,23 +12,23 @@ import { Disorder } from "./disorder";
  */
 export const DisorderLegend = Class.create( Legend, {
 
-    initialize: function($super) {
-        $super("Disorders", true);
+  initialize: function($super) {
+    $super('Disorders', true);
 
-        this._disorderCache = {};
+    this._disorderCache = {};
         
-        this._specialDisordersRegexps = [
-            new RegExp("^1BrCa", "i"),
-            new RegExp("^2BrCa", "i"),
-            new RegExp("^OvCa",  "i"),
-            new RegExp("^ProCa", "i"),
-            new RegExp("^PanCa", "i")
-        ];
-    },
+    this._specialDisordersRegexps = [
+      new RegExp('^1BrCa', 'i'),
+      new RegExp('^2BrCa', 'i'),
+      new RegExp('^OvCa',  'i'),
+      new RegExp('^ProCa', 'i'),
+      new RegExp('^PanCa', 'i')
+    ];
+  },
 
-    _getPrefix: function(id) {
-        return "disorder";
-    },
+  _getPrefix: function(id) {
+    return 'disorder';
+  },
 
     /**
      * Returns the disorder object with the given ID. If object is not in cache yet
@@ -37,16 +37,16 @@ export const DisorderLegend = Class.create( Legend, {
      * @method getDisorder
      * @return {Object}
      */    
-    getDisorder: function(disorderID) {
-        if (!isInt(disorderID)) {
-            disorderID = Disorder.sanitizeID(disorderID);
-        }
-        if (!this._disorderCache.hasOwnProperty(disorderID)) {
-            var whenNameIsLoaded = function() { this._updateDisorderName(disorderID); };
-            this._disorderCache[disorderID] = new Disorder(disorderID, null, whenNameIsLoaded.bind(this));            
-        }
-        return this._disorderCache[disorderID];
-    },
+  getDisorder: function(disorderID) {
+    if (!isInt(disorderID)) {
+      disorderID = Disorder.sanitizeID(disorderID);
+    }
+    if (!this._disorderCache.hasOwnProperty(disorderID)) {
+      var whenNameIsLoaded = function() { this._updateDisorderName(disorderID); };
+      this._disorderCache[disorderID] = new Disorder(disorderID, null, whenNameIsLoaded.bind(this));            
+    }
+    return this._disorderCache[disorderID];
+  },
 
     /**
      * Registers an occurrence of a disorder. If disorder hasn't been documented yet,
@@ -57,12 +57,12 @@ export const DisorderLegend = Class.create( Legend, {
      * @param {String} disorderName The name of the disorder
      * @param {Number} nodeID ID of the Person who has this disorder
      */
-    addCase: function($super, disorderID, disorderName, nodeID) {
-        if (!this._disorderCache.hasOwnProperty(disorderID))
-            this._disorderCache[disorderID] = new Disorder(disorderID, disorderName);
+  addCase: function($super, disorderID, disorderName, nodeID) {
+    if (!this._disorderCache.hasOwnProperty(disorderID))
+      this._disorderCache[disorderID] = new Disorder(disorderID, disorderName);
 
-        $super(disorderID, disorderName, nodeID);
-    },
+    $super(disorderID, disorderName, nodeID);
+  },
 
     /**
      * Updates the displayed disorder name for the given disorder
@@ -71,11 +71,11 @@ export const DisorderLegend = Class.create( Legend, {
      * @param {Number} disorderID The identifier of the disorder to update
      * @private
      */    
-    _updateDisorderName: function(disorderID) {
+  _updateDisorderName: function(disorderID) {
         //console.log("updating disorder display for " + disorderID + ", name = " + this.getDisorder(disorderID).getName());
-        var name = this._legendBox.down("li#" + this._getPrefix() + "-" + disorderID + " .disorder-name");
-        name.update(this.getDisorder(disorderID).getName());
-    },   
+    var name = this._legendBox.down('li#' + this._getPrefix() + '-' + disorderID + ' .disorder-name');
+    name.update(this.getDisorder(disorderID).getName());
+  },   
 
     /**
      * Generate the element that will display information about the given disorder in the legend
@@ -85,15 +85,15 @@ export const DisorderLegend = Class.create( Legend, {
      * @param {String} name The human-readable disorder name
      * @return {HTMLLIElement} List element to be insert in the legend
      */
-    _generateElement: function($super, disorderID, name) {
-        if (!this._objectColors.hasOwnProperty(disorderID)) {
-            var color = this._generateColor(disorderID);
-            this._objectColors[disorderID] = color;
-            document.fire("disorder:color", {"id" : disorderID, color: color});
-        }
+  _generateElement: function($super, disorderID, name) {
+    if (!this._objectColors.hasOwnProperty(disorderID)) {
+      var color = this._generateColor(disorderID);
+      this._objectColors[disorderID] = color;
+      document.fire('disorder:color', {'id' : disorderID, color: color});
+    }
 
-        return $super(disorderID, name);
-    },
+    return $super(disorderID, name);
+  },
 
     /**
      * Callback for dragging an object from the legend onto nodes
@@ -102,18 +102,18 @@ export const DisorderLegend = Class.create( Legend, {
      * @param {Person} Person node
      * @param {String|Number} id ID of the disorder being dropped
      */
-    _onDropObject: function(node, disorderID) {
-        var currentDisorders = node.getDisorders().slice(0);
-        if (currentDisorders.indexOf(disorderID) == -1) { // only if the node does not have this disorder yet
-            currentDisorders.push(disorderID);
-            editor.getView().unmarkAll();
-            var properties = { "setDisorders": currentDisorders };
-            var event = { "nodeID": node.getID(), "properties": properties };
-            document.fire("pedigree:node:setproperty", event);
-        } else {
-            console.warn("This person already has the specified disorder");
-        }
-    },
+  _onDropObject: function(node, disorderID) {
+    var currentDisorders = node.getDisorders().slice(0);
+    if (currentDisorders.indexOf(disorderID) == -1) { // only if the node does not have this disorder yet
+      currentDisorders.push(disorderID);
+      editor.getView().unmarkAll();
+      var properties = { 'setDisorders': currentDisorders };
+      var event = { 'nodeID': node.getID(), 'properties': properties };
+      document.fire('pedigree:node:setproperty', event);
+    } else {
+      console.warn('This person already has the specified disorder');
+    }
+  },
 
     /**
      * Generates a CSS color.
@@ -123,50 +123,50 @@ export const DisorderLegend = Class.create( Legend, {
      * @method generateColor
      * @return {String} CSS color
      */
-    _generateColor: function(disorderID) {
-        if(this._objectColors.hasOwnProperty(disorderID)) {
-            return this._objectColors[disorderID];
-        }
+  _generateColor: function(disorderID) {
+    if(this._objectColors.hasOwnProperty(disorderID)) {
+      return this._objectColors[disorderID];
+    }
 
         // check special disorder prefixes
-        for (var i = 0; i < this._specialDisordersRegexps.length; i++) {
-            if (disorderID.match(this._specialDisordersRegexps[i]) !== null) {
-                for (var disorder in this._objectColors) {
-                    if (this._objectColors.hasOwnProperty(disorder)) {
-                        if (disorder.match(this._specialDisordersRegexps[i]) !== null)
-                            return this._objectColors[disorder];
-                    }
-                }
-                break;
-            }
+    for (var i = 0; i < this._specialDisordersRegexps.length; i++) {
+      if (disorderID.match(this._specialDisordersRegexps[i]) !== null) {
+        for (var disorder in this._objectColors) {
+          if (this._objectColors.hasOwnProperty(disorder)) {
+            if (disorder.match(this._specialDisordersRegexps[i]) !== null)
+              return this._objectColors[disorder];
+          }
         }
+        break;
+      }
+    }
 
-        var usedColors = Object.values(this._objectColors);
+    var usedColors = Object.values(this._objectColors);
             // [red/yellow]           prefColors = ["#FEE090", '#f8ebb7', '#eac080', '#bf6632', '#9a4500', '#a47841', '#c95555', '#ae6c57'];        
             // [original yellow/blue] 
             // var prefColors = ["#000000", "#FEE090", '#E0F8F8', '#8ebbd6', '#4575B4', '#fca860', '#9a4500', '#81a270'];
             // [green]                var prefColors = ['#81a270', '#c4e8c4', '#56a270', '#b3b16f', '#4a775a', '#65caa3'];
-        var prefColors = ["#010101",  "#92c0db", "#4575B4","#E0F8F8", "#949ab8", "#FEE090", "#bf6632", "#fca860", "#9a4500", "#d12943", "#00a2bf"];
+    var prefColors = ['#010101',  '#92c0db', '#4575B4','#E0F8F8', '#949ab8', '#FEE090', '#bf6632', '#fca860', '#9a4500', '#d12943', '#00a2bf'];
 
-        usedColors.each( function(color) {
-            prefColors = prefColors.without(color);
-        });
-        if (disorderID == "affected") {
-            if (usedColors.indexOf("#FEE090") > -1 ) {
-                return "#010101"; //"#dbad71";
-            } else {
-                return "#010101"; // "#FEE090";
-            }
-        }
-        if(prefColors.length > 0) {
-            return prefColors[0];
-        }
-        else {
-            var randomColor = Raphael.getColor();
-            while(randomColor == "#ffffff" || usedColors.indexOf(randomColor) != -1) {
-                randomColor = "#"+((1<<24)*Math.random()|0).toString(16);
-            }
-            return randomColor;
-        }
+    usedColors.each( function(color) {
+      prefColors = prefColors.without(color);
+    });
+    if (disorderID == 'affected') {
+      if (usedColors.indexOf('#FEE090') > -1 ) {
+        return '#010101'; //"#dbad71";
+      } else {
+        return '#010101'; // "#FEE090";
+      }
     }
+    if(prefColors.length > 0) {
+      return prefColors[0];
+    }
+    else {
+      var randomColor = Raphael.getColor();
+      while(randomColor == '#ffffff' || usedColors.indexOf(randomColor) != -1) {
+        randomColor = '#'+((1<<24)*Math.random()|0).toString(16);
+      }
+      return randomColor;
+    }
+  }
 });

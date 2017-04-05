@@ -1,5 +1,5 @@
-import { BaseGraph, TYPE } from "./baseGraph";
-import { isInt } from "./helpers";
+import { BaseGraph, TYPE } from './baseGraph';
+import { isInt } from './helpers';
 
 export function PedigreeImport() {
 }
@@ -21,120 +21,120 @@ PedigreeImport.initFromPhenotipsInternal = function(inputG)
 {
     // note: serialize() produces the correct input for this function
 
-    var newG = new BaseGraph();
+  var newG = new BaseGraph();
 
-    var nameToId = {};
+  var nameToId = {};
 
-    var relationshipHasExplicitChHub = {};
+  var relationshipHasExplicitChHub = {};
 
     // first pass: add all vertices and assign vertex IDs
-    for (var v = 0; v < inputG.length; v++) {
+  for (var v = 0; v < inputG.length; v++) {
 
-        if (!inputG[v].hasOwnProperty("name") && !inputG[v].hasOwnProperty("id"))
-            throw "Invalid inpiut: a node without id and without name";
+    if (!inputG[v].hasOwnProperty('name') && !inputG[v].hasOwnProperty('id'))
+      throw 'Invalid inpiut: a node without id and without name';
 
-        var type = TYPE.PERSON;
-        if ( inputG[v].hasOwnProperty("relationship") || inputG[v].hasOwnProperty("rel") ) {
-            type = TYPE.RELATIONSHIP;
+    var type = TYPE.PERSON;
+    if ( inputG[v].hasOwnProperty('relationship') || inputG[v].hasOwnProperty('rel') ) {
+      type = TYPE.RELATIONSHIP;
             // normally users wont specify childhubs explicitly - but save via JSON does
-            if (inputG[v].hasOwnProperty("hub") || inputG[v].hasOwnProperty("haschhub"))
-                relationshipHasExplicitChHub[v] = true;
-        }
-        else if ( inputG[v].hasOwnProperty("chhub") ) {
-            type = TYPE.CHILDHUB;
-        }
-        else if ( inputG[v].hasOwnProperty("virtual") || inputG[v].hasOwnProperty("virt")) {
-            type = TYPE.VIRTUALEDGE;
-        }
+      if (inputG[v].hasOwnProperty('hub') || inputG[v].hasOwnProperty('haschhub'))
+        relationshipHasExplicitChHub[v] = true;
+    }
+    else if ( inputG[v].hasOwnProperty('chhub') ) {
+      type = TYPE.CHILDHUB;
+    }
+    else if ( inputG[v].hasOwnProperty('virtual') || inputG[v].hasOwnProperty('virt')) {
+      type = TYPE.VIRTUALEDGE;
+    }
 
-        var properties = {};
-        if (inputG[v].hasOwnProperty("properties") || inputG[v].hasOwnProperty("prop"))
-            properties = inputG[v].hasOwnProperty("properties") ? inputG[v]["properties"] : inputG[v]["prop"];
+    var properties = {};
+    if (inputG[v].hasOwnProperty('properties') || inputG[v].hasOwnProperty('prop'))
+      properties = inputG[v].hasOwnProperty('properties') ? inputG[v]['properties'] : inputG[v]['prop'];
 
-        if ( type == TYPE.PERSON ) {
-            if (properties.hasOwnProperty("sex") && !properties.hasOwnProperty("gender")) {
-                properties["gender"] = properties["sex"];
-            }
+    if ( type == TYPE.PERSON ) {
+      if (properties.hasOwnProperty('sex') && !properties.hasOwnProperty('gender')) {
+        properties['gender'] = properties['sex'];
+      }
                     
-            if (!properties.hasOwnProperty("gender"))
-                properties["gender"] = "U";
+      if (!properties.hasOwnProperty('gender'))
+        properties['gender'] = 'U';
 
-            if (inputG[v].hasOwnProperty("gender")) {
-                var genderString = inputG[v]["gender"].toLowerCase();
-                if( genderString == "female" || genderString == "f")
-                    properties["gender"] = "F";
-                else if( genderString == "male" || genderString == "m")
-                    properties["gender"] = "M";
-            }
-        }
+      if (inputG[v].hasOwnProperty('gender')) {
+        var genderString = inputG[v]['gender'].toLowerCase();
+        if( genderString == 'female' || genderString == 'f')
+          properties['gender'] = 'F';
+        else if( genderString == 'male' || genderString == 'm')
+          properties['gender'] = 'M';
+      }
+    }
 
-        var width = inputG[v].hasOwnProperty("width") ?
+    var width = inputG[v].hasOwnProperty('width') ?
                     inputG[v].width :
                     (type == TYPE.PERSON ? newG.defaultPersonNodeWidth : newG.defaultNonPersonNodeWidth);
 
-        var newID = newG._addVertex( null, type, properties, width );   // "null" since id is not known yet
+    var newID = newG._addVertex( null, type, properties, width );   // "null" since id is not known yet
 
-        if (inputG[v].hasOwnProperty("name")) {  // note: this means using user input (not produced by this.serialize)
-            if (nameToId[inputG[v].name])
-                throw "Invalid user input: multiple nodes with the same name";
-            if (type == TYPE.PERSON)
-                newG.properties[newID]["fName"] = inputG[v].name;
-            nameToId[inputG[v].name] = newID;
-        }
+    if (inputG[v].hasOwnProperty('name')) {  // note: this means using user input (not produced by this.serialize)
+      if (nameToId[inputG[v].name])
+        throw 'Invalid user input: multiple nodes with the same name';
+      if (type == TYPE.PERSON)
+        newG.properties[newID]['fName'] = inputG[v].name;
+      nameToId[inputG[v].name] = newID;
+    }
 
         // when entered by user manually allow users to skip childhub nodes (and create them automatically)
         // (but when saving/restoring from a JSON need to save/restore childhub nodes as they
         //  may have some properties assigned by the user which we need to save/restore)
-        if ( type == TYPE.RELATIONSHIP && !relationshipHasExplicitChHub.hasOwnProperty(v) ) {
-            var chHubId = newG._addVertex(null, TYPE.CHILDHUB, null, width );
-            nameToId["_chhub_" + newID] = chHubId;
-        }
+    if ( type == TYPE.RELATIONSHIP && !relationshipHasExplicitChHub.hasOwnProperty(v) ) {
+      var chHubId = newG._addVertex(null, TYPE.CHILDHUB, null, width );
+      nameToId['_chhub_' + newID] = chHubId;
     }
+  }
 
     // second pass (once all vertex IDs are known): process edges
-    for (var v = 0; v < inputG.length; v++) {
-        var nextV = inputG[v];
+  for (var v = 0; v < inputG.length; v++) {
+    var nextV = inputG[v];
 
-        var vID    = nextV.hasOwnProperty("id") ? nextV.id : nameToId[nextV.name];
-        var origID = vID;
+    var vID    = nextV.hasOwnProperty('id') ? nextV.id : nameToId[nextV.name];
+    var origID = vID;
 
-        var substitutedID = false;
+    var substitutedID = false;
 
-        if (newG.type[vID] == TYPE.RELATIONSHIP && !relationshipHasExplicitChHub.hasOwnProperty(vID)) {
+    if (newG.type[vID] == TYPE.RELATIONSHIP && !relationshipHasExplicitChHub.hasOwnProperty(vID)) {
             // replace edges from rel node by edges from childhub node
-            var childhubID = nameToId["_chhub_" + vID];
-            vID = childhubID;
-            substitutedID = true;
-        }
-
-        var maxChildEdgeWeight = 0;
-
-        if (nextV.outedges) {
-            for (var outE = 0; outE < nextV.outedges.length; outE++) {
-                var target   = nextV.outedges[outE].to;
-                var targetID = nameToId[target] ? nameToId[target] : target;  // can specify target either by name or ID
-
-                if (!newG.isValidId(targetID))
-                    throw "Invalid input: invalid edge target (" + target + ")";
-
-                var weight = 1;
-                if (nextV.outedges[outE].hasOwnProperty("weight"))
-                    weight = nextV.outedges[outE].weight;
-                if ( weight > maxChildEdgeWeight )
-                    maxChildEdgeWeight = weight;
-
-                newG.addEdge( vID, targetID, weight );
-            }
-        }
-
-        if (substitutedID) {
-            newG.addEdge( origID, vID, maxChildEdgeWeight );
-        }
+      var childhubID = nameToId['_chhub_' + vID];
+      vID = childhubID;
+      substitutedID = true;
     }
 
-    newG.validate();
+    var maxChildEdgeWeight = 0;
 
-    return newG;
+    if (nextV.outedges) {
+      for (var outE = 0; outE < nextV.outedges.length; outE++) {
+        var target   = nextV.outedges[outE].to;
+        var targetID = nameToId[target] ? nameToId[target] : target;  // can specify target either by name or ID
+
+        if (!newG.isValidId(targetID))
+          throw 'Invalid input: invalid edge target (' + target + ')';
+
+        var weight = 1;
+        if (nextV.outedges[outE].hasOwnProperty('weight'))
+          weight = nextV.outedges[outE].weight;
+        if ( weight > maxChildEdgeWeight )
+          maxChildEdgeWeight = weight;
+
+        newG.addEdge( vID, targetID, weight );
+      }
+    }
+
+    if (substitutedID) {
+      newG.addEdge( origID, vID, maxChildEdgeWeight );
+    }
+  }
+
+  newG.validate();
+
+  return newG;
 };
 
 /* ===============================================================================================
@@ -176,173 +176,173 @@ PedigreeImport.initFromPhenotipsInternal = function(inputG)
  */
 PedigreeImport.initFromPED = function(inputText, acceptOtherPhenotypes, markEvaluated, saveIDAsExternalID, affectedCodeOne, disorderNames)
 {
-    var inputLines = inputText.match(/[^\r\n]+/g);
-    if (inputLines.length == 0) throw "Unable to import: no data";
+  var inputLines = inputText.match(/[^\r\n]+/g);
+  if (inputLines.length == 0) throw 'Unable to import: no data';
             
     // autodetect if data is in pre-makeped or post-makeped format    
-    var postMakeped = false;
-    if (inputLines[0].indexOf("Ped:") > 0 && inputLines[0].indexOf("Per:") > 0)
-        postMakeped = true;
+  var postMakeped = false;
+  if (inputLines[0].indexOf('Ped:') > 0 && inputLines[0].indexOf('Per:') > 0)
+    postMakeped = true;
 
-    var familyPrefix = "";
+  var familyPrefix = '';
 
-    var newG = new BaseGraph();
+  var newG = new BaseGraph();
 
-    var nameToId = {};
+  var nameToId = {};
 
-    var phenotypeValues = {};  // set of all posible valuesin the phenotype column
+  var phenotypeValues = {};  // set of all posible valuesin the phenotype column
 
-    var extendedPhenotypesFound = false;
+  var extendedPhenotypesFound = false;
 
     // support both automatic and user-defined assignment of proband
-    var nextID = postMakeped ? 1 : 0;
+  var nextID = postMakeped ? 1 : 0;
 
     // first pass: add all vertices and assign vertex IDs
-    for (var i = 0; i < inputLines.length; i++) {
+  for (var i = 0; i < inputLines.length; i++) {
 
-        inputLines[i] = inputLines[i].replace(/[^a-zA-Z0-9_.\-\s*]/g, " ");
-        inputLines[i] = inputLines[i].replace(/^\s+|\s+$/g, "");  // trim()
+    inputLines[i] = inputLines[i].replace(/[^a-zA-Z0-9_.\-\s*]/g, ' ');
+    inputLines[i] = inputLines[i].replace(/^\s+|\s+$/g, '');  // trim()
 
-        var parts = inputLines[i].split(/\s+/);
+    var parts = inputLines[i].split(/\s+/);
         //console.log("Parts: " + stringifyObject(parts));
 
-        if (parts.length < 6 || (postMakeped && parts.length < 10)) {
-            throw "Input line has not enough columns: [" + inputLines[i] + "]";
-        }
-
-        if (familyPrefix == "") {
-            familyPrefix = parts[0];
-        } else {
-            if (parts[0] != familyPrefix) {
-                throw "Unsupported feature: multiple families detected within the same pedigree";
-            }
-        }
-
-        var pedID = parts[1];
-        if (nameToId.hasOwnProperty(pedID))
-            throw "Multiple persons with the same ID [" + pedID + "]";
-
-        var genderValue = postMakeped ? parts[7] : parts[4];
-        var gender = "U";
-        if (genderValue == 1)
-            gender = "M";
-        else if (genderValue == 2)
-            gender = "F";
-        var properties = {"gender": gender};
-
-        if (saveIDAsExternalID)
-            properties["externalID"] = pedID;
-
-        var useID = (postMakeped && parts[8] == 1) ? 0 : nextID++;
-        if (i == inputLines.length-1 && newG.v[0] === undefined) {
-            // last node and no node with id 0 yet
-            useID = 0;
-        }
-
-        var pedigreeID = newG._addVertex( useID, TYPE.PERSON, properties, newG.defaultPersonNodeWidth );
-
-        nameToId[pedID] = pedigreeID;
-
-        var phenotype = postMakeped ? parts[9] : parts[5];
-        phenotypeValues[phenotype] = true;
-        if (acceptOtherPhenotypes && phenotype != "-9" && phenotype != "0" && phenotype != "1" && phenotype != "2") {
-            extendedPhenotypesFound = true;
-        }
+    if (parts.length < 6 || (postMakeped && parts.length < 10)) {
+      throw 'Input line has not enough columns: [' + inputLines[i] + ']';
     }
+
+    if (familyPrefix == '') {
+      familyPrefix = parts[0];
+    } else {
+      if (parts[0] != familyPrefix) {
+        throw 'Unsupported feature: multiple families detected within the same pedigree';
+      }
+    }
+
+    var pedID = parts[1];
+    if (nameToId.hasOwnProperty(pedID))
+      throw 'Multiple persons with the same ID [' + pedID + ']';
+
+    var genderValue = postMakeped ? parts[7] : parts[4];
+    var gender = 'U';
+    if (genderValue == 1)
+      gender = 'M';
+    else if (genderValue == 2)
+      gender = 'F';
+    var properties = {'gender': gender};
+
+    if (saveIDAsExternalID)
+      properties['externalID'] = pedID;
+
+    var useID = (postMakeped && parts[8] == 1) ? 0 : nextID++;
+    if (i == inputLines.length-1 && newG.v[0] === undefined) {
+            // last node and no node with id 0 yet
+      useID = 0;
+    }
+
+    var pedigreeID = newG._addVertex( useID, TYPE.PERSON, properties, newG.defaultPersonNodeWidth );
+
+    nameToId[pedID] = pedigreeID;
+
+    var phenotype = postMakeped ? parts[9] : parts[5];
+    phenotypeValues[phenotype] = true;
+    if (acceptOtherPhenotypes && phenotype != '-9' && phenotype != '0' && phenotype != '1' && phenotype != '2') {
+      extendedPhenotypesFound = true;
+    }
+  }
 
     // There are two popular schemes for the phenotype column (-9/0/1/2 or -9/0/1).
     // Use the "standard" by default, unless directed to use the other one by the user
-    if (affectedCodeOne) {
-        if (extendedPhenotypesFound || phenotypeValues.hasOwnProperty("2")) {
-            throw "Phenotypes with codes other than 0 or 1 were found";
-        }
-        var affectedValues   = { "1":  true };
-        var missingValues    = { "-9": true };
-        var unaffectedValues = { "0":  true };
-    } else {
-        var affectedValues   = { "2": true };
-        var missingValues    = { "0": true, "-9": true };
-        var unaffectedValues = { "1": true };
+  if (affectedCodeOne) {
+    if (extendedPhenotypesFound || phenotypeValues.hasOwnProperty('2')) {
+      throw 'Phenotypes with codes other than 0 or 1 were found';
     }
+    var affectedValues   = { '1':  true };
+    var missingValues    = { '-9': true };
+    var unaffectedValues = { '0':  true };
+  } else {
+    var affectedValues   = { '2': true };
+    var missingValues    = { '0': true, '-9': true };
+    var unaffectedValues = { '1': true };
+  }
 
-    if (!disorderNames) {
-        disorderNames = {};
-        if (extendedPhenotypesFound) {
-            for (var phenotype in phenotypeValues)
-                if (phenotypeValues.hasOwnProperty(phenotype)) {
-                    if (phenotype != "-9" && phenotype != "0" && phenotype != "1") {
-                        disorderNames[phenotype]  = "affected (phenotype " + phenotype + ")";
-                        affectedValues[phenotype] = true;
-                    }
-                }
+  if (!disorderNames) {
+    disorderNames = {};
+    if (extendedPhenotypesFound) {
+      for (var phenotype in phenotypeValues)
+        if (phenotypeValues.hasOwnProperty(phenotype)) {
+          if (phenotype != '-9' && phenotype != '0' && phenotype != '1') {
+            disorderNames[phenotype]  = 'affected (phenotype ' + phenotype + ')';
+            affectedValues[phenotype] = true;
+          }
         }
     }
+  }
 
-    var defaultEdgeWeight = 1;
+  var defaultEdgeWeight = 1;
 
-    var relationshipTracker = new RelationshipTracker(newG, defaultEdgeWeight);
+  var relationshipTracker = new RelationshipTracker(newG, defaultEdgeWeight);
 
     // second pass (once all vertex IDs are known): process edges
-    for (var i = 0; i < inputLines.length; i++) {
-        var parts = inputLines[i].split(/\s+/);
+  for (var i = 0; i < inputLines.length; i++) {
+    var parts = inputLines[i].split(/\s+/);
 
-        var thisPersonName = parts[1];
-        var id = nameToId[thisPersonName];
+    var thisPersonName = parts[1];
+    var id = nameToId[thisPersonName];
 
-        var phenotype = postMakeped ? parts[9] : parts[5];
-        if (affectedValues.hasOwnProperty(phenotype)) {
-            var disorder = disorderNames.hasOwnProperty(phenotype) ? disorderNames[phenotype] : "affected";
-            newG.properties[id]["carrierStatus"] = "affected";
-            newG.properties[id]["disorders"]     = [disorder];
-            if (markEvaluated)
-                newG.properties[id]["evaluated"] = true;
-        } else if (unaffectedValues.hasOwnProperty(phenotype)) {
-            newG.properties[id]["carrierStatus"] = "";
-            if (markEvaluated)
-                newG.properties[id]["evaluated"] = true;
-        } else if (!missingValues.hasOwnProperty(phenotype)) {
+    var phenotype = postMakeped ? parts[9] : parts[5];
+    if (affectedValues.hasOwnProperty(phenotype)) {
+      var disorder = disorderNames.hasOwnProperty(phenotype) ? disorderNames[phenotype] : 'affected';
+      newG.properties[id]['carrierStatus'] = 'affected';
+      newG.properties[id]['disorders']     = [disorder];
+      if (markEvaluated)
+        newG.properties[id]['evaluated'] = true;
+    } else if (unaffectedValues.hasOwnProperty(phenotype)) {
+      newG.properties[id]['carrierStatus'] = '';
+      if (markEvaluated)
+        newG.properties[id]['evaluated'] = true;
+    } else if (!missingValues.hasOwnProperty(phenotype)) {
             //treat all unsupported values as "unknown/no evaluation"
             //throw "Individual with ID [" + thisPersonName + "] has unsupported phenotype value [" + phenotype + "]";
-        }
+    }
 
         // check if parents are given for this individual; if at least one parent is given,
         // check if the corresponding relationship has already been created. If not, create it. If yes,
         // add an edge from childhub to this person
 
-        var fatherID = parts[2];
-        var motherID = parts[3];
+    var fatherID = parts[2];
+    var motherID = parts[3];
 
-        if (fatherID == 0 && motherID == 0) continue;
+    if (fatherID == 0 && motherID == 0) continue;
 
         // .PED supports specifying only mohter of father. Pedigree editor requires both (for now).
         // So create a virtual parent in case one of the parents is missing
-        if (fatherID == 0) {
-            fatherID = newG._addVertex( null, TYPE.PERSON, {"gender": "M", "comments": "unknown"}, newG.defaultPersonNodeWidth );
-        } else {
-            fatherID = nameToId[fatherID];
-            if (newG.properties[fatherID].gender == "F")
-                throw "Unable to import pedigree: a person declared as female [id: " + fatherID + "] is also declared as being a father for [id: "+thisPersonName+"]";
-        }
-        if (motherID == 0) {
-            motherID = newG._addVertex( null, TYPE.PERSON, {"gender": "F", "comments": "unknown"}, newG.defaultPersonNodeWidth );
-        } else {
-            motherID = nameToId[motherID];
-            if (newG.properties[motherID].gender == "M")
-                throw "Unable to import pedigree: a person declared as male [id: " + motherID + "] is also declared as being a mother for [id: "+thisPersonName+"]";
-        }
+    if (fatherID == 0) {
+      fatherID = newG._addVertex( null, TYPE.PERSON, {'gender': 'M', 'comments': 'unknown'}, newG.defaultPersonNodeWidth );
+    } else {
+      fatherID = nameToId[fatherID];
+      if (newG.properties[fatherID].gender == 'F')
+        throw 'Unable to import pedigree: a person declared as female [id: ' + fatherID + '] is also declared as being a father for [id: '+thisPersonName+']';
+    }
+    if (motherID == 0) {
+      motherID = newG._addVertex( null, TYPE.PERSON, {'gender': 'F', 'comments': 'unknown'}, newG.defaultPersonNodeWidth );
+    } else {
+      motherID = nameToId[motherID];
+      if (newG.properties[motherID].gender == 'M')
+        throw 'Unable to import pedigree: a person declared as male [id: ' + motherID + '] is also declared as being a mother for [id: '+thisPersonName+']';
+    }
 
         // both motherID and fatherID are now given and represent valid existing nodes in the pedigree
         
         // if there is a relationship between motherID and fatherID the corresponding childhub is returned
         // if there is no relationship, a new one is created together with the chldhub
-        var chhubID = relationshipTracker.createOrGetChildhub(motherID, fatherID);
+    var chhubID = relationshipTracker.createOrGetChildhub(motherID, fatherID);
         
-        newG.addEdge( chhubID, id, defaultEdgeWeight );
-    }
+    newG.addEdge( chhubID, id, defaultEdgeWeight );
+  }
 
-    PedigreeImport.validateBaseGraph(newG);
+  PedigreeImport.validateBaseGraph(newG);
     
-    return newG;
+  return newG;
 };
 
 
@@ -385,74 +385,74 @@ PedigreeImport.initFromPED = function(inputText, acceptOtherPhenotypes, markEval
  */
 PedigreeImport.initFromBOADICEA = function(inputText, saveIDAsExternalID)
 {
-    var inputLines = inputText.match(/[^\r\n]+/g);
+  var inputLines = inputText.match(/[^\r\n]+/g);
 
-    if (inputLines.length <= 2) {
-        throw "Unable to import: no data";
-    }
-    if (inputLines[0].match(/^BOADICEA import pedigree file format 2/i) === null) {
-        throw "Unable to import: unsupported version of the BOADICEA format";
-    }
-    inputLines.splice(0,2); // remove 2 header lines
+  if (inputLines.length <= 2) {
+    throw 'Unable to import: no data';
+  }
+  if (inputLines[0].match(/^BOADICEA import pedigree file format 2/i) === null) {
+    throw 'Unable to import: unsupported version of the BOADICEA format';
+  }
+  inputLines.splice(0,2); // remove 2 header lines
 
-    var familyPrefix = "";
+  var familyPrefix = '';
 
-    var newG = new BaseGraph();
+  var newG = new BaseGraph();
 
-    var nameToId = {};
+  var nameToId = {};
 
-    var nextID = 1;
+  var nextID = 1;
 
     // first pass: add all vertices and assign vertex IDs
-    for (var i = 0; i < inputLines.length; i++) {
+  for (var i = 0; i < inputLines.length; i++) {
 
-        inputLines[i] = inputLines[i].replace(/[^a-zA-Z0-9_.\-\s*]/g, " ");
-        inputLines[i] = inputLines[i].replace(/^\s+|\s+$/g, "");  // trim()
+    inputLines[i] = inputLines[i].replace(/[^a-zA-Z0-9_.\-\s*]/g, ' ');
+    inputLines[i] = inputLines[i].replace(/^\s+|\s+$/g, '');  // trim()
 
-        var parts = inputLines[i].split(/\s+/);
+    var parts = inputLines[i].split(/\s+/);
         //console.log("Parts: " + stringifyObject(parts));
 
-        if (parts.length < 24) {
-            throw "Input line has not enough columns: [" + inputLines[i] + "]";
-        }
+    if (parts.length < 24) {
+      throw 'Input line has not enough columns: [' + inputLines[i] + ']';
+    }
 
-        if (familyPrefix == "") {
-            familyPrefix = parts[0];
-        } else {
-            if (parts[0] != familyPrefix) {
-                throw "Unsupported feature: multiple families detected within the same pedigree";
-            }
-        }
+    if (familyPrefix == '') {
+      familyPrefix = parts[0];
+    } else {
+      if (parts[0] != familyPrefix) {
+        throw 'Unsupported feature: multiple families detected within the same pedigree';
+      }
+    }
 
-        var extID = parts[3];
-        if (nameToId.hasOwnProperty(extID))
-            throw "Multiple persons with the same ID [" + extID + "]";
+    var extID = parts[3];
+    if (nameToId.hasOwnProperty(extID))
+      throw 'Multiple persons with the same ID [' + extID + ']';
 
-        var genderValue = parts[6];
-        var gender = "M";
-        if (genderValue == "F") {
-            gender = "F";
-        }
-        var name = parts[1];
-        if (isInt(name)) {
-            name = "";
-        }
-        var properties = {"gender": gender, "fName": name};
+    var genderValue = parts[6];
+    var gender = 'M';
+    if (genderValue == 'F') {
+      gender = 'F';
+    }
+    var name = parts[1];
+    if (isInt(name)) {
+      name = '';
+    }
+    var properties = {'gender': gender, 'fName': name};
 
-        if (saveIDAsExternalID) {
-            properties["externalID"] = extID;
-        }
+    if (saveIDAsExternalID) {
+      properties['externalID'] = extID;
+    }
 
-        var deadStatus = parts[8];
-        if (deadStatus == "1") {
-            properties["lifeStatus"] = "deceased";
-        }
+    var deadStatus = parts[8];
+    if (deadStatus == '1') {
+      properties['lifeStatus'] = 'deceased';
+    }
 
-        var yob = parts[10];
-        if (yob != "0") {
-            var dob = yob + "-01-01T00:00:00.000Z";
-            properties["dob"] = dob;
-        }
+    var yob = parts[10];
+    if (yob != '0') {
+      var dob = yob + '-01-01T00:00:00.000Z';
+      properties['dob'] = dob;
+    }
 
         // TODO: handle all the columns and proper cancer handling
         //
@@ -461,103 +461,103 @@ PedigreeImport.initFromBOADICEA = function(inputText, saveIDAsExternalID)
         // 13: OvCa:  Age at ovarian cancer diagnosis, 0 = unaffected, integer = age at diagnosis, AU = unknown age at diagnosis (affected unknown)
         // 14: ProCa: Age at prostate cancer diagnosis 0 = unaffected, integer = age at diagnosis, AU = unknown age at diagnosis (affected unknown)
         // 15: PanCa: Age at pancreatic cancer diagnosis 0 = unaffected, integer = age at diagnosis, AU = unknown age at diagnosis (affected unknown)
-        var cancers = [ { "column": 11, "label": "Breast cancer",           "disorder": "1BrCa"},
-                        { "column": 12, "label": "Contralateral breast c.", "disorder": "2BrCa"},
-                        { "column": 13, "label": "Ovarian cancer",          "disorder": "OvCa"},
-                        { "column": 14, "label": "Prostate cancer",         "disorder": "ProCa"},
-                        { "column": 15, "label": "Pancreatic cancer",       "disorder": "PanCa"} ];
+    var cancers = [ { 'column': 11, 'label': 'Breast cancer',           'disorder': '1BrCa'},
+                        { 'column': 12, 'label': 'Contralateral breast c.', 'disorder': '2BrCa'},
+                        { 'column': 13, 'label': 'Ovarian cancer',          'disorder': 'OvCa'},
+                        { 'column': 14, 'label': 'Prostate cancer',         'disorder': 'ProCa'},
+                        { 'column': 15, 'label': 'Pancreatic cancer',       'disorder': 'PanCa'} ];
 
-        for (var c = 0; c < cancers.length; c++) {
-            var cancer = cancers[c];
-            if (parts[cancer["column"]].toUpperCase() != "AU") {
-                if (!properties.hasOwnProperty("comments")) {
-                    properties["comments"] = "";
-                } else {
-                    properties["comments"] += "\n";
-                }
-
-                if (parts[cancer["column"]] == "0") {
-                    properties["comments"] += "[-] " + cancer["label"] + ": unaffected";
-                } else {
-                    properties["comments"] += "[+] " + cancer["label"] + ": at age " + parts[cancer["column"]];
-                    if (!properties.hasOwnProperty("disorders")) {
-                        properties["disorders"] = [];
-                    }
-                    properties["disorders"].push(cancer["disorder"]);
-                }
-            }
+    for (var c = 0; c < cancers.length; c++) {
+      var cancer = cancers[c];
+      if (parts[cancer['column']].toUpperCase() != 'AU') {
+        if (!properties.hasOwnProperty('comments')) {
+          properties['comments'] = '';
+        } else {
+          properties['comments'] += '\n';
         }
 
-        var ashkenazi = parts[18];
-        if (ashkenazi != "0") {
-            properties["ethnicities"] = ["Ashkenazi Jews"];
+        if (parts[cancer['column']] == '0') {
+          properties['comments'] += '[-] ' + cancer['label'] + ': unaffected';
+        } else {
+          properties['comments'] += '[+] ' + cancer['label'] + ': at age ' + parts[cancer['column']];
+          if (!properties.hasOwnProperty('disorders')) {
+            properties['disorders'] = [];
+          }
+          properties['disorders'].push(cancer['disorder']);
         }
-
-        var proband = (parts[2] == 1);
-        var useID = proband ? 0 : nextID++;
-        if (i == inputLines.length-1 && newG.v[0] === undefined) {
-            // last node and no proband yet
-            useID = 0;
-        }
-
-        var pedigreeID = newG._addVertex( useID, TYPE.PERSON, properties, newG.defaultPersonNodeWidth );
-
-        nameToId[extID] = pedigreeID;
+      }
     }
 
-    var defaultEdgeWeight = 1;
+    var ashkenazi = parts[18];
+    if (ashkenazi != '0') {
+      properties['ethnicities'] = ['Ashkenazi Jews'];
+    }
 
-    var relationshipTracker = new RelationshipTracker(newG, defaultEdgeWeight);
+    var proband = (parts[2] == 1);
+    var useID = proband ? 0 : nextID++;
+    if (i == inputLines.length-1 && newG.v[0] === undefined) {
+            // last node and no proband yet
+      useID = 0;
+    }
+
+    var pedigreeID = newG._addVertex( useID, TYPE.PERSON, properties, newG.defaultPersonNodeWidth );
+
+    nameToId[extID] = pedigreeID;
+  }
+
+  var defaultEdgeWeight = 1;
+
+  var relationshipTracker = new RelationshipTracker(newG, defaultEdgeWeight);
 
     // second pass (once all vertex IDs are known): process edges
-    for (var i = 0; i < inputLines.length; i++) {
-        var parts = inputLines[i].split(/\s+/);
+  for (var i = 0; i < inputLines.length; i++) {
+    var parts = inputLines[i].split(/\s+/);
 
-        var extID = parts[3];
-        var id    = nameToId[extID];
+    var extID = parts[3];
+    var id    = nameToId[extID];
 
         // check if parents are given for this individual; if at least one parent is given,
         // check if the corresponding relationship has already been created. If not, create it. If yes,
         // add an edge from childhub to this person
 
-        var fatherID = parts[4];
-        var motherID = parts[5];
+    var fatherID = parts[4];
+    var motherID = parts[5];
 
-        if (fatherID == 0 && motherID == 0) {
-            continue;
-        }
+    if (fatherID == 0 && motherID == 0) {
+      continue;
+    }
 
         // .PED supports specifying only mother or father. Pedigree editor requires both (for now).
         // So create a virtual parent in case one of the parents is missing
-        if (fatherID == 0) {
-            fatherID = newG._addVertex( null, TYPE.PERSON, {"gender": "M", "comments": "unknown"}, newG.defaultPersonNodeWidth );
-        } else {
-            fatherID = nameToId[fatherID];
-            if (newG.properties[fatherID].gender == "F") {
-                throw "Unable to import pedigree: a person declared as female [id: " + fatherID + "] is also declared as being a father for [id: "+extID+"]";
-            }
-        }
-        if (motherID == 0) {
-            motherID = newG._addVertex( null, TYPE.PERSON, {"gender": "F", "comments": "unknown"}, newG.defaultPersonNodeWidth );
-        } else {
-            motherID = nameToId[motherID];
-            if (newG.properties[motherID].gender == "M") {
-                throw "Unable to import pedigree: a person declared as male [id: " + motherID + "] is also declared as being a mother for [id: "+extID+"]";
-            }
-        }
+    if (fatherID == 0) {
+      fatherID = newG._addVertex( null, TYPE.PERSON, {'gender': 'M', 'comments': 'unknown'}, newG.defaultPersonNodeWidth );
+    } else {
+      fatherID = nameToId[fatherID];
+      if (newG.properties[fatherID].gender == 'F') {
+        throw 'Unable to import pedigree: a person declared as female [id: ' + fatherID + '] is also declared as being a father for [id: '+extID+']';
+      }
+    }
+    if (motherID == 0) {
+      motherID = newG._addVertex( null, TYPE.PERSON, {'gender': 'F', 'comments': 'unknown'}, newG.defaultPersonNodeWidth );
+    } else {
+      motherID = nameToId[motherID];
+      if (newG.properties[motherID].gender == 'M') {
+        throw 'Unable to import pedigree: a person declared as male [id: ' + motherID + '] is also declared as being a mother for [id: '+extID+']';
+      }
+    }
 
         // both motherID and fatherID are now given and represent valid existing nodes in the pedigree
 
         // if there is a relationship between motherID and fatherID the corresponding childhub is returned
         // if there is no relationship, a new one is created together with the childhub
-        var chhubID = relationshipTracker.createOrGetChildhub(motherID, fatherID);
+    var chhubID = relationshipTracker.createOrGetChildhub(motherID, fatherID);
 
-        newG.addEdge( chhubID, id, defaultEdgeWeight );
-    }
+    newG.addEdge( chhubID, id, defaultEdgeWeight );
+  }
 
-    PedigreeImport.validateBaseGraph(newG);
+  PedigreeImport.validateBaseGraph(newG);
 
-    return newG;
+  return newG;
 };
 
 /* ===============================================================================================
@@ -574,15 +574,15 @@ PedigreeImport.initFromBOADICEA = function(inputText, saveIDAsExternalID)
  */
 PedigreeImport.validateBaseGraph = function(newG)
 {
-    try {
-        newG.validate();
-    } catch( err) {
-        if (err.indexOf("disconnected component")) {
-            throw "Unsupported pedigree: some components of the imported pedigree are disconnected from each other";
-        } else {
-            throw "Unable to import pedigree";
-        }
+  try {
+    newG.validate();
+  } catch( err) {
+    if (err.indexOf('disconnected component')) {
+      throw 'Unsupported pedigree: some components of the imported pedigree are disconnected from each other';
+    } else {
+      throw 'Unable to import pedigree';
     }
+  }
 };
 
 /* ===============================================================================================
@@ -638,176 +638,176 @@ PedigreeImport.validateBaseGraph = function(newG)
  */
 PedigreeImport.initFromSimpleJSON = function(inputText)
 {
-    try {
-        var inputArray = JSON.parse(inputText);
-    } catch( err) {
-        throw "Unable to import pedigree: input is not a valid JSON string " + err;
-    }
+  try {
+    var inputArray = JSON.parse(inputText);
+  } catch( err) {
+    throw 'Unable to import pedigree: input is not a valid JSON string ' + err;
+  }
 
-    if (typeof inputArray != "object" || Object.prototype.toString.call(inputArray) !== "[object Array]") {
-        throw "Unable to import pedigree: JSON does not represent an array of objects";
-    }
-    if (inputArray.length == 0) {
-        throw "Unable to import pedigree: input is empty";
-    }
+  if (typeof inputArray != 'object' || Object.prototype.toString.call(inputArray) !== '[object Array]') {
+    throw 'Unable to import pedigree: JSON does not represent an array of objects';
+  }
+  if (inputArray.length == 0) {
+    throw 'Unable to import pedigree: input is empty';
+  }
 
     // move the proband to the top of the list as panogram expects this to be the case
-    var proband = inputArray.filter(node => node.proband == 1);
-    var rest = inputArray.filter(node => node.proband == 0);
-    inputArray = proband.concat(rest);
+  var proband = inputArray.filter(node => node.proband == 1);
+  var rest = inputArray.filter(node => node.proband == 0);
+  inputArray = proband.concat(rest);
 
-    var newG = new BaseGraph();
+  var newG = new BaseGraph();
 
-    var nameToID            = {};
-    var externalIDToID      = {};
-    var ambiguousReferences = {};
-    var hasID               = {};
+  var nameToID            = {};
+  var externalIDToID      = {};
+  var ambiguousReferences = {};
+  var hasID               = {};
 
    // first pass: add all vertices and assign vertex IDs
-    for (var i = 0; i < inputArray.length; i++) {
-        var nextPerson = inputArray[i];
+  for (var i = 0; i < inputArray.length; i++) {
+    var nextPerson = inputArray[i];
 
-        if (typeof nextPerson != "object") {
-            throw "Unable to import pedigree: JSON does not represent an array of objects";
-        }
-
-        if ( !nextPerson.hasOwnProperty("id") && !nextPerson.hasOwnProperty("name") &&
-            !nextPerson.hasOwnProperty("firstName") && !nextPerson.hasOwnProperty("externalId") ) {
-            throw "Unable to import pedigree: a node with no ID or name is found";
-        }
-
-        var pedigreeID = newG._addVertex( null, TYPE.PERSON, {}, newG.defaultPersonNodeWidth );
-
-        var properties = {};
-        properties["gender"] = "U";     // each person should have some gender set 
-
-        for (var property in nextPerson) {
-            if (nextPerson.hasOwnProperty(property)) {
-                var value    = nextPerson[property];
-                var property = property.toLowerCase();
-               
-                if (property == "mother" || property == "father")  // those are processed on the second pass
-                    continue;
-               
-                if (property == "sex") {
-                    var genderString = value.toLowerCase();
-                    if( genderString == "female" || genderString == "f")
-                        properties["gender"] = "F";
-                    else if( genderString == "male" || genderString == "m")
-                        properties["gender"] = "M";
-                } else if (property == "id") {
-                    if (externalIDToID.hasOwnProperty(value)) {
-                        throw "Unable to import pedigree: multiple persons with the same ID [" + value + "]"; 
-                    }
-                    if (nameToID.hasOwnProperty(value) && nameToID[value] != pedigreeID) {
-                        delete nameToID[value];
-                        ambiguousReferences[value] = true;
-                    } else {
-                        externalIDToID[value] = pedigreeID;
-                        hasID[pedigreeID] = true;
-                    }
-                } else if (property == "name" || property == "firstname" ) {
-                    properties["fName"] = value;
-                    if (nameToID.hasOwnProperty(value) && nameToID[value] != pedigreeID) {
-                       // multiple nodes have this first name
-                        delete nameToID[value];
-                        ambiguousReferences[value] = true;
-                    } else if (externalIDToID.hasOwnProperty(value) && externalIDToID[value] != pedigreeID) {
-                       // some other node has this name as an ID
-                        delete externalIDToID[value];
-                        ambiguousReferences[value] = true;
-                    } else {
-                        nameToID[value] = pedigreeID;
-                    }
-                } else {
-                    var processed = PedigreeImport.convertProperty(property, value);
-                    if (processed !== null) {
-                       // supported property
-                        properties[processed.propertyName] = processed.value;
-                    }
-                }
-            }
-        }
-
-       // only use externalID if id is not present
-        if (nextPerson.hasOwnProperty("externalId") && !hasID.hasOwnProperty(pedigreeID)) {
-            externalIDToID[nextPerson.externalId] = pedigreeID;
-            hasID[pedigreeID] = true;
-        }
-        newG.properties[pedigreeID] = properties;
+    if (typeof nextPerson != 'object') {
+      throw 'Unable to import pedigree: JSON does not represent an array of objects';
     }
 
-    var getPersonID = function(person) {
-        if (person.hasOwnProperty("id"))
-            return externalIDToID[person.id];
+    if ( !nextPerson.hasOwnProperty('id') && !nextPerson.hasOwnProperty('name') &&
+            !nextPerson.hasOwnProperty('firstName') && !nextPerson.hasOwnProperty('externalId') ) {
+      throw 'Unable to import pedigree: a node with no ID or name is found';
+    }
 
-        if (person.hasOwnProperty("firstName"))
-            return nameToID[person.firstName];
+    var pedigreeID = newG._addVertex( null, TYPE.PERSON, {}, newG.defaultPersonNodeWidth );
 
-        if (person.hasOwnProperty("name"))
-            return nameToID[person.name];
-    };
+    var properties = {};
+    properties['gender'] = 'U';     // each person should have some gender set 
 
-    var findReferencedPerson = function(reference, refType) {
-        if (ambiguousReferences.hasOwnProperty(reference))
-            throw "Unable to import pedigree: ambiguous reference to [" + reference + "]";
+    for (var property in nextPerson) {
+      if (nextPerson.hasOwnProperty(property)) {
+        var value    = nextPerson[property];
+        var property = property.toLowerCase();
+               
+        if (property == 'mother' || property == 'father')  // those are processed on the second pass
+          continue;
+               
+        if (property == 'sex') {
+          var genderString = value.toLowerCase();
+          if( genderString == 'female' || genderString == 'f')
+            properties['gender'] = 'F';
+          else if( genderString == 'male' || genderString == 'm')
+            properties['gender'] = 'M';
+        } else if (property == 'id') {
+          if (externalIDToID.hasOwnProperty(value)) {
+            throw 'Unable to import pedigree: multiple persons with the same ID [' + value + ']'; 
+          }
+          if (nameToID.hasOwnProperty(value) && nameToID[value] != pedigreeID) {
+            delete nameToID[value];
+            ambiguousReferences[value] = true;
+          } else {
+            externalIDToID[value] = pedigreeID;
+            hasID[pedigreeID] = true;
+          }
+        } else if (property == 'name' || property == 'firstname' ) {
+          properties['fName'] = value;
+          if (nameToID.hasOwnProperty(value) && nameToID[value] != pedigreeID) {
+                       // multiple nodes have this first name
+            delete nameToID[value];
+            ambiguousReferences[value] = true;
+          } else if (externalIDToID.hasOwnProperty(value) && externalIDToID[value] != pedigreeID) {
+                       // some other node has this name as an ID
+            delete externalIDToID[value];
+            ambiguousReferences[value] = true;
+          } else {
+            nameToID[value] = pedigreeID;
+          }
+        } else {
+          var processed = PedigreeImport.convertProperty(property, value);
+          if (processed !== null) {
+                       // supported property
+            properties[processed.propertyName] = processed.value;
+          }
+        }
+      }
+    }
+
+       // only use externalID if id is not present
+    if (nextPerson.hasOwnProperty('externalId') && !hasID.hasOwnProperty(pedigreeID)) {
+      externalIDToID[nextPerson.externalId] = pedigreeID;
+      hasID[pedigreeID] = true;
+    }
+    newG.properties[pedigreeID] = properties;
+  }
+
+  var getPersonID = function(person) {
+    if (person.hasOwnProperty('id'))
+      return externalIDToID[person.id];
+
+    if (person.hasOwnProperty('firstName'))
+      return nameToID[person.firstName];
+
+    if (person.hasOwnProperty('name'))
+      return nameToID[person.name];
+  };
+
+  var findReferencedPerson = function(reference, refType) {
+    if (ambiguousReferences.hasOwnProperty(reference))
+      throw 'Unable to import pedigree: ambiguous reference to [' + reference + ']';
        
-        if (externalIDToID.hasOwnProperty(reference))
-            return externalIDToID[reference];
+    if (externalIDToID.hasOwnProperty(reference))
+      return externalIDToID[reference];
        
-        if (nameToID.hasOwnProperty(reference))
-            return nameToID[reference];
+    if (nameToID.hasOwnProperty(reference))
+      return nameToID[reference];
        
-        throw "Unable to import pedigree: [" + reference + "] is not a valid " + refType + " reference (does not correspond to a name or an ID of another person)";
-    };
+    throw 'Unable to import pedigree: [' + reference + '] is not a valid ' + refType + ' reference (does not correspond to a name or an ID of another person)';
+  };
 
-    var defaultEdgeWeight = 1;
+  var defaultEdgeWeight = 1;
 
-    var relationshipTracker = new RelationshipTracker(newG, defaultEdgeWeight);
+  var relationshipTracker = new RelationshipTracker(newG, defaultEdgeWeight);
 
    // second pass (once all vertex IDs are known): process parents/children & add edges
-    for (var i = 0; i < inputArray.length; i++) {
-        var nextPerson = inputArray[i];
+  for (var i = 0; i < inputArray.length; i++) {
+    var nextPerson = inputArray[i];
        
-        var personID = getPersonID(nextPerson);
+    var personID = getPersonID(nextPerson);
        
-        var motherLink = nextPerson.hasOwnProperty("mother") ? nextPerson["mother"] : null;
-        var fatherLink = nextPerson.hasOwnProperty("father") ? nextPerson["father"] : null;
+    var motherLink = nextPerson.hasOwnProperty('mother') ? nextPerson['mother'] : null;
+    var fatherLink = nextPerson.hasOwnProperty('father') ? nextPerson['father'] : null;
        
-        if (motherLink == null && fatherLink == null)
-            continue;
+    if (motherLink == null && fatherLink == null)
+      continue;
            
        // create a virtual parent in case one of the parents is missing
-        if (fatherLink == null) {
-            var fatherID = newG._addVertex( null, TYPE.PERSON, {"gender": "M", "comments": "unknown", inferred:true }, newG.defaultPersonNodeWidth );
-        } else {
-            var fatherID = findReferencedPerson(fatherLink, "father");
-            if (newG.properties[fatherID].gender == "F")
-                throw "Unable to import pedigree: a person declared as female is also declared as being a father";
-        }
-        if (motherLink == null) {
-            var motherID = newG._addVertex( null, TYPE.PERSON, {"gender": "F", "comments": "unknown", inferred:true}, newG.defaultPersonNodeWidth );
-        } else {
-            var motherID = findReferencedPerson(motherLink, "mother");
-            if (newG.properties[motherID].gender == "M")
-                throw "Unable to import pedigree: a person declared as male is also declared as being a mother";          
-        }
+    if (fatherLink == null) {
+      var fatherID = newG._addVertex( null, TYPE.PERSON, {'gender': 'M', 'comments': 'unknown', inferred:true }, newG.defaultPersonNodeWidth );
+    } else {
+      var fatherID = findReferencedPerson(fatherLink, 'father');
+      if (newG.properties[fatherID].gender == 'F')
+        throw 'Unable to import pedigree: a person declared as female is also declared as being a father';
+    }
+    if (motherLink == null) {
+      var motherID = newG._addVertex( null, TYPE.PERSON, {'gender': 'F', 'comments': 'unknown', inferred:true}, newG.defaultPersonNodeWidth );
+    } else {
+      var motherID = findReferencedPerson(motherLink, 'mother');
+      if (newG.properties[motherID].gender == 'M')
+        throw 'Unable to import pedigree: a person declared as male is also declared as being a mother';          
+    }
        
-        if (fatherID == personID || motherID == personID)
-            throw "Unable to import pedigree: a person is declared to be his or hew own parent";
+    if (fatherID == personID || motherID == personID)
+      throw 'Unable to import pedigree: a person is declared to be his or hew own parent';
 
        // both motherID and fatherID are now given and represent valid existing nodes in the pedigree
        
        // if there is a relationship between motherID and fatherID the corresponding childhub is returned
        // if there is no relationship, a new one is created together with the chldhub
-        var chhubID = relationshipTracker.createOrGetChildhub(motherID, fatherID);
+    var chhubID = relationshipTracker.createOrGetChildhub(motherID, fatherID);
 
-        newG.addEdge( chhubID, personID, defaultEdgeWeight );
-    }
+    newG.addEdge( chhubID, personID, defaultEdgeWeight );
+  }
 
-    PedigreeImport.validateBaseGraph(newG);
+  PedigreeImport.validateBaseGraph(newG);
 
-    return newG;
+  return newG;
 };
 
 
@@ -837,10 +837,10 @@ PedigreeImport.initFromSimpleJSON = function(inputText)
  */
 PedigreeImport.initFromGEDCOM = function(inputText, markEvaluated, saveIDAsExternalID)
 {  
-    var inputLines = inputText.match(/[^\r\n]+/g);
-    if (inputLines.length == 0) throw "Unable to import: no data";
+  var inputLines = inputText.match(/[^\r\n]+/g);
+  if (inputLines.length == 0) throw 'Unable to import: no data';
 
-    var convertToObject = function(inputLines) {
+  var convertToObject = function(inputLines) {
        /* converts GEDCOM text into an object, where 0-level items are stored as "header", "individuals" and "families"
         * properties, and all items below are arrays of objects, e.g. an array of objects representing each individual.
         * 
@@ -896,100 +896,100 @@ PedigreeImport.initFromGEDCOM = function(inputText, markEvaluated, saveIDAsExter
         *   {id: '@I2@' ...}
         *  ]
         */
-        var obj = { "header": {}, "individuals": [], "families": [] };
+    var obj = { 'header': {}, 'individuals': [], 'families': [] };
        
-        var currentObject = [];
+    var currentObject = [];
        
-        for (var i = 0; i < inputLines.length; i++) {           
-            var nextLine = inputLines[i].replace(/[^a-zA-Z0-9.\@\/\-\s*]/g, " ").replace(/^\s+|\s+$/g, ""); // sanitize + trim          
+    for (var i = 0; i < inputLines.length; i++) {           
+      var nextLine = inputLines[i].replace(/[^a-zA-Z0-9.\@\/\-\s*]/g, ' ').replace(/^\s+|\s+$/g, ''); // sanitize + trim          
            
-            var words = inputLines[i].split(/\s+/);           
-            var parts = words.splice(0,2);
-            parts.push(words.join(" "));
+      var words = inputLines[i].split(/\s+/);           
+      var parts = words.splice(0,2);
+      parts.push(words.join(' '));
            
            // now parts[0] = level, parts[1] = record type, parts[2] = value, if any
            
-            var level = parseInt(parts[0]);
+      var level = parseInt(parts[0]);
            
-            currentObject.splice(level);
+      currentObject.splice(level);
            
-            if (level == 0) {
-                if (parts[1] == "HEAD") {
-                    currentObject[0] = obj.header;
-                } else if (parts[1][0] == "@" && parts[2] == "INDI") {
-                    obj.individuals.push({});
-                    currentObject[0] = obj.individuals[obj.individuals.length - 1];
-                    currentObject[0]["id"] = parts[1]; 
-                } else if (parts[1][0] == "@" && parts[2] == "FAM") {
-                    obj.families.push({});
-                    currentObject[0] = obj.families[obj.families.length - 1];
-                    currentObject[0]["id"] = parts[1];
-                } else {
-                    currentObject[0] = {};
-                }
-            } else {
-                if (currentObject.length < level - 1) {
-                    throw "Unable to import GEDCOM: a multi-level jump detected in line: [" + inputLines[i] + "]";
-                }
+      if (level == 0) {
+        if (parts[1] == 'HEAD') {
+          currentObject[0] = obj.header;
+        } else if (parts[1][0] == '@' && parts[2] == 'INDI') {
+          obj.individuals.push({});
+          currentObject[0] = obj.individuals[obj.individuals.length - 1];
+          currentObject[0]['id'] = parts[1]; 
+        } else if (parts[1][0] == '@' && parts[2] == 'FAM') {
+          obj.families.push({});
+          currentObject[0] = obj.families[obj.families.length - 1];
+          currentObject[0]['id'] = parts[1];
+        } else {
+          currentObject[0] = {};
+        }
+      } else {
+        if (currentObject.length < level - 1) {
+          throw 'Unable to import GEDCOM: a multi-level jump detected in line: [' + inputLines[i] + ']';
+        }
 
-                if (!currentObject[level-1].hasOwnProperty(parts[1]))
-                    currentObject[level-1][parts[1]] = [];  // array of values
+        if (!currentObject[level-1].hasOwnProperty(parts[1]))
+          currentObject[level-1][parts[1]] = [];  // array of values
                
-                if (currentObject.length < level + 1) {
-                    currentObject[level] = {};
-                    currentObject[level - 1][parts[1]].push(currentObject[level]);
-                }
-               
-                if (parts[2] != "") {
-                    currentObject[level]["value"] = parts[2];                   
-                }
-            }           
-            currentLevel = parts[0];
+        if (currentObject.length < level + 1) {
+          currentObject[level] = {};
+          currentObject[level - 1][parts[1]].push(currentObject[level]);
         }
+               
+        if (parts[2] != '') {
+          currentObject[level]['value'] = parts[2];                   
+        }
+      }           
+      currentLevel = parts[0];
+    }
        
-        return obj;
-    };
+    return obj;
+  };
    
-    var gedcom = convertToObject(inputLines);   
-    console.log("GEDCOM object: " + stringifyObject(gedcom));
+  var gedcom = convertToObject(inputLines);   
+  console.log('GEDCOM object: ' + stringifyObject(gedcom));
    
-    if (gedcom.header.hasOwnProperty("GEDC")) {
-        if (gedcom.header.GEDC.hasOwnProperty("VERS")) {
-            if (gedcom.header.GEDC.VERS != "5.5" && gedcom.header.GEDC.VERS != "5.5.1") {
-                console.warn("Unsupported GEDCOM version detected: [" + gedcom.header.GEDC.VERS + "]. "+
-                     "Import will continue but the correctness is not guaranteed. Supportede versions are 5.5 and 5.5.1");   
-            }
-        }
+  if (gedcom.header.hasOwnProperty('GEDC')) {
+    if (gedcom.header.GEDC.hasOwnProperty('VERS')) {
+      if (gedcom.header.GEDC.VERS != '5.5' && gedcom.header.GEDC.VERS != '5.5.1') {
+        console.warn('Unsupported GEDCOM version detected: [' + gedcom.header.GEDC.VERS + ']. '+
+                     'Import will continue but the correctness is not guaranteed. Supportede versions are 5.5 and 5.5.1');   
+      }
     }
+  }
    
-    if (gedcom.individuals.length == 0) {
-        throw "Unable to create a pedigree from GEDCOM: no individuals are defined in the import data";
-    }
+  if (gedcom.individuals.length == 0) {
+    throw 'Unable to create a pedigree from GEDCOM: no individuals are defined in the import data';
+  }
    
-    var newG = new BaseGraph();
+  var newG = new BaseGraph();
    
-    var externalIDToID = {};
+  var externalIDToID = {};
 
    // first pass: add all vertices and assign vertex IDs
-    for (var i = 0; i < gedcom.individuals.length; i++) {
-        var nextPerson =  gedcom.individuals[i];
+  for (var i = 0; i < gedcom.individuals.length; i++) {
+    var nextPerson =  gedcom.individuals[i];
 
-        var pedigreeID = newG._addVertex( null, TYPE.PERSON, {}, newG.defaultPersonNodeWidth );
+    var pedigreeID = newG._addVertex( null, TYPE.PERSON, {}, newG.defaultPersonNodeWidth );
        
-        externalIDToID[nextPerson.id] = pedigreeID; 
+    externalIDToID[nextPerson.id] = pedigreeID; 
                       
-        var cleanedID = nextPerson.id.replace(/@/g, "");
-        var properties = saveIDAsExternalID ? {"externalID": cleanedID} : {};
+    var cleanedID = nextPerson.id.replace(/@/g, '');
+    var properties = saveIDAsExternalID ? {'externalID': cleanedID} : {};
 
-        properties["gender"] = "U";     // each person should have some gender set 
+    properties['gender'] = 'U';     // each person should have some gender set 
 
-        var getFirstValue = function(obj) {
+    var getFirstValue = function(obj) {
            //if (Object.prototype.toString.call(obj) === '[object Array]')
-            return obj[0].value;
-        };
+      return obj[0].value;
+    };
        
-        var parseDate = function(gedcomDate) {
-            gedcomDate = gedcomDate[0].value;
+    var parseDate = function(gedcomDate) {
+      gedcomDate = gedcomDate[0].value;
            
            // treat possible date modifiers
            //  "ABT" - "about"
@@ -998,197 +998,197 @@ PedigreeImport.initFromGEDCOM = function(inputText, markEvaluated, saveIDAsExter
            //  "AFT" - "after"
            //  "BET ... AND ..." = "between ... and ..."
            // for all of the above the date itself is used as the date; for the "between" the first date is used.           
-            gedcomDate = gedcomDate.replace(/^(\s*)ABT(\s*)/,"");
-            gedcomDate = gedcomDate.replace(/^(\s*)EST(\s*)/,"");
-            gedcomDate = gedcomDate.replace(/^(\s*)BEF(\s*)/,"");
-            gedcomDate = gedcomDate.replace(/^(\s*)AFT(\s*)/,"");
-            var getBetweenDate = /^\s*BET\s+(.+)\s+AND.*/;
-            var match = getBetweenDate.exec(gedcomDate);
-            if (match != null) {
-                gedcomDate = match[1];
-            }
+      gedcomDate = gedcomDate.replace(/^(\s*)ABT(\s*)/,'');
+      gedcomDate = gedcomDate.replace(/^(\s*)EST(\s*)/,'');
+      gedcomDate = gedcomDate.replace(/^(\s*)BEF(\s*)/,'');
+      gedcomDate = gedcomDate.replace(/^(\s*)AFT(\s*)/,'');
+      var getBetweenDate = /^\s*BET\s+(.+)\s+AND.*/;
+      var match = getBetweenDate.exec(gedcomDate);
+      if (match != null) {
+        gedcomDate = match[1];
+      }
 
-            if (gedcomDate == "?") return null;
+      if (gedcomDate == '?') return null;
            
-            var timestamp=Date.parse(gedcomDate);
-            if (isNaN(timestamp)==false) {
-                return new Date(timestamp);
-            }           
-            return null;
-        };
+      var timestamp=Date.parse(gedcomDate);
+      if (isNaN(timestamp)==false) {
+        return new Date(timestamp);
+      }           
+      return null;
+    };
        
-        for (var property in nextPerson) {
-            if (nextPerson.hasOwnProperty(property)) {
-                if (property == "SEX") {
-                    var genderString = getFirstValue(nextPerson[property])[0].toLowerCase(); // use first character only
-                    if( genderString == "female" || genderString == "f")
-                        properties["gender"] = "F";
-                    else if( genderString == "male" || genderString == "m")
-                        properties["gender"] = "M";
-                } else if (property == "BIRT") {
-                    if (nextPerson[property][0].hasOwnProperty("DATE")) {
-                        var date = parseDate(nextPerson[property][0]["DATE"]);
-                        if (date !== null) {
-                            properties["dob"] = date;
-                        }
-                    }
-                } else if (property == "DEAT") {
-                    if (properties.hasOwnProperty("lifeStatus") && properties["lifeStatus"] == "stillborn")
-                        continue;
-                    properties["lifeStatus"] = "deceased";
-                    if (nextPerson[property][0].hasOwnProperty("DATE")) {
-                        var date = parseDate(nextPerson[property][0]["DATE"]);
-                        if (date !== null) {
-                            properties["dod"] = date;
-                        }
-                    }
-                } else if (property == "ADOP") {
-                    properties["isAdopted"] = true;
-                } else if (property == "_INFO") {
-                    if (!properties.hasOwnProperty("comments"))
-                        properties["comments"] = "";
-                    properties["comments"] += "(Info: " + getFirstValue(nextPerson[property]) + ")\n";
-                } else if (property == "NOTE" || property == "_COMMENT") {
-                    if (!properties.hasOwnProperty("comments"))
-                        properties["comments"] = "";
-                    properties["comments"] += getFirstValue(nextPerson[property]) + "\n";
-                    if (nextPerson[property][0].hasOwnProperty("CONT")) {
-                        var more = nextPerson[property][0]["CONT"];
-                        for (var cc = 0; cc < more.length; cc++) {
-                            properties["comments"] += more[cc].value + "\n";
-                        }
-                    }
-                } else if (property == "NAME") {
-                    var nameParts = getFirstValue(nextPerson[property]).split("/");
-                    var firstName = nameParts[0].replace(/^\s+|\s+$/g, "");
-                    var lastName  = nameParts.length > 1 ? nameParts[1].replace(/^\s+|\s+$/g, "") : "";
-                    properties["fName"] = firstName;
-                    if (lastName != "")
-                        properties["lName"] = lastName;
-                } else if (property == "_MAIDEN") {
-                    var nameParts = getFirstValue(nextPerson[property]).split("/");
-                    var firstName = nameParts[0].replace(/^\s+|\s+$/g, "");
-                    var lastName  = nameParts.length > 1 ? nameParts[1].replace(/^\s+|\s+$/g, "") : "";
-                    properties["lNameAtB"] = firstName;
-                    if (lastName != "")
-                        properties["lNameAtB"] += " " + lastName;               
-                } else if (property == "_GENSTAT") {
-                    var props = getFirstValue(nextPerson[property]).split("");
-                    for (var p = 0; p < props.length; p++) {
-                        var value = props[p];
-                        if (value.charCodeAt(0) == 65533 || value.charCodeAt(0) == 172) {
-                           // one value is obtained via copy-paste, another via file upload
-                            value = "HEARSAY";
-                        }
-                        switch(value) {
-                        case "O":
-                            properties["carrierStatus"] = "affected";
-                            properties["disorders"]     = ["affected"];
-                            if (markEvaluated)
-                                properties["evaluated"] = true;
-                            break;
-                        case "HEARSAY":
-                            properties["carrierStatus"] = "presymptomatic"; // the closest graphic to cyrillic's "hearsay"
-                            if (markEvaluated)
-                                properties["evaluated"] = true;
-                            break;
-                        case "K":
-                            properties["lifeStatus"] = "stillborn";
-                            break;
-                        case "M":
-                            properties["childlessStatus"] = "infertile";
-                            break;
-                        case "E":
-                            if (!properties.hasOwnProperty("comments")) {
-                                properties["comments"] = "(untested)";
-                            }
-                            else { 
-                                properties["comments"] = "(untested)\n" + properties["comments"];
-                            }
-                            break;
-                        case "O":
-                           // TODO: proband
-                            break;
-                        } 
-                    }
+    for (var property in nextPerson) {
+      if (nextPerson.hasOwnProperty(property)) {
+        if (property == 'SEX') {
+          var genderString = getFirstValue(nextPerson[property])[0].toLowerCase(); // use first character only
+          if( genderString == 'female' || genderString == 'f')
+            properties['gender'] = 'F';
+          else if( genderString == 'male' || genderString == 'm')
+            properties['gender'] = 'M';
+        } else if (property == 'BIRT') {
+          if (nextPerson[property][0].hasOwnProperty('DATE')) {
+            var date = parseDate(nextPerson[property][0]['DATE']);
+            if (date !== null) {
+              properties['dob'] = date;
+            }
+          }
+        } else if (property == 'DEAT') {
+          if (properties.hasOwnProperty('lifeStatus') && properties['lifeStatus'] == 'stillborn')
+            continue;
+          properties['lifeStatus'] = 'deceased';
+          if (nextPerson[property][0].hasOwnProperty('DATE')) {
+            var date = parseDate(nextPerson[property][0]['DATE']);
+            if (date !== null) {
+              properties['dod'] = date;
+            }
+          }
+        } else if (property == 'ADOP') {
+          properties['isAdopted'] = true;
+        } else if (property == '_INFO') {
+          if (!properties.hasOwnProperty('comments'))
+            properties['comments'] = '';
+          properties['comments'] += '(Info: ' + getFirstValue(nextPerson[property]) + ')\n';
+        } else if (property == 'NOTE' || property == '_COMMENT') {
+          if (!properties.hasOwnProperty('comments'))
+              properties['comments'] = '';
+          properties['comments'] += getFirstValue(nextPerson[property]) + '\n';
+          if (nextPerson[property][0].hasOwnProperty('CONT')) {
+              var more = nextPerson[property][0]['CONT'];
+              for (var cc = 0; cc < more.length; cc++) {
+                  properties['comments'] += more[cc].value + '\n';
                 }
             }
-        }
-        if (properties.hasOwnProperty("comments")) {
-           // remove trailing newlines and/or empty comments
-            properties.comments = properties.comments.replace(/^\s+|\s+$/g, "");
-            if (properties.comments == "")
-                delete properties.comments;
-        }
-        newG.properties[pedigreeID] = properties;
+        } else if (property == 'NAME') {
+            var nameParts = getFirstValue(nextPerson[property]).split('/');
+            var firstName = nameParts[0].replace(/^\s+|\s+$/g, '');
+            var lastName  = nameParts.length > 1 ? nameParts[1].replace(/^\s+|\s+$/g, '') : '';
+            properties['fName'] = firstName;
+            if (lastName != '')
+                properties['lName'] = lastName;
+          } else if (property == '_MAIDEN') {
+              var nameParts = getFirstValue(nextPerson[property]).split('/');
+              var firstName = nameParts[0].replace(/^\s+|\s+$/g, '');
+              var lastName  = nameParts.length > 1 ? nameParts[1].replace(/^\s+|\s+$/g, '') : '';
+              properties['lNameAtB'] = firstName;
+              if (lastName != '')
+                  properties['lNameAtB'] += ' ' + lastName;               
+            } else if (property == '_GENSTAT') {
+                var props = getFirstValue(nextPerson[property]).split('');
+                for (var p = 0; p < props.length; p++) {
+                    var value = props[p];
+                    if (value.charCodeAt(0) == 65533 || value.charCodeAt(0) == 172) {
+                           // one value is obtained via copy-paste, another via file upload
+                      value = 'HEARSAY';
+                    }
+                    switch(value) {
+                    case 'O':
+                      properties['carrierStatus'] = 'affected';
+                      properties['disorders']     = ['affected'];
+                      if (markEvaluated)
+                        properties['evaluated'] = true;
+                      break;
+                    case 'HEARSAY':
+                      properties['carrierStatus'] = 'presymptomatic'; // the closest graphic to cyrillic's "hearsay"
+                      if (markEvaluated)
+                        properties['evaluated'] = true;
+                      break;
+                    case 'K':
+                      properties['lifeStatus'] = 'stillborn';
+                      break;
+                    case 'M':
+                      properties['childlessStatus'] = 'infertile';
+                      break;
+                    case 'E':
+                      if (!properties.hasOwnProperty('comments')) {
+                        properties['comments'] = '(untested)';
+                      }
+                      else { 
+                        properties['comments'] = '(untested)\n' + properties['comments'];
+                      }
+                      break;
+                    case 'O':
+                           // TODO: proband
+                      break;
+                    } 
+                  }
+              }
+      }
     }
+    if (properties.hasOwnProperty('comments')) {
+           // remove trailing newlines and/or empty comments
+      properties.comments = properties.comments.replace(/^\s+|\s+$/g, '');
+      if (properties.comments == '')
+        delete properties.comments;
+    }
+    newG.properties[pedigreeID] = properties;
+  }
 
-    var defaultEdgeWeight = 1;
+  var defaultEdgeWeight = 1;
    
-    var relationshipTracker = new RelationshipTracker(newG, defaultEdgeWeight);
+  var relationshipTracker = new RelationshipTracker(newG, defaultEdgeWeight);
    
-    var noChildFamilies = [];
+  var noChildFamilies = [];
 
    // second pass (once all vertex IDs are known): process families & add edges
-    for (var i = 0; i < gedcom.families.length; i++) {
-        var nextFamily = gedcom.families[i];
+  for (var i = 0; i < gedcom.families.length; i++) {
+    var nextFamily = gedcom.families[i];
       
-        var motherLink = nextFamily.hasOwnProperty("WIFE") ? getFirstValue(nextFamily["WIFE"]) : null;
-        var fatherLink = nextFamily.hasOwnProperty("HUSB") ? getFirstValue(nextFamily["HUSB"]) : null;
+    var motherLink = nextFamily.hasOwnProperty('WIFE') ? getFirstValue(nextFamily['WIFE']) : null;
+    var fatherLink = nextFamily.hasOwnProperty('HUSB') ? getFirstValue(nextFamily['HUSB']) : null;
                   
        // create a virtual parent in case one of the parents is missing       
-        if (fatherLink == null) {
-            var fatherID = newG._addVertex( null, TYPE.PERSON, {"gender": "M", "comments": "unknown"}, newG.defaultPersonNodeWidth );
-        } else {
-            var fatherID = externalIDToID[fatherLink];
-            if (newG.properties[fatherID].gender == "F")
-                throw "Unable to import pedigree: a person declared as female is also declared as being a father ("+fatherLink+")";
-        }
-        if (motherLink == null) {
-            var motherID = newG._addVertex( null, TYPE.PERSON, {"gender": "F", "comments": "unknown"}, newG.defaultPersonNodeWidth );
-        } else {
-            var motherID = externalIDToID[motherLink];
-            if (newG.properties[motherID].gender == "M")
-                throw "Unable to import pedigree: a person declared as male is also declared as being a mother ("+motherLink+")";          
-        }
+    if (fatherLink == null) {
+      var fatherID = newG._addVertex( null, TYPE.PERSON, {'gender': 'M', 'comments': 'unknown'}, newG.defaultPersonNodeWidth );
+    } else {
+      var fatherID = externalIDToID[fatherLink];
+      if (newG.properties[fatherID].gender == 'F')
+        throw 'Unable to import pedigree: a person declared as female is also declared as being a father ('+fatherLink+')';
+    }
+    if (motherLink == null) {
+      var motherID = newG._addVertex( null, TYPE.PERSON, {'gender': 'F', 'comments': 'unknown'}, newG.defaultPersonNodeWidth );
+    } else {
+      var motherID = externalIDToID[motherLink];
+      if (newG.properties[motherID].gender == 'M')
+        throw 'Unable to import pedigree: a person declared as male is also declared as being a mother ('+motherLink+')';          
+    }
 
        // both motherID and fatherID are now given and represent valid existing nodes in the pedigree
        
        // if there is a relationship between motherID and fatherID the corresponding childhub is returned
        // if there is no relationship, a new one is created together with the chldhub
-        var chhubID = relationshipTracker.createOrGetChildhub(motherID, fatherID);
+    var chhubID = relationshipTracker.createOrGetChildhub(motherID, fatherID);
 
-        var children = nextFamily.hasOwnProperty("CHIL") ? nextFamily["CHIL"] : null;
+    var children = nextFamily.hasOwnProperty('CHIL') ? nextFamily['CHIL'] : null;
        
-        if (children == null) {
+    if (children == null) {
            // create a virtual child
-            var childID = newG._addVertex( null, TYPE.PERSON, {"gender": "U", "comments": "unknown"}, newG.defaultPersonNodeWidth );
-            noChildFamilies.push(nextFamily.id);
-            externalIDToID[childID] = childID;
-            children = [{"value": childID}];
-        }
+      var childID = newG._addVertex( null, TYPE.PERSON, {'gender': 'U', 'comments': 'unknown'}, newG.defaultPersonNodeWidth );
+      noChildFamilies.push(nextFamily.id);
+      externalIDToID[childID] = childID;
+      children = [{'value': childID}];
+    }
        
-        for (var j = 0; j < children.length; j++) {
-            var externalID = children[j].value;
+    for (var j = 0; j < children.length; j++) {
+      var externalID = children[j].value;
            
-            var childID = externalIDToID.hasOwnProperty(externalID) ? externalIDToID[externalID] : null;
+      var childID = externalIDToID.hasOwnProperty(externalID) ? externalIDToID[externalID] : null;
            
-            if (childID == null) {
-                throw "Unable to import pedigree: child link does not point to an existing individual: [" + externalID + "]";
-            }
+      if (childID == null) {
+        throw 'Unable to import pedigree: child link does not point to an existing individual: [' + externalID + ']';
+      }
            
-            newG.addEdge( chhubID, childID, defaultEdgeWeight );
-        }
+      newG.addEdge( chhubID, childID, defaultEdgeWeight );
     }
+  }
 
-    if (noChildFamilies.length > 0) {
+  if (noChildFamilies.length > 0) {
        // stringifyObject(noChildFamilies)
-        console.warn("Some families with no children were found in the imported pedigree: this is not supported at the moment, so a child was added to each childless family");
-    }
+    console.warn('Some families with no children were found in the imported pedigree: this is not supported at the moment, so a child was added to each childless family');
+  }
    
-    PedigreeImport.validateBaseGraph(newG);
+  PedigreeImport.validateBaseGraph(newG);
 
-    return newG;
+  return newG;
 };
 
 
@@ -1197,29 +1197,30 @@ PedigreeImport.initFromGEDCOM = function(inputText, markEvaluated, saveIDAsExter
 
 // TODO: convert internal properties to match public names and rename this to "supportedProperties"
 PedigreeImport.JSONToInternalPropertyMapping = {
-    "proband":         "isProband", 
-    "lastname":        "lName",
-    "lastnameatbirth": "lNameAtB",
-    "comments":        "comments",
-    "twingroup":       "twinGroup",
-    "monozygotic":     "monozygotic",
-    "adoptedin":       "isAdopted",
-    "evaluated":       "evaluated",
-    "birthdate":       "dob",
-    "deathdate":       "dod",
-    "gestationage":    "gestationAge",
-    "lifestatus":      "lifeStatus",
-    "disorders":       "disorders",
-    "hpoterms":        "hpoTerms",
-    "candidategenes":  "candidateGenes",
-    "ethnicities":     "ethnicities",
-    "carrierstatus":   "carrierStatus",
-    "externalid":      "externalID",
-    "numpersons":      "numPersons",
-    "lostcontact":     "lostContact",
-    "nodenumber":      "nodeNumber",
-    "externalidhref":  "externalIDHref",
-    "focused":         "focused",
+  'proband':         'isProband', 
+  'lastname':        'lName',
+  'lastnameatbirth': 'lNameAtB',
+  'comments':        'comments',
+  'twingroup':       'twinGroup',
+  'monozygotic':     'monozygotic',
+  'adoptedin':       'isAdopted',
+  'evaluated':       'evaluated',
+  'birthdate':       'dob',
+  'deathdate':       'dod',
+  'gestationage':    'gestationAge',
+  'lifestatus':      'lifeStatus',
+  'disorders':       'disorders',
+  'hpoterms':        'hpoTerms',
+  'candidategenes':  'candidateGenes',
+  'ethnicities':     'ethnicities',
+  'carrierstatus':   'carrierStatus',
+  'externalid':      'externalID',
+  'numpersons':      'numPersons',
+  'lostcontact':     'lostContact',
+  'nodenumber':      'nodeNumber',
+  'externalidhref':  'externalIDHref',
+  'focused':         'focused',
+  'variants':        'variants',
 };
 
 
@@ -1229,12 +1230,12 @@ PedigreeImport.JSONToInternalPropertyMapping = {
  */
 PedigreeImport.convertProperty = function(externalPropertyName, value) {
     
-    if (!PedigreeImport.JSONToInternalPropertyMapping.hasOwnProperty(externalPropertyName))
-        return null;
+  if (!PedigreeImport.JSONToInternalPropertyMapping.hasOwnProperty(externalPropertyName))
+    return null;
             
-    var internalPropertyName = PedigreeImport.JSONToInternalPropertyMapping[externalPropertyName];
+  var internalPropertyName = PedigreeImport.JSONToInternalPropertyMapping[externalPropertyName];
         
-    return {"propertyName": internalPropertyName, "value": value };
+  return {'propertyName': internalPropertyName, 'value': value };
 };
 
 
@@ -1244,40 +1245,40 @@ PedigreeImport.convertProperty = function(externalPropertyName, value) {
  * Helper class which keeps track of relationships already seen in pedigree being imported
  */
 export const RelationshipTracker = function (newG, defaultEdgeWeight) {
-    this.newG = newG;
+  this.newG = newG;
     
-    this.defaultEdgeWeight = defaultEdgeWeight;
+  this.defaultEdgeWeight = defaultEdgeWeight;
     
-    this.relationships = {};
-    this.relChildHubs  = {};
+  this.relationships = {};
+  this.relChildHubs  = {};
 };
 
 RelationshipTracker.prototype = {
         
     // if there is a relationship between motherID and fatherID the corresponding childhub is returned
     // if there is no relationship, a new one is created together with the chldhub
-    createOrGetChildhub: function (motherID, fatherID)
+  createOrGetChildhub: function (motherID, fatherID)
     {
         // both motherID and fatherID are now given. Check if there is a relationship between the two of them
-        if (this.relationships.hasOwnProperty(motherID) && this.relationships[motherID].hasOwnProperty(fatherID)) {
-            var relID   = this.relationships[motherID][fatherID];
-            var chhubID = this.relChildHubs[relID];
-        } else {
-            if (this.relationships[motherID] === undefined) this.relationships[motherID] = {};
-            if (this.relationships[fatherID] === undefined) this.relationships[fatherID] = {};
+    if (this.relationships.hasOwnProperty(motherID) && this.relationships[motherID].hasOwnProperty(fatherID)) {
+      var relID   = this.relationships[motherID][fatherID];
+      var chhubID = this.relChildHubs[relID];
+    } else {
+      if (this.relationships[motherID] === undefined) this.relationships[motherID] = {};
+      if (this.relationships[fatherID] === undefined) this.relationships[fatherID] = {};
         
-            var relID   = this.newG._addVertex( null, TYPE.RELATIONSHIP, {}, this.newG.defaultNonPersonNodeWidth );
-            var chhubID = this.newG._addVertex( null, TYPE.CHILDHUB,     {}, this.newG.defaultNonPersonNodeWidth );
+      var relID   = this.newG._addVertex( null, TYPE.RELATIONSHIP, {}, this.newG.defaultNonPersonNodeWidth );
+      var chhubID = this.newG._addVertex( null, TYPE.CHILDHUB,     {}, this.newG.defaultNonPersonNodeWidth );
         
-            this.newG.addEdge( relID,    chhubID, this.defaultEdgeWeight );
-            this.newG.addEdge( motherID, relID,   this.defaultEdgeWeight );
-            this.newG.addEdge( fatherID, relID,   this.defaultEdgeWeight );
+      this.newG.addEdge( relID,    chhubID, this.defaultEdgeWeight );
+      this.newG.addEdge( motherID, relID,   this.defaultEdgeWeight );
+      this.newG.addEdge( fatherID, relID,   this.defaultEdgeWeight );
         
-            this.relationships[motherID][fatherID] = relID;
-            this.relationships[fatherID][motherID] = relID;
-            this.relChildHubs[relID] = chhubID;
-        }
-        
-        return chhubID;
+      this.relationships[motherID][fatherID] = relID;
+      this.relationships[fatherID][motherID] = relID;
+      this.relChildHubs[relID] = chhubID;
     }
+        
+    return chhubID;
+  }
 };

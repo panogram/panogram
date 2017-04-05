@@ -1,5 +1,5 @@
-import { AbstractPersonVisuals } from "./abstractPersonVisuals";
-import { AbstractNode } from "./abstractNode";
+import { AbstractPersonVisuals } from './abstractPersonVisuals';
+import { AbstractNode } from './abstractNode';
 import { isNil } from 'ramda';
 
 /**
@@ -17,14 +17,14 @@ import { isNil } from 'ramda';
 
 export const AbstractPerson = Class.create(AbstractNode, {
 
-    initialize: function($super, x, y, gender, id) {
+  initialize: function($super, x, y, gender, id) {
         //console.log("abstract person");            
-        this._gender = this.parseGender(gender);
-        this._isAdopted = false;
-        !this._type && (this._type = "AbstractPerson");
-        $super(x, y, id);
+    this._gender = this.parseGender(gender);
+    this._isAdopted = false;
+    !this._type && (this._type = 'AbstractPerson');
+    $super(x, y, id);
         //console.log("abstract person end");
-    },
+  },
 
     /**
      * Initializes the object responsible for creating graphics for this node
@@ -35,9 +35,9 @@ export const AbstractPerson = Class.create(AbstractNode, {
      * @return {AbstractPersonVisuals}
      * @private
      */
-    _generateGraphics: function(x, y) {
-        return new AbstractPersonVisuals(this, x, y);
-    },
+  _generateGraphics: function(x, y) {
+    return new AbstractPersonVisuals(this, x, y);
+  },
 
     /**
      * Reads a string of input and converts it into the standard gender format of "M","F" or "U".
@@ -47,9 +47,9 @@ export const AbstractPerson = Class.create(AbstractNode, {
      * @param {String} gender The string to be parsed
      * @return {String} the gender in the standard form ("M", "F", or "U")
      */
-    parseGender: function(gender) {
-        return (gender.toUpperCase() == "M" || gender.toUpperCase() == "F") ? gender.toUpperCase() : "U";
-    },
+  parseGender: function(gender) {
+    return (gender.toUpperCase() == 'M' || gender.toUpperCase() == 'F') ? gender.toUpperCase() : 'U';
+  },
 
     /**
      * Returns "U", "F" or "M" depending on the gender of this node
@@ -57,16 +57,16 @@ export const AbstractPerson = Class.create(AbstractNode, {
      * @method getGender
      * @return {String}
      */
-    getGender: function() {
-        return this._gender;
-    },
+  getGender: function() {
+    return this._gender;
+  },
 
     /**
      * @method isPersonGroup
      */    
-    isPersonGroup: function() {
-        return (this._type == "PersonGroup");
-    },
+  isPersonGroup: function() {
+    return (this._type == 'PersonGroup');
+  },
     
     /**
      * Updates the gender of this node
@@ -74,15 +74,15 @@ export const AbstractPerson = Class.create(AbstractNode, {
      * @method setGender
      * @param {String} gender Should be "U", "F", or "M" depending on the gender
      */
-    setGender: function(gender) {
-        gender = this.parseGender(gender);
-        if (this._gender != gender) {
-            this._gender = gender;
-            this.getGraphics().setGenderGraphics();
-            this.getGraphics().getHoverBox().regenerateHandles();
-            this.getGraphics().getHoverBox().regenerateButtons();
-        }
-    },
+  setGender: function(gender) {
+    gender = this.parseGender(gender);
+    if (this._gender != gender) {
+      this._gender = gender;
+      this.getGraphics().setGenderGraphics();
+      this.getGraphics().getHoverBox().regenerateHandles();
+      this.getGraphics().getHoverBox().regenerateButtons();
+    }
+  },
 
     /**
      * Changes the adoption status of this Person to isAdopted. Updates the graphics.
@@ -90,14 +90,14 @@ export const AbstractPerson = Class.create(AbstractNode, {
      * @method setAdopted
      * @param {Boolean} isAdopted Set to true if you want to mark the Person adopted
      */
-    setAdopted: function(isAdopted) {
-        this._isAdopted = isAdopted;
+  setAdopted: function(isAdopted) {
+    this._isAdopted = isAdopted;
         //TODO: implement adopted and social parents
-        if(isAdopted)
-            this.getGraphics().drawAdoptedShape();
-        else
+    if(isAdopted)
+      this.getGraphics().drawAdoptedShape();
+    else
             this.getGraphics().removeAdoptedShape();
-    },
+  },
 
     /**
      * Returns true if this Person is marked adopted
@@ -105,15 +105,15 @@ export const AbstractPerson = Class.create(AbstractNode, {
      * @method isAdopted
      * @return {Boolean}
      */
-    isAdopted: function() {
-        return this._isAdopted;
-    },
+  isAdopted: function() {
+    return this._isAdopted;
+  },
     
     // TODO: for automated setMethod -> getMethod used for undo/redo 
-    getAdopted: function() {
+  getAdopted: function() {
         //console.log("GET ADOPTED: " + this.isAdopted()); 
-        return this.isAdopted();
-    },
+    return this.isAdopted();
+  },
 
     /**
      * Returns an object containing all the properties of this node
@@ -126,13 +126,13 @@ export const AbstractPerson = Class.create(AbstractNode, {
        sex: "gender of the node"
      }
      */
-    getProperties: function($super) {
-        var info = $super();
-        info["gender"] = this.getGender();
-        info["focused"] = this.getFocused();
-        info["isProband"] = this.isProband();
-        return info;
-    },
+  getProperties: function($super) {
+    var info = $super();
+    info['gender'] = this.getGender();
+    info['focused'] = this.getFocused();
+    info['isProband'] = this.isProband();
+    return info;
+  },
 
     /**
      * Applies the properties found in info to this node.
@@ -141,18 +141,18 @@ export const AbstractPerson = Class.create(AbstractNode, {
      * @param properties Object
      * @return {Boolean} True if info was successfully assigned
      */
-    assignProperties: function($super, properties) {
-        if (!$super(properties))
-            return false;
-        if (isNil(properties.gender) && isNil(properties.focused) && isNil(properties.isProband))
-            return false;
-        if(!isNil(properties.gender) && this.getGender() != this.parseGender(properties.gender))
-            this.setGender(properties.gender);
-        if(!isNil(properties.gender) && this.getFocused() !== properties.focused)
-            this.setFocused(properties.focused);
-        if(!isNil(properties.isProband) && this.isProband() !== properties.isProband) {
-            this._isProband = properties.isProband;
-        }
-        return true;
+  assignProperties: function($super, properties) {
+    if (!$super(properties))
+      return false;
+    if (isNil(properties.gender) && isNil(properties.focused) && isNil(properties.isProband))
+      return false;
+    if(!isNil(properties.gender) && this.getGender() != this.parseGender(properties.gender))
+      this.setGender(properties.gender);
+    if(!isNil(properties.gender) && this.getFocused() !== properties.focused)
+      this.setFocused(properties.focused);
+    if(!isNil(properties.isProband) && this.isProband() !== properties.isProband) {
+      this._isProband = properties.isProband;
     }
+    return true;
+  }
 });

@@ -1,4 +1,4 @@
-import { Droppables, Draggable } from "./dragdrop";
+import { Droppables, Draggable } from './dragdrop';
 /**
  * Base class for various "legend" widgets
  *
@@ -8,38 +8,38 @@ import { Droppables, Draggable } from "./dragdrop";
            
 export const Legend = Class.create( {
 
-    initialize: function(title, allowDrop) {
-        this._affectedNodes  = {};     // for each object: the list of affected person nodes
+  initialize: function(title, allowDrop) {
+    this._affectedNodes  = {};     // for each object: the list of affected person nodes
 
-        this._objectColors = {};       // for each object: the corresponding object color
+    this._objectColors = {};       // for each object: the corresponding object color
 
-        var legendContainer = $("legend-container");
-        if (legendContainer == undefined) {
-            legendContainer = new Element("div", {"class": "legend-container", "id": "legend-container"});
-            editor.getWorkspace().getWorkArea().insert(legendContainer);
-        }
+    var legendContainer = $('legend-container');
+    if (legendContainer == undefined) {
+      legendContainer = new Element('div', {'class': 'legend-container', 'id': 'legend-container'});
+      editor.getWorkspace().getWorkArea().insert(legendContainer);
+    }
 
-        this._legendBox = new Element("div", {"class" : "legend-box", id: "legend-box"});
-        this._legendBox.hide();
-        legendContainer.insert(this._legendBox);
+    this._legendBox = new Element('div', {'class' : 'legend-box', id: 'legend-box'});
+    this._legendBox.hide();
+    legendContainer.insert(this._legendBox);
 
-        var legendTitle= new Element("h2", {"class" : "legend-title"}).update(title);
-        this._legendBox.insert(legendTitle);
+    var legendTitle= new Element('h2', {'class' : 'legend-title'}).update(title);
+    this._legendBox.insert(legendTitle);
 
-        this._list = new Element("ul", {"class" : "disorder-list"});
-        this._legendBox.insert(this._list);
+    this._list = new Element('ul', {'class' : 'disorder-list'});
+    this._legendBox.insert(this._list);
 
-        Element.observe(this._legendBox, "mouseover", function() {
-            $$(".menu-box").invoke("setOpacity", .1);
-        });
-        Element.observe(this._legendBox, "mouseout", function() {
-            $$(".menu-box").invoke("setOpacity", 1);
-        });
+    Element.observe(this._legendBox, 'mouseover', function() {
+      $$('.menu-box').invoke('setOpacity', .1);
+    });
+    Element.observe(this._legendBox, 'mouseout', function() {
+      $$('.menu-box').invoke('setOpacity', 1);
+    });
 
-        if (allowDrop) {
-            Droppables.add(editor.getWorkspace().canvas, {accept: "drop-"+this._getPrefix(), onDrop: this._onDropWrapper.bind(this)});
-        }
-    },
+    if (allowDrop) {
+      Droppables.add(editor.getWorkspace().canvas, {accept: 'drop-'+this._getPrefix(), onDrop: this._onDropWrapper.bind(this)});
+    }
+  },
 
     /**
      * Returns the prefix to be used on elements related to the object
@@ -49,10 +49,10 @@ export const Legend = Class.create( {
      * @param {String|Number} id ID of the object
      * @return {String} some identifier which should be a valid HTML id value (e.g. no spaces)
      */
-    _getPrefix: function(id) {
+  _getPrefix: function(id) {
         // To be overwritten in derived classes
-        throw "prefix not defined";
-    },
+    throw 'prefix not defined';
+  },
 
     /**
      * Retrieve the color associated with the given object
@@ -61,11 +61,11 @@ export const Legend = Class.create( {
      * @param {String|Number} id ID of the object
      * @return {String} CSS color value for the object, displayed on affected nodes in the pedigree and in the legend
      */
-    getObjectColor: function(id) {
-        if (!this._objectColors.hasOwnProperty(id))
-            return "#ff0000";
-        return this._objectColors[id];
-    },
+  getObjectColor: function(id) {
+    if (!this._objectColors.hasOwnProperty(id))
+      return '#ff0000';
+    return this._objectColors[id];
+  },
 
     /**
      * Returns True if there are nodes reported to have the object with the given id
@@ -74,9 +74,9 @@ export const Legend = Class.create( {
      * @param {String|Number} id ID of the object
      * @private
      */
-    _hasAffectedNodes: function(id) {
-        return this._affectedNodes.hasOwnProperty(id);
-    },
+  _hasAffectedNodes: function(id) {
+    return this._affectedNodes.hasOwnProperty(id);
+  },
 
     /**
      * Registers an occurrence of an object type being tracked by this legend.
@@ -86,20 +86,20 @@ export const Legend = Class.create( {
      * @param {String} Name The description of the object to be displayed
      * @param {Number} nodeID ID of the Person who has this object associated with it
      */
-    addCase: function(id, name, nodeID) {
-        if(Object.keys(this._affectedNodes).length == 0) {
-            this._legendBox.show();
-        }
-        if(!this._hasAffectedNodes(id)) {
-            this._affectedNodes[id] = [nodeID];
-            var listElement = this._generateElement(id, name);
-            this._list.insert(listElement);
-        }
-        else {
-            this._affectedNodes[id].push(nodeID);
-        }
-        this._updateCaseNumbersForObject(id);
-    },
+  addCase: function(id, name, nodeID) {
+    if(Object.keys(this._affectedNodes).length == 0) {
+      this._legendBox.show();
+    }
+    if(!this._hasAffectedNodes(id)) {
+      this._affectedNodes[id] = [nodeID];
+      var listElement = this._generateElement(id, name);
+      this._list.insert(listElement);
+    }
+    else {
+      this._affectedNodes[id].push(nodeID);
+    }
+    this._updateCaseNumbersForObject(id);
+  },
 
     /**
      * Removes an occurrence of an object, if there are any. Removes the object
@@ -108,27 +108,27 @@ export const Legend = Class.create( {
      * @param {String|Number} id ID of the object
      * @param {Number} nodeID ID of the Person who has/is affected by this object
      */
-    removeCase: function(id, nodeID) {
-        if (this._hasAffectedNodes(id)) {
-            this._affectedNodes[id] = this._affectedNodes[id].without(nodeID);
-            if(this._affectedNodes[id].length == 0) {
-                delete this._affectedNodes[id];
-                delete this._objectColors[id];
-                var htmlElement = this._getListElementForObjectWithID(id);
-                htmlElement.remove();
-                if(Object.keys(this._affectedNodes).length == 0) {
-                    this._legendBox.hide();
-                }
-            }
-            else {
-                this._updateCaseNumbersForObject(id);
-            }
+  removeCase: function(id, nodeID) {
+    if (this._hasAffectedNodes(id)) {
+      this._affectedNodes[id] = this._affectedNodes[id].without(nodeID);
+      if(this._affectedNodes[id].length == 0) {
+        delete this._affectedNodes[id];
+        delete this._objectColors[id];
+        var htmlElement = this._getListElementForObjectWithID(id);
+        htmlElement.remove();
+        if(Object.keys(this._affectedNodes).length == 0) {
+          this._legendBox.hide();
         }
-    },
+      }
+      else {
+        this._updateCaseNumbersForObject(id);
+      }
+    }
+  },
 
-    _getListElementForObjectWithID: function(id) {
-        return $(this._getPrefix() + "-" + id);
-    },
+  _getListElementForObjectWithID: function(id) {
+    return $(this._getPrefix() + '-' + id);
+  },
 
     /**
      * Updates the displayed number of nodes assocated with/affected by the object
@@ -137,13 +137,13 @@ export const Legend = Class.create( {
      * @param {String|Number} id ID of the object
      * @private
      */
-    _updateCaseNumbersForObject : function(id) {
-        var label = this._legendBox.down("li#" + this._getPrefix() + "-" + id + " .disorder-cases");
-        if (label) {
-            var cases = this._affectedNodes.hasOwnProperty(id) ? this._affectedNodes[id].length : 0;
-            label.update(cases + "&nbsp;case" + ((cases - 1) && "s" || ""));
-        }
-    },
+  _updateCaseNumbersForObject : function(id) {
+    var label = this._legendBox.down('li#' + this._getPrefix() + '-' + id + ' .disorder-cases');
+    if (label) {
+      var cases = this._affectedNodes.hasOwnProperty(id) ? this._affectedNodes[id].length : 0;
+      label.update(cases + '&nbsp;case' + ((cases - 1) && 's' || ''));
+    }
+  },
 
     /**
      * Generate the element that will display information about the given object in the legend
@@ -153,61 +153,61 @@ export const Legend = Class.create( {
      * @param {String} name The human-readable object name or description
      * @return {HTMLLIElement} List element to be insert in the legend
      */
-    _generateElement: function(id, name) {
-        var color = this.getObjectColor(id);
-        var item = new Element("li", {"class" : "disorder "+"drop-"+this._getPrefix(), "id" : this._getPrefix() + "-" + id}).update(new Element("span", {"class" : "disorder-name"}).update(name));
-        var bubble = new Element("span", {"class" : "disorder-color"});
-        bubble.style.backgroundColor = color;
-        item.insert({"top" : bubble});
-        var countLabel = new Element("span", {"class" : "disorder-cases"});
-        var countLabelContainer = new Element("span", {"class" : "disorder-cases-container"}).insert("(").insert(countLabel).insert(")");
-        item.insert(" ").insert(countLabelContainer);
-        var me = this;
-        Element.observe(item, "mouseover", function() {
+  _generateElement: function(id, name) {
+    var color = this.getObjectColor(id);
+    var item = new Element('li', {'class' : 'disorder '+'drop-'+this._getPrefix(), 'id' : this._getPrefix() + '-' + id}).update(new Element('span', {'class' : 'disorder-name'}).update(name));
+    var bubble = new Element('span', {'class' : 'disorder-color'});
+    bubble.style.backgroundColor = color;
+    item.insert({'top' : bubble});
+    var countLabel = new Element('span', {'class' : 'disorder-cases'});
+    var countLabelContainer = new Element('span', {'class' : 'disorder-cases-container'}).insert('(').insert(countLabel).insert(')');
+    item.insert(' ').insert(countLabelContainer);
+    var me = this;
+    Element.observe(item, 'mouseover', function() {
             //item.setStyle({'text-decoration':'underline', 'cursor' : 'default'});
             //console.log(color);
-            if (color === "#010101") {
-                item.down(".disorder-name").setStyle({"background": color, "cursor" : "default", color: '#eee'});
-            }
-            else {
-                item.down(".disorder-name").setStyle({"background": color, "cursor" : "default"});
-            }
+      if (color === '#010101') {
+        item.down('.disorder-name').setStyle({'background': color, 'cursor' : 'default', color: '#eee'});
+      }
+      else {
+        item.down('.disorder-name').setStyle({'background': color, 'cursor' : 'default'});
+      }
             
-            me._affectedNodes[id] && me._affectedNodes[id].forEach(function(nodeID) {
-                var node = editor.getNode(nodeID);
-                node && node.getGraphics().highlight();
-            });
-        });
-        Element.observe(item, "mouseout", function() {
+      me._affectedNodes[id] && me._affectedNodes[id].forEach(function(nodeID) {
+        var node = editor.getNode(nodeID);
+        node && node.getGraphics().highlight();
+      });
+    });
+    Element.observe(item, 'mouseout', function() {
             //item.setStyle({'text-decoration':'none'});
-            if (color === "#010101") {
-                item.down(".disorder-name").setStyle({"background":"", "cursor" : "default", color: '#000'});
-            }
-            else {
-                item.down(".disorder-name").setStyle({"background":"", "cursor" : "default"});
-            }
-            me._affectedNodes[id] && me._affectedNodes[id].forEach(function(nodeID) {
-                var node = editor.getNode(nodeID);
-                node && node.getGraphics().unHighlight();
-            });
-        });
-        new Draggable(item, {
-            revert: true,
-            reverteffect: function(segment) {
+      if (color === '#010101') {
+        item.down('.disorder-name').setStyle({'background':'', 'cursor' : 'default', color: '#000'});
+      }
+      else {
+        item.down('.disorder-name').setStyle({'background':'', 'cursor' : 'default'});
+      }
+      me._affectedNodes[id] && me._affectedNodes[id].forEach(function(nodeID) {
+        var node = editor.getNode(nodeID);
+        node && node.getGraphics().unHighlight();
+      });
+    });
+    new Draggable(item, {
+      revert: true,
+      reverteffect: function(segment) {
             // Reset the in-line style.
-                segment.setStyle({
-                    height: "",
-                    left: "",
-                    position: "",
-                    top: "",
-                    zIndex: "",
-                    width: ""
-                });
-            },
-            ghosting: true
+        segment.setStyle({
+          height: '',
+          left: '',
+          position: '',
+          top: '',
+          zIndex: '',
+          width: ''
         });
-        return item;
-    },
+      },
+      ghosting: true
+    });
+    return item;
+  },
 
     /**
      * Callback for dragging an object from the legend onto nodes. Converts canvas coordinates
@@ -219,19 +219,19 @@ export const Legend = Class.create( {
      * @param {Event} [event]
      * @private
      */
-    _onDropWrapper: function(label, target, event) {
-        if (editor.isReadOnlyMode()) {
-            return;
-        }
-        var divPos = editor.getWorkspace().viewportToDiv(event.pointerX(), event.pointerY());
-        var pos    = editor.getWorkspace().divToCanvas(divPos.x,divPos.y);
-        var node   = editor.getView().getPersonNodeNear(pos.x, pos.y);
+  _onDropWrapper: function(label, target, event) {
+    if (editor.isReadOnlyMode()) {
+      return;
+    }
+    var divPos = editor.getWorkspace().viewportToDiv(event.pointerX(), event.pointerY());
+    var pos    = editor.getWorkspace().divToCanvas(divPos.x,divPos.y);
+    var node   = editor.getView().getPersonNodeNear(pos.x, pos.y);
         //console.log("Position x: " + pos.x + " position y: " + pos.y);
-        if (node) {
-            var id = label.id.substring( label.id.indexOf("-") + 1 );
-            this._onDropObject(node, id);
-        }
-    },
+    if (node) {
+      var id = label.id.substring( label.id.indexOf('-') + 1 );
+      this._onDropObject(node, id);
+    }
+  },
 
     /**
      * Callback for dragging an object from the legend onto nodes
@@ -240,7 +240,7 @@ export const Legend = Class.create( {
      * @param {Person} Person node
      * @param {String|Number} id ID of the object
      */
-    _onDropObject: function(node, objectID) {
-        throw "drop functionality is not defined";
-    }
+  _onDropObject: function(node, objectID) {
+    throw 'drop functionality is not defined';
+  }
 });

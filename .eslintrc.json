@@ -17,7 +17,7 @@
     "rules": {
         "indent": [
             "error",
-            4
+            2
         ],
         "linebreak-style": [
             "error",
@@ -25,15 +25,15 @@
         ],
         "quotes": [
             "warn",
-            "double"
+            "single"
         ],
         "semi": [
             "error",
             "always"
         ],
         "no-unused-vars": [
-            "error", { 
-                "args": "none" 
+            "error", {
+                "args": "none"
             }
         ],
         "no-console": 0
