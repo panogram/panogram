@@ -1,37 +1,16 @@
-import {
-    contains
-} from 'ramda';
-import {
-    PedigreeEditorAttributes
-} from './pedigreeEditorAttributes';
-import {
-    DynamicPositionedGraph
-} from './dynamicGraph';
-import {
-    ViewerWorkspace
-} from './viewerWorkspace';
-import {
-    View
-} from './view';
-import {
-    DisorderLegend
-} from './disorderLegend';
-import {
-    HPOLegend
-} from './hpoLegend';
-import {
-    Controller
-} from './controller';
-import {
-    ActionStack
-} from './undoRedo';
-import {
-  NodeMenu
-} from './nodeMenu';
-import {
-  SaveLoadEngine
-} from './saveLoadEngine';
+import { contains, isNil } from 'ramda';
+import { PedigreeEditorAttributes } from './pedigreeEditorAttributes';
+import { DynamicPositionedGraph } from './dynamicGraph';
+import { ViewerWorkspace } from './viewerWorkspace';
+import { View } from './view';
+import { DisorderLegend } from './disorderLegend';
+import { HPOLegend } from './hpoLegend';
+import { Controller } from './controller';
+import { ActionStack } from './undoRedo';
+import { NodeMenu } from './nodeMenu';
+import { SaveLoadEngine } from './saveLoadEngine';
 import { Key } from './key';
+import { Title } from './title';
 
 const isTruthy = val => {
   const truthy = ['1', 'y', 'yes', 'ye', 't', 'tr', 'true'];
@@ -92,6 +71,18 @@ const cleanData = data => {
   });
 };
 
+const getAllVariants = data => {
+  const variantsMap = {};
+  data.forEach(node => {
+    if (node.variants && node.variants.length) {
+      node.variants.forEach(variant => {
+        variantsMap[variant.hgvs_c] = true;
+      });
+    }
+  });
+  return variantsMap;
+};
+
 export class ViewerPedigree {
   constructor(args) {
     var me = this;
@@ -111,6 +102,14 @@ export class ViewerPedigree {
     this._disorderLegend = new DisorderLegend();
     this._hpoLegend = new HPOLegend();
     this._key = new Key();
+    
+    const variants = getAllVariants(data);
+
+    if (Object.keys(variants).length === 1) {
+      const variantName = Object.keys(variants)[0];
+      this._title = new Title(`Segregation for variant ${variantName}`);
+      this._title.draw();
+    }
 
     this._view = new View();
 
@@ -123,6 +122,11 @@ export class ViewerPedigree {
     }
 
     me._saveLoadEngine.createGraphFromImportData(JSON.stringify(data), args.type, {});
+    this._key.draw();
+  }
+
+  hasTitle() {
+    return isNil(this._title);
   }
     /**
      * Returns the graph node with the corresponding nodeID

@@ -26,7 +26,7 @@ export const PedigreeEditorAttributes = {
   presymptomaticShape: {fill : '#777777', 'stroke': '#777777'},
   presymptomaticShapeWidth: 8,
   evaluationShape: {'font-size': 40, 'font-family': 'Arial'},
-  nodeShape:     {fill: '#DDDDDD', stroke: '#595959'},  // this
+  nodeShape:     {fill: '#f7f7f7', stroke: '#2d2d2d', 'stroke-width': 2.0},  // this
   nodeShapeMenuOn:  {fill: '#000', stroke: 'none', 'fill-opacity': 0.1},
   nodeShapeMenuOff: {fill: '#000', stroke: 'none', 'fill-opacity': 0},
   nodeShapeMenuOnPartner:  {fill: '#000', stroke: 'none', 'fill-opacity': 0.1},
@@ -48,7 +48,7 @@ export const PedigreeEditorAttributes = {
   commentLabel: {'font-size': 19, 'font-family': 'Arial' },
   externalIDLabels: {'font-size': 18, 'font-family': 'Arial' , 'cursor': 'pointer'},
   disorderShapes: {},
-  partnershipNode: {fill: '#dc7868', stroke: 'black', 'stroke-width':2},  //#E25740
+  partnershipNode: {fill: '#aaa', stroke: 'black', 'stroke-width':1.5},  //#E25740
   partnershipRadius: 6.5,
   partnershipHandleBreakY: 15,
   partnershipHandleLength: 36,

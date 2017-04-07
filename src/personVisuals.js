@@ -120,6 +120,7 @@ export const PersonVisuals = Class.create(AbstractPersonVisuals, {
       y -= 5;
     }
     icon.transform(['t' , x, y]);
+    editor.getKey().showElement('proband');
     return icon;
   },
 
@@ -596,7 +597,6 @@ export const PersonVisuals = Class.create(AbstractPersonVisuals, {
     this.getVariantsLabel() && this.getVariantsLabel().remove();
     let variants = this.getNode().getVariants();
     if (variants.length) {
-           //var text = this.getNode().getComments(); //.replace(/\n/g, '<br />');
       variants.forEach(variant => {
         let text = variant.hgvs_c;
         if (variant.genotype.toLowerCase() === 'homozygous') {

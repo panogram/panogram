@@ -166,9 +166,16 @@ body {
   box-shadow: none;
 }
 /* =========================================
- * CANVAS
+ * title
  */
-
+#title {
+  background-color:white;
+  text-decoration:underline;
+  white-space:nowrap;
+  z-index:10000;
+  padding-left:0.65em;
+  margin-bottom: 1.5em;
+} 
 /* ===========================================
  * LEGEND
  */
@@ -179,14 +186,13 @@ body {
   background: #FFF;
   border-radius: 0 0 0 4px;
   padding: .5em .5em .5em 1em;
+  max-width: 270px;
 }
 #panogram .legend-container {
   top:5px;
   position: absolute;
   left: 0;
   z-index: 10000;
-  min-width: 140px;
-  max-width: 270px;
 }
 #panogram .legend-box .legend-title {
   font-size: 1.25em;
