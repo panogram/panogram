@@ -1,5 +1,5 @@
 import { AbstractPersonVisuals } from './abstractPersonVisuals';
-import { ReadOnlyHoverbox } from './readonlyHoverbox';
+import { InfoHoverbox } from './infoHoverbox';
 import { PersonHoverbox } from './personHoverbox';
 import { PedigreeEditorAttributes } from './pedigreeEditorAttributes';
 import { sector, getElementHalfHeight } from './graphicHelpers';
@@ -43,7 +43,7 @@ export const PersonVisuals = Class.create(AbstractPersonVisuals, {
 
   generateHoverbox: function(x, y) {
     if (editor.isReadOnlyMode()) {
-      return new ReadOnlyHoverbox(this.getNode(), x, y, this.getGenderGraphics());
+      return new InfoHoverbox(this.getNode(), x, y, this.getGenderGraphics());
     } else {
       return new PersonHoverbox(this.getNode(), x, y, this.getGenderGraphics());
     }
@@ -99,6 +99,13 @@ export const PersonVisuals = Class.create(AbstractPersonVisuals, {
       this.getGenderShape().transform(['...s', 1.08]);
             // this.getGenderShape().attr("stroke-width", 5.5);
     }
+    // if(!this.getNode().getDataPresence()) {
+    //   const path = this.getGenderShape().clone();
+    //   path.attr('stroke-dasharray', '- ');
+    //   path.attr('stroke-width', 1.5);
+    //   path.attr('stroke', 'white');
+    //   path.attr('fill-opacity', 0);
+    // }
     if(this.getNode().isFocused()) {
       this.getGenderShape().attr('stroke-width', 3.5);
       this.getGenderShape().attr('stroke', 'blue');

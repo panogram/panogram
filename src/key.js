@@ -32,7 +32,7 @@ export class Key {
     if (any(values(this.show))) {
       let legendContainer = jquery('#legend-container');
       if (!legendContainer.length) {
-        legendContainer = jquery(`<div class="legend-container" id="legend-container"></div>`);
+        legendContainer = jquery('<div class="legend-container" id="legend-container"></div>');
         editor.getWorkspace().getWorkArea().insert(legendContainer);
       }
       const newKey = jquery(this.template());
@@ -54,15 +54,15 @@ export class Key {
     } = this.shown;
 
     const focused = showFocused ?
-      `<div><b style="color:blue">Blue line:</b> current patient</div>`:
-      ``;
+      '<div><b style="color:blue">Blue line:</b> current patient</div>':
+      '';
     const proband = showProband ?
-      `<div><b>Arrow:</b> proband</div>` :
-      ``;
+      '<div><b>Arrow:</b> proband</div>' :
+      '';
     const sex = showSex ?
-      `<div><b>Sex:</b> Square - Male, Circle - Female</div>`:
-       ``;
-    const dot = `<i style="line-height: 15px; font-size:0.5rem" class="fa fa-circle"/>`;
+      '<div><b>Sex:</b> Square - Male, Circle - Female</div>':
+       '';
+    const dot = '<i style="line-height: 15px; font-size:0.5rem" class="fa fa-circle"/>';
     const wrapper = content => `<span style="inline-block; width: 1rem">${content}</sapn>`;
     const hetrozygous = wrapper(dot);
     const homozygous = wrapper(`${dot} ${dot}`);
@@ -71,7 +71,7 @@ export class Key {
         <span style="display: inline-block; width: 5rem; padding-left:0.8rem;">homozygous</span>${homozygous}</div>
         <span style="display: inline-block; width: 5rem; padding-left:0.8rem;">hetrozygous</span>${hetrozygous}</div>
       </div>` :
-      ``;
+      '';
     const dataPresenceKey = '';
 
     return `

@@ -83,6 +83,7 @@ jquery(document).ready(() => {
 
     if (development) {
         createInput();
+        getDataAndRender(patientId, 'segregation');
     }
 
     if (window.parent.PEDIGREE_DATA) {
@@ -92,6 +93,6 @@ jquery(document).ready(() => {
         render({ data });
     }
     else {
-        getDataAndRender(patientId, 'segregation');
+        getDataAndRender(patientId);
     }
 });

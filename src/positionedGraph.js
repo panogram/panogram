@@ -870,7 +870,7 @@ PositionedGraph.prototype = {
                                         this.order.moveVertexToOrder(rank, orderTwin1, orderTwin2+1);
                 } else if (this.GG.getOutEdges(otherParent).length == 1) {
                   if (orderTwin2 < orderTwin1)
-                      this.order.moveVertexToOrder(rank, orderTwin2, orderTwin1);
+                    this.order.moveVertexToOrder(rank, orderTwin2, orderTwin1);
                   else
                                             this.order.moveVertexToOrder(rank, orderTwin2, orderTwin1+1);
                 } else
@@ -2564,9 +2564,9 @@ PositionedGraph.prototype = {
                   if (this.GG.isVirtual(otherParent)) {       // can only be if the edge goes upwards since relationship nodes
                     top_x = this.positions[otherParent];    //  are always ranked at the rank of the lower-ranked partner
                     if (top_x > right_x)
-                        right_x = top_x;
+                      right_x = top_x;
                     if (top_x < left_x)
-                        left_x = top_x;
+                      left_x = top_x;
                   }
                 }
 

@@ -69,7 +69,7 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 383);
+/******/ 	return __webpack_require__(__webpack_require__.s = 384);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -77,7 +77,7 @@
 /***/ (function(module, exports, __webpack_require__) {
 
 var _curry1 = __webpack_require__(1);
-var _isPlaceholder = __webpack_require__(56);
+var _isPlaceholder = __webpack_require__(57);
 
 
 /**
@@ -110,7 +110,7 @@ module.exports = function _curry2(fn) {
 /* 1 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var _isPlaceholder = __webpack_require__(56);
+var _isPlaceholder = __webpack_require__(57);
 
 
 /**
@@ -138,7 +138,7 @@ module.exports = function _curry1(fn) {
 
 var _curry1 = __webpack_require__(1);
 var _curry2 = __webpack_require__(0);
-var _isPlaceholder = __webpack_require__(56);
+var _isPlaceholder = __webpack_require__(57);
 
 
 /**
@@ -181,7 +181,7 @@ module.exports = function _curry3(fn) {
 /***/ (function(module, exports, __webpack_require__) {
 
 var _isArray = __webpack_require__(26);
-var _isTransformer = __webpack_require__(82);
+var _isTransformer = __webpack_require__(81);
 
 
 /**
@@ -635,7 +635,7 @@ module.exports = {
 var _arity = __webpack_require__(20);
 var _curry1 = __webpack_require__(1);
 var _curry2 = __webpack_require__(0);
-var _curryN = __webpack_require__(54);
+var _curryN = __webpack_require__(55);
 
 
 /**
@@ -690,6 +690,80 @@ module.exports = _curry2(function curryN(length, fn) {
 
 /***/ }),
 /* 8 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+//attributes for graphical elements in the editor
+var PedigreeEditorAttributes = exports.PedigreeEditorAttributes = {
+  propagateLastName: true, // when true, father's last name is propagated as "last name at birth" to descendants
+  radius: 40,
+  orbRadius: 6,
+  touchOrbRadius: 8,
+  personHoverBoxRadius: 90, // 80    for old handles, 90 for new
+  newHandles: true, // false for old handles
+  personHandleLength: 75, // 60    for old handles, 75 for new
+  personHandleBreakX: 55,
+  personHandleBreakY: 53,
+  personSiblingHandleLengthX: 65,
+  personSiblingHandleLengthY: 30,
+  enableHandleHintImages: true,
+  handleStrokeWidth: 5,
+  groupNodesScale: 0.85,
+  childlessLength: 14,
+  infertileMarkerHeight: 4,
+  infertileMarkerWidth: 14,
+  twinCommonVerticalLength: 6,
+  twinMonozygothicLineShiftY: 24,
+  curvedLinesCornerRadius: 25,
+  unbornShape: { 'font-size': 50, 'font-family': 'Cambria' },
+  carrierShape: { fill: '#595959' },
+  carrierDotRadius: 8,
+  presymptomaticShape: { fill: '#777777', 'stroke': '#777777' },
+  presymptomaticShapeWidth: 8,
+  evaluationShape: { 'font-size': 40, 'font-family': 'Arial' },
+  nodeShape: { fill: '#f7f7f7', stroke: '#2d2d2d', 'stroke-width': 2.0 }, // this
+  nodeShapeMenuOn: { fill: '#000', stroke: 'none', 'fill-opacity': 0.1 },
+  nodeShapeMenuOff: { fill: '#000', stroke: 'none', 'fill-opacity': 0 },
+  nodeShapeMenuOnPartner: { fill: '#000', stroke: 'none', 'fill-opacity': 0.1 },
+  nodeShapeMenuOffPartner: { fill: '#000', stroke: 'none', 'fill-opacity': 0 },
+  nodeShapeDiag: { fill: '#DDDDDD', stroke: '#595959' }, // this
+  boxOnHover: { fill: 'gray', stroke: 'none', opacity: 1, 'fill-opacity': .35 },
+  menuBtnIcon: { fill: '#1F1F1F', stroke: 'none' },
+  deleteBtnIcon: { fill: '#990000', stroke: 'none' },
+  btnMaskHoverOn: { opacity: .6, stroke: 'none' },
+  btnMaskHoverOff: { opacity: 0 },
+  btnMaskClick: { opacity: 1 },
+  orbHue: .53,
+  phShape: { fill: 'white', 'fill-opacity': 0, 'stroke': 'black', 'stroke-dasharray': '- ' },
+  dragMeLabel: { 'font-size': 14, 'font-family': 'Tahoma' },
+  pedNumberLabel: { 'font-size': 19, 'font-family': 'Serif' },
+  descendantGroupLabel: { 'font-size': 21, 'font-family': 'Tahoma' },
+  label: { 'font-size': 20, 'font-family': 'Arial' },
+  nameLabels: { 'font-size': 20, 'font-family': 'Arial' },
+  commentLabel: { 'font-size': 19, 'font-family': 'Arial' },
+  externalIDLabels: { 'font-size': 18, 'font-family': 'Arial', 'cursor': 'pointer' },
+  disorderShapes: {},
+  partnershipNode: { fill: '#aaa', stroke: 'black', 'stroke-width': 1.5 }, //#E25740
+  partnershipRadius: 6.5,
+  partnershipHandleBreakY: 15,
+  partnershipHandleLength: 36,
+  partnershipLines: { 'stroke-width': 1.25, stroke: '#303058' },
+  consangrPartnershipLines: { 'stroke-width': 1.25, stroke: '#402058' },
+  noContactLines: { 'stroke-width': 1.75, stroke: '#333333', 'stroke-dasharray': '.' },
+  notInContactLineSize: 20,
+  graphToCanvasScale: 12,
+  layoutRelativePersonWidth: 10,
+  layoutRelativeOtherWidth: 2,
+  layoutScale: { xscale: 12.0, yscale: 8 }
+};
+
+/***/ }),
+/* 9 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function($H) {var Prototype = __webpack_require__(6);
@@ -901,7 +975,7 @@ module.exports = _curry2(function curryN(length, fn) {
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(36)))
 
 /***/ }),
-/* 9 */
+/* 10 */
 /***/ (function(module, exports) {
 
 module.exports = function _has(prop, obj) {
@@ -910,11 +984,11 @@ module.exports = function _has(prop, obj) {
 
 
 /***/ }),
-/* 10 */
+/* 11 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var Prototype = __webpack_require__(6);
-                __webpack_require__(8);
+                __webpack_require__(9);
 module.exports = Class = (function() {
 
   var IS_DONTENUM_BUGGY = (function(){
@@ -992,14 +1066,14 @@ module.exports = Class = (function() {
 })();
 
 /***/ }),
-/* 11 */
+/* 12 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var _curry2 = __webpack_require__(0);
 var _dispatchable = __webpack_require__(3);
-var _map = __webpack_require__(58);
+var _map = __webpack_require__(59);
 var _reduce = __webpack_require__(14);
-var _xmap = __webpack_require__(274);
+var _xmap = __webpack_require__(275);
 var curryN = __webpack_require__(7);
 var keys = __webpack_require__(21);
 
@@ -1057,87 +1131,13 @@ module.exports = _curry2(_dispatchable(['map'], _xmap, function map(fn, functor)
 
 
 /***/ }),
-/* 12 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-//attributes for graphical elements in the editor
-var PedigreeEditorAttributes = exports.PedigreeEditorAttributes = {
-  propagateLastName: true, // when true, father's last name is propagated as "last name at birth" to descendants
-  radius: 40,
-  orbRadius: 6,
-  touchOrbRadius: 8,
-  personHoverBoxRadius: 90, // 80    for old handles, 90 for new
-  newHandles: true, // false for old handles
-  personHandleLength: 75, // 60    for old handles, 75 for new
-  personHandleBreakX: 55,
-  personHandleBreakY: 53,
-  personSiblingHandleLengthX: 65,
-  personSiblingHandleLengthY: 30,
-  enableHandleHintImages: true,
-  handleStrokeWidth: 5,
-  groupNodesScale: 0.85,
-  childlessLength: 14,
-  infertileMarkerHeight: 4,
-  infertileMarkerWidth: 14,
-  twinCommonVerticalLength: 6,
-  twinMonozygothicLineShiftY: 24,
-  curvedLinesCornerRadius: 25,
-  unbornShape: { 'font-size': 50, 'font-family': 'Cambria' },
-  carrierShape: { fill: '#595959' },
-  carrierDotRadius: 8,
-  presymptomaticShape: { fill: '#777777', 'stroke': '#777777' },
-  presymptomaticShapeWidth: 8,
-  evaluationShape: { 'font-size': 40, 'font-family': 'Arial' },
-  nodeShape: { fill: '#f7f7f7', stroke: '#2d2d2d', 'stroke-width': 2.0 }, // this
-  nodeShapeMenuOn: { fill: '#000', stroke: 'none', 'fill-opacity': 0.1 },
-  nodeShapeMenuOff: { fill: '#000', stroke: 'none', 'fill-opacity': 0 },
-  nodeShapeMenuOnPartner: { fill: '#000', stroke: 'none', 'fill-opacity': 0.1 },
-  nodeShapeMenuOffPartner: { fill: '#000', stroke: 'none', 'fill-opacity': 0 },
-  nodeShapeDiag: { fill: '#DDDDDD', stroke: '#595959' }, // this
-  boxOnHover: { fill: 'gray', stroke: 'none', opacity: 1, 'fill-opacity': .35 },
-  menuBtnIcon: { fill: '#1F1F1F', stroke: 'none' },
-  deleteBtnIcon: { fill: '#990000', stroke: 'none' },
-  btnMaskHoverOn: { opacity: .6, stroke: 'none' },
-  btnMaskHoverOff: { opacity: 0 },
-  btnMaskClick: { opacity: 1 },
-  orbHue: .53,
-  phShape: { fill: 'white', 'fill-opacity': 0, 'stroke': 'black', 'stroke-dasharray': '- ' },
-  dragMeLabel: { 'font-size': 14, 'font-family': 'Tahoma' },
-  pedNumberLabel: { 'font-size': 19, 'font-family': 'Serif' },
-  descendantGroupLabel: { 'font-size': 21, 'font-family': 'Tahoma' },
-  label: { 'font-size': 20, 'font-family': 'Arial' },
-  nameLabels: { 'font-size': 20, 'font-family': 'Arial' },
-  commentLabel: { 'font-size': 19, 'font-family': 'Arial' },
-  externalIDLabels: { 'font-size': 18, 'font-family': 'Arial', 'cursor': 'pointer' },
-  disorderShapes: {},
-  partnershipNode: { fill: '#aaa', stroke: 'black', 'stroke-width': 1.5 }, //#E25740
-  partnershipRadius: 6.5,
-  partnershipHandleBreakY: 15,
-  partnershipHandleLength: 36,
-  partnershipLines: { 'stroke-width': 1.25, stroke: '#303058' },
-  consangrPartnershipLines: { 'stroke-width': 1.25, stroke: '#402058' },
-  noContactLines: { 'stroke-width': 1.75, stroke: '#333333', 'stroke-dasharray': '.' },
-  notInContactLineSize: 20,
-  graphToCanvasScale: 12,
-  layoutRelativePersonWidth: 10,
-  layoutRelativeOtherWidth: 2,
-  layoutScale: { xscale: 12.0, yscale: 8 }
-};
-
-/***/ }),
 /* 13 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var Prototype, Class;
 Prototype = __webpack_require__(6);
-            __webpack_require__(8);
-Class =     __webpack_require__(10);
+            __webpack_require__(9);
+Class =     __webpack_require__(11);
 
 Object.extend(Function.prototype, (function() {
   var slice = Array.prototype.slice;
@@ -1297,8 +1297,8 @@ module.exports = (function() {
 
 var Prototype, Class;
 Prototype = __webpack_require__(6);
-            __webpack_require__(8);
-Class =     __webpack_require__(10);
+            __webpack_require__(9);
+Class =     __webpack_require__(11);
             __webpack_require__(13);
 (function(proto) {
 
@@ -1364,8 +1364,8 @@ module.exports = function _concat(set1, set2) {
 
 /* WEBPACK VAR INJECTION */(function($A, $w) {var Enumerable, Prototype, Class, Template;
 Prototype =   __webpack_require__(6);
-              __webpack_require__(8);
-Class =       __webpack_require__(10);
+              __webpack_require__(9);
+Class =       __webpack_require__(11);
               __webpack_require__(13);
               __webpack_require__(15);
               __webpack_require__(18);
@@ -1535,7 +1535,7 @@ Array.from = $A;
   if (!arrayProto.indexOf) arrayProto.indexOf = indexOf;
   if (!arrayProto.lastIndexOf) arrayProto.lastIndexOf = lastIndexOf;
 })();
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(24), __webpack_require__(183)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(24), __webpack_require__(184)))
 
 /***/ }),
 /* 18 */
@@ -1543,8 +1543,8 @@ Array.from = $A;
 
 var Prototype, Class;
 Prototype = __webpack_require__(6);
-            __webpack_require__(8);
-Class =     __webpack_require__(10);
+            __webpack_require__(9);
+Class =     __webpack_require__(11);
             __webpack_require__(13);
             __webpack_require__(15);
 RegExp.prototype.match = RegExp.prototype.test;
@@ -1558,7 +1558,7 @@ RegExp.escape = function(str) {
 /***/ (function(module, exports, __webpack_require__) {
 
 var _curry2 = __webpack_require__(0);
-var _equals = __webpack_require__(249);
+var _equals = __webpack_require__(250);
 
 
 /**
@@ -1619,7 +1619,7 @@ module.exports = function _arity(n, fn) {
 /***/ (function(module, exports, __webpack_require__) {
 
 var _curry1 = __webpack_require__(1);
-var _has = __webpack_require__(9);
+var _has = __webpack_require__(10);
 var _isArguments = __webpack_require__(118);
 
 
@@ -1753,8 +1753,8 @@ module.exports = _curry3(_reduce);
 
 var Prototype, Class;
 Prototype = __webpack_require__(6);
-            __webpack_require__(8);
-Class =     __webpack_require__(10);
+            __webpack_require__(9);
+Class =     __webpack_require__(11);
             __webpack_require__(13);
             __webpack_require__(15);
             __webpack_require__(18);
@@ -9361,7 +9361,7 @@ Object.extend(Element.ClassNames.prototype, Enumerable);
 /*** EXPORTS FROM exports-loader ***/
 module.exports = $A;
 }.call(window));
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(24), __webpack_require__(36), __webpack_require__(37), __webpack_require__(65)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(24), __webpack_require__(36), __webpack_require__(37), __webpack_require__(66)))
 
 /***/ }),
 /* 25 */
@@ -9369,8 +9369,8 @@ module.exports = $A;
 
 var Prototype, Class, Template;
 Prototype = __webpack_require__(6);
-            __webpack_require__(8);
-Class =     __webpack_require__(10);
+            __webpack_require__(9);
+Class =     __webpack_require__(11);
             __webpack_require__(13);
             __webpack_require__(15);
             __webpack_require__(18);
@@ -9453,8 +9453,8 @@ module.exports = function _reduced(x) {
 
 /* WEBPACK VAR INJECTION */(function($A) {var Enumerable, Prototype, Class, Template;
 Prototype = __webpack_require__(6);
-            __webpack_require__(8);
-Class =     __webpack_require__(10);
+            __webpack_require__(9);
+Class =     __webpack_require__(11);
             __webpack_require__(13);
             __webpack_require__(15);
             __webpack_require__(18);
@@ -19999,8 +19999,8 @@ return jQuery;
 
 var Hash, Enumerable, Prototype, Class, Template, $A, $w;
 Prototype =   __webpack_require__(6);
-              __webpack_require__(8);
-Class =       __webpack_require__(10);
+              __webpack_require__(9);
+Class =       __webpack_require__(11);
               __webpack_require__(13);
               __webpack_require__(15);
               __webpack_require__(18);
@@ -27535,7 +27535,7 @@ Object.extend(Element.ClassNames.prototype, Enumerable);
 /*** EXPORTS FROM exports-loader ***/
 module.exports = $H;
 }.call(window));
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(24), __webpack_require__(36), __webpack_require__(37), __webpack_require__(65)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(24), __webpack_require__(36), __webpack_require__(37), __webpack_require__(66)))
 
 /***/ }),
 /* 37 */
@@ -34878,7 +34878,7 @@ Object.extend(Element.ClassNames.prototype, Enumerable);
 /*** EXPORTS FROM exports-loader ***/
 module.exports = $R;
 }.call(window));
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(24), __webpack_require__(36), __webpack_require__(37), __webpack_require__(65)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(24), __webpack_require__(36), __webpack_require__(37), __webpack_require__(66)))
 
 /***/ }),
 /* 38 */
@@ -34916,7 +34916,7 @@ module.exports = function _checkForMethod(methodname, fn) {
 /***/ (function(module, exports, __webpack_require__) {
 
 var _curry2 = __webpack_require__(0);
-var _isFunction = __webpack_require__(55);
+var _isFunction = __webpack_require__(56);
 var curryN = __webpack_require__(7);
 var toString = __webpack_require__(44);
 
@@ -34964,7 +34964,7 @@ module.exports = _curry2(function invoker(arity, method) {
 
 var _curry1 = __webpack_require__(1);
 var _isArray = __webpack_require__(26);
-var _isString = __webpack_require__(57);
+var _isString = __webpack_require__(58);
 
 
 /**
@@ -35006,7 +35006,7 @@ module.exports = _curry1(function isArrayLike(x) {
 /***/ (function(module, exports, __webpack_require__) {
 
 var _curry2 = __webpack_require__(0);
-var _isString = __webpack_require__(57);
+var _isString = __webpack_require__(58);
 
 
 /**
@@ -35085,8 +35085,8 @@ module.exports = _curry2(function path(paths, obj) {
 /***/ (function(module, exports, __webpack_require__) {
 
 var _curry2 = __webpack_require__(0);
-var map = __webpack_require__(11);
-var prop = __webpack_require__(83);
+var map = __webpack_require__(12);
+var prop = __webpack_require__(82);
 
 
 /**
@@ -35119,7 +35119,7 @@ module.exports = _curry2(function pluck(p, list) {
 /***/ (function(module, exports, __webpack_require__) {
 
 var _curry1 = __webpack_require__(1);
-var _toString = __webpack_require__(261);
+var _toString = __webpack_require__(262);
 
 
 /**
@@ -35166,244 +35166,244 @@ module.exports = _curry1(function toString(val) { return _toString(val, []); });
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports = {
-  F: __webpack_require__(187),
-  T: __webpack_require__(188),
-  __: __webpack_require__(189),
-  add: __webpack_require__(50),
-  addIndex: __webpack_require__(190),
+  F: __webpack_require__(188),
+  T: __webpack_require__(189),
+  __: __webpack_require__(190),
+  add: __webpack_require__(51),
+  addIndex: __webpack_require__(191),
   adjust: __webpack_require__(95),
-  all: __webpack_require__(191),
-  allPass: __webpack_require__(192),
+  all: __webpack_require__(192),
+  allPass: __webpack_require__(193),
   always: __webpack_require__(34),
   and: __webpack_require__(96),
   any: __webpack_require__(97),
-  anyPass: __webpack_require__(193),
-  ap: __webpack_require__(73),
-  aperture: __webpack_require__(194),
-  append: __webpack_require__(195),
+  anyPass: __webpack_require__(194),
+  ap: __webpack_require__(72),
+  aperture: __webpack_require__(195),
+  append: __webpack_require__(196),
   apply: __webpack_require__(98),
-  applySpec: __webpack_require__(196),
-  ascend: __webpack_require__(197),
-  assoc: __webpack_require__(51),
+  applySpec: __webpack_require__(197),
+  ascend: __webpack_require__(198),
+  assoc: __webpack_require__(52),
   assocPath: __webpack_require__(99),
-  binary: __webpack_require__(198),
+  binary: __webpack_require__(199),
   bind: __webpack_require__(100),
-  both: __webpack_require__(199),
-  call: __webpack_require__(200),
-  chain: __webpack_require__(74),
-  clamp: __webpack_require__(201),
-  clone: __webpack_require__(202),
-  comparator: __webpack_require__(203),
-  complement: __webpack_require__(204),
-  compose: __webpack_require__(75),
+  both: __webpack_require__(200),
+  call: __webpack_require__(201),
+  chain: __webpack_require__(73),
+  clamp: __webpack_require__(202),
+  clone: __webpack_require__(203),
+  comparator: __webpack_require__(204),
+  complement: __webpack_require__(205),
+  compose: __webpack_require__(74),
   composeK: __webpack_require__(101),
-  composeP: __webpack_require__(205),
-  concat: __webpack_require__(76),
-  cond: __webpack_require__(206),
-  construct: __webpack_require__(207),
+  composeP: __webpack_require__(206),
+  concat: __webpack_require__(75),
+  cond: __webpack_require__(207),
+  construct: __webpack_require__(208),
   constructN: __webpack_require__(102),
-  contains: __webpack_require__(208),
+  contains: __webpack_require__(209),
   converge: __webpack_require__(103),
-  countBy: __webpack_require__(209),
-  curry: __webpack_require__(52),
+  countBy: __webpack_require__(210),
+  curry: __webpack_require__(53),
   curryN: __webpack_require__(7),
-  dec: __webpack_require__(210),
-  descend: __webpack_require__(211),
+  dec: __webpack_require__(211),
+  descend: __webpack_require__(212),
   defaultTo: __webpack_require__(104),
   difference: __webpack_require__(105),
   differenceWith: __webpack_require__(106),
   dissoc: __webpack_require__(107),
-  dissocPath: __webpack_require__(212),
-  divide: __webpack_require__(213),
+  dissocPath: __webpack_require__(213),
+  divide: __webpack_require__(214),
   drop: __webpack_require__(108),
-  dropLast: __webpack_require__(214),
-  dropLastWhile: __webpack_require__(215),
-  dropRepeats: __webpack_require__(216),
+  dropLast: __webpack_require__(215),
+  dropLastWhile: __webpack_require__(216),
+  dropRepeats: __webpack_require__(217),
   dropRepeatsWith: __webpack_require__(109),
-  dropWhile: __webpack_require__(217),
-  either: __webpack_require__(218),
+  dropWhile: __webpack_require__(218),
+  either: __webpack_require__(219),
   empty: __webpack_require__(110),
-  eqBy: __webpack_require__(219),
-  eqProps: __webpack_require__(220),
+  eqBy: __webpack_require__(220),
+  eqProps: __webpack_require__(221),
   equals: __webpack_require__(19),
-  evolve: __webpack_require__(221),
-  filter: __webpack_require__(77),
-  find: __webpack_require__(222),
-  findIndex: __webpack_require__(223),
-  findLast: __webpack_require__(224),
-  findLastIndex: __webpack_require__(225),
-  flatten: __webpack_require__(226),
-  flip: __webpack_require__(53),
-  forEach: __webpack_require__(227),
-  forEachObjIndexed: __webpack_require__(228),
-  fromPairs: __webpack_require__(229),
-  groupBy: __webpack_require__(230),
-  groupWith: __webpack_require__(231),
-  gt: __webpack_require__(232),
-  gte: __webpack_require__(233),
-  has: __webpack_require__(234),
-  hasIn: __webpack_require__(235),
-  head: __webpack_require__(236),
+  evolve: __webpack_require__(222),
+  filter: __webpack_require__(76),
+  find: __webpack_require__(223),
+  findIndex: __webpack_require__(224),
+  findLast: __webpack_require__(225),
+  findLastIndex: __webpack_require__(226),
+  flatten: __webpack_require__(227),
+  flip: __webpack_require__(54),
+  forEach: __webpack_require__(228),
+  forEachObjIndexed: __webpack_require__(229),
+  fromPairs: __webpack_require__(230),
+  groupBy: __webpack_require__(231),
+  groupWith: __webpack_require__(232),
+  gt: __webpack_require__(233),
+  gte: __webpack_require__(234),
+  has: __webpack_require__(235),
+  hasIn: __webpack_require__(236),
+  head: __webpack_require__(237),
   identical: __webpack_require__(111),
-  identity: __webpack_require__(78),
-  ifElse: __webpack_require__(237),
-  inc: __webpack_require__(238),
-  indexBy: __webpack_require__(239),
-  indexOf: __webpack_require__(240),
-  init: __webpack_require__(241),
-  insert: __webpack_require__(242),
-  insertAll: __webpack_require__(243),
-  intersection: __webpack_require__(278),
-  intersectionWith: __webpack_require__(279),
-  intersperse: __webpack_require__(280),
-  into: __webpack_require__(281),
-  invert: __webpack_require__(282),
-  invertObj: __webpack_require__(283),
+  identity: __webpack_require__(77),
+  ifElse: __webpack_require__(238),
+  inc: __webpack_require__(239),
+  indexBy: __webpack_require__(240),
+  indexOf: __webpack_require__(241),
+  init: __webpack_require__(242),
+  insert: __webpack_require__(243),
+  insertAll: __webpack_require__(244),
+  intersection: __webpack_require__(279),
+  intersectionWith: __webpack_require__(280),
+  intersperse: __webpack_require__(281),
+  into: __webpack_require__(282),
+  invert: __webpack_require__(283),
+  invertObj: __webpack_require__(284),
   invoker: __webpack_require__(39),
   is: __webpack_require__(126),
   isArrayLike: __webpack_require__(40),
-  isEmpty: __webpack_require__(284),
-  isNil: __webpack_require__(285),
-  join: __webpack_require__(286),
+  isEmpty: __webpack_require__(285),
+  isNil: __webpack_require__(286),
+  join: __webpack_require__(287),
   juxt: __webpack_require__(127),
   keys: __webpack_require__(21),
-  keysIn: __webpack_require__(287),
+  keysIn: __webpack_require__(288),
   last: __webpack_require__(128),
-  lastIndexOf: __webpack_require__(288),
+  lastIndexOf: __webpack_require__(289),
   length: __webpack_require__(129),
-  lens: __webpack_require__(59),
-  lensIndex: __webpack_require__(289),
-  lensPath: __webpack_require__(290),
-  lensProp: __webpack_require__(291),
-  lift: __webpack_require__(60),
+  lens: __webpack_require__(60),
+  lensIndex: __webpack_require__(290),
+  lensPath: __webpack_require__(291),
+  lensProp: __webpack_require__(292),
+  lift: __webpack_require__(61),
   liftN: __webpack_require__(130),
-  lt: __webpack_require__(292),
-  lte: __webpack_require__(293),
-  map: __webpack_require__(11),
-  mapAccum: __webpack_require__(294),
-  mapAccumRight: __webpack_require__(295),
-  mapObjIndexed: __webpack_require__(296),
-  match: __webpack_require__(297),
-  mathMod: __webpack_require__(298),
+  lt: __webpack_require__(293),
+  lte: __webpack_require__(294),
+  map: __webpack_require__(12),
+  mapAccum: __webpack_require__(295),
+  mapAccumRight: __webpack_require__(296),
+  mapObjIndexed: __webpack_require__(297),
+  match: __webpack_require__(298),
+  mathMod: __webpack_require__(299),
   max: __webpack_require__(35),
-  maxBy: __webpack_require__(299),
+  maxBy: __webpack_require__(300),
   mean: __webpack_require__(131),
-  median: __webpack_require__(300),
-  memoize: __webpack_require__(301),
-  merge: __webpack_require__(302),
-  mergeAll: __webpack_require__(303),
-  mergeWith: __webpack_require__(304),
+  median: __webpack_require__(301),
+  memoize: __webpack_require__(302),
+  merge: __webpack_require__(303),
+  mergeAll: __webpack_require__(304),
+  mergeWith: __webpack_require__(305),
   mergeWithKey: __webpack_require__(132),
-  min: __webpack_require__(305),
-  minBy: __webpack_require__(306),
-  modulo: __webpack_require__(307),
+  min: __webpack_require__(306),
+  minBy: __webpack_require__(307),
+  modulo: __webpack_require__(308),
   multiply: __webpack_require__(133),
-  nAry: __webpack_require__(61),
-  negate: __webpack_require__(308),
-  none: __webpack_require__(309),
+  nAry: __webpack_require__(62),
+  negate: __webpack_require__(309),
+  none: __webpack_require__(310),
   not: __webpack_require__(134),
   nth: __webpack_require__(41),
-  nthArg: __webpack_require__(310),
+  nthArg: __webpack_require__(311),
   objOf: __webpack_require__(135),
-  of: __webpack_require__(311),
-  omit: __webpack_require__(312),
-  once: __webpack_require__(313),
+  of: __webpack_require__(312),
+  omit: __webpack_require__(313),
+  once: __webpack_require__(314),
   or: __webpack_require__(136),
   over: __webpack_require__(137),
-  pair: __webpack_require__(314),
-  partial: __webpack_require__(315),
-  partialRight: __webpack_require__(316),
-  partition: __webpack_require__(317),
+  pair: __webpack_require__(315),
+  partial: __webpack_require__(316),
+  partialRight: __webpack_require__(317),
+  partition: __webpack_require__(318),
   path: __webpack_require__(42),
-  pathEq: __webpack_require__(318),
-  pathOr: __webpack_require__(319),
-  pathSatisfies: __webpack_require__(320),
-  pick: __webpack_require__(321),
+  pathEq: __webpack_require__(319),
+  pathOr: __webpack_require__(320),
+  pathSatisfies: __webpack_require__(321),
+  pick: __webpack_require__(322),
   pickAll: __webpack_require__(138),
-  pickBy: __webpack_require__(322),
+  pickBy: __webpack_require__(323),
   pipe: __webpack_require__(139),
-  pipeK: __webpack_require__(323),
+  pipeK: __webpack_require__(324),
   pipeP: __webpack_require__(140),
   pluck: __webpack_require__(43),
   prepend: __webpack_require__(141),
-  product: __webpack_require__(324),
-  project: __webpack_require__(325),
-  prop: __webpack_require__(83),
-  propEq: __webpack_require__(326),
-  propIs: __webpack_require__(327),
-  propOr: __webpack_require__(328),
-  propSatisfies: __webpack_require__(329),
-  props: __webpack_require__(330),
-  range: __webpack_require__(331),
+  product: __webpack_require__(325),
+  project: __webpack_require__(326),
+  prop: __webpack_require__(82),
+  propEq: __webpack_require__(327),
+  propIs: __webpack_require__(328),
+  propOr: __webpack_require__(329),
+  propSatisfies: __webpack_require__(330),
+  props: __webpack_require__(331),
+  range: __webpack_require__(332),
   reduce: __webpack_require__(22),
-  reduceBy: __webpack_require__(62),
+  reduceBy: __webpack_require__(63),
   reduceRight: __webpack_require__(142),
-  reduceWhile: __webpack_require__(332),
-  reduced: __webpack_require__(333),
-  reject: __webpack_require__(63),
-  remove: __webpack_require__(334),
-  repeat: __webpack_require__(335),
-  replace: __webpack_require__(336),
-  reverse: __webpack_require__(64),
-  scan: __webpack_require__(337),
+  reduceWhile: __webpack_require__(333),
+  reduced: __webpack_require__(334),
+  reject: __webpack_require__(64),
+  remove: __webpack_require__(335),
+  repeat: __webpack_require__(336),
+  replace: __webpack_require__(337),
+  reverse: __webpack_require__(65),
+  scan: __webpack_require__(338),
   sequence: __webpack_require__(143),
-  set: __webpack_require__(338),
+  set: __webpack_require__(339),
   slice: __webpack_require__(30),
-  sort: __webpack_require__(339),
-  sortBy: __webpack_require__(340),
-  sortWith: __webpack_require__(341),
-  split: __webpack_require__(342),
-  splitAt: __webpack_require__(343),
-  splitEvery: __webpack_require__(344),
-  splitWhen: __webpack_require__(345),
-  subtract: __webpack_require__(346),
+  sort: __webpack_require__(340),
+  sortBy: __webpack_require__(341),
+  sortWith: __webpack_require__(342),
+  split: __webpack_require__(343),
+  splitAt: __webpack_require__(344),
+  splitEvery: __webpack_require__(345),
+  splitWhen: __webpack_require__(346),
+  subtract: __webpack_require__(347),
   sum: __webpack_require__(144),
-  symmetricDifference: __webpack_require__(347),
-  symmetricDifferenceWith: __webpack_require__(348),
-  tail: __webpack_require__(84),
+  symmetricDifference: __webpack_require__(348),
+  symmetricDifferenceWith: __webpack_require__(349),
+  tail: __webpack_require__(83),
   take: __webpack_require__(145),
-  takeLast: __webpack_require__(349),
-  takeLastWhile: __webpack_require__(350),
-  takeWhile: __webpack_require__(351),
-  tap: __webpack_require__(352),
-  test: __webpack_require__(353),
+  takeLast: __webpack_require__(350),
+  takeLastWhile: __webpack_require__(351),
+  takeWhile: __webpack_require__(352),
+  tap: __webpack_require__(353),
+  test: __webpack_require__(354),
   times: __webpack_require__(146),
-  toLower: __webpack_require__(354),
-  toPairs: __webpack_require__(355),
-  toPairsIn: __webpack_require__(356),
+  toLower: __webpack_require__(355),
+  toPairs: __webpack_require__(356),
+  toPairsIn: __webpack_require__(357),
   toString: __webpack_require__(44),
-  toUpper: __webpack_require__(357),
-  transduce: __webpack_require__(358),
-  transpose: __webpack_require__(359),
-  traverse: __webpack_require__(360),
-  trim: __webpack_require__(361),
-  tryCatch: __webpack_require__(362),
-  type: __webpack_require__(85),
-  unapply: __webpack_require__(363),
-  unary: __webpack_require__(364),
-  uncurryN: __webpack_require__(365),
-  unfold: __webpack_require__(366),
-  union: __webpack_require__(367),
-  unionWith: __webpack_require__(368),
-  uniq: __webpack_require__(86),
+  toUpper: __webpack_require__(358),
+  transduce: __webpack_require__(359),
+  transpose: __webpack_require__(360),
+  traverse: __webpack_require__(361),
+  trim: __webpack_require__(362),
+  tryCatch: __webpack_require__(363),
+  type: __webpack_require__(84),
+  unapply: __webpack_require__(364),
+  unary: __webpack_require__(365),
+  uncurryN: __webpack_require__(366),
+  unfold: __webpack_require__(367),
+  union: __webpack_require__(368),
+  unionWith: __webpack_require__(369),
+  uniq: __webpack_require__(85),
   uniqBy: __webpack_require__(147),
-  uniqWith: __webpack_require__(87),
-  unless: __webpack_require__(369),
-  unnest: __webpack_require__(370),
-  until: __webpack_require__(371),
+  uniqWith: __webpack_require__(86),
+  unless: __webpack_require__(370),
+  unnest: __webpack_require__(371),
+  until: __webpack_require__(372),
   update: __webpack_require__(148),
   useWith: __webpack_require__(149),
   values: __webpack_require__(150),
-  valuesIn: __webpack_require__(372),
-  view: __webpack_require__(373),
-  when: __webpack_require__(374),
+  valuesIn: __webpack_require__(373),
+  view: __webpack_require__(374),
+  when: __webpack_require__(375),
   where: __webpack_require__(151),
-  whereEq: __webpack_require__(375),
-  without: __webpack_require__(376),
-  xprod: __webpack_require__(377),
-  zip: __webpack_require__(378),
-  zipObj: __webpack_require__(379),
-  zipWith: __webpack_require__(380)
+  whereEq: __webpack_require__(376),
+  without: __webpack_require__(377),
+  xprod: __webpack_require__(378),
+  zip: __webpack_require__(379),
+  zipObj: __webpack_require__(380),
+  zipWith: __webpack_require__(381)
 };
 
 
@@ -35417,9 +35417,773 @@ module.exports = {
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
+exports.AbstractHoverbox = undefined;
+
+var _pedigreeEditorAttributes = __webpack_require__(8);
+
+var _graphicHelpers = __webpack_require__(49);
+
+/**
+ * AbstractHoverbox is an abstract class for all the UI elements and graphics surrounding a node on the canvas (a Person
+ * or a partnership). This includes the box that appears around the node when it's hovered by a mouse, as
+ * well as the handles used for creating connections and creating new nodes.
+ *
+ * @class AbstractHoverbox
+ * @constructor
+ * @param {AbstractNode} node The node Person or Partnership for which the hoverbox is drawn
+ * @param {Number} x The x coordinate for the hoverbox
+ * @param {Number} y The y coordinate for the hoverbox
+ * @param {Number} width The width in pixels
+ * @param {Number} height The height in pixels
+ * @param {Number} nodeX The x coordinate of the node for which the hoverbox is drawn
+ * @param {Number} nodeY The y coordinate of the node for which the hoverbox is drawn
+ * @param {Raphael.st} nodeShapes Raphaël set containing the graphical elements that make up the node
+ */
+
+var AbstractHoverbox = exports.AbstractHoverbox = Class.create({
+
+  initialize: function initialize(node, shiftX, shiftY, width, height, nodeX, nodeY, nodeShapes) {
+    //var timer = new Timer();        
+    this._node = node;
+    this._relativeX = shiftX;
+    this._relativeY = shiftY;
+    this._nodeX = nodeX;
+    this._nodeY = nodeY;
+    this._hidden = true;
+    this._enabled = false;
+    this._width = width;
+    this._height = height;
+    this._isHovered = false;
+    this._currentHandles = null;
+    this._currentOrbs = null;
+    this._currentButtons = null;
+    this._handlesZoomSz = null;
+    this._boxOnHover = editor.getPaper().rect(this.getX(), this.getY(), this._width, this._height, 5).attr(_pedigreeEditorAttributes.PedigreeEditorAttributes.boxOnHover);
+    this._backElements = editor.getPaper().set(this._boxOnHover);
+    this._mask = this._boxOnHover.clone().attr({
+      fill: 'green',
+      opacity: 0
+    });
+    this._frontElements = editor.getPaper().set().push(this._mask);
+
+    var nodeShapeSet = nodeShapes.flatten();
+    this._backElements.insertBefore(nodeShapeSet);
+    this._frontElements.insertAfter(nodeShapeSet);
+
+    this.animateDrawHoverZone = this.animateDrawHoverZone.bind(this);
+    this.animateHideHoverZone = this.animateHideHoverZone.bind(this);
+    // hide initially
+    this.getBoxOnHover().attr({
+      opacity: 0
+    });
+    this.enable();
+    //timer.printSinceLast("=== abstract howerbox runtime: ");
+    this._isMenuToggled = false;
+    this._justClosedMenu = false;
+  },
+
+  /**
+   * Returns the x coordinate of the hoverbox
+   *
+   * @method getX
+   * @return {Number} The x coordinate in pixels
+   */
+  getX: function getX() {
+    return this.getNodeX() + this._relativeX;
+  },
+
+  /**
+   * Returns the y coordinate of the hoverbox
+   *
+   * @method getY
+   * @return {Number} The y coordinate in pixels
+   */
+  getY: function getY() {
+    return this.getNodeY() + this._relativeY;
+  },
+
+  /**
+   * Returns the x coordinate of the attached node
+   *
+   * @method getNodeX
+   * @return {Number} The x coordinate in pixels
+   */
+  getNodeX: function getNodeX() {
+    // note: during construction getGraphics() isnot yet available, so need to store nodeX.
+    //       however node may have been moved later, in which case we need to use current graphics X
+    var nodeGraphics = this.getNode().getGraphics();
+    if (nodeGraphics) this._nodeX = nodeGraphics.getX();
+    return this._nodeX;
+  },
+
+  /**
+   * Returns the y coordinate of the attached node
+   *
+   * @method getNodeY
+   * @return {Number} The y coordinate in pixels
+   */
+  getNodeY: function getNodeY() {
+    var nodeGraphics = this.getNode().getGraphics();
+    if (nodeGraphics) this._nodeY = nodeGraphics.getY();
+    return this._nodeY;
+  },
+
+  /**
+   * Returns the width of the hoverbox
+   *
+   * @method getWidth
+   * @return {Number} The width in pixels
+   */
+  getWidth: function getWidth() {
+    return this._width;
+  },
+
+  /**
+   * Returns the height of the hoverbox
+   *
+   * @method getHeight
+   * @return {Number} The height in pixels
+   */
+  getHeight: function getHeight() {
+    return this._height;
+  },
+
+  /**
+   * Returns the node for which the hoverbox is drawn
+   *
+   * @method getNode
+   * @return {AbstractNode} Can be either a Partnership or a Person
+   */
+  getNode: function getNode() {
+    return this._node;
+  },
+
+  /**
+   * Creates the buttons used in this hoverbox
+   *
+   * @method generateButtons
+   * @return {Raphael.st} A set of buttons
+   */
+  generateButtons: function generateButtons() {
+    if (this._currentButtons !== null) return;
+    this._currentButtons = [];
+  },
+
+  regenerateButtons: function regenerateButtons() {
+    this.removeButtons();
+    this.generateButtons();
+  },
+
+  removeButtons: function removeButtons() {
+    if (!this._currentButtons) return;
+
+    var enableState = this._enabled;
+
+    enableState && this.disable();
+    for (var i = 0; i < this._currentButtons.length; i++) {
+      this.getFrontElements().exclude(this._currentButtons[i]);
+      this._currentButtons[i].remove();
+    }
+    this._currentButtons = null;
+    enableState && this.enable();
+  },
+
+  hideButtons: function hideButtons() {
+    if (!this._currentButtons) return;
+    for (var i = 0; i < this._currentButtons.length; i++) {
+      if (this._currentButtons[i].hasOwnProperty('mask')) {
+        this._currentButtons[i].mask.attr(_pedigreeEditorAttributes.PedigreeEditorAttributes.btnMaskHoverOff);
+      }
+      this._currentButtons[i].hide();
+    }
+  },
+
+  showButtons: function showButtons() {
+    if (!this._currentButtons) return;
+    for (var i = 0; i < this._currentButtons.length; i++) {
+      this._currentButtons[i].show();
+    }
+  },
+
+  /**
+   * Returns Raphael set of the buttons in this hoverbox
+   *
+   * @method getCurrentButtons
+   * @return {Raphael.st} A set of buttons
+   */
+  getCurrentButtons: function getCurrentButtons() {
+    return this._currentButtons;
+  },
+
+  /**
+   * Removes all handles currently used in this hoverbox
+   *
+   * @method removeHandles
+   */
+  removeHandles: function removeHandles() {
+    var i;
+    if (!this._currentHandles) return;
+
+    var enableState = this._enabled;
+    enableState && this.disable();
+    for (i = 0; i < this._currentOrbs.length; i++) {
+      this.getFrontElements().exclude(this._currentOrbs[i]);
+    }this._currentOrbs = null;
+    enableState && this.enable();
+
+    for (i = 0; i < this._currentHandles.length; i++) {
+      this._currentHandles[i].remove();
+    }this._currentHandles = null;
+  },
+
+  hideHandles: function hideHandles() {
+    if (!this._currentHandles) return;
+    for (var i = 0; i < this._currentHandles.length; i++) {
+      this._currentHandles[i].hide();
+    }
+  },
+
+  showHandles: function showHandles() {
+    if (!this._currentHandles) return;
+    for (var i = 0; i < this._currentHandles.length; i++) {
+      this._currentHandles[i].show();
+    }
+  },
+
+  /**
+   * Creates the handles used in this hoverbox. Returns a list of handles 
+   *
+   * @method generateHandles
+   */
+  generateHandles: function generateHandles() {
+    if (this._currentHandles !== null) return;
+    this._currentHandles = [];
+    this._currentOrbs = [];
+    this._handlesZoomSz = editor.getWorkspace().getCurrentZoomLevel();
+  },
+
+  /**
+   * Iff handles are present, removes all and creates new set of handles 
+   *
+   * @method regenerateHandles
+   */
+  regenerateHandles: function regenerateHandles() {
+    if (this._currentHandles) this.removeHandles();
+    if (!this._hidden || this.isMenuToggled()) this.generateHandles();
+  },
+
+  /**
+   * Generates a button and places it on the hoverbox
+   *
+   * @method createButton
+   * @param {Number} x The x coordinate of the button
+   * @param {Number} y The y coordinate of the button
+   * @param {String|Array} svgPath The svg path for the button (correctly scaled)
+   * @param {Object} svgPathBBox The BBox for the svg path. Precomputed for performance reasons
+   * @param attributes The svg attributes
+   * @param {Function} onClick Callback for the button
+   * @param {String} className The class attribute for the button
+   *
+   * @return {Raphael.st} The generated button
+   */
+  createButton: function createButton(x, y, svgPath, svgPathBBox, attributes, onClick, className, title) {
+    var icon = editor.getPaper().path(svgPath).attr(attributes);
+    icon.transform(['t', x, y]);
+
+    // manually compute the size of the mask because Raphael.transform() is exptremely slow
+    var xShift = svgPathBBox.width / 4;
+    var yShift = svgPathBBox.height / 4;
+    var newWidth = svgPathBBox.width * 1.5;
+    var newHeight = svgPathBBox.height * 1.5;
+    var mask = editor.getPaper().rect(x + svgPathBBox.x - xShift, y + svgPathBBox.y - yShift, newWidth, newHeight, 1);
+    mask.attr({
+      fill: 'gray',
+      opacity: 0,
+      'stroke-width': 0
+    });
+
+    var button = editor.getPaper().set(mask, icon).toFront();
+
+    var me = this;
+    var clickFunct = function clickFunct() {
+      if (me._hidden) {
+        button.isClicked = false;
+        return;
+      }
+      button.isClicked = !button.isClicked;
+      if (button.isClicked) {
+        mask.attr(_pedigreeEditorAttributes.PedigreeEditorAttributes.btnMaskClick);
+      } else {
+        mask.attr(_pedigreeEditorAttributes.PedigreeEditorAttributes.btnMaskHoverOn);
+      }
+      onClick && onClick();
+    };
+    button.click(clickFunct);
+    button.mousedown(function () {
+      mask.attr(_pedigreeEditorAttributes.PedigreeEditorAttributes.btnMaskClick);
+    });
+    button.hover(function () {
+      //console.log("button hover");
+      mask.attr(_pedigreeEditorAttributes.PedigreeEditorAttributes.btnMaskHoverOn);
+      if (title) mask.attr({
+        'title': title
+      });
+    }, function () {
+      //console.log("button unhover");
+      mask.attr(_pedigreeEditorAttributes.PedigreeEditorAttributes.btnMaskHoverOff);
+    });
+    className && button.forEach(function (element) {
+      element.node.setAttribute('class', className);
+    });
+    button.icon = icon;
+    button.mask = mask;
+    if (this._hidden && !this.isMenuToggled()) button.hide();
+
+    this._currentButtons.push(button);
+    this.disable();
+    this.getFrontElements().push(button);
+    this.enable();
+  },
+
+  /**
+   * Creates a show-menu button
+   *
+   * @method generateMenuBtn
+   * @return {Raphael.st} The generated button
+   */
+  generateMenuBtn: function generateMenuBtn() {
+    var me = this;
+    var action = function action() {
+      me.toggleMenu(!me.isMenuToggled());
+    };
+    var attributes = _pedigreeEditorAttributes.PedigreeEditorAttributes.menuBtnIcon;
+    var x = this.getX() + this.getWidth() - 20 - this.getWidth() / 40;
+    var y = this.getY() + this.getHeight() / 40;
+    this.createButton(x, y, editor.getView().__menuButton_svgPath, editor.getView().__menuButton_BBox, attributes, action, 'menu-trigger', 'node properties');
+  },
+  /**
+   * Creates and returns a delete button (big red X).
+   *
+   * @method generateDeleteBtn
+   * @return {Raphael.st} the generated button
+   */
+  generateDeleteBtn: function generateDeleteBtn() {
+    var me = this;
+    var action = function action() {
+      me.animateHideHoverZone();
+      var event = {
+        'nodeID': me.getNode().getID()
+      };
+      document.fire('pedigree:node:remove', event);
+    };
+    var attributes = _pedigreeEditorAttributes.PedigreeEditorAttributes.deleteBtnIcon;
+    var x = this.getX() + this.getWidth() - 20 - this.getWidth() / 40;
+    var y = this.getY() + this.getHeight() / 40;
+    this.createButton(x, y, editor.getView().__deleteButton_svgPath, editor.getView().__deleteButton_BBox, attributes, action, 'delete', 'remove node');
+  },
+
+  /**
+   * Returns the gray box that appears when the node is hovered
+   *
+   * @method getBoxOnHover
+   * @return {Raphael.el} Raphael rectangle element
+   */
+  getBoxOnHover: function getBoxOnHover() {
+    return this._boxOnHover;
+  },
+
+  /**
+   * Returns true box if the hoverbox is currently hovered
+   *
+   * @method isHovered
+   * @return {Boolean} Raphael rectangle element
+   */
+  isHovered: function isHovered() {
+    return this._isHovered;
+  },
+
+  /**
+   * Sets the hovered property to isHovered.
+   * @method setHovered
+   * @param {Boolean} isHovered Set to true if the box is hovered
+   */
+  setHovered: function setHovered(isHovered) {
+    this._isHovered = isHovered;
+  },
+
+  /**
+   * Enbales or disables the highlighting of the node
+   * @method setHighlighted
+   * @param {Boolean} isHighlighted Set to true enables green highlight box, false disables it
+   */
+  setHighlighted: function setHighlighted(isHighlighted) {
+    // autoimaticaly highlight and unhighlight the node being dragged over
+    if (isHighlighted) {
+      this.getBoxOnHover().attr(_pedigreeEditorAttributes.PedigreeEditorAttributes.boxOnHover);
+      this.getBoxOnHover().attr('fill', 'green');
+    } else {
+      this.getBoxOnHover().attr(_pedigreeEditorAttributes.PedigreeEditorAttributes.boxOnHover).attr('opacity', 0);
+    }
+  },
+
+  /**
+   * Returns the invisible mask layer in front of the hoverbox
+   *
+   * @method getHoverZoneMask
+   * @return {Raphael.el} Raphael rectangle
+   */
+  getHoverZoneMask: function getHoverZoneMask() {
+    return this._mask;
+  },
+
+  /**
+   * Returns a Raphael set containing all hoverbox elements that are layered
+   * in front of the node graphics
+   *
+   * @method getFrontElements
+   * @return {Raphael.st} set of Raphael elements
+   */
+  getFrontElements: function getFrontElements() {
+    return this._frontElements;
+  },
+
+  /**
+   * Returns a Raphael set containing all hoverbox elements that are layered
+   * behind of the node graphics
+   *
+   * @method getBackElements
+   * @return {Raphael.st} set of Raphael elements
+   */
+  getBackElements: function getBackElements() {
+    return this._backElements;
+  },
+
+  /**
+   * Creates a handle with a blue orb from the center of the node and places it behind the node icon
+   *
+   * @method generateHandle
+   * @param {String} type Should be 'parent', 'child' or 'partner'
+   * @param {Number} orbX The x coordinate of the orb
+   * @param {Number} orbY The y coordinate of the orb
+   * @return {Raphael.st} Raphael set of elements that make up the handle
+   */
+  generateHandle: function generateHandle(type, startX, startY, orbX, orbY, title, orbShapeGender, toHide) {
+    if (!orbShapeGender) orbShapeGender = 'F';
+    var strokeWidth = editor.getWorkspace().getSizeNormalizedToDefaultZoom(_pedigreeEditorAttributes.PedigreeEditorAttributes.handleStrokeWidth);
+    var path = [['M', startX, startY], ['L', orbX, orbY]];
+    var connection = editor.getPaper().path(path).attr({
+      'stroke-width': strokeWidth,
+      stroke: 'gray'
+    }).toBack();
+    connection.oPath = path;
+
+    var touchPresent = 'createTouch' in document;
+
+    var orbRadius = touchPresent ? _pedigreeEditorAttributes.PedigreeEditorAttributes.touchOrbRadius : _pedigreeEditorAttributes.PedigreeEditorAttributes.orbRadius;
+    var orbHue = _pedigreeEditorAttributes.PedigreeEditorAttributes.orbHue;
+
+    var normalOrbAttr = orbShapeGender != 'F' ? {
+      fill: '0-hsb(' + orbHue + ', 1, .75)-hsb(' + orbHue + ', .5, .25)',
+      stroke: '#555',
+      'stroke-width': '0.75'
+    } : {
+      fill: 'r(.5,.9)hsb(' + orbHue + ', 1, .75)-hsb(' + orbHue + ', .5, .25)',
+      stroke: 'none'
+    };
+    var selectedOrbAttr = orbShapeGender != 'F' ? {
+      fill: '0-hsb(' + (orbHue + .36) + ', 1, .75)-hsb(' + (orbHue + .36) + ', .5, .25)'
+    } : {
+      fill: 'r(.5,.9)hsb(' + (orbHue + .36) + ', 1, .75)-hsb(' + (orbHue + .36) + ', .5, .25)'
+    };
+    var orbAttrX = orbShapeGender != 'F' ? 'x' : 'cx';
+    var orbAttrY = orbShapeGender != 'F' ? 'y' : 'cy';
+
+    var orb = (0, _graphicHelpers.generateOrb)(editor.getPaper(), orbX, orbY, orbRadius * 1.1, orbShapeGender).attr('cursor', 'pointer');
+    orb[0].attr(normalOrbAttr);
+
+    var handle = editor.getPaper().set().push(connection, orb);
+    handle.type = type;
+    connection.insertBefore(this.getHoverZoneMask());
+    orb.toFront();
+
+    var me = this;
+    var inHoverMode = false;
+    var interactionStarted = false;
+
+    var onDragHandle = function onDragHandle() {
+      if (!inHoverMode) {
+        //console.log("on drag");
+        inHoverMode = true;
+        if (editor.getView().getCurrentDraggable() !== null) editor.getView().enterHoverMode(me.getNode(), type);
+        toHide && toHide.hide();
+      }
+    };
+
+    // is true when any button other than the left mouse button is presses
+    var wrongClick = false;
+    var start = function start(x, y, e) {
+      if (interactionStarted) return;
+      interactionStarted = true;
+
+      //console.log("handle: start: " + e.button);
+      wrongClick = false;
+      if (e.button != 0) {
+        interactionStarted = false;
+        wrongClick = true;
+        return;
+      }
+      connection.toFront();
+      orb.stop();
+      orb.toFront();
+      inHoverMode = false;
+      me.disable();
+      me.getFrontElements().toFront();
+      if (!orb.ot) {
+        orb.ot = orb[0].transform();
+        orb.ox = orb[0].attr(orbAttrX);
+        orb.oy = orb[0].attr(orbAttrY);
+      } else {
+        // revert to base transformation if next click started while "end" animation was still running
+        orb.transform('');
+        orb.attr(orbAttrX, orb.ox);
+        orb.attr(orbAttrY, orb.oy);
+        orb.transform(orb.ot);
+      }
+      connection.ox = connection.oPath[1][1];
+      connection.oy = connection.oPath[1][2];
+      handle.isDragged = false;
+      editor.getView().setCurrentDraggable(me.getNode().getID());
+      // highlight valid targets (after a small delay - so that nothing gets annoyingly highlighted
+      // and instantly un-highlighted if the person just clicks the orb without dragging)
+      setTimeout(onDragHandle, 100);
+    };
+    var move = function move(dx, dy) {
+      if (wrongClick) return;
+      if (!interactionStarted) return;
+      //console.log("handle: move");
+      onDragHandle();
+      dx = dx / editor.getWorkspace().zoomCoefficient;
+      dy = dy / editor.getWorkspace().zoomCoefficient;
+      orb.ot.length > 0 && orb.transform('');
+      orb.attr(orbAttrX, orb.ox + dx);
+      orb.attr(orbAttrY, orb.oy + dy);
+      orb.ot.length > 0 && orb.transform(orb.ot);
+      connection.oPath[1][1] = connection.ox + dx;
+      connection.oPath[1][2] = connection.oy + dy;
+      connection.attr('path', connection.oPath);
+      if (dx > 1 || dx < -1 || dy > 1 || dy < -1) {
+        handle.isDragged = true;
+      }
+      //console.log("currentHover: " + editor.getView()._currentHoveredNode + ", currentDrag: " + editor.getView()._currentDraggable);
+    };
+    var end = function end() {
+      inHoverMode = false;
+      interactionStarted = false;
+      if (wrongClick) return;
+
+      var curHoveredId = editor.getView().getCurrentHoveredNode();
+
+      editor.getView().setCurrentDraggable(null);
+      editor.getView().exitHoverMode();
+
+      if (handle.isDragged) {
+        if (orb.ot.length == 0) {
+          var finalPosition = {};
+          finalPosition[orbAttrX] = orb.ox;
+          finalPosition[orbAttrY] = orb.oy;
+          orb.animate(finalPosition, 1000, 'elastic', function () {});
+        } else {
+          // animation for shapes with transformations (movement and animation via transform() could have been
+          // used in all cases, but works noticeably slower than plain coordinate manipulation in some browsers)
+          var dx = orb.ox - orb[0].attr(orbAttrX);
+          var dy = orb.oy - orb[0].attr(orbAttrY);
+          orb.animate({
+            'transform': 'T' + dx + ',' + dy + 'R45'
+          }, 1000, 'elastic', function () {
+            orb.transform('');
+            orb.attr(orbAttrX, orb.ox);
+            orb.attr(orbAttrY, orb.oy);
+            orb.transform(orb.ot);
+          });
+        }
+      }
+
+      console.log('handle.isDragged: ' + handle.isDragged + ', currentHover: ' + curHoveredId);
+      connection.oPath[1][1] = connection.ox;
+      connection.oPath[1][2] = connection.oy;
+      connection.animate({
+        'path': connection.oPath
+      }, 1000, 'elastic');
+      orb[0].attr(normalOrbAttr);
+      connection.insertBefore(me.getHoverZoneMask());
+
+      me.enable();
+
+      if (!handle.isDragged || curHoveredId != null) me.handleAction(handle.type, handle.isDragged, curHoveredId);
+    };
+
+    orb.drag(move, start, end);
+    orb.hover(function () {
+      //console.log("orbon hover");
+      orb[0].attr(selectedOrbAttr);
+      if (title) {
+        orb[0].attr({
+          'title': title
+        });
+        orb[1].attr({
+          'title': title
+        });
+      }
+    }, function () {
+      orb[0].attr(normalOrbAttr);
+    });
+
+    this._currentOrbs.push(orb[0]);
+    this._currentOrbs.push(orb[1]);
+    this.disable();
+    //this.getFrontElements().forEach(function(el) { console.log("o"); });
+    //console.log("Orb: " + orb);
+    this.getFrontElements().push(orb[0]);
+    this.getFrontElements().push(orb[1]);
+    //this.getFrontElements().forEach(function(el) { console.log("*"); });
+    this.enable();
+
+    //handle.getType = function() {
+    //    return type;
+    //};
+    return handle;
+  },
+
+  /**
+   * Returns true if the menu for this node is open
+   *
+   * @method isMenuToggled
+   * @return {Boolean}
+   */
+  isMenuToggled: function isMenuToggled() {
+    return false;
+  },
+
+  /*
+   * Fades the hoverbox graphics in
+   *
+   * @method animateDrawHoverZone
+   */
+  animateDrawHoverZone: function animateDrawHoverZone() {
+    this._hidden = false;
+    if (editor.getView().getCurrentDraggable() !== null) return; // do not redraw when dragging
+    //console.log("node: " + this.getNode().getID() + " -> show HB");
+
+    this.getNode().getGraphics().setSelected(true);
+    this.getBoxOnHover().stop().animate({
+      opacity: 0.7
+    }, 200);
+
+    this.generateButtons();
+    this.showButtons();
+    this.getCurrentButtons().forEach(function (button) {
+      if (button.hasOwnProperty('icon')) {
+        button.icon.stop().animate({
+          opacity: 1
+        }, 200);
+      }
+    });
+
+    if (this._handlesZoomSz != editor.getWorkspace().getCurrentZoomLevel()) this.removeHandles();
+    this.generateHandles();
+    this.showHandles();
+  },
+
+  /**
+   * Fades the hoverbox graphics out
+   *
+   * @method animateHideHoverZone
+   */
+  animateHideHoverZone: function animateHideHoverZone() {
+    this._hidden = true;
+    if (editor.getView().getCurrentDraggable() !== null) return; // do not hide when dragging
+    //console.log("node: " + this.getNode().getID() + " -> hide HB");
+
+    this.getNode().getGraphics().setSelected(false);
+    this.getBoxOnHover().stop().animate({
+      opacity: 0
+    }, 200);
+
+    this.hideButtons();
+    this.hideHandles();
+  },
+
+  /**
+   * Stops the hoverbox from responding to mouseovers
+   *
+   * @method disable
+   */
+  disable: function disable() {
+    //console.log("disable HB");
+    this._enabled = false;
+    this.getFrontElements().unhover(this.animateDrawHoverZone, this.animateHideHoverZone);
+  },
+
+  /**
+   * Attaches onMouseOver behavior to the hoverbox
+   *
+   * @method enable
+   */
+  enable: function enable() {
+    this._enabled = true;
+    //console.log("enable HB");
+    //this.getFrontElements().forEach(function(el) { console.log("."); });
+    this.getFrontElements().hover(this.animateDrawHoverZone, this.animateHideHoverZone);
+  },
+
+  /**
+   * Deletes the hoverbox
+   *
+   * @method remove
+   */
+  remove: function remove() {
+    this.disable();
+    this.removeButtons();
+    this.removeHandles();
+    this.getBackElements().remove();
+    this.getFrontElements().remove();
+  },
+
+  /**
+   * Updates the hoverbox behavior after a widget (like the menu) is closed
+   *
+   * @method onWidgetHide
+   */
+  onWidgetHide: function onWidgetHide() {
+    this._isMenuToggled = false;
+    // prevent menu from closing and opening right away upon a click on the menu button while menu is open
+    this._justClosedMenu = true;
+    var me = this;
+    setTimeout(function () {
+      me._justClosedMenu = false;
+    }, 100);
+
+    if (this._hidden) this.animateHideHoverZone();else this.animateDrawHoverZone();
+  },
+
+  onWidgetShow: function onWidgetShow() {
+    this._isMenuToggled = true;
+  }
+});
+
+/***/ }),
+/* 47 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
 exports.ChildlessBehaviorVisuals = exports.AbstractNodeVisuals = undefined;
 
-var _pedigreeEditorAttributes = __webpack_require__(12);
+var _pedigreeEditorAttributes = __webpack_require__(8);
 
 /**
  * AbstractNodeVisuals is the general abstract class for the graphic engine used by nodes on the Pedigree graph.
@@ -35675,7 +36439,7 @@ var ChildlessBehaviorVisuals = exports.ChildlessBehaviorVisuals = {
 };
 
 /***/ }),
-/* 47 */
+/* 48 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -35687,7 +36451,7 @@ Object.defineProperty(exports, "__esModule", {
 exports.TYPE = undefined;
 exports.BaseGraph = BaseGraph;
 
-var _queues = __webpack_require__(49);
+var _queues = __webpack_require__(50);
 
 var _helpers = __webpack_require__(5);
 
@@ -36405,7 +37169,7 @@ BaseGraph.prototype = {
 };
 
 /***/ }),
-/* 48 */
+/* 49 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -36692,7 +37456,7 @@ window.requestAnimFrame = function () {
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(31)))
 
 /***/ }),
-/* 49 */
+/* 50 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -36754,7 +37518,7 @@ Stack.prototype = {
 };
 
 /***/ }),
-/* 50 */
+/* 51 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var _curry2 = __webpack_require__(0);
@@ -36783,7 +37547,7 @@ module.exports = _curry2(function add(a, b) {
 
 
 /***/ }),
-/* 51 */
+/* 52 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var _curry3 = __webpack_require__(2);
@@ -36820,7 +37584,7 @@ module.exports = _curry3(function assoc(prop, val, obj) {
 
 
 /***/ }),
-/* 52 */
+/* 53 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var _curry1 = __webpack_require__(1);
@@ -36874,11 +37638,11 @@ module.exports = _curry1(function curry(fn) {
 
 
 /***/ }),
-/* 53 */
+/* 54 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var _curry1 = __webpack_require__(1);
-var curry = __webpack_require__(52);
+var curry = __webpack_require__(53);
 
 
 /**
@@ -36912,11 +37676,11 @@ module.exports = _curry1(function flip(fn) {
 
 
 /***/ }),
-/* 54 */
+/* 55 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var _arity = __webpack_require__(20);
-var _isPlaceholder = __webpack_require__(56);
+var _isPlaceholder = __webpack_require__(57);
 
 
 /**
@@ -36958,7 +37722,7 @@ module.exports = function _curryN(length, received, fn) {
 
 
 /***/ }),
-/* 55 */
+/* 56 */
 /***/ (function(module, exports) {
 
 module.exports = function _isFunction(x) {
@@ -36967,7 +37731,7 @@ module.exports = function _isFunction(x) {
 
 
 /***/ }),
-/* 56 */
+/* 57 */
 /***/ (function(module, exports) {
 
 module.exports = function _isPlaceholder(a) {
@@ -36978,7 +37742,7 @@ module.exports = function _isPlaceholder(a) {
 
 
 /***/ }),
-/* 57 */
+/* 58 */
 /***/ (function(module, exports) {
 
 module.exports = function _isString(x) {
@@ -36987,7 +37751,7 @@ module.exports = function _isString(x) {
 
 
 /***/ }),
-/* 58 */
+/* 59 */
 /***/ (function(module, exports) {
 
 module.exports = function _map(fn, functor) {
@@ -37003,11 +37767,11 @@ module.exports = function _map(fn, functor) {
 
 
 /***/ }),
-/* 59 */
+/* 60 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var _curry2 = __webpack_require__(0);
-var map = __webpack_require__(11);
+var map = __webpack_require__(12);
 
 
 /**
@@ -37048,7 +37812,7 @@ module.exports = _curry2(function lens(getter, setter) {
 
 
 /***/ }),
-/* 60 */
+/* 61 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var _curry1 = __webpack_require__(1);
@@ -37083,7 +37847,7 @@ module.exports = _curry1(function lift(fn) {
 
 
 /***/ }),
-/* 61 */
+/* 62 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var _curry2 = __webpack_require__(0);
@@ -37137,14 +37901,14 @@ module.exports = _curry2(function nAry(n, fn) {
 
 
 /***/ }),
-/* 62 */
+/* 63 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var _curryN = __webpack_require__(54);
+var _curryN = __webpack_require__(55);
 var _dispatchable = __webpack_require__(3);
-var _has = __webpack_require__(9);
+var _has = __webpack_require__(10);
 var _reduce = __webpack_require__(14);
-var _xreduceBy = __webpack_require__(275);
+var _xreduceBy = __webpack_require__(276);
 
 
 /**
@@ -37202,12 +37966,12 @@ module.exports = _curryN(4, [], _dispatchable([], _xreduceBy,
 
 
 /***/ }),
-/* 63 */
+/* 64 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var _complement = __webpack_require__(114);
 var _curry2 = __webpack_require__(0);
-var filter = __webpack_require__(77);
+var filter = __webpack_require__(76);
 
 
 /**
@@ -37238,11 +38002,11 @@ module.exports = _curry2(function reject(pred, filterable) {
 
 
 /***/ }),
-/* 64 */
+/* 65 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var _curry1 = __webpack_require__(1);
-var _isString = __webpack_require__(57);
+var _isString = __webpack_require__(58);
 
 
 /**
@@ -37276,7 +38040,7 @@ module.exports = _curry1(function reverse(list) {
 
 
 /***/ }),
-/* 65 */
+/* 66 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var __WEBPACK_AMD_DEFINE_RESULT__;/*!
@@ -39555,770 +40319,6 @@ if ( true ) {
 
 
 /***/ }),
-/* 66 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.AbstractHoverbox = undefined;
-
-var _pedigreeEditorAttributes = __webpack_require__(12);
-
-var _graphicHelpers = __webpack_require__(48);
-
-/**
- * AbstractHoverbox is an abstract class for all the UI elements and graphics surrounding a node on the canvas (a Person
- * or a partnership). This includes the box that appears around the node when it's hovered by a mouse, as
- * well as the handles used for creating connections and creating new nodes.
- *
- * @class AbstractHoverbox
- * @constructor
- * @param {AbstractNode} node The node Person or Partnership for which the hoverbox is drawn
- * @param {Number} x The x coordinate for the hoverbox
- * @param {Number} y The y coordinate for the hoverbox
- * @param {Number} width The width in pixels
- * @param {Number} height The height in pixels
- * @param {Number} nodeX The x coordinate of the node for which the hoverbox is drawn
- * @param {Number} nodeY The y coordinate of the node for which the hoverbox is drawn
- * @param {Raphael.st} nodeShapes Raphaël set containing the graphical elements that make up the node
- */
-
-var AbstractHoverbox = exports.AbstractHoverbox = Class.create({
-
-  initialize: function initialize(node, shiftX, shiftY, width, height, nodeX, nodeY, nodeShapes) {
-    //var timer = new Timer();        
-    this._node = node;
-    this._relativeX = shiftX;
-    this._relativeY = shiftY;
-    this._nodeX = nodeX;
-    this._nodeY = nodeY;
-    this._hidden = true;
-    this._enabled = false;
-    this._width = width;
-    this._height = height;
-    this._isHovered = false;
-    this._currentHandles = null;
-    this._currentOrbs = null;
-    this._currentButtons = null;
-    this._handlesZoomSz = null;
-    this._boxOnHover = editor.getPaper().rect(this.getX(), this.getY(), this._width, this._height, 5).attr(_pedigreeEditorAttributes.PedigreeEditorAttributes.boxOnHover);
-    this._backElements = editor.getPaper().set(this._boxOnHover);
-    this._mask = this._boxOnHover.clone().attr({
-      fill: 'green',
-      opacity: 0
-    });
-    this._frontElements = editor.getPaper().set().push(this._mask);
-
-    var nodeShapeSet = nodeShapes.flatten();
-    this._backElements.insertBefore(nodeShapeSet);
-    this._frontElements.insertAfter(nodeShapeSet);
-
-    this.animateDrawHoverZone = this.animateDrawHoverZone.bind(this);
-    this.animateHideHoverZone = this.animateHideHoverZone.bind(this);
-    // hide initially
-    this.getBoxOnHover().attr({
-      opacity: 0
-    });
-    this.enable();
-    //timer.printSinceLast("=== abstract howerbox runtime: ");
-    this._isMenuToggled = false;
-    this._justClosedMenu = false;
-  },
-
-  /**
-   * Returns the x coordinate of the hoverbox
-   *
-   * @method getX
-   * @return {Number} The x coordinate in pixels
-   */
-  getX: function getX() {
-    return this.getNodeX() + this._relativeX;
-  },
-
-  /**
-   * Returns the y coordinate of the hoverbox
-   *
-   * @method getY
-   * @return {Number} The y coordinate in pixels
-   */
-  getY: function getY() {
-    return this.getNodeY() + this._relativeY;
-  },
-
-  /**
-   * Returns the x coordinate of the attached node
-   *
-   * @method getNodeX
-   * @return {Number} The x coordinate in pixels
-   */
-  getNodeX: function getNodeX() {
-    // note: during construction getGraphics() isnot yet available, so need to store nodeX.
-    //       however node may have been moved later, in which case we need to use current graphics X
-    var nodeGraphics = this.getNode().getGraphics();
-    if (nodeGraphics) this._nodeX = nodeGraphics.getX();
-    return this._nodeX;
-  },
-
-  /**
-   * Returns the y coordinate of the attached node
-   *
-   * @method getNodeY
-   * @return {Number} The y coordinate in pixels
-   */
-  getNodeY: function getNodeY() {
-    var nodeGraphics = this.getNode().getGraphics();
-    if (nodeGraphics) this._nodeY = nodeGraphics.getY();
-    return this._nodeY;
-  },
-
-  /**
-   * Returns the width of the hoverbox
-   *
-   * @method getWidth
-   * @return {Number} The width in pixels
-   */
-  getWidth: function getWidth() {
-    return this._width;
-  },
-
-  /**
-   * Returns the height of the hoverbox
-   *
-   * @method getHeight
-   * @return {Number} The height in pixels
-   */
-  getHeight: function getHeight() {
-    return this._height;
-  },
-
-  /**
-   * Returns the node for which the hoverbox is drawn
-   *
-   * @method getNode
-   * @return {AbstractNode} Can be either a Partnership or a Person
-   */
-  getNode: function getNode() {
-    return this._node;
-  },
-
-  /**
-   * Creates the buttons used in this hoverbox
-   *
-   * @method generateButtons
-   * @return {Raphael.st} A set of buttons
-   */
-  generateButtons: function generateButtons() {
-    if (this._currentButtons !== null) return;
-    this._currentButtons = [];
-  },
-
-  regenerateButtons: function regenerateButtons() {
-    this.removeButtons();
-    this.generateButtons();
-  },
-
-  removeButtons: function removeButtons() {
-    if (!this._currentButtons) return;
-
-    var enableState = this._enabled;
-
-    enableState && this.disable();
-    for (var i = 0; i < this._currentButtons.length; i++) {
-      this.getFrontElements().exclude(this._currentButtons[i]);
-      this._currentButtons[i].remove();
-    }
-    this._currentButtons = null;
-    enableState && this.enable();
-  },
-
-  hideButtons: function hideButtons() {
-    if (!this._currentButtons) return;
-    for (var i = 0; i < this._currentButtons.length; i++) {
-      if (this._currentButtons[i].hasOwnProperty('mask')) {
-        this._currentButtons[i].mask.attr(_pedigreeEditorAttributes.PedigreeEditorAttributes.btnMaskHoverOff);
-      }
-      this._currentButtons[i].hide();
-    }
-  },
-
-  showButtons: function showButtons() {
-    if (!this._currentButtons) return;
-    for (var i = 0; i < this._currentButtons.length; i++) {
-      this._currentButtons[i].show();
-    }
-  },
-
-  /**
-   * Returns Raphael set of the buttons in this hoverbox
-   *
-   * @method getCurrentButtons
-   * @return {Raphael.st} A set of buttons
-   */
-  getCurrentButtons: function getCurrentButtons() {
-    return this._currentButtons;
-  },
-
-  /**
-   * Removes all handles currently used in this hoverbox
-   *
-   * @method removeHandles
-   */
-  removeHandles: function removeHandles() {
-    var i;
-    if (!this._currentHandles) return;
-
-    var enableState = this._enabled;
-    enableState && this.disable();
-    for (i = 0; i < this._currentOrbs.length; i++) {
-      this.getFrontElements().exclude(this._currentOrbs[i]);
-    }this._currentOrbs = null;
-    enableState && this.enable();
-
-    for (i = 0; i < this._currentHandles.length; i++) {
-      this._currentHandles[i].remove();
-    }this._currentHandles = null;
-  },
-
-  hideHandles: function hideHandles() {
-    if (!this._currentHandles) return;
-    for (var i = 0; i < this._currentHandles.length; i++) {
-      this._currentHandles[i].hide();
-    }
-  },
-
-  showHandles: function showHandles() {
-    if (!this._currentHandles) return;
-    for (var i = 0; i < this._currentHandles.length; i++) {
-      this._currentHandles[i].show();
-    }
-  },
-
-  /**
-   * Creates the handles used in this hoverbox. Returns a list of handles 
-   *
-   * @method generateHandles
-   */
-  generateHandles: function generateHandles() {
-    if (this._currentHandles !== null) return;
-    this._currentHandles = [];
-    this._currentOrbs = [];
-    this._handlesZoomSz = editor.getWorkspace().getCurrentZoomLevel();
-  },
-
-  /**
-   * Iff handles are present, removes all and creates new set of handles 
-   *
-   * @method regenerateHandles
-   */
-  regenerateHandles: function regenerateHandles() {
-    if (this._currentHandles) this.removeHandles();
-    if (!this._hidden || this.isMenuToggled()) this.generateHandles();
-  },
-
-  /**
-   * Generates a button and places it on the hoverbox
-   *
-   * @method createButton
-   * @param {Number} x The x coordinate of the button
-   * @param {Number} y The y coordinate of the button
-   * @param {String|Array} svgPath The svg path for the button (correctly scaled)
-   * @param {Object} svgPathBBox The BBox for the svg path. Precomputed for performance reasons
-   * @param attributes The svg attributes
-   * @param {Function} onClick Callback for the button
-   * @param {String} className The class attribute for the button
-   *
-   * @return {Raphael.st} The generated button
-   */
-  createButton: function createButton(x, y, svgPath, svgPathBBox, attributes, onClick, className, title) {
-    var icon = editor.getPaper().path(svgPath).attr(attributes);
-    icon.transform(['t', x, y]);
-
-    // manually compute the size of the mask because Raphael.transform() is exptremely slow
-    var xShift = svgPathBBox.width / 4;
-    var yShift = svgPathBBox.height / 4;
-    var newWidth = svgPathBBox.width * 1.5;
-    var newHeight = svgPathBBox.height * 1.5;
-    var mask = editor.getPaper().rect(x + svgPathBBox.x - xShift, y + svgPathBBox.y - yShift, newWidth, newHeight, 1);
-    mask.attr({
-      fill: 'gray',
-      opacity: 0,
-      'stroke-width': 0
-    });
-
-    var button = editor.getPaper().set(mask, icon).toFront();
-
-    var me = this;
-    var clickFunct = function clickFunct() {
-      if (me._hidden) {
-        button.isClicked = false;
-        return;
-      }
-      button.isClicked = !button.isClicked;
-      if (button.isClicked) {
-        mask.attr(_pedigreeEditorAttributes.PedigreeEditorAttributes.btnMaskClick);
-      } else {
-        mask.attr(_pedigreeEditorAttributes.PedigreeEditorAttributes.btnMaskHoverOn);
-      }
-      onClick && onClick();
-    };
-    button.click(clickFunct);
-    button.mousedown(function () {
-      mask.attr(_pedigreeEditorAttributes.PedigreeEditorAttributes.btnMaskClick);
-    });
-    button.hover(function () {
-      //console.log("button hover");
-      mask.attr(_pedigreeEditorAttributes.PedigreeEditorAttributes.btnMaskHoverOn);
-      if (title) mask.attr({
-        'title': title
-      });
-    }, function () {
-      //console.log("button unhover");
-      mask.attr(_pedigreeEditorAttributes.PedigreeEditorAttributes.btnMaskHoverOff);
-    });
-    className && button.forEach(function (element) {
-      element.node.setAttribute('class', className);
-    });
-    button.icon = icon;
-    button.mask = mask;
-    if (this._hidden && !this.isMenuToggled()) button.hide();
-
-    this._currentButtons.push(button);
-    this.disable();
-    this.getFrontElements().push(button);
-    this.enable();
-  },
-
-  /**
-   * Creates a show-menu button
-   *
-   * @method generateMenuBtn
-   * @return {Raphael.st} The generated button
-   */
-  generateMenuBtn: function generateMenuBtn() {
-    var me = this;
-    var action = function action() {
-      me.toggleMenu(!me.isMenuToggled());
-    };
-    var attributes = _pedigreeEditorAttributes.PedigreeEditorAttributes.menuBtnIcon;
-    var x = this.getX() + this.getWidth() - 20 - this.getWidth() / 40;
-    var y = this.getY() + this.getHeight() / 40;
-    this.createButton(x, y, editor.getView().__menuButton_svgPath, editor.getView().__menuButton_BBox, attributes, action, 'menu-trigger', 'node properties');
-  },
-  /**
-   * Creates and returns a delete button (big red X).
-   *
-   * @method generateDeleteBtn
-   * @return {Raphael.st} the generated button
-   */
-  generateDeleteBtn: function generateDeleteBtn() {
-    var me = this;
-    var action = function action() {
-      me.animateHideHoverZone();
-      var event = {
-        'nodeID': me.getNode().getID()
-      };
-      document.fire('pedigree:node:remove', event);
-    };
-    var attributes = _pedigreeEditorAttributes.PedigreeEditorAttributes.deleteBtnIcon;
-    var x = this.getX() + this.getWidth() - 20 - this.getWidth() / 40;
-    var y = this.getY() + this.getHeight() / 40;
-    this.createButton(x, y, editor.getView().__deleteButton_svgPath, editor.getView().__deleteButton_BBox, attributes, action, 'delete', 'remove node');
-  },
-
-  /**
-   * Returns the gray box that appears when the node is hovered
-   *
-   * @method getBoxOnHover
-   * @return {Raphael.el} Raphael rectangle element
-   */
-  getBoxOnHover: function getBoxOnHover() {
-    return this._boxOnHover;
-  },
-
-  /**
-   * Returns true box if the hoverbox is currently hovered
-   *
-   * @method isHovered
-   * @return {Boolean} Raphael rectangle element
-   */
-  isHovered: function isHovered() {
-    return this._isHovered;
-  },
-
-  /**
-   * Sets the hovered property to isHovered.
-   * @method setHovered
-   * @param {Boolean} isHovered Set to true if the box is hovered
-   */
-  setHovered: function setHovered(isHovered) {
-    this._isHovered = isHovered;
-  },
-
-  /**
-   * Enbales or disables the highlighting of the node
-   * @method setHighlighted
-   * @param {Boolean} isHighlighted Set to true enables green highlight box, false disables it
-   */
-  setHighlighted: function setHighlighted(isHighlighted) {
-    // autoimaticaly highlight and unhighlight the node being dragged over
-    if (isHighlighted) {
-      this.getBoxOnHover().attr(_pedigreeEditorAttributes.PedigreeEditorAttributes.boxOnHover);
-      this.getBoxOnHover().attr('fill', 'green');
-    } else {
-      this.getBoxOnHover().attr(_pedigreeEditorAttributes.PedigreeEditorAttributes.boxOnHover).attr('opacity', 0);
-    }
-  },
-
-  /**
-   * Returns the invisible mask layer in front of the hoverbox
-   *
-   * @method getHoverZoneMask
-   * @return {Raphael.el} Raphael rectangle
-   */
-  getHoverZoneMask: function getHoverZoneMask() {
-    return this._mask;
-  },
-
-  /**
-   * Returns a Raphael set containing all hoverbox elements that are layered
-   * in front of the node graphics
-   *
-   * @method getFrontElements
-   * @return {Raphael.st} set of Raphael elements
-   */
-  getFrontElements: function getFrontElements() {
-    return this._frontElements;
-  },
-
-  /**
-   * Returns a Raphael set containing all hoverbox elements that are layered
-   * behind of the node graphics
-   *
-   * @method getBackElements
-   * @return {Raphael.st} set of Raphael elements
-   */
-  getBackElements: function getBackElements() {
-    return this._backElements;
-  },
-
-  /**
-   * Creates a handle with a blue orb from the center of the node and places it behind the node icon
-   *
-   * @method generateHandle
-   * @param {String} type Should be 'parent', 'child' or 'partner'
-   * @param {Number} orbX The x coordinate of the orb
-   * @param {Number} orbY The y coordinate of the orb
-   * @return {Raphael.st} Raphael set of elements that make up the handle
-   */
-  generateHandle: function generateHandle(type, startX, startY, orbX, orbY, title, orbShapeGender, toHide) {
-    if (!orbShapeGender) orbShapeGender = 'F';
-    var strokeWidth = editor.getWorkspace().getSizeNormalizedToDefaultZoom(_pedigreeEditorAttributes.PedigreeEditorAttributes.handleStrokeWidth);
-    var path = [['M', startX, startY], ['L', orbX, orbY]];
-    var connection = editor.getPaper().path(path).attr({
-      'stroke-width': strokeWidth,
-      stroke: 'gray'
-    }).toBack();
-    connection.oPath = path;
-
-    var touchPresent = 'createTouch' in document;
-
-    var orbRadius = touchPresent ? _pedigreeEditorAttributes.PedigreeEditorAttributes.touchOrbRadius : _pedigreeEditorAttributes.PedigreeEditorAttributes.orbRadius;
-    var orbHue = _pedigreeEditorAttributes.PedigreeEditorAttributes.orbHue;
-
-    var normalOrbAttr = orbShapeGender != 'F' ? {
-      fill: '0-hsb(' + orbHue + ', 1, .75)-hsb(' + orbHue + ', .5, .25)',
-      stroke: '#555',
-      'stroke-width': '0.75'
-    } : {
-      fill: 'r(.5,.9)hsb(' + orbHue + ', 1, .75)-hsb(' + orbHue + ', .5, .25)',
-      stroke: 'none'
-    };
-    var selectedOrbAttr = orbShapeGender != 'F' ? {
-      fill: '0-hsb(' + (orbHue + .36) + ', 1, .75)-hsb(' + (orbHue + .36) + ', .5, .25)'
-    } : {
-      fill: 'r(.5,.9)hsb(' + (orbHue + .36) + ', 1, .75)-hsb(' + (orbHue + .36) + ', .5, .25)'
-    };
-    var orbAttrX = orbShapeGender != 'F' ? 'x' : 'cx';
-    var orbAttrY = orbShapeGender != 'F' ? 'y' : 'cy';
-
-    var orb = (0, _graphicHelpers.generateOrb)(editor.getPaper(), orbX, orbY, orbRadius * 1.1, orbShapeGender).attr('cursor', 'pointer');
-    orb[0].attr(normalOrbAttr);
-
-    var handle = editor.getPaper().set().push(connection, orb);
-    handle.type = type;
-    connection.insertBefore(this.getHoverZoneMask());
-    orb.toFront();
-
-    var me = this;
-    var inHoverMode = false;
-    var interactionStarted = false;
-
-    var onDragHandle = function onDragHandle() {
-      if (!inHoverMode) {
-        //console.log("on drag");
-        inHoverMode = true;
-        if (editor.getView().getCurrentDraggable() !== null) editor.getView().enterHoverMode(me.getNode(), type);
-        toHide && toHide.hide();
-      }
-    };
-
-    // is true when any button other than the left mouse button is presses
-    var wrongClick = false;
-    var start = function start(x, y, e) {
-      if (interactionStarted) return;
-      interactionStarted = true;
-
-      //console.log("handle: start: " + e.button);
-      wrongClick = false;
-      if (e.button != 0) {
-        interactionStarted = false;
-        wrongClick = true;
-        return;
-      }
-      connection.toFront();
-      orb.stop();
-      orb.toFront();
-      inHoverMode = false;
-      me.disable();
-      me.getFrontElements().toFront();
-      if (!orb.ot) {
-        orb.ot = orb[0].transform();
-        orb.ox = orb[0].attr(orbAttrX);
-        orb.oy = orb[0].attr(orbAttrY);
-      } else {
-        // revert to base transformation if next click started while "end" animation was still running
-        orb.transform('');
-        orb.attr(orbAttrX, orb.ox);
-        orb.attr(orbAttrY, orb.oy);
-        orb.transform(orb.ot);
-      }
-      connection.ox = connection.oPath[1][1];
-      connection.oy = connection.oPath[1][2];
-      handle.isDragged = false;
-      editor.getView().setCurrentDraggable(me.getNode().getID());
-      // highlight valid targets (after a small delay - so that nothing gets annoyingly highlighted
-      // and instantly un-highlighted if the person just clicks the orb without dragging)
-      setTimeout(onDragHandle, 100);
-    };
-    var move = function move(dx, dy) {
-      if (wrongClick) return;
-      if (!interactionStarted) return;
-      //console.log("handle: move");
-      onDragHandle();
-      dx = dx / editor.getWorkspace().zoomCoefficient;
-      dy = dy / editor.getWorkspace().zoomCoefficient;
-      orb.ot.length > 0 && orb.transform('');
-      orb.attr(orbAttrX, orb.ox + dx);
-      orb.attr(orbAttrY, orb.oy + dy);
-      orb.ot.length > 0 && orb.transform(orb.ot);
-      connection.oPath[1][1] = connection.ox + dx;
-      connection.oPath[1][2] = connection.oy + dy;
-      connection.attr('path', connection.oPath);
-      if (dx > 1 || dx < -1 || dy > 1 || dy < -1) {
-        handle.isDragged = true;
-      }
-      //console.log("currentHover: " + editor.getView()._currentHoveredNode + ", currentDrag: " + editor.getView()._currentDraggable);
-    };
-    var end = function end() {
-      inHoverMode = false;
-      interactionStarted = false;
-      if (wrongClick) return;
-
-      var curHoveredId = editor.getView().getCurrentHoveredNode();
-
-      editor.getView().setCurrentDraggable(null);
-      editor.getView().exitHoverMode();
-
-      if (handle.isDragged) {
-        if (orb.ot.length == 0) {
-          var finalPosition = {};
-          finalPosition[orbAttrX] = orb.ox;
-          finalPosition[orbAttrY] = orb.oy;
-          orb.animate(finalPosition, 1000, 'elastic', function () {});
-        } else {
-          // animation for shapes with transformations (movement and animation via transform() could have been
-          // used in all cases, but works noticeably slower than plain coordinate manipulation in some browsers)
-          var dx = orb.ox - orb[0].attr(orbAttrX);
-          var dy = orb.oy - orb[0].attr(orbAttrY);
-          orb.animate({
-            'transform': 'T' + dx + ',' + dy + 'R45'
-          }, 1000, 'elastic', function () {
-            orb.transform('');
-            orb.attr(orbAttrX, orb.ox);
-            orb.attr(orbAttrY, orb.oy);
-            orb.transform(orb.ot);
-          });
-        }
-      }
-
-      console.log('handle.isDragged: ' + handle.isDragged + ', currentHover: ' + curHoveredId);
-      connection.oPath[1][1] = connection.ox;
-      connection.oPath[1][2] = connection.oy;
-      connection.animate({
-        'path': connection.oPath
-      }, 1000, 'elastic');
-      orb[0].attr(normalOrbAttr);
-      connection.insertBefore(me.getHoverZoneMask());
-
-      me.enable();
-
-      if (!handle.isDragged || curHoveredId != null) me.handleAction(handle.type, handle.isDragged, curHoveredId);
-    };
-
-    orb.drag(move, start, end);
-    orb.hover(function () {
-      //console.log("orbon hover");
-      orb[0].attr(selectedOrbAttr);
-      if (title) {
-        orb[0].attr({
-          'title': title
-        });
-        orb[1].attr({
-          'title': title
-        });
-      }
-    }, function () {
-      orb[0].attr(normalOrbAttr);
-    });
-
-    this._currentOrbs.push(orb[0]);
-    this._currentOrbs.push(orb[1]);
-    this.disable();
-    //this.getFrontElements().forEach(function(el) { console.log("o"); });
-    //console.log("Orb: " + orb);
-    this.getFrontElements().push(orb[0]);
-    this.getFrontElements().push(orb[1]);
-    //this.getFrontElements().forEach(function(el) { console.log("*"); });
-    this.enable();
-
-    //handle.getType = function() {
-    //    return type;
-    //};
-    return handle;
-  },
-
-  /**
-   * Returns true if the menu for this node is open
-   *
-   * @method isMenuToggled
-   * @return {Boolean}
-   */
-  isMenuToggled: function isMenuToggled() {
-    return false;
-  },
-
-  /*
-   * Fades the hoverbox graphics in
-   *
-   * @method animateDrawHoverZone
-   */
-  animateDrawHoverZone: function animateDrawHoverZone() {
-    this._hidden = false;
-    if (editor.getView().getCurrentDraggable() !== null) return; // do not redraw when dragging
-    //console.log("node: " + this.getNode().getID() + " -> show HB");
-
-    this.getNode().getGraphics().setSelected(true);
-    this.getBoxOnHover().stop().animate({
-      opacity: 0.7
-    }, 200);
-
-    this.generateButtons();
-    this.showButtons();
-    this.getCurrentButtons().forEach(function (button) {
-      if (button.hasOwnProperty('icon')) {
-        button.icon.stop().animate({
-          opacity: 1
-        }, 200);
-      }
-    });
-
-    if (this._handlesZoomSz != editor.getWorkspace().getCurrentZoomLevel()) this.removeHandles();
-    this.generateHandles();
-    this.showHandles();
-  },
-
-  /**
-   * Fades the hoverbox graphics out
-   *
-   * @method animateHideHoverZone
-   */
-  animateHideHoverZone: function animateHideHoverZone() {
-    this._hidden = true;
-    if (editor.getView().getCurrentDraggable() !== null) return; // do not hide when dragging
-    //console.log("node: " + this.getNode().getID() + " -> hide HB");
-
-    this.getNode().getGraphics().setSelected(false);
-    this.getBoxOnHover().stop().animate({
-      opacity: 0
-    }, 200);
-
-    this.hideButtons();
-    this.hideHandles();
-  },
-
-  /**
-   * Stops the hoverbox from responding to mouseovers
-   *
-   * @method disable
-   */
-  disable: function disable() {
-    //console.log("disable HB");
-    this._enabled = false;
-    this.getFrontElements().unhover(this.animateDrawHoverZone, this.animateHideHoverZone);
-  },
-
-  /**
-   * Attaches onMouseOver behavior to the hoverbox
-   *
-   * @method enable
-   */
-  enable: function enable() {
-    this._enabled = true;
-    //console.log("enable HB");
-    //this.getFrontElements().forEach(function(el) { console.log("."); });
-    this.getFrontElements().hover(this.animateDrawHoverZone, this.animateHideHoverZone);
-  },
-
-  /**
-   * Deletes the hoverbox
-   *
-   * @method remove
-   */
-  remove: function remove() {
-    this.disable();
-    this.removeButtons();
-    this.removeHandles();
-    this.getBackElements().remove();
-    this.getFrontElements().remove();
-  },
-
-  /**
-   * Updates the hoverbox behavior after a widget (like the menu) is closed
-   *
-   * @method onWidgetHide
-   */
-  onWidgetHide: function onWidgetHide() {
-    this._isMenuToggled = false;
-    // prevent menu from closing and opening right away upon a click on the menu button while menu is open
-    this._justClosedMenu = true;
-    var me = this;
-    setTimeout(function () {
-      me._justClosedMenu = false;
-    }, 100);
-
-    if (this._hidden) this.animateHideHoverZone();else this.animateDrawHoverZone();
-  },
-
-  onWidgetShow: function onWidgetShow() {
-    this._isMenuToggled = true;
-  }
-});
-
-/***/ }),
 /* 67 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -40330,7 +40330,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.ChildlessBehavior = exports.AbstractNode = undefined;
 
-var _abstractNodeVisuals = __webpack_require__(46);
+var _abstractNodeVisuals = __webpack_require__(47);
 
 /**
  * AbstractNode is the general abstract class for nodes on the Pedigree graph. An AbstractNode contains information
@@ -40757,54 +40757,10 @@ HPOTerm.getServiceURL = function () {
 /* 70 */
 /***/ (function(module, exports, __webpack_require__) {
 
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.ReadOnlyHoverbox = undefined;
-
-var _abstractHoverbox = __webpack_require__(66);
-
-/**
- * A stub hoverbox used when generating read-only pedigrees
- */
-var ReadOnlyHoverbox = exports.ReadOnlyHoverbox = Class.create(_abstractHoverbox.AbstractHoverbox, {
-
-  initialize: function initialize($super, node, x, y, shapes) {
-    this._node = node;
-    this._nodeX = x;
-    this._nodeY = y;
-    this._shapes = shapes;
-  },
-
-  getNode: function getNode() {
-    return this._node;
-  },
-
-  getCurrentButtons: function getCurrentButtons() {
-    return this._currentButtons;
-  },
-
-  getFrontElements: function getFrontElements() {
-    return this._shapes;
-  },
-
-  getBackElements: function getBackElements() {
-    return this._shapes;
-  }
-
-});
-
-/***/ }),
-/* 71 */
-/***/ (function(module, exports, __webpack_require__) {
-
 /* WEBPACK VAR INJECTION */(function($R) {var $H, $A, $w, Enumerable, Prototype, Class, Template;
 Prototype =   __webpack_require__(6);
-              __webpack_require__(8);
-Class =       __webpack_require__(10);
+              __webpack_require__(9);
+Class =       __webpack_require__(11);
               __webpack_require__(13);
               __webpack_require__(15);
               __webpack_require__(18);
@@ -40864,13 +40820,13 @@ Object.extend(Number.prototype, (function() {
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(37)))
 
 /***/ }),
-/* 72 */
+/* 71 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var $H, $A, $w, Enumerable, Prototype, Class, Template;
 Prototype =   __webpack_require__(6);
-              __webpack_require__(8);
-Class =       __webpack_require__(10);
+              __webpack_require__(9);
+Class =       __webpack_require__(11);
               __webpack_require__(13);
               __webpack_require__(15);
               __webpack_require__(18);
@@ -40880,7 +40836,7 @@ Enumerable =  __webpack_require__(28);
 $A =          __webpack_require__(17).A;
 $w =          __webpack_require__(17).w;
 $H =          __webpack_require__(33).H;
-              __webpack_require__(71);
+              __webpack_require__(70);
 
 function $R(start, end, exclusive) {
   return new ObjectRange(start, end, exclusive);
@@ -40921,13 +40877,13 @@ module.exports = {
 };
 
 /***/ }),
-/* 73 */
+/* 72 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var _concat = __webpack_require__(16);
 var _curry2 = __webpack_require__(0);
 var _reduce = __webpack_require__(14);
-var map = __webpack_require__(11);
+var map = __webpack_require__(12);
 
 
 /**
@@ -40964,14 +40920,14 @@ module.exports = _curry2(function ap(applicative, fn) {
 
 
 /***/ }),
-/* 74 */
+/* 73 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var _curry2 = __webpack_require__(0);
 var _dispatchable = __webpack_require__(3);
 var _makeFlat = __webpack_require__(122);
-var _xchain = __webpack_require__(264);
-var map = __webpack_require__(11);
+var _xchain = __webpack_require__(265);
+var map = __webpack_require__(12);
 
 
 /**
@@ -41005,11 +40961,11 @@ module.exports = _curry2(_dispatchable(['chain'], _xchain, function chain(fn, mo
 
 
 /***/ }),
-/* 75 */
+/* 74 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var pipe = __webpack_require__(139);
-var reverse = __webpack_require__(64);
+var reverse = __webpack_require__(65);
 
 
 /**
@@ -41045,12 +41001,12 @@ module.exports = function compose() {
 
 
 /***/ }),
-/* 76 */
+/* 75 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var _curry2 = __webpack_require__(0);
 var _isArray = __webpack_require__(26);
-var _isFunction = __webpack_require__(55);
+var _isFunction = __webpack_require__(56);
 var toString = __webpack_require__(44);
 
 
@@ -41092,7 +41048,7 @@ module.exports = _curry2(function concat(a, b) {
 
 
 /***/ }),
-/* 77 */
+/* 76 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var _curry2 = __webpack_require__(0);
@@ -41100,7 +41056,7 @@ var _dispatchable = __webpack_require__(3);
 var _filter = __webpack_require__(116);
 var _isObject = __webpack_require__(121);
 var _reduce = __webpack_require__(14);
-var _xfilter = __webpack_require__(269);
+var _xfilter = __webpack_require__(270);
 var keys = __webpack_require__(21);
 
 
@@ -41146,11 +41102,11 @@ module.exports = _curry2(_dispatchable(['filter'], _xfilter, function(pred, filt
 
 
 /***/ }),
-/* 78 */
+/* 77 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var _curry1 = __webpack_require__(1);
-var _identity = __webpack_require__(81);
+var _identity = __webpack_require__(80);
 
 
 /**
@@ -41176,17 +41132,17 @@ module.exports = _curry1(_identity);
 
 
 /***/ }),
-/* 79 */
+/* 78 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var _objectAssign = __webpack_require__(254);
+var _objectAssign = __webpack_require__(255);
 
 module.exports =
   typeof Object.assign === 'function' ? Object.assign : _objectAssign;
 
 
 /***/ }),
-/* 80 */
+/* 79 */
 /***/ (function(module, exports) {
 
 module.exports = function _containsWith(pred, x, list) {
@@ -41204,14 +41160,14 @@ module.exports = function _containsWith(pred, x, list) {
 
 
 /***/ }),
-/* 81 */
+/* 80 */
 /***/ (function(module, exports) {
 
 module.exports = function _identity(x) { return x; };
 
 
 /***/ }),
-/* 82 */
+/* 81 */
 /***/ (function(module, exports) {
 
 module.exports = function _isTransformer(obj) {
@@ -41220,7 +41176,7 @@ module.exports = function _isTransformer(obj) {
 
 
 /***/ }),
-/* 83 */
+/* 82 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var _curry2 = __webpack_require__(0);
@@ -41248,7 +41204,7 @@ module.exports = _curry2(function prop(p, obj) { return obj[p]; });
 
 
 /***/ }),
-/* 84 */
+/* 83 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var _checkForMethod = __webpack_require__(38);
@@ -41287,7 +41243,7 @@ module.exports = _curry1(_checkForMethod('tail', slice(1, Infinity)));
 
 
 /***/ }),
-/* 85 */
+/* 84 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var _curry1 = __webpack_require__(1);
@@ -41324,10 +41280,10 @@ module.exports = _curry1(function type(val) {
 
 
 /***/ }),
-/* 86 */
+/* 85 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var identity = __webpack_require__(78);
+var identity = __webpack_require__(77);
 var uniqBy = __webpack_require__(147);
 
 
@@ -41352,10 +41308,10 @@ module.exports = uniqBy(identity);
 
 
 /***/ }),
-/* 87 */
+/* 86 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var _containsWith = __webpack_require__(80);
+var _containsWith = __webpack_require__(79);
 var _curry2 = __webpack_require__(0);
 
 
@@ -41398,7 +41354,7 @@ module.exports = _curry2(function uniqWith(pred, list) {
 
 
 /***/ }),
-/* 88 */
+/* 87 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -41409,9 +41365,9 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.AbstractPersonVisuals = undefined;
 
-var _pedigreeEditorAttributes = __webpack_require__(12);
+var _pedigreeEditorAttributes = __webpack_require__(8);
 
-var _abstractNodeVisuals = __webpack_require__(46);
+var _abstractNodeVisuals = __webpack_require__(47);
 
 /**
  * An abstract superclass for the a graphic engine used by nodes on the Pedigree graph. Can display
@@ -41774,7 +41730,7 @@ var AbstractPersonVisuals = exports.AbstractPersonVisuals = Class.create(_abstra
 });
 
 /***/ }),
-/* 89 */
+/* 88 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -42029,7 +41985,7 @@ var Legend = exports.Legend = Class.create({
 });
 
 /***/ }),
-/* 90 */
+/* 89 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -42044,7 +42000,7 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 
 var _abstractPerson = __webpack_require__(154);
 
-var _personVisuals = __webpack_require__(92);
+var _personVisuals = __webpack_require__(91);
 
 var _disorder = __webpack_require__(68);
 
@@ -42083,7 +42039,6 @@ var Person = exports.Person = Class.create(_abstractPerson.AbstractPerson, {
     // need to assign after super() and explicitly pass gender to super()
     // because changing properties requires a redraw, which relies on gender
     // shapes being there already
-    console.info(properties);
     this.assignProperties(properties);
     //timer.printSinceLast("=== new person runtime: ");
   },
@@ -42116,6 +42071,7 @@ var Person = exports.Person = Class.create(_abstractPerson.AbstractPerson, {
     this._isProband = false;
     this._inferred = false;
     this._variants = [];
+    this._dataPresence = false;
   },
 
   /**
@@ -42131,6 +42087,14 @@ var Person = exports.Person = Class.create(_abstractPerson.AbstractPerson, {
     // console.log("person - generate graphics");
     return new _personVisuals.PersonVisuals(this, x, y);
   },
+
+  setDataPresence: function setDataPresence(value) {
+    this._dataPresence = value;
+  },
+  getDataPresence: function getDataPresence() {
+    return this._dataPresence;
+  },
+
 
   /**
    * Returns True if this node is the proband (i.e. the main patient)
@@ -42261,7 +42225,7 @@ var Person = exports.Person = Class.create(_abstractPerson.AbstractPerson, {
 
     if (!variants.length) return;
     this._variants = variants;
-    this.getGraphics().updateVariantsLabel();
+    // this.getGraphics().updateVariantsLabel();
   },
 
   /**
@@ -43156,6 +43120,9 @@ var Person = exports.Person = Class.create(_abstractPerson.AbstractPerson, {
       if (info.hasOwnProperty('variants') && info.variants.length) {
         this.setVariants(info.variants);
       }
+      if (info.hasOwnProperty('dataPresence')) {
+        this.setDataPresence(info.dataPresence);
+      }
       return true;
     }
     return false;
@@ -43166,7 +43133,7 @@ var Person = exports.Person = Class.create(_abstractPerson.AbstractPerson, {
 Person.addMethods(_abstractNode.ChildlessBehavior);
 
 /***/ }),
-/* 91 */
+/* 90 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -43177,9 +43144,9 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.PersonHoverbox = undefined;
 
-var _abstractHoverbox = __webpack_require__(66);
+var _abstractHoverbox = __webpack_require__(46);
 
-var _pedigreeEditorAttributes = __webpack_require__(12);
+var _pedigreeEditorAttributes = __webpack_require__(8);
 
 /**
  * PersonHoverbox is a class for all the UI elements and graphics surrounding a Person node and
@@ -43440,7 +43407,7 @@ var PersonHoverbox = exports.PersonHoverbox = Class.create(_abstractHoverbox.Abs
 });
 
 /***/ }),
-/* 92 */
+/* 91 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -43451,19 +43418,19 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.PersonVisuals = undefined;
 
-var _abstractPersonVisuals = __webpack_require__(88);
+var _abstractPersonVisuals = __webpack_require__(87);
 
-var _readonlyHoverbox = __webpack_require__(70);
+var _infoHoverbox = __webpack_require__(164);
 
-var _personHoverbox = __webpack_require__(91);
+var _personHoverbox = __webpack_require__(90);
 
-var _pedigreeEditorAttributes = __webpack_require__(12);
+var _pedigreeEditorAttributes = __webpack_require__(8);
 
-var _graphicHelpers = __webpack_require__(48);
+var _graphicHelpers = __webpack_require__(49);
 
 var _ageCalc = __webpack_require__(155);
 
-var _abstractNodeVisuals = __webpack_require__(46);
+var _abstractNodeVisuals = __webpack_require__(47);
 
 /**
  * Class for organizing graphics for Person nodes.
@@ -43502,7 +43469,7 @@ var PersonVisuals = exports.PersonVisuals = Class.create(_abstractPersonVisuals.
 
   generateHoverbox: function generateHoverbox(x, y) {
     if (editor.isReadOnlyMode()) {
-      return new _readonlyHoverbox.ReadOnlyHoverbox(this.getNode(), x, y, this.getGenderGraphics());
+      return new _infoHoverbox.InfoHoverbox(this.getNode(), x, y, this.getGenderGraphics());
     } else {
       return new _personHoverbox.PersonHoverbox(this.getNode(), x, y, this.getGenderGraphics());
     }
@@ -43555,6 +43522,13 @@ var PersonVisuals = exports.PersonVisuals = Class.create(_abstractPersonVisuals.
       this.getGenderShape().transform(['...s', 1.08]);
       // this.getGenderShape().attr("stroke-width", 5.5);
     }
+    // if(!this.getNode().getDataPresence()) {
+    //   const path = this.getGenderShape().clone();
+    //   path.attr('stroke-dasharray', '- ');
+    //   path.attr('stroke-width', 1.5);
+    //   path.attr('stroke', 'white');
+    //   path.attr('fill-opacity', 0);
+    // }
     if (this.getNode().isFocused()) {
       this.getGenderShape().attr('stroke-width', 3.5);
       this.getGenderShape().attr('stroke', 'blue');
@@ -44218,6 +44192,54 @@ PersonVisuals.addMethods(_abstractNodeVisuals.ChildlessBehaviorVisuals);
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(31)))
 
 /***/ }),
+/* 92 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.ReadOnlyHoverbox = undefined;
+
+var _abstractHoverbox = __webpack_require__(46);
+
+var _pedigreeEditorAttributes = __webpack_require__(8);
+
+/**
+ * A stub hoverbox used when generating read-only pedigrees
+ */
+var ReadOnlyHoverbox = exports.ReadOnlyHoverbox = Class.create(_abstractHoverbox.AbstractHoverbox, {
+
+  initialize: function initialize($super, node, centerX, centerY, nodeShapes) {
+    this._node = node;
+    this._nodeX = centerX;
+    this._nodeY = centerY;
+    this._shapes = nodeShapes;
+    var radius = _pedigreeEditorAttributes.PedigreeEditorAttributes.personHoverBoxRadius;
+    $super(node, -radius, -radius, radius * 2, radius * 2, centerX, centerY, nodeShapes);
+  },
+
+  getNode: function getNode() {
+    return this._node;
+  },
+
+  getCurrentButtons: function getCurrentButtons() {
+    return this._currentButtons;
+  },
+
+  getFrontElements: function getFrontElements() {
+    return this._shapes;
+  },
+
+  getBackElements: function getBackElements() {
+    return this._shapes;
+  }
+
+});
+
+/***/ }),
 /* 93 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -44233,7 +44255,7 @@ exports.VerticalLevels = VerticalLevels;
 
 var _helpers = __webpack_require__(5);
 
-var _baseGraph = __webpack_require__(47);
+var _baseGraph = __webpack_require__(48);
 
 /*
  * xinit: coordinates of _center_ of every vertex, or null
@@ -44526,8 +44548,8 @@ VerticalLevels.prototype = {
 
 var Prototype, Class, Template, Enumerable, $A, $w, $H,Hash, $R, ObjectRange, Try, PeriodicalExecuter;
 Prototype =           __webpack_require__(6);
-                      __webpack_require__(8);
-Class =               __webpack_require__(10);
+                      __webpack_require__(9);
+Class =               __webpack_require__(11);
                       __webpack_require__(13);
                       __webpack_require__(15);
                       __webpack_require__(18);
@@ -44538,11 +44560,11 @@ $A =                  __webpack_require__(17).A;
 $w =                  __webpack_require__(17).w;
 $H =                  __webpack_require__(33).H;
 Hash =                __webpack_require__(33).Hash;
-                      __webpack_require__(71);
-$R =                  __webpack_require__(72).R;
-ObjectRange =         __webpack_require__(72).ObjectRange;
-Try =                 __webpack_require__(186);
-PeriodicalExecuter =  __webpack_require__(185);
+                      __webpack_require__(70);
+$R =                  __webpack_require__(71).R;
+ObjectRange =         __webpack_require__(71).ObjectRange;
+Try =                 __webpack_require__(187);
+PeriodicalExecuter =  __webpack_require__(186);
 
 
 module.exports = {
@@ -44719,10 +44741,10 @@ module.exports = _curry2(function apply(fn, args) {
 /***/ (function(module, exports, __webpack_require__) {
 
 var _curry3 = __webpack_require__(2);
-var _has = __webpack_require__(9);
+var _has = __webpack_require__(10);
 var _isArray = __webpack_require__(26);
 var _isInteger = __webpack_require__(119);
-var assoc = __webpack_require__(51);
+var assoc = __webpack_require__(52);
 
 
 /**
@@ -44809,9 +44831,9 @@ module.exports = _curry2(function bind(fn, thisObj) {
 /* 101 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var chain = __webpack_require__(74);
-var compose = __webpack_require__(75);
-var map = __webpack_require__(11);
+var chain = __webpack_require__(73);
+var compose = __webpack_require__(74);
+var map = __webpack_require__(12);
 
 
 /**
@@ -44859,8 +44881,8 @@ module.exports = function composeK() {
 /***/ (function(module, exports, __webpack_require__) {
 
 var _curry2 = __webpack_require__(0);
-var curry = __webpack_require__(52);
-var nAry = __webpack_require__(61);
+var curry = __webpack_require__(53);
+var nAry = __webpack_require__(62);
 
 
 /**
@@ -44927,7 +44949,7 @@ module.exports = _curry2(function constructN(n, Fn) {
 /***/ (function(module, exports, __webpack_require__) {
 
 var _curry2 = __webpack_require__(0);
-var _map = __webpack_require__(58);
+var _map = __webpack_require__(59);
 var curryN = __webpack_require__(7);
 var max = __webpack_require__(35);
 var pluck = __webpack_require__(43);
@@ -45052,7 +45074,7 @@ module.exports = _curry2(function difference(first, second) {
 /* 106 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var _containsWith = __webpack_require__(80);
+var _containsWith = __webpack_require__(79);
 var _curry3 = __webpack_require__(2);
 
 
@@ -45132,7 +45154,7 @@ module.exports = _curry2(function dissoc(prop, obj) {
 
 var _curry2 = __webpack_require__(0);
 var _dispatchable = __webpack_require__(3);
-var _xdrop = __webpack_require__(265);
+var _xdrop = __webpack_require__(266);
 var slice = __webpack_require__(30);
 
 
@@ -45222,7 +45244,7 @@ var _curry1 = __webpack_require__(1);
 var _isArguments = __webpack_require__(118);
 var _isArray = __webpack_require__(26);
 var _isObject = __webpack_require__(121);
-var _isString = __webpack_require__(57);
+var _isString = __webpack_require__(58);
 
 
 /**
@@ -45314,7 +45336,7 @@ module.exports = _curry2(function identical(a, b) {
 /***/ (function(module, exports, __webpack_require__) {
 
 var _cloneRegExp = __webpack_require__(113);
-var type = __webpack_require__(85);
+var type = __webpack_require__(84);
 
 
 /**
@@ -45482,7 +45504,7 @@ module.exports = function _indexOf(list, a, idx) {
 /* 118 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var _has = __webpack_require__(9);
+var _has = __webpack_require__(10);
 
 
 module.exports = (function() {
@@ -45783,9 +45805,9 @@ module.exports = _curry1(function length(list) {
 
 var _curry2 = __webpack_require__(0);
 var _reduce = __webpack_require__(14);
-var ap = __webpack_require__(73);
+var ap = __webpack_require__(72);
 var curryN = __webpack_require__(7);
-var map = __webpack_require__(11);
+var map = __webpack_require__(12);
 
 
 /**
@@ -45846,7 +45868,7 @@ module.exports = _curry1(function mean(list) {
 /***/ (function(module, exports, __webpack_require__) {
 
 var _curry3 = __webpack_require__(2);
-var _has = __webpack_require__(9);
+var _has = __webpack_require__(10);
 
 
 /**
@@ -46111,9 +46133,9 @@ module.exports = _curry2(function pickAll(names, obj) {
 /***/ (function(module, exports, __webpack_require__) {
 
 var _arity = __webpack_require__(20);
-var _pipe = __webpack_require__(256);
+var _pipe = __webpack_require__(257);
 var reduce = __webpack_require__(22);
-var tail = __webpack_require__(84);
+var tail = __webpack_require__(83);
 
 
 /**
@@ -46153,9 +46175,9 @@ module.exports = function pipe() {
 /***/ (function(module, exports, __webpack_require__) {
 
 var _arity = __webpack_require__(20);
-var _pipeP = __webpack_require__(257);
+var _pipeP = __webpack_require__(258);
 var reduce = __webpack_require__(22);
-var tail = __webpack_require__(84);
+var tail = __webpack_require__(83);
 
 
 /**
@@ -46279,8 +46301,8 @@ module.exports = _curry3(function reduceRight(fn, acc, list) {
 /***/ (function(module, exports, __webpack_require__) {
 
 var _curry2 = __webpack_require__(0);
-var ap = __webpack_require__(73);
-var map = __webpack_require__(11);
+var ap = __webpack_require__(72);
+var map = __webpack_require__(12);
 var prepend = __webpack_require__(141);
 var reduceRight = __webpack_require__(142);
 
@@ -46322,7 +46344,7 @@ module.exports = _curry2(function sequence(of, traversable) {
 /* 144 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var add = __webpack_require__(50);
+var add = __webpack_require__(51);
 var reduce = __webpack_require__(22);
 
 
@@ -46350,7 +46372,7 @@ module.exports = reduce(add, 0);
 
 var _curry2 = __webpack_require__(0);
 var _dispatchable = __webpack_require__(3);
-var _xtake = __webpack_require__(276);
+var _xtake = __webpack_require__(277);
 var slice = __webpack_require__(30);
 
 
@@ -46452,7 +46474,7 @@ module.exports = _curry2(function times(fn, n) {
 /* 147 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var _Set = __webpack_require__(244);
+var _Set = __webpack_require__(245);
 var _curry2 = __webpack_require__(0);
 
 
@@ -46620,7 +46642,7 @@ module.exports = _curry1(function values(obj) {
 /***/ (function(module, exports, __webpack_require__) {
 
 var _curry2 = __webpack_require__(0);
-var _has = __webpack_require__(9);
+var _has = __webpack_require__(10);
 
 
 /**
@@ -46683,13 +46705,13 @@ var _createClass = function () { function defineProperties(target, props) { for 
 
 var _ramda = __webpack_require__(45);
 
-var _pedigreeEditorAttributes = __webpack_require__(12);
+var _pedigreeEditorAttributes = __webpack_require__(8);
 
 var _dynamicGraph = __webpack_require__(159);
 
-var _viewerWorkspace = __webpack_require__(181);
+var _viewerWorkspace = __webpack_require__(182);
 
-var _view = __webpack_require__(180);
+var _view = __webpack_require__(181);
 
 var _disorderLegend = __webpack_require__(157);
 
@@ -46697,15 +46719,15 @@ var _hpoLegend = __webpack_require__(162);
 
 var _controller = __webpack_require__(156);
 
-var _undoRedo = __webpack_require__(179);
+var _undoRedo = __webpack_require__(180);
 
-var _nodeMenu = __webpack_require__(166);
+var _nodeMenu = __webpack_require__(167);
 
-var _saveLoadEngine = __webpack_require__(175);
+var _saveLoadEngine = __webpack_require__(176);
 
-var _key = __webpack_require__(164);
+var _key = __webpack_require__(165);
 
-var _title = __webpack_require__(178);
+var _title = __webpack_require__(179);
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -46748,7 +46770,8 @@ var cleanData = function cleanData(data) {
         disorders = datum.disorders,
         gender = datum.gender,
         variants = datum.variants,
-        id = datum.id;
+        id = datum.id,
+        dataPresence = datum.dataPresence;
 
     return {
       proband: cleanBooleanField(proband),
@@ -46762,7 +46785,8 @@ var cleanData = function cleanData(data) {
       disorders: disorders,
       gender: cleanGender(gender),
       variants: variants,
-      id: id
+      id: id,
+      dataPresence: cleanBooleanField(dataPresence)
     };
   });
 };
@@ -48799,7 +48823,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.AbstractPerson = undefined;
 
-var _abstractPersonVisuals = __webpack_require__(88);
+var _abstractPersonVisuals = __webpack_require__(87);
 
 var _abstractNode = __webpack_require__(67);
 
@@ -49036,7 +49060,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.Controller = undefined;
 
-var _pedigreeEditorAttributes = __webpack_require__(12);
+var _pedigreeEditorAttributes = __webpack_require__(8);
 
 var _helpers = __webpack_require__(5);
 
@@ -49640,7 +49664,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.DisorderLegend = undefined;
 
-var _legend = __webpack_require__(89);
+var _legend = __webpack_require__(88);
 
 var _helpers = __webpack_require__(5);
 
@@ -50797,9 +50821,9 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.DynamicPositionedGraph = DynamicPositionedGraph;
 
-var _baseGraph = __webpack_require__(47);
+var _baseGraph = __webpack_require__(48);
 
-var _positionedGraph = __webpack_require__(174);
+var _positionedGraph = __webpack_require__(175);
 
 var _heuristics = __webpack_require__(161);
 
@@ -50807,7 +50831,7 @@ var _import = __webpack_require__(163);
 
 var _helpers = __webpack_require__(5);
 
-var _queues = __webpack_require__(49);
+var _queues = __webpack_require__(50);
 
 // DynamicPositionedGraph adds support for online modifications and provides a convenient API for UI implementations
 
@@ -53235,9 +53259,9 @@ var _helpers = __webpack_require__(5);
 
 var _xcoordclass = __webpack_require__(93);
 
-var _baseGraph = __webpack_require__(47);
+var _baseGraph = __webpack_require__(48);
 
-var _queues = __webpack_require__(49);
+var _queues = __webpack_require__(50);
 
 function Heuristics(drawGraph) {
   this.DG = drawGraph;
@@ -54760,7 +54784,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.HPOLegend = undefined;
 
-var _legend = __webpack_require__(89);
+var _legend = __webpack_require__(88);
 
 var _hpoTerm = __webpack_require__(69);
 
@@ -54880,7 +54904,7 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 
 exports.PedigreeImport = PedigreeImport;
 
-var _baseGraph = __webpack_require__(47);
+var _baseGraph = __webpack_require__(48);
 
 var _helpers = __webpack_require__(5);
 
@@ -56037,7 +56061,8 @@ PedigreeImport.JSONToInternalPropertyMapping = {
   'nodenumber': 'nodeNumber',
   'externalidhref': 'externalIDHref',
   'focused': 'focused',
-  'variants': 'variants'
+  'variants': 'variants',
+  'dataPresence': 'dataPresence'
 };
 
 /*
@@ -56098,6 +56123,253 @@ RelationshipTracker.prototype = {
 
 /***/ }),
 /* 164 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.InfoHoverbox = undefined;
+
+var _abstractHoverbox = __webpack_require__(46);
+
+var _pedigreeEditorAttributes = __webpack_require__(8);
+
+/**
+ * PersonHoverbox is a class for all the UI elements and graphics surrounding a Person node and
+ * its labels. This includes the box that appears around the node when it's hovered by a mouse, as
+ * well as the handles used for creating connections and creating new nodes.
+ *
+ * @class PersonHoverbox
+ * @extends AbstractHoverbox
+ * @constructor
+ * @param {Person} personNode The person for whom this hoverbox is being drawn.
+ * @param {Number} centerX The X coordinate for the center of the hoverbox
+ * @param {Number} centerY The Y coordinate for the center of the hoverbox
+ * @param {Raphael.st} nodeShapes All shapes associated with the person node
+ */
+
+var InfoHoverbox = exports.InfoHoverbox = Class.create(_abstractHoverbox.AbstractHoverbox, {
+
+  initialize: function initialize($super, personNode, centerX, centerY, nodeShapes) {
+    var radius = _pedigreeEditorAttributes.PedigreeEditorAttributes.personHoverBoxRadius;
+    $super(personNode, -radius, -radius, radius * 2, radius * 2, centerX, centerY, nodeShapes);
+  },
+
+  /**
+   * Creates the buttons used in this hoverbox
+   *
+   * @method generateButtons
+   */
+  generateButtons: function generateButtons($super) {
+    if (this._currentButtons !== null) return;
+    $super();
+
+    this.generateMenuBtn();
+    this.generateDataStatus();
+
+    // proband can't be removed
+    // if (!this.getNode().isProband())
+    //   this.generateDeleteBtn();
+  },
+
+  _generateRadioTickCircle: function _generateRadioTickCircle(x, y, tick) {
+    return editor.getPaper().circle(x, y, 5).attr({ 'fill': tick ? '#000' : '#fff' });
+  },
+
+  generateDataStatus: function generateDataStatus() {
+
+    var itemHeight = 12;
+    var yPos = this.getY() + _pedigreeEditorAttributes.PedigreeEditorAttributes.personHoverBoxRadius * 2 - itemHeight;
+    var computeItemPosition = function computeItemPosition(itemIndex) {
+      return yPos + itemHeight * itemIndex;
+    };
+
+    var dataPresence = editor.getPaper().set();
+    var animatedElements = editor.getPaper().set();
+
+    // var circle = this._generateRadioTickCircle(this.getX()+10, computeItemPosition(0), false);
+    //circle.attr({ fill: circleColour });
+    var label = this.getNode().getDataPresence() ? 'Clinical data only' : 'Genomic data available';
+    var text = editor.getPaper().text(this.getX() + 63, computeItemPosition(0), label);
+    text.node.setAttribute('class', 'field-no-user-select');
+    var rect = editor.getPaper().rect(this.getX(), computeItemPosition(0) - itemHeight / 2, this._width - 10, itemHeight, 1).attr({ 'stroke-width': 0 });
+
+    // rect.click(function(i) {
+    //   tick.attr({'cy' : computeItemPosition(i)});
+    // 
+    //   var properties = {};
+    //   buttons[i].hasOwnProperty('aw') && (properties['setAliveAndWell'] = buttons[i].aw);
+    //   properties['setLifeStatus'] = buttons[i].lifeStatus;
+    //   var event = { 'nodeID': this.getNode().getID(), 'properties': properties };
+    // 
+    //   if (buttons[i].lifeStatus == 'deceased') {
+    //     this._isDeceasedToggled = true;
+    //     var x = tick.getBBox().x;
+    //     var y = tick.getBBox().y2;
+    //     var position = editor.getWorkspace().canvasToDiv(x, y);
+    //     editor.getDeceasedMenu().show(node, position.x, position.y + 10);
+    //   }
+    //   document.fire('pedigree:node:setproperty', event);
+    // }.bind(this, index));
+
+    animatedElements.push(text);
+    dataPresence.push(rect);
+
+    dataPresence.push(animatedElements);
+    dataPresence.icon = animatedElements;
+    //dataPresence.mask = animatedElements;
+
+    if (this._hidden && !this.isMenuToggled()) {
+      dataPresence.hide();
+    }
+
+    this._currentButtons.push(dataPresence);
+    this.disable();
+    this.getFrontElements().push(dataPresence);
+    this.enable();
+  },
+
+  /**
+   * Creates a node-shaped show-menu button
+   *
+   * @method generateMenuBtn
+   * @return {Raphael.st} The generated button
+   */
+  generateMenuBtn: function generateMenuBtn() {
+    var _this = this;
+
+    var action = function action() {
+      //me.toggleMenu(!me.isMenuToggled());
+      console.info(1);
+      window.parent.location.href = _this.getNode().getExternalIDHref();
+    };
+    var genderShapedButton = this.getNode().getGraphics().getGenderShape().clone();
+    genderShapedButton.attr(_pedigreeEditorAttributes.PedigreeEditorAttributes.nodeShapeMenuOff);
+    genderShapedButton.click(action);
+    // genderShapedButton.hover(function() { genderShapedButton.attr(PedigreeEditorAttributes.nodeShapeMenuOn);},
+    //                              function() { genderShapedButton.attr(PedigreeEditorAttributes.nodeShapeMenuOff);});
+    genderShapedButton.attr('cursor', 'pointer');
+    this._currentButtons.push(genderShapedButton);
+    this.disable();
+    this.getFrontElements().push(genderShapedButton);
+    this.enable();
+  },
+
+  /**
+   * Returns true if the menu for this node is open
+   *
+   * @method isMenuToggled
+   * @return {Boolean}
+   */
+  isMenuToggled: function isMenuToggled() {
+    return this._isMenuToggled;
+  },
+
+  /**
+   * Shows/hides the menu for this node
+   *
+   * @method toggleMenu
+   */
+  toggleMenu: function toggleMenu(isMenuToggled) {
+    if (this._justClosedMenu) return;
+    //console.log("toggle menu: current = " + this._isMenuToggled);
+    this._isMenuToggled = isMenuToggled;
+    if (isMenuToggled) {
+      this.getNode().getGraphics().unmark();
+      var optBBox = this.getBoxOnHover().getBBox();
+      var x = optBBox.x2;
+      var y = optBBox.y;
+      var position = editor.getWorkspace().canvasToDiv(x + 5, y);
+      editor.getNodeMenu().show(this.getNode(), position.x, position.y);
+    }
+  },
+
+  /**
+   * Hides the hoverbox with a fade out animation
+   *
+   * @method animateHideHoverZone
+   */
+  animateHideHoverZone: function animateHideHoverZone($super) {
+    this._hidden = true;
+    if (!this.isMenuToggled()) {
+      var parentPartnershipNode = editor.getGraph().getParentRelationship(this.getNode().getID());
+      //console.log("Node: " + this.getNode().getID() + ", parentPartnershipNode: " + parentPartnershipNode);            
+      if (parentPartnershipNode && editor.getNode(parentPartnershipNode)) editor.getNode(parentPartnershipNode).getGraphics().unmarkPregnancy();
+      $super();
+    }
+  },
+
+  /**
+   * Displays the hoverbox with a fade in animation
+   *
+   * @method animateDrawHoverZone
+   */
+  animateDrawHoverZone: function animateDrawHoverZone($super) {
+    this._hidden = false;
+    if (!this.isMenuToggled()) {
+      var parentPartnershipNode = editor.getGraph().getParentRelationship(this.getNode().getID());
+      if (parentPartnershipNode && editor.getNode(parentPartnershipNode)) editor.getNode(parentPartnershipNode).getGraphics().markPregnancy();
+      $super();
+    }
+  },
+
+  /**
+   * Performs the appropriate action for clicking on the handle of type handleType
+   *
+   * @method handleAction
+   * @param {String} handleType "child", "partner" or "parent"
+   * @param {Boolean} isDrag True if this handle is being dragged
+   */
+  handleAction: function handleAction(handleType, isDrag, curHoveredId) {
+    console.log('handleType: ' + handleType + ', isDrag: ' + isDrag + ', curHovered: ' + curHoveredId);
+
+    if (isDrag && curHoveredId !== null) {
+
+      if (handleType == 'parent') {
+        this.removeHandles();
+        this.removeButtons();
+        var event = { 'personID': this.getNode().getID(), 'parentID': curHoveredId };
+        document.fire('pedigree:person:drag:newparent', event);
+      } else if (handleType == 'partnerR' || handleType == 'partnerL') {
+        this.removeHandles();
+        event = { 'personID': this.getNode().getID(), 'partnerID': curHoveredId };
+        document.fire('pedigree:person:drag:newpartner', event);
+      } else if (handleType == 'child') {
+        event = { 'personID': curHoveredId, 'parentID': this.getNode().getID() };
+        document.fire('pedigree:person:drag:newparent', event);
+      } else if (handleType == 'sibling') {
+        event = { 'sibling2ID': curHoveredId, 'sibling1ID': this.getNode().getID() };
+        document.fire('pedigree:person:drag:newsibling', event);
+      }
+    } else if (!isDrag) {
+      if (handleType == 'partnerR' || handleType == 'partnerL') {
+        this.removeHandles();
+        var preferLeft = this.getNode().getGender() == 'F' || handleType == 'partnerL';
+        event = { 'personID': this.getNode().getID(), 'preferLeft': preferLeft };
+        document.fire('pedigree:person:newpartnerandchild', event);
+      } else if (handleType == 'child') {
+        var position = editor.getWorkspace().canvasToDiv(this.getNodeX(), this.getNodeY() + _pedigreeEditorAttributes.PedigreeEditorAttributes.personHandleLength + 15);
+        editor.getNodetypeSelectionBubble().show(this.getNode(), position.x, position.y);
+        // if user selects anything the bubble will fire an even on its own
+      } else if (handleType == 'sibling') {
+        position = editor.getWorkspace().canvasToDiv(this.getNodeX() - _pedigreeEditorAttributes.PedigreeEditorAttributes.personSiblingHandleLengthX, this.getNodeY() - _pedigreeEditorAttributes.PedigreeEditorAttributes.personHandleBreakY + _pedigreeEditorAttributes.PedigreeEditorAttributes.personSiblingHandleLengthY + 15);
+        editor.getSiblingSelectionBubble().show(this.getNode(), position.x, position.y);
+      } else if (handleType == 'parent') {
+        this.removeHandles();
+        this.removeButtons();
+        event = { 'personID': this.getNode().getID() };
+        document.fire('pedigree:person:newparent', event);
+      }
+    }
+    this.animateHideHoverZone();
+  }
+});
+
+/***/ }),
+/* 165 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -56198,7 +56470,7 @@ var Key = exports.Key = function () {
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(32)))
 
 /***/ }),
-/* 165 */
+/* 166 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -56369,7 +56641,7 @@ var LineSet = exports.LineSet = Class.create({
 });
 
 /***/ }),
-/* 166 */
+/* 167 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -56386,7 +56658,7 @@ var _disorder = __webpack_require__(68);
 
 var _hpoTerm = __webpack_require__(69);
 
-var _lodash = __webpack_require__(184);
+var _lodash = __webpack_require__(185);
 
 /**
  * NodeMenu is a UI Element containing options for AbstractNode elements
@@ -57344,7 +57616,7 @@ var NodeMenu = exports.NodeMenu = Class.create({
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(24)))
 
 /***/ }),
-/* 167 */
+/* 168 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -57553,7 +57825,7 @@ Ordering.prototype = {
 };
 
 /***/ }),
-/* 168 */
+/* 169 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -57564,7 +57836,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.Partnership = undefined;
 
-var _partnershipVisuals = __webpack_require__(170);
+var _partnershipVisuals = __webpack_require__(171);
 
 var _abstractNode = __webpack_require__(67);
 
@@ -57752,7 +58024,7 @@ var Partnership = exports.Partnership = Class.create(_abstractNode.AbstractNode,
 Partnership.addMethods(_abstractNode.ChildlessBehavior);
 
 /***/ }),
-/* 169 */
+/* 170 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -57763,9 +58035,9 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.PartnershipHoverbox = undefined;
 
-var _abstractHoverbox = __webpack_require__(66);
+var _abstractHoverbox = __webpack_require__(46);
 
-var _pedigreeEditorAttributes = __webpack_require__(12);
+var _pedigreeEditorAttributes = __webpack_require__(8);
 
 /**
  * PartnershipHoverbox is a class for all the UI elements and graphics surrounding a Partnership node and
@@ -57928,7 +58200,7 @@ var PartnershipHoverbox = exports.PartnershipHoverbox = Class.create(_abstractHo
 });
 
 /***/ }),
-/* 170 */
+/* 171 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -57939,15 +58211,15 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.PartnershipVisuals = undefined;
 
-var _abstractNodeVisuals = __webpack_require__(46);
+var _abstractNodeVisuals = __webpack_require__(47);
 
-var _pedigreeEditorAttributes = __webpack_require__(12);
+var _pedigreeEditorAttributes = __webpack_require__(8);
 
-var _readonlyHoverbox = __webpack_require__(70);
+var _readonlyHoverbox = __webpack_require__(92);
 
-var _partnershipHoverbox = __webpack_require__(169);
+var _partnershipHoverbox = __webpack_require__(170);
 
-var _graphicHelpers = __webpack_require__(48);
+var _graphicHelpers = __webpack_require__(49);
 
 /**
  * Class for visualizing partnerships and organizing the graphical elements.
@@ -58422,7 +58694,7 @@ PartnershipVisuals.addMethods(_abstractNodeVisuals.ChildlessBehaviorVisuals);
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(31)))
 
 /***/ }),
-/* 171 */
+/* 172 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -58433,9 +58705,9 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.PersonGroup = undefined;
 
-var _person = __webpack_require__(90);
+var _person = __webpack_require__(89);
 
-var _personGroupVisuals = __webpack_require__(173);
+var _personGroupVisuals = __webpack_require__(174);
 
 /**
  * PersonGroup is node that represents a grouping of an unknown number of nodes ("n"). This type of
@@ -58580,7 +58852,7 @@ var PersonGroup = exports.PersonGroup = Class.create(_person.Person, {
 });
 
 /***/ }),
-/* 172 */
+/* 173 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -58591,9 +58863,9 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.PersonGroupHoverbox = undefined;
 
-var _personHoverbox = __webpack_require__(91);
+var _personHoverbox = __webpack_require__(90);
 
-var _pedigreeEditorAttributes = __webpack_require__(12);
+var _pedigreeEditorAttributes = __webpack_require__(8);
 
 /**
  * PersonGroupHoverbox is a class for all the UI elements and graphics surrounding a PersonGroup node and
@@ -58702,7 +58974,7 @@ var PersonGroupHoverbox = exports.PersonGroupHoverbox = Class.create(_personHove
 });
 
 /***/ }),
-/* 173 */
+/* 174 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -58713,13 +58985,13 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.PersonGroupVisuals = undefined;
 
-var _personVisuals = __webpack_require__(92);
+var _personVisuals = __webpack_require__(91);
 
-var _readonlyHoverbox = __webpack_require__(70);
+var _readonlyHoverbox = __webpack_require__(92);
 
-var _personGroupHoverbox = __webpack_require__(172);
+var _personGroupHoverbox = __webpack_require__(173);
 
-var _pedigreeEditorAttributes = __webpack_require__(12);
+var _pedigreeEditorAttributes = __webpack_require__(8);
 
 /**
  * Class for organizing graphics for PersonGroup nodes.
@@ -58775,7 +59047,7 @@ var PersonGroupVisuals = exports.PersonGroupVisuals = Class.create(_personVisual
 });
 
 /***/ }),
-/* 174 */
+/* 175 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -58788,11 +59060,11 @@ exports.PositionedGraph = PositionedGraph;
 
 var _helpers = __webpack_require__(5);
 
-var _ordering = __webpack_require__(167);
+var _ordering = __webpack_require__(168);
 
 var _xcoordclass = __webpack_require__(93);
 
-var _queues = __webpack_require__(49);
+var _queues = __webpack_require__(50);
 
 var _edgeOptimization = __webpack_require__(160);
 
@@ -62002,7 +62274,7 @@ function make_dynamic_positioned_graph(inputG, debugOutput) {
 }
 
 /***/ }),
-/* 175 */
+/* 176 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -62015,7 +62287,7 @@ exports.SaveLoadEngine = exports.ProbandDataLoader = undefined;
 
 var _helpers = __webpack_require__(5);
 
-var _templateSelector = __webpack_require__(177);
+var _templateSelector = __webpack_require__(178);
 
 /**
  * SaveLoadEngine is responsible for automatic and manual save and load operations.
@@ -62194,7 +62466,7 @@ var SaveLoadEngine = exports.SaveLoadEngine = Class.create({
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(32)))
 
 /***/ }),
-/* 176 */
+/* 177 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -62459,7 +62731,7 @@ Control.Slider = Class.create({
 });
 
 /***/ }),
-/* 177 */
+/* 178 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -62588,7 +62860,7 @@ var TemplateSelector = exports.TemplateSelector = Class.create({
 });
 
 /***/ }),
-/* 178 */
+/* 179 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -62632,7 +62904,7 @@ var Title = exports.Title = function () {
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(32)))
 
 /***/ }),
-/* 179 */
+/* 180 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -62857,7 +63129,7 @@ var State = Class.create({
 });
 
 /***/ }),
-/* 180 */
+/* 181 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -62868,19 +63140,19 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.View = undefined;
 
-var _lineSet = __webpack_require__(165);
+var _lineSet = __webpack_require__(166);
 
 var _helpers = __webpack_require__(5);
 
-var _pedigreeEditorAttributes = __webpack_require__(12);
+var _pedigreeEditorAttributes = __webpack_require__(8);
 
-var _graphicHelpers = __webpack_require__(48);
+var _graphicHelpers = __webpack_require__(49);
 
-var _partnership = __webpack_require__(168);
+var _partnership = __webpack_require__(169);
 
-var _person = __webpack_require__(90);
+var _person = __webpack_require__(89);
 
-var _personGroup = __webpack_require__(171);
+var _personGroup = __webpack_require__(172);
 
 /**
  * View is responsible for graphical representation of th epedigree as well as user interaction
@@ -63526,7 +63798,7 @@ var View = exports.View = Class.create({
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(31)))
 
 /***/ }),
-/* 181 */
+/* 182 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -63537,7 +63809,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.ViewerWorkspace = undefined;
 
-var _workspace = __webpack_require__(182);
+var _workspace = __webpack_require__(183);
 
 var ViewerWorkspace = exports.ViewerWorkspace = Class.create(_workspace.Workspace, {
 
@@ -63625,7 +63897,7 @@ var ViewerWorkspace = exports.ViewerWorkspace = Class.create(_workspace.Workspac
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(31)))
 
 /***/ }),
-/* 182 */
+/* 183 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -63636,7 +63908,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.Workspace = undefined;
 
-var _slider = __webpack_require__(176);
+var _slider = __webpack_require__(177);
 
 /**
  * Workspace contains the Raphael canvas, the zoom/pan controls and the menu bar
@@ -64093,7 +64365,7 @@ var Workspace = exports.Workspace = Class.create({
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(31)))
 
 /***/ }),
-/* 183 */
+/* 184 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function($A, $H, $R, Sizzle) {var __WEBPACK_AMD_DEFINE_RESULT__;/*** IMPORTS FROM imports-loader ***/
@@ -71433,10 +71705,10 @@ Object.extend(Element.ClassNames.prototype, Enumerable);
 /*** EXPORTS FROM exports-loader ***/
 module.exports = $w;
 }.call(window));
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(24), __webpack_require__(36), __webpack_require__(37), __webpack_require__(65)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(24), __webpack_require__(36), __webpack_require__(37), __webpack_require__(66)))
 
 /***/ }),
-/* 184 */
+/* 185 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(global, module) {var __WEBPACK_AMD_DEFINE_RESULT__;/**
@@ -88525,16 +88797,16 @@ module.exports = $w;
   }
 }.call(this));
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(381), __webpack_require__(382)(module)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(382), __webpack_require__(383)(module)))
 
 /***/ }),
-/* 185 */
+/* 186 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var Enumerable, Prototype, Class, Template, PeriodicalExecuter;
 Prototype =   __webpack_require__(6);
-              __webpack_require__(8);
-Class =       __webpack_require__(10);
+              __webpack_require__(9);
+Class =       __webpack_require__(11);
               __webpack_require__(13);
               __webpack_require__(15);
               __webpack_require__(18);
@@ -88580,13 +88852,13 @@ module.exports = PeriodicalExecuter = Class.create({
 });
 
 /***/ }),
-/* 186 */
+/* 187 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var $R, $H, $A, $w, Enumerable, Prototype, Class, Template, Try;
 Prototype =   __webpack_require__(6);
-              __webpack_require__(8);
-Class =       __webpack_require__(10);
+              __webpack_require__(9);
+Class =       __webpack_require__(11);
               __webpack_require__(13);
               __webpack_require__(15);
               __webpack_require__(18);
@@ -88596,8 +88868,8 @@ Enumerable =  __webpack_require__(28);
 $A =          __webpack_require__(17).A;
 $w =          __webpack_require__(17).w;
 $H =          __webpack_require__(33).H;
-              __webpack_require__(71);
-$R =          __webpack_require__(72).R;
+              __webpack_require__(70);
+$R =          __webpack_require__(71).R;
 
 module.exports = Try = {
   these: function() {
@@ -88616,7 +88888,7 @@ module.exports = Try = {
 };
 
 /***/ }),
-/* 187 */
+/* 188 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var always = __webpack_require__(34);
@@ -88641,7 +88913,7 @@ module.exports = always(false);
 
 
 /***/ }),
-/* 188 */
+/* 189 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var always = __webpack_require__(34);
@@ -88666,7 +88938,7 @@ module.exports = always(true);
 
 
 /***/ }),
-/* 189 */
+/* 190 */
 /***/ (function(module, exports) {
 
 /**
@@ -88699,7 +88971,7 @@ module.exports = {'@@functional/placeholder': true};
 
 
 /***/ }),
-/* 190 */
+/* 191 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var _concat = __webpack_require__(16);
@@ -88748,12 +89020,12 @@ module.exports = _curry1(function addIndex(fn) {
 
 
 /***/ }),
-/* 191 */
+/* 192 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var _curry2 = __webpack_require__(0);
 var _dispatchable = __webpack_require__(3);
-var _xall = __webpack_require__(262);
+var _xall = __webpack_require__(263);
 
 
 /**
@@ -88793,7 +89065,7 @@ module.exports = _curry2(_dispatchable(['all'], _xall, function all(fn, list) {
 
 
 /***/ }),
-/* 192 */
+/* 193 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var _curry1 = __webpack_require__(1);
@@ -88844,7 +89116,7 @@ module.exports = _curry1(function allPass(preds) {
 
 
 /***/ }),
-/* 193 */
+/* 194 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var _curry1 = __webpack_require__(1);
@@ -88896,13 +89168,13 @@ module.exports = _curry1(function anyPass(preds) {
 
 
 /***/ }),
-/* 194 */
+/* 195 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var _aperture = __webpack_require__(245);
+var _aperture = __webpack_require__(246);
 var _curry2 = __webpack_require__(0);
 var _dispatchable = __webpack_require__(3);
-var _xaperture = __webpack_require__(263);
+var _xaperture = __webpack_require__(264);
 
 
 /**
@@ -88930,7 +89202,7 @@ module.exports = _curry2(_dispatchable([], _xaperture, _aperture));
 
 
 /***/ }),
-/* 195 */
+/* 196 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var _concat = __webpack_require__(16);
@@ -88963,13 +89235,13 @@ module.exports = _curry2(function append(el, list) {
 
 
 /***/ }),
-/* 196 */
+/* 197 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var _curry1 = __webpack_require__(1);
 var apply = __webpack_require__(98);
 var curryN = __webpack_require__(7);
-var map = __webpack_require__(11);
+var map = __webpack_require__(12);
 var max = __webpack_require__(35);
 var pluck = __webpack_require__(43);
 var reduce = __webpack_require__(22);
@@ -89013,7 +89285,7 @@ module.exports = _curry1(function applySpec(spec) {
 
 
 /***/ }),
-/* 197 */
+/* 198 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var _curry3 = __webpack_require__(2);
@@ -89048,11 +89320,11 @@ module.exports = _curry3(function ascend(fn, a, b) {
 
 
 /***/ }),
-/* 198 */
+/* 199 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var _curry1 = __webpack_require__(1);
-var nAry = __webpack_require__(61);
+var nAry = __webpack_require__(62);
 
 
 /**
@@ -89088,13 +89360,13 @@ module.exports = _curry1(function binary(fn) {
 
 
 /***/ }),
-/* 199 */
+/* 200 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var _curry2 = __webpack_require__(0);
-var _isFunction = __webpack_require__(55);
+var _isFunction = __webpack_require__(56);
 var and = __webpack_require__(96);
-var lift = __webpack_require__(60);
+var lift = __webpack_require__(61);
 
 
 /**
@@ -89135,10 +89407,10 @@ module.exports = _curry2(function both(f, g) {
 
 
 /***/ }),
-/* 200 */
+/* 201 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var curry = __webpack_require__(52);
+var curry = __webpack_require__(53);
 
 
 /**
@@ -89178,7 +89450,7 @@ module.exports = curry(function call(fn) {
 
 
 /***/ }),
-/* 201 */
+/* 202 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var _curry3 = __webpack_require__(2);
@@ -89214,7 +89486,7 @@ module.exports = _curry3(function clamp(min, max, value) {
 
 
 /***/ }),
-/* 202 */
+/* 203 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var _clone = __webpack_require__(112);
@@ -89250,7 +89522,7 @@ module.exports = _curry1(function clone(value) {
 
 
 /***/ }),
-/* 203 */
+/* 204 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var _curry1 = __webpack_require__(1);
@@ -89284,10 +89556,10 @@ module.exports = _curry1(function comparator(pred) {
 
 
 /***/ }),
-/* 204 */
+/* 205 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var lift = __webpack_require__(60);
+var lift = __webpack_require__(61);
 var not = __webpack_require__(134);
 
 
@@ -89317,11 +89589,11 @@ module.exports = lift(not);
 
 
 /***/ }),
-/* 205 */
+/* 206 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var pipeP = __webpack_require__(140);
-var reverse = __webpack_require__(64);
+var reverse = __webpack_require__(65);
 
 
 /**
@@ -89367,12 +89639,12 @@ module.exports = function composeP() {
 
 
 /***/ }),
-/* 206 */
+/* 207 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var _arity = __webpack_require__(20);
 var _curry1 = __webpack_require__(1);
-var map = __webpack_require__(11);
+var map = __webpack_require__(12);
 var max = __webpack_require__(35);
 var reduce = __webpack_require__(22);
 
@@ -89420,7 +89692,7 @@ module.exports = _curry1(function cond(pairs) {
 
 
 /***/ }),
-/* 207 */
+/* 208 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var _curry1 = __webpack_require__(1);
@@ -89464,7 +89736,7 @@ module.exports = _curry1(function construct(Fn) {
 
 
 /***/ }),
-/* 208 */
+/* 209 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var _contains = __webpack_require__(29);
@@ -89495,10 +89767,10 @@ module.exports = _curry2(_contains);
 
 
 /***/ }),
-/* 209 */
+/* 210 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var reduceBy = __webpack_require__(62);
+var reduceBy = __webpack_require__(63);
 
 
 /**
@@ -89529,10 +89801,10 @@ module.exports = reduceBy(function(acc, elem) { return acc + 1; }, 0);
 
 
 /***/ }),
-/* 210 */
+/* 211 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var add = __webpack_require__(50);
+var add = __webpack_require__(51);
 
 
 /**
@@ -89554,7 +89826,7 @@ module.exports = add(-1);
 
 
 /***/ }),
-/* 211 */
+/* 212 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var _curry3 = __webpack_require__(2);
@@ -89589,11 +89861,11 @@ module.exports = _curry3(function descend(fn, a, b) {
 
 
 /***/ }),
-/* 212 */
+/* 213 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var _curry2 = __webpack_require__(0);
-var assoc = __webpack_require__(51);
+var assoc = __webpack_require__(52);
 var dissoc = __webpack_require__(107);
 
 
@@ -89630,7 +89902,7 @@ module.exports = _curry2(function dissocPath(path, obj) {
 
 
 /***/ }),
-/* 213 */
+/* 214 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var _curry2 = __webpack_require__(0);
@@ -89662,13 +89934,13 @@ module.exports = _curry2(function divide(a, b) { return a / b; });
 
 
 /***/ }),
-/* 214 */
+/* 215 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var _curry2 = __webpack_require__(0);
 var _dispatchable = __webpack_require__(3);
-var _dropLast = __webpack_require__(247);
-var _xdropLast = __webpack_require__(266);
+var _dropLast = __webpack_require__(248);
+var _xdropLast = __webpack_require__(267);
 
 
 /**
@@ -89696,13 +89968,13 @@ module.exports = _curry2(_dispatchable([], _xdropLast, _dropLast));
 
 
 /***/ }),
-/* 215 */
+/* 216 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var _curry2 = __webpack_require__(0);
 var _dispatchable = __webpack_require__(3);
-var _dropLastWhile = __webpack_require__(248);
-var _xdropLastWhile = __webpack_require__(267);
+var _dropLastWhile = __webpack_require__(249);
+var _xdropLastWhile = __webpack_require__(268);
 
 
 /**
@@ -89731,7 +90003,7 @@ module.exports = _curry2(_dispatchable([], _xdropLastWhile, _dropLastWhile));
 
 
 /***/ }),
-/* 216 */
+/* 217 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var _curry1 = __webpack_require__(1);
@@ -89763,12 +90035,12 @@ module.exports = _curry1(_dispatchable([], _xdropRepeatsWith(equals), dropRepeat
 
 
 /***/ }),
-/* 217 */
+/* 218 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var _curry2 = __webpack_require__(0);
 var _dispatchable = __webpack_require__(3);
-var _xdropWhile = __webpack_require__(268);
+var _xdropWhile = __webpack_require__(269);
 
 
 /**
@@ -89807,12 +90079,12 @@ module.exports = _curry2(_dispatchable(['dropWhile'], _xdropWhile, function drop
 
 
 /***/ }),
-/* 218 */
+/* 219 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var _curry2 = __webpack_require__(0);
-var _isFunction = __webpack_require__(55);
-var lift = __webpack_require__(60);
+var _isFunction = __webpack_require__(56);
+var lift = __webpack_require__(61);
 var or = __webpack_require__(136);
 
 
@@ -89853,7 +90125,7 @@ module.exports = _curry2(function either(f, g) {
 
 
 /***/ }),
-/* 219 */
+/* 220 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var _curry3 = __webpack_require__(2);
@@ -89883,7 +90155,7 @@ module.exports = _curry3(function eqBy(f, x, y) {
 
 
 /***/ }),
-/* 220 */
+/* 221 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var _curry3 = __webpack_require__(2);
@@ -89917,7 +90189,7 @@ module.exports = _curry3(function eqProps(prop, obj1, obj2) {
 
 
 /***/ }),
-/* 221 */
+/* 222 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var _curry2 = __webpack_require__(0);
@@ -89965,12 +90237,12 @@ module.exports = _curry2(function evolve(transformations, object) {
 
 
 /***/ }),
-/* 222 */
+/* 223 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var _curry2 = __webpack_require__(0);
 var _dispatchable = __webpack_require__(3);
-var _xfind = __webpack_require__(270);
+var _xfind = __webpack_require__(271);
 
 
 /**
@@ -90010,12 +90282,12 @@ module.exports = _curry2(_dispatchable(['find'], _xfind, function find(fn, list)
 
 
 /***/ }),
-/* 223 */
+/* 224 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var _curry2 = __webpack_require__(0);
 var _dispatchable = __webpack_require__(3);
-var _xfindIndex = __webpack_require__(271);
+var _xfindIndex = __webpack_require__(272);
 
 
 /**
@@ -90054,12 +90326,12 @@ module.exports = _curry2(_dispatchable([], _xfindIndex, function findIndex(fn, l
 
 
 /***/ }),
-/* 224 */
+/* 225 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var _curry2 = __webpack_require__(0);
 var _dispatchable = __webpack_require__(3);
-var _xfindLast = __webpack_require__(272);
+var _xfindLast = __webpack_require__(273);
 
 
 /**
@@ -90096,12 +90368,12 @@ module.exports = _curry2(_dispatchable([], _xfindLast, function findLast(fn, lis
 
 
 /***/ }),
-/* 225 */
+/* 226 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var _curry2 = __webpack_require__(0);
 var _dispatchable = __webpack_require__(3);
-var _xfindLastIndex = __webpack_require__(273);
+var _xfindLastIndex = __webpack_require__(274);
 
 
 /**
@@ -90139,7 +90411,7 @@ module.exports = _curry2(_dispatchable([], _xfindLastIndex, function findLastInd
 
 
 /***/ }),
-/* 226 */
+/* 227 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var _curry1 = __webpack_require__(1);
@@ -90167,7 +90439,7 @@ module.exports = _curry1(_makeFlat(true));
 
 
 /***/ }),
-/* 227 */
+/* 228 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var _checkForMethod = __webpack_require__(38);
@@ -90220,7 +90492,7 @@ module.exports = _curry2(_checkForMethod('forEach', function forEach(fn, list) {
 
 
 /***/ }),
-/* 228 */
+/* 229 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var _curry2 = __webpack_require__(0);
@@ -90262,7 +90534,7 @@ module.exports = _curry2(function forEachObjIndexed(fn, obj) {
 
 
 /***/ }),
-/* 229 */
+/* 230 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var _curry1 = __webpack_require__(1);
@@ -90296,12 +90568,12 @@ module.exports = _curry1(function fromPairs(pairs) {
 
 
 /***/ }),
-/* 230 */
+/* 231 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var _checkForMethod = __webpack_require__(38);
 var _curry2 = __webpack_require__(0);
-var reduceBy = __webpack_require__(62);
+var reduceBy = __webpack_require__(63);
 
 /**
  * Splits a list into sub-lists stored in an object, based on the result of
@@ -90353,7 +90625,7 @@ module.exports = _curry2(_checkForMethod('groupBy', reduceBy(function(acc, item)
 
 
 /***/ }),
-/* 231 */
+/* 232 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var _curry2 = __webpack_require__(0);
@@ -90401,7 +90673,7 @@ module.exports = _curry2(function(fn, list) {
 
 
 /***/ }),
-/* 232 */
+/* 233 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var _curry2 = __webpack_require__(0);
@@ -90432,7 +90704,7 @@ module.exports = _curry2(function gt(a, b) { return a > b; });
 
 
 /***/ }),
-/* 233 */
+/* 234 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var _curry2 = __webpack_require__(0);
@@ -90463,11 +90735,11 @@ module.exports = _curry2(function gte(a, b) { return a >= b; });
 
 
 /***/ }),
-/* 234 */
+/* 235 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var _curry2 = __webpack_require__(0);
-var _has = __webpack_require__(9);
+var _has = __webpack_require__(10);
 
 
 /**
@@ -90498,7 +90770,7 @@ module.exports = _curry2(_has);
 
 
 /***/ }),
-/* 235 */
+/* 236 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var _curry2 = __webpack_require__(0);
@@ -90536,7 +90808,7 @@ module.exports = _curry2(function hasIn(prop, obj) {
 
 
 /***/ }),
-/* 236 */
+/* 237 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var nth = __webpack_require__(41);
@@ -90567,7 +90839,7 @@ module.exports = nth(0);
 
 
 /***/ }),
-/* 237 */
+/* 238 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var _curry3 = __webpack_require__(2);
@@ -90609,10 +90881,10 @@ module.exports = _curry3(function ifElse(condition, onTrue, onFalse) {
 
 
 /***/ }),
-/* 238 */
+/* 239 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var add = __webpack_require__(50);
+var add = __webpack_require__(51);
 
 
 /**
@@ -90634,10 +90906,10 @@ module.exports = add(1);
 
 
 /***/ }),
-/* 239 */
+/* 240 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var reduceBy = __webpack_require__(62);
+var reduceBy = __webpack_require__(63);
 
 
 /**
@@ -90666,7 +90938,7 @@ module.exports = reduceBy(function(acc, elem) { return elem; }, null);
 
 
 /***/ }),
-/* 240 */
+/* 241 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var _curry2 = __webpack_require__(0);
@@ -90701,7 +90973,7 @@ module.exports = _curry2(function indexOf(target, xs) {
 
 
 /***/ }),
-/* 241 */
+/* 242 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var slice = __webpack_require__(30);
@@ -90735,7 +91007,7 @@ module.exports = slice(0, -1);
 
 
 /***/ }),
-/* 242 */
+/* 243 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var _curry3 = __webpack_require__(2);
@@ -90768,7 +91040,7 @@ module.exports = _curry3(function insert(idx, elt, list) {
 
 
 /***/ }),
-/* 243 */
+/* 244 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var _curry3 = __webpack_require__(2);
@@ -90801,7 +91073,7 @@ module.exports = _curry3(function insertAll(idx, elts, list) {
 
 
 /***/ }),
-/* 244 */
+/* 245 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var _contains = __webpack_require__(29);
@@ -90978,7 +91250,7 @@ module.exports = (function() {
 
 
 /***/ }),
-/* 245 */
+/* 246 */
 /***/ (function(module, exports) {
 
 module.exports = function _aperture(n, list) {
@@ -90994,7 +91266,7 @@ module.exports = function _aperture(n, list) {
 
 
 /***/ }),
-/* 246 */
+/* 247 */
 /***/ (function(module, exports) {
 
 module.exports = function _arrayFromIterator(iter) {
@@ -91008,7 +91280,7 @@ module.exports = function _arrayFromIterator(iter) {
 
 
 /***/ }),
-/* 247 */
+/* 248 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var take = __webpack_require__(145);
@@ -91019,7 +91291,7 @@ module.exports = function dropLast(n, xs) {
 
 
 /***/ }),
-/* 248 */
+/* 249 */
 /***/ (function(module, exports) {
 
 module.exports = function dropLastWhile(pred, list) {
@@ -91032,15 +91304,15 @@ module.exports = function dropLastWhile(pred, list) {
 
 
 /***/ }),
-/* 249 */
+/* 250 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var _arrayFromIterator = __webpack_require__(246);
-var _functionName = __webpack_require__(252);
-var _has = __webpack_require__(9);
+var _arrayFromIterator = __webpack_require__(247);
+var _functionName = __webpack_require__(253);
+var _has = __webpack_require__(10);
 var identical = __webpack_require__(111);
 var keys = __webpack_require__(21);
-var type = __webpack_require__(85);
+var type = __webpack_require__(84);
 
 
 module.exports = function _equals(a, b, stackA, stackB) {
@@ -91147,10 +91419,10 @@ module.exports = function _equals(a, b, stackA, stackB) {
 
 
 /***/ }),
-/* 250 */
+/* 251 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var _forceReduced = __webpack_require__(251);
+var _forceReduced = __webpack_require__(252);
 var _reduce = __webpack_require__(14);
 var _xfBase = __webpack_require__(4);
 var isArrayLike = __webpack_require__(40);
@@ -91185,7 +91457,7 @@ module.exports = (function() {
 
 
 /***/ }),
-/* 251 */
+/* 252 */
 /***/ (function(module, exports) {
 
 module.exports = function _forceReduced(x) {
@@ -91197,7 +91469,7 @@ module.exports = function _forceReduced(x) {
 
 
 /***/ }),
-/* 252 */
+/* 253 */
 /***/ (function(module, exports) {
 
 module.exports = function _functionName(f) {
@@ -91208,7 +91480,7 @@ module.exports = function _functionName(f) {
 
 
 /***/ }),
-/* 253 */
+/* 254 */
 /***/ (function(module, exports) {
 
 module.exports = function _isRegExp(x) {
@@ -91217,10 +91489,10 @@ module.exports = function _isRegExp(x) {
 
 
 /***/ }),
-/* 254 */
+/* 255 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var _has = __webpack_require__(9);
+var _has = __webpack_require__(10);
 
 // Based on https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Global_Objects/Object/assign
 module.exports = function _objectAssign(target) {
@@ -91247,14 +91519,14 @@ module.exports = function _objectAssign(target) {
 
 
 /***/ }),
-/* 255 */
+/* 256 */
 /***/ (function(module, exports) {
 
 module.exports = function _of(x) { return [x]; };
 
 
 /***/ }),
-/* 256 */
+/* 257 */
 /***/ (function(module, exports) {
 
 module.exports = function _pipe(f, g) {
@@ -91265,7 +91537,7 @@ module.exports = function _pipe(f, g) {
 
 
 /***/ }),
-/* 257 */
+/* 258 */
 /***/ (function(module, exports) {
 
 module.exports = function _pipeP(f, g) {
@@ -91279,7 +91551,7 @@ module.exports = function _pipeP(f, g) {
 
 
 /***/ }),
-/* 258 */
+/* 259 */
 /***/ (function(module, exports) {
 
 module.exports = function _quote(s) {
@@ -91298,12 +91570,12 @@ module.exports = function _quote(s) {
 
 
 /***/ }),
-/* 259 */
+/* 260 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var _assign = __webpack_require__(79);
-var _identity = __webpack_require__(81);
-var _isTransformer = __webpack_require__(82);
+var _assign = __webpack_require__(78);
+var _identity = __webpack_require__(80);
+var _isTransformer = __webpack_require__(81);
 var isArrayLike = __webpack_require__(40);
 var objOf = __webpack_require__(135);
 
@@ -91352,7 +91624,7 @@ module.exports = (function() {
 
 
 /***/ }),
-/* 260 */
+/* 261 */
 /***/ (function(module, exports) {
 
 /**
@@ -91380,15 +91652,15 @@ module.exports = (function() {
 
 
 /***/ }),
-/* 261 */
+/* 262 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var _contains = __webpack_require__(29);
-var _map = __webpack_require__(58);
-var _quote = __webpack_require__(258);
-var _toISOString = __webpack_require__(260);
+var _map = __webpack_require__(59);
+var _quote = __webpack_require__(259);
+var _toISOString = __webpack_require__(261);
 var keys = __webpack_require__(21);
-var reject = __webpack_require__(63);
+var reject = __webpack_require__(64);
 
 
 module.exports = function _toString(x, seen) {
@@ -91432,7 +91704,7 @@ module.exports = function _toString(x, seen) {
 
 
 /***/ }),
-/* 262 */
+/* 263 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var _curry2 = __webpack_require__(0);
@@ -91466,7 +91738,7 @@ module.exports = (function() {
 
 
 /***/ }),
-/* 263 */
+/* 264 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var _concat = __webpack_require__(16);
@@ -91508,12 +91780,12 @@ module.exports = (function() {
 
 
 /***/ }),
-/* 264 */
+/* 265 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var _curry2 = __webpack_require__(0);
-var _flatCat = __webpack_require__(250);
-var map = __webpack_require__(11);
+var _flatCat = __webpack_require__(251);
+var map = __webpack_require__(12);
 
 
 module.exports = _curry2(function _xchain(f, xf) {
@@ -91522,7 +91794,7 @@ module.exports = _curry2(function _xchain(f, xf) {
 
 
 /***/ }),
-/* 265 */
+/* 266 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var _curry2 = __webpack_require__(0);
@@ -91549,7 +91821,7 @@ module.exports = (function() {
 
 
 /***/ }),
-/* 266 */
+/* 267 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var _curry2 = __webpack_require__(0);
@@ -91589,7 +91861,7 @@ module.exports = (function() {
 
 
 /***/ }),
-/* 267 */
+/* 268 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var _curry2 = __webpack_require__(0);
@@ -91630,7 +91902,7 @@ module.exports = (function() {
 
 
 /***/ }),
-/* 268 */
+/* 269 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var _curry2 = __webpack_require__(0);
@@ -91659,7 +91931,7 @@ module.exports = (function() {
 
 
 /***/ }),
-/* 269 */
+/* 270 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var _curry2 = __webpack_require__(0);
@@ -91682,7 +91954,7 @@ module.exports = (function() {
 
 
 /***/ }),
-/* 270 */
+/* 271 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var _curry2 = __webpack_require__(0);
@@ -91716,7 +91988,7 @@ module.exports = (function() {
 
 
 /***/ }),
-/* 271 */
+/* 272 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var _curry2 = __webpack_require__(0);
@@ -91752,7 +92024,7 @@ module.exports = (function() {
 
 
 /***/ }),
-/* 272 */
+/* 273 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var _curry2 = __webpack_require__(0);
@@ -91780,7 +92052,7 @@ module.exports = (function() {
 
 
 /***/ }),
-/* 273 */
+/* 274 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var _curry2 = __webpack_require__(0);
@@ -91811,7 +92083,7 @@ module.exports = (function() {
 
 
 /***/ }),
-/* 274 */
+/* 275 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var _curry2 = __webpack_require__(0);
@@ -91834,11 +92106,11 @@ module.exports = (function() {
 
 
 /***/ }),
-/* 275 */
+/* 276 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var _curryN = __webpack_require__(54);
-var _has = __webpack_require__(9);
+var _curryN = __webpack_require__(55);
+var _has = __webpack_require__(10);
 var _xfBase = __webpack_require__(4);
 
 
@@ -91880,7 +92152,7 @@ module.exports = (function() {
 
 
 /***/ }),
-/* 276 */
+/* 277 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var _curry2 = __webpack_require__(0);
@@ -91906,7 +92178,7 @@ module.exports = (function() {
 
 
 /***/ }),
-/* 277 */
+/* 278 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var _curry2 = __webpack_require__(0);
@@ -91930,14 +92202,14 @@ module.exports = (function() {
 
 
 /***/ }),
-/* 278 */
+/* 279 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var _contains = __webpack_require__(29);
 var _curry2 = __webpack_require__(0);
 var _filter = __webpack_require__(116);
-var flip = __webpack_require__(53);
-var uniq = __webpack_require__(86);
+var flip = __webpack_require__(54);
+var uniq = __webpack_require__(85);
 
 
 /**
@@ -91971,12 +92243,12 @@ module.exports = _curry2(function intersection(list1, list2) {
 
 
 /***/ }),
-/* 279 */
+/* 280 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var _containsWith = __webpack_require__(80);
+var _containsWith = __webpack_require__(79);
 var _curry3 = __webpack_require__(2);
-var uniqWith = __webpack_require__(87);
+var uniqWith = __webpack_require__(86);
 
 
 /**
@@ -92036,7 +92308,7 @@ module.exports = _curry3(function intersectionWith(pred, list1, list2) {
 
 
 /***/ }),
-/* 280 */
+/* 281 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var _checkForMethod = __webpack_require__(38);
@@ -92077,14 +92349,14 @@ module.exports = _curry2(_checkForMethod('intersperse', function intersperse(sep
 
 
 /***/ }),
-/* 281 */
+/* 282 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var _clone = __webpack_require__(112);
 var _curry3 = __webpack_require__(2);
-var _isTransformer = __webpack_require__(82);
+var _isTransformer = __webpack_require__(81);
 var _reduce = __webpack_require__(14);
-var _stepCat = __webpack_require__(259);
+var _stepCat = __webpack_require__(260);
 
 
 /**
@@ -92132,11 +92404,11 @@ module.exports = _curry3(function into(acc, xf, list) {
 
 
 /***/ }),
-/* 282 */
+/* 283 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var _curry1 = __webpack_require__(1);
-var _has = __webpack_require__(9);
+var _has = __webpack_require__(10);
 var keys = __webpack_require__(21);
 
 
@@ -92180,7 +92452,7 @@ module.exports = _curry1(function invert(obj) {
 
 
 /***/ }),
-/* 283 */
+/* 284 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var _curry1 = __webpack_require__(1);
@@ -92229,7 +92501,7 @@ module.exports = _curry1(function invertObj(obj) {
 
 
 /***/ }),
-/* 284 */
+/* 285 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var _curry1 = __webpack_require__(1);
@@ -92264,7 +92536,7 @@ module.exports = _curry1(function isEmpty(x) {
 
 
 /***/ }),
-/* 285 */
+/* 286 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var _curry1 = __webpack_require__(1);
@@ -92291,7 +92563,7 @@ module.exports = _curry1(function isNil(x) { return x == null; });
 
 
 /***/ }),
-/* 286 */
+/* 287 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var invoker = __webpack_require__(39);
@@ -92320,7 +92592,7 @@ module.exports = invoker(1, 'join');
 
 
 /***/ }),
-/* 287 */
+/* 288 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var _curry1 = __webpack_require__(1);
@@ -92357,7 +92629,7 @@ module.exports = _curry1(function keysIn(obj) {
 
 
 /***/ }),
-/* 288 */
+/* 289 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var _curry2 = __webpack_require__(0);
@@ -92401,11 +92673,11 @@ module.exports = _curry2(function lastIndexOf(target, xs) {
 
 
 /***/ }),
-/* 289 */
+/* 290 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var _curry1 = __webpack_require__(1);
-var lens = __webpack_require__(59);
+var lens = __webpack_require__(60);
 var nth = __webpack_require__(41);
 var update = __webpack_require__(148);
 
@@ -92436,12 +92708,12 @@ module.exports = _curry1(function lensIndex(n) {
 
 
 /***/ }),
-/* 290 */
+/* 291 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var _curry1 = __webpack_require__(1);
 var assocPath = __webpack_require__(99);
-var lens = __webpack_require__(59);
+var lens = __webpack_require__(60);
 var path = __webpack_require__(42);
 
 
@@ -92475,13 +92747,13 @@ module.exports = _curry1(function lensPath(p) {
 
 
 /***/ }),
-/* 291 */
+/* 292 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var _curry1 = __webpack_require__(1);
-var assoc = __webpack_require__(51);
-var lens = __webpack_require__(59);
-var prop = __webpack_require__(83);
+var assoc = __webpack_require__(52);
+var lens = __webpack_require__(60);
+var prop = __webpack_require__(82);
 
 
 /**
@@ -92510,7 +92782,7 @@ module.exports = _curry1(function lensProp(k) {
 
 
 /***/ }),
-/* 292 */
+/* 293 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var _curry2 = __webpack_require__(0);
@@ -92541,7 +92813,7 @@ module.exports = _curry2(function lt(a, b) { return a < b; });
 
 
 /***/ }),
-/* 293 */
+/* 294 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var _curry2 = __webpack_require__(0);
@@ -92572,7 +92844,7 @@ module.exports = _curry2(function lte(a, b) { return a <= b; });
 
 
 /***/ }),
-/* 294 */
+/* 295 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var _curry3 = __webpack_require__(2);
@@ -92627,7 +92899,7 @@ module.exports = _curry3(function mapAccum(fn, acc, list) {
 
 
 /***/ }),
-/* 295 */
+/* 296 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var _curry3 = __webpack_require__(2);
@@ -92684,7 +92956,7 @@ module.exports = _curry3(function mapAccumRight(fn, acc, list) {
 
 
 /***/ }),
-/* 296 */
+/* 297 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var _curry2 = __webpack_require__(0);
@@ -92722,7 +92994,7 @@ module.exports = _curry2(function mapObjIndexed(fn, obj) {
 
 
 /***/ }),
-/* 297 */
+/* 298 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var _curry2 = __webpack_require__(0);
@@ -92755,7 +93027,7 @@ module.exports = _curry2(function match(rx, str) {
 
 
 /***/ }),
-/* 298 */
+/* 299 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var _curry2 = __webpack_require__(0);
@@ -92802,7 +93074,7 @@ module.exports = _curry2(function mathMod(m, p) {
 
 
 /***/ }),
-/* 299 */
+/* 300 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var _curry3 = __webpack_require__(2);
@@ -92838,7 +93110,7 @@ module.exports = _curry3(function maxBy(f, a, b) {
 
 
 /***/ }),
-/* 300 */
+/* 301 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var _curry1 = __webpack_require__(1);
@@ -92875,12 +93147,12 @@ module.exports = _curry1(function median(list) {
 
 
 /***/ }),
-/* 301 */
+/* 302 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var _arity = __webpack_require__(20);
 var _curry1 = __webpack_require__(1);
-var _has = __webpack_require__(9);
+var _has = __webpack_require__(10);
 var toString = __webpack_require__(44);
 
 
@@ -92923,10 +93195,10 @@ module.exports = _curry1(function memoize(fn) {
 
 
 /***/ }),
-/* 302 */
+/* 303 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var _assign = __webpack_require__(79);
+var _assign = __webpack_require__(78);
 var _curry2 = __webpack_require__(0);
 
 
@@ -92959,10 +93231,10 @@ module.exports = _curry2(function merge(l, r) {
 
 
 /***/ }),
-/* 303 */
+/* 304 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var _assign = __webpack_require__(79);
+var _assign = __webpack_require__(78);
 var _curry1 = __webpack_require__(1);
 
 
@@ -92989,7 +93261,7 @@ module.exports = _curry1(function mergeAll(list) {
 
 
 /***/ }),
-/* 304 */
+/* 305 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var _curry3 = __webpack_require__(2);
@@ -93028,7 +93300,7 @@ module.exports = _curry3(function mergeWith(fn, l, r) {
 
 
 /***/ }),
-/* 305 */
+/* 306 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var _curry2 = __webpack_require__(0);
@@ -93055,7 +93327,7 @@ module.exports = _curry2(function min(a, b) { return b < a ? b : a; });
 
 
 /***/ }),
-/* 306 */
+/* 307 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var _curry3 = __webpack_require__(2);
@@ -93091,7 +93363,7 @@ module.exports = _curry3(function minBy(f, a, b) {
 
 
 /***/ }),
-/* 307 */
+/* 308 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var _curry2 = __webpack_require__(0);
@@ -93126,7 +93398,7 @@ module.exports = _curry2(function modulo(a, b) { return a % b; });
 
 
 /***/ }),
-/* 308 */
+/* 309 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var _curry1 = __webpack_require__(1);
@@ -93150,7 +93422,7 @@ module.exports = _curry1(function negate(n) { return -n; });
 
 
 /***/ }),
-/* 309 */
+/* 310 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var _complement = __webpack_require__(114);
@@ -93186,7 +93458,7 @@ module.exports = _curry2(_complement(_dispatchable(['any'], _xany, any)));
 
 
 /***/ }),
-/* 310 */
+/* 311 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var _curry1 = __webpack_require__(1);
@@ -93221,11 +93493,11 @@ module.exports = _curry1(function nthArg(n) {
 
 
 /***/ }),
-/* 311 */
+/* 312 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var _curry1 = __webpack_require__(1);
-var _of = __webpack_require__(255);
+var _of = __webpack_require__(256);
 
 
 /**
@@ -93250,7 +93522,7 @@ module.exports = _curry1(_of);
 
 
 /***/ }),
-/* 312 */
+/* 313 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var _contains = __webpack_require__(29);
@@ -93285,7 +93557,7 @@ module.exports = _curry2(function omit(names, obj) {
 
 
 /***/ }),
-/* 313 */
+/* 314 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var _arity = __webpack_require__(20);
@@ -93326,7 +93598,7 @@ module.exports = _curry1(function once(fn) {
 
 
 /***/ }),
-/* 314 */
+/* 315 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var _curry2 = __webpack_require__(0);
@@ -93352,7 +93624,7 @@ module.exports = _curry2(function pair(fst, snd) { return [fst, snd]; });
 
 
 /***/ }),
-/* 315 */
+/* 316 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var _concat = __webpack_require__(16);
@@ -93391,12 +93663,12 @@ module.exports = _createPartialApplicator(_concat);
 
 
 /***/ }),
-/* 316 */
+/* 317 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var _concat = __webpack_require__(16);
 var _createPartialApplicator = __webpack_require__(115);
-var flip = __webpack_require__(53);
+var flip = __webpack_require__(54);
 
 
 /**
@@ -93427,12 +93699,12 @@ module.exports = _createPartialApplicator(flip(_concat));
 
 
 /***/ }),
-/* 317 */
+/* 318 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var filter = __webpack_require__(77);
+var filter = __webpack_require__(76);
 var juxt = __webpack_require__(127);
-var reject = __webpack_require__(63);
+var reject = __webpack_require__(64);
 
 
 /**
@@ -93462,7 +93734,7 @@ module.exports = juxt([filter, reject]);
 
 
 /***/ }),
-/* 318 */
+/* 319 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var _curry3 = __webpack_require__(2);
@@ -93500,7 +93772,7 @@ module.exports = _curry3(function pathEq(_path, val, obj) {
 
 
 /***/ }),
-/* 319 */
+/* 320 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var _curry3 = __webpack_require__(2);
@@ -93533,7 +93805,7 @@ module.exports = _curry3(function pathOr(d, p, obj) {
 
 
 /***/ }),
-/* 320 */
+/* 321 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var _curry3 = __webpack_require__(2);
@@ -93565,7 +93837,7 @@ module.exports = _curry3(function pathSatisfies(pred, propPath, obj) {
 
 
 /***/ }),
-/* 321 */
+/* 322 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var _curry2 = __webpack_require__(0);
@@ -93603,7 +93875,7 @@ module.exports = _curry2(function pick(names, obj) {
 
 
 /***/ }),
-/* 322 */
+/* 323 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var _curry2 = __webpack_require__(0);
@@ -93641,11 +93913,11 @@ module.exports = _curry2(function pickBy(test, obj) {
 
 
 /***/ }),
-/* 323 */
+/* 324 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var composeK = __webpack_require__(101);
-var reverse = __webpack_require__(64);
+var reverse = __webpack_require__(65);
 
 /**
  * Returns the left-to-right Kleisli composition of the provided functions,
@@ -93690,7 +93962,7 @@ module.exports = function pipeK() {
 
 
 /***/ }),
-/* 324 */
+/* 325 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var multiply = __webpack_require__(133);
@@ -93716,11 +93988,11 @@ module.exports = reduce(multiply, 1);
 
 
 /***/ }),
-/* 325 */
+/* 326 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var _map = __webpack_require__(58);
-var identity = __webpack_require__(78);
+var _map = __webpack_require__(59);
+var identity = __webpack_require__(77);
 var pickAll = __webpack_require__(138);
 var useWith = __webpack_require__(149);
 
@@ -93748,7 +94020,7 @@ module.exports = useWith(_map, [pickAll, identity]); // passing `identity` gives
 
 
 /***/ }),
-/* 326 */
+/* 327 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var _curry3 = __webpack_require__(2);
@@ -93785,7 +94057,7 @@ module.exports = _curry3(function propEq(name, val, obj) {
 
 
 /***/ }),
-/* 327 */
+/* 328 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var _curry3 = __webpack_require__(2);
@@ -93818,11 +94090,11 @@ module.exports = _curry3(function propIs(type, name, obj) {
 
 
 /***/ }),
-/* 328 */
+/* 329 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var _curry3 = __webpack_require__(2);
-var _has = __webpack_require__(9);
+var _has = __webpack_require__(10);
 
 
 /**
@@ -93857,7 +94129,7 @@ module.exports = _curry3(function propOr(val, p, obj) {
 
 
 /***/ }),
-/* 329 */
+/* 330 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var _curry3 = __webpack_require__(2);
@@ -93887,7 +94159,7 @@ module.exports = _curry3(function propSatisfies(pred, name, obj) {
 
 
 /***/ }),
-/* 330 */
+/* 331 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var _curry2 = __webpack_require__(0);
@@ -93928,7 +94200,7 @@ module.exports = _curry2(function props(ps, obj) {
 
 
 /***/ }),
-/* 331 */
+/* 332 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var _curry2 = __webpack_require__(0);
@@ -93966,10 +94238,10 @@ module.exports = _curry2(function range(from, to) {
 
 
 /***/ }),
-/* 332 */
+/* 333 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var _curryN = __webpack_require__(54);
+var _curryN = __webpack_require__(55);
 var _reduce = __webpack_require__(14);
 var _reduced = __webpack_require__(27);
 
@@ -94011,7 +94283,7 @@ module.exports = _curryN(4, [], function _reduceWhile(pred, fn, a, list) {
 
 
 /***/ }),
-/* 333 */
+/* 334 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var _curry1 = __webpack_require__(1);
@@ -94045,7 +94317,7 @@ module.exports = _curry1(_reduced);
 
 
 /***/ }),
-/* 334 */
+/* 335 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var _curry3 = __webpack_require__(2);
@@ -94078,7 +94350,7 @@ module.exports = _curry3(function remove(start, count, list) {
 
 
 /***/ }),
-/* 335 */
+/* 336 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var _curry2 = __webpack_require__(0);
@@ -94114,7 +94386,7 @@ module.exports = _curry2(function repeat(value, n) {
 
 
 /***/ }),
-/* 336 */
+/* 337 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var _curry3 = __webpack_require__(2);
@@ -94146,7 +94418,7 @@ module.exports = _curry3(function replace(regex, replacement, str) {
 
 
 /***/ }),
-/* 337 */
+/* 338 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var _curry3 = __webpack_require__(2);
@@ -94186,7 +94458,7 @@ module.exports = _curry3(function scan(fn, acc, list) {
 
 
 /***/ }),
-/* 338 */
+/* 339 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var _curry3 = __webpack_require__(2);
@@ -94222,7 +94494,7 @@ module.exports = _curry3(function set(lens, v, x) {
 
 
 /***/ }),
-/* 339 */
+/* 340 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var _curry2 = __webpack_require__(0);
@@ -94254,7 +94526,7 @@ module.exports = _curry2(function sort(comparator, list) {
 
 
 /***/ }),
-/* 340 */
+/* 341 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var _curry2 = __webpack_require__(0);
@@ -94302,7 +94574,7 @@ module.exports = _curry2(function sortBy(fn, list) {
 
 
 /***/ }),
-/* 341 */
+/* 342 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var _curry2 = __webpack_require__(0);
@@ -94354,7 +94626,7 @@ module.exports = _curry2(function sortWith(fns, list) {
 
 
 /***/ }),
-/* 342 */
+/* 343 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var invoker = __webpack_require__(39);
@@ -94384,7 +94656,7 @@ module.exports = invoker(1, 'split');
 
 
 /***/ }),
-/* 343 */
+/* 344 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var _curry2 = __webpack_require__(0);
@@ -94416,7 +94688,7 @@ module.exports = _curry2(function splitAt(index, array) {
 
 
 /***/ }),
-/* 344 */
+/* 345 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var _curry2 = __webpack_require__(0);
@@ -94454,7 +94726,7 @@ module.exports = _curry2(function splitEvery(n, list) {
 
 
 /***/ }),
-/* 345 */
+/* 346 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var _curry2 = __webpack_require__(0);
@@ -94494,7 +94766,7 @@ module.exports = _curry2(function splitWhen(pred, list) {
 
 
 /***/ }),
-/* 346 */
+/* 347 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var _curry2 = __webpack_require__(0);
@@ -94529,11 +94801,11 @@ module.exports = _curry2(function subtract(a, b) {
 
 
 /***/ }),
-/* 347 */
+/* 348 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var _curry2 = __webpack_require__(0);
-var concat = __webpack_require__(76);
+var concat = __webpack_require__(75);
 var difference = __webpack_require__(105);
 
 
@@ -94561,11 +94833,11 @@ module.exports = _curry2(function symmetricDifference(list1, list2) {
 
 
 /***/ }),
-/* 348 */
+/* 349 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var _curry3 = __webpack_require__(2);
-var concat = __webpack_require__(76);
+var concat = __webpack_require__(75);
 var differenceWith = __webpack_require__(106);
 
 
@@ -94597,7 +94869,7 @@ module.exports = _curry3(function symmetricDifferenceWith(pred, list1, list2) {
 
 
 /***/ }),
-/* 349 */
+/* 350 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var _curry2 = __webpack_require__(0);
@@ -94632,7 +94904,7 @@ module.exports = _curry2(function takeLast(n, xs) {
 
 
 /***/ }),
-/* 350 */
+/* 351 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var _curry2 = __webpack_require__(0);
@@ -94670,12 +94942,12 @@ module.exports = _curry2(function takeLastWhile(fn, list) {
 
 
 /***/ }),
-/* 351 */
+/* 352 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var _curry2 = __webpack_require__(0);
 var _dispatchable = __webpack_require__(3);
-var _xtakeWhile = __webpack_require__(277);
+var _xtakeWhile = __webpack_require__(278);
 
 
 /**
@@ -94715,7 +94987,7 @@ module.exports = _curry2(_dispatchable(['takeWhile'], _xtakeWhile, function take
 
 
 /***/ }),
-/* 352 */
+/* 353 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var _curry2 = __webpack_require__(0);
@@ -94746,12 +95018,12 @@ module.exports = _curry2(function tap(fn, x) {
 
 
 /***/ }),
-/* 353 */
+/* 354 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var _cloneRegExp = __webpack_require__(113);
 var _curry2 = __webpack_require__(0);
-var _isRegExp = __webpack_require__(253);
+var _isRegExp = __webpack_require__(254);
 var toString = __webpack_require__(44);
 
 
@@ -94781,7 +95053,7 @@ module.exports = _curry2(function test(pattern, str) {
 
 
 /***/ }),
-/* 354 */
+/* 355 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var invoker = __webpack_require__(39);
@@ -94806,11 +95078,11 @@ module.exports = invoker(0, 'toLowerCase');
 
 
 /***/ }),
-/* 355 */
+/* 356 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var _curry1 = __webpack_require__(1);
-var _has = __webpack_require__(9);
+var _has = __webpack_require__(10);
 
 
 /**
@@ -94843,7 +95115,7 @@ module.exports = _curry1(function toPairs(obj) {
 
 
 /***/ }),
-/* 356 */
+/* 357 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var _curry1 = __webpack_require__(1);
@@ -94880,7 +95152,7 @@ module.exports = _curry1(function toPairsIn(obj) {
 
 
 /***/ }),
-/* 357 */
+/* 358 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var invoker = __webpack_require__(39);
@@ -94905,7 +95177,7 @@ module.exports = invoker(0, 'toUpperCase');
 
 
 /***/ }),
-/* 358 */
+/* 359 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var _reduce = __webpack_require__(14);
@@ -94963,7 +95235,7 @@ module.exports = curryN(4, function transduce(xf, fn, acc, list) {
 
 
 /***/ }),
-/* 359 */
+/* 360 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var _curry1 = __webpack_require__(1);
@@ -95014,11 +95286,11 @@ module.exports = _curry1(function transpose(outerlist) {
 
 
 /***/ }),
-/* 360 */
+/* 361 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var _curry3 = __webpack_require__(2);
-var map = __webpack_require__(11);
+var map = __webpack_require__(12);
 var sequence = __webpack_require__(143);
 
 
@@ -95054,7 +95326,7 @@ module.exports = _curry3(function traverse(of, f, traversable) {
 
 
 /***/ }),
-/* 361 */
+/* 362 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var _curry1 = __webpack_require__(1);
@@ -95096,7 +95368,7 @@ module.exports = (function() {
 
 
 /***/ }),
-/* 362 */
+/* 363 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var _arity = __webpack_require__(20);
@@ -95137,7 +95409,7 @@ module.exports = _curry2(function _tryCatch(tryer, catcher) {
 
 
 /***/ }),
-/* 363 */
+/* 364 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var _curry1 = __webpack_require__(1);
@@ -95175,11 +95447,11 @@ module.exports = _curry1(function unapply(fn) {
 
 
 /***/ }),
-/* 364 */
+/* 365 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var _curry1 = __webpack_require__(1);
-var nAry = __webpack_require__(61);
+var nAry = __webpack_require__(62);
 
 
 /**
@@ -95215,7 +95487,7 @@ module.exports = _curry1(function unary(fn) {
 
 
 /***/ }),
-/* 365 */
+/* 366 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var _curry2 = __webpack_require__(0);
@@ -95259,7 +95531,7 @@ module.exports = _curry2(function uncurryN(depth, fn) {
 
 
 /***/ }),
-/* 366 */
+/* 367 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var _curry2 = __webpack_require__(0);
@@ -95302,13 +95574,13 @@ module.exports = _curry2(function unfold(fn, seed) {
 
 
 /***/ }),
-/* 367 */
+/* 368 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var _concat = __webpack_require__(16);
 var _curry2 = __webpack_require__(0);
-var compose = __webpack_require__(75);
-var uniq = __webpack_require__(86);
+var compose = __webpack_require__(74);
+var uniq = __webpack_require__(85);
 
 
 /**
@@ -95332,12 +95604,12 @@ module.exports = _curry2(compose(uniq, _concat));
 
 
 /***/ }),
-/* 368 */
+/* 369 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var _concat = __webpack_require__(16);
 var _curry3 = __webpack_require__(2);
-var uniqWith = __webpack_require__(87);
+var uniqWith = __webpack_require__(86);
 
 
 /**
@@ -95368,7 +95640,7 @@ module.exports = _curry3(function unionWith(pred, list1, list2) {
 
 
 /***/ }),
-/* 369 */
+/* 370 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var _curry3 = __webpack_require__(2);
@@ -95405,11 +95677,11 @@ module.exports = _curry3(function unless(pred, whenFalseFn, x) {
 
 
 /***/ }),
-/* 370 */
+/* 371 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var _identity = __webpack_require__(81);
-var chain = __webpack_require__(74);
+var _identity = __webpack_require__(80);
+var chain = __webpack_require__(73);
 
 
 /**
@@ -95433,7 +95705,7 @@ module.exports = chain(_identity);
 
 
 /***/ }),
-/* 371 */
+/* 372 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var _curry3 = __webpack_require__(2);
@@ -95468,7 +95740,7 @@ module.exports = _curry3(function until(pred, fn, init) {
 
 
 /***/ }),
-/* 372 */
+/* 373 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var _curry1 = __webpack_require__(1);
@@ -95505,7 +95777,7 @@ module.exports = _curry1(function valuesIn(obj) {
 
 
 /***/ }),
-/* 373 */
+/* 374 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var _curry2 = __webpack_require__(0);
@@ -95547,7 +95819,7 @@ module.exports = (function() {
 
 
 /***/ }),
-/* 374 */
+/* 375 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var _curry3 = __webpack_require__(2);
@@ -95587,12 +95859,12 @@ module.exports = _curry3(function when(pred, whenTrueFn, x) {
 
 
 /***/ }),
-/* 375 */
+/* 376 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var _curry2 = __webpack_require__(0);
 var equals = __webpack_require__(19);
-var map = __webpack_require__(11);
+var map = __webpack_require__(12);
 var where = __webpack_require__(151);
 
 
@@ -95629,13 +95901,13 @@ module.exports = _curry2(function whereEq(spec, testObj) {
 
 
 /***/ }),
-/* 376 */
+/* 377 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var _contains = __webpack_require__(29);
 var _curry2 = __webpack_require__(0);
-var flip = __webpack_require__(53);
-var reject = __webpack_require__(63);
+var flip = __webpack_require__(54);
+var reject = __webpack_require__(64);
 
 
 /**
@@ -95663,7 +95935,7 @@ module.exports = _curry2(function(xs, list) {
 
 
 /***/ }),
-/* 377 */
+/* 378 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var _curry2 = __webpack_require__(0);
@@ -95706,7 +95978,7 @@ module.exports = _curry2(function xprod(a, b) { // = xprodWith(prepend); (takes 
 
 
 /***/ }),
-/* 378 */
+/* 379 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var _curry2 = __webpack_require__(0);
@@ -95744,7 +96016,7 @@ module.exports = _curry2(function zip(a, b) {
 
 
 /***/ }),
-/* 379 */
+/* 380 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var _curry2 = __webpack_require__(0);
@@ -95780,7 +96052,7 @@ module.exports = _curry2(function zipObj(keys, values) {
 
 
 /***/ }),
-/* 380 */
+/* 381 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var _curry3 = __webpack_require__(2);
@@ -95823,7 +96095,7 @@ module.exports = _curry3(function zipWith(fn, a, b) {
 
 
 /***/ }),
-/* 381 */
+/* 382 */
 /***/ (function(module, exports) {
 
 var g;
@@ -95850,7 +96122,7 @@ module.exports = g;
 
 
 /***/ }),
-/* 382 */
+/* 383 */
 /***/ (function(module, exports) {
 
 module.exports = function(module) {
@@ -95878,7 +96150,7 @@ module.exports = function(module) {
 
 
 /***/ }),
-/* 383 */
+/* 384 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -95975,6 +96247,7 @@ jquery(document).ready(function () {
 
     if (development) {
         createInput();
+        getDataAndRender(patientId, 'segregation');
     }
 
     if (window.parent.PEDIGREE_DATA) {
@@ -95983,7 +96256,7 @@ jquery(document).ready(function () {
         delete window.parent.PEDIGREE_DATA;
         render({ data: data });
     } else {
-        getDataAndRender(patientId, 'segregation');
+        getDataAndRender(patientId);
     }
 });
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(32), __webpack_require__(32)))

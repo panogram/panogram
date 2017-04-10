@@ -35,7 +35,6 @@ export const Person = Class.create(AbstractPerson, {
         // need to assign after super() and explicitly pass gender to super()
         // because changing properties requires a redraw, which relies on gender
         // shapes being there already
-    console.info(properties);
     this.assignProperties(properties);
         //timer.printSinceLast("=== new person runtime: ");
   },
@@ -68,6 +67,7 @@ export const Person = Class.create(AbstractPerson, {
     this._isProband = false;
     this._inferred = false;
     this._variants = [];
+    this._dataPresence = false;
   },
 
     /**
@@ -82,6 +82,14 @@ export const Person = Class.create(AbstractPerson, {
   _generateGraphics: function(x, y) {
         // console.log("person - generate graphics");
     return new PersonVisuals(this, x, y);
+  },
+  
+  setDataPresence(value) {
+    this._dataPresence = value;
+  },
+  
+  getDataPresence() {
+    return this._dataPresence;
   },
 
     /**
@@ -212,7 +220,7 @@ export const Person = Class.create(AbstractPerson, {
   setVariants: function(variants = []) {
     if (!variants.length) return;
     this._variants = variants;
-    this.getGraphics().updateVariantsLabel();
+    // this.getGraphics().updateVariantsLabel();
   },
 
     /**
@@ -1139,6 +1147,9 @@ export const Person = Class.create(AbstractPerson, {
       }
       if (info.hasOwnProperty('variants') && info.variants.length) {
         this.setVariants(info.variants);
+      }      
+      if (info.hasOwnProperty('dataPresence')) {
+        this.setDataPresence(info.dataPresence);
       }
       return true;
     }

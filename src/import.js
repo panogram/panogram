@@ -1050,68 +1050,68 @@ PedigreeImport.initFromGEDCOM = function(inputText, markEvaluated, saveIDAsExter
           properties['comments'] += '(Info: ' + getFirstValue(nextPerson[property]) + ')\n';
         } else if (property == 'NOTE' || property == '_COMMENT') {
           if (!properties.hasOwnProperty('comments'))
-              properties['comments'] = '';
+            properties['comments'] = '';
           properties['comments'] += getFirstValue(nextPerson[property]) + '\n';
           if (nextPerson[property][0].hasOwnProperty('CONT')) {
-              var more = nextPerson[property][0]['CONT'];
-              for (var cc = 0; cc < more.length; cc++) {
-                  properties['comments'] += more[cc].value + '\n';
-                }
+            var more = nextPerson[property][0]['CONT'];
+            for (var cc = 0; cc < more.length; cc++) {
+              properties['comments'] += more[cc].value + '\n';
             }
+          }
         } else if (property == 'NAME') {
-            var nameParts = getFirstValue(nextPerson[property]).split('/');
-            var firstName = nameParts[0].replace(/^\s+|\s+$/g, '');
-            var lastName  = nameParts.length > 1 ? nameParts[1].replace(/^\s+|\s+$/g, '') : '';
-            properties['fName'] = firstName;
-            if (lastName != '')
-                properties['lName'] = lastName;
-          } else if (property == '_MAIDEN') {
-              var nameParts = getFirstValue(nextPerson[property]).split('/');
-              var firstName = nameParts[0].replace(/^\s+|\s+$/g, '');
-              var lastName  = nameParts.length > 1 ? nameParts[1].replace(/^\s+|\s+$/g, '') : '';
-              properties['lNameAtB'] = firstName;
-              if (lastName != '')
-                  properties['lNameAtB'] += ' ' + lastName;               
-            } else if (property == '_GENSTAT') {
-                var props = getFirstValue(nextPerson[property]).split('');
-                for (var p = 0; p < props.length; p++) {
-                    var value = props[p];
-                    if (value.charCodeAt(0) == 65533 || value.charCodeAt(0) == 172) {
+          var nameParts = getFirstValue(nextPerson[property]).split('/');
+          var firstName = nameParts[0].replace(/^\s+|\s+$/g, '');
+          var lastName  = nameParts.length > 1 ? nameParts[1].replace(/^\s+|\s+$/g, '') : '';
+          properties['fName'] = firstName;
+          if (lastName != '')
+            properties['lName'] = lastName;
+        } else if (property == '_MAIDEN') {
+          var nameParts = getFirstValue(nextPerson[property]).split('/');
+          var firstName = nameParts[0].replace(/^\s+|\s+$/g, '');
+          var lastName  = nameParts.length > 1 ? nameParts[1].replace(/^\s+|\s+$/g, '') : '';
+          properties['lNameAtB'] = firstName;
+          if (lastName != '')
+            properties['lNameAtB'] += ' ' + lastName;               
+        } else if (property == '_GENSTAT') {
+          var props = getFirstValue(nextPerson[property]).split('');
+          for (var p = 0; p < props.length; p++) {
+            var value = props[p];
+            if (value.charCodeAt(0) == 65533 || value.charCodeAt(0) == 172) {
                            // one value is obtained via copy-paste, another via file upload
-                      value = 'HEARSAY';
-                    }
-                    switch(value) {
-                    case 'O':
-                      properties['carrierStatus'] = 'affected';
-                      properties['disorders']     = ['affected'];
-                      if (markEvaluated)
-                        properties['evaluated'] = true;
-                      break;
-                    case 'HEARSAY':
-                      properties['carrierStatus'] = 'presymptomatic'; // the closest graphic to cyrillic's "hearsay"
-                      if (markEvaluated)
-                        properties['evaluated'] = true;
-                      break;
-                    case 'K':
-                      properties['lifeStatus'] = 'stillborn';
-                      break;
-                    case 'M':
-                      properties['childlessStatus'] = 'infertile';
-                      break;
-                    case 'E':
-                      if (!properties.hasOwnProperty('comments')) {
-                        properties['comments'] = '(untested)';
-                      }
-                      else { 
-                        properties['comments'] = '(untested)\n' + properties['comments'];
-                      }
-                      break;
-                    case 'O':
-                           // TODO: proband
-                      break;
-                    } 
-                  }
+              value = 'HEARSAY';
+            }
+            switch(value) {
+            case 'O':
+              properties['carrierStatus'] = 'affected';
+              properties['disorders']     = ['affected'];
+              if (markEvaluated)
+                properties['evaluated'] = true;
+              break;
+            case 'HEARSAY':
+              properties['carrierStatus'] = 'presymptomatic'; // the closest graphic to cyrillic's "hearsay"
+              if (markEvaluated)
+                properties['evaluated'] = true;
+              break;
+            case 'K':
+              properties['lifeStatus'] = 'stillborn';
+              break;
+            case 'M':
+              properties['childlessStatus'] = 'infertile';
+              break;
+            case 'E':
+              if (!properties.hasOwnProperty('comments')) {
+                properties['comments'] = '(untested)';
               }
+              else { 
+                properties['comments'] = '(untested)\n' + properties['comments'];
+              }
+              break;
+            case 'O':
+                           // TODO: proband
+              break;
+            } 
+          }
+        }
       }
     }
     if (properties.hasOwnProperty('comments')) {
@@ -1221,6 +1221,7 @@ PedigreeImport.JSONToInternalPropertyMapping = {
   'externalidhref':  'externalIDHref',
   'focused':         'focused',
   'variants':        'variants',
+  'dataPresence':    'dataPresence',
 };
 
 

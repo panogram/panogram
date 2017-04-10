@@ -1,4 +1,4 @@
-import { contains, isNil } from 'ramda';
+import { contains, isNil, map } from 'ramda';
 import { PedigreeEditorAttributes } from './pedigreeEditorAttributes';
 import { DynamicPositionedGraph } from './dynamicGraph';
 import { ViewerWorkspace } from './viewerWorkspace';
@@ -53,6 +53,7 @@ const cleanData = data => {
             gender,
             variants,
             id,
+            dataPresence,
         } = datum;
     return {
       proband: cleanBooleanField(proband),
@@ -66,7 +67,8 @@ const cleanData = data => {
       disorders: disorders,
       gender: cleanGender(gender),
       variants,
-      id: id,
+      id,
+      dataPresence: cleanBooleanField(dataPresence),
     };
   });
 };
