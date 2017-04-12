@@ -1221,7 +1221,9 @@ PedigreeImport.JSONToInternalPropertyMapping = {
   'externalidhref':  'externalIDHref',
   'focused':         'focused',
   'variants':        'variants',
-  'dataPresence':    'dataPresence',
+  'hassnvs':    'hasSnvs',
+  'hascnvs':     'hasCnvs',
+  'hassvs':      'hasSvs',
 };
 
 

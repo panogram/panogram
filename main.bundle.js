@@ -42028,6 +42028,7 @@ var Person = exports.Person = Class.create(_abstractPerson.AbstractPerson, {
 
   initialize: function initialize($super, x, y, id, properties) {
     //var timer = new Timer();
+    console.log(properties);
     !this._type && (this._type = 'Person');
     this._setDefault();
     this._isProband = properties.isProband;
@@ -42071,7 +42072,9 @@ var Person = exports.Person = Class.create(_abstractPerson.AbstractPerson, {
     this._isProband = false;
     this._inferred = false;
     this._variants = null;
-    this._dataPresence = false;
+    this._hasSnvs = null;
+    this._hasCnvs = null;
+    this._hasSvs = null;
   },
 
   /**
@@ -42088,11 +42091,26 @@ var Person = exports.Person = Class.create(_abstractPerson.AbstractPerson, {
     return new _personVisuals.PersonVisuals(this, x, y);
   },
 
-  setDataPresence: function setDataPresence(value) {
-    this._dataPresence = value;
+  setHasSnvs: function setHasSnvs(value) {
+    this._hasSnvs = value;
+  },
+  getHasSnvs: function getHasSnvs() {
+    return this._hasSnvs;
+  },
+  setHasCnvs: function setHasCnvs(value) {
+    this._hasCnvs = value;
+  },
+  getHasCnvs: function getHasCnvs() {
+    return this._hasCnvs;
+  },
+  setHasSvs: function setHasSvs(value) {
+    this._hasSvs = value;
+  },
+  getHasSvs: function getHasSvs() {
+    return this._hasSvs;
   },
   getDataPresence: function getDataPresence() {
-    return this._dataPresence;
+    return this._hasSnvs || this._hasCnvs || this._hasSvs;
   },
 
 
@@ -43040,7 +43058,6 @@ var Person = exports.Person = Class.create(_abstractPerson.AbstractPerson, {
    */
   assignProperties: function assignProperties($super, info) {
     this._setDefault();
-
     if ($super(info)) {
       if (info.fName && this.getFirstName() != info.fName) {
         this.setFirstName(info.fName);
@@ -43117,8 +43134,14 @@ var Person = exports.Person = Class.create(_abstractPerson.AbstractPerson, {
       if (info.hasOwnProperty('variants')) {
         this.setVariants(info.variants);
       }
-      if (info.hasOwnProperty('dataPresence')) {
-        this.setDataPresence(info.dataPresence);
+      if (info.hasOwnProperty('hasSnvs')) {
+        this.setHasSnvs(info.hasSnvs);
+      }
+      if (info.hasOwnProperty('hasCnvs')) {
+        this.setHasCnvs(info.hasCnvs);
+      }
+      if (info.hasOwnProperty('hasSvs')) {
+        this.setHasSvs(info.hasSvs);
       }
       return true;
     }
@@ -46770,7 +46793,9 @@ var cleanData = function cleanData(data) {
         gender = datum.gender,
         variants = datum.variants,
         id = datum.id,
-        dataPresence = datum.dataPresence;
+        has_snvs = datum.has_snvs,
+        has_cnvs = datum.has_cnvs,
+        has_svs = datum.has_svs;
 
     return {
       proband: cleanBooleanField(proband),
@@ -46785,7 +46810,9 @@ var cleanData = function cleanData(data) {
       gender: cleanGender(gender),
       variants: variants,
       id: id,
-      dataPresence: cleanBooleanField(dataPresence)
+      hasSnvs: cleanBooleanField(has_snvs),
+      hasCnvs: cleanBooleanField(has_cnvs),
+      hasSvs: cleanBooleanField(has_svs)
     };
   });
 };
@@ -56061,7 +56088,9 @@ PedigreeImport.JSONToInternalPropertyMapping = {
   'externalidhref': 'externalIDHref',
   'focused': 'focused',
   'variants': 'variants',
-  'dataPresence': 'dataPresence'
+  'hassnvs': 'hasSnvs',
+  'hascnvs': 'hasCnvs',
+  'hassvs': 'hasSvs'
 };
 
 /*
@@ -56201,7 +56230,7 @@ var InfoHoverbox = exports.InfoHoverbox = Class.create(_abstractHoverbox.Abstrac
         text.node.setAttribute('class', 'field-no-user-select');
         rect = editor.getPaper().rect(this.getX(), computeItemPosition(0) - itemHeight / 2, this._width - 10, itemHeight, 1).attr({ 'stroke-width': 0 });
       } else {
-        var _label = this.getNode().getDataPresence() ? 'Genomic data available' : 'Clinical data only';
+        var _label = this.getNode().getHasSnvs() ? 'No SNP at this position' : 'No SNP data at any position';
         text = editor.getPaper().text(this.getX() + 8, computeItemPosition(0), _label).attr({ 'text-anchor': 'start' });
         text.node.setAttribute('class', 'field-no-user-select');
         rect = editor.getPaper().rect(this.getX(), computeItemPosition(0) - itemHeight / 2, this._width - 10, itemHeight, 1).attr({ 'stroke-width': 0 });

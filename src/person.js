@@ -24,6 +24,7 @@ export const Person = Class.create(AbstractPerson, {
 
   initialize: function($super, x, y, id, properties) {
         //var timer = new Timer();
+    console.log(properties);
     !this._type && (this._type = 'Person');
     this._setDefault();
     this._isProband = properties.isProband;
@@ -67,7 +68,9 @@ export const Person = Class.create(AbstractPerson, {
     this._isProband = false;
     this._inferred = false;
     this._variants = null;
-    this._dataPresence = false;
+    this._hasSnvs = null;
+    this._hasCnvs = null;
+    this._hasSvs = null;
   },
 
     /**
@@ -84,14 +87,34 @@ export const Person = Class.create(AbstractPerson, {
     return new PersonVisuals(this, x, y);
   },
   
-  setDataPresence(value) {
-    this._dataPresence = value;
+  setHasSnvs(value) {
+    this._hasSnvs = value;
   },
   
-  getDataPresence() {
-    return this._dataPresence;
+  getHasSnvs() {
+    return this._hasSnvs;
+  },
+  
+  setHasCnvs(value) {
+    this._hasCnvs = value;
+  },
+  
+  getHasCnvs() {
+    return this._hasCnvs;
+  },
+  
+  setHasSvs(value) {
+    this._hasSvs = value;
+  },
+  
+  getHasSvs() {
+    return this._hasSvs;
   },
 
+  getDataPresence() {
+    return this._hasSnvs || this._hasCnvs || this._hasSvs;
+  },
+      
     /**
      * Returns True if this node is the proband (i.e. the main patient)
      *
@@ -1070,7 +1093,6 @@ export const Person = Class.create(AbstractPerson, {
       */
   assignProperties: function($super, info) {
     this._setDefault();
-        
     if($super(info)) {
       if(info.fName && this.getFirstName() != info.fName) {
         this.setFirstName(info.fName);
@@ -1147,8 +1169,14 @@ export const Person = Class.create(AbstractPerson, {
       if (info.hasOwnProperty('variants')) {
         this.setVariants(info.variants);
       }      
-      if (info.hasOwnProperty('dataPresence')) {
-        this.setDataPresence(info.dataPresence);
+      if (info.hasOwnProperty('hasSnvs')) {
+        this.setHasSnvs(info.hasSnvs);
+      }
+      if (info.hasOwnProperty('hasCnvs')) {
+        this.setHasCnvs(info.hasCnvs);
+      }
+      if (info.hasOwnProperty('hasSvs')) {
+        this.setHasSvs(info.hasSvs);
       }
       return true;
     }

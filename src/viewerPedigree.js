@@ -53,7 +53,9 @@ const cleanData = data => {
             gender,
             variants,
             id,
-            dataPresence,
+            has_snvs,
+            has_cnvs,
+            has_svs,
         } = datum;
     return {
       proband: cleanBooleanField(proband),
@@ -68,7 +70,9 @@ const cleanData = data => {
       gender: cleanGender(gender),
       variants,
       id,
-      dataPresence: cleanBooleanField(dataPresence),
+      hasSnvs: cleanBooleanField(has_snvs),
+      hasCnvs: cleanBooleanField(has_cnvs),
+      hasSvs: cleanBooleanField(has_svs),
     };
   });
 };
