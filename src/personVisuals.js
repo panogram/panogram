@@ -1,5 +1,6 @@
 import { AbstractPersonVisuals } from './abstractPersonVisuals';
 import { InfoHoverbox } from './infoHoverbox';
+import { ReadOnlyHoverbox } from './readonlyHoverbox';
 import { PersonHoverbox } from './personHoverbox';
 import { PedigreeEditorAttributes } from './pedigreeEditorAttributes';
 import { sector, getElementHalfHeight } from './graphicHelpers';
@@ -43,7 +44,11 @@ export const PersonVisuals = Class.create(AbstractPersonVisuals, {
 
   generateHoverbox: function(x, y) {
     if (editor.isReadOnlyMode()) {
-      return new InfoHoverbox(this.getNode(), x, y, this.getGenderGraphics());
+      if (this.getNode().isInferred()) {
+        return new ReadOnlyHoverbox(this.getNode(), x, y, this.getGenderGraphics());
+      } else {
+        return new InfoHoverbox(this.getNode(), x, y, this.getGenderGraphics());
+      }
     } else {
       return new PersonHoverbox(this.getNode(), x, y, this.getGenderGraphics());
     }
