@@ -42070,7 +42070,7 @@ var Person = exports.Person = Class.create(_abstractPerson.AbstractPerson, {
     this._focused = false;
     this._isProband = false;
     this._inferred = false;
-    this._variants = [];
+    this._variants = null;
     this._dataPresence = false;
   },
 
@@ -42220,12 +42220,9 @@ var Person = exports.Person = Class.create(_abstractPerson.AbstractPerson, {
    *
    * @method setFocused
    */
-  setVariants: function setVariants() {
-    var variants = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : [];
-
-    if (!variants.length) return;
+  setVariants: function setVariants(variants) {
     this._variants = variants;
-    // this.getGraphics().updateVariantsLabel();
+    this.getGraphics().updateVariantsLabel();
   },
 
   /**
@@ -43117,7 +43114,7 @@ var Person = exports.Person = Class.create(_abstractPerson.AbstractPerson, {
       if (info.hasOwnProperty('isProband')) {
         this._isProband = info.isProband;
       }
-      if (info.hasOwnProperty('variants') && info.variants.length) {
+      if (info.hasOwnProperty('variants')) {
         this.setVariants(info.variants);
       }
       if (info.hasOwnProperty('dataPresence')) {
@@ -44003,19 +44000,21 @@ var PersonVisuals = exports.PersonVisuals = Class.create(_abstractPersonVisuals.
     var variants = this.getNode().getVariants();
     if (variants.length) {
       variants.forEach(function (variant) {
-        var text = variant.hgvs_c;
-        if (variant.genotype.toLowerCase() === 'homozygous') {
-          text += '•';
-        } else if (variant.genotype.toLowerCase() === 'heterozygous') {
-          text += '••';
-        }
-        _this._variantsLabel = editor.getPaper().text(_this.getX(), _this.getY(), text).attr(_pedigreeEditorAttributes.PedigreeEditorAttributes.commentLabel);
+        // let text = variant.hgvs_c;
+        // if (variant.genotype.toLowerCase() === 'homozygous') {
+        //   text += '•';
+        // }
+        // else if (variant.genotype.toLowerCase() === 'heterozygous'){
+        //   text += '••';
+        // }
+        _this._variantsLabel = editor.getPaper().text(_this.getX(), _this.getY(), variant.genotype).attr(_pedigreeEditorAttributes.PedigreeEditorAttributes.commentLabel);
         _this._variantsLabel.alignTop = true;
       });
     } else {
       this._variantsLabel = null;
     }
-    editor.getKey().showElement('variants');
+    //editor.getKey().showElement('variants');
+    editor.getKey().showElement('readsplits');
     this.drawLabels();
   },
 
@@ -56192,10 +56191,27 @@ var InfoHoverbox = exports.InfoHoverbox = Class.create(_abstractHoverbox.Abstrac
 
     // var circle = this._generateRadioTickCircle(this.getX()+10, computeItemPosition(0), false);
     //circle.attr({ fill: circleColour });
-    var label = this.getNode().getDataPresence() ? 'Clinical data only' : 'Genomic data available';
-    var text = editor.getPaper().text(this.getX() + 63, computeItemPosition(0), label);
-    text.node.setAttribute('class', 'field-no-user-select');
-    var rect = editor.getPaper().rect(this.getX(), computeItemPosition(0) - itemHeight / 2, this._width - 10, itemHeight, 1).attr({ 'stroke-width': 0 });
+    var text = void 0,
+        rect = void 0;
+    var variants = this.getNode().getVariants();
+    if (Array.isArray(variants)) {
+      if (variants.length) {
+        var label = 'readsplit: ' + this.getNode().getVariants()[0].readsplit;
+        text = editor.getPaper().text(this.getX() + this._width - 8, computeItemPosition(0), label).attr({ 'text-anchor': 'end' });
+        text.node.setAttribute('class', 'field-no-user-select');
+        rect = editor.getPaper().rect(this.getX(), computeItemPosition(0) - itemHeight / 2, this._width - 10, itemHeight, 1).attr({ 'stroke-width': 0 });
+      } else {
+        var _label = this.getNode().getDataPresence() ? 'Genomic data available' : 'Clinical data only';
+        text = editor.getPaper().text(this.getX() + 8, computeItemPosition(0), _label).attr({ 'text-anchor': 'start' });
+        text.node.setAttribute('class', 'field-no-user-select');
+        rect = editor.getPaper().rect(this.getX(), computeItemPosition(0) - itemHeight / 2, this._width - 10, itemHeight, 1).attr({ 'stroke-width': 0 });
+      }
+    } else {
+      var _label2 = this.getNode().getDataPresence() ? 'Genomic data available' : 'Clinical data only';
+      text = editor.getPaper().text(this.getX() + 8, computeItemPosition(0), _label2).attr({ 'text-anchor': 'start' });
+      text.node.setAttribute('class', 'field-no-user-select');
+      rect = editor.getPaper().rect(this.getX(), computeItemPosition(0) - itemHeight / 2, this._width - 10, itemHeight, 1).attr({ 'stroke-width': 0 });
+    }
 
     // rect.click(function(i) {
     //   tick.attr({'cy' : computeItemPosition(i)});
@@ -56230,6 +56246,7 @@ var InfoHoverbox = exports.InfoHoverbox = Class.create(_abstractHoverbox.Abstrac
     this.disable();
     this.getFrontElements().push(dataPresence);
     this.enable();
+    // editor.getKey().showElement('data');
   },
 
   /**
@@ -56396,7 +56413,8 @@ var Key = exports.Key = function () {
       dataPresence: false,
       focused: true,
       proband: false,
-      sex: true
+      sex: true,
+      readsplits: false
     };
   }
 
@@ -56446,7 +56464,8 @@ var Key = exports.Key = function () {
           showProband = _shown.proband,
           showSex = _shown.sex,
           showVariants = _shown.variants,
-          showDataPresence = _shown.dataPresence;
+          showDataPresence = _shown.dataPresence,
+          showReadsplits = _shown.readsplits;
 
 
       var focused = showFocused ? '<div><b style="color:blue">Blue line:</b> current patient</div>' : '';
@@ -56459,9 +56478,9 @@ var Key = exports.Key = function () {
       var hetrozygous = wrapper(dot);
       var homozygous = wrapper(dot + ' ' + dot);
       var variantsKey = showVariants ? '<div><b>Variant zygosity:</b></br>\n        <span style="display: inline-block; width: 5rem; padding-left:0.8rem;">homozygous</span>' + homozygous + '</div>\n        <span style="display: inline-block; width: 5rem; padding-left:0.8rem;">hetrozygous</span>' + hetrozygous + '</div>\n      </div>' : '';
-      var dataPresenceKey = '';
-
-      return '\n      <div class="legend-box key">\n        <h2 class="legend-title">Key</h2>\n        ' + sex + '\n        ' + focused + '\n        ' + proband + '\n        ' + variantsKey + '\n        ' + dataPresenceKey + '\n      </div>\n    ';
+      var dataPresenceKey = showDataPresence ? 'Hover for data prescence.' : '';
+      var readsplitsKey = showReadsplits ? 'Hover for readsplits.' : '';
+      return '\n      <div class="legend-box key">\n        <h2 class="legend-title">Key</h2>\n        ' + sex + '\n        ' + focused + '\n        ' + proband + '\n        ' + variantsKey + '\n        ' + dataPresenceKey + '\n        ' + readsplitsKey + '\n      </div>\n    ';
     }
   }]);
 

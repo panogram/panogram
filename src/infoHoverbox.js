@@ -56,12 +56,39 @@ export const InfoHoverbox = Class.create(AbstractHoverbox, {
 
     // var circle = this._generateRadioTickCircle(this.getX()+10, computeItemPosition(0), false);
     //circle.attr({ fill: circleColour });
-    const label = this.getNode().getDataPresence() ? 'Clinical data only' : 'Genomic data available';
-    var text = editor.getPaper().text(this.getX()+63, computeItemPosition(0), label);
-    text.node.setAttribute('class', 'field-no-user-select');
-    var rect = editor.getPaper()
-    .rect(this.getX(), computeItemPosition(0)-itemHeight/2, this._width-10, itemHeight, 1)
-    .attr({ 'stroke-width': 0 });
+    let text, rect;
+    const variants = this.getNode().getVariants();
+    if (Array.isArray(variants)) {
+      if (variants.length) {
+        const label = 'readsplit: ' + this.getNode().getVariants()[0].readsplit;
+        text = editor.getPaper().text(this.getX()+this._width-8, computeItemPosition(0), label)
+        .attr({'text-anchor': 'end'});
+        text.node.setAttribute('class', 'field-no-user-select');
+        rect = editor.getPaper()
+        .rect(this.getX(), computeItemPosition(0)-itemHeight/2, this._width-10, itemHeight, 1)
+        .attr({ 'stroke-width': 0 });
+      } else {
+        const label = this.getNode().getDataPresence() ? 'Genomic data available' : 'Clinical data only';
+        text = editor.getPaper().text(this.getX()+8, computeItemPosition(0), label)
+        .attr({'text-anchor': 'start'});
+        text.node.setAttribute('class', 'field-no-user-select');
+        rect = editor.getPaper()
+        .rect(this.getX(), computeItemPosition(0)-itemHeight/2, this._width-10, itemHeight, 1)
+        .attr({ 'stroke-width': 0 });
+      }
+    }
+    else {
+      const label = this.getNode().getDataPresence() ? 'Genomic data available' : 'Clinical data only';
+      text = editor.getPaper().text(this.getX()+8, computeItemPosition(0), label)
+      .attr({'text-anchor': 'start'});
+      text.node.setAttribute('class', 'field-no-user-select');
+      rect = editor.getPaper()
+      .rect(this.getX(), computeItemPosition(0)-itemHeight/2, this._width-10, itemHeight, 1)
+      .attr({ 'stroke-width': 0 });
+    }
+
+
+
 
       // rect.click(function(i) {
       //   tick.attr({'cy' : computeItemPosition(i)});
@@ -97,6 +124,7 @@ export const InfoHoverbox = Class.create(AbstractHoverbox, {
     this.disable();
     this.getFrontElements().push(dataPresence);
     this.enable();
+    // editor.getKey().showElement('data');
   },
 
     /**

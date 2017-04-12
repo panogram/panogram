@@ -10,6 +10,7 @@ export class Key {
       focused: true,
       proband: false,
       sex: true,
+      readsplits: false,
     };
   }
   showElement(name) {
@@ -50,7 +51,8 @@ export class Key {
       proband: showProband,
       sex: showSex,
       variants: showVariants,
-      dataPresence: showDataPresence
+      dataPresence: showDataPresence,
+      readsplits: showReadsplits,
     } = this.shown;
 
     const focused = showFocused ?
@@ -72,8 +74,8 @@ export class Key {
         <span style="display: inline-block; width: 5rem; padding-left:0.8rem;">hetrozygous</span>${hetrozygous}</div>
       </div>` :
       '';
-    const dataPresenceKey = '';
-
+    const dataPresenceKey = showDataPresence ? 'Hover for data prescence.' : '';
+    const readsplitsKey = showReadsplits ? 'Hover for readsplits.' : '';
     return `
       <div class="legend-box key">
         <h2 class="legend-title">Key</h2>
@@ -82,6 +84,7 @@ export class Key {
         ${proband}
         ${variantsKey}
         ${dataPresenceKey}
+        ${readsplitsKey}
       </div>
     `;
   }

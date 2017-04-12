@@ -66,7 +66,7 @@ export const Person = Class.create(AbstractPerson, {
     this._focused = false;
     this._isProband = false;
     this._inferred = false;
-    this._variants = [];
+    this._variants = null;
     this._dataPresence = false;
   },
 
@@ -217,10 +217,9 @@ export const Person = Class.create(AbstractPerson, {
      *
      * @method setFocused
      */
-  setVariants: function(variants = []) {
-    if (!variants.length) return;
+  setVariants: function(variants) {
     this._variants = variants;
-    // this.getGraphics().updateVariantsLabel();
+    this.getGraphics().updateVariantsLabel();
   },
 
     /**
@@ -1145,7 +1144,7 @@ export const Person = Class.create(AbstractPerson, {
       if (info.hasOwnProperty('isProband')) {
         this._isProband = info.isProband;
       }
-      if (info.hasOwnProperty('variants') && info.variants.length) {
+      if (info.hasOwnProperty('variants')) {
         this.setVariants(info.variants);
       }      
       if (info.hasOwnProperty('dataPresence')) {

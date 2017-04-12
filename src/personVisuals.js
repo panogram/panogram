@@ -605,20 +605,21 @@ export const PersonVisuals = Class.create(AbstractPersonVisuals, {
     let variants = this.getNode().getVariants();
     if (variants.length) {
       variants.forEach(variant => {
-        let text = variant.hgvs_c;
-        if (variant.genotype.toLowerCase() === 'homozygous') {
-          text += '•';
-        }
-        else if (variant.genotype.toLowerCase() === 'heterozygous'){
-          text += '••';
-        }
-        this._variantsLabel = editor.getPaper().text(this.getX(), this.getY(), text).attr(PedigreeEditorAttributes.commentLabel);
+        // let text = variant.hgvs_c;
+        // if (variant.genotype.toLowerCase() === 'homozygous') {
+        //   text += '•';
+        // }
+        // else if (variant.genotype.toLowerCase() === 'heterozygous'){
+        //   text += '••';
+        // }
+        this._variantsLabel = editor.getPaper().text(this.getX(), this.getY(), variant.genotype).attr(PedigreeEditorAttributes.commentLabel);
         this._variantsLabel.alignTop = true;
       });
     } else {
       this._variantsLabel = null;
     }
-    editor.getKey().showElement('variants');
+    //editor.getKey().showElement('variants');
+    editor.getKey().showElement('readsplits');
     this.drawLabels();
   },
  
