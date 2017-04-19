@@ -175,6 +175,7 @@ body {
   z-index:10000;
   padding-left:0.65em;
   margin-bottom: 1.5em;
+  display:inline-block;
 } 
 /* ===========================================
  * LEGEND
@@ -193,6 +194,7 @@ body {
   position: absolute;
   left: 0;
   z-index: 10000;
+  width:240px;
 }
 #panogram .legend-box .legend-title {
   font-size: 1.25em;
