@@ -62,7 +62,7 @@ export const InfoHoverbox = Class.create(AbstractHoverbox, {
       if (variants.length) {
         const label = 'readsplit: ' + this.getNode().getVariants()[0].readsplit;
         text = editor.getPaper().text(this.getX()+this._width-8, computeItemPosition(0), label)
-        .attr({'text-anchor': 'end'});
+        .attr({'text-anchor': 'end', 'font-size': 14 });
         text.node.setAttribute('class', 'field-no-user-select');
         rect = editor.getPaper()
         .rect(this.getX(), computeItemPosition(0)-itemHeight/2, this._width-10, itemHeight, 1)
@@ -70,7 +70,7 @@ export const InfoHoverbox = Class.create(AbstractHoverbox, {
       } else {
         const label = this.getNode().getHasSnvs() ? 'No SNP at this position' : 'No SNP data at any position';
         text = editor.getPaper().text(this.getX()+8, computeItemPosition(0), label)
-        .attr({'text-anchor': 'start'});
+        .attr({'text-anchor': 'start', 'font-size': 14 });
         text.node.setAttribute('class', 'field-no-user-select');
         rect = editor.getPaper()
         .rect(this.getX(), computeItemPosition(0)-itemHeight/2, this._width-10, itemHeight, 1)
@@ -80,7 +80,7 @@ export const InfoHoverbox = Class.create(AbstractHoverbox, {
     else {
       const label = this.getNode().getDataPresence() ? 'Genomic data available' : 'Clinical data only';
       text = editor.getPaper().text(this.getX()+8, computeItemPosition(0), label)
-      .attr({'text-anchor': 'start'});
+      .attr({'text-anchor': 'start', 'font-size': 14 });
       text.node.setAttribute('class', 'field-no-user-select');
       rect = editor.getPaper()
       .rect(this.getX(), computeItemPosition(0)-itemHeight/2, this._width-10, itemHeight, 1)

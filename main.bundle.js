@@ -56232,18 +56232,18 @@ var InfoHoverbox = exports.InfoHoverbox = Class.create(_abstractHoverbox.Abstrac
     if (Array.isArray(variants)) {
       if (variants.length) {
         var label = 'readsplit: ' + this.getNode().getVariants()[0].readsplit;
-        text = editor.getPaper().text(this.getX() + this._width - 8, computeItemPosition(0), label).attr({ 'text-anchor': 'end' });
+        text = editor.getPaper().text(this.getX() + this._width - 8, computeItemPosition(0), label).attr({ 'text-anchor': 'end', 'font-size': 14 });
         text.node.setAttribute('class', 'field-no-user-select');
         rect = editor.getPaper().rect(this.getX(), computeItemPosition(0) - itemHeight / 2, this._width - 10, itemHeight, 1).attr({ 'stroke-width': 0 });
       } else {
         var _label = this.getNode().getHasSnvs() ? 'No SNP at this position' : 'No SNP data at any position';
-        text = editor.getPaper().text(this.getX() + 8, computeItemPosition(0), _label).attr({ 'text-anchor': 'start' });
+        text = editor.getPaper().text(this.getX() + 8, computeItemPosition(0), _label).attr({ 'text-anchor': 'start', 'font-size': 14 });
         text.node.setAttribute('class', 'field-no-user-select');
         rect = editor.getPaper().rect(this.getX(), computeItemPosition(0) - itemHeight / 2, this._width - 10, itemHeight, 1).attr({ 'stroke-width': 0 });
       }
     } else {
       var _label2 = this.getNode().getDataPresence() ? 'Genomic data available' : 'Clinical data only';
-      text = editor.getPaper().text(this.getX() + 8, computeItemPosition(0), _label2).attr({ 'text-anchor': 'start' });
+      text = editor.getPaper().text(this.getX() + 8, computeItemPosition(0), _label2).attr({ 'text-anchor': 'start', 'font-size': 14 });
       text.node.setAttribute('class', 'field-no-user-select');
       rect = editor.getPaper().rect(this.getX(), computeItemPosition(0) - itemHeight / 2, this._width - 10, itemHeight, 1).attr({ 'stroke-width': 0 });
     }
