@@ -62,7 +62,7 @@ export class Key {
       '<div><b>Arrow:</b> proband</div>' :
       '';
     const sex = showSex ?
-      '<div><b>Sex:</b> Square - Male, Circle - Female</div>':
+      '<div><b>Sex:</b> Square - Male, Circle - Female, Diamond - Unknown</div>':
        '';
     const dot = '<i style="line-height: 15px; font-size:0.5rem" class="fa fa-circle"/>';
     const wrapper = content => `<span style="inline-block; width: 1rem">${content}</sapn>`;

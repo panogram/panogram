@@ -56505,7 +56505,7 @@ var Key = exports.Key = function () {
 
       var focused = showFocused ? '<div><b style="color:blue">Blue line:</b> current patient</div>' : '';
       var proband = showProband ? '<div><b>Arrow:</b> proband</div>' : '';
-      var sex = showSex ? '<div><b>Sex:</b> Square - Male, Circle - Female</div>' : '';
+      var sex = showSex ? '<div><b>Sex:</b> Square - Male, Circle - Female, Diamond - Unknown</div>' : '';
       var dot = '<i style="line-height: 15px; font-size:0.5rem" class="fa fa-circle"/>';
       var wrapper = function wrapper(content) {
         return '<span style="inline-block; width: 1rem">' + content + '</sapn>';
