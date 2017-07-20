@@ -60,7 +60,7 @@ export const InfoHoverbox = Class.create(AbstractHoverbox, {
     const variants = this.getNode().getVariants();
     if (Array.isArray(variants)) {
       if (variants.length) {
-        const label = 'readsplit: ' + this.getNode().getVariants()[0].readsplit;
+        const label = 'readsplit: ' + this.getNode().getVariants()[0].readsplit + '(ref/alt)';
         text = editor.getPaper().text(this.getX()+this._width-8, computeItemPosition(0), label)
         .attr({'text-anchor': 'end', 'font-size': 14 });
         text.node.setAttribute('class', 'field-no-user-select');

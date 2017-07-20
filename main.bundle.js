@@ -41690,7 +41690,7 @@ var InfoHoverbox = exports.InfoHoverbox = Class.create(_abstractHoverbox.Abstrac
     var variants = this.getNode().getVariants();
     if (Array.isArray(variants)) {
       if (variants.length) {
-        var label = 'readsplit: ' + this.getNode().getVariants()[0].readsplit;
+        var label = 'readsplit: ' + this.getNode().getVariants()[0].readsplit + '(ref/alt)';
         text = editor.getPaper().text(this.getX() + this._width - 8, computeItemPosition(0), label).attr({ 'text-anchor': 'end', 'font-size': 14 });
         text.node.setAttribute('class', 'field-no-user-select');
         rect = editor.getPaper().rect(this.getX(), computeItemPosition(0) - itemHeight / 2, this._width - 10, itemHeight, 1).attr({ 'stroke-width': 0 });
