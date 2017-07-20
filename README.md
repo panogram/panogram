@@ -10,7 +10,7 @@ head to localhost:8080
 
 ### building:
 ```
-npm run building
+npm run build
 ```
 
 
