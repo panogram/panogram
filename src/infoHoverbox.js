@@ -68,8 +68,10 @@ export const InfoHoverbox = Class.create(AbstractHoverbox, {
         .rect(this.getX(), computeItemPosition(0)-itemHeight/2, this._width-10, itemHeight, 1)
         .attr({ 'stroke-width': 0 });
       } else {
-        const label = this.getNode().getHasSnvs() ? 'Presumed wildtype: check sequence alignments' : 'No SNV data at any position';
-        text = editor.getPaper().text(this.getX()+8, computeItemPosition(0), label)
+        const t = `Presumed wildtype: 
+        check sequence alignments`;
+        const label = this.getNode().getHasSnvs() ? t : 'No SNV data at any position';
+        text = editor.getPaper().text(this.getX()+8, computeItemPosition(-1), label)
         .attr({'text-anchor': 'start', 'font-size': 14 });
         text.node.setAttribute('class', 'field-no-user-select');
         rect = editor.getPaper()

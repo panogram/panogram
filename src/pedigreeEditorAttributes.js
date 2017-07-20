@@ -45,7 +45,7 @@ export const PedigreeEditorAttributes = {
   descendantGroupLabel: {'font-size': 21, 'font-family': 'Tahoma'},
   label: {'font-size': 20, 'font-family': 'Arial'},
   nameLabels: {'font-size': 20, 'font-family': 'Arial'},
-  commentLabel: {'font-size': 19, 'font-family': 'Arial' },
+  commentLabel: {'font-size': 19, 'font-family': 'Arial', 'font-weight':'bold'},
   externalIDLabels: {'font-size': 18, 'font-family': 'Arial' , 'cursor': 'pointer'},
   disorderShapes: {},
   partnershipNode: {fill: '#aaa', stroke: 'black', 'stroke-width':1.5},  //#E25740

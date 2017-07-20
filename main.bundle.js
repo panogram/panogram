@@ -745,7 +745,7 @@ var PedigreeEditorAttributes = exports.PedigreeEditorAttributes = {
   descendantGroupLabel: { 'font-size': 21, 'font-family': 'Tahoma' },
   label: { 'font-size': 20, 'font-family': 'Arial' },
   nameLabels: { 'font-size': 20, 'font-family': 'Arial' },
-  commentLabel: { 'font-size': 19, 'font-family': 'Arial' },
+  commentLabel: { 'font-size': 19, 'font-family': 'Arial', 'font-weight': 'bold' },
   externalIDLabels: { 'font-size': 18, 'font-family': 'Arial', 'cursor': 'pointer' },
   disorderShapes: {},
   partnershipNode: { fill: '#aaa', stroke: 'black', 'stroke-width': 1.5 }, //#E25740
@@ -41695,8 +41695,9 @@ var InfoHoverbox = exports.InfoHoverbox = Class.create(_abstractHoverbox.Abstrac
         text.node.setAttribute('class', 'field-no-user-select');
         rect = editor.getPaper().rect(this.getX(), computeItemPosition(0) - itemHeight / 2, this._width - 10, itemHeight, 1).attr({ 'stroke-width': 0 });
       } else {
-        var _label = this.getNode().getHasSnvs() ? 'Presumed wildtype: check sequence alignments' : 'No SNV data at any position';
-        text = editor.getPaper().text(this.getX() + 8, computeItemPosition(0), _label).attr({ 'text-anchor': 'start', 'font-size': 14 });
+        var t = 'Presumed wildtype: \n        check sequence alignments';
+        var _label = this.getNode().getHasSnvs() ? t : 'No SNV data at any position';
+        text = editor.getPaper().text(this.getX() + 8, computeItemPosition(-1), _label).attr({ 'text-anchor': 'start', 'font-size': 14 });
         text.node.setAttribute('class', 'field-no-user-select');
         rect = editor.getPaper().rect(this.getX(), computeItemPosition(0) - itemHeight / 2, this._width - 10, itemHeight, 1).attr({ 'stroke-width': 0 });
       }
