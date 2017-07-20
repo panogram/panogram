@@ -75,7 +75,7 @@ export class Key {
       </div>` :
       '';
     const dataPresenceKey = showDataPresence ? 'Hover for data prescence.' : '';
-    const readsplitsKey = showReadsplits ? 'Hover for readsplits.' : '';
+    const readsplitsKey = showReadsplits ? 'Hover over symbols to view readsplits.' : '';
     return `
       <div class="legend-box key">
         <h2 class="legend-title">Key</h2>
