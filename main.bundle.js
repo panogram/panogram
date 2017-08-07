@@ -32147,7 +32147,8 @@ var cleanData = function cleanData(data) {
         id = datum.id,
         has_snvs = datum.has_snvs,
         has_cnvs = datum.has_cnvs,
-        has_svs = datum.has_svs;
+        has_svs = datum.has_svs,
+        title = datum.title;
 
     return {
       proband: cleanBooleanField(proband),
@@ -32164,7 +32165,8 @@ var cleanData = function cleanData(data) {
       id: id,
       hasSnvs: cleanBooleanField(has_snvs),
       hasCnvs: cleanBooleanField(has_cnvs),
-      hasSvs: cleanBooleanField(has_svs)
+      hasSvs: cleanBooleanField(has_svs),
+      title: title
     };
   });
 };
@@ -32200,11 +32202,10 @@ var ViewerPedigree = exports.ViewerPedigree = function () {
     this._hpoLegend = new _hpoLegend.HPOLegend();
     this._key = new _key.Key();
 
-    var variants = getAllVariants(data);
+    // const variants = getAllVariants(data);
 
-    if (Object.keys(variants).length === 1) {
-      var variantName = Object.keys(variants)[0];
-      this._title = new _title.Title('Segregation for variant ' + variantName);
+    if (!(0, _ramda.isNil)(data[0].title)) {
+      this._title = new _title.Title('Segregation for variant ' + data[0].title);
       this._title.draw();
     }
 

@@ -56,6 +56,7 @@ const cleanData = data => {
             has_snvs,
             has_cnvs,
             has_svs,
+            title,
         } = datum;
     return {
       proband: cleanBooleanField(proband),
@@ -73,6 +74,7 @@ const cleanData = data => {
       hasSnvs: cleanBooleanField(has_snvs),
       hasCnvs: cleanBooleanField(has_cnvs),
       hasSvs: cleanBooleanField(has_svs),
+      title,
     };
   });
 };
@@ -109,11 +111,10 @@ export class ViewerPedigree {
     this._hpoLegend = new HPOLegend();
     this._key = new Key();
     
-    const variants = getAllVariants(data);
+    // const variants = getAllVariants(data);
 
-    if (Object.keys(variants).length === 1) {
-      const variantName = Object.keys(variants)[0];
-      this._title = new Title(`Segregation for variant ${variantName}`);
+    if (!isNil(data[0].title)) {
+      this._title = new Title(`Segregation for variant ${data[0].title}`);
       this._title.draw();
     }
 
