@@ -110,11 +110,11 @@ export class ViewerPedigree {
     this._disorderLegend = new DisorderLegend();
     this._hpoLegend = new HPOLegend();
     this._key = new Key();
-    
+
     // const variants = getAllVariants(data);
 
     if (!isNil(data[0].title)) {
-      this._title = new Title(`Segregation for variant ${data[0].title}`);
+      this._title = new Title(`Segregation of variant ${data[0].title}`);
       this._title.draw();
     }
 

@@ -32205,7 +32205,7 @@ var ViewerPedigree = exports.ViewerPedigree = function () {
     // const variants = getAllVariants(data);
 
     if (!(0, _ramda.isNil)(data[0].title)) {
-      this._title = new _title.Title('Segregation for variant ' + data[0].title);
+      this._title = new _title.Title('Segregation of variant ' + data[0].title);
       this._title.draw();
     }
 
