@@ -26,7 +26,7 @@ export const PedigreeEditorAttributes = {
   presymptomaticShape: {fill : '#777777', 'stroke': '#777777'},
   presymptomaticShapeWidth: 8,
   evaluationShape: {'font-size': 40, 'font-family': 'Arial'},
-  nodeShape:     {fill: '#f7f7f7', stroke: '#2d2d2d', 'stroke-width': 2.0},  // this
+  nodeShape:     {fill: '#ddd', stroke: '#2d2d2d', 'stroke-width': 2.0},  // this
   nodeShapeMenuOn:  {fill: '#000', stroke: 'none', 'fill-opacity': 0.1},
   nodeShapeMenuOff: {fill: '#000', stroke: 'none', 'fill-opacity': 0},
   nodeShapeMenuOnPartner:  {fill: '#000', stroke: 'none', 'fill-opacity': 0.1},
