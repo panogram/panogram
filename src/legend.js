@@ -12,9 +12,10 @@ export const Legend = Class.create( {
     this._affectedNodes  = {};     // for each object: the list of affected person nodes
 
     this._objectColors = {
-        "Affected__with__related__or__similar__phenotype" : "#000",
-        "Unaffected__with__related__or__similar__phenotype" : "#ddd",
-        "Of__unknown__phenotype" : "#ddd"
+      'Affected' : '#000',
+      "Affected__with__related__or__similar__phenotype" : "#000",
+      "Unaffected__with__related__or__similar__phenotype" : "#ddd",
+      "Of__unknown__phenotype" : "#ddd"
     };       // for each object: the corresponding object color
 
     var legendContainer = $('legend-container');
