@@ -14,6 +14,7 @@ export const Legend = Class.create( {
     this._objectColors = {
       'Affected' : '#000',
       "Affected__with__related__or__similar__phenotype" : "#000",
+      "Unaffected": "#ddd",
       "Unaffected__with__related__or__similar__phenotype" : "#ddd",
       "Of__unknown__phenotype" : "#ddd"
     };       // for each object: the corresponding object color
