@@ -16569,11 +16569,13 @@ HPOTerm.sanitizeID = function (id) {
   var temp = id.replace(/[\(\[]/g, '_L_');
   temp = temp.replace(/[\)\]]/g, '_J_');
   temp = temp.replace(/[:]/g, '_C_');
+  temp = temp.replace(/\,/g, '__COMMA__');
   return temp.replace(/[^a-zA-Z0-9,;_\-*]/g, '__');
 };
 
 HPOTerm.desanitizeID = function (id) {
-  var temp = id.replace(/__/g, ' ');
+  var temp = id.replace(/__COMMA__/g, ',');
+  temp = temp.replace(/__/g, ' ');
   temp = temp.replace(/_C_/g, ':');
   temp = temp.replace(/_L_/g, '(');
   return temp.replace(/_J_/g, ')');
