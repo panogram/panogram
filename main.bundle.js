@@ -27267,7 +27267,8 @@ var Legend = exports.Legend = Class.create({
       "Affected__with__related__or__similar__phenotype": "#000",
       "Unaffected": "#ddd",
       "Unaffected__with__related__or__similar__phenotype": "#ddd",
-      "Of__unknown__phenotype": "#ddd"
+      "Of__unknown__phenotype": "#ddd",
+      "Unknown": "#ddd"
     }; // for each object: the corresponding object color
 
     var legendContainer = $('legend-container');
