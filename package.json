@@ -36,8 +36,9 @@
   "dependencies": {
     "jquery": "^3.1.1",
     "lodash": "^4.17.4",
-    "prototype": "timrichd/prototype.node.js",
+    "prototype": "github:Congenica/prototype.node.js",
     "ramda": "^0.23.0",
-    "raphael": "^2.2.7"
+    "raphael": "^2.2.7",
+    "xregexp": "^4.2.0"
   }
 }

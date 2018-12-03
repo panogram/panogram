@@ -1,3 +1,5 @@
+import XRegExp from 'xregexp'
+
 /*
  * HPOTerm is a class for storing phenotype information and loading it from the
  * the HPO database. These phenotypes can be attributed to an individual in the Pedigree.
@@ -69,7 +71,9 @@ HPOTerm.sanitizeID = function(id) {
   temp = temp.replace(/[\)\]]/g, '_J_');
   temp = temp.replace(/[:]/g, '_C_');
   temp = temp.replace(/\,/g, '__COMMA__');
-  return temp.replace(/[^a-zA-Z0-9,;_\-*]/g, '__');
+  // XRegExp handles unicode characters for us, so languages like chinese don't
+  // get filtered out here.
+  return temp.replace(XRegExp('[^\\pL\\p{Dash_Punctuation}*,;_\\-*]', 'g'),  '__');
 };
 
 HPOTerm.desanitizeID = function(id) {
