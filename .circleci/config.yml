@@ -1,0 +1,34 @@
+version: 2
+jobs:
+  build:
+    docker:
+      - image: circleci/node:carbon
+    steps:
+      - checkout
+      - restore_cache:
+          key: dependency-cache-{{ checksum "package.json" }}
+      - run:
+          name: Install Bower
+          command: sudo npm install -g bower
+      - run:
+          name: Install dependencies
+          command: |
+            npm install
+            bower install
+      - save_cache:
+          key: dependency-cache-{{ checksum "package.json" }}
+          paths:
+            - ./node_modules
+      - run:
+          name: Build the module
+          command: npm run build
+      - run:
+          name: Check committed build is up to date
+          command: |
+            LINES=$(git diff --count --raw | wc -l)
+
+            if [ $LINES -eq 0 ]; then
+              exit 0;
+            fi
+
+            exit 1;
