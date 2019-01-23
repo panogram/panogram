@@ -111,11 +111,23 @@ XCoord.prototype = {
     return this.xcoord[v] + this.halfWidth[v];
   },
 
+  isEdgeNode: function(boundary) {
+    // check if the node in on the left or the right edge of the diagram
+    // If the node is either on the left or on the right edge of the diagram,
+    // the allowed movement boundary is determined as Infinite
+    // See getLeftMostNoDisturbPosition and getRightMostNoDisturbPosition
+    return !Number.isFinite(boundary);
+
+  },
+
   shiftLeftOneVertex: function (v, amount) {
         // attempts to move vertex v to the left by ``amount``, but stops
         // as soon as it get as close as allowed to it's left neighbour
 
     var leftBoundary = this.getLeftMostNoDisturbPosition(v);
+    if (this.isEdgeNode(leftBoundary)) {
+      return 0;
+    }
 
     var actualShift = Math.min( amount, this.xcoord[v] - leftBoundary );
 
@@ -129,6 +141,9 @@ XCoord.prototype = {
         // as soon as it get as close as allowed to it's right neighbour
 
     var rightBoundary = this.getRightMostNoDisturbPosition(v);
+    if (this.isEdgeNode(rightBoundary)) {
+      return 0;
+    }
 
     var actualShift = Math.min( amount, rightBoundary - this.xcoord[v] );
 
