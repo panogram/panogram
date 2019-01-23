@@ -20,6 +20,9 @@ jobs:
           paths:
             - ./node_modules
       - run:
+          name: Incrementally check code formatting
+          command: npm run precise-commits --check-only
+      - run:
           name: Build the module
           command: npm run build
       - run:
