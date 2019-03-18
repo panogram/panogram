@@ -33096,14 +33096,14 @@ var render = function render(_ref) {
 
 var getPedigreeData = function getPedigreeData(patientId) {
     return jquery.ajax({
-        url: "/patient/" + patientId + "/pedigree.json",
+        url: "/dancer/patient/" + patientId + "/pedigree.json",
         method: "GET"
     });
 };
 
 var getSegData = function getSegData(patientId, patientSnvId, transcriptId, geneName) {
     return jquery.ajax({
-        url: "/patient/" + patientId + "/snv/" + patientSnvId + "/transcript/" + transcriptId + "/gene/" + geneName + "/pedigree/segregation.json",
+        url: "/dancer/patient/" + patientId + "/snv/" + patientSnvId + "/transcript/" + transcriptId + "/gene/" + geneName + "/pedigree/segregation.json",
         method: "GET"
     });
 };
@@ -64703,7 +64703,7 @@ module.exports = $R;
   var undefined;
 
   /** Used as the semantic version number. */
-  var VERSION = '4.17.5';
+  var VERSION = '4.17.11';
 
   /** Used as the size to enable large array optimizations. */
   var LARGE_ARRAY_SIZE = 200;
@@ -64967,7 +64967,7 @@ module.exports = $R;
   var reHasUnicode = RegExp('[' + rsZWJ + rsAstralRange  + rsComboRange + rsVarRange + ']');
 
   /** Used to detect strings that need a more robust regexp to match words. */
-  var reHasUnicodeWord = /[a-z][A-Z]|[A-Z]{2,}[a-z]|[0-9][a-zA-Z]|[a-zA-Z][0-9]|[^a-zA-Z0-9 ]/;
+  var reHasUnicodeWord = /[a-z][A-Z]|[A-Z]{2}[a-z]|[0-9][a-zA-Z]|[a-zA-Z][0-9]|[^a-zA-Z0-9 ]/;
 
   /** Used to assign default `context` object properties. */
   var contextProps = [
@@ -65127,6 +65127,14 @@ module.exports = $R;
   /** Used to access faster Node.js helpers. */
   var nodeUtil = (function() {
     try {
+      // Use `util.types` for Node.js 10+.
+      var types = freeModule && freeModule.require && freeModule.require('util').types;
+
+      if (types) {
+        return types;
+      }
+
+      // Legacy `process.binding('util')` for Node.js < 10.
       return freeProcess && freeProcess.binding && freeProcess.binding('util');
     } catch (e) {}
   }());
@@ -65905,20 +65913,6 @@ module.exports = $R;
       }
     }
     return result;
-  }
-
-  /**
-   * Gets the value at `key`, unless `key` is "__proto__".
-   *
-   * @private
-   * @param {Object} object The object to query.
-   * @param {string} key The key of the property to get.
-   * @returns {*} Returns the property value.
-   */
-  function safeGet(object, key) {
-    return key == '__proto__'
-      ? undefined
-      : object[key];
   }
 
   /**
@@ -68378,7 +68372,7 @@ module.exports = $R;
           if (isArguments(objValue)) {
             newValue = toPlainObject(objValue);
           }
-          else if (!isObject(objValue) || (srcIndex && isFunction(objValue))) {
+          else if (!isObject(objValue) || isFunction(objValue)) {
             newValue = initCloneObject(srcValue);
           }
         }
@@ -71299,6 +71293,22 @@ module.exports = $R;
         array[length] = isIndex(index, arrLength) ? oldArray[index] : undefined;
       }
       return array;
+    }
+
+    /**
+     * Gets the value at `key`, unless `key` is "__proto__".
+     *
+     * @private
+     * @param {Object} object The object to query.
+     * @param {string} key The key of the property to get.
+     * @returns {*} Returns the property value.
+     */
+    function safeGet(object, key) {
+      if (key == '__proto__') {
+        return;
+      }
+
+      return object[key];
     }
 
     /**

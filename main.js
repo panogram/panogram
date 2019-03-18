@@ -14,12 +14,12 @@ const render = ({ data }) => {
 };
 
 const getPedigreeData = patientId => jquery.ajax({
-    url: `/patient/${patientId}/pedigree.json`,
+    url: `/dancer/patient/${patientId}/pedigree.json`,
     method: "GET",
 });
 
 const getSegData = (patientId, patientSnvId, transcriptId, geneName) => jquery.ajax({
-    url: `/patient/${patientId}/snv/${patientSnvId}/transcript/${transcriptId}/gene/${geneName}/pedigree/segregation.json`,
+    url: `/dancer/patient/${patientId}/snv/${patientSnvId}/transcript/${transcriptId}/gene/${geneName}/pedigree/segregation.json`,
     method: "GET",
 });
 
