@@ -33703,14 +33703,14 @@ var render = function render(_ref) {
 
 var getPedigreeData = function getPedigreeData(patientId) {
     return jquery.ajax({
-        url: "/dancer/patient/" + patientId + "/pedigree.json",
+        url: "/patient/" + patientId + "/pedigree.json",
         method: "GET"
     });
 };
 
 var getSegData = function getSegData(patientId, patientSnvId, transcriptId, geneName) {
     return jquery.ajax({
-        url: "/dancer/patient/" + patientId + "/snv/" + patientSnvId + "/transcript/" + transcriptId + "/gene/" + geneName + "/pedigree/segregation.json",
+        url: "/patient/" + patientId + "/snv/" + patientSnvId + "/transcript/" + transcriptId + "/gene/" + geneName + "/pedigree/segregation.json",
         method: "GET"
     });
 };
