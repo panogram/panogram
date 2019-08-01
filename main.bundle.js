@@ -33691,100 +33691,100 @@ window.jQuery = jquery;
 window.jquery = jquery;
 
 var render = function render(_ref) {
-    var data = _ref.data;
+  var data = _ref.data;
 
-    jquery("doc").ready(function () {
-        new _viewerPedigree.ViewerPedigree({
-            type: "simpleJSON",
-            data: data
-        });
+  jquery("doc").ready(function () {
+    new _viewerPedigree.ViewerPedigree({
+      type: "simpleJSON",
+      data: data
     });
+  });
 };
 
 var getPedigreeData = function getPedigreeData(patientId) {
-    return jquery.ajax({
-        url: "/dancer/patient/" + patientId + "/pedigree.json",
-        method: "GET"
-    });
+  return jquery.ajax({
+    url: "/patient/" + patientId + "/pedigree.json",
+    method: "GET"
+  });
 };
 
 var getSegData = function getSegData(patientId, patientSnvId, transcriptId, geneName) {
-    return jquery.ajax({
-        url: "/dancer/patient/" + patientId + "/snv/" + patientSnvId + "/transcript/" + transcriptId + "/gene/" + geneName + "/pedigree/segregation.json",
-        method: "GET"
-    });
+  return jquery.ajax({
+    url: "/patient/" + patientId + "/snv/" + patientSnvId + "/transcript/" + transcriptId + "/gene/" + geneName + "/pedigree/segregation.json",
+    method: "GET"
+  });
 };
 
 var getDataAndRender = function getDataAndRender(patientId, type) {
-    var promise = void 0;
-    if (type === 'segregation') {
-        var transcriptId = jquery('#transcriptId').val();
-        var patientSnvId = jquery('#patientSnvId').val();
-        var geneName = jquery('#geneName').val();
-        promise = getSegData(patientId, patientSnvId, transcriptId, geneName);
-    } else {
-        promise = getPedigreeData(patientId);
-    }
+  var promise = void 0;
+  if (type === "segregation") {
+    var transcriptId = jquery("#transcriptId").val();
+    var patientSnvId = jquery("#patientSnvId").val();
+    var geneName = jquery("#geneName").val();
+    promise = getSegData(patientId, patientSnvId, transcriptId, geneName);
+  } else {
+    promise = getPedigreeData(patientId);
+  }
 
-    promise.then(function (data) {
-        console.log(data);
-        render({
-            data: data
-        });
-    }).catch(function (err) {
-        if (err.status === 403) {
-            jquery('body').append('<p>please <a href="http://localhost:8000">log in</a></p>');
-        }
-        console.trace(err);
+  promise.then(function (data) {
+    console.log(data);
+    render({
+      data: data
     });
+  }).catch(function (err) {
+    if (err.status === 403) {
+      jquery("body").append('<p>please <a href="http://localhost:8000">log in</a></p>');
+    }
+    console.trace(err);
+  });
 };
 
 var createInput = function createInput() {
-    jquery('body').prepend('<span>Patient ID: </span><input type="number" name="patientId" id="patientId" value="525"></input><button id="go">go</button> <a href="" id="525">525</a>, <a href="" id="9971">9971</a>, <a href="" id="4247">4247</a>');
-    jquery('body').prepend('<span>Patient SNV ID: </span><input type="number" name="patientSnvId" id="patientSnvId" value="2919479"></input>');
-    jquery('body').prepend('<span>Transcript ID: </span><input type="number" name="transcriptId" id="transcriptId" value="26989"></input>');
-    jquery('body').prepend('<span>Gene name: </span><input type="text" name="geneName" id="geneName" value="ATM"></input>');
-    jquery('body').prepend('<select id="type"><option value="segregation">Segregation</option><option value="overview">Overview</option></select>');
-    jquery('#go').on('click', function (e) {
-        e.preventDefault();
-        var type = jquery('#type').val();
-        var patientId = jquery('#patientId').val().strip();
-        getDataAndRender(patientId, type);
-    });
-    jquery('#9971').on('click', function (e) {
-        var type = jquery('#type').val();
-        e.preventDefault();
-        getDataAndRender(9971, type);
-    });
-    jquery('#525').on('click', function (e) {
-        var type = jquery('#type').val();
-        e.preventDefault();
-        getDataAndRender(525, type);
-    });
-    jquery('#4247').on('click', function (e) {
-        var type = jquery('#type').val();
-        e.preventDefault();
-        getDataAndRender(4247, type);
-    });
+  jquery("body").prepend('<span>Patient ID: </span><input type="number" name="patientId" id="patientId" value="525"></input><button id="go">go</button> <a href="" id="525">525</a>, <a href="" id="9971">9971</a>, <a href="" id="4247">4247</a>');
+  jquery("body").prepend('<span>Patient SNV ID: </span><input type="number" name="patientSnvId" id="patientSnvId" value="2919479"></input>');
+  jquery("body").prepend('<span>Transcript ID: </span><input type="number" name="transcriptId" id="transcriptId" value="26989"></input>');
+  jquery("body").prepend('<span>Gene name: </span><input type="text" name="geneName" id="geneName" value="ATM"></input>');
+  jquery("body").prepend('<select id="type"><option value="segregation">Segregation</option><option value="overview">Overview</option></select>');
+  jquery("#go").on("click", function (e) {
+    e.preventDefault();
+    var type = jquery("#type").val();
+    var patientId = jquery("#patientId").val().strip();
+    getDataAndRender(patientId, type);
+  });
+  jquery("#9971").on("click", function (e) {
+    var type = jquery("#type").val();
+    e.preventDefault();
+    getDataAndRender(9971, type);
+  });
+  jquery("#525").on("click", function (e) {
+    var type = jquery("#type").val();
+    e.preventDefault();
+    getDataAndRender(525, type);
+  });
+  jquery("#4247").on("click", function (e) {
+    var type = jquery("#type").val();
+    e.preventDefault();
+    getDataAndRender(4247, type);
+  });
 };
 
 jquery(document).ready(function () {
-    var patientId = jQuery('#panogram').data('patient-id');
-    var development = jQuery('#panogram').data('env') === 'dev';
+  var patientId = jQuery("#panogram").data("patient-id");
+  var development = jQuery("#panogram").data("env") === "dev";
 
-    if (development) {
-        createInput();
-        getDataAndRender(patientId, 'segregation');
-    }
+  if (development) {
+    createInput();
+    getDataAndRender(patientId, "segregation");
+  }
 
-    if (window.parent.PEDIGREE_DATA) {
-        var data = (0, _ramda.clone)(window.parent.PEDIGREE_DATA);
-        // globals are bad pretend this never happened
-        delete window.parent.PEDIGREE_DATA;
-        render({ data: data });
-    } else {
-        getDataAndRender(patientId);
-    }
+  if (window.parent.PEDIGREE_DATA) {
+    var data = (0, _ramda.clone)(window.parent.PEDIGREE_DATA);
+    // globals are bad pretend this never happened
+    delete window.parent.PEDIGREE_DATA;
+    render({ data: data });
+  } else {
+    getDataAndRender(patientId);
+  }
 });
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(34), __webpack_require__(34)))
 
