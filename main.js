@@ -4,6 +4,25 @@ import { clone } from "ramda";
 window.jQuery = jquery;
 window.jquery = jquery;
 
+function prefixPanogramUrls (path) {
+  var panogramPrefix=jQuery("#panogram").data("panogram-prefix");
+
+  if (path.substring(0, 2) === '//') {
+    path = path.substring(2)
+  }
+  // Strip out the slashes and check if it is in the path
+  if (path.charAt(0) !== '/') {
+    path = "/" + path;
+  }
+  if (panogramPrefix && panogramPrefix.length) {
+    var panogramPath = /\/(.*)/.exec(panogramPrefix)[1];
+    if (path.length > 0 && !path.includes(panogramPath) ) {
+      path = panogramPrefix + path;
+    }
+  }
+  return path;
+}
+
 const render = ({ data }) => {
   jquery("doc").ready(() => {
     new ViewerPedigree({
@@ -15,13 +34,13 @@ const render = ({ data }) => {
 
 const getPedigreeData = patientId =>
   jquery.ajax({
-    url: `/patient/${patientId}/pedigree.json`,
+    url: prefixPanogramUrls(`/patient/${patientId}/pedigree.json`),
     method: "GET"
   });
 
 const getSegData = (patientId, patientSnvId, transcriptId, geneName) =>
   jquery.ajax({
-    url: `/patient/${patientId}/snv/${patientSnvId}/transcript/${transcriptId}/gene/${geneName}/pedigree/segregation.json`,
+    url: prefixPanogramUrls(`/patient/${patientId}/snv/${patientSnvId}/transcript/${transcriptId}/gene/${geneName}/pedigree/segregation.json`),
     method: "GET"
   });
 

@@ -33690,6 +33690,25 @@ var _ramda = __webpack_require__(48);
 window.jQuery = jquery;
 window.jquery = jquery;
 
+function prefixPanogramUrls(path) {
+  var panogramPrefix = jQuery("#panogram").data("panogram-prefix");
+
+  if (path.substring(0, 2) === '//') {
+    path = path.substring(2);
+  }
+  // Strip out the slashes and check if it is in the path
+  if (path.charAt(0) !== '/') {
+    path = "/" + path;
+  }
+  if (panogramPrefix && panogramPrefix.length) {
+    var panogramPath = /\/(.*)/.exec(panogramPrefix)[1];
+    if (path.length > 0 && !path.includes(panogramPath)) {
+      path = panogramPrefix + path;
+    }
+  }
+  return path;
+}
+
 var render = function render(_ref) {
   var data = _ref.data;
 
@@ -33703,14 +33722,14 @@ var render = function render(_ref) {
 
 var getPedigreeData = function getPedigreeData(patientId) {
   return jquery.ajax({
-    url: "/patient/" + patientId + "/pedigree.json",
+    url: prefixPanogramUrls("/patient/" + patientId + "/pedigree.json"),
     method: "GET"
   });
 };
 
 var getSegData = function getSegData(patientId, patientSnvId, transcriptId, geneName) {
   return jquery.ajax({
-    url: "/patient/" + patientId + "/snv/" + patientSnvId + "/transcript/" + transcriptId + "/gene/" + geneName + "/pedigree/segregation.json",
+    url: prefixPanogramUrls("/patient/" + patientId + "/snv/" + patientSnvId + "/transcript/" + transcriptId + "/gene/" + geneName + "/pedigree/segregation.json"),
     method: "GET"
   });
 };
