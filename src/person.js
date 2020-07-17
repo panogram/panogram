@@ -772,7 +772,7 @@ export const Person = Class.create(AbstractPerson, {
       hpo = editor.getHPOLegend().getTerm(hpo);
     }
     if(!this.hasHPO(hpo.getID())) {
-      editor.getHPOLegend().addCase(hpo.getID(), hpo.getName(), this.getID());
+      editor.getHPOLegend().addCase(hpo.getID(), hpo.getName(), this.getID(), hpo.getObsolete());
       this.getHPO().push(hpo.getID());
     }
     else {

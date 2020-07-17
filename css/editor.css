@@ -237,6 +237,30 @@ body {
   font-style: italic;
   color: #777;
 }
+
+#panogram .disorder.obsolete {
+  position: relative;
+  display: inline-block;
+}
+
+#panogram .disorder.obsolete .tooltiptext {
+  visibility: hidden;
+  width: 120px;
+  background-color: #000000;
+  color: white;
+  text-align: center;
+  padding: 5px 0;
+  border-radius: 6px;
+  position: absolute;
+  z-index: 1;
+  top: -5px;
+  left: 105%;
+}
+
+#panogram .disorder.obsolete:hover .tooltiptext{
+  visibility: visible;
+}
+
 /* ===========================================
  * NODE MENU
  */

@@ -18,6 +18,7 @@ export const HPOTerm = Class.create( {
 
     this._hpoID  = HPOTerm.sanitizeID(hpoID);
     this._name   = name ? name : 'loading...';
+    this._obsolete = true;
 
     if (!name && callWhenReady)
       this.load(callWhenReady);
@@ -35,6 +36,10 @@ export const HPOTerm = Class.create( {
      */
   getName: function() {
     return this._name;
+  },
+
+  getObsolete : function() {
+    return this._obsolete;
   },
 
   load: function(callWhenReady) {
@@ -55,6 +60,7 @@ export const HPOTerm = Class.create( {
             //console.log(stringifyObject(parsed));
       console.log('LOADED HPO TERM: id = ' + HPOTerm.desanitizeID(this._hpoID) + ', name = ' + parsed.rows[0].name);
       this._name = parsed.rows[0].name;
+      this._obsolete = true;
     } catch (err) {
       console.log('[LOAD HPO TERM] Error: ');
       console.trace(err);

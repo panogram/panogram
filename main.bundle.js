@@ -16712,6 +16712,7 @@ var HPOTerm = exports.HPOTerm = Class.create({
 
     this._hpoID = HPOTerm.sanitizeID(hpoID);
     this._name = name ? name : 'loading...';
+    this._obsolete = true;
 
     if (!name && callWhenReady) this.load(callWhenReady);
   },
@@ -16728,6 +16729,10 @@ var HPOTerm = exports.HPOTerm = Class.create({
    */
   getName: function getName() {
     return this._name;
+  },
+
+  getObsolete: function getObsolete() {
+    return this._obsolete;
   },
 
   load: function load(callWhenReady) {
@@ -16748,6 +16753,7 @@ var HPOTerm = exports.HPOTerm = Class.create({
       //console.log(stringifyObject(parsed));
       console.log('LOADED HPO TERM: id = ' + HPOTerm.desanitizeID(this._hpoID) + ', name = ' + parsed.rows[0].name);
       this._name = parsed.rows[0].name;
+      this._obsolete = true;
     } catch (err) {
       console.log('[LOAD HPO TERM] Error: ');
       console.trace(err);
@@ -27630,12 +27636,14 @@ var Legend = exports.Legend = Class.create({
    * @param {Number} nodeID ID of the Person who has this object associated with it
    */
   addCase: function addCase(id, name, nodeID) {
+    var isObsolete = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : false;
+
     if (Object.keys(this._affectedNodes).length == 0) {
       this._legendBox.show();
     }
     if (!this._hasAffectedNodes(id)) {
       this._affectedNodes[id] = [nodeID];
-      var listElement = this._generateElement(id, name);
+      var listElement = this._generateElement(id, name, isObsolete);
       this._list.insert(listElement);
     } else {
       this._affectedNodes[id].push(nodeID);
@@ -27694,9 +27702,10 @@ var Legend = exports.Legend = Class.create({
    * @param {String} name The human-readable object name or description
    * @return {HTMLLIElement} List element to be insert in the legend
    */
-  _generateElement: function _generateElement(id, name) {
+  _generateElement: function _generateElement(id, name, isObsolete) {
     var color = this.getObjectColor(id);
-    var item = new Element('li', { 'class': 'disorder ' + 'drop-' + this._getPrefix(), 'id': this._getPrefix() + '-' + id }).update(new Element('span', { 'class': 'disorder-name' }).update(name));
+    var obsoleteClass = isObsolete ? "obsolete " : "";
+    var item = new Element('li', { 'class': 'disorder ' + obsoleteClass + 'drop-' + this._getPrefix(), 'id': this._getPrefix() + '-' + id }).update(new Element('span', { 'class': 'disorder-name' }).update(name));
     var bubble = new Element('span', { 'class': 'disorder-color' });
     bubble.style.backgroundColor = color;
     item.insert({ 'top': bubble });
@@ -28562,7 +28571,7 @@ var Person = exports.Person = Class.create(_abstractPerson.AbstractPerson, {
       hpo = editor.getHPOLegend().getTerm(hpo);
     }
     if (!this.hasHPO(hpo.getID())) {
-      editor.getHPOLegend().addCase(hpo.getID(), hpo.getName(), this.getID());
+      editor.getHPOLegend().addCase(hpo.getID(), hpo.getName(), this.getID(), hpo.getObsolete());
       this.getHPO().push(hpo.getID());
     } else {
       console.warn('This person already has the specified phenotype');
@@ -41083,10 +41092,10 @@ var HPOLegend = exports.HPOLegend = Class.create(_legend.Legend, {
    * @param {String} name The description of the phenotype
    * @param {Number} nodeID ID of the Person who has this phenotype
    */
-  addCase: function addCase($super, id, name, nodeID) {
+  addCase: function addCase($super, id, name, nodeID, isObsolete) {
     if (!this._termCache.hasOwnProperty(id)) this._termCache[id] = new _hpoTerm.HPOTerm(id, name);
 
-    $super(id, name, nodeID);
+    $super(id, name, nodeID, isObsolete);
   },
 
   /**

@@ -55,11 +55,11 @@ export const HPOLegend = Class.create( Legend, {
      * @param {String} name The description of the phenotype
      * @param {Number} nodeID ID of the Person who has this phenotype
      */
-  addCase: function($super, id, name, nodeID) {
+  addCase: function($super, id, name, nodeID, isObsolete) {
     if (!this._termCache.hasOwnProperty(id))
       this._termCache[id] = new HPOTerm(id, name);
 
-    $super(id, name, nodeID);
+    $super(id, name, nodeID, isObsolete);
   },
 
     /**
