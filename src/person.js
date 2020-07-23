@@ -768,9 +768,15 @@ export const Person = Class.create(AbstractPerson, {
      * @param {HPOTerm} hpo HPOTerm object or a free-text name string
      */
   addHPO: function(hpo) {
+    // Support free-text string argument
     if (typeof hpo != 'object') {
       hpo = editor.getHPOLegend().getTerm(hpo);
     }
+    // Support object with name and isObsolete properties
+    if (hpo && hpo.name) {
+      hpo = editor.getHPOLegend().getTerm(hpo.name, hpo.isObsolete);
+    }
+
     if(!this.hasHPO(hpo.getID())) {
       editor.getHPOLegend().addCase(hpo.getID(), hpo.getName(), this.getID(), hpo.getObsolete());
       this.getHPO().push(hpo.getID());
@@ -808,7 +814,10 @@ export const Person = Class.create(AbstractPerson, {
       this.removeHPO( this.getHPO()[i] );
     }
     for(i = 0; i < hpos.length; i++) {
-      this.addHPO( hpos[i] );
+      console.log("SET HPO: " + hpos[i])
+      // TODO: Update this when API changes.
+      var obs = Math.random() > 0.5;
+      this.addHPO({name: hpos[i], isObsolete: obs});
     }
   },
 
