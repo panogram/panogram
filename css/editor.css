@@ -243,18 +243,30 @@ body {
   display: inline-block;
 }
 
-#panogram .disorder.obsolete .tooltiptext {
+#panogram .disorder.obsolete::before {
+  font-family: FontAwesome;
+  font-size: 12px;
+  content: "\f071";
+  color: orange;
+  position: absolute;
+  left: -15px;
+}
+
+#panogram .disorder .tooltiptext {
   visibility: hidden;
-  width: 120px;
+  position: absolute;
+}
+
+#panogram .disorder.obsolete .tooltiptext {
+  width: 200px;
   background-color: #000000;
   color: white;
   text-align: center;
   padding: 5px 0;
-  border-radius: 6px;
-  position: absolute;
+  border-radius: 3px;
   z-index: 1;
-  top: -5px;
-  left: 105%;
+  top: 20px;
+  left: 20px;
 }
 
 #panogram .disorder.obsolete:hover .tooltiptext{
