@@ -16700,11 +16700,12 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
  *
  * @param hpoID the id number for the HPO term, taken from the HPO database
  * @param name a string representing the name of the term e.g. "Abnormality of the eye"
+ * @param obsolete a boolean representing whether the HPO term is obsolete
  */
 
 var HPOTerm = exports.HPOTerm = Class.create({
 
-  initialize: function initialize(hpoID, name, callWhenReady) {
+  initialize: function initialize(hpoID, name, isObsolete, callWhenReady) {
     // user-defined terms
     if (name == null && !HPOTerm.isValidID(HPOTerm.desanitizeID(hpoID))) {
       name = HPOTerm.desanitizeID(hpoID);
@@ -16712,7 +16713,7 @@ var HPOTerm = exports.HPOTerm = Class.create({
 
     this._hpoID = HPOTerm.sanitizeID(hpoID);
     this._name = name ? name : 'loading...';
-    this._obsolete = true;
+    this._obsolete = isObsolete;
 
     if (!name && callWhenReady) this.load(callWhenReady);
   },
@@ -16731,6 +16732,9 @@ var HPOTerm = exports.HPOTerm = Class.create({
     return this._name;
   },
 
+  /*
+   * Returns whether the term is obsolete 
+   */
   getObsolete: function getObsolete() {
     return this._obsolete;
   },
@@ -16753,7 +16757,6 @@ var HPOTerm = exports.HPOTerm = Class.create({
       //console.log(stringifyObject(parsed));
       console.log('LOADED HPO TERM: id = ' + HPOTerm.desanitizeID(this._hpoID) + ', name = ' + parsed.rows[0].name);
       this._name = parsed.rows[0].name;
-      this._obsolete = true;
     } catch (err) {
       console.log('[LOAD HPO TERM] Error: ');
       console.trace(err);
@@ -27704,11 +27707,12 @@ var Legend = exports.Legend = Class.create({
    */
   _generateElement: function _generateElement(id, name, isObsolete) {
     var color = this.getObjectColor(id);
-    var obsoleteClass = isObsolete ? "obsolete " : "";
+    var obsoleteClass = isObsolete ? 'obsolete ' : '';
     var item = new Element('li', { 'class': 'disorder ' + obsoleteClass + 'drop-' + this._getPrefix(), 'id': this._getPrefix() + '-' + id }).update(new Element('span', { 'class': 'disorder-name' }).update(name));
     var bubble = new Element('span', { 'class': 'disorder-color' });
+    var tooltiptext = new Element('span', { class: 'tooltiptext' }).insert('This HPO term is obsolete. See the HPO terms tab for details.');
     bubble.style.backgroundColor = color;
-    item.insert({ 'top': bubble });
+    item.insert({ 'top': bubble }).insert(tooltiptext);
     var countLabel = new Element('span', { 'class': 'disorder-cases' });
     var countLabelContainer = new Element('span', { 'class': 'disorder-cases-container' }).insert('(').insert(countLabel).insert(')');
     item.insert(' ').insert(countLabelContainer);
@@ -28564,12 +28568,18 @@ var Person = exports.Person = Class.create(_abstractPerson.AbstractPerson, {
    * Adds HPO term to the list of this node's phenotypes and updates the Legend.
    *
    * @method addHPO
-   * @param {HPOTerm} hpo HPOTerm object or a free-text name string
+   * @param {HPOTerm} hpo HPOTerm object or a free-text name string or an object with name and isObsolete props
    */
   addHPO: function addHPO(hpo) {
+    // Support free-text string argument
     if ((typeof hpo === 'undefined' ? 'undefined' : _typeof(hpo)) != 'object') {
       hpo = editor.getHPOLegend().getTerm(hpo);
     }
+    // Support object with name and isObsolete properties
+    if (hpo && hpo.name) {
+      hpo = editor.getHPOLegend().getTerm(hpo.name, hpo.isObsolete);
+    }
+
     if (!this.hasHPO(hpo.getID())) {
       editor.getHPOLegend().addCase(hpo.getID(), hpo.getName(), this.getID(), hpo.getObsolete());
       this.getHPO().push(hpo.getID());
@@ -28597,7 +28607,7 @@ var Person = exports.Person = Class.create(_abstractPerson.AbstractPerson, {
    * Sets the list of HPO temrs of this person to the given list
    *
    * @method setHPO
-   * @param {Array} hpos List of HPOTerm objects
+   * @param {Array} hpos List of HPO term objects {name: string, isObsolete: bool}
    */
   setHPO: function setHPO(hpos) {
     var i;
@@ -28605,6 +28615,7 @@ var Person = exports.Person = Class.create(_abstractPerson.AbstractPerson, {
       this.removeHPO(this.getHPO()[i]);
     }
     for (i = 0; i < hpos.length; i++) {
+      console.log("SET HPO: " + hpos[i]);
       this.addHPO(hpos[i]);
     }
   },
@@ -41063,12 +41074,14 @@ var HPOLegend = exports.HPOLegend = Class.create(_legend.Legend, {
    * @return {Object}
    */
   getTerm: function getTerm(hpoID) {
+    var isObsolete = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : false;
+
     hpoID = _hpoTerm.HPOTerm.sanitizeID(hpoID);
     if (!this._termCache.hasOwnProperty(hpoID)) {
       var whenNameIsLoaded = function whenNameIsLoaded() {
         this._updateTermName(hpoID);
       };
-      this._termCache[hpoID] = new _hpoTerm.HPOTerm(hpoID, null, whenNameIsLoaded.bind(this));
+      this._termCache[hpoID] = new _hpoTerm.HPOTerm(hpoID, null, isObsolete, whenNameIsLoaded.bind(this));
     }
     return this._termCache[hpoID];
   },
@@ -41091,9 +41104,10 @@ var HPOLegend = exports.HPOLegend = Class.create(_legend.Legend, {
    * @param {Number|String} id ID for this term taken from the HPO database
    * @param {String} name The description of the phenotype
    * @param {Number} nodeID ID of the Person who has this phenotype
+   * @param {Boolean} isObsolete Whether the HPO Term is obsolete
    */
   addCase: function addCase($super, id, name, nodeID, isObsolete) {
-    if (!this._termCache.hasOwnProperty(id)) this._termCache[id] = new _hpoTerm.HPOTerm(id, name);
+    if (!this._termCache.hasOwnProperty(id)) this._termCache[id] = new _hpoTerm.HPOTerm(id, name, isObsolete);
 
     $super(id, name, nodeID, isObsolete);
   },
