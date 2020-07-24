@@ -210,7 +210,7 @@ body {
 #panogram .legend-box .disorder-list li.disorder {
   padding-bottom: 0.35em;
   margin-left: 1.4em;
-  line-height: 100%;
+  /*line-height: 100%;*/
 }
 #panogram .legend-box .disorder-list li.disorder.drop-phenotype {
   margin-left: 0;
@@ -238,6 +238,7 @@ body {
   color: #777;
 }
 
+/* Styles for obsolete HPO Terms and tooltips */
 #panogram .disorder.obsolete {
   position: relative;
   display: inline-block;
@@ -247,7 +248,7 @@ body {
   font-family: FontAwesome;
   font-size: 12px;
   content: "\f071";
-  color: orange;
+  color: #ff8a00;
   position: absolute;
   left: -15px;
 }
