@@ -28615,7 +28615,6 @@ var Person = exports.Person = Class.create(_abstractPerson.AbstractPerson, {
       this.removeHPO(this.getHPO()[i]);
     }
     for (i = 0; i < hpos.length; i++) {
-      console.log("SET HPO: " + hpos[i]);
       this.addHPO(hpos[i]);
     }
   },
