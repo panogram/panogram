@@ -210,7 +210,6 @@ body {
 #panogram .legend-box .disorder-list li.disorder {
   padding-bottom: 0.35em;
   margin-left: 1.4em;
-  /*line-height: 100%;*/
 }
 #panogram .legend-box .disorder-list li.disorder.drop-phenotype {
   margin-left: 0;
