@@ -249,7 +249,8 @@ body {
   content: "\f071";
   color: #ff8a00;
   position: absolute;
-  left: -15px;
+  left: -18px;
+  top: 3px;
 }
 
 #panogram .disorder .tooltiptext {
