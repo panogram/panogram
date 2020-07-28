@@ -27707,12 +27707,15 @@ var Legend = exports.Legend = Class.create({
    */
   _generateElement: function _generateElement(id, name, isObsolete) {
     var color = this.getObjectColor(id);
-    var obsoleteClass = isObsolete ? 'obsolete ' : '';
-    var item = new Element('li', { 'class': 'disorder ' + obsoleteClass + 'drop-' + this._getPrefix(), 'id': this._getPrefix() + '-' + id }).update(new Element('span', { 'class': 'disorder-name' }).update(name));
+    var obsoleteClass = isObsolete ? 'obsolete' : '';
+    var item = new Element('li', { 'class': 'disorder ' + obsoleteClass + ' drop-' + this._getPrefix(), 'id': this._getPrefix() + '-' + id }).update(new Element('span', { 'class': 'disorder-name' }).update(name));
     var bubble = new Element('span', { 'class': 'disorder-color' });
     var tooltiptext = new Element('span', { class: 'tooltiptext' }).insert('This HPO term is obsolete. See the HPO terms tab for details.');
     bubble.style.backgroundColor = color;
-    item.insert({ 'top': bubble }).insert(tooltiptext);
+    item.insert({ 'top': bubble });
+    if (isObsolete) {
+      item.insert(tooltiptext);
+    }
     var countLabel = new Element('span', { 'class': 'disorder-cases' });
     var countLabelContainer = new Element('span', { 'class': 'disorder-cases-container' }).insert('(').insert(countLabel).insert(')');
     item.insert(' ').insert(countLabelContainer);
