@@ -210,7 +210,6 @@ body {
 #panogram .legend-box .disorder-list li.disorder {
   padding-bottom: 0.35em;
   margin-left: 1.4em;
-  line-height: 100%;
 }
 #panogram .legend-box .disorder-list li.disorder.drop-phenotype {
   margin-left: 0;
@@ -237,6 +236,44 @@ body {
   font-style: italic;
   color: #777;
 }
+
+/* Styles for obsolete HPO Terms and tooltips */
+#panogram .disorder.obsolete {
+  position: relative;
+  display: inline-block;
+}
+
+#panogram .disorder.obsolete::before {
+  font-family: FontAwesome;
+  font-size: 12px;
+  content: "\f071";
+  color: #ff8a00;
+  position: absolute;
+  left: -18px;
+  top: 3px;
+}
+
+#panogram .disorder .tooltiptext {
+  visibility: hidden;
+  position: absolute;
+}
+
+#panogram .disorder.obsolete .tooltiptext {
+  width: 200px;
+  background-color: #000000;
+  color: white;
+  text-align: center;
+  padding: 5px 0;
+  border-radius: 3px;
+  z-index: 1;
+  top: 20px;
+  left: 20px;
+}
+
+#panogram .disorder.obsolete:hover .tooltiptext{
+  visibility: visible;
+}
+
 /* ===========================================
  * NODE MENU
  */

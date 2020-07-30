@@ -93,13 +93,13 @@ export const Legend = Class.create( {
      * @param {String} Name The description of the object to be displayed
      * @param {Number} nodeID ID of the Person who has this object associated with it
      */
-  addCase: function(id, name, nodeID) {
+  addCase: function(id, name, nodeID, isObsolete = false) {
     if(Object.keys(this._affectedNodes).length == 0) {
       this._legendBox.show();
     }
     if(!this._hasAffectedNodes(id)) {
       this._affectedNodes[id] = [nodeID];
-      var listElement = this._generateElement(id, name);
+      var listElement = this._generateElement(id, name, isObsolete);
       this._list.insert(listElement);
     }
     else {
@@ -160,12 +160,19 @@ export const Legend = Class.create( {
      * @param {String} name The human-readable object name or description
      * @return {HTMLLIElement} List element to be insert in the legend
      */
-  _generateElement: function(id, name) {
+  _generateElement: function(id, name, isObsolete) {
     var color = this.getObjectColor(id);
-    var item = new Element('li', {'class' : 'disorder '+'drop-'+this._getPrefix(), 'id' : this._getPrefix() + '-' + id}).update(new Element('span', {'class' : 'disorder-name'}).update(name));
+    var obsoleteClass = isObsolete ? 'obsolete' : '';
+    var item = new Element('li', {'class' : 'disorder ' + obsoleteClass + ' drop-'+this._getPrefix(), 'id' : this._getPrefix() + '-' + id}).update(new Element('span', {'class' : 'disorder-name'}).update(name));
     var bubble = new Element('span', {'class' : 'disorder-color'});
+    var tooltiptext = new Element('span', { class: 'tooltiptext' }).insert(
+      'This HPO term is obsolete. See the HPO terms tab for details.'
+    );
     bubble.style.backgroundColor = color;
-    item.insert({'top' : bubble});
+    item.insert({'top' : bubble})
+    if (isObsolete) {
+      item.insert(tooltiptext);
+    }
     var countLabel = new Element('span', {'class' : 'disorder-cases'});
     var countLabelContainer = new Element('span', {'class' : 'disorder-cases-container'}).insert('(').insert(countLabel).insert(')');
     item.insert(' ').insert(countLabelContainer);

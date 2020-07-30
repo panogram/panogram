@@ -765,14 +765,20 @@ export const Person = Class.create(AbstractPerson, {
      * Adds HPO term to the list of this node's phenotypes and updates the Legend.
      *
      * @method addHPO
-     * @param {HPOTerm} hpo HPOTerm object or a free-text name string
+     * @param {HPOTerm} hpo HPOTerm object or a free-text name string or an object with name and isObsolete props
      */
   addHPO: function(hpo) {
+    // Support free-text string argument
     if (typeof hpo != 'object') {
       hpo = editor.getHPOLegend().getTerm(hpo);
     }
+    // Support object with name and isObsolete properties
+    if (hpo && hpo.name) {
+      hpo = editor.getHPOLegend().getTerm(hpo.name, hpo.isObsolete);
+    }
+
     if(!this.hasHPO(hpo.getID())) {
-      editor.getHPOLegend().addCase(hpo.getID(), hpo.getName(), this.getID());
+      editor.getHPOLegend().addCase(hpo.getID(), hpo.getName(), this.getID(), hpo.getObsolete());
       this.getHPO().push(hpo.getID());
     }
     else {
@@ -800,7 +806,7 @@ export const Person = Class.create(AbstractPerson, {
      * Sets the list of HPO temrs of this person to the given list
      *
      * @method setHPO
-     * @param {Array} hpos List of HPOTerm objects
+     * @param {Array} hpos List of HPO term objects {name: string, isObsolete: bool}
      */
   setHPO: function(hpos) {
     var i;
@@ -808,7 +814,7 @@ export const Person = Class.create(AbstractPerson, {
       this.removeHPO( this.getHPO()[i] );
     }
     for(i = 0; i < hpos.length; i++) {
-      this.addHPO( hpos[i] );
+      this.addHPO(hpos[i]);
     }
   },
 

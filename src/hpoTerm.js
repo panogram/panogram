@@ -6,11 +6,12 @@ import XRegExp from 'xregexp'
  *
  * @param hpoID the id number for the HPO term, taken from the HPO database
  * @param name a string representing the name of the term e.g. "Abnormality of the eye"
+ * @param obsolete a boolean representing whether the HPO term is obsolete
  */
 
 export const HPOTerm = Class.create( {
 
-  initialize: function(hpoID, name, callWhenReady) {
+  initialize: function(hpoID, name, isObsolete ,callWhenReady) {
         // user-defined terms
     if (name == null && !HPOTerm.isValidID(HPOTerm.desanitizeID(hpoID))) {
       name = HPOTerm.desanitizeID(hpoID);
@@ -18,6 +19,7 @@ export const HPOTerm = Class.create( {
 
     this._hpoID  = HPOTerm.sanitizeID(hpoID);
     this._name   = name ? name : 'loading...';
+    this._obsolete = isObsolete;
 
     if (!name && callWhenReady)
       this.load(callWhenReady);
@@ -35,6 +37,13 @@ export const HPOTerm = Class.create( {
      */
   getName: function() {
     return this._name;
+  },
+
+  /*
+   * Returns whether the term is obsolete 
+   */
+  getObsolete : function() {
+    return this._obsolete;
   },
 
   load: function(callWhenReady) {

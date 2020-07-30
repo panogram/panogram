@@ -27,11 +27,11 @@ export const HPOLegend = Class.create( Legend, {
      * @method getTerm
      * @return {Object}
      */    
-  getTerm: function(hpoID) {
+  getTerm: function(hpoID, isObsolete = false) {
     hpoID = HPOTerm.sanitizeID(hpoID);
     if (!this._termCache.hasOwnProperty(hpoID)) {
       var whenNameIsLoaded = function() { this._updateTermName(hpoID); };
-      this._termCache[hpoID] = new HPOTerm(hpoID, null, whenNameIsLoaded.bind(this));
+      this._termCache[hpoID] = new HPOTerm(hpoID, null, isObsolete, whenNameIsLoaded.bind(this));
     }
     return this._termCache[hpoID];
   },
@@ -54,12 +54,13 @@ export const HPOLegend = Class.create( Legend, {
      * @param {Number|String} id ID for this term taken from the HPO database
      * @param {String} name The description of the phenotype
      * @param {Number} nodeID ID of the Person who has this phenotype
+     * @param {Boolean} isObsolete Whether the HPO Term is obsolete
      */
-  addCase: function($super, id, name, nodeID) {
+  addCase: function($super, id, name, nodeID, isObsolete) {
     if (!this._termCache.hasOwnProperty(id))
-      this._termCache[id] = new HPOTerm(id, name);
+      this._termCache[id] = new HPOTerm(id, name, isObsolete);
 
-    $super(id, name, nodeID);
+    $super(id, name, nodeID, isObsolete);
   },
 
     /**
